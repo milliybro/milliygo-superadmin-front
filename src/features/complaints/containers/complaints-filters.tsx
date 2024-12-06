@@ -20,22 +20,22 @@ const ComplaintsFilters = () => {
           className="select-shadow"
         />
       </Form.Item>
-      <Form.Item label={t('common.user-fullname.label')}>
+      <Form.Item label={t('fields.user-fullname.label')}>
         <Input
           prefix={
             <UserMultipleIcon className="text-[16px] text-secondary ml-2 mr-4" />
           }
           size="large"
-          placeholder={t('common.user-fullname.placeholder')}
+          placeholder={t('fields.user-fullname.placeholder')}
           className="select-shadow"
         />
       </Form.Item>
-      <Form.Item label={t('common.date.label')}>
+      <Form.Item label={t('fields.date.label')}>
         <DatePicker
           suffixIcon={null}
           className="w-full select-shadow h-[47px]"
           size="large"
-          placeholder={t('common.date.placeholder')}
+          placeholder={t('fields.date.placeholder')}
           prefix={
             <Calendar3Icon className="text-[16px] text-secondary ml-2 mr-4" />
           }
