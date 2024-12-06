@@ -1,0 +1,287 @@
+{
+  "auth-page": {
+    "welcome-title": "Xush kelibsiz!",
+    "welcome-description": "Platformaning barcha jihatlarini boshqaring: e‘lonlarni qo‘shish va tahrirlash, foydalanuvchilar faolliklarini kuzatish",
+    "support-service": "Qo‘llab-quvvatlash xizmati",
+    "additional-number": "Qo‘shimcha raqam",
+
+    "recovery-modal": {
+      "title": "Parolni unutdingizmi?",
+      "description": "Sizga E-Mehmon.uz texnik qo‘llab-quvvatlash xizmatiga murojaat qilish kerak"
+    },
+    "support-modal": {
+      "title": "Texnik qo‘llab-quvvatlash",
+      "description": "Agar platformaga kirishda muammolar yuzaga kelsa, siz qo‘ng‘iroq markaziga murojaat qilishingiz mumkin",
+      "contact-support": "Qo‘llab-quvvatlashga murojaat qilish"
+    }
+  },
+
+  "users-page": {
+    "add-user": "Foydalanuvchi qo‘shish",
+    "edit-user": "Foydalanuvchini tahrirlash",
+    "modal-description": "Yangi foydalanuvchi qo‘shish uchun iltimos, barcha zarur maydonlarni to‘ldiring"
+  },
+
+  "complaints-page": {
+    "title": "Shikoyatlar",
+    "not-found-title": "Hech narsa topilmadi",
+    "not-found-description": "Hozircha sizda shikoyatlar mavjud emas."
+  },
+
+  "hotels-page": {
+    "add-hotel": "Mehmonxona qo‘shish"
+  },
+
+  "access-role-page": {
+    "add-role": "Rol qo‘shish",
+    "edit-role": "Rolni tahrirlash",
+    "create-role": "Yangi rol yaratish"
+  },
+
+  "call-center-page": {
+    "no-chat-selected-title": "Hech narsa tanlanmagan",
+    "no-chat-selected-description": "Chap tomondagi ro‘yxatdan xizmatlarni tanlashni boshlang"
+  },
+
+  "profile-popover": {
+    "label": "Akkountdan chiqishni xohlaysizmi?",
+    "description": "Akkountingizdan chiqishni xohlayotganingizni tasdiqlang"
+  },
+
+  "fields": {
+    "fullname": {
+      "label": "F.I.O",
+      "placeholder": "Oybek Turonov O‘ktam o‘g‘li",
+      "validation-message-required": "F.I.O kiriting"
+    },
+    "phone": {
+      "label": "Telefon raqam",
+      "validation-message-required": "Telefon raqamni kiriting"
+    },
+    "gender": {
+      "label": "Jins",
+      "validation-message-required": "Jinsni tanlang",
+      "placeholder": "Jinsni tanlang"
+    },
+    "login": {
+      "label": "Login",
+      "validation-message-required": "Loginni kiriting"
+    },
+    "code": {
+      "label": "Telefon raqam",
+      "validation-message-required": "Telefon raqamni kiriting"
+    },
+    "role": {
+      "label": "Rol",
+      "placeholder": "Rolni tanlang",
+      "validation-message-required": "Rolni tanlang"
+    },
+    "status": {
+      "label": "Holat",
+      "placeholder": "Holatni tanlang",
+      "validation-message-required": "Holatni tanlang"
+    },
+    "password": {
+      "label": "Parol",
+      "placeholder": "Parolni tanlang",
+      "validation-message-required": "Parolni kiriting",
+      "validation-message-invalid": "Kiritilgan parol noto‘g‘ri"
+    },
+    "search-user": {
+      "label": "Foydalanuvchini qidirish",
+      "placeholder": "Ism, telefon raqamni kiriting"
+    },
+    "hotel-search": {
+      "label": "Mehmonxonani qidirish",
+      "placeholder": "Mehmonxona nomini kiriting",
+      "validation-message-required": "Mehmonxona nomini kiriting"
+    },
+    "client-search": {
+      "label": "Mijozni qidirish",
+      "placeholder": "Ism, telefon raqamni kiriting"
+    },
+    "citizenship": {
+      "label": "Fuqarolik",
+      "placeholder": "Mamlakatni tanlang"
+    },
+    "contact-person": {
+      "label": "Bog‘lanish uchun shaxs",
+      "placeholder": "Bog‘lanish uchun shaxsni kiriting",
+      "validation-message-required": "Bog‘lanish uchun shaxsni kiriting"
+    },
+    "hotel-name": {
+      "label": "Mehmonxona nomi",
+      "placeholder": "Mehmonxona nomingiz",
+      "validation-message-required": "Mehmonxona nomini kiriting"
+    },
+    "hotel-description": {
+      "label": "Mehmonxona tavsifi",
+      "placeholder": "Mehmonxonangiz haqida rus tilida ma’lumot bering",
+      "validation-message-required": "Mehmonxonangiz tavsifini kiriting"
+    },
+    "location": {
+      "label": "Joylashuv"
+    },
+    "price": {
+      "label": "Narx"
+    },
+    "rating": {
+      "label": "Reyting"
+    },
+    "balance": {
+      "label": "Balans"
+    },
+    "address": {
+      "label": "Manzil",
+      "validation-message-required": "Manzilni kiriting",
+      "placeholder": "Mehmonxonangiz manzilini kiriting"
+    },
+    "photos": {
+      "label": "Mehmonxona suratlarini qo‘shish",
+      "validation-message-required": "Iltimos, mehmonxona fotosuratlarini yuklang"
+    },
+    "amenities": {
+      "label": "Qulayliklar va xizmatlarni qo‘shing",
+      "validation-message-required": "Hech bo‘lmaganda bir qulaylikni tanlang",
+      "placeholder": "Tanlash"
+    },
+    "check-in-time": {
+      "label": "Kirish vaqti",
+      "validation-message-required": "Kirish vaqtini belgilang"
+    },
+    "check-out-time": {
+      "label": "Chiqish vaqti",
+      "validation-message-required": "Chiqish vaqtini belgilang"
+    },
+    "booking-terms-link": {
+      "label": "Bandlik shartlari havolasi",
+      "validation-message-required": "Iltimos, chiqish vaqtini belgilang",
+      "validation-message-invalid-url": "To‘g‘ri URLni kiriting"
+    },
+    "children-beds": {
+      "label": "Bolalar uchun yotoq",
+      "placeholder": "Ruxsat etiladi",
+      "validation-message-required": "Iltimos, bir variantni tanlang"
+    },
+    "pets": {
+      "label": "Uy hayvonlari",
+      "placeholder": "Ruxsat etiladi",
+      "validation-message-required": "Iltimos, bir variantni tanlang"
+    },
+    "age-restrictions": {
+      "label": "Yoshga oid cheklovlar",
+      "placeholder": "Cheklov yo‘q",
+      "validation-message-required": "Iltimos, yosh cheklovini tanlang"
+    },
+    "payment-methods": {
+      "label": "To‘lov usullari",
+      "placeholder": "To‘lov usullarini tanlang",
+      "validation-message-required": "Hech bo‘lmaganda bir to‘lov usulini tanlang"
+    },
+    "email": {
+      "label": "Elektron pochta",
+      "placeholder": "Emailingizni kiriting",
+      "validation-message-required": "Elektron pochtangizni kiriting",
+      "validation-message-invalid": "Kiritilgan email noto‘g‘ri"
+    },
+
+    "passport-data": {
+      "label": "Pasport ma‘lumotlari"
+    },
+    "birthyear": {
+      "label": "Tug‘ilgan yili"
+    },
+    "birthdate": {
+      "label": "Tug‘ilgan sana"
+    },
+    "entry-date": {
+      "label": "Kirish sanasi"
+    },
+    "exit-date": {
+      "label": "Chiqish sanasi"
+    },
+    "country": {
+      "label": "Davlat"
+    },
+    "nationality": {
+      "label": "Millat"
+    },
+    "role-name": {
+      "label": "Rol nomi",
+      "placeholder": "Rol nomini kiriting"
+    },
+    "role-status": {
+      "label": "Rol holati"
+    },
+    "functionality": {
+      "label": "Funktsionallik"
+    },
+    "role-search": {
+      "label": "Rolni qidirish",
+      "placeholder": "Rol nomini kiriting"
+    },
+    "user-fullname": {
+      "label": "Foydalanuvchi F.I.O",
+      "placeholder": "F.I.O ni kiriting"
+    },
+    "date": {
+      "label": "Sana",
+      "placeholder": "Sanani tanlang"
+    }
+  },
+  "common": {
+    "statistics": "Statistika",
+    "users": "Foydalanuvchilar",
+    "hotels": "Mehmonxonalar",
+    "clients": "Mijozlar",
+    "access-role": "Kirish roli",
+    "complaints": "Shikoyatlar",
+    "call-center": "Aloqa markaz",
+    "active": "Faol",
+    "inactive": "Faol emas",
+    "main": "Asosiy",
+    "cancel": "Bekor qilish",
+    "action": "Amallar",
+    "next": "Keyingi",
+    "prev": "Oldingi",
+    "edit": "O‘zgartirish",
+    "delete": "O‘chirish",
+    "more-details": "Batafsil",
+    "hotel-content": "Mehmonxona mazmuni",
+    "reviews": "Sharhlar",
+    "rooms": "Xonalar",
+    "guests": "Mehmonlar",
+    "general-information": "Umumiy ma‘lumot",
+    "bank-account": "Bank hisobi",
+    "bank-code": "MFO",
+    "bank-name": "Bank nomi",
+    "tin": "STIR",
+    "additional": "Qo‘shimcha",
+    "certificate": "Sertifikat",
+    "issue-date": "Berilgan sana",
+    "expiration-date": "Amal qilish muddati",
+    "select-drag-a-photo": "1 ta rasmni tanlang yoki sudrab olib keling",
+    "max-size-five-mb": "Maksimal hajmi: 5 MB",
+    "hotel": "Mehmonxona",
+    "complaint": "Shikoyat",
+    "period": "Davr",
+    "main-information": "Asosiy ma‘lumotlar",
+    "photos": "Suratlar",
+    "facilities-and-services": "Qulayliklar va xizmatlar",
+    "accommodation-terms": "Joylashtirish shartlari",
+    "comments": "Izohlar",
+    "booking": "Bronlash",
+    "nights-count": "{{count}} tun",
+    "message": "Xabar",
+    "view-all-notifications": "Barcha bildirishnomalarni ko‘rish",
+    "notifications": "Bildirishnomalar",
+    "logout": "Akkauntdan chiqish",
+    "system-settings": "Tizim sozlamalari",
+    "dark-theme": "Qorong‘i mavzu",
+    "hotel-management": "Mehmonxona boshqaruvi",
+    "my-account": "Mening akkauntim",
+    "login-to-account": "Akkauntga kirish",
+    "additional-number": "Qo‘shimcha raqam",
+    "support-service": "Qo‘llab-quvvatlash xizmati"
+  }
+}

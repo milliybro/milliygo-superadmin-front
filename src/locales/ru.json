@@ -1,0 +1,288 @@
+{
+  "auth-page": {
+    "welcome-title": "Добро пожаловать!",
+    "welcome-description": "Управляйте всеми аспектами платформы: добавлять и редактировать объявления, отслеживать активности пользователей",
+    "support-service": "Служба поддержки",
+    "additional-number": "Дополнительный номер",
+
+    "recovery-modal": {
+      "title": "Забыли пароль?",
+      "description": "Вам необходимо связаться с технической поддержкой E-Mehmon.uz"
+    },
+    "support-modal": {
+      "title": "Техническая поддержка",
+      "description": "Если у вас появились проблемы с доступом к платформе, вы можете связаться с колл-центром",
+      "contact-support": "Связаться с поддержкой"
+    }
+  },
+
+  "users-page": {
+    "add-user": "Добавить пользователя",
+    "edit-user": "Редактирование пользователя",
+    "modal-description": "Для добавления нового пользователя, пожалуйста заполните все необходимые поля"
+  },
+
+  "complaints-page": {
+    "title": "Жалобы",
+    "not-found-title": "Ничего не найдено",
+    "not-found-description": "На данный момент у вас отсутствуют жалобы."
+  },
+
+  "hotels-page": {
+    "add-hotel": "Добавить отель"
+  },
+
+  "access-role-page": {
+    "add-role": "Добавить роль",
+    "edit-role": "Редактирование роли",
+    "create-role": "Создание новой роли"
+  },
+
+  "call-center-page": {
+    "no-chat-selected-title": "Ничего не выбрано",
+    "no-chat-selected-description": "Начните выбирать услуги из списка слева"
+  },
+
+  "profile-popover": {
+    "label": "Хотите выйти с аккаунта?",
+    "description": "Подтвердите, что вы действительно хотите выйти со своего аккаунта?"
+  },
+
+  "fields": {
+    "fullname": {
+      "label": "ФИО",
+      "placeholder": "Oybek Turonov O'ktam o'g'li",
+      "validation-message-required": "Введите ФИО"
+    },
+    "phone": {
+      "label": "Номер телефона",
+      "validation-message-required": "Введите номер телефона"
+    },
+    "gender": {
+      "label": "Пол",
+      "validation-message-required": "Выберите пол",
+      "placeholder": "Выберите пол"
+    },
+    "login": {
+      "label": "Логин",
+      "validation-message-required": "Введите логин"
+    },
+    "code": {
+      "label": "Номер телефона",
+      "validation-message-required": "Введите номер телефона"
+    },
+    "role": {
+      "label": "Роль",
+      "placeholder": "Выберите роль",
+      "validation-message-required": "Выберите роль"
+    },
+    "status": {
+      "label": "Статус",
+      "placeholder": "Выберите статус",
+      "validation-message-required": "Выберите статус"
+    },
+    "password": {
+      "label": "Пароль",
+      "placeholder": "Выберите пароль",
+      "validation-message-required": "Введите пароль",
+      "validation-message-invalid": "Введенный пароль недействителен"
+    },
+    "search-user": {
+      "label": "Поиск пользователя",
+      "placeholder": "Введите имя, номер телефона"
+    },
+    "hotel-search": {
+      "label": "Поиск отеля",
+      "placeholder": "Введите название отеля",
+      "validation-message-required": "Пожалуйста, введите название отеля"
+    },
+    "client-search": {
+      "label": "Поиск клиента",
+      "placeholder": "Введите имя, номер телефона"
+    },
+    "citizenship": {
+      "label": "Гражданство",
+      "placeholder": "Выберите страну"
+    },
+    "contact-person": {
+      "label": "Контактное лицо",
+      "placeholder": "Введите контактное лицо",
+      "validation-message-required": "Пожалуйста, введите контактное лицо"
+    },
+    "hotel-name": {
+      "label": "Название отеля",
+      "placeholder": "Название вашего отеля",
+      "validation-message-required": "Введите название отеля"
+    },
+    "hotel-description": {
+      "label": "Описание отеля",
+      "placeholder": "Расскажите гостям о своем отеле на русском языке",
+      "validation-message-required": "Введите описание вашего отеля"
+    },
+    "location": {
+      "label": "Локация"
+    },
+    "price": {
+      "label": "Цена"
+    },
+    "rating": {
+      "label": "Рейтинг"
+    },
+    "balance": {
+      "label": "Баланс"
+    },
+    "address": {
+      "label": "Адрес",
+      "validation-message-required": "Введите адрес",
+      "placeholder": "Введите адрес вашего отеля"
+    },
+    "photos": {
+      "label": "Добавить фотографии отеля",
+      "validation-message-required": "Пожалуйста, загрузите фото отеля"
+    },
+    "amenities": {
+      "label": "Добавьте удобства и услуги",
+      "validation-message-required": "Пожалуйста, выберите хотя бы одно удобство",
+      "placeholder": "Выбрать"
+    },
+    "check-in-time": {
+      "label": "Заезд",
+      "validation-message-required": "Пожалуйста, укажите время заезда"
+    },
+    "check-out-time": {
+      "label": "Выезд",
+      "validation-message-required": "Пожалуйста, укажите время выезда"
+    },
+    "booking-terms-link": {
+      "label": "Ссылка на условия бронирования",
+      "validation-message-required": "Пожалуйста, укажите время выезда",
+      "validation-message-invalid-url": "Пожалуйста, введите корректный URL"
+    },
+    "children-beds": {
+      "label": "Кровати для детей",
+      "placeholder": "Разрешается",
+      "validation-message-required": "Пожалуйста, выберите опцию"
+    },
+    "pets": {
+      "label": "Домашние животные",
+      "placeholder": "Разрешается",
+      "validation-message-required": "Пожалуйста, выберите опцию"
+    },
+    "age-restrictions": {
+      "label": "Ограничения по возрасту",
+      "placeholder": "Нет ограничений",
+      "validation-message-required": "Пожалуйста, выберите ограничение по возрасту"
+    },
+    "payment-methods": {
+      "label": "Способы оплаты",
+      "placeholder": "Выберите способы оплаты",
+      "validation-message-required": "Пожалуйста, выберите хотя бы один способ оплаты"
+    },
+    "email": {
+      "label": "Электронная почта",
+      "placeholder": "Введите почту",
+      "validation-message-required": "Пожалуйста, введите ваш email",
+      "validation-message-invalid": "Введенный email недействителен"
+    },
+
+    "passport-data": {
+      "label": "Данные паспорта"
+    },
+    "birthyear": {
+      "label": "Год рождения"
+    },
+    "birthdate": {
+      "label": "Дата рождения"
+    },
+    "entry-date": {
+      "label": "Дата въезда"
+    },
+    "exit-date": {
+      "label": "Дата отъезда"
+    },
+    "country": {
+      "label": "Страна"
+    },
+    "nationality": {
+      "label": "Нация"
+    },
+    "role-name": {
+      "label": "Название роли",
+      "placeholder": "Введите название роли"
+    },
+    "role-status": {
+      "label": "Статус роли"
+    },
+    "functionality": {
+      "label": "Функциональность"
+    },
+    "role-search": {
+      "label": "Поиск роли",
+      "placeholder": "Введите название роли"
+    },
+    "user-fullname": {
+      "label": "ФИО пользователя",
+      "placeholder": "Введите ФИО"
+    },
+    "date": {
+      "label": "Дата",
+      "placeholder": "Выберите дату"
+    }
+  },
+
+  "common": {
+    "statistics": "Статистика",
+    "users": "Пользователи",
+    "hotels": "Отели",
+    "clients": "Клиенты",
+    "access-role": "Роль доступа",
+    "complaints": "Жалобы",
+    "call-center": "Call-center",
+    "active": "Активный",
+    "inactive": "Неактивный",
+    "main": "Главная",
+    "cancel": "Отмена",
+    "action": "Действие",
+    "next": "След",
+    "prev": "Пред",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "more-details": "Подробнее",
+    "hotel-content": "Контент отеля",
+    "reviews": "Отзывы",
+    "rooms": "Номера",
+    "guests": "Гости",
+    "general-information": "Общие данные",
+    "bank-account": "Банковский счет",
+    "bank-code": "МФО",
+    "bank-name": "Название банка",
+    "tin": "ИНН",
+    "additional": "Дополнительно",
+    "certificate": "Сертификат",
+    "issue-date": "Дата выдачи",
+    "expiration-date": "Дата истечения срока",
+    "select-drag-a-photo": "Выберите или перетащите 1 фото",
+    "max-size-five-mb": "Максимальный размер: 5 MB",
+    "hotel": "Отель",
+    "complaint": "Жалоба",
+    "period": "Период",
+    "main-information": "Основная информация",
+    "photos": "Фотографии",
+    "facilities-and-services": "Удобства и услуги",
+    "accommodation-terms": "Условия размещения",
+    "comments": "Комментарий",
+    "booking": "Бронирования",
+    "nights-count": "{{count}} ночей",
+    "message": "Сообщение",
+    "view-all-notifications": "Посмотреть все уведомления",
+    "notifications": "Уведомления",
+    "logout": "Выйти с аккаунта",
+    "system-settings": "Настройки системы",
+    "dark-theme": "Темная тема",
+    "hotel-management": "Управление гостиницей",
+    "my-account": "Мой аккаунт",
+    "login-to-account": "Войти в акканут",
+    "additional-number": "Дополнительный номер",
+    "support-service": "Служба поддержки"
+  }
+}

@@ -1,0 +1,286 @@
+{
+  "auth-page": {
+    "welcome-title": "Хуш келибсиз!",
+    "welcome-description": "Платформанинг барча жиҳатларини бошқаринг: эълонларни қўшиш ва таҳрирлаш, фойдаланувчилар фаоллигини кузатиш",
+    "support-service": "Қўллаб-қувватлаш хизмати",
+    "additional-number": "Қўшимча рақам",
+
+    "recovery-modal": {
+      "title": "Паролни унутдингизми?",
+      "description": "Сизга E-Mehmon.uz техник қўллаб-қувватлаш хизматини мурожаат қилиш керак"
+    },
+    "support-modal": {
+      "title": "Техник қўллаб-қувватлаш",
+      "description": "Агар платформага киришда муаммолар юзага келса, сиз қўнғироқ марказига мурожаат қилишингиз мумкин",
+      "contact-support": "Қўллаб-қувватлашга мурожаат қилиш"
+    }
+  },
+
+  "users-page": {
+    "add-user": "Фойдаланувчи қўшиш",
+    "edit-user": "Фойдаланувчини таҳрирлаш",
+    "modal-description": "Янги фойдаланувчи қўшиш учун илтимос, барча зарур майдонларни тўлдиринг"
+  },
+
+  "complaints-page": {
+    "title": "Шикоятлар",
+    "not-found-title": "Ҳеч нарса топилмади",
+    "not-found-description": "Ҳозирча сизда шикоятлар мавжуд эмас."
+  },
+
+  "hotels-page": {
+    "add-hotel": "Меҳмонхона қўшиш"
+  },
+
+  "access-role-page": {
+    "add-role": "Рол қўшиш",
+    "edit-role": "Ролни таҳрирлаш",
+    "create-role": "Янги рол яратиш"
+  },
+
+  "call-center-page": {
+    "no-chat-selected-title": "Ҳеч нарса танланмаган",
+    "no-chat-selected-description": "Чап томондан рўйхатдан хизматларни танлашни бошланг"
+  },
+
+  "profile-popover": {
+    "label": "Аккаунтдан чиқишни хоҳлайсизми?",
+    "description": "Аккаунтингиздан чиқишни хоҳлаётганингизни тасдиқланг"
+  },
+  "fields": {
+    "fullname": {
+      "label": "Ф.И.О",
+      "placeholder": "Ойбек Туронов Октам ўғли",
+      "validation-message-required": "Ф.И.О киритинг"
+    },
+    "phone": {
+      "label": "Телефон рақам",
+      "validation-message-required": "Телефон рақамни киритинг"
+    },
+    "gender": {
+      "label": "Жинс",
+      "validation-message-required": "Жинсни танланг",
+      "placeholder": "Жинсни танланг"
+    },
+    "login": {
+      "label": "Логин",
+      "validation-message-required": "Логинни киритинг"
+    },
+    "code": {
+      "label": "Телефон рақам",
+      "validation-message-required": "Телефон рақамни киритинг"
+    },
+    "role": {
+      "label": "Рол",
+      "placeholder": "Ролни танланг",
+      "validation-message-required": "Ролни танланг"
+    },
+    "status": {
+      "label": "Ҳолат",
+      "placeholder": "Ҳолатни танланг",
+      "validation-message-required": "Ҳолатни танланг"
+    },
+    "password": {
+      "label": "Пароль",
+      "placeholder": "Парольни танланг",
+      "validation-message-required": "Парольни киритинг",
+      "validation-message-invalid": "Киритилган пароль нотўғри"
+    },
+    "search-user": {
+      "label": "Фойдаланувчини қидириш",
+      "placeholder": "Исм, телефон рақамни киритинг"
+    },
+    "hotel-search": {
+      "label": "Меҳмонхонани қидириш",
+      "placeholder": "Меҳмонхона номини киритинг",
+      "validation-message-required": "Меҳмонхона номини киритинг"
+    },
+    "client-search": {
+      "label": "Мижозни қидириш",
+      "placeholder": "Исм, телефон рақамни киритинг"
+    },
+    "citizenship": {
+      "label": "Фуқаролик",
+      "placeholder": "Мамлакатни танланг"
+    },
+    "contact-person": {
+      "label": "Боғланиш учун шахс",
+      "placeholder": "Боғланиш учун шахсни киритинг",
+      "validation-message-required": "Боғланиш учун шахсни киритинг"
+    },
+    "hotel-name": {
+      "label": "Меҳмонхона номи",
+      "placeholder": "Меҳмонхона номингиз",
+      "validation-message-required": "Меҳмонхона номини киритинг"
+    },
+    "hotel-description": {
+      "label": "Меҳмонхона тавсифи",
+      "placeholder": "Меҳмонхонангиз ҳақида рус тилида маълумот беринг",
+      "validation-message-required": "Меҳмонхонангиз тавсифини киритинг"
+    },
+    "location": {
+      "label": "Жойлашув"
+    },
+    "price": {
+      "label": "Нарх"
+    },
+    "rating": {
+      "label": "Рейтинг"
+    },
+    "balance": {
+      "label": "Баланс"
+    },
+    "address": {
+      "label": "Манзил",
+      "validation-message-required": "Манзилни киритинг",
+      "placeholder": "Меҳмонхонангиз манзилини киритинг"
+    },
+    "photos": {
+      "label": "Меҳмонхона сурларини қўшиш",
+      "validation-message-required": "Илтимос, меҳмонхона фотосуратини юкланг"
+    },
+    "amenities": {
+      "label": "Қулайликлар ва хизматларни қўшинг",
+      "validation-message-required": "Хеч бўлмаганда бир қулайликни танланг",
+      "placeholder": "Танлаш"
+    },
+    "check-in-time": {
+      "label": "Кириш вақти",
+      "validation-message-required": "Кириш вақтни белгиланг"
+    },
+    "check-out-time": {
+      "label": "Чиқиш вақти",
+      "validation-message-required": "Чиқиш вақтни белгиланг"
+    },
+    "booking-terms-link": {
+      "label": "Бандлик шартлари ҳаволаси",
+      "validation-message-required": "Илтимос, чиқиш вақтни белгиланг",
+      "validation-message-invalid-url": "Тўғри URLни киритинг"
+    },
+    "children-beds": {
+      "label": "Болалар учун ётоқ",
+      "placeholder": "Рухсат этилади",
+      "validation-message-required": "Илтимос, бир вариантни танланг"
+    },
+    "pets": {
+      "label": "Ўй ҳайвонлари",
+      "placeholder": "Рухсат этилади",
+      "validation-message-required": "Илтимос, бир вариантни танланг"
+    },
+    "age-restrictions": {
+      "label": "Ёшга оид чекловлар",
+      "placeholder": "Чеклов йўқ",
+      "validation-message-required": "Илтимос, ёш чекловини танланг"
+    },
+    "payment-methods": {
+      "label": "Тўлов усуллари",
+      "placeholder": "Тўлов усулларини танланг",
+      "validation-message-required": "Хеч бўлмаганда бир тўлов усулини танланг"
+    },
+    "email": {
+      "label": "Электрон почта",
+      "placeholder": "Электрон почтангизни киритинг",
+      "validation-message-required": "Электрон почтангизни киритинг",
+      "validation-message-invalid": "Киритилган электрон почта нотўғри"
+    },
+
+    "passport-data": {
+      "label": "Паспорт маълумотлари"
+    },
+    "birthyear": {
+      "label": "Туғилган йили"
+    },
+    "birthdate": {
+      "label": "Туғилган сана"
+    },
+    "entry-date": {
+      "label": "Кириш санаси"
+    },
+    "exit-date": {
+      "label": "Чиқиш санаси"
+    },
+    "country": {
+      "label": "Давлат"
+    },
+    "nationality": {
+      "label": "Миллат"
+    },
+    "role-name": {
+      "label": "Рол номи",
+      "placeholder": "Рол номини киритинг"
+    },
+    "role-status": {
+      "label": "Рол холати"
+    },
+    "functionality": {
+      "label": "Функционаллик"
+    },
+    "role-search": {
+      "label": "Ролни қидириш",
+      "placeholder": "Рол номини киритинг"
+    },
+    "user-fullname": {
+      "label": "Фойдаланувчи Ф.И.О",
+      "placeholder": "Ф.И.О ни киритинг"
+    },
+    "date": {
+      "label": "Сана",
+      "placeholder": "Санани танланг"
+    }
+  },
+  "common": {
+    "statistics": "Статистика",
+    "users": "Фойдаланувчилар",
+    "hotels": "Меҳмонхоналар",
+    "clients": "Мижозлар",
+    "access-role": "Кириш роли",
+    "complaints": "Шикоятлар",
+    "call-center": "Алоқа маркази",
+    "active": "Фаол",
+    "inactive": "Фаол эмас",
+    "main": "Асосий",
+    "cancel": "Бекор қилиш",
+    "action": "Амаллар",
+    "next": "Кейинги",
+    "prev": "Олдинги",
+    "edit": "Ўзгартириш",
+    "delete": "Ўчириш",
+    "more-details": "Батафсил",
+    "hotel-content": "Меҳмонхона мазмуни",
+    "reviews": "Шарҳлар",
+    "rooms": "Хоналар",
+    "guests": "Меҳмонлар",
+    "general-information": "Умумий маълумот",
+    "bank-account": "Банк ҳисоби",
+    "bank-code": "МФО",
+    "bank-name": "Банк номи",
+    "tin": "СТИР",
+    "additional": "Қўшимча",
+    "certificate": "Сертификат",
+    "issue-date": "Берилган сана",
+    "expiration-date": "Амал қилиш муддати",
+    "select-drag-a-photo": "1 та расмни танланг ёки суриб олиб келинг",
+    "max-size-five-mb": "Максимал ҳажми: 5 МБ",
+    "hotel": "Меҳмонхона",
+    "complaint": "Шикоят",
+    "period": "Давр",
+    "main-information": "Асосий маълумотлар",
+    "photos": "Сурати",
+    "facilities-and-services": "Қулайликлар ва хизматлар",
+    "accommodation-terms": "Жойлаштириш шартлари",
+    "comments": "Изоҳлар",
+    "booking": "Бронлаш",
+    "nights-count": "{{count}} тун",
+    "message": "Хабар",
+    "view-all-notifications": "Барча хабарномаларни кўриш",
+    "notifications": "Хабарномалар",
+    "logout": "Аккаунтдан чиқиш",
+    "system-settings": "Тизим созламалари",
+    "dark-theme": "Қоронғу мавзуси",
+    "hotel-management": "Меҳмонхона бошқаруви",
+    "my-account": "Менинг аккаунтим",
+    "login-to-account": "Аккаунтга кириш",
+    "additional-number": "Қўшимча рақам",
+    "support-service": "Қўллаб-қувватлаш хизмати"
+  }
+}

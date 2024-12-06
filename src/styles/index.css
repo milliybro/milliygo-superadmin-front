@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Onest', sans-serif;
+  scrollbar-width: thin;
+}
+
+.select-shadow {
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.ant-switch {
+  @apply bg-secondary-light;
+}
+
+.ant-switch.ant-switch-checked {
+  @apply bg-primary;
+}
