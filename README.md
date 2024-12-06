@@ -1,8 +1,18 @@
-## Eslatma / Note
+## Eslatma | Note
 
-Lokalda ishga tushirishdan oldin hamma bir xil npm va Node versiyalaridan foydalanishini kafolatlash uchun tizimingizda [Volta](https://volta.sh/) o‘rnatilganiga ishonch hosil qiling!
+1. Lokalda ishga tushirishdan oldin hamma bir xil npm va Node versiyalaridan foydalanishini kafolatlash uchun tizimingizda [Volta](https://volta.sh/) o‘rnatilganiga ishonch hosil qiling.
 
-Before running locally, ensure that [Volta](https://volta.sh/) is installed on your system to guarantee everyone uses the same versions of npm and Node!
+2. Loyihani tortib olgandan (git pull) keyin "npm ci" buyrug'ini ishlating, "npm install" ni emas.
+
+3. Yangi dependency qo'shmoqchi yoki eskisini yangilamoqchi bo'lganingizdagina "npm install" buyrug'ini ishlating.
+
+---
+
+1. Before running locally, ensure that [Volta](https://volta.sh/) is installed on your system to guarantee everyone uses the same versions of npm and Node.
+
+2. After pulling the project, use the command "npm ci" not "npm install".
+
+3. Use the command "npm install" only when you need to add or update dependencies.
 
 ---
 
