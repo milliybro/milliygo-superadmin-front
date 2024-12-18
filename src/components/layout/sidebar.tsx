@@ -15,6 +15,7 @@ import SidebarLeftIcon from '../icons/sidebar-left'
 import UserMultipleIcon from '../icons/user-multiple'
 import TimeManagementIcon from '../icons/time-management'
 import CustomerSupportIcon from '../icons/customer-support'
+import ServicesIcon from '../icons/services-icon'
 
 const items = [
   {
@@ -52,6 +53,11 @@ const items = [
     label: 'common.call-center',
     icon: CustomerSupportIcon,
     path: ROUTE_PATHS.CALL_CENTER,
+  },
+  {
+    label: 'common.facilities-and-services',
+    icon: ServicesIcon,
+    path: ROUTE_PATHS.SERVICES,
   },
 ]
 

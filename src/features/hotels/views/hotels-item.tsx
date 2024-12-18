@@ -17,6 +17,9 @@ import HotelsItemContent from '../containers/hotels-item-content'
 import HotelsItemReviews from '../containers/hotels-item-table'
 
 import type { TabsProps } from 'antd'
+import HotelsItemRooms from '../containers/hotels-item-rooms'
+import HotelsItemGuest from '../containers/hotels-item-guest'
+import HotelsItemTransactions from '../containers/hotels-item-transaction'
 
 const items: TabsProps['items'] = [
   {
@@ -32,12 +35,17 @@ const items: TabsProps['items'] = [
   {
     key: '3',
     label: 'common.rooms',
-    disabled: true,
+    children: <HotelsItemRooms />,
   },
   {
     key: '4',
     label: 'common.guests',
-    disabled: true,
+    children: <HotelsItemGuest />,
+  },
+  {
+    key: '5',
+    label: 'common.transaction',
+    children: <HotelsItemTransactions />,
   },
 ]
 

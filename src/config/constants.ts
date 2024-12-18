@@ -12,6 +12,7 @@ const ROUTE_PATHS = {
   COMPLAINTS: '/complaints',
   ACCESS_ROLE: '/access-role',
   CALL_CENTER: '/call-center',
+  SERVICES: '/services',
 }
 
 const BASE_URL = ''

@@ -40,6 +40,13 @@ const columns: TableColumnsType<IHotelsTable> = [
       compare: (a, b) => a.location.localeCompare(b.location),
       multiple: 2,
     },
+    render: val => (
+      <div>
+        <a style={{ textDecoration: 'underline' }} className="text-[#3276FF]">
+          {val}
+        </a>
+      </div>
+    ),
   },
   {
     title: 'fields.price.label',
@@ -95,7 +102,7 @@ const columns: TableColumnsType<IHotelsTable> = [
     title: 'fields.balance.label',
     dataIndex: 'balance',
     sorter: {
-      compare: (a, b) => a.balance - b.balance,
+      compare: (a, b) => a.status.localeCompare(b.status),
       multiple: 1,
     },
   },
@@ -119,7 +126,7 @@ const data: IHotelsTable[] = [
     password: '********',
     contactPerson: 'John Brown',
     status: 'Active',
-    balance: 500,
+    balance: 'Название роли',
   },
   {
     key: '2',
@@ -132,7 +139,7 @@ const data: IHotelsTable[] = [
     password: '********',
     contactPerson: 'Jim Green',
     status: 'Inactive',
-    balance: 300,
+    balance: 'Название роли',
   },
   {
     key: '3',
@@ -145,7 +152,7 @@ const data: IHotelsTable[] = [
     password: '********',
     contactPerson: 'Joe Black',
     status: 'Active',
-    balance: 400,
+    balance: 'Название роли',
   },
   {
     key: '4',
@@ -158,7 +165,7 @@ const data: IHotelsTable[] = [
     password: '********',
     contactPerson: 'Jim Red',
     status: 'Pending',
-    balance: 600,
+    balance: 'Название роли',
   },
 ]
 

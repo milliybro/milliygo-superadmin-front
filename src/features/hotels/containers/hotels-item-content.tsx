@@ -1,10 +1,21 @@
-import dayjs from 'dayjs'
-import { Form, Input } from 'antd'
+import { Avatar, Flex, Form, Table, TableProps, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
-import { Divider, message, TimePicker, Upload, UploadProps } from 'antd'
+import { Divider, message } from 'antd'
 
-import CSelect from '@/components/ui/select'
+import RatingTag from '@/components/ui/rating-tag'
+import CallIcon from '@/components/icons/call-icon'
+import WifiIcon from '@/components/icons/wifi-icon'
+import TvIcon from '@/components/icons/tv-icon'
+import MachineIcon from '@/components/icons/machine-icon'
+import MicrowaveIcon from '@/components/icons/microwave-icon'
+import CameraIcon from '@/components/icons/camera-icon'
+import { ReactNode } from 'react'
+import LoginIcon from '@/components/icons/login-icon'
+import LogoutIcon from '@/components/icons/login-icon'
+import BedSingleIcon from '@/components/icons/bed-icon'
+import UserOutlinedIcon from '@/components/icons/user-circle-icon'
+import PawPrintIcon from '@/components/icons/paw-icon'
+import CardIcon from '@/components/icons/card-icon'
 
 interface FormValues {
   username: string
@@ -12,29 +23,142 @@ interface FormValues {
   password: string
 }
 
+interface DataType {
+  key: any
+  price: any
+  conditions: ReactNode
+  icon?: ReactNode
+}
+
 const HotelsItemContent = () => {
   const [form] = Form.useForm()
-  const { t, i18n } = useTranslation()
+  const { t } = useTranslation()
 
-  const mapState = {
-    center: [41.311158, 69.279737],
-    zoom: 14,
-  }
+  const columns: TableProps<DataType>['columns'] = [
+    {
+      title: `${t('user.price')} (${t('preferences.night')})`,
+      dataIndex: 'price',
+      width: 282,
 
-  const uploadProps: UploadProps = {
-    name: 'file',
-    multiple: false,
-    maxCount: 1,
-    accept: 'image/*',
-    beforeUpload: file => {
-      const isLessThan5MB = file.size / 1024 / 1024 < 5
-      if (!isLessThan5MB) {
-        console.error('Image must be smaller than 5MB!')
-        return false
-      }
-      return true
+      render: (text, vals) => (
+        <Flex align="center" gap={10} className=" font-semibold">
+          {vals.icon} {text}
+        </Flex>
+      ),
     },
-  }
+    {
+      title: t('user.condition'),
+      dataIndex: 'conditions',
+    },
+  ]
+
+  const data: DataType[] = [
+    {
+      key: '1',
+      price: t('hotels-page.check-in.title'),
+      icon: <LoginIcon className=" w-[18px]" />,
+      conditions: (
+        <Flex vertical gap={8}>
+          с 14:00
+          <Typography.Text className="text-sm text-secondary">
+            {t('hotels-page.check-in.desc')}
+          </Typography.Text>
+        </Flex>
+      ),
+    },
+    {
+      key: '2',
+      price: t('hotels-page.check-out.title'),
+      icon: <LogoutIcon className=" w-[18px]" />,
+      conditions: (
+        <Flex vertical gap={8}>
+          до 12:00
+        </Flex>
+      ),
+    },
+    {
+      key: '3',
+      price: t('hotels-page.bed-for-child.title'),
+      icon: <BedSingleIcon className="w-[18px]" />,
+      conditions: (
+        <Flex vertical gap={8}>
+          <Typography.Text className=" font-medium">
+            {t('hotels-page.bed-for-child.desc')}
+          </Typography.Text>
+
+          <Typography.Text className="text-sm text-secondary">
+            {t('hotels-page.bed-for-child.text1')}
+          </Typography.Text>
+          <Typography.Text className="text-sm text-secondary">
+            {t('hotels-page.bed-for-child.text2')}
+          </Typography.Text>
+          <Typography.Text className="text-sm text-secondary">
+            {t('hotels-page.bed-for-child.text3')}
+          </Typography.Text>
+        </Flex>
+      ),
+    },
+    {
+      key: '5',
+      price: t('hotels-page.no-age.title'),
+      icon: <UserOutlinedIcon className="w-[18px]" />,
+      conditions: (
+        <Typography.Text className="text-secondary text-sm">
+          {t('hotels-page.no-age.desc')}
+        </Typography.Text>
+      ),
+    },
+    {
+      key: '6',
+      price: t('hotels-page.pets.title'),
+      icon: <PawPrintIcon className="w-[18px]" />,
+      conditions: (
+        <Typography.Text className="text-secondary text-sm">
+          {t('hotels-page.pets.desc')}
+        </Typography.Text>
+      ),
+    },
+    {
+      key: '7',
+      price: t('hotels-page.card.title'),
+      icon: <CardIcon className="w-[18px]" />,
+      conditions: (
+        <Flex vertical gap={8}>
+          <Flex gap={16}>
+            <>
+              <Avatar
+                size={24}
+                shape="square"
+                className="rounded-lg bg-secondary/20 animate-pulse"
+                alt="user avatar image"
+              />
+              <Avatar
+                size={24}
+                shape="square"
+                className="rounded-lg bg-secondary/20 animate-pulse"
+                alt="user avatar image"
+              />
+              <Avatar
+                size={24}
+                shape="square"
+                className="rounded-lg bg-secondary/20 animate-pulse"
+                alt="user avatar image"
+              />
+              <Avatar
+                size={24}
+                shape="square"
+                className="rounded-lg bg-secondary/20 animate-pulse"
+                alt="user avatar image"
+              />
+            </>
+          </Flex>
+          <Typography.Text className="text-sm text-secondary">
+            {t('hotels-page.card.desc')}
+          </Typography.Text>
+        </Flex>
+      ),
+    },
+  ]
 
   const onFinish = (values: FormValues) => {
     console.log('Form values:', values)
@@ -54,303 +178,82 @@ const HotelsItemContent = () => {
           {t('common.main-information')}
         </h2>
         <Divider />
-        <div className="space-y-4">
-          <Form.Item
-            label={t('fields.hotel-name.label')}
-            name="hotelName"
-            rules={[
-              {
-                required: true,
-                message: t('fields.hotel-name.validation-message-required'),
-              },
-            ]}
-          >
-            <Input
-              size="large"
-              placeholder={t('fields.hotel-name.placeholder')}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label={t('fields.hotel-description.label')}
-            name="hotelDescription"
-            rules={[
-              {
-                required: true,
-                message: t(
-                  'fields.hotel-description.validation-message-required',
-                ),
-              },
-            ]}
-          >
-            <Input.TextArea
-              rows={8}
-              placeholder={t('fields.hotel-description.placeholder')}
-              className="!resize-none"
-            />
-          </Form.Item>
-
-          <Form.Item
-            label={t('fields.address.label')}
-            name="address"
-            rules={[
-              {
-                required: true,
-                message: t('fields.address.validation-message-required'),
-              },
-            ]}
-          >
-            <Input size="large" placeholder={t('fields.address.placeholder')} />
-          </Form.Item>
-
-          <div className="mt-4 w-full h-[477px] rounded-[12px] border border-border overflow-hidden">
-            <YMaps
-              query={{
-                lang:
-                  i18n.language === 'oz'
-                    ? 'uz_UZ'
-                    : i18n.language === 'ru'
-                      ? 'ru_RU'
-                      : 'en_US',
-              }}
-            >
-              <Map
-                defaultState={mapState}
-                width="100%"
-                height="477px"
-                modules={['control.ZoomControl', 'control.FullscreenControl']}
+        <div className="flex justify-between items-center">
+          <div className="flex items-center gap-4">
+            <div className="size-[80px] rounded-[8px] border border-border bg-secondary-light" />
+            <div className="flex flex-col gap-[6px]">
+              <div className="flex gap-3">
+                <h3 className="text-2xl font-semibold text-[#232E40]">
+                  Hyatt Regency Tashkent
+                </h3>
+                <div className="flex items-center gap-2">
+                  <RatingTag value={8.9} icon />
+                </div>
+              </div>
+              <a
+                style={{ textDecoration: 'underline' }}
+                className="text-[#2563EB] text-sm font-normal"
               >
-                <Placemark
-                  geometry={mapState.center}
-                  modules={['geoObject.addon.balloon', 'geoObject.addon.hint']}
-                  options={{
-                    iconLayout: 'default#image',
-                    iconImageSize: [64, 64],
-                    iconImageOffset: [-37, -64],
-                    iconImageHref: `/location-icon.svg`,
-                    zIndex: 1,
-                  }}
-                />
-              </Map>
-            </YMaps>
+                Лабзак (Ц-13) ж/м, Шайхантахурский район, Ташкент
+              </a>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <CallIcon />
+            <p className="text-2xl font-semibold text-[#3276FF]">
+              71 207 12 34
+            </p>
           </div>
         </div>
-      </div>
-      <div className="p-6 border border-border rounded-[12px]">
-        <h2 className="text-[24px] font-medium text-primary-dark">
-          {t('common.photos')}
-        </h2>
         <Divider />
-
-        <Form.Item
-          name="photos"
-          label={t('fields.photos.label')}
-          rules={[
-            {
-              required: true,
-              message: t('fields.photos.validation-message-required'),
-            },
-          ]}
-        >
-          <Upload.Dragger {...uploadProps}>
-            <div className="py-[72px]">
-              <p className="ant-upload-drag-icon flex justify-center">
-                <img
-                  src="/src/assets/dnd-illustration.svg"
-                  alt="dnd illustration"
-                />
-              </p>
-              <p className="font-medium text-[16px] text-primary-dark">
-                {t('common.select-drag-a-photo')}
-              </p>
-              <p className="text-[14px] text-secondary">
-                {t('common.max-size-five-mb')}
-              </p>
-            </div>
-          </Upload.Dragger>
-        </Form.Item>
+        <p className="text-base font-normal">
+          Hyatt Regency Tashkent предлагает идеальное расположение как для
+          деловых путешественников, так и для туристов. Почувствуйте себя как
+          дома в вашем просторном номере, пообедайте в одном из наших четырех
+          ресторанов и баров, проведите заседание совета директоров или
+          эксклюзивное мероприятие и не забудьте расслабиться в нашем бассейне и
+          спа-зоне. Здесь вы обнаружите, что продуктивность и отдых являются
+          постоянными спутниками вашего пребывания в Ташкенте.
+        </p>
       </div>
       <div className="p-6 border border-border rounded-[12px]">
         <h2 className="text-[24px] font-medium text-primary-dark">
           {t('common.facilities-and-services')}
         </h2>
         <Divider />
-
-        <Form.Item
-          name="amenities"
-          label={t('fields.amenities.label')}
-          rules={[
-            {
-              required: true,
-              message: t('fields.amenities.validation-message-required'),
-            },
-          ]}
-        >
-          <CSelect
-            size="large"
-            placeholder={t('fields.amenities.placeholder')}
-            mode="multiple"
-            options={[
-              { label: 'Wi-Fi', value: 'wifi' },
-              { label: 'Парковка', value: 'parking' },
-              { label: 'Бассейн', value: 'pool' },
-              { label: 'Спа', value: 'spa' },
-            ]}
-          />
-        </Form.Item>
+        <div className="grid grid-cols-5 gap-2">
+          <div className="flex items-center gap-2 text-base font-normal text-[#232E40]">
+            <WifiIcon /> Wi-Fi
+          </div>
+          <div className="flex items-center gap-2 text-base font-normal text-[#232E40]">
+            <TvIcon /> Телевизор
+          </div>
+          <div className="flex items-center gap-2 text-base font-normal text-[#232E40]">
+            <MachineIcon /> Стиральная машина
+          </div>
+          <div className="flex items-center gap-2 text-base font-normal text-[#232E40]">
+            <MicrowaveIcon /> Микроволновка
+          </div>
+          <div className="w-[300px] flex items-center gap-2 text-base font-normal text-[#232E40]">
+            <CameraIcon /> Внешние камеры видеонаблюдения
+          </div>
+        </div>
       </div>
+
       <div className="p-6 border border-border rounded-[12px]">
         <h2 className="text-[24px] font-medium text-primary-dark">
           {t('common.accommodation-terms')}
         </h2>
         <Divider />
 
-        <div className="grid grid-cols-1 mb-6 md:grid-cols-2 gap-6">
-          <Form.Item
-            name="checkInTime"
-            label={t('fields.check-in-time.label')}
-            rules={[
-              {
-                required: true,
-                message: t('fields.check-in-time.validation-message-required'),
-              },
-            ]}
-          >
-            <TimePicker
-              size="large"
-              format="HH:mm"
-              className="w-full h-[47px]"
-              // defaultValue={dayjs('14:00', 'HH:mm')}
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="checkOutTime"
-            label={t('fields.check-out-time.label')}
-            rules={[
-              {
-                required: true,
-                message: t('fields.check-out-time.validation-message-required'),
-              },
-            ]}
-          >
-            <TimePicker
-              size="large"
-              format="HH:mm"
-              className="w-full h-[47px]"
-              // defaultValue={dayjs('12:00', 'HH:mm')}
-            />
-          </Form.Item>
-          <Form.Item
-            name="bookingTermsLink"
-            label={t('fields.booking-terms-link.label')}
-            rules={[
-              {
-                required: true,
-                message: t(
-                  'fields.booking-terms-link.validation-message-required',
-                ),
-              },
-              {
-                type: 'url',
-                message: t(
-                  'fields.booking-terms-link.validation-message-invalid-url',
-                ),
-              },
-            ]}
-          >
-            <Input size="large" placeholder="https://" />
-          </Form.Item>
-          <Form.Item
-            name="childrenBeds"
-            label={t('fields.children-beds.label')}
-            rules={[
-              {
-                required: true,
-                message: t('fields.children-beds.validation-message-required'),
-              },
-            ]}
-          >
-            <CSelect
-              size="large"
-              placeholder={t('fields.children-beds.placeholder')}
-              options={[
-                { label: 'Разрешается', value: 'allowed' },
-                { label: 'Не разрешается', value: 'not_allowed' },
-              ]}
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="pets"
-            label={t('fields.pets.label')}
-            rules={[
-              {
-                required: true,
-                message: t('fields.pets.validation-message-required'),
-              },
-            ]}
-          >
-            <CSelect
-              size="large"
-              placeholder={t('fields.pets.placeholder')}
-              options={[
-                { label: 'Разрешается', value: 'allowed' },
-                { label: 'Запрещается', value: 'not_allowed' },
-              ]}
-            />
-          </Form.Item>
-          <Form.Item
-            name="ageRestrictions"
-            label={t('fields.age-restrictions.label')}
-            rules={[
-              {
-                required: true,
-                message: t(
-                  'fields.age-restrictions.validation-message-required',
-                ),
-              },
-            ]}
-          >
-            <CSelect
-              size="large"
-              placeholder={t('fields.age-restrictions.placeholder')}
-              options={[
-                {
-                  label: 'Нет ограничений',
-                  value: 'no_restrictions',
-                },
-                { label: '18+', value: '18_plus' },
-                { label: '21+', value: '21_plus' },
-              ]}
-            />
-          </Form.Item>
-        </div>
-
-        <Form.Item
-          name="paymentMethods"
-          label={t('fields.payment-methods.label')}
-          rules={[
-            {
-              required: true,
-              message: t('fields.payment-methods.validation-message-required'),
-            },
-          ]}
-        >
-          <CSelect
-            size="large"
-            placeholder={t('fields.payment-methods.placeholder')}
-            mode="multiple"
-            options={[
-              { label: 'Наличные', value: 'cash' },
-              { label: 'Кредитная карта', value: 'credit_card' },
-              {
-                label: 'Банковский перевод',
-                value: 'bank_transfer',
-              },
-            ]}
-          />
-        </Form.Item>
+        <Table
+          columns={columns}
+          dataSource={data}
+          className=" rounded-3xl overflow-hidden"
+          bordered
+          pagination={false}
+          showHeader={false}
+        />
       </div>
     </Form>
   )
