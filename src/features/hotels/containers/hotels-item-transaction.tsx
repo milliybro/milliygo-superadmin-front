@@ -6,8 +6,8 @@ import {
   TableProps,
 } from 'antd'
 import { useTranslation } from 'react-i18next'
-
 import { twMerge } from 'tailwind-merge'
+
 import { IGuestsTransaction } from '../types'
 import { formatAmount } from '@/helpers/format-amount'
 import StatusRoomTag from '../components/status-tag'
