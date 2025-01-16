@@ -2,7 +2,7 @@ interface IHotelsItemTable {
   key: string
   id: number
   name: string
-  period: string
+  date: string
   comments: string
   rating: number
 }
@@ -10,7 +10,11 @@ interface IHotelsItemTable {
 interface IHotelsTable {
   key: string
   id: number
-  hotelName: string
+  name: string
+  image: string
+  address: string
+  min_price: number
+  star_rating: number
   location: string
   price: number
   rating: number
@@ -21,25 +25,57 @@ interface IHotelsTable {
   balance: string
 }
 
+interface IHotelDetail {
+  id: number
+  name: string | undefined
+  description: string
+  rating: number
+  status: string
+  amenities: string[]
+  photos: string[]
+}
+
+interface IHotelsItemReview {
+  key: string
+  id: number
+  name: string
+  date: string
+  review: string
+  rating: number
+}
+
 
 interface IHotelsRoom {
   key: string
   id: number
+  name: string
   typeNumber: string
   price: number
   status: string
 }
+interface IHotelsGuests {
+  key: number
+  id: number
+  citizenship: string,
+  passport: string,
+  checkInOut: string,
+  first_name: string
+  last_name: string
+  nationality: string
+  birth_date: string
+  check_in: string
+  check_out: string
+}
 
 interface IGuestsTable {
-  key: string
-  id: string
+  key: number
+  id: string | number
   fullName: string
   citizenship: string
   nation: string
   birthdate: string
   passport: string
   checkInOut: string
-  status: boolean
 }
 
 interface IGuestsTransaction {
@@ -52,4 +88,4 @@ interface IGuestsTransaction {
   checkInOut: string
   status: string
 }
-export type { IHotelsItemTable, IHotelsTable, IHotelsRoom, IGuestsTable, IGuestsTransaction }
+export type { IHotelDetail, IHotelsGuests, IHotelsItemReview, IHotelsItemTable, IHotelsTable, IHotelsRoom, IGuestsTable, IGuestsTransaction }

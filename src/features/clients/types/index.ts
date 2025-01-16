@@ -19,5 +19,12 @@ interface IClientItemTable {
   period: string
   comment: string
 }
-
-export type { IClientTable, IClientItemTable }
+interface IClientReview {
+  key: string
+  id: number
+  name: string
+  typeNumber: string
+  price: number
+  status: string
+}
+export type { IClientTable, IClientItemTable, IClientReview }

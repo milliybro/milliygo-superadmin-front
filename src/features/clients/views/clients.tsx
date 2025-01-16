@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ROUTE_PATHS } from '@/config/constants'
@@ -7,10 +7,15 @@ import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
 import ClientsTable from '../containers/clients-table'
 import ClientsFilters from '../containers/clients-filters'
+import { useQuery } from '@tanstack/react-query'
+import { getUsersList } from '@/features/users/api'
 
 const Clients = () => {
   const { t } = useTranslation()
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [searchTerm, setSearchTerm] = useState('')
+  const [gender, setGender] = useState('')
 
   useEffect(() => {
     setBreadCrumbs([
@@ -19,13 +24,38 @@ const Clients = () => {
     ])
   }, [])
 
+  const { data: ClientsData, isLoading } = useQuery({
+    queryKey: ['users-data', currentPage, searchTerm, gender],
+    queryFn: async () => {
+      const res = await getUsersList({
+        page_size: 10,
+        client_or_employee: 'client',
+        page: currentPage,
+        search: searchTerm,
+        gender: gender || undefined,
+      })
+      return res
+    },
+    // keepPreviousData: true,
+  })
+
   return (
     <div className="p-6 flex flex-col gap-6 flex-1">
       <div className="text-[24px] text-primary-dark font-semibold">
         {t('common.clients')}
       </div>
-      <ClientsFilters />
-      <ClientsTable />
+      <ClientsFilters
+        setSearchTerm={setSearchTerm}
+        searchTerm={searchTerm}
+        gender={gender}
+        setGender={setGender}
+      />
+      <ClientsTable
+        clientsData={ClientsData}
+        isLoading={isLoading}
+        currentPage={currentPage}
+        setCurrentpage={setCurrentPage}
+      />
     </div>
   )
 }

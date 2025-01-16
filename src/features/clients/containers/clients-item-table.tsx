@@ -2,7 +2,7 @@ import { Table } from 'antd'
 import { Link } from 'react-router'
 import { useTranslation } from 'react-i18next'
 
-import type { IClientItemTable } from '../types'
+import type { IClientItemTable, IClientReview } from '../types'
 import type { TableColumnsType, TableProps } from 'antd'
 
 const columns: TableColumnsType<IClientItemTable> = [
@@ -31,40 +31,8 @@ const columns: TableColumnsType<IClientItemTable> = [
   },
   {
     title: 'common.comments',
-    dataIndex: 'comment',
+    dataIndex: 'review',
     width: 700,
-  },
-]
-
-const data: IClientItemTable[] = [
-  {
-    key: '1',
-    id: 1,
-    name: 'Oriente Palace Apartments',
-    period: '2024-12-01 - 2024-12-07',
-    comment: 'Приезжали с семьей на неделю, и остались в восторге!',
-  },
-  {
-    key: '2',
-    id: 2,
-    name: 'City Center Hotel',
-    period: '2024-12-08 - 2024-12-14',
-    comment: 'Номера просторные, чистые, с красивым видом на город.',
-  },
-  {
-    key: '3',
-    id: 3,
-    name: 'Grand View Resort',
-    period: '2024-12-15 - 2024-12-21',
-    comment: 'Персонал вежливый и всегда готов помочь.',
-  },
-  {
-    key: '4',
-    id: 4,
-    name: 'Sea Breeze Inn',
-    period: '2024-12-22 - 2024-12-28',
-    comment:
-      'Завтраки были разнообразные и вкусные — особенно понравилась выпечка.',
   },
 ]
 
@@ -77,8 +45,20 @@ const onChange: TableProps<IClientItemTable>['onChange'] = (
   console.log('params', pagination, filters, sorter, extra)
 }
 
-const ClientsItemTable = () => {
+const ClientsItemTable = ({ reviews }: { reviews: any }) => {
   const { t } = useTranslation()
+  const transformHotelDetailsToTableData = (data: any): IClientItemTable[] => {
+    return data.map((item:any, index: any) => {
+      const { id } = item
+      return {
+        key: index,
+        id: id,
+        name: item.name,
+        review: item?.review || 0,
+        status: item?.status || 'defaultStatus',
+      }
+    })
+  }
 
   // const itemRender: PaginationProps['itemRender'] = (
   //   n,
@@ -119,7 +99,11 @@ const ClientsItemTable = () => {
         ...val,
         title: t(val?.title as string),
       }))}
-      dataSource={data}
+      dataSource={
+        reviews?.results
+          ? transformHotelDetailsToTableData(reviews.results)
+          : []
+      }
       onChange={onChange}
       pagination={false}
       // pagination={{

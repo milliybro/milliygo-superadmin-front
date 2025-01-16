@@ -26,4 +26,73 @@ interface IBreadCrumbsStore {
   setBreadCrumbs: (newBreadCrumbs: IBreadCrumb[]) => void
 }
 
-export type { CustomRoute, IBreadCrumb, IBreadCrumbsStore }
+interface ListResponse<T> {
+  count: number
+  next: string | null
+  previous: string | null
+  results: T
+}
+interface IUser {
+  id: number
+  username: string
+  first_name: string
+  last_name: string
+  avatar: string
+  email: string
+  phone: string
+  birth_date: string
+  gender: string
+  type: string
+  password_changed: boolean
+  branch_user: BranchUser
+  is_superuser: boolean
+  is_staff: boolean
+  is_active: boolean
+  groups: Groups
+  user_permissions: any[]
+  date_joined: string
+  last_login: string
+  created_at: string
+  updated_at: string
+  deleted: any
+  deleted_by_cascade: boolean
+}
+
+interface User {
+  id: number
+  username: string
+  first_name: string
+  last_name: string
+  avatar: string
+  email: string
+  phone: string
+  birth_date: string
+  gender: string
+  type: string
+  password_changed: boolean
+  branch_user: BranchUser
+  is_superuser: boolean
+  is_staff: boolean
+  is_active: boolean
+  groups: Groups
+  user_permissions: any[]
+  date_joined: string
+  last_login: string
+  created_at: string
+  updated_at: string
+  deleted: any
+  deleted_by_cascade: boolean
+}
+
+interface BranchUser {
+  branch: number
+  user: number
+}
+
+interface Groups {
+  name: any
+  description: any
+  key: any
+}
+
+export type { IUser, User, CustomRoute, IBreadCrumb, IBreadCrumbsStore, ListResponse }

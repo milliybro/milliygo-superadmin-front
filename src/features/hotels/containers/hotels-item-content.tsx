@@ -1,14 +1,9 @@
-import { Avatar, Flex, Form, Table, TableProps, Typography } from 'antd'
+import { Flex, Form, Table, TableProps, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Divider, message } from 'antd'
 
 import RatingTag from '@/components/ui/rating-tag'
 import CallIcon from '@/components/icons/call-icon'
-import WifiIcon from '@/components/icons/wifi-icon'
-import TvIcon from '@/components/icons/tv-icon'
-import MachineIcon from '@/components/icons/machine-icon'
-import MicrowaveIcon from '@/components/icons/microwave-icon'
-import CameraIcon from '@/components/icons/camera-icon'
 import { ReactNode } from 'react'
 import LoginIcon from '@/components/icons/login-icon'
 import LogoutIcon from '@/components/icons/login-icon'
@@ -30,9 +25,48 @@ interface DataType {
   icon?: ReactNode
 }
 
-const HotelsItemContent = () => {
+interface TableType {
+  key: any
+  price: any
+  conditions: ReactNode
+  icon?: ReactNode
+}
+
+interface Facility {
+  id: number
+  name: string
+  icon: string
+}
+
+interface PaymentType {
+  id: number
+  name: string
+  image: string
+}
+
+interface HotelContent {
+  data: {
+    id: number
+    name: string
+    avg_rating: number
+    address: string
+    description: string
+    facilities: Facility[]
+    checkin_start: string
+    checkout_end: string
+    payment_types: PaymentType[]
+  }
+}
+
+const HotelsItemContent = ({ data }: HotelContent) => {
   const [form] = Form.useForm()
   const { t } = useTranslation()
+
+  function formatTime(timeString: string | undefined): string {
+    if (!timeString) return '' // Agar undefined bo'lsa, bo'sh string qaytar
+    const [hours, minutes] = timeString.split(':') // Soat va daqiqalarni ajratib olamiz
+    return `${hours}:${minutes}` // Faqat soat va daqiqalarni qaytaramiz
+  }
 
   const columns: TableProps<DataType>['columns'] = [
     {
@@ -52,14 +86,14 @@ const HotelsItemContent = () => {
     },
   ]
 
-  const data: DataType[] = [
+  const dataTable: TableType[] = [
     {
       key: '1',
       price: t('hotels-page.check-in.title'),
       icon: <LoginIcon className=" w-[18px]" />,
       conditions: (
         <Flex vertical gap={8}>
-          с 14:00
+          с {formatTime(data?.checkin_start)}
           <Typography.Text className="text-sm text-secondary">
             {t('hotels-page.check-in.desc')}
           </Typography.Text>
@@ -72,7 +106,7 @@ const HotelsItemContent = () => {
       icon: <LogoutIcon className=" w-[18px]" />,
       conditions: (
         <Flex vertical gap={8}>
-          до 12:00
+          до {formatTime(data?.checkout_end)}
         </Flex>
       ),
     },
@@ -126,34 +160,20 @@ const HotelsItemContent = () => {
         <Flex vertical gap={8}>
           <Flex gap={16}>
             <>
-              <Avatar
-                size={24}
-                shape="square"
-                className="rounded-lg bg-secondary/20 animate-pulse"
-                alt="user avatar image"
-              />
-              <Avatar
-                size={24}
-                shape="square"
-                className="rounded-lg bg-secondary/20 animate-pulse"
-                alt="user avatar image"
-              />
-              <Avatar
-                size={24}
-                shape="square"
-                className="rounded-lg bg-secondary/20 animate-pulse"
-                alt="user avatar image"
-              />
-              <Avatar
-                size={24}
-                shape="square"
-                className="rounded-lg bg-secondary/20 animate-pulse"
-                alt="user avatar image"
-              />
+              {data?.payment_types.map((item, index) => {
+                return (
+                  <img
+                    key={index}
+                    src={item?.image}
+                    className="rounded-lg"
+                    alt="user avatar image"
+                  />
+                )
+              })}
             </>
           </Flex>
           <Typography.Text className="text-sm text-secondary">
-            {t('hotels-page.card.desc')}
+            {data?.name}{t('hotels-page.card.desc')}
           </Typography.Text>
         </Flex>
       ),
@@ -184,37 +204,29 @@ const HotelsItemContent = () => {
             <div className="flex flex-col gap-[6px]">
               <div className="flex gap-3">
                 <h3 className="text-2xl font-semibold text-[#232E40]">
-                  Hyatt Regency Tashkent
+                  {data?.name}
                 </h3>
                 <div className="flex items-center gap-2">
-                  <RatingTag value={8.9} icon />
+                  <RatingTag value={data?.avg_rating} icon />
                 </div>
               </div>
               <a
                 style={{ textDecoration: 'underline' }}
                 className="text-[#2563EB] text-sm font-normal"
               >
-                Лабзак (Ц-13) ж/м, Шайхантахурский район, Ташкент
+                {data?.address}
               </a>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <CallIcon />
             <p className="text-2xl font-semibold text-[#3276FF]">
-              71 207 12 34
+              71 207 12 34 (-)
             </p>
           </div>
         </div>
         <Divider />
-        <p className="text-base font-normal">
-          Hyatt Regency Tashkent предлагает идеальное расположение как для
-          деловых путешественников, так и для туристов. Почувствуйте себя как
-          дома в вашем просторном номере, пообедайте в одном из наших четырех
-          ресторанов и баров, проведите заседание совета директоров или
-          эксклюзивное мероприятие и не забудьте расслабиться в нашем бассейне и
-          спа-зоне. Здесь вы обнаружите, что продуктивность и отдых являются
-          постоянными спутниками вашего пребывания в Ташкенте.
-        </p>
+        <p className="text-base font-normal">{data?.description}</p>
       </div>
       <div className="p-6 border border-border rounded-[12px]">
         <h2 className="text-[24px] font-medium text-primary-dark">
@@ -222,25 +234,21 @@ const HotelsItemContent = () => {
         </h2>
         <Divider />
         <div className="grid grid-cols-5 gap-2">
-          <div className="flex items-center gap-2 text-base font-normal text-[#232E40]">
-            <WifiIcon /> Wi-Fi
-          </div>
-          <div className="flex items-center gap-2 text-base font-normal text-[#232E40]">
-            <TvIcon /> Телевизор
-          </div>
-          <div className="flex items-center gap-2 text-base font-normal text-[#232E40]">
-            <MachineIcon /> Стиральная машина
-          </div>
-          <div className="flex items-center gap-2 text-base font-normal text-[#232E40]">
-            <MicrowaveIcon /> Микроволновка
-          </div>
-          <div className="w-[300px] flex items-center gap-2 text-base font-normal text-[#232E40]">
-            <CameraIcon /> Внешние камеры видеонаблюдения
-          </div>
+          {data?.facilities.map(item => {
+            return (
+              <div
+                key={item.id}
+                className="flex items-center gap-2 text-base font-normal text-[#232E40]"
+              >
+                <img src={item.icon} alt={item.name} />
+                {item.name}
+              </div>
+            )
+          })}
         </div>
       </div>
 
-      <div className="p-6 border border-border rounded-[12px]">
+      <div className="p-6 border rounded-[12px]">
         <h2 className="text-[24px] font-medium text-primary-dark">
           {t('common.accommodation-terms')}
         </h2>
@@ -248,9 +256,7 @@ const HotelsItemContent = () => {
 
         <Table
           columns={columns}
-          dataSource={data}
-          className=" rounded-3xl overflow-hidden"
-          bordered
+          dataSource={dataTable}
           pagination={false}
           showHeader={false}
         />

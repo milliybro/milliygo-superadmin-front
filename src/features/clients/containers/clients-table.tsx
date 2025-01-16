@@ -7,6 +7,7 @@ import ClientsTableActionButton from '../components/clients-table-action-button'
 import type { IClientTable } from '../types'
 import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { IUsers } from '@/features/users/types'
 
 const columns: TableColumnsType<IClientTable> = [
   {
@@ -59,6 +60,11 @@ const columns: TableColumnsType<IClientTable> = [
       compare: (a, b) => a.gender.localeCompare(b.gender),
       multiple: 1,
     },
+    render: data => {
+      return (
+        <div>{data === 'male' ? 'Муж' : data === 'man' ? 'Муж' : 'Жен'}</div>
+      )
+    },
   },
   {
     title: 'fields.entry-date.label',
@@ -101,61 +107,6 @@ const columns: TableColumnsType<IClientTable> = [
   },
 ]
 
-const data: IClientTable[] = [
-  {
-    key: '1',
-    id: 1,
-    fullName: 'John Brown',
-    passportData: 'AB1234567',
-    phoneNumber: '+998901234567',
-    birthYear: 1990,
-    gender: 'Мужчина',
-    entryDate: '2024-12-01',
-    exitDate: '2024-12-05',
-    country: 'Узбекистан',
-    nationality: 'Узбек',
-  },
-  {
-    key: '2',
-    id: 2,
-    fullName: 'Jim Green',
-    passportData: 'CD9876543',
-    phoneNumber: '+998901111111',
-    birthYear: 1985,
-    gender: 'Мужчина',
-    entryDate: '2024-12-10',
-    exitDate: '2024-12-15',
-    country: 'Казахстан',
-    nationality: 'Казах',
-  },
-  {
-    key: '3',
-    id: 3,
-    fullName: 'Joe Black',
-    passportData: 'EF1230987',
-    phoneNumber: '+998902222222',
-    birthYear: 1995,
-    gender: 'Мужчина',
-    entryDate: '2024-12-20',
-    exitDate: '2024-12-25',
-    country: 'Россия',
-    nationality: 'Русский',
-  },
-  {
-    key: '4',
-    id: 4,
-    fullName: 'Jim Red',
-    passportData: 'GH9871234',
-    phoneNumber: '+998903333333',
-    birthYear: 1988,
-    gender: 'Мужчина',
-    entryDate: '2025-01-05',
-    exitDate: '2025-01-10',
-    country: 'Турция',
-    nationality: 'Турок',
-  },
-]
-
 const onChange: TableProps<IClientTable>['onChange'] = (
   pagination,
   filters,
@@ -164,8 +115,18 @@ const onChange: TableProps<IClientTable>['onChange'] = (
 ) => {
   console.log('params', pagination, filters, sorter, extra)
 }
-
-const ClientsTable = () => {
+interface ClientsFiltersProps {
+  setCurrentpage: (value: number) => void
+  currentPage: number
+  isLoading: any
+  clientsData: any
+}
+const ClientsTable: React.FC<ClientsFiltersProps> = ({
+  clientsData,
+  isLoading,
+  currentPage,
+  setCurrentpage,
+}) => {
   const { t } = useTranslation()
 
   const itemRender: PaginationProps['itemRender'] = (
@@ -200,6 +161,26 @@ const ClientsTable = () => {
 
     return originalElement
   }
+
+  const handlePaginationChange = (page: number) => {
+    setCurrentpage(page)
+  }
+
+  const transformedData =
+    clientsData?.results.map((user: IUsers) => ({
+      key: user.id.toString(),
+      id: user.id,
+      fullName:
+        `${user.first_name} ${user.middle_name || ''} ${user.last_name}`.trim(),
+      first_name: user.first_name,
+      last_name: user.last_name,
+      middle_name: user.middle_name || '',
+      gender: user.gender,
+      passportData: user.passport_sn,
+      phoneNumber: user.phone,
+      birthYear: user.birth_date,
+      country: user.country,
+    })) || []
   return (
     <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
       <Table<IClientTable>
@@ -207,12 +188,14 @@ const ClientsTable = () => {
           ...val,
           title: t(val.title as string),
         }))}
-        dataSource={data}
-        onChange={onChange}
+        dataSource={transformedData}
+        onChange={pagination => handlePaginationChange(pagination.current!)}
         className="w-full h-full"
+        loading={isLoading}
         pagination={{
+          current: currentPage,
           pageSize: 10,
-          total: 100,
+          total: clientsData?.count || 0,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],

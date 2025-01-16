@@ -1,14 +1,26 @@
 import { Table } from 'antd'
-import { Link } from 'react-router'
+import { Link, useParams } from 'react-router'
 import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
 
 import StarIcon from '@/components/icons/star'
 
-import type { IHotelsItemTable } from '../types'
 import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
+import { useQuery } from '@tanstack/react-query'
+import { getHotelDetailReview } from '../api'
+import { IHotelsItemReview } from '../types'
 
-const columns: TableColumnsType<IHotelsItemTable> = [
+interface IHotelDetailReview {
+  id: number
+  user?: {
+    first_name: string
+    last_name: string
+  }
+  review: string
+  rating: number
+}
+
+const columns: TableColumnsType<IHotelsItemReview> = [
   {
     title: 'common.hotel',
     dataIndex: 'name',
@@ -22,15 +34,6 @@ const columns: TableColumnsType<IHotelsItemTable> = [
         {record.name}
       </Link>
     ),
-  },
-  {
-    width: 220,
-    title: 'common.period',
-    dataIndex: 'period',
-    sorter: {
-      compare: (a, b) => a.period.localeCompare(b.period),
-      multiple: 2,
-    },
   },
   {
     width: 220,
@@ -49,59 +52,29 @@ const columns: TableColumnsType<IHotelsItemTable> = [
     ),
   },
   {
-    title: 'common.comments',
-    dataIndex: 'comments',
+    width: 220,
+    title: 'common.period',
+    dataIndex: 'date',
     sorter: {
-      compare: (a, b) => a.comments.localeCompare(b.comments),
+      compare: (a, b) => a.date.localeCompare(b.date),
+      multiple: 2,
+    },
+  },
+  {
+    title: 'common.comments',
+    dataIndex: 'review',
+    sorter: {
+      compare: (a, b) => a.review.localeCompare(b.review),
       multiple: 1,
     },
     width: 700,
     render: (_, record) => (
-      <span className="text-sm text-gray-700">{record.comments}</span>
+      <span className="text-sm text-gray-700">{record.review}</span>
     ),
   },
 ]
 
-const data: IHotelsItemTable[] = [
-  {
-    key: '1',
-    id: 1,
-    name: 'Oriente Palace Apartments',
-    period: '2024-12-01 to 2024-12-05',
-    comments:
-      'Приезжали с семьей на неделю, и остались в восторге! Номера просторные, чистые, с красивым видом на город. Завтраки были разнообразные и вкусные — особенно понравилась выпечка. Персонал вежливый и всегда готов помочь. Расположение отеля удобное: рядом много кафе и магазинов. Обязательно вернемся снова!',
-    rating: 5,
-  },
-  {
-    key: '2',
-    id: 2,
-    name: 'Hilton Garden Inn',
-    period: '2024-12-10 to 2024-12-15',
-    comments:
-      'Отличное место для отдыха и работы. Просторные номера с отличной шумоизоляцией. Вкусные завтраки и удобное расположение.',
-    rating: 4,
-  },
-  {
-    key: '3',
-    id: 3,
-    name: 'Hyatt Regency',
-    period: '2024-12-20 to 2024-12-25',
-    comments:
-      'Элегантный отель с отличным сервисом. Особенно понравились удобства в номере и приветливый персонал.',
-    rating: 5,
-  },
-  {
-    key: '4',
-    id: 4,
-    name: 'Sheraton Tashkent',
-    period: '2025-01-05 to 2025-01-10',
-    comments:
-      'Хороший отель, но завышенные цены. Понравилась чистота и расположение.',
-    rating: 4,
-  },
-]
-
-const onChange: TableProps<IHotelsItemTable>['onChange'] = (
+const onChange: TableProps<IHotelsItemReview>['onChange'] = (
   pagination,
   filters,
   sorter,
@@ -112,6 +85,7 @@ const onChange: TableProps<IHotelsItemTable>['onChange'] = (
 
 const HotelsItemReviews = () => {
   const { t } = useTranslation()
+  const { id } = useParams<{ id: string }>()
 
   const itemRender: PaginationProps['itemRender'] = (
     n,
@@ -146,24 +120,45 @@ const HotelsItemReviews = () => {
     return originalElement
   }
 
+  const { data: HotelDetailReview, isLoading } = useQuery({
+    queryKey: ['hotels-detail-review', id],
+    queryFn: async () => {
+      if (!id) throw new Error('ID is required')
+      const res = await getHotelDetailReview({}, Number(id))
+      return res
+    },
+    enabled: !!id,
+  })
+
+  const transformHotelDetailsToTableData = (
+    data: IHotelDetailReview[], 
+  ): IHotelsItemReview[] => {
+    return data.map((item, index: any) => {
+      const { id, user, review, rating } = item
+      return {
+        key: index,
+        id: id,
+        name: user ? `${user.first_name} ${user.last_name}` : 'Anonymous',
+        date: '-', 
+        review: review || 'No review provided', 
+        rating: rating || 0, 
+      }
+    })
+  }
+
   return (
-    <Table<IHotelsItemTable>
+    <Table<IHotelsItemReview>
       columns={columns.map(val => ({
         ...val,
         title: t(val?.title as string),
       }))}
-      dataSource={data}
+      dataSource={
+        HotelDetailReview?.results
+          ? transformHotelDetailsToTableData(HotelDetailReview.results)
+          : []
+      }
       onChange={onChange}
       pagination={false}
-      // pagination={{
-      //   pageSize: 10,
-      //   total: 100,
-      //   hideOnSinglePage: true,
-      //   showSizeChanger: false,
-      //   position: ['bottomCenter'],
-
-      //   itemRender: itemRender,
-      // }}
     />
   )
 }

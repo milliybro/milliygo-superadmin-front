@@ -3,8 +3,8 @@ import type { FC, SVGProps } from 'react'
 const AttachmentIcon: FC<SVGProps<SVGSVGElement>> = props => (
   <svg
     {...props}
-    width="1em"
-    height="1em"
+    width="1.5em"
+    height="2em"
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"

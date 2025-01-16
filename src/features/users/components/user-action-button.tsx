@@ -7,16 +7,20 @@ import useUserModalStore from '../store/user-modal-store'
 import EditIcon from '@/components/icons/edit'
 import DeleteIcon from '@/components/icons/delete'
 
-import type { FC } from 'react'
+import { useState, type FC } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import { deleteUser } from '../api'
+import ConfirmationModal from '@/components/ui/confirmation-modal'
 
 interface IProps {
-  id?: number
+  id?: any
 }
 
-const UserActionButton: FC<IProps> = ({ id }) => {
+const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { pathname } = useLocation()
+  const [deleteModal, setDeleteModal] = useState(false)
 
   const { openModal } = useUserModalStore(store => store)
 
@@ -24,6 +28,14 @@ const UserActionButton: FC<IProps> = ({ id }) => {
     navigate(pathname + '?edit=' + id)
     openModal()
   }
+  const { mutate, isLoading: isDeleting } = useMutation({
+    mutationFn: () => deleteUser(id),
+    onSuccess: () => {
+      setDeleteModal(false)
+      refetch()
+    },
+    onError: () => {},
+  })
 
   return (
     <div className="flex items-center gap-6">
@@ -35,9 +47,25 @@ const UserActionButton: FC<IProps> = ({ id }) => {
         <EditIcon className="text-[20px]" /> {t('common.edit')}
       </Button>
 
-      <Button type="link" danger className="text-[16px] font-medium px-0">
+      <Button
+        onClick={() => setDeleteModal(true)}
+        type="link"
+        danger
+        className="text-[16px] font-medium px-0"
+      >
         <DeleteIcon className="text-[20px]" /> {t('common.delete')}
       </Button>
+      <ConfirmationModal
+        danger
+        icon={DeleteIcon}
+        open={deleteModal}
+        setOpen={setDeleteModal}
+        title="Вы удаляете пользователя?"
+        subTitle="Вы уверены, что хотите удалить пользователя?"
+        primaryBtnText={t('common.delete')}
+        isLoading={isDeleting}
+        action={() => mutate(id)}
+      />
     </div>
   )
 }
