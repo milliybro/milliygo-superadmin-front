@@ -80,7 +80,7 @@
     },
     "card": {
       "title": "Способы оплаты",
-      "desc": "Hotel Neptun Tashkent Pool&Spa принимает эти карты и оставляет за собой право предварительного блокирования средств на карте до вашего приезда."
+      "desc": " принимает эти карты и оставляет за собой право предварительного блокирования средств на карте до вашего приезда."
     }
   
   },
@@ -100,15 +100,31 @@
     "label": "Хотите выйти с аккаунта?",
     "description": "Подтвердите, что вы действительно хотите выйти со своего аккаунта?"
   },
+  "hotel-guest": {
+    "title": "Информация о госте",
+    "lfm": "ФИО",
+    "citizenship": "Гражданство",
+    "nation": "Нации",
+    "birth": "День рождения",
+    "passport": "Паспорт серия",
+    "check-in-out": "Дата въезда/отъезда",
+    "gender": "Пол",
+    "phone": "Номер телефон",
+    "review": "Отзыв",
+    "number": "Номер комната",
+    "type": "Тип номер",
+    "night": "Ночь"
+  },
 
   "fields": {
     "fullname": {
       "label": "ФИО",
-      "placeholder": "Oybek Turonov O'ktam o'g'li",
+      "placeholder": "Введите ФИО",
       "validation-message-required": "Введите ФИО"
     },
     "phone": {
       "label": "Номер телефона",
+      "placeholder": "Введите номер телефона",
       "validation-message-required": "Введите номер телефона"
     },
     "gender": {
@@ -118,10 +134,12 @@
     },
     "login": {
       "label": "Логин",
+      "placeholder": "Выберите логин",
       "validation-message-required": "Введите логин"
     },
     "code": {
-      "label": "Номер телефона",
+      "label": "Пароль",
+      "placeholder": "Выберите код",
       "validation-message-required": "Введите номер телефона"
     },
     "role": {
@@ -232,8 +250,8 @@
       "validation-message-required": "Пожалуйста, выберите хотя бы один способ оплаты"
     },
     "email": {
-      "label": "Электронная почта",
-      "placeholder": "Введите почту",
+      "label": "Логин",
+      "placeholder": "Введите логину",
       "validation-message-required": "Пожалуйста, введите ваш email",
       "validation-message-invalid": "Введенный email недействителен"
     },
@@ -298,6 +316,14 @@
     },
     "created-at": {
       "label": "Дата создания"
+    },
+    "user-notification": {
+      "add": {
+        "message": "Новый пользователь добавлен"
+      },
+      "edit": {
+        "message": "Пользователь изменен"
+      }
     }
   },
 
@@ -370,7 +396,11 @@
     "payment-amount": "Сумма платежа",
     "date-and-time": "Дата и время",
     "approved": "Одобрен",
-    "accrued": "Начислен"
+    "accrued": "Начислен",
+    "men": "Мужчины",
+    "women": "Женщины",
+    "support": "Поддерживать",
+    "manager": "Менеджер"
   },
   "status": {
     "confirmed": "Подтвержден",

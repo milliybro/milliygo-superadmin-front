@@ -2,16 +2,32 @@ import { PaginationProps, Table, TableColumnsType, TableProps } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 import { twMerge } from 'tailwind-merge'
-import { IGuestsTable } from '../types'
+import { IGuestsTable, IHotelsGuests } from '../types'
 import HotelsItemTableActionButton from '../components/hotels-items-table-action'
+import { useQuery } from '@tanstack/react-query'
+import { getHotelGuests } from '../api'
+import { useState } from 'react'
+import { useParams } from 'react-router'
+
+interface IHotelDetailGuests {
+  id: number
+  first_name: string
+  last_name: string
+  citizenship: string
+  nationality: string
+  birth_date: string
+  passport: string
+  check_in: string
+  check_out: string
+}
 
 const columns: TableColumnsType<IGuestsTable> = [
   {
     title: 'ID',
     dataIndex: 'id',
     sorter: {
-      compare: (a, b) => a.id.localeCompare(b.id),
-      multiple: 3,
+      compare: (a: any, b: any) => a.id - b.id,
+      multiple: 1,
     },
   },
   {
@@ -45,6 +61,14 @@ const columns: TableColumnsType<IGuestsTable> = [
       compare: (a, b) => a.birthdate.localeCompare(b.birthdate),
       multiple: 1,
     },
+    render: text => {
+      if (!text) return '-'
+      const date = new Date(text)
+      const day = String(date.getDate()).padStart(2, '0')
+      const month = String(date.getMonth() + 1).padStart(2, '0')
+      const year = date.getFullYear()
+      return `${day}.${month}.${year}`
+    },
   },
   {
     title: 'common.passport',
@@ -70,53 +94,6 @@ const columns: TableColumnsType<IGuestsTable> = [
   },
 ]
 
-const data: IGuestsTable[] = [
-  {
-    key: '1',
-    id: '#TX123',
-    fullName: 'Alisher Makhmudov',
-    citizenship: 'Узбекистан',
-    nation: 'Узбек',
-    birthdate: '21.05.1990',
-    passport: 'AD 123 78 96',
-    checkInOut: '11.11.2024 - 12.12.2024',
-    status: true,
-  },
-  {
-    key: '2',
-    id: '#TX124',
-    fullName: 'Victor Chernov',
-    citizenship: 'Узбекистан',
-    nation: 'Узбек',
-    birthdate: '21.05.1990',
-    passport: 'AD 123 78 96',
-    checkInOut: '11.11.2024 - 12.12.2024',
-    status: false,
-  },
-  {
-    key: '3',
-    id: '#TX125',
-    fullName: 'Andrei Galkin',
-    citizenship: 'Узбекистан',
-    nation: 'Узбек',
-    birthdate: '21.05.1990',
-    passport: 'AD 123 78 96',
-    checkInOut: '11.11.2024 - 12.12.2024',
-    status: true,
-  },
-  {
-    key: '4',
-    id: '#TX126',
-    fullName: 'Alexandra Penova',
-    citizenship: 'Узбекистан',
-    nation: 'Узбек',
-    birthdate: '21.05.1990',
-    passport: 'AD 123 78 96',
-    checkInOut: '11.11.2024 - 12.12.2024',
-    status: false,
-  },
-]
-
 const onChange: TableProps<IGuestsTable>['onChange'] = (
   pagination,
   filters,
@@ -128,6 +105,40 @@ const onChange: TableProps<IGuestsTable>['onChange'] = (
 
 const HotelsItemGuest = () => {
   const { t } = useTranslation()
+  const { id } = useParams<{ id: string }>()
+  const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
+
+  const { data: guests, isLoading } = useQuery({
+    queryKey: ['hotel-guests', id],
+    queryFn: async () => {
+      if (!id) throw new Error('ID is required')
+      const res = await getHotelGuests(
+        { page_size: 10, page: currentPage },
+        Number(id),
+      )
+      return res
+    },
+    enabled: !!id,
+  })
+
+  function transformHotelDetailsToTableData(
+    guests: IHotelsGuests[],
+  ): IGuestsTable[] {
+    return guests.map(guest => ({
+      key: guest?.id,
+      id: guest?.id || 'N/A',
+      fullName: `${guest?.first_name || ''} ${guest?.last_name || ''}`.trim(),
+      citizenship: guest?.citizenship || 'Unknown',
+      nation: guest?.nationality || 'Unknown',
+      birthdate: guest?.birth_date || 'N/A',
+      passport: guest?.passport || 'N/A',
+      checkInOut:
+        guest?.check_in && guest?.check_out
+          ? `${guest.check_in} - ${guest.check_out}`
+          : '-',
+    }))
+  }
 
   const itemRender: PaginationProps['itemRender'] = (
     n,
@@ -168,12 +179,16 @@ const HotelsItemGuest = () => {
           ...val,
           title: t(`${val?.title}`),
         }))}
-        dataSource={data}
+        dataSource={
+          guests?.results
+            ? transformHotelDetailsToTableData(guests.results as any)
+            : []
+        }
         onChange={onChange}
         className="w-full h-full"
         pagination={{
-          pageSize: 10,
-          total: 100,
+          pageSize: pageSize,
+          total: guests?.count,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],

@@ -1,22 +1,21 @@
-import { createContext, useContext } from 'react'
-import type { Dispatch, SetStateAction } from 'react'
+import { createContext, useContext } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 interface AuthContext {
-  isAuth: boolean
-  setIsAuth: Dispatch<SetStateAction<boolean>>
+  isAuth: boolean;
+  setIsAuth: Dispatch<SetStateAction<boolean>>;
 }
 
-const authContext = createContext<AuthContext>({
-  isAuth: false,
-  setIsAuth: () => {},
-})
+const authContext = createContext<AuthContext | undefined>(undefined);
 
-authContext.displayName = 'authContext'
+authContext.displayName = "AuthContext";
 
-const AuthContextConsumer = authContext.Consumer
-
-export { AuthContextConsumer as AuthConsumer, authContext, useAuthContext }
-
-function useAuthContext(): React.ContextType<React.Context<AuthContext>> {
-  return useContext(authContext)
+export function useAuthContext(): AuthContext {
+  const context = useContext(authContext);
+  if (!context) {
+    throw new Error("useAuthContext must be used within an AuthProvider");
+  }
+  return context;
 }
+
+export { authContext };

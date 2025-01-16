@@ -9,9 +9,9 @@ import Loader from '../components/ui/loader'
 export default function Root(): React.ReactElement {
   const { isAuth } = useAuthContext()
 
-  // if (!isAuth) {
-  //   return <Navigate to="/welcome" replace />
-  // }
+  if (!isAuth) {
+    return <Navigate to="/auth/sign-in" replace />
+  }
 
   return (
     <Layout>

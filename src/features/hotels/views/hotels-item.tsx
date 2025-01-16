@@ -1,6 +1,6 @@
-import { Tabs } from 'antd'
+import { Image, Tabs } from 'antd'
 import { Divider } from 'antd'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ROUTE_PATHS } from '@/config/constants'
@@ -20,52 +20,112 @@ import type { TabsProps } from 'antd'
 import HotelsItemRooms from '../containers/hotels-item-rooms'
 import HotelsItemGuest from '../containers/hotels-item-guest'
 import HotelsItemTransactions from '../containers/hotels-item-transaction'
+import { useQuery } from '@tanstack/react-query'
+import { getHotelDetail } from '../api'
+import { useParams } from 'react-router'
 
-const items: TabsProps['items'] = [
-  {
-    key: '1',
-    label: 'common.hotel-content',
-    children: <HotelsItemContent />,
-  },
-  {
-    key: '2',
-    label: 'common.reviews',
-    children: <HotelsItemReviews />,
-  },
-  {
-    key: '3',
-    label: 'common.rooms',
-    children: <HotelsItemRooms />,
-  },
-  {
-    key: '4',
-    label: 'common.guests',
-    children: <HotelsItemGuest />,
-  },
-  {
-    key: '5',
-    label: 'common.transaction',
-    children: <HotelsItemTransactions />,
-  },
-]
+interface IHotelDetail {
+  id: number
+  name: string | undefined
+  description: string
+  rating: number
+  status: boolean
+  avg_rating: number
+  image: string
+  min_price: number
+  published_at: string
+  owner: { first_name: string; last_name: string }
+}
 
 const HotelsItem = () => {
   const { t } = useTranslation()
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
+  const { id } = useParams<{ id: string }>()
+  const [data, setData] = useState<any | null>(null)
+
+  const { data: HotelDetail, isLoading } = useQuery({
+    queryKey: ['hotels-detail', id],
+    queryFn: async () => {
+      if (!id) throw new Error('ID is required')
+      const res = await getHotelDetail({}, Number(id))
+      return res
+    },
+    enabled: !!id,
+  })
 
   useEffect(() => {
-    setBreadCrumbs([
-      { title: t('common.main'), href: ROUTE_PATHS.MAIN },
-      { title: t('common.hotels'), href: ROUTE_PATHS.HOTELS },
-      { title: 'Hyatt Regency Tashkent' },
-    ])
-  }, [])
+    if (HotelDetail) {
+      setData(HotelDetail as any)
+    }
+  }, [HotelDetail])
+
+  useEffect(() => {
+    if (data) {
+      setBreadCrumbs([
+        { title: t('common.main'), href: ROUTE_PATHS.MAIN },
+        { title: t('common.hotels'), href: ROUTE_PATHS.HOTELS },
+        { title: data?.name || t('common.unknown') },
+      ])
+    }
+  }, [data, t])
+
+  const items: TabsProps['items'] = [
+    {
+      key: '1',
+      label: 'common.hotel-content',
+      children: <HotelsItemContent data={data} />,
+    },
+    {
+      key: '2',
+      label: 'common.reviews',
+      children: <HotelsItemReviews />,
+    },
+    {
+      key: '3',
+      label: 'common.rooms',
+      children: <HotelsItemRooms />,
+    },
+    {
+      key: '4',
+      label: 'common.guests',
+      children: <HotelsItemGuest />,
+    },
+    {
+      key: '5',
+      label: 'common.transaction',
+      children: <HotelsItemTransactions />,
+    },
+  ]
+
+  function formatDate(dateString: string) {
+    const months = [
+      'января',
+      'февраля',
+      'марта',
+      'апреля',
+      'мая',
+      'июня',
+      'июля',
+      'августа',
+      'сентября',
+      'октября',
+      'ноября',
+      'декабря',
+    ]
+
+    const date = new Date(dateString)
+    const day = date.getDate()
+    const month = months[date.getMonth()]
+    const year = date.getFullYear()
+
+    return `${day} ${month}, ${year}`
+  }
 
   return (
     <div className="overflow-y-auto">
       <div className="p-6 flex flex-col gap-6 flex-1">
         <div className="text-[24px] text-primary-dark font-semibold">
-          Hyatt Regency Tashkent
+          {data?.name}
         </div>
 
         {/* <HotelsFilters /> */}
@@ -82,13 +142,20 @@ const HotelsItem = () => {
           </div>
           <div className="bg-gradient-to-b from-[#14B8A61A] h-fit sticky top-6 from-0% to-white to-35% gap-6 flex col-span-3 border flex-col p-6 overflow-hidden border-border rounded-[16px]">
             <div className="flex flex-col justify-center items-center gap-[14px]">
-              <div className="size-[108px] rounded-[8px] border border-border bg-secondary-light" />
+              <div className="overflow-hidden size-[108px] rounded-[8px] border border-border bg-secondary-light">
+                <Image
+                  src={data?.image}
+                  alt={data?.name}
+                  width={108}
+                  height={108}
+                />
+              </div>
               <span className="text-[18px] text-primary-dark font-semibold">
-                Hyatt Regency Tashkent
+                {data?.name}
               </span>
               <div className="flex items-center gap-2">
-                <StatusTag active />
-                <RatingTag value={8.9} icon />
+                <StatusTag active={data?.status || false} />
+                <RatingTag value={data?.avg_rating || 0} icon />
               </div>
             </div>
             <div className="flex flex-col">
@@ -97,15 +164,15 @@ const HotelsItem = () => {
                   {t('common.general-information')}
                 </h2>
                 <div className="space-y-3">
-                  <InfoRow label={t('fields.price.label')} value="$ 235" />
                   <InfoRow
-                    label={t('fields.login.label')}
-                    value="crazyfish228"
+                    label={t('fields.price.label')}
+                    value={`${data?.min_price} UZS`}
                   />
-                  <InfoRow label={t('fields.password.label')} value="123456" />
+                  <InfoRow label={t('fields.login.label')} value="" />
+                  <InfoRow label={t('fields.password.label')} value="" />
                   <InfoRow
                     label={t('fields.contact-person.label')}
-                    value="Alisher Makhmudov"
+                    value={`${data?.owner?.first_name} ${data?.owner?.last_name}`}
                   />
                 </div>
               </section>
@@ -115,19 +182,13 @@ const HotelsItem = () => {
                   {t('fields.balance.label')}
                 </h2>
                 <div className="space-y-3">
-                  <InfoRow
-                    label={t('common.bank-account')}
-                    value="40817 810 0100 00012345"
-                  />
-                  <InfoRow label={t('common.bank-code')} value="55829" />
-                  <InfoRow label={t('common.tin')} value="123 456 789" />
-                  <InfoRow
-                    label={t('common.bank-name')}
-                    value="Orient Invest Bank"
-                  />
+                  <InfoRow label={t('common.bank-account')} value="" />
+                  <InfoRow label={t('common.bank-code')} value="" />
+                  <InfoRow label={t('common.tin')} value="" />
+                  <InfoRow label={t('common.bank-name')} value="" />
                   <InfoRow
                     label={t('fields.balance.label')}
-                    value="514 350 000 UZS"
+                    value=""
                     valueClass="text-[16px] font-semibold"
                   />
                 </div>
@@ -154,12 +215,9 @@ const HotelsItem = () => {
                   />
                   <InfoRow
                     label={t('common.issue-date')}
-                    value="19 ноября, 2023"
+                    value={formatDate(data?.published_at || "")}
                   />
-                  <InfoRow
-                    label={t('common.expiration-date')}
-                    value="21 ноября, 2025"
-                  />
+                  <InfoRow label={t('common.expiration-date')} value="" />
                 </div>
               </section>
             </div>

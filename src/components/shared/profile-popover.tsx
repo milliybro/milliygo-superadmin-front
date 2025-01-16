@@ -1,21 +1,22 @@
 import {
   Avatar,
   Button,
-  Divider,
   Flex,
   Modal,
   Popover,
   Space,
-  Switch,
   // Tag,
   Typography,
 } from 'antd'
 import { useCookies } from 'react-cookie'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import ArrowDownIcon from '../icons/arrow-down'
+import UserCircleIcon from '../icons/user-circle'
+import useUserData from '@/hooks/use-user-data'
 
 const ProfilePopover = () => {
-  //   const user = useUserData()
+    const user = useUserData()
   const { t } = useTranslation()
   const [modalLogout, setModalLogout] = useState(false)
   const [cookies, setCookie] = useCookies(['darkTheme'])
@@ -67,15 +68,19 @@ const ProfilePopover = () => {
           </Button>
         }
       >
-        <button
+         <button
           type="button"
           className="flex items-center select-none group font-semibold hover:bg-transparent text-primary-dark dark:text-white text-[15px] leading-[19.12px]"
         >
           <Avatar
             shape="square"
             size={46}
+            icon={<UserCircleIcon className="text-[24px]" />}
+            src={user?.avatar}
             className="bg-secondary-light mr-4 text-primary-dark dark:text-white dark:bg-white/5 font-normal"
           />
+          {user?.first_name + ' ' + user?.last_name}
+          <ArrowDownIcon className="ml-2 text-base" />
         </button>
       </Popover>
       <Modal

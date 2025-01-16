@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import { Button, ConfigProvider, Form, Input, Typography } from 'antd'
+import { Button, ConfigProvider, Form, Input, message, Typography } from 'antd'
 
 import { darkTheme } from '@/providers/theme-provider'
 
@@ -12,13 +12,65 @@ import ViewIcon from '@/components/icons/view'
 import ViewOffIcon from '@/components/icons/view-off'
 import ProjectLogo from '@/components/icons/project-logo'
 import SquarePasswordIcon from '@/components/icons/square-password'
-import CustomerSupportIcon from '@/components/icons/customer-support'
+import { login } from '../api'
+import { useMutation } from '@tanstack/react-query'
+import { useContext } from 'react'
+import { setCookie } from 'cookies-next'
+import { useNavigate } from 'react-router'
+import { AuthContext } from '../context/authContext'
+import { useAuthContext } from '@/contexts/auth-context'
+
+interface AuthStore {
+  isAuthenticated: boolean;
+  login: () => void;
+  logout: () => void;
+  userInfo: Record<string, unknown>;
+}
 
 export default function SignIn(): React.ReactElement {
   const [form] = Form.useForm()
-  const { t } = useTranslation()
+  const { setIsAuth } = useAuthContext()
+  const authContext = useContext(AuthContext)
+  const authStore = authContext?.authStore || {
+    isAuthenticated: false,
+    login: () => {},
+    logout: () => {},
+    userInfo: {},
+  };
+  
 
-  const mutate = () => {}
+  const { isAuthenticated, login: loginAction } = authStore
+  const { t } = useTranslation()
+  const navigate = useNavigate();
+
+  const { mutate: mutateLogin } = useMutation({
+    mutationFn: login,
+    onSuccess: (res) => {
+      if (res.user.is_superuser === true) {
+        localStorage.setItem('refresh', res.refresh);
+        localStorage.setItem('access', res.access);
+        localStorage.setItem('user', JSON.stringify(res.user));
+        loginAction(res.user); 
+        setCookie('user', res.user); 
+        setIsAuth(true); 
+        navigate('/'); 
+        message.success(t('user.login-success'), 2); 
+      } else {
+        message.error(t('user.login-error'), 2); 
+      }
+    },
+    onError: (error: any) => {
+      if (error.response?.status === 401) {
+        message.error(t('user.login-error'), 2); 
+      }
+    },
+  });
+  
+
+  if (isAuthenticated) {
+    navigate('/')
+  }
+
   return (
     <div className="w-[100vw] h-[100vh]">
       <video
@@ -55,7 +107,7 @@ export default function SignIn(): React.ReactElement {
                 form={form}
                 layout="vertical"
                 className="w-full mb-6"
-                onFinish={mutate}
+                onFinish={mutateLogin}
               >
                 <div className="flex flex-col">
                   <div className="mb-1">
@@ -66,16 +118,16 @@ export default function SignIn(): React.ReactElement {
                   <Form.Item
                     name="username"
                     className="[&_.ant-form-item-label_label]:text-white group mb-4 [&_.ant-form-item-explain-error]:text-sm [&_.ant-form-item-explain-error]:my-1 [&_.ant-form-item-required]:before:hidden"
-                    rules={[
-                      {
-                        required: true,
-                        message: t('fields.email.validation-message-required'),
-                      },
-                      {
-                        type: 'email',
-                        message: t('fields.email.validation-message-invalid'),
-                      },
-                    ]}
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: t('fields.email.validation-message-required'),
+                    //   },
+                    //   {
+                    //     type: 'email',
+                    //     message: t('fields.email.validation-message-invalid'),
+                    //   },
+                    // ]}
                   >
                     <Input
                       placeholder={t('fields.email.placeholder')}
@@ -115,7 +167,7 @@ export default function SignIn(): React.ReactElement {
                         ),
                       },
                       {
-                        min: 5,
+                        min: 4,
                         message: t(
                           'fields.password.validation-message-invalid',
                         ),
@@ -152,7 +204,7 @@ export default function SignIn(): React.ReactElement {
               </Form>
             </ConfigProvider>
 
-            <SupportModal
+            {/* <SupportModal
               icon={CustomerSupportIcon}
               title={t('auth-page.support-modal.title')}
               description={t('auth-page.support-modal.description')}
@@ -164,7 +216,7 @@ export default function SignIn(): React.ReactElement {
                 <CustomerSupportIcon />{' '}
                 {t('auth-page.support-modal.contact-support')}
               </button>
-            </SupportModal>
+            </SupportModal> */}
           </div>
         </div>
       </div>

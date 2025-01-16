@@ -6,6 +6,17 @@ import { IHotelsRoom } from '../types'
 import { formatAmount } from '@/helpers/format-amount'
 import TickDoubleIcon from '@/components/icons/tick-double'
 import StatusRoomTag from '../components/status-tag'
+import { useQuery } from '@tanstack/react-query'
+import { useParams } from 'react-router'
+import { getHotelDetailRooms } from '../api'
+import { useState } from 'react'
+
+interface IHotelDetailRooms {
+  id: number
+  name: string
+  price: number
+  status: string
+}
 
 const columns: TableColumnsType<IHotelsRoom> = [
   {
@@ -38,7 +49,7 @@ const columns: TableColumnsType<IHotelsRoom> = [
       compare: (a, b) => a.price - b.price,
       multiple: 1,
     },
-    render: val => <div>{formatAmount(val)} сум</div>,
+    render: val => <div>{val === 0 ? 0 : formatAmount(val)} сум</div>,
   },
   {
     title: 'common.convenience',
@@ -71,40 +82,12 @@ const columns: TableColumnsType<IHotelsRoom> = [
       compare: (a, b) => a.status.localeCompare(b.status),
       multiple: 1,
     },
-    render: ({status}) => <StatusRoomTag status={status} />,
+    render: record => (
+      <StatusRoomTag status={record?.status || 'defaultStatus'} />
+    ),
   },
 ]
 
-const data: IHotelsRoom[] = [
-  {
-    key: '1',
-    id: 1,
-    typeNumber: 'Двухместный номер с 2 отдельными кроватями',
-    price: 5320000,
-    status: 'Свободный',
-  },
-  {
-    key: '2',
-    id: 2,
-    typeNumber: 'Двухместный номер с 2 отдельными кроватями',
-    price: 150,
-    status: 'Забронировано',
-  },
-  {
-    key: '3',
-    id: 3,
-    typeNumber: 'Двухместный номер с 2 отдельными кроватями',
-    price: 5320000,
-    status: 'Свободный',
-  },
-  {
-    key: '4',
-    id: 4,
-    typeNumber: 'Двухместный номер с 2 отдельными кроватями',
-    price: 130,
-    status: 'Забронировано',
-  },
-]
 const onChange: TableProps<IHotelsRoom>['onChange'] = (
   pagination,
   filters,
@@ -115,6 +98,18 @@ const onChange: TableProps<IHotelsRoom>['onChange'] = (
 }
 const HotelsItemRooms = () => {
   const { t } = useTranslation()
+  const { id } = useParams<{ id: string }>()
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const { data: HotelDetailRoom, isLoading } = useQuery({
+    queryKey: ['hotels-detail-rooms', id],
+    queryFn: async () => {
+      if (!id) throw new Error('ID is required')
+      const res = await getHotelDetailRooms({page_size: 10, page: currentPage}, Number(id))
+      return res
+    },
+    enabled: !!id,
+  })
 
   const itemRender: PaginationProps['itemRender'] = (
     n,
@@ -149,6 +144,22 @@ const HotelsItemRooms = () => {
     return originalElement
   }
 
+  const transformHotelDetailsToTableData = (
+    data: IHotelDetailRooms[],
+  ): IHotelsRoom[] => {
+    return data.map((item, index: any) => {
+      const { id } = item
+      return {
+        key: index,
+        id: id,
+        typeNumber: item?.name,
+        name: item.name,
+        price: item?.price || 0,
+        status: item?.status || 'defaultStatus',
+      }
+    })
+  }
+
   return (
     <div>
       <Table<IHotelsRoom>
@@ -156,12 +167,17 @@ const HotelsItemRooms = () => {
           ...val,
           title: t(val?.title as string),
         }))}
-        dataSource={data}
+        dataSource={
+          HotelDetailRoom?.results
+            ? transformHotelDetailsToTableData(HotelDetailRoom.results)
+            : []
+        }
         onChange={onChange}
         className="w-full h-full"
         pagination={{
+          current: currentPage,
           pageSize: 10,
-          total: 100,
+          total: HotelDetailRoom?.count || 0,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],

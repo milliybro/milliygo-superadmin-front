@@ -1,0 +1,79 @@
+import axios from 'axios'
+import settings from '@/config/settings'
+import { refreshToken } from '@/features/auth'
+
+import type { AxiosError } from 'axios'
+
+
+export const baseURL = 'https://auth.emehmon.xdevs.uz/api/v1'
+
+const requestAuth = axios.create({
+  baseURL: baseURL,
+  timeout: settings.requestTimeout,
+})
+
+requestAuth.interceptors.request.use((config) => {
+  const token = localStorage.getItem('access')
+  const cookie = document?.cookie
+    ?.split('; ')
+    ?.find((row) => row.startsWith('csrftoken='))
+    ?.split('=')[1]
+
+  if (token !== null) {
+    // eslint-disable-next-line no-param-reassign
+    config.headers.Authorization = `Bearer ${token}`
+  }
+
+  if (cookie !== null) {
+    // eslint-disable-next-line no-param-reassign
+    config.headers['X-CSRFToken'] = cookie
+  }
+
+  // config.validateStatus = (status) => status < 500;
+
+  return config
+}, errorHandler)
+
+requestAuth.interceptors.response.use((response) => response.data, errorHandler)
+
+export async function errorHandler(error: AxiosError): Promise<void> {
+  if (error.response !== null) {
+    // server responded with a status code that falls out of the range of 2xx
+    if (error.response?.status === 403) {
+      const rToken = localStorage.getItem('refresh')
+
+      if (rToken !== null) {
+        try {
+          const res = await refreshToken({ refresh: rToken })
+          const { refresh, access } = res.data.auth_tokens
+          localStorage.setItem('refresh', refresh)
+          localStorage.setItem('access', access)
+        } catch (err) {
+          localStorage.setItem('refresh_token_error', JSON.stringify(err))
+          localStorage.removeItem('refresh')
+          localStorage.removeItem('access')
+        } finally {
+          window.location.reload()
+        }
+      }
+    }
+
+    await Promise.reject(error.response)
+  }
+  if (error.request !== null) {
+    // no response received from server
+    await Promise.reject(error.request)
+  }
+
+  // something happened in setting up the request
+  console.error(error.message)
+
+  console.log('Error config object:', error.config)
+
+  // Using toJSON you get an object with more information about the HTTP error
+  console.log('\nError object as json:', error.toJSON())
+
+  await Promise.reject(error)
+}
+
+export default requestAuth

@@ -1,10 +1,10 @@
 import ClientsItemHotelCard from '../components/clients-item-hotel-card'
 
-const ClientsItemBooking = () => {
+const ClientsItemBooking = ({ bookings }: { bookings: any }) => {
   return (
     <div className="flex flex-col gap-4">
-      {[1, 2, 3].map((_, i) => (
-        <ClientsItemHotelCard key={'clients-item-' + i} />
+      {bookings?.results.map((item: any, i: number) => (
+        <ClientsItemHotelCard items={item} key={'clients-item-' + i} />
       ))}
     </div>
   )
