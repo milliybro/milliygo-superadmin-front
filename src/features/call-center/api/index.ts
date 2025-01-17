@@ -49,3 +49,14 @@ export async function getMessagesList(
   
     return res
   }
+
+
+  export async function askUserInfo(id:string): Promise<any> {
+    const res: any = await requestSupport({
+      url: `/chats/chat/${id}/ask_for_user_short_info/`,
+      method: 'put',
+      // data,
+    })
+  
+    return res
+  }

@@ -17,7 +17,7 @@ import type {
   KeyboardEvent,
 } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { createMessage, getChatRoom } from '../api'
+import { askUserInfo, createMessage, getChatRoom } from '../api'
 import BlurImage from '@/components/ui/blur-image'
 import { ISendMessage } from '../types'
 import FileIcon from '@/components/icons/file-icon'
@@ -136,6 +136,20 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
       scrollToBottom()
     },
   })
+
+  const { mutate: askUser } = useMutation({
+    mutationFn: () => askUserInfo(selectedChat),
+    onSuccess: (values: ISendMessage) => {
+      console.log('User info fetched successfully:', values)
+    },
+    onError: error => {
+      console.error('Failed to fetch user info:', error)
+    },
+  })
+  const handleClick = () => {
+    askUser();
+  };
+
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
       create()
@@ -232,7 +246,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
       </header>
 
       <div
-        className="flex-1 flex flex-col overflow-y-auto p-4 space-y-2"
+        className="relative flex-1 flex flex-col overflow-y-auto p-4 space-y-2"
         style={{ maxHeight: '580px', overflowY: 'auto' }}
       >
         {[...(messages || [])].reverse().map((message: any) => (
@@ -281,7 +295,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
                       href={message.file}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-white underline-none mt-2  flex items-center gap-2"
+                      className="text-white underline-none mt-2 flex items-center gap-2"
                     >
                       <div className="bg-blue-500 rounded-full flex justify-center items-center border-[#ffffff] p-2 border w-10 h-10">
                         <FileIcon />
@@ -315,7 +329,13 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
           </div>
         ))}
         <div ref={chatEndRef}></div>
+        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center items-center bg-white p-4">
+          <Button onClick={handleClick} className="w-full text-center">
+            Запросить данные
+          </Button>
+        </div>
       </div>
+
       <footer className="p-4 border-t">
         {selectedFile && (
           <div
