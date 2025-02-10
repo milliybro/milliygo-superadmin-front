@@ -23,12 +23,12 @@ interface UsersFiltersProps {
 
 const UsersFilters: React.FC<UsersFiltersProps> = ({
   setSearchTerm,
-  searchTerm,
+  // searchTerm,
   setGender,
-  gender,
-  role,
+  // gender,
+  // role,
   setRole,
-  isActive,
+  // isActive,
   setIsActive,
 }) => {
   const { t } = useTranslation()
@@ -46,7 +46,7 @@ const UsersFilters: React.FC<UsersFiltersProps> = ({
     setIsActive(value)
   }
 
-  const { data: roles, isLoading } = useQuery({
+  const { data: roles } = useQuery({
     queryKey: ['users-roles'],
     queryFn: async () => {
       const res = await getUserRoles()

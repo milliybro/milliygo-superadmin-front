@@ -109,6 +109,7 @@ const HotelsItemGuest = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
 
+  console.log(setCurrentPage, setPageSize)
 
   const { data: guests } = useQuery({
     queryKey: ['hotel-guests', id],

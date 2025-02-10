@@ -31,6 +31,9 @@ const HotelsItemRooms = () => {
   const { id } = useParams<{ id: string }>()
   const [currentPage, setCurrentPage] = useState(1)
 
+  console.log(setCurrentPage);
+  
+
   const columns: TableColumnsType<IHotelsRoom> = [
     {
       title: 'ID',

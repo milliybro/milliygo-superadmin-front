@@ -14,6 +14,9 @@ const CallCenter = () => {
   const [selectedChat, setSelectedChat] = useState<null | string>(null)
   const [currentPage, setCurrentPage] = useState(1)
 
+  console.log(setCurrentPage);
+  
+
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
 
   useEffect(() => {
