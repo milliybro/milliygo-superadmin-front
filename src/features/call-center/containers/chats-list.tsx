@@ -1,6 +1,7 @@
 import type { Dispatch, SetStateAction, FC } from 'react'
 import { Avatar, Spin } from 'antd'
 import defaultUser from '../../../assets/default-user.png'
+import { useTranslation } from 'react-i18next'
 
 interface IProps {
   selectedChat: string | null
@@ -15,6 +16,7 @@ const ChatsList: FC<IProps> = ({
   messagesData,
   isLoading,
 }) => {
+  const { t } = useTranslation()
   const handleChatSelect = (chat: string) => {
     setSelectedChat(chat)
   }
@@ -29,20 +31,16 @@ const ChatsList: FC<IProps> = ({
     const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24)
 
     if (diffInDays < 1) {
-      // Bir kundan kam - vaqtni ko'rsatish
       return messageDate.toLocaleTimeString([], {
         hour: '2-digit',
         minute: '2-digit',
       })
     } else if (diffInDays < 2) {
-      // Ikki kundan kam - kecha
-      return 'kecha'
+      return t('common.night')
     } else if (diffInDays < 7) {
-      // Bir haftadan kam - hafta kunining nomi
-      return messageDate.toLocaleDateString('uz-UZ', { weekday: 'long' })
+      return messageDate.toLocaleDateString('ru', { weekday: 'long' })
     } else {
-      // Bir haftadan ko'p - DD/MM/YYYY format
-      return messageDate.toLocaleDateString('uz-UZ', {
+      return messageDate.toLocaleDateString('ru', {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric',
@@ -56,8 +54,8 @@ const ChatsList: FC<IProps> = ({
         <ul className=" divide-y overflow-scroll h-[720px]">
           {messagesData?.length > 0 ? (
             messagesData
-              .slice() // Create a shallow copy of the array to avoid mutating the original
-              .reverse() // Reverse the array order
+              .slice()
+              .reverse()
               .map((name: any) => (
                 <li
                   key={name.id}
@@ -100,7 +98,7 @@ const ChatsList: FC<IProps> = ({
                 </li>
               ))
           ) : (
-            <p className="text-gray-500">No chats available</p>
+            <p className="text-gray-500">{t('common.no-chat')}</p>
           )}
         </ul>
       </Spin>

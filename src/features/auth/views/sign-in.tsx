@@ -20,12 +20,12 @@ import { useNavigate } from 'react-router'
 import { AuthContext } from '../context/authContext'
 import { useAuthContext } from '@/contexts/auth-context'
 
-interface AuthStore {
-  isAuthenticated: boolean;
-  login: () => void;
-  logout: () => void;
-  userInfo: Record<string, unknown>;
-}
+// interface AuthStore {
+//   isAuthenticated: boolean;
+//   login: () => void;
+//   logout: () => void;
+//   userInfo: Record<string, unknown>;
+// }
 
 export default function SignIn(): React.ReactElement {
   const [form] = Form.useForm()
@@ -39,7 +39,7 @@ export default function SignIn(): React.ReactElement {
   };
   
 
-  const { isAuthenticated, login: loginAction } = authStore
+  const { isAuthenticated, login: loginAction }: any = authStore
   const { t } = useTranslation()
   const navigate = useNavigate();
 

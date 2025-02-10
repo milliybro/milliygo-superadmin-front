@@ -2,7 +2,7 @@ import request from '@/utils/axios'
 
 import type { AxiosResponse } from 'axios'
 import type { AuthResponse } from '../types'
-import requestChat from '@/utils/authRequest'
+// import requestChat from '@/utils/authRequest'
 import requestAuth from '@/utils/authRequest'
 
 export async function login(data: {

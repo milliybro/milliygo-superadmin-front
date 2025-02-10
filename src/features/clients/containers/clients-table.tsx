@@ -9,103 +9,6 @@ import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { IUsers } from '@/features/users/types'
 
-const columns: TableColumnsType<IClientTable> = [
-  {
-    title: 'ID',
-    dataIndex: 'id',
-    sorter: {
-      compare: (a, b) => a.id - b.id,
-      multiple: 4,
-    },
-  },
-  {
-    title: 'fields.fullname.label',
-    dataIndex: 'fullName',
-    sorter: {
-      compare: (a, b) => a.fullName.localeCompare(b.fullName),
-      multiple: 3,
-    },
-  },
-  {
-    title: 'fields.passport-data.label',
-    dataIndex: 'passportData',
-    sorter: {
-      compare: (a, b) => a.passportData.localeCompare(b.passportData),
-      multiple: 2,
-    },
-  },
-  {
-    title: 'fields.phone.label',
-    dataIndex: 'phoneNumber',
-    sorter: {
-      compare: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
-      multiple: 1,
-    },
-    render(value) {
-      return formatPhoneNumber(value)
-    },
-  },
-  {
-    title: 'fields.birthyear.label',
-    dataIndex: 'birthYear',
-    sorter: {
-      compare: (a, b) => a.birthYear - b.birthYear,
-      multiple: 1,
-    },
-  },
-  {
-    title: 'fields.gender.label',
-    dataIndex: 'gender',
-    sorter: {
-      compare: (a, b) => a.gender.localeCompare(b.gender),
-      multiple: 1,
-    },
-    render: data => {
-      return (
-        <div>{data === 'male' ? 'Муж' : data === 'man' ? 'Муж' : 'Жен'}</div>
-      )
-    },
-  },
-  {
-    title: 'fields.entry-date.label',
-    dataIndex: 'entryDate',
-    sorter: {
-      compare: (a, b) =>
-        new Date(a.entryDate).getTime() - new Date(b.entryDate).getTime(),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'fields.exit-date.label',
-    dataIndex: 'exitDate',
-    sorter: {
-      compare: (a, b) =>
-        new Date(a.exitDate).getTime() - new Date(b.exitDate).getTime(),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'fields.country.label',
-    dataIndex: 'country',
-    sorter: {
-      compare: (a, b) => a.country.localeCompare(b.country),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'fields.nationality.label',
-    dataIndex: 'nationality',
-    sorter: {
-      compare: (a, b) => a.nationality.localeCompare(b.nationality),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'common.action',
-    dataIndex: 'id',
-    render: id => <ClientsTableActionButton id={id} />,
-  },
-]
 
 const onChange: TableProps<IClientTable>['onChange'] = (
   pagination,
@@ -128,7 +31,110 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
   setCurrentpage,
 }) => {
   const { t } = useTranslation()
-
+  
+  const columns: TableColumnsType<IClientTable> = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      sorter: {
+        compare: (a, b) => a.id - b.id,
+        multiple: 4,
+      },
+    },
+    {
+      title: 'fields.fullname.label',
+      dataIndex: 'fullName',
+      sorter: {
+        compare: (a, b) => a.fullName.localeCompare(b.fullName),
+        multiple: 3,
+      },
+    },
+    {
+      title: 'fields.passport-data.label',
+      dataIndex: 'passportData',
+      sorter: {
+        compare: (a, b) => a.passportData.localeCompare(b.passportData),
+        multiple: 2,
+      },
+    },
+    {
+      title: 'fields.phone.label',
+      dataIndex: 'phoneNumber',
+      sorter: {
+        compare: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
+        multiple: 1,
+      },
+      render(value) {
+        return formatPhoneNumber(value)
+      },
+    },
+    {
+      title: 'fields.birthyear.label',
+      dataIndex: 'birthYear',
+      sorter: {
+        compare: (a, b) => a.birthYear - b.birthYear,
+        multiple: 1,
+      },
+    },
+    {
+      title: 'fields.gender.label',
+      dataIndex: 'gender',
+      sorter: {
+        compare: (a, b) => a.gender.localeCompare(b.gender),
+        multiple: 1,
+      },
+      render: data => {
+        return (
+          <div>
+            {data === 'male'
+              ? t('common.men-small')
+              : data === 'man'
+                ? t('common.men-small')
+                : t('common.women-small')}
+          </div>
+        )
+      },
+    },
+    {
+      title: 'fields.entry-date.label',
+      dataIndex: 'entryDate',
+      sorter: {
+        compare: (a, b) =>
+          new Date(a.entryDate).getTime() - new Date(b.entryDate).getTime(),
+        multiple: 1,
+      },
+    },
+    {
+      title: 'fields.exit-date.label',
+      dataIndex: 'exitDate',
+      sorter: {
+        compare: (a, b) =>
+          new Date(a.exitDate).getTime() - new Date(b.exitDate).getTime(),
+        multiple: 1,
+      },
+    },
+    {
+      title: 'fields.country.label',
+      dataIndex: 'country',
+      sorter: {
+        compare: (a, b) => a.country.localeCompare(b.country),
+        multiple: 1,
+      },
+    },
+    {
+      title: 'fields.nationality.label',
+      dataIndex: 'nationality',
+      sorter: {
+        compare: (a, b) => a.nationality.localeCompare(b.nationality),
+        multiple: 1,
+      },
+    },
+    {
+      title: 'common.action',
+      dataIndex: 'id',
+      render: id => <ClientsTableActionButton id={id} />,
+    },
+  ]
   const itemRender: PaginationProps['itemRender'] = (
     n,
     type,

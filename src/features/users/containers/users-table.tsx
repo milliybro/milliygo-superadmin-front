@@ -83,7 +83,7 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
       },
       render: data => {
         return (
-          <div>{data === 'male' ? 'Муж' : data === 'man' ? 'Муж' : 'Жен'}</div>
+          <div>{data === 'male' ? t('common.men-small') : data === 'man' ? t('common.men-small') : t('common.women-small')}</div>
         )
       },
     },

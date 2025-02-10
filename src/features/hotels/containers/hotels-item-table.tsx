@@ -134,11 +134,11 @@ const HotelsItemReviews = () => {
     data: IHotelDetailReview[], 
   ): IHotelsItemReview[] => {
     return data.map((item, index: any) => {
-      const { id, user, review, rating } = item
+      const { id, user, review, rating }: any = item
       return {
         key: index,
         id: id,
-        name: user ? `${user.first_name} ${user.last_name}` : 'Anonymous',
+        name: user === null ? `${user.first_name} ${user.last_name}` : 'Anonymous',
         date: '-', 
         review: review || 'No review provided', 
         rating: rating || 0, 

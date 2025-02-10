@@ -18,76 +18,6 @@ interface IHotelDetailRooms {
   status: string
 }
 
-const columns: TableColumnsType<IHotelsRoom> = [
-  {
-    title: 'ID',
-    dataIndex: 'id',
-    className: 'text-center',
-    sorter: {
-      compare: (a, b) => a.id - b.id,
-      multiple: 4,
-    },
-  },
-  {
-    title: 'common.type-number',
-    dataIndex: 'typeNumber',
-    sorter: {
-      compare: (a, b) => a.typeNumber.localeCompare(b.typeNumber),
-      multiple: 3,
-    },
-    render: val => (
-      <div className="flex items-center gap-[10px]">
-        <div className="size-[48px] bg-secondary-light border-border border rounded-[8px]" />
-        <span className="text-[14px] text-primary-dark font-medium">{val}</span>
-      </div>
-    ),
-  },
-  {
-    title: 'common.price-night',
-    dataIndex: 'price',
-    sorter: {
-      compare: (a, b) => a.price - b.price,
-      multiple: 1,
-    },
-    render: val => <div>{val === 0 ? 0 : formatAmount(val)} сум</div>,
-  },
-  {
-    title: 'common.convenience',
-    dataIndex: 'convenience',
-    sorter: {
-      compare: (a, b) => a.typeNumber.localeCompare(b.typeNumber),
-      multiple: 1,
-    },
-    render: () => (
-      <div className="text-sm text-[#4DD282] flex flex-col gap-2">
-        <span className="flex items-center gap-1">
-          <TickDoubleIcon />
-          Завтрак включен
-        </span>
-        <span className="flex items-center gap-1">
-          <TickDoubleIcon />
-          Бесплатная отмена
-        </span>
-        <span className="flex items-center gap-1">
-          <TickDoubleIcon />
-          Нет предоплаты
-        </span>
-      </div>
-    ),
-  },
-  {
-    title: 'fields.status.label',
-    dataIndex: 'status',
-    sorter: {
-      compare: (a, b) => a.status.localeCompare(b.status),
-      multiple: 1,
-    },
-    render: record => (
-      <StatusRoomTag status={record?.status || 'defaultStatus'} />
-    ),
-  },
-]
-
 const onChange: TableProps<IHotelsRoom>['onChange'] = (
   pagination,
   filters,
@@ -101,11 +31,89 @@ const HotelsItemRooms = () => {
   const { id } = useParams<{ id: string }>()
   const [currentPage, setCurrentPage] = useState(1)
 
+  const columns: TableColumnsType<IHotelsRoom> = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      className: 'text-center',
+      sorter: {
+        compare: (a, b) => a.id - b.id,
+        multiple: 4,
+      },
+    },
+    {
+      title: 'common.type-number',
+      dataIndex: 'typeNumber',
+      sorter: {
+        compare: (a, b) => a.typeNumber.localeCompare(b.typeNumber),
+        multiple: 3,
+      },
+      render: val => (
+        <div className="flex items-center gap-[10px]">
+          <div className="size-[48px] bg-secondary-light border-border border rounded-[8px]" />
+          <span className="text-[14px] text-primary-dark font-medium">
+            {val}
+          </span>
+        </div>
+      ),
+    },
+    {
+      title: 'common.price-night',
+      dataIndex: 'price',
+      sorter: {
+        compare: (a, b) => a.price - b.price,
+        multiple: 1,
+      },
+      render: val => (
+        <div>
+          {val === 0 ? 0 : formatAmount(val)} {t('common.summ')}
+        </div>
+      ),
+    },
+    {
+      title: 'common.convenience',
+      dataIndex: 'convenience',
+      sorter: {
+        compare: (a, b) => a.typeNumber.localeCompare(b.typeNumber),
+        multiple: 1,
+      },
+      render: () => (
+        <div className="text-sm text-[#4DD282] flex flex-col gap-2">
+          <span className="flex items-center gap-1">
+            <TickDoubleIcon />
+            {t('common.breakfast')}
+          </span>
+          <span className="flex items-center gap-1">
+            <TickDoubleIcon />
+            {t('common.free-cancel')}
+          </span>
+          <span className="flex items-center gap-1">
+            <TickDoubleIcon />
+            {t('common.no-add-pay')}
+          </span>
+        </div>
+      ),
+    },
+    {
+      title: 'fields.status.label',
+      dataIndex: 'status',
+      sorter: {
+        compare: (a, b) => a.status.localeCompare(b.status),
+        multiple: 1,
+      },
+      render: record => (
+        <StatusRoomTag status={record?.status || 'defaultStatus'} />
+      ),
+    },
+  ]
   const { data: HotelDetailRoom, isLoading } = useQuery({
     queryKey: ['hotels-detail-rooms', id],
     queryFn: async () => {
       if (!id) throw new Error('ID is required')
-      const res = await getHotelDetailRooms({page_size: 10, page: currentPage}, Number(id))
+      const res = await getHotelDetailRooms(
+        { page_size: 10, page: currentPage },
+        Number(id),
+      )
       return res
     },
     enabled: !!id,
