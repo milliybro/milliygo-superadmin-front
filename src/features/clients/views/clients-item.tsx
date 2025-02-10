@@ -35,10 +35,17 @@ const ClientsItem = () => {
   const { data: bookings } = useQuery({
     queryKey: ['clients-booking', id],
     queryFn: async () => {
-      const res = await getClientBooking({ user_id: id })
+      const res = await getClientBooking({ id: id })
       return res
     },
   })
+  // const { data: bookings } = useQuery({
+  //   queryKey: ['clients-booking', id],
+  //   queryFn: async () => {
+  //     const res = await getClientBooking({ user_id: id })
+  //     return res
+  //   },
+  // })
   const { data: reviews } = useQuery({
     queryKey: ['clients-review', id],
     queryFn: async () => {
