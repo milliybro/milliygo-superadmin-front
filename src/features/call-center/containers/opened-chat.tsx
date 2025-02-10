@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Button, Form, Input, Spin, Upload } from 'antd'
+import { Button, Input, Spin } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 import SendIcon from '@/components/icons/send'
@@ -8,7 +8,7 @@ import ArrowLeftIcon from '@/components/icons/arrow-left'
 import AttachmentIcon from '@/components/icons/attachment'
 import TickDoubleIcon from '@/components/icons/tick-double'
 
-import type { UploadChangeParam } from 'antd/es/upload'
+// import type { UploadChangeParam } from 'antd/es/upload'
 import type {
   Dispatch,
   SetStateAction,
@@ -27,17 +27,17 @@ interface IProps {
   setSelectedChat: Dispatch<SetStateAction<string | null>>
 }
 
-type Message = {
-  text: string
-  isSentByUser: boolean
-  image?: string
-}
+// type Message = {
+//   text: string
+//   isSentByUser: boolean
+//   image?: string
+// }
 
 const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   const { t } = useTranslation()
-  const [form] = Form.useForm()
+  // const [form] = Form.useForm()
   const [messageText, setMessageText] = useState('')
-  const [image, setImage] = useState<string | null>(null)
+  // const [image, setImage] = useState<string | null>(null)
   const [messages, setMessages] = useState<any[]>([])
   const chatEndRef = useRef<HTMLDivElement | null>(null)
   const socketRef = useRef<WebSocket | null>(null)
@@ -58,7 +58,6 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   const {
     data: list,
     refetch,
-    isPending: pending,
   } = useQuery({
     queryKey: ['chat_room', selectedChat, data],
     queryFn: async () => {
@@ -130,7 +129,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
       return createMessage(messageFormData)
     },
     onSuccess: (values: ISendMessage) => {
-      // console.log(values)
+      console.log(values)
       setMessageText('')
       setSelectedFile(null)
       scrollToBottom()
