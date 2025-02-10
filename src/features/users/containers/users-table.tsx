@@ -6,19 +6,19 @@ import StatusTag from '@/components/ui/status-tag'
 import UserActionButton from '../components/user-action-button'
 
 import type { IUsers, IUsersTable } from '../types'
-import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
-import { useQuery } from '@tanstack/react-query'
-import { getUsersList } from '../api'
-import React, { useState } from 'react'
+import type { PaginationProps, TableColumnsType } from 'antd'
+// import { useQuery } from '@tanstack/react-query'
+// import { getUsersList } from '../api'
+import React from 'react'
 
-const onChange: TableProps<IUsersTable>['onChange'] = (
-  pagination,
-  filters,
-  sorter,
-  extra,
-) => {
-  console.log('params', pagination, filters, sorter, extra)
-}
+// const onChange: TableProps<IUsersTable>['onChange'] = (
+//   pagination,
+//   filters,
+//   sorter,
+//   extra,
+// ) => {
+//   console.log('params', pagination, filters, sorter, extra)
+// }
 
 interface UsersFiltersProps {
   setCurrentPage: (value: number) => void

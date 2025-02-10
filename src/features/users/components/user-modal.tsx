@@ -5,7 +5,6 @@ import {
   Input,
   Select,
   Button,
-  App,
   Typography,
   notification,
   message,
@@ -23,7 +22,7 @@ import { createUser, getUser, getUserRoles, updateUser } from '../api'
 import { useEffect } from 'react'
 import { IUsers } from '../types'
 import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
-import queryClient from '@/utils/query-client'
+// import queryClient from '@/utils/query-client'
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error'
 
@@ -38,7 +37,7 @@ const UserModal = ({ refetch }: UserModalProps) => {
   const [searchParams] = useSearchParams()
   const { isModalOpen, closeModal } = useUserModalStore(state => state)
 
-  const [messageApi, contextHolder] = message.useMessage()
+  const [messageApi] = message.useMessage()
 
   const [form] = Form.useForm()
 
