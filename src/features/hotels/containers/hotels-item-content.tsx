@@ -93,7 +93,7 @@ const HotelsItemContent = ({ data }: HotelContent) => {
       icon: <LoginIcon className=" w-[18px]" />,
       conditions: (
         <Flex vertical gap={8}>
-          с {formatTime(data?.checkin_start)}
+          {t('common.from')} {formatTime(data?.checkin_start)}
           <Typography.Text className="text-sm text-secondary">
             {t('hotels-page.check-in.desc')}
           </Typography.Text>
@@ -106,7 +106,7 @@ const HotelsItemContent = ({ data }: HotelContent) => {
       icon: <LogoutIcon className=" w-[18px]" />,
       conditions: (
         <Flex vertical gap={8}>
-          до {formatTime(data?.checkout_end)}
+          {t('common.to')} {formatTime(data?.checkout_end)}
         </Flex>
       ),
     },
@@ -163,6 +163,7 @@ const HotelsItemContent = ({ data }: HotelContent) => {
               {data?.payment_types.map((item, index) => {
                 return (
                   <img
+                    width={24} 
                     key={index}
                     src={item?.image}
                     className="rounded-lg"
@@ -173,7 +174,8 @@ const HotelsItemContent = ({ data }: HotelContent) => {
             </>
           </Flex>
           <Typography.Text className="text-sm text-secondary">
-            {data?.name}{t('hotels-page.card.desc')}
+            {data?.name}
+            {t('hotels-page.card.desc')}
           </Typography.Text>
         </Flex>
       ),

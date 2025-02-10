@@ -13,115 +13,6 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { formatAmount } from '@/helpers/format-amount'
 
-const columns: TableColumnsType<IHotelsTable> = [
-  {
-    title: 'ID',
-    dataIndex: 'id',
-    className: 'text-center',
-    sorter: {
-      compare: (a, b) => a.id - b.id,
-      multiple: 4,
-    },
-  },
-  {
-    title: 'fields.hotel-name.label',
-    dataIndex: 'name',
-    sorter: {
-      compare: (a, b) => a.name.localeCompare(b.name),
-      multiple: 3,
-    },
-    render: (_, val) => (
-      <div className="flex items-center gap-[10px]">
-        <div className="size-[48px] bg-secondary-light border-border border rounded-[8px]">
-          <Image src={val?.image} alt={val?.name} width={48} height={48} />
-        </div>
-        <span className="text-[14px] text-primary-dark font-medium">
-          {val?.name}
-        </span>
-      </div>
-    ),
-  },
-  {
-    title: 'fields.location.label',
-    dataIndex: 'location',
-    sorter: {
-      compare: (a, b) => a.location.localeCompare(b.location),
-      multiple: 2,
-    },
-    render: val => (
-      <div>
-        <a style={{ textDecoration: 'underline' }} className="text-[#3276FF]">
-          {val}
-        </a>
-      </div>
-    ),
-  },
-  {
-    title: 'fields.price.label',
-    dataIndex: 'price',
-    sorter: {
-      compare: (a, b) => a.price - b.price,
-      multiple: 1,
-    },
-    render: val => <div>{formatAmount(val)} сум</div>,
-  },
-  {
-    title: 'fields.rating.label',
-    dataIndex: 'rating',
-    sorter: {
-      compare: (a, b) => a.rating - b.rating,
-      multiple: 1,
-    },
-    render: val => <RatingTag value={val} />,
-  },
-  {
-    title: 'fields.login.label',
-    dataIndex: 'login',
-    sorter: {
-      compare: (a, b) => a.login.localeCompare(b.login),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'fields.password.label',
-    dataIndex: 'password',
-    sorter: {
-      compare: (a, b) => a.password.localeCompare(b.password),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'fields.contact-person.label',
-    dataIndex: 'contactPerson',
-    sorter: {
-      compare: (a, b) => a.contactPerson.localeCompare(b.contactPerson),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'fields.status.label',
-    dataIndex: 'status',
-    sorter: {
-      compare: (a, b) => a.status.localeCompare(b.status),
-      multiple: 1,
-    },
-    render: status => <StatusTag active={status} />,
-  },
-  {
-    title: 'fields.balance.label',
-    dataIndex: 'balance',
-    sorter: {
-      compare: (a, b) => a.status.localeCompare(b.status),
-      multiple: 1,
-    },
-  },
-  {
-    width: 1,
-    title: 'common.action',
-    dataIndex: 'id',
-    render: val => <HotelsTableActionButton id={val} />,
-  },
-]
 
 const onChange: TableProps<IHotelsTable>['onChange'] = (
   pagination,
@@ -135,6 +26,116 @@ const onChange: TableProps<IHotelsTable>['onChange'] = (
 const HotelsTable = () => {
   const { t } = useTranslation()
   const [currentPage, setCurrentPage] = useState(1)
+  const columns: TableColumnsType<IHotelsTable> = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      className: 'text-center',
+      sorter: {
+        compare: (a, b) => a.id - b.id,
+        multiple: 4,
+      },
+    },
+    {
+      title: 'fields.hotel-name.label',
+      dataIndex: 'name',
+      sorter: {
+        compare: (a, b) => a.name.localeCompare(b.name),
+        multiple: 3,
+      },
+      render: (_, val) => (
+        <div className="flex items-center gap-[10px]">
+          <div className="size-[48px] bg-secondary-light border-border border rounded-[8px]">
+            <Image src={val?.image} alt={val?.name} width={48} height={48} />
+          </div>
+          <span className="text-[14px] text-primary-dark font-medium">
+            {val?.name}
+          </span>
+        </div>
+      ),
+    },
+    {
+      title: 'fields.location.label',
+      width: 200,
+      dataIndex: 'location',
+      sorter: {
+        compare: (a, b) => a.location.localeCompare(b.location),
+        multiple: 2,
+      },
+      render: val => (
+        <div>
+          <a style={{ textDecoration: 'underline' }} className="text-[#3276FF]">
+            {val}
+          </a>
+        </div>
+      ),
+    },
+    {
+      title: 'fields.price.label',
+      dataIndex: 'price',
+      sorter: {
+        compare: (a, b) => a.price - b.price,
+        multiple: 1,
+      },
+      render: val => <div>{formatAmount(val)} {t('common.summ')}</div>,
+    },
+    {
+      title: 'fields.rating.label',
+      dataIndex: 'rating',
+      sorter: {
+        compare: (a, b) => a.rating - b.rating,
+        multiple: 1,
+      },
+      render: val => <RatingTag value={val} />,
+    },
+    {
+      title: 'fields.login.label',
+      dataIndex: 'login',
+      sorter: {
+        compare: (a, b) => a.login.localeCompare(b.login),
+        multiple: 1,
+      },
+    },
+    // {
+    //   title: 'fields.password.label',
+    //   dataIndex: 'password',
+    //   sorter: {
+    //     compare: (a, b) => a.password.localeCompare(b.password),
+    //     multiple: 1,
+    //   },
+    // },
+    {
+      title: 'fields.contact-person.label',
+      dataIndex: 'contactPerson',
+      sorter: {
+        compare: (a, b) => a.contactPerson.localeCompare(b.contactPerson),
+        multiple: 1,
+      },
+    },
+    {
+      title: 'fields.status.label',
+      dataIndex: 'status',
+      sorter: {
+        compare: (a, b) => a.status.localeCompare(b.status),
+        multiple: 1,
+      },
+      render: status => <StatusTag active={status} />,
+    },
+    {
+      title: 'fields.balance.label',
+      dataIndex: 'balance',
+      sorter: {
+        compare: (a, b) => a.status.localeCompare(b.status),
+        multiple: 1,
+      },
+    },
+    {
+      width: 1,
+      title: 'common.action',
+      dataIndex: 'id',
+      render: val => <HotelsTableActionButton id={val} />,
+    },
+  ]
 
   const { data: HotelsData, isLoading } = useQuery({
     queryKey: ['hotels-data', currentPage],

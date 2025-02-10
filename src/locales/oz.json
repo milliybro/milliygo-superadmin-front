@@ -19,7 +19,9 @@
   "users-page": {
     "add-user": "Foydalanuvchi qo‘shish",
     "edit-user": "Foydalanuvchini tahrirlash",
-    "modal-description": "Yangi foydalanuvchi qo‘shish uchun iltimos, barcha zarur maydonlarni to‘ldiring"
+    "modal-description": "Yangi foydalanuvchi qo‘shish uchun iltimos, barcha zarur maydonlarni to‘ldiring",
+    "delete-modal": "Siz foydalanuvchini o'chiryapsizmi?",
+    "delete-modal-desc": "Siz foydalanuvchini o'chirib tashlamoqchimisiz?"
   },
 
   "complaints-page": {
@@ -27,10 +29,54 @@
     "not-found-title": "Hech narsa topilmadi",
     "not-found-description": "Hozircha sizda shikoyatlar mavjud emas."
   },
-
-  "hotels-page": {
-    "add-hotel": "Mehmonxona qo‘shish"
-  },
+"hotels-page": {
+    "add-hotel": "Mehmonxonani qo'shish",
+    "add-hotel-desc": "Yangi mehmonxona qo'shish uchun kerakli maydonlarni to'ldiring",
+    "name": {
+      "title": "Mehmonxona nomi",
+      "placeholder": "Mehmonxona nomini kiriting"
+    },
+    "login": {
+      "title": "Kirish",
+      "placeholder": "Loginni kiriting"
+    },
+    "password": {
+      "title": "Parol",
+      "placeholder": "Parolni kiriting"
+    },
+    "domen": {
+      "title": "Domen",
+      "placeholder": "Domen havolasini kiriting"
+    },
+    "period": "davr",
+    "check-in": {
+      "title": "Kelish",
+      "desc": "Ro'yxatdan o'tish paytida identifikatsiya fotosurati va kredit karta talab qilinadi."
+    },
+    "check-out": {
+      "title": "Ketish",
+      "desc": "Chiqish paytida rasmli identifikatsiya va kredit karta talab qilinadi."
+    },
+    "bed-for-child": {
+      "title": "Bolalar to'shaklari",
+      "desc": "Bolalarni joylashtirish qoidalari",
+      "text1": "Har qanday yoshdagi bolalarga qolishga ruxsat beriladi.",
+      "text2": "13 va undan katta yoshdagi bolalar uchun bu mehmonxonada kattalar sifatida haq olinadi.",
+      "text3": "Aniq narxlar va mavjudligini ko'rish uchun guruhingizdagi bolalar sonini va qidiruv paytida ularning yoshini ko'rsating."
+    },
+    "no-age": {
+      "title": "Yosh cheklovlari yo'q",
+      "desc": "Kirish uchun yosh chegarasi yo'q."
+    },
+    "pets":{
+      "title": "Uy hayvonlari",
+      "desc": "Uy hayvonlariga ruxsat berilmaydi."
+    },
+    "card": {
+      "title": "To'lov usullari",
+      "desc": " ushbu kartalarni qabul qiladi va kelishidan oldin kartangizdagi mablag'larni vaqtincha ushlab turish huquqini o'zida saqlab qoladi."
+    }
+ },
 
   "access-role-page": {
     "add-role": "Rol qo‘shish",
@@ -56,6 +102,7 @@
     },
     "phone": {
       "label": "Telefon raqam",
+      "placeholder": "Telefon raqam kiriting",
       "validation-message-required": "Telefon raqamni kiriting"
     },
     "gender": {
@@ -65,11 +112,13 @@
     },
     "login": {
       "label": "Login",
+      "placeholder": "Loginni kiriting",
       "validation-message-required": "Loginni kiriting"
     },
     "code": {
-      "label": "Telefon raqam",
-      "validation-message-required": "Telefon raqamni kiriting"
+      "label": "Parol",
+      "placeholder": "Parolni kiriting",
+      "validation-message-required": "Parolni kiriting"
     },
     "role": {
       "label": "Rol",
@@ -229,6 +278,15 @@
       "placeholder": "Sanani tanlang"
     }
   },
+  "tenant": {
+    "tenant": "Tenant",
+    "tenant-name": "Tenant nomi",
+    "add-tenant": "Tenant qo'shish",
+    "domen": "Domen",
+    "start-date": "Boshlanish sanasi",
+    "end-date": "Tugatish sanasi",
+    "edit-tenant": "Tenantni tahrirlash"
+  },
   "common": {
     "statistics": "Statistika",
     "users": "Foydalanuvchilar",
@@ -282,6 +340,43 @@
     "my-account": "Mening akkauntim",
     "login-to-account": "Akkauntga kirish",
     "additional-number": "Qo‘shimcha raqam",
-    "support-service": "Qo‘llab-quvvatlash xizmati"
+    "support-service": "Qo‘llab-quvvatlash xizmati",
+    "no-chat": "Ma'lumot mavjud emas",
+    "night": "kecha",
+    "request-data": "Ma'lumotlarni so'rash",
+    "tenants": "Tenantlar",
+    "men": "Erkak",
+    "women": "Ayol",    
+    "men-small": "Erkak", 
+    "women-small": "Ayol",
+    "support": "Qo'llab-quvvatlash",
+    "summ": "so'm",
+    "transaction": "Tranzaksiyalar",
+    "from": "dan",
+    "to": "gacha",
+    "type-number": "Raqam turi",
+    "price-night": "Narx (bir kechaga)",
+    "convenience": "Qulaylik",
+    "breakfast": "Nonushta kiritilgan",
+    "free-cancel": "Bepul bekor qilish",
+    "no-add-pay": "Oldindan to'lov yo'q",
+    "nation": "Millatlar",
+    "birthdate": "Tug'ilgan kun",
+    "passport": "Pasport seriyasi",
+    "check-in-out": "Kirish/ketish sanasi",
+    "approved": "Tasdiqlangan",
+    "accrued": "Hisoblangan",
+    "fullName-guest": "Mehmonning to'liq ismi",
+    "payment-method": "To'lov usuli",
+    "room": "Raqam",
+    "payment-amount": "To'lov summasi",
+    "date-and-time": "Sana va vaqt"
+  },
+  "status": {
+    "confirmed": "Tasdiqlangan",
+    "pending": "kutilmoqda",
+    "canceled":"Bekor qilingan",
+    "free": "Bepul",
+    "unknown": "Noma'lum"
   }
 }

@@ -41,11 +41,9 @@ export async function getUsersList(
 
   export async function updateUser(params: { id: string; queryParams: any }): Promise<IUsers> {
     const { id, queryParams } = params;
-  
     if (!id) {
       throw new Error('User ID is required for updating a user.');
     }
-  
     const res: IUsers = await requestAuth({
       url: `/account/users/${id}/`,
       method: 'patch',

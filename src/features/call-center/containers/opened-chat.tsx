@@ -17,7 +17,7 @@ import type {
   KeyboardEvent,
 } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { askUserInfo, createMessage, getChatRoom } from '../api'
+import { askUserInfo, createMessage, getChatRoom, getMessage } from '../api'
 import BlurImage from '@/components/ui/blur-image'
 import { ISendMessage } from '../types'
 import FileIcon from '@/components/icons/file-icon'
@@ -46,21 +46,21 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const chatBodyRef = useRef<HTMLDivElement>(null)
 
-  // const { data } = useQuery({
-  //   queryKey: ['chat', selectedChat],
-  //   queryFn: async () => {
-  //     const res = await getMessage({ id: selectedChat })
-  //     return res
-  //   },
-  //   enabled: !!selectedChat,
-  // })
+  const { data } = useQuery({
+    queryKey: ['chat', selectedChat],
+    queryFn: async () => {
+      const res = await getMessage({ id: selectedChat })
+      return res
+    },
+    enabled: !!selectedChat,
+  })
 
   const {
     data: list,
     refetch,
     isPending: pending,
   } = useQuery({
-    queryKey: ['chat_room', selectedChat],
+    queryKey: ['chat_room', selectedChat, data],
     queryFn: async () => {
       const res = await getChatRoom({ id: selectedChat })
       return res
@@ -147,8 +147,8 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
     },
   })
   const handleClick = () => {
-    askUser();
-  };
+    askUser()
+  }
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -247,7 +247,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
 
       <div
         className="relative flex-1 flex flex-col overflow-y-auto p-4 space-y-2"
-        style={{ maxHeight: '580px', overflowY: 'auto' }}
+        style={{ maxHeight: '580px', overflowY: 'auto', position: 'relative'}}
       >
         {[...(messages || [])].reverse().map((message: any) => (
           <div
@@ -329,13 +329,14 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
           </div>
         ))}
         <div ref={chatEndRef}></div>
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center items-center bg-white p-4">
+
+        
+      </div>
+      <div className="bg-white p-4">
           <Button onClick={handleClick} className="w-full text-center">
-            Запросить данные
+            {t('common.request-data')}
           </Button>
         </div>
-      </div>
-
       <footer className="p-4 border-t">
         {selectedFile && (
           <div
@@ -355,18 +356,19 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
             />
           </div>
         )}
+        
         <div className="flex items-center">
           {/* <Upload
             showUploadList={false}
             beforeUpload={() => false}
             // onChange={handleImageChange}
-          >
+            >
             <Button
-              onClick={handleButtonClick}
-              type="text"
-              icon={<AttachmentIcon className="text-[24px] text-[#B7BFD5]" />}
+            onClick={handleButtonClick}
+            type="text"
+            icon={<AttachmentIcon className="text-[24px] text-[#B7BFD5]" />}
             />
-          </Upload> */}
+            </Upload> */}
           <Button
             type="link"
             onClick={handleButtonClick}

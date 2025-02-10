@@ -21,9 +21,9 @@ const ProfilePopover = () => {
   const [modalLogout, setModalLogout] = useState(false)
   const [cookies, setCookie] = useCookies(['darkTheme'])
 
-  const changeThemeHandler = (val: boolean) => {
-    setCookie('darkTheme', val)
-  }
+  // const changeThemeHandler = (val: boolean) => {
+  //   setCookie('darkTheme', val)
+  // }
 
   useEffect(() => {
     if (cookies.darkTheme) {

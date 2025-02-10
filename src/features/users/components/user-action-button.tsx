@@ -60,11 +60,11 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
         icon={DeleteIcon}
         open={deleteModal}
         setOpen={setDeleteModal}
-        title="Вы удаляете пользователя?"
-        subTitle="Вы уверены, что хотите удалить пользователя?"
+        title={t('users-page.delete-modal')}
+        subTitle={t('users-page.delete-modal-desc')}
         primaryBtnText={t('common.delete')}
         isLoading={isDeleting}
-        action={() => mutate(id)}
+        action={() => mutate(id as any)}
       />
     </div>
   )

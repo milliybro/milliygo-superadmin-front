@@ -20,9 +20,9 @@ export async function getUser(
     params?: any,
   ): Promise<IUsers> {
     const res: IUsers = await request({
-      url: `/bookings/bookings/?user=${params.id}`,
+      url: `/superadmin/bookings/list/`,
       method: 'get',
-      params: params.queryParams,
+      params: { ...params },
     })
   
     return res

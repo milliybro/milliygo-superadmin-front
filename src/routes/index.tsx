@@ -12,6 +12,7 @@ import accessRoleRoutes from '@/features/access-roles/routes'
 
 import type { CustomRoute } from '@/types'
 import servicesRoutes from '@/features/services/routes'
+import tenantsRoutes from '@/features/tenants/routes'
 
 const routes: CustomRoute[] = [
   {
@@ -25,7 +26,8 @@ const routes: CustomRoute[] = [
       callCenterRoutes,
       usersRoutes,
       accessRoleRoutes,
-      servicesRoutes
+      servicesRoutes,
+      tenantsRoutes
     ],
   },
   authRoutes,

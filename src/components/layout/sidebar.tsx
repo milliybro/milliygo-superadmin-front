@@ -59,6 +59,11 @@ const items = [
     icon: ServicesIcon,
     path: ROUTE_PATHS.SERVICES,
   },
+  {
+    label: 'common.tenants',
+    icon: Hotel2Icon,
+    path: ROUTE_PATHS.TENANTS,
+  },
 ]
 
 const Sidebar = () => {

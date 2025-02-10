@@ -35,7 +35,7 @@ const ClientsItem = () => {
   const { data: bookings } = useQuery({
     queryKey: ['clients-booking', id],
     queryFn: async () => {
-      const res = await getClientBooking({ id: id })
+      const res = await getClientBooking({ user_id: id })
       return res
     },
   })
