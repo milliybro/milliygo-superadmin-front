@@ -2,7 +2,7 @@ import { Table } from 'antd'
 import { Link } from 'react-router'
 import { useTranslation } from 'react-i18next'
 
-import type { IClientItemTable, IClientReview } from '../types'
+import type { IClientItemTable } from '../types'
 import type { TableColumnsType, TableProps } from 'antd'
 
 const columns: TableColumnsType<IClientItemTable> = [

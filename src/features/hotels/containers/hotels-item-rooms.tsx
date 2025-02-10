@@ -106,7 +106,7 @@ const HotelsItemRooms = () => {
       ),
     },
   ]
-  const { data: HotelDetailRoom, isLoading } = useQuery({
+  const { data: HotelDetailRoom } = useQuery({
     queryKey: ['hotels-detail-rooms', id],
     queryFn: async () => {
       if (!id) throw new Error('ID is required')

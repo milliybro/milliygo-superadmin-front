@@ -5,19 +5,19 @@ import formatPhoneNumber from '@/helpers/format-phone-number'
 import ClientsTableActionButton from '../components/clients-table-action-button'
 
 import type { IClientTable } from '../types'
-import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
+import type { PaginationProps, TableColumnsType } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { IUsers } from '@/features/users/types'
 
 
-const onChange: TableProps<IClientTable>['onChange'] = (
-  pagination,
-  filters,
-  sorter,
-  extra,
-) => {
-  console.log('params', pagination, filters, sorter, extra)
-}
+// const onChange: TableProps<IClientTable>['onChange'] = (
+//   pagination,
+//   filters,
+//   sorter,
+//   extra,
+// ) => {
+//   console.log('params', pagination, filters, sorter, extra)
+// }
 interface ClientsFiltersProps {
   setCurrentpage: (value: number) => void
   currentPage: number

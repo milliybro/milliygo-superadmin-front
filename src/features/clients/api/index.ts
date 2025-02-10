@@ -1,5 +1,5 @@
 import { IUsers } from "@/features/users/types"
-import { ListResponse } from "@/types"
+// import { ListResponse } from "@/types"
 import requestAuth from "@/utils/authRequest"
 import request from "@/utils/axios"
 
