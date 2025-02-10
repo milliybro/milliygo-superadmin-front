@@ -19,7 +19,7 @@ const ProfilePopover = () => {
     const user = useUserData()
   const { t } = useTranslation()
   const [modalLogout, setModalLogout] = useState(false)
-  const [cookies, setCookie] = useCookies(['darkTheme'])
+  const [cookies] = useCookies(['darkTheme'])
 
   // const changeThemeHandler = (val: boolean) => {
   //   setCookie('darkTheme', val)

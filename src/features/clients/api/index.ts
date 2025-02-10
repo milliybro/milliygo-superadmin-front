@@ -1,5 +1,5 @@
 import { IUsers } from "@/features/users/types"
-import { ListResponse } from "@/types"
+// import { ListResponse } from "@/types"
 import requestAuth from "@/utils/authRequest"
 import request from "@/utils/axios"
 
@@ -20,9 +20,9 @@ export async function getUser(
     params?: any,
   ): Promise<IUsers> {
     const res: IUsers = await request({
-      url: `/superadmin/bookings/list/`,
+      url: `/bookings/bookings/?user=${params.id}`,
       method: 'get',
-      params: { ...params },
+      params: params.queryParams,
     })
   
     return res

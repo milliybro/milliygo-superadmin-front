@@ -20,7 +20,7 @@ import HotelIcon from '@/components/icons/hotel'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { createTenant, getTenant, updateTenant } from '../api'
 import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
-import { IHotelsTable, ITenantsTable } from '../types'
+import { ITenantsTable } from '../types'
 import { useEffect } from 'react'
 import dayjs from 'dayjs'
 
@@ -35,7 +35,7 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
   const [form] = Form.useForm()
   const [searchParams] = useSearchParams()
   const { isModalOpen, closeModal } = useHotelModalStore(state => state)
-  const [messageApi, contextHolder] = message.useMessage()
+  const [messageApi] = message.useMessage()
 
   const editTenantId = searchParams.get('edit')
 

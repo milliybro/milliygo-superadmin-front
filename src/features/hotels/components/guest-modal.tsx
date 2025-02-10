@@ -1,11 +1,11 @@
 import { useTranslation } from 'react-i18next'
 import {
   Modal,
-  Form,
-  Input,
-  Select,
+  // Form,
+  // Input,
+  // Select,
   Button,
-  DatePicker,
+  // DatePicker,
   Typography,
   Divider,
 } from 'antd'
@@ -13,13 +13,13 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router'
 
 import useHotelModalStore from '../store/hotel-modal-store'
 
-import CSelect from '@/components/ui/select'
+// import CSelect from '@/components/ui/select'
 import CloseIcon from '@/components/icons/close-icon'
-import HotelIcon from '@/components/icons/hotel'
-import dayjs from 'dayjs'
+// import HotelIcon from '@/components/icons/hotel'
+// import dayjs from 'dayjs'
 import UserIcon from '@/components/icons/user'
 
-const { RangePicker } = DatePicker
+// const { RangePicker } = DatePicker
 
 const GuestInfoSection = ({ info }: { info: any }) => {
   const { t } = useTranslation()

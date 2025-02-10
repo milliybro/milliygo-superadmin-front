@@ -9,17 +9,17 @@ import { getHotelGuests } from '../api'
 import { useState } from 'react'
 import { useParams } from 'react-router'
 
-interface IHotelDetailGuests {
-  id: number
-  first_name: string
-  last_name: string
-  citizenship: string
-  nationality: string
-  birth_date: string
-  passport: string
-  check_in: string
-  check_out: string
-}
+// interface IHotelDetailGuests {
+//   id: number
+//   first_name: string
+//   last_name: string
+//   citizenship: string
+//   nationality: string
+//   birth_date: string
+//   passport: string
+//   check_in: string
+//   check_out: string
+// }
 
 const columns: TableColumnsType<IGuestsTable> = [
   {
@@ -109,7 +109,8 @@ const HotelsItemGuest = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
 
-  const { data: guests, isLoading } = useQuery({
+
+  const { data: guests } = useQuery({
     queryKey: ['hotel-guests', id],
     queryFn: async () => {
       if (!id) throw new Error('ID is required')

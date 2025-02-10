@@ -17,9 +17,9 @@ interface ClientsFiltersProps {
 
 const ClientsFilters: React.FC<ClientsFiltersProps> = ({
   setSearchTerm,
-  searchTerm,
+  // searchTerm,
   setGender,
-  gender,
+  // gender,
 }) => {
   const { t } = useTranslation()
 

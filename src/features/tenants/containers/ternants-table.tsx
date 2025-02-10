@@ -25,7 +25,7 @@ const columns: TableColumnsType<IHotelsTable> = [
       compare: (a, b) => a.schema_name.localeCompare(b.schema_name),
       multiple: 3,
     },
-    render: (_, val) => (
+    render: (_) => (
       <div className="flex items-center gap-[10px]">
         <span className="text-[14px] text-primary-dark font-medium">{_}</span>
       </div>
@@ -38,7 +38,7 @@ const columns: TableColumnsType<IHotelsTable> = [
       compare: (a, b) => a.username.localeCompare(b.username),
       multiple: 1,
     },
-    render: (_, val) => (
+    render: (_) => (
       <div className="flex items-center gap-[10px]">{_ ? _ : '-'}</div>
     ),
   },
@@ -57,7 +57,7 @@ const columns: TableColumnsType<IHotelsTable> = [
       compare: (a, b) => a.start_date.localeCompare(b.start_date),
       multiple: 1,
     },
-    render: (_, val) => (
+    render: (_) => (
       <div className="flex items-center gap-[10px]">{_ ? _ : '-'}</div>
     ),
   },
@@ -68,7 +68,7 @@ const columns: TableColumnsType<IHotelsTable> = [
       compare: (a, b) => a.end_date.localeCompare(b.end_date),
       multiple: 1,
     },
-    render: (_, val) => (
+    render: (_) => (
       <div className="flex items-center gap-[10px]">{_ ? _ : '-'}</div>
     ),
   },
@@ -79,7 +79,7 @@ const columns: TableColumnsType<IHotelsTable> = [
       compare: (a, b) => a.domain.localeCompare(b.domain),
       multiple: 1,
     },
-    render: (_, val) => (
+    render: (_) => (
       <Button
         type="link"
         href={`http://${_}`}
@@ -119,7 +119,6 @@ const onChange: TableProps<IHotelsTable>['onChange'] = (
 
 const TenantsTable = ({
   tenantsData,
-  refetch,
   currentPage,
   setCurrentPage,
   isLoading,
