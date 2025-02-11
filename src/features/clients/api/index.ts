@@ -3,7 +3,7 @@ import { ListResponse } from "@/types"
 // import { ListResponse } from "@/types"
 import requestAuth from "@/utils/authRequest"
 import request from "@/utils/axios"
-import { Country, ICountry } from "../types"
+import { ICountry } from "../types"
 
 
 export async function getUser(
