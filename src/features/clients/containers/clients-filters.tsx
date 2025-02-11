@@ -17,6 +17,7 @@ interface ClientsFiltersProps {
   setGender: (value: string) => void
   gender: string
   setSelectedCountry: (value: string) => void
+  setIsActive: (value: boolean) => void
 }
 
 const ClientsFilters: React.FC<ClientsFiltersProps> = ({
@@ -25,6 +26,7 @@ const ClientsFilters: React.FC<ClientsFiltersProps> = ({
   setGender,
   setSelectedCountry,
   // gender,
+  setIsActive
 }) => {
   const { t } = useTranslation()
 
@@ -76,6 +78,10 @@ const ClientsFilters: React.FC<ClientsFiltersProps> = ({
   //     setPage(prev => prev + 1)
   //   }
   // }
+  const handleActiveChange = (value: any) => {
+    setIsActive(value)
+  }
+
 
   return (
     <Form layout="vertical" className="grid grid-cols-4 gap-4">
@@ -131,7 +137,10 @@ const ClientsFilters: React.FC<ClientsFiltersProps> = ({
       </Form.Item>
       <Form.Item label={t('fields.status.label')}>
         <CSelect
-          options={[{ label: '123', value: 123 }]}
+          options={[
+            { label: t('common.active'), value: 'true' },
+            { label: t('common.inactive'), value: 'false' },
+          ]}
           suffixIcon={null}
           className="w-full select-shadow h-[47px]"
           size="large"
@@ -139,6 +148,8 @@ const ClientsFilters: React.FC<ClientsFiltersProps> = ({
           prefix={
             <UserStatusIcon className="text-[16px] text-secondary ml-2 mr-4" />
           }
+          onChange={handleActiveChange}
+          allowClear={true}
         />
       </Form.Item>
     </Form>
