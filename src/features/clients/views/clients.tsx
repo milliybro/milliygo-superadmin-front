@@ -17,6 +17,7 @@ const Clients = () => {
   const [searchTerm, setSearchTerm] = useState('')
   const [gender, setGender] = useState('')
   const [selectedCountry, setSelectedCountry] = useState('')
+  const [isActive, setIsActive] = useState(true)
 
   console.log('SSS', selectedCountry)
 
@@ -37,6 +38,7 @@ const Clients = () => {
         page: currentPage,
         search: searchTerm,
         gender: gender || undefined,
+        is_active: isActive
       })
       return res
     },
@@ -50,6 +52,7 @@ const Clients = () => {
       </div>
       <ClientsFilters
         setSearchTerm={setSearchTerm}
+        setIsActive={setIsActive}
         searchTerm={searchTerm}
         gender={gender}
         setGender={setGender}

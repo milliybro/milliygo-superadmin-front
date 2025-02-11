@@ -24,6 +24,14 @@ requestSupport.interceptors.request.use((config) => {
     config.headers.Authorization = `Bearer ${token}`
   }
 
+  const locale = localStorage.getItem('i18nextLng')
+  config.headers['Accept-Language'] =
+    locale === 'uz'
+      ? 'uz-cyrillic'
+      : locale === 'oz'
+      ? 'uz-latin'
+      : locale || 'ru'
+
   if (cookie !== null) {
     // eslint-disable-next-line no-param-reassign
     config.headers['X-CSRFToken'] = cookie

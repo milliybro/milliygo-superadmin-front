@@ -13,6 +13,7 @@ import accessRoleRoutes from '@/features/access-roles/routes'
 import type { CustomRoute } from '@/types'
 import servicesRoutes from '@/features/services/routes'
 import tenantsRoutes from '@/features/tenants/routes'
+import statisticsRoutes from '@/features/statistics/routes'
 
 const routes: CustomRoute[] = [
   {
@@ -20,6 +21,7 @@ const routes: CustomRoute[] = [
     path: ROUTE_PATHS.MAIN,
     element: <Root />,
     children: [
+      statisticsRoutes,
       complaintsRoutes,
       hotelsRoutes,
       clientsRoutes,
