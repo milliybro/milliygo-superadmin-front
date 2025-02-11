@@ -30,9 +30,9 @@ request.interceptors.request.use((config) => {
       ? 'uz-latin'
       : locale || 'ru'
 
-  // if (cookie !== null) {
-  //   config.headers['X-CSRFToken'] = cookie
-  // }
+  if (cookie !== null) {
+    config.headers['X-CSRFToken'] = cookie
+  }
 
   // config.validateStatus = (status) => status < 500;
 
