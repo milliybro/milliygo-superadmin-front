@@ -22,30 +22,38 @@ const ClientsItem = () => {
   const { t } = useTranslation()
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
 
+  const { id } = useParams()
+  console.log(id)
   const { data } = useQuery({
-    queryKey: ['user'],
+    queryKey: ['user', id],
     queryFn: async () => {
       const res = await getUser({ id: id })
       return res
     },
   })
-  const { id } = useParams()
-  console.log(id)
 
-  const { data: bookings } = useQuery({
-    queryKey: ['clients-booking', id],
-    queryFn: async () => {
-      const res = await getClientBooking({ id: id })
-      return res
-    },
-  })
   // const { data: bookings } = useQuery({
   //   queryKey: ['clients-booking', id],
   //   queryFn: async () => {
-  //     const res = await getClientBooking({ user_id: id })
+  //     const res = await getClientBooking({ id: id })
   //     return res
   //   },
   // })
+  const language =
+    localStorage.getItem('i18nextLng') === 'oz'
+      ? 'uz-latin'
+      : localStorage.getItem('i18nextLng') === 'uz'
+        ? 'uz-cyrillic'
+        : localStorage.getItem('i18nextLng')
+
+  const { data: bookings } = useQuery({
+    queryKey: ['clients-booking', id, language],
+    queryFn: async () => {
+      const res = await getClientBooking({ user_id: id, language })
+      return res
+    },
+    enabled: !!id,
+  })
   const { data: reviews } = useQuery({
     queryKey: ['clients-review', id],
     queryFn: async () => {

@@ -10,6 +10,13 @@ interface IClientTable {
   exitDate: string
   country: string
   nationality: string
+  country_name: string
+}
+
+interface Country {
+  id: number
+  name: string
+  code: string
 }
 
 interface IClientItemTable {
@@ -27,4 +34,13 @@ interface IClientReview {
   price: number
   status: string
 }
-export type { IClientTable, IClientItemTable, IClientReview }
+
+interface ICountry {
+  id: number
+  translations: string
+  code: string
+  sp_id: number | null
+  name: string
+  results: any
+}
+export type { IClientTable, IClientItemTable, IClientReview, Country, ICountry }

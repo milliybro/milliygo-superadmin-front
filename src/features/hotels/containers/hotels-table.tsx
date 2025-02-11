@@ -13,7 +13,6 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { formatAmount } from '@/helpers/format-amount'
 
-
 const onChange: TableProps<IHotelsTable>['onChange'] = (
   pagination,
   filters,
@@ -38,18 +37,23 @@ const HotelsTable = () => {
     },
     {
       title: 'fields.hotel-name.label',
-      dataIndex: 'name',
+      dataIndex: 'placement_name',
       sorter: {
-        compare: (a, b) => a.name.localeCompare(b.name),
+        compare: (a, b) => a.placement_name.localeCompare(b.placement_name),
         multiple: 3,
       },
       render: (_, val) => (
         <div className="flex items-center gap-[10px]">
           <div className="size-[48px] bg-secondary-light border-border border rounded-[8px]">
-            <Image src={val?.image} alt={val?.name} width={48} height={48} />
+            <Image
+              src={val?.image}
+              alt={val?.placement_name}
+              width={48}
+              height={48}
+            />
           </div>
           <span className="text-[14px] text-primary-dark font-medium">
-            {val?.name}
+            {val?.placement_name}
           </span>
         </div>
       ),
@@ -57,9 +61,10 @@ const HotelsTable = () => {
     {
       title: 'fields.location.label',
       width: 200,
-      dataIndex: 'location',
+      dataIndex: 'placement_address',
       sorter: {
-        compare: (a, b) => a.location.localeCompare(b.location),
+        compare: (a, b) =>
+          a.placement_address.localeCompare(b.placement_address),
         multiple: 2,
       },
       render: val => (
@@ -77,7 +82,11 @@ const HotelsTable = () => {
         compare: (a, b) => a.price - b.price,
         multiple: 1,
       },
-      render: val => <div>{formatAmount(val)} {t('common.summ')}</div>,
+      render: val => (
+        <div>
+          {val ? formatAmount(val) : '0'} {t('common.summ')}
+        </div>
+      ),
     },
     {
       title: 'fields.rating.label',
@@ -106,9 +115,9 @@ const HotelsTable = () => {
     // },
     {
       title: 'fields.contact-person.label',
-      dataIndex: 'contactPerson',
+      dataIndex: 'full_name',
       sorter: {
-        compare: (a, b) => a.contactPerson.localeCompare(b.contactPerson),
+        compare: (a, b) => a.full_name.localeCompare(b.full_name),
         multiple: 1,
       },
     },
@@ -132,8 +141,11 @@ const HotelsTable = () => {
     {
       width: 1,
       title: 'common.action',
-      dataIndex: 'id',
-      render: val => <HotelsTableActionButton id={val} />,
+      // dataIndex: 'id',
+      render: (id, val) => (
+        <HotelsTableActionButton key={id} id={val.id} tenant_id={val.key ?? undefined} />
+
+      ),
     },
   ]
 
@@ -184,13 +196,13 @@ const HotelsTable = () => {
   }
 
   const transformedHotelsData =
-    HotelsData?.results.map((item: IHotelsTable) => ({
-      key: item.id.toString(),
+    HotelsData?.results.map((item: IHotelsTable | any) => ({
+      key: item.tenant_id,
       id: item.id,
-      name: item.name,
+      placement_name: item.placement_name,
       image: item.image,
-      location: item.address,
-      price: item.min_price,
+      placement_address: item.placement_address,
+      price: item.price,
       rating: item.star_rating,
       status: item.status,
       address: item.address,
@@ -198,7 +210,7 @@ const HotelsTable = () => {
       star_rating: item.star_rating,
       login: item.login,
       password: item.password,
-      contactPerson: item.contactPerson,
+      full_name: item.full_name,
       balance: item.balance,
     })) || []
 

@@ -6,7 +6,7 @@ export async function getHotelsList(
     params?: any,
   ): Promise<ListResponse<IHotelsTable[]>> {
     const res: ListResponse<IHotelsTable[]> = await request({
-      url: '/placements/placements/',
+      url: '/superadmin/placements/list/',
       method: 'get',
       params,
     })
@@ -16,10 +16,9 @@ export async function getHotelsList(
 
   export async function getHotelDetail(
     params?: any,
-    id?: number
   ): Promise<ListResponse<IHotelDetail[]>> {
     const res: ListResponse<IHotelDetail[]> = await request({
-      url: `/placements/placements/detail_info/${id}/`,
+      url: `/superadmin/placements/detail/`,
       method: 'get',
       params,
     })

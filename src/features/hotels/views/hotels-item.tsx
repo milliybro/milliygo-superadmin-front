@@ -22,7 +22,7 @@ import HotelsItemGuest from '../containers/hotels-item-guest'
 import HotelsItemTransactions from '../containers/hotels-item-transaction'
 import { useQuery } from '@tanstack/react-query'
 import { getHotelDetail } from '../api'
-import { useParams } from 'react-router'
+import { useParams, useSearchParams } from 'react-router'
 
 // interface IHotelDetail {
 //   id: number
@@ -42,12 +42,17 @@ const HotelsItem = () => {
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const { id } = useParams<{ id: string }>()
   const [data, setData] = useState<any | null>(null)
+  const [searchParams] = useSearchParams()
+
+  const tenant_id = searchParams.get('tenant_id')
+
+  console.log(tenant_id)
 
   const { data: HotelDetail } = useQuery({
-    queryKey: ['hotels-detail', id],
+    queryKey: ['hotels-detail', id, tenant_id],
     queryFn: async () => {
       if (!id) throw new Error('ID is required')
-      const res = await getHotelDetail({}, Number(id))
+      const res = await getHotelDetail({ tenant_id, id, type: tenant_id ? 'managment' : 'site' })
       return res
     },
     enabled: !!id,
@@ -59,12 +64,14 @@ const HotelsItem = () => {
     }
   }, [HotelDetail])
 
+  console.log('DATA', data?.placement_detail?.name)
+
   useEffect(() => {
     if (data) {
       setBreadCrumbs([
         { title: t('common.main'), href: ROUTE_PATHS.MAIN },
         { title: t('common.hotels'), href: ROUTE_PATHS.HOTELS },
-        { title: data?.name || t('common.unknown') },
+        { title: data?.placement_detail?.name ?? t('common.unknown') },
       ])
     }
   }, [data, t])
@@ -144,18 +151,21 @@ const HotelsItem = () => {
             <div className="flex flex-col justify-center items-center gap-[14px]">
               <div className="overflow-hidden size-[108px] rounded-[8px] border border-border bg-secondary-light">
                 <Image
-                  src={data?.image}
-                  alt={data?.name}
+                  src={data?.placement_images[0]?.image}
+                  alt={data?.placement_detail?.name}
                   width={108}
                   height={108}
                 />
               </div>
               <span className="text-[18px] text-primary-dark font-semibold">
-                {data?.name}
+                {data?.placement_detail?.name}
               </span>
               <div className="flex items-center gap-2">
-                <StatusTag active={data?.status || false} />
-                <RatingTag value={data?.avg_rating || 0} icon />
+                <StatusTag active={data?.placement_detail?.status || false} />
+                <RatingTag
+                  value={data?.placement_detail?.avg_rating || 0}
+                  icon
+                />
               </div>
             </div>
             <div className="flex flex-col">
@@ -166,13 +176,13 @@ const HotelsItem = () => {
                 <div className="space-y-3">
                   <InfoRow
                     label={t('fields.price.label')}
-                    value={`${data?.min_price} UZS`}
+                    value={`${data?.placement_detail?.min_price} UZS`}
                   />
                   <InfoRow label={t('fields.login.label')} value="" />
                   <InfoRow label={t('fields.password.label')} value="" />
                   <InfoRow
                     label={t('fields.contact-person.label')}
-                    value={`${data?.owner?.first_name} ${data?.owner?.last_name}`}
+                    value={`${data?.owner?.first_name ? data?.owner?.first_name : ''} ${data?.owner?.last_name ? data?.owner?.last_name : ''}`}
                   />
                 </div>
               </section>
@@ -215,7 +225,7 @@ const HotelsItem = () => {
                   />
                   <InfoRow
                     label={t('common.issue-date')}
-                    value={formatDate(data?.published_at || "")}
+                    value={formatDate(data?.published_at || '')}
                   />
                   <InfoRow label={t('common.expiration-date')} value="" />
                 </div>
