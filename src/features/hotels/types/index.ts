@@ -10,19 +10,19 @@ interface IHotelsItemTable {
 interface IHotelsTable {
   key: string
   id: number
-  name: string
   image: string
   address: string
   min_price: number
   star_rating: number
-  location: string
   price: number
   rating: number
   login: string
   password: string
-  contactPerson: string
   status: string
   balance: string
+  placement_name: string
+  placement_address: string
+  full_name: string
 }
 
 interface IHotelDetail {

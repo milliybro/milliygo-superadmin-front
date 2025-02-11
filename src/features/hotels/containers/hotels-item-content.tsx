@@ -1,4 +1,4 @@
-import { Flex, Form, Table, TableProps, Typography } from 'antd'
+import { Flex, Form, Image, Table, TableProps, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Divider, message } from 'antd'
 
@@ -46,6 +46,16 @@ interface PaymentType {
 
 interface HotelContent {
   data: {
+    placement_detail: {
+      checkin_start: string
+      checkout_end: string
+      description: string
+      address: string
+      avg_rating: string
+      name: string
+    }
+    placement_images: any
+    placement_facilities: any
     id: number
     name: string
     avg_rating: number
@@ -93,7 +103,7 @@ const HotelsItemContent = ({ data }: HotelContent) => {
       icon: <LoginIcon className=" w-[18px]" />,
       conditions: (
         <Flex vertical gap={8}>
-          {t('common.from')} {formatTime(data?.checkin_start)}
+          {t('common.from')} {formatTime(data?.placement_detail?.checkin_start)}
           <Typography.Text className="text-sm text-secondary">
             {t('hotels-page.check-in.desc')}
           </Typography.Text>
@@ -106,7 +116,7 @@ const HotelsItemContent = ({ data }: HotelContent) => {
       icon: <LogoutIcon className=" w-[18px]" />,
       conditions: (
         <Flex vertical gap={8}>
-          {t('common.to')} {formatTime(data?.checkout_end)}
+          {t('common.to')} {formatTime(data?.placement_detail?.checkout_end)}
         </Flex>
       ),
     },
@@ -163,7 +173,7 @@ const HotelsItemContent = ({ data }: HotelContent) => {
               {data?.payment_types.map((item, index) => {
                 return (
                   <img
-                    width={24} 
+                    width={24}
                     key={index}
                     src={item?.image}
                     className="rounded-lg"
@@ -202,21 +212,27 @@ const HotelsItemContent = ({ data }: HotelContent) => {
         <Divider />
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-4">
-            <div className="size-[80px] rounded-[8px] border border-border bg-secondary-light" />
+            {/* <div className="size-[80px] rounded-[8px] border border-border bg-secondary-light" /> */}
+            <Image
+              width={80}
+              height={80}
+              className="object-cover"
+              src={data?.placement_images[0]?.image}
+            />
             <div className="flex flex-col gap-[6px]">
               <div className="flex gap-3">
                 <h3 className="text-2xl font-semibold text-[#232E40]">
-                  {data?.name}
+                  {data?.placement_detail?.name}
                 </h3>
                 <div className="flex items-center gap-2">
-                  <RatingTag value={data?.avg_rating} icon />
+                  <RatingTag value={data?.placement_detail?.avg_rating} icon />
                 </div>
               </div>
               <a
                 style={{ textDecoration: 'underline' }}
                 className="text-[#2563EB] text-sm font-normal"
               >
-                {data?.address}
+                {data?.placement_detail?.address}
               </a>
             </div>
           </div>
@@ -228,7 +244,9 @@ const HotelsItemContent = ({ data }: HotelContent) => {
           </div>
         </div>
         <Divider />
-        <p className="text-base font-normal">{data?.description}</p>
+        <p className="text-base font-normal">
+          {data?.placement_detail?.description}
+        </p>
       </div>
       <div className="p-6 border border-border rounded-[12px]">
         <h2 className="text-[24px] font-medium text-primary-dark">
@@ -236,14 +254,14 @@ const HotelsItemContent = ({ data }: HotelContent) => {
         </h2>
         <Divider />
         <div className="grid grid-cols-5 gap-2">
-          {data?.facilities.map(item => {
+          {data?.placement_facilities.map((item: any) => {
             return (
               <div
-                key={item.id}
+                key={item?.id}
                 className="flex items-center gap-2 text-base font-normal text-[#232E40]"
               >
-                <img src={item.icon} alt={item.name} />
-                {item.name}
+                <img src={item?.icon} alt={item?.name} />
+                {item?.name}
               </div>
             )
           })}

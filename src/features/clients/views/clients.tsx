@@ -16,6 +16,9 @@ const Clients = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [searchTerm, setSearchTerm] = useState('')
   const [gender, setGender] = useState('')
+  const [selectedCountry, setSelectedCountry] = useState('')
+
+  console.log('SSS', selectedCountry)
 
   useEffect(() => {
     setBreadCrumbs([
@@ -25,11 +28,12 @@ const Clients = () => {
   }, [])
 
   const { data: ClientsData, isLoading } = useQuery({
-    queryKey: ['users-data', currentPage, searchTerm, gender],
+    queryKey: ['users-data', currentPage, searchTerm, gender, selectedCountry],
     queryFn: async () => {
       const res = await getUsersList({
         page_size: 10,
-        client_or_employee: 'client',
+        // client_or_employee: 'client',
+        country: selectedCountry ? selectedCountry : null,
         page: currentPage,
         search: searchTerm,
         gender: gender || undefined,
@@ -49,6 +53,7 @@ const Clients = () => {
         searchTerm={searchTerm}
         gender={gender}
         setGender={setGender}
+        setSelectedCountry={setSelectedCountry}
       />
       <ClientsTable
         clientsData={ClientsData}

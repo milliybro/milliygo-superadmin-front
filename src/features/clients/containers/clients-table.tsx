@@ -8,7 +8,7 @@ import type { IClientTable } from '../types'
 import type { PaginationProps, TableColumnsType } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { IUsers } from '@/features/users/types'
-
+import { capitalizeFirstLetters } from '@/helpers/capitalize-first-letter'
 
 // const onChange: TableProps<IClientTable>['onChange'] = (
 //   pagination,
@@ -31,7 +31,7 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
   setCurrentpage,
 }) => {
   const { t } = useTranslation()
-  
+
   const columns: TableColumnsType<IClientTable> = [
     {
       title: 'ID',
@@ -95,30 +95,37 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
         )
       },
     },
-    {
-      title: 'fields.entry-date.label',
-      dataIndex: 'entryDate',
-      sorter: {
-        compare: (a, b) =>
-          new Date(a.entryDate).getTime() - new Date(b.entryDate).getTime(),
-        multiple: 1,
-      },
-    },
-    {
-      title: 'fields.exit-date.label',
-      dataIndex: 'exitDate',
-      sorter: {
-        compare: (a, b) =>
-          new Date(a.exitDate).getTime() - new Date(b.exitDate).getTime(),
-        multiple: 1,
-      },
-    },
+    // {
+    //   title: 'fields.entry-date.label',
+    //   dataIndex: 'entryDate',
+    //   sorter: {
+    //     compare: (a, b) =>
+    //       new Date(a.entryDate).getTime() - new Date(b.entryDate).getTime(),
+    //     multiple: 1,
+    //   },
+    // },
+    // {
+    //   title: 'fields.exit-date.label',
+    //   dataIndex: 'exitDate',
+    //   sorter: {
+    //     compare: (a, b) =>
+    //       new Date(a.exitDate).getTime() - new Date(b.exitDate).getTime(),
+    //     multiple: 1,
+    //   },
+    // },
     {
       title: 'fields.country.label',
-      dataIndex: 'country',
+      dataIndex: 'country_name',
       sorter: {
-        compare: (a, b) => a.country.localeCompare(b.country),
+        compare: (a, b) => a.country_name.localeCompare(b.country_name),
         multiple: 1,
+      },
+      render: country_name => {
+        return (
+          <span>
+            {country_name ? capitalizeFirstLetters(country_name) : country_name}
+          </span>
+        )
       },
     },
     {
@@ -185,7 +192,8 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
       passportData: user.passport_sn,
       phoneNumber: user.phone,
       birthYear: user.birth_date,
-      country: user.country,
+      country_name: user.country_name,
+      nationality: user.nationality,
     })) || []
   return (
     <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">

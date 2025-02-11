@@ -1,3 +1,4 @@
+import NotFoundIcon from '@/components/icons/not-found'
 import { useTranslation } from 'react-i18next'
 
 const NoComplaintsFound = () => {
@@ -5,11 +6,8 @@ const NoComplaintsFound = () => {
 
   return (
     <div className="flex flex-col justify-center gap-3 items-center">
-      <img
-        src="/src/assets/not-found-illustration.svg"
-        alt="not found illustration"
-        className="size-[180px]"
-      />
+      <NotFoundIcon />
+
       <span className="text-[26px] font-semibold text-primary-dark">
         {t('complaints-page.not-found-title')}
       </span>

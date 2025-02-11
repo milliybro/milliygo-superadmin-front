@@ -35,6 +35,8 @@ interface IUsers {
   role: string
   code: number
   type: IType
+  country_name: string
+  nationality: number
 }
 interface IType {
   name: string
