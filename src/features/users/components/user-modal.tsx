@@ -262,8 +262,8 @@ const UserModal = ({ refetch }: UserModalProps) => {
             placeholder={t('fields.gender.placeholder')}
             className="select-shadow"
           >
-            <Select.Option value="male">Мужчина</Select.Option>
-            <Select.Option value="female">Женщина</Select.Option>
+            <Select.Option value="male">{t('common.men')}</Select.Option>
+            <Select.Option value="female">{t('common.women')}</Select.Option>
           </CSelect>
         </Form.Item>
 
@@ -352,8 +352,8 @@ const UserModal = ({ refetch }: UserModalProps) => {
             className="select-shadow"
             placeholder={t('fields.status.placeholder')}
           >
-            <Select.Option value={true}>Активный</Select.Option>
-            <Select.Option value={false}>Неактивный</Select.Option>
+            <Select.Option value={true}>{t('common.active')}</Select.Option>
+            <Select.Option value={false}>{t('common.inactive')}</Select.Option>
           </CSelect>
         </Form.Item>
 

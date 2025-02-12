@@ -235,7 +235,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
         />
         <div>
           <h3 className="text-lg font-semibold">{selectedChat}</h3>
-          <p className="text-sm text-gray-500">Была онлайн 2 дня назад</p>
+          <p className="text-sm text-gray-500"></p>
         </div>
         <Button
           type="text"

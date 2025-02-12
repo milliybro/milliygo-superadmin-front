@@ -253,9 +253,9 @@
     },
     "email": {
       "label": "Логин",
-      "placeholder": "Введите логину",
-      "validation-message-required": "Пожалуйста, введите ваш email",
-      "validation-message-invalid": "Введенный email недействителен"
+      "placeholder": "Введите логин",
+      "validation-message-required": "Пожалуйста, введите ваш логин",
+      "validation-message-invalid": "Введенный логин недействителен"
     },
 
     "passport-data": {
@@ -421,7 +421,8 @@
     "to": "до",
     "breakfast": "Завтрак включен",
     "free-cancel": "Бесплатная отмена",
-    "no-add-pay": "Нет предоплаты"
+    "no-add-pay": "Нет предоплаты",
+    "login-success": "Авторизация прошла успешно"
   },
   "status": {
     "confirmed": "Подтвержден",

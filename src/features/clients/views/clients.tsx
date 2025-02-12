@@ -18,6 +18,7 @@ const Clients = () => {
   const [gender, setGender] = useState('')
   const [selectedCountry, setSelectedCountry] = useState('')
   const [isActive, setIsActive] = useState(true)
+  const [pageSize, setPageSize] = useState(10)
 
   console.log('SSS', selectedCountry)
 
@@ -32,7 +33,7 @@ const Clients = () => {
     queryKey: ['users-data', currentPage, searchTerm, gender, selectedCountry],
     queryFn: async () => {
       const res = await getUsersList({
-        page_size: 10,
+        page_size: pageSize,
         // client_or_employee: 'client',
         country: selectedCountry ? selectedCountry : null,
         page: currentPage,
@@ -63,6 +64,7 @@ const Clients = () => {
         isLoading={isLoading}
         currentPage={currentPage}
         setCurrentpage={setCurrentPage}
+        pageSize={pageSize}
       />
     </div>
   )

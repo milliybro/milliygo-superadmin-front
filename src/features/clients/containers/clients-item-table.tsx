@@ -4,13 +4,14 @@ import { useTranslation } from 'react-i18next'
 
 import type { IClientItemTable } from '../types'
 import type { TableColumnsType, TableProps } from 'antd'
+import formatDate from '../components/format-date'
 
 const columns: TableColumnsType<IClientItemTable> = [
   {
     title: 'common.hotel',
-    dataIndex: 'name',
+    dataIndex: 'placement',
     sorter: {
-      compare: (a, b) => a.name.localeCompare(b.name),
+      compare: (a, b) => a.placement.localeCompare(b.placement),
       multiple: 3,
     },
     width: 250,
@@ -27,6 +28,13 @@ const columns: TableColumnsType<IClientItemTable> = [
     sorter: {
       compare: (a, b) => a.period.localeCompare(b.period),
       multiple: 2,
+    },
+    render: value => {
+      return (
+        <div className="">
+          {formatDate(value?.start_date)} - {formatDate(value?.end_date)}
+        </div>
+      )
     },
   },
   {
@@ -48,14 +56,15 @@ const onChange: TableProps<IClientItemTable>['onChange'] = (
 const ClientsItemTable = ({ reviews }: { reviews: any }) => {
   const { t } = useTranslation()
   const transformHotelDetailsToTableData = (data: any): IClientItemTable[] => {
-    return data.map((item:any, index: any) => {
+    return data.map((item: any, index: any) => {
       const { id } = item
       return {
         key: index,
         id: id,
-        name: item.name,
+        placement: item.placement,
         review: item?.review || 0,
         status: item?.status || 'defaultStatus',
+        period: item?.booking,
       }
     })
   }

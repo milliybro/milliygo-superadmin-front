@@ -52,6 +52,7 @@ interface IHotelsRoom {
   typeNumber: string
   price: number
   status: string
+  room_images: string
 }
 interface IHotelsGuests {
   key: number

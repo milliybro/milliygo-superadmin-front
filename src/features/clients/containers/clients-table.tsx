@@ -9,6 +9,7 @@ import type { PaginationProps, TableColumnsType } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { IUsers } from '@/features/users/types'
 import { capitalizeFirstLetters } from '@/helpers/capitalize-first-letter'
+import dayjs from 'dayjs'
 
 // const onChange: TableProps<IClientTable>['onChange'] = (
 //   pagination,
@@ -23,12 +24,14 @@ interface ClientsFiltersProps {
   currentPage: number
   isLoading: any
   clientsData: any
+  pageSize: number
 }
 const ClientsTable: React.FC<ClientsFiltersProps> = ({
   clientsData,
   isLoading,
   currentPage,
   setCurrentpage,
+  pageSize,
 }) => {
   const { t } = useTranslation()
 
@@ -36,6 +39,8 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
     {
       title: 'ID',
       dataIndex: 'id',
+      render: (_text, _record, index) =>
+        (currentPage - 1) * pageSize + index + 1,
       sorter: {
         compare: (a, b) => a.id - b.id,
         multiple: 4,
@@ -48,6 +53,9 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
         compare: (a, b) => a.fullName.localeCompare(b.fullName),
         multiple: 3,
       },
+      render: val => {
+        return <div className="">{val ? val : '-'}</div>
+      },
     },
     {
       title: 'fields.passport-data.label',
@@ -55,6 +63,9 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
       sorter: {
         compare: (a, b) => a.passportData.localeCompare(b.passportData),
         multiple: 2,
+      },
+      render: val => {
+        return <div className="text-center">{val ? val : '-'}</div>
       },
     },
     {
@@ -65,7 +76,7 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
         multiple: 1,
       },
       render(value) {
-        return formatPhoneNumber(value)
+        return <div className="text-center">{formatPhoneNumber(value)}</div>
       },
     },
     {
@@ -74,6 +85,13 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
       sorter: {
         compare: (a, b) => a.birthYear - b.birthYear,
         multiple: 1,
+      },
+      render: data => {
+        return (
+          <div className="text-center">
+            {data ? dayjs(data).format('DD MMM, YYYY') : '-'}
+          </div>
+        )
       },
     },
     {
@@ -122,18 +140,21 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
       },
       render: country_name => {
         return (
-          <span>
-            {country_name ? capitalizeFirstLetters(country_name) : country_name}
-          </span>
+          <div className="text-center">
+            {country_name ? capitalizeFirstLetters(country_name) : '-'}
+          </div>
         )
       },
     },
     {
       title: 'fields.nationality.label',
-      dataIndex: 'nationality',
+      dataIndex: 'nationality_name',
       sorter: {
-        compare: (a, b) => a.nationality.localeCompare(b.nationality),
+        compare: (a, b) => a.nationality_name.localeCompare(b.nationality_name),
         multiple: 1,
+      },
+      render: val => {
+        return <div className="text-center">{val ? val : '-'}</div>
       },
     },
     {
@@ -193,7 +214,7 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
       phoneNumber: user.phone,
       birthYear: user.birth_date,
       country_name: user.country_name,
-      nationality: user.nationality,
+      nationality_name: user.nationality_name,
     })) || []
   return (
     <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">

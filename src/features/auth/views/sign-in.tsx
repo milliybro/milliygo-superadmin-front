@@ -54,12 +54,15 @@ export default function SignIn(): React.ReactElement {
         setCookie('user', res.user); 
         setIsAuth(true); 
         navigate('/'); 
-        message.success(t('user.login-success'), 2); 
+        
+        message.success(t('common.login-success'), 2); 
       } else {
         message.error(t('user.login-error'), 2); 
       }
     },
     onError: (error: any) => {
+      message.error(error?.data?.detail, 2); 
+
       if (error.response?.status === 401) {
         message.error(t('user.login-error'), 2); 
       }

@@ -22,31 +22,42 @@ const ChatsList: FC<IProps> = ({
   }
 
   const formatDate = (createdAt: any) => {
-    if (!createdAt) return '00:00'
-
-    const now = new Date()
-    const messageDate = new Date(createdAt)
-
-    const diffInMilliseconds = (now as any) - (messageDate as any)
-    const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24)
-
+    if (!createdAt) return '00:00';
+  
+    const now = new Date();
+    const messageDate = new Date(createdAt);
+    const locale = localStorage.getItem('i18nextLng') || 'ru'; 
+  
+    const diffInMilliseconds = now.getTime() - messageDate.getTime();
+    const diffInDays = diffInMilliseconds / (1000 * 60 * 60 * 24);
+  
+    const weekDaysUzLat = ['yakshanba', 'dushanba', 'seshanba', 'chorshanba', 'payshanba', 'juma', 'shanba'];
+    const weekDaysUzCyr = ['якшанба', 'душанба', 'сешанба', 'чоршанба', 'пайшанба', 'жума', 'шанба'];
+  
     if (diffInDays < 1) {
-      return messageDate.toLocaleTimeString([], {
+      return messageDate.toLocaleTimeString(locale, {
         hour: '2-digit',
         minute: '2-digit',
-      })
+      });
     } else if (diffInDays < 2) {
-      return t('common.night')
+      return t('common.night'); 
     } else if (diffInDays < 7) {
-      return messageDate.toLocaleDateString('ru', { weekday: 'long' })
+      if (locale === 'uz') {
+        return weekDaysUzCyr[messageDate.getDay()];
+      } else if (locale === 'oz') {
+        return weekDaysUzLat[messageDate.getDay()];
+      } else {
+        return messageDate.toLocaleDateString(locale, { weekday: 'long' });
+      }
     } else {
-      return messageDate.toLocaleDateString('ru', {
+      return messageDate.toLocaleDateString(locale, {
         day: '2-digit',
         month: '2-digit',
         year: 'numeric',
-      })
+      });
     }
-  }
+  };
+  
 
   return (
     <aside className="col-span-3 bg-white border flex-col overflow-hidden border-border rounded-[16px]">
@@ -76,7 +87,7 @@ const ChatsList: FC<IProps> = ({
                         ID:{name.id}
                       </p>
                       <p
-                        className="text-sm text-gray-500 truncate"
+                        className="text-sm text-gray-500 truncate w-[150px]"
                         title={name?.last_message?.content} // Tooltip for full message content
                       >
                         {name?.last_message?.content}

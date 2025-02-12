@@ -107,8 +107,8 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
 
       const formattedValues: ITenantsTable = {
         schema_name: values?.schema_name,
-        start_date: new Date(values.date[0].$d).toISOString().split('T')[0],
-        end_date: new Date(values.date[1].$d).toISOString().split('T')[0],
+        start_date: values.date ? new Date(values.date[0].$d).toISOString().split('T')[0] : "-",
+        end_date: values.date ? new Date(values.date[1].$d).toISOString().split('T')[0] : "-",
         is_active: values?.is_active,
         domain: values?.domain + '.em.xdevs.uz',
         user_id: editTenantId ? data?.user_id : null,
@@ -157,7 +157,7 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
             ? [dayjs(data.start_date), dayjs(data.end_date)]
             : undefined,
         is_active: data.is_active,
-        domain: data?.domain.split('.em.xdevs.uz')[0],
+        domain: data?.domain?.split('.em.xdevs.uz')[0],
         username: data?.username,
         password: data?.password,
       })

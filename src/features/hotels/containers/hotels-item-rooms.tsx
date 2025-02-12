@@ -1,4 +1,4 @@
-import { PaginationProps, Table, TableColumnsType, TableProps } from 'antd'
+import { Image, PaginationProps, Table, TableColumnsType, TableProps } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { twMerge } from 'tailwind-merge'
 
@@ -16,6 +16,7 @@ interface IHotelDetailRooms {
   name: string
   price: number
   status: string
+  room_images: any
 }
 
 const onChange: TableProps<IHotelsRoom>['onChange'] = (
@@ -34,93 +35,93 @@ const HotelsItemRooms = () => {
   console.log(setCurrentPage);
   
 
-  const columns: TableColumnsType<IHotelsRoom> = [
-    {
-      title: 'ID',
-      dataIndex: 'id',
-      className: 'text-center',
-      sorter: {
-        compare: (a, b) => a.id - b.id,
-        multiple: 4,
-      },
-    },
-    {
-      title: 'common.type-number',
-      dataIndex: 'typeNumber',
-      sorter: {
-        compare: (a, b) => a.typeNumber.localeCompare(b.typeNumber),
-        multiple: 3,
-      },
-      render: val => (
-        <div className="flex items-center gap-[10px]">
-          <div className="size-[48px] bg-secondary-light border-border border rounded-[8px]" />
-          <span className="text-[14px] text-primary-dark font-medium">
-            {val}
-          </span>
-        </div>
-      ),
-    },
-    {
-      title: 'common.price-night',
-      dataIndex: 'price',
-      sorter: {
-        compare: (a, b) => a.price - b.price,
-        multiple: 1,
-      },
-      render: val => (
-        <div>
-          {val === 0 ? 0 : formatAmount(val)} {t('common.summ')}
-        </div>
-      ),
-    },
-    {
-      title: 'common.convenience',
-      dataIndex: 'convenience',
-      sorter: {
-        compare: (a, b) => a.typeNumber.localeCompare(b.typeNumber),
-        multiple: 1,
-      },
-      render: () => (
-        <div className="text-sm text-[#4DD282] flex flex-col gap-2">
-          <span className="flex items-center gap-1">
-            <TickDoubleIcon />
-            {t('common.breakfast')}
-          </span>
-          <span className="flex items-center gap-1">
-            <TickDoubleIcon />
-            {t('common.free-cancel')}
-          </span>
-          <span className="flex items-center gap-1">
-            <TickDoubleIcon />
-            {t('common.no-add-pay')}
-          </span>
-        </div>
-      ),
-    },
-    {
-      title: 'fields.status.label',
-      dataIndex: 'status',
-      sorter: {
-        compare: (a, b) => a.status.localeCompare(b.status),
-        multiple: 1,
-      },
-      render: record => (
-        <StatusRoomTag status={record?.status || 'defaultStatus'} />
-      ),
-    },
-  ]
   const { data: HotelDetailRoom } = useQuery({
     queryKey: ['hotels-detail-rooms', id],
     queryFn: async () => {
       if (!id) throw new Error('ID is required')
-      const res = await getHotelDetailRooms(
-        { page_size: 10, page: currentPage },
-        Number(id),
-      )
-      return res
+        const res = await getHotelDetailRooms(
+      { page_size: 10, page: currentPage },
+      Number(id),
+    )
+    return res
+  },
+  enabled: !!id,
+})
+const columns: TableColumnsType<IHotelsRoom> = [
+  {
+    title: 'ID',
+    dataIndex: 'id',
+    className: 'text-center',
+    sorter: {
+      compare: (a, b) => a.id - b.id,
+      multiple: 4,
     },
-    enabled: !!id,
-  })
+  },
+  {
+    title: 'common.type-number',
+    dataIndex: 'typeNumber',
+    sorter: {
+      compare: (a, b) => a.typeNumber.localeCompare(b.typeNumber),
+      multiple: 3,
+    },
+    render: (_, val:any) => (
+      <div className="flex items-center gap-[10px]">
+        <Image width={48} height={48} className='rounded-[8px] object-cover' src={val?.room_images} />
+        <span className="text-[14px] text-primary-dark font-medium">
+          {_}
+        </span>
+      </div>
+    ),
+  },
+  {
+    title: 'common.price-night',
+    dataIndex: 'price',
+    sorter: {
+      compare: (a, b) => a.price - b.price,
+      multiple: 1,
+    },
+    render: val => (
+      <div>
+        {val === 0 ? 0 : formatAmount(val)} {t('common.summ')}
+      </div>
+    ),
+  },
+  {
+    title: 'common.convenience',
+    dataIndex: 'convenience',
+    sorter: {
+      compare: (a, b) => a.typeNumber.localeCompare(b.typeNumber),
+      multiple: 1,
+    },
+    render: () => (
+      <div className="text-sm text-[#4DD282] flex flex-col gap-2">
+        <span className="flex items-center gap-1">
+          <TickDoubleIcon />
+          {t('common.breakfast')}
+        </span>
+        <span className="flex items-center gap-1">
+          <TickDoubleIcon />
+          {t('common.free-cancel')}
+        </span>
+        <span className="flex items-center gap-1">
+          <TickDoubleIcon />
+          {t('common.no-add-pay')}
+        </span>
+      </div>
+    ),
+  },
+  {
+    title: 'fields.status.label',
+    dataIndex: 'status',
+    sorter: {
+      compare: (a, b) => a.status.localeCompare(b.status),
+      multiple: 1,
+    },
+    render: record => (
+      <StatusRoomTag status={record?.status || 'defaultStatus'} />
+    ),
+  },
+]
 
   const itemRender: PaginationProps['itemRender'] = (
     n,
@@ -164,6 +165,7 @@ const HotelsItemRooms = () => {
         key: index,
         id: id,
         typeNumber: item?.name,
+        room_images: item?.room_images[0]?.image,
         name: item.name,
         price: item?.price || 0,
         status: item?.status || 'defaultStatus',

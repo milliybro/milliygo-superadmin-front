@@ -9,7 +9,7 @@ interface IClientTable {
   entryDate: string
   exitDate: string
   country: string
-  nationality: string
+  nationality_name: string
   country_name: string
 }
 
@@ -25,6 +25,7 @@ interface IClientItemTable {
   name: string
   period: string
   comment: string
+  placement: string
 }
 interface IClientReview {
   key: string

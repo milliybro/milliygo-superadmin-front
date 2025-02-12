@@ -95,14 +95,14 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
         multiple: 1,
       },
     },
-    {
-      title: 'fields.password.label',
-      dataIndex: 'password',
-      sorter: {
-        compare: (a, b) => a.password.localeCompare(b.password),
-        multiple: 1,
-      },
-    },
+    // {
+    //   title: 'fields.password.label',
+    //   dataIndex: 'password',
+    //   sorter: {
+    //     compare: (a, b) => a.password.localeCompare(b.password),
+    //     multiple: 1,
+    //   },
+    // },
     {
       title: 'fields.role.label',
       dataIndex: 'position',
