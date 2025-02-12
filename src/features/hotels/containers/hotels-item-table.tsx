@@ -9,6 +9,7 @@ import type { TableColumnsType, TableProps } from 'antd'
 import { useQuery } from '@tanstack/react-query'
 import { getHotelDetailReview } from '../api'
 import { IHotelsItemReview } from '../types'
+import dayjs from 'dayjs'
 
 interface IHotelDetailReview {
   id: number
@@ -30,7 +31,7 @@ const columns: TableColumnsType<IHotelsItemReview> = [
     },
     width: 250,
     render: (_, record) => (
-      <Link to={`/hotel/${record.id}`} className="underline text-primary">
+      <Link to={`/hotels/`} className="underline text-primary">
         {record.name}
       </Link>
     ),
@@ -131,17 +132,17 @@ const HotelsItemReviews = () => {
   })
 
   const transformHotelDetailsToTableData = (
-    data: IHotelDetailReview[], 
+    data: IHotelDetailReview[],
   ): IHotelsItemReview[] => {
     return data.map((item, index: any) => {
-      const { id, user, review, rating }: any = item
+      const { id, booking, review, rating, placement }: any = item
       return {
         key: index,
         id: id,
-        name: user === null ? `${user.first_name} ${user.last_name}` : 'Anonymous',
-        date: '-', 
-        review: review || 'No review provided', 
-        rating: rating || 0, 
+        name: placement !== null ? placement : 'Anonymous',
+        date: `${dayjs(booking?.start_date).format('DD MMM, YYYY')} - ${dayjs(booking?.end_date).format('DD MMM, YYYY')}`,
+        review: review || 'No review provided',
+        rating: rating || 0,
       }
     })
   }

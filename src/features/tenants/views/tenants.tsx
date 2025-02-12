@@ -17,6 +17,8 @@ import { getTenantsList } from '../api'
 const Tenants = () => {
   const { t } = useTranslation()
   const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
+  console.log(setPageSize)
 
   const { openModal } = useHotelModalStore(store => store)
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
@@ -35,7 +37,10 @@ const Tenants = () => {
   } = useQuery({
     queryKey: ['tenants-data', currentPage],
     queryFn: async () => {
-      const res = await getTenantsList({ page_size: 10, page: currentPage })
+      const res = await getTenantsList({
+        page_size: pageSize,
+        page: currentPage,
+      })
       return res
     },
     // keepPreviousData: true,
@@ -55,7 +60,7 @@ const Tenants = () => {
           <AddIcon /> {t('tenant.add-tenant')}
         </Button>
       </div>
-      <TernantsModal refetch={refetch}/>
+      <TernantsModal refetch={refetch} />
       <TernantsFilters />
       <TenantsTable
         tenantsData={tenantsData}
@@ -63,6 +68,7 @@ const Tenants = () => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
         isLoading={isLoading}
+        pageSize={pageSize}
       />
     </div>
   )

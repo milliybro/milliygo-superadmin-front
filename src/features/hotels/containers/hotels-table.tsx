@@ -12,6 +12,7 @@ import { getHotelsList } from '../api'
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { formatAmount } from '@/helpers/format-amount'
+import HotelIcon from '@/components/icons/hotel'
 
 const onChange: TableProps<IHotelsTable>['onChange'] = (
   pagination,
@@ -25,11 +26,15 @@ const onChange: TableProps<IHotelsTable>['onChange'] = (
 const HotelsTable = () => {
   const { t } = useTranslation()
   const [currentPage, setCurrentPage] = useState(1)
+  const [pageSize, setPageSize] = useState(10)
+
   const columns: TableColumnsType<IHotelsTable> = [
     {
       title: 'ID',
       dataIndex: 'id',
       className: 'text-center',
+      render: (_text, _record, index) =>
+        (currentPage - 1) * pageSize + index + 1,
       sorter: {
         compare: (a, b) => a.id - b.id,
         multiple: 4,
@@ -44,16 +49,21 @@ const HotelsTable = () => {
       },
       render: (_, val) => (
         <div className="flex items-center gap-[10px]">
-          <div className="size-[48px] bg-secondary-light border-border border rounded-[8px]">
-            <Image
-              src={val?.image}
-              alt={val?.placement_name}
-              width={48}
-              height={48}
-            />
+          <div className="size-[48px] flex justify-center items-center bg-secondary-light border-border border rounded-[8px]">
+            {val?.image ? (
+              <Image
+                src={val?.image}
+                alt={val?.placement_name}
+                width={48}
+                height={48}
+                className="rounded-[8px]"
+              />
+            ) : (
+              <HotelIcon fontSize={28} />
+            )}
           </div>
           <span className="text-[14px] text-primary-dark font-medium">
-            {val?.placement_name}
+            {val?.placement_name ? val?.placement_name : '-'}
           </span>
         </div>
       ),
@@ -69,9 +79,16 @@ const HotelsTable = () => {
       },
       render: val => (
         <div>
-          <a style={{ textDecoration: 'underline' }} className="text-[#3276FF]">
-            {val}
-          </a>
+          {val ? (
+            <a
+              style={{ textDecoration: 'underline' }}
+              className="text-[#3276FF]"
+            >
+              {val}
+            </a>
+          ) : (
+            <div className="text-center">-</div>
+          )}
         </div>
       ),
     },
@@ -104,6 +121,11 @@ const HotelsTable = () => {
         compare: (a, b) => a.login.localeCompare(b.login),
         multiple: 1,
       },
+      render: _ => (
+        <div className="flex items-center text-center gap-[10px]">
+          {_ ? _ : <div className="text-center">-</div>}
+        </div>
+      ),
     },
     // {
     //   title: 'fields.password.label',
@@ -120,6 +142,7 @@ const HotelsTable = () => {
         compare: (a, b) => a.full_name.localeCompare(b.full_name),
         multiple: 1,
       },
+      render: val => <div>{val === " " ? '-' : val}</div>,
     },
     {
       title: 'fields.status.label',
@@ -137,14 +160,18 @@ const HotelsTable = () => {
         compare: (a, b) => a.status.localeCompare(b.status),
         multiple: 1,
       },
+      render: val => <div>{val ? val : '0'}</div>,
     },
     {
       width: 1,
       title: 'common.action',
       // dataIndex: 'id',
       render: (id, val) => (
-        <HotelsTableActionButton key={id} id={val.id} tenant_id={val.key ?? undefined} />
-
+        <HotelsTableActionButton
+          key={id}
+          id={val.id}
+          tenant_id={val.key ?? undefined}
+        />
       ),
     },
   ]
@@ -152,7 +179,10 @@ const HotelsTable = () => {
   const { data: HotelsData, isLoading } = useQuery({
     queryKey: ['hotels-data', currentPage],
     queryFn: async () => {
-      const res = await getHotelsList({ page_size: 10, page: currentPage })
+      const res = await getHotelsList({
+        page_size: pageSize,
+        page: currentPage,
+      })
       return res
     },
     // keepPreviousData: true,
@@ -208,7 +238,7 @@ const HotelsTable = () => {
       address: item.address,
       min_price: item.min_price,
       star_rating: item.star_rating,
-      login: item.login,
+      login: item.username,
       password: item.password,
       full_name: item.full_name,
       balance: item.balance,

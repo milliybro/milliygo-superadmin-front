@@ -17,6 +17,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router'
 
 import defaultUser from '../../../assets/default-user.png'
+import formatDate from '../components/format-date'
 
 const ClientsItem = () => {
   const { t } = useTranslation()
@@ -68,8 +69,8 @@ const ClientsItem = () => {
       { title: t('common.clients'), href: ROUTE_PATHS.CLIENTS },
       {
         title: data
-          ? `${data.first_name} ${data.last_name}`
-          : t('common.loading'),
+          ? `${data?.first_name} ${data?.last_name}`
+          : `-`,
       },
     ])
   }, [])
@@ -86,16 +87,7 @@ const ClientsItem = () => {
       children: <ClientsItemTable reviews={reviews} />,
     },
   ]
-  const formatDate = (dateString: string | undefined): string => {
-    if (!dateString) return ''
-    const date = new Date(dateString)
 
-    return new Intl.DateTimeFormat('ru-RU', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    }).format(date)
-  }
   return (
     <div className="overflow-y-auto flex-1">
       <div className="p-6 flex flex-col gap-6 h-full">
@@ -129,11 +121,11 @@ const ClientsItem = () => {
                 <div className="space-y-3">
                   <InfoRow
                     label={t('fields.citizenship.label')}
-                    value="Голландия"
+                    value={data?.country_name}
                   />
                   <InfoRow
                     label={t('fields.nationality.label')}
-                    value="Немец"
+                    value={data?.nationality_name}
                   />
                   <InfoRow
                     label={t('fields.birthdate.label')}
@@ -143,10 +135,10 @@ const ClientsItem = () => {
                     label={t('fields.gender.label')}
                     value={
                       data?.gender === 'male'
-                        ? 'Мужчина'
+                        ? t('common.men')
                         : data?.gender === 'man'
-                          ? 'Мужчина'
-                          : 'Женщина'
+                          ? t('common.men')
+                          : t('common.women')
                     }
                   />
                   <InfoRow
@@ -161,14 +153,8 @@ const ClientsItem = () => {
                   {t('common.additional')}
                 </h2>
                 <div className="space-y-3">
-                  <InfoRow
-                    label={t('fields.entry-date.label')}
-                    value="19 ноября, 2024"
-                  />
-                  <InfoRow
-                    label={t('fields.exit-date.label')}
-                    value="28 ноября, 2024"
-                  />
+                  <InfoRow label={t('fields.entry-date.label')} value="-" />
+                  <InfoRow label={t('fields.exit-date.label')} value="-" />
                 </div>
               </section>
             </div>

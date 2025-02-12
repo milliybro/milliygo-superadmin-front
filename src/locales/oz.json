@@ -93,7 +93,12 @@
     "label": "Akkountdan chiqishni xohlaysizmi?",
     "description": "Akkountingizdan chiqishni xohlayotganingizni tasdiqlang"
   },
-
+"services-page": {
+    "add-user": "Qo'shish",
+    "add-services": "Qulaylik va xizmatlar qo'shish",
+    "edit-services": "Qulaylik va xizmatlarni tahrirlash",
+    "modal-description": "Yangi foydalanuvchi qo'shish uchun barcha kerakli maydonlarni to'ldiring"
+ },
   "fields": {
     "fullname": {
       "label": "F.I.O",
@@ -276,6 +281,31 @@
     "date": {
       "label": "Sana",
       "placeholder": "Sanani tanlang"
+    },
+    "icon": {
+      "label": "Belgi",
+      "add-icon": "Yuklash belgisi",
+      "select": "Tanlash",
+      "drag-file": "yoki faylni torting",
+      "max-size": "Maksimal hajmi: 5 MB.",
+      "icons": "Avval yuklangan piktogrammalar"
+    },
+    "name": {
+      "name-uz": "O'z nomi",
+      "name-ru": "RU nomi",
+      "name-en": "EN nomi",
+      "placeholder": "Ism kiriting"
+    },
+    "created-at": {
+      "label": "Yaratilgan sana"
+    },
+    "user-notification": {
+      "add": {
+        "message": "Yangi foydalanuvchi qo'shildi"
+      },
+      "edit": {
+        "message": "Foydalanuvchi o'zgardi"
+      }
     }
   },
   "tenant": {
@@ -370,7 +400,8 @@
     "payment-method": "To'lov usuli",
     "room": "Raqam",
     "payment-amount": "To'lov summasi",
-    "date-and-time": "Sana va vaqt"
+    "date-and-time": "Sana va vaqt",
+    "login-success": "Mavaffiqatli kirildi"
   },
   "status": {
     "confirmed": "Tasdiqlangan",

@@ -9,71 +9,6 @@ import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
 import MicrowaveIcon from '@/components/icons/microwave-icon'
 import ServicesActionButton from '../components/services-action-button'
 
-const columns: TableColumnsType<ISevicesTable> = [
-  {
-    title: 'ID',
-    dataIndex: 'id',
-    sorter: {
-      compare: (a, b) => a.id - b.id,
-      multiple: 4,
-    },
-  },
-  {
-    title: 'fields.icon.label',
-    dataIndex: 'icon',
-    sorter: {
-      compare: (a, b) => a.id - b.id,
-      multiple: 4,
-    },
-  },
-  {
-    title: 'fields.name.name-uz',
-    dataIndex: 'name_uz',
-    sorter: {
-      compare: (a, b) => a.name_uz.localeCompare(b.name_uz),
-      multiple: 2,
-    },
-  },
-  {
-    title: 'fields.name.name-ru',
-    dataIndex: 'name_ru',
-    sorter: {
-      compare: (a, b) => a.name_ru.localeCompare(b.name_ru),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'fields.name.name-en',
-    dataIndex: 'name_en',
-    sorter: {
-      compare: (a, b) => a.name_en.localeCompare(b.name_en),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'fields.created-at.label',
-    dataIndex: 'created_at',
-    sorter: {
-      compare: (a, b) => a.created_at.localeCompare(b.created_at),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'fields.status.label',
-    dataIndex: 'status',
-    sorter: {
-      compare: (a, b) => Number(a.status) - Number(b.status),
-      multiple: 1,
-    },
-    render: status => <StatusTag active={status} />,
-  },
-  {
-    width: 300,
-    title: 'common.action',
-    dataIndex: 'id',
-    render: id => <ServicesActionButton id={id} />,
-  },
-]
 
 const data: ISevicesTable[] = [
   {
@@ -129,7 +64,72 @@ const onChange: TableProps<ISevicesTable>['onChange'] = (
 
 const ServicesTable = () => {
   const { t } = useTranslation()
-
+  
+  const columns: TableColumnsType<ISevicesTable> = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      sorter: {
+        compare: (a, b) => a.id - b.id,
+        multiple: 4,
+      },
+    },
+    {
+      title: 'fields.icon.label',
+      dataIndex: 'icon',
+      sorter: {
+        compare: (a, b) => a.id - b.id,
+        multiple: 4,
+      },
+    },
+    {
+      title: 'fields.name.name-uz',
+      dataIndex: 'name_uz',
+      sorter: {
+        compare: (a, b) => a.name_uz.localeCompare(b.name_uz),
+        multiple: 2,
+      },
+    },
+    {
+      title: 'fields.name.name-ru',
+      dataIndex: 'name_ru',
+      sorter: {
+        compare: (a, b) => a.name_ru.localeCompare(b.name_ru),
+        multiple: 1,
+      },
+    },
+    {
+      title: 'fields.name.name-en',
+      dataIndex: 'name_en',
+      sorter: {
+        compare: (a, b) => a.name_en.localeCompare(b.name_en),
+        multiple: 1,
+      },
+    },
+    {
+      title: 'fields.created-at.label',
+      dataIndex: 'created_at',
+      sorter: {
+        compare: (a, b) => a.created_at.localeCompare(b.created_at),
+        multiple: 1,
+      },
+    },
+    {
+      title: 'fields.status.label',
+      dataIndex: 'status',
+      sorter: {
+        compare: (a, b) => Number(a.status) - Number(b.status),
+        multiple: 1,
+      },
+      render: status => <StatusTag active={status} />,
+    },
+    {
+      width: 300,
+      title: 'common.action',
+      dataIndex: 'id',
+      render: id => <ServicesActionButton id={id} />,
+    },
+  ]
   const itemRender: PaginationProps['itemRender'] = (
     n,
     type,
@@ -171,6 +171,8 @@ const ServicesTable = () => {
       }))}
       dataSource={data}
       onChange={onChange}
+      rootClassName='custom-table'
+
       className="w-full h-full"
       pagination={{
         pageSize: 10,

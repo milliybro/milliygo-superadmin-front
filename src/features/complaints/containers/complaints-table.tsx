@@ -125,12 +125,14 @@ const ComplaintsTable = () => {
       dataSource={data}
       onChange={onChange}
       className="w-full h-full"
+      rootClassName='custom-table'
       pagination={{
         pageSize: 10,
         total: 100,
         hideOnSinglePage: true,
         showSizeChanger: false,
         position: ['bottomCenter'],
+
 
         itemRender: itemRender,
       }}

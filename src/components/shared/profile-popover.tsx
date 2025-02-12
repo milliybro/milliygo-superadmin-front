@@ -118,7 +118,9 @@ const ProfilePopover = () => {
               className="bg-primary-dark dark:bg-dark-bg text-white font-semibold"
               onClick={() => {
                 setModalLogout(false)
-                localStorage.clear()
+                localStorage.removeItem('user')
+                localStorage.removeItem('access')
+                localStorage.removeItem('refresh')
                 window.location.reload()
               }}
             >
