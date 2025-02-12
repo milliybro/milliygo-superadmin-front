@@ -20,7 +20,7 @@ const Clients = () => {
   const [isActive, setIsActive] = useState(true)
   const [pageSize, setPageSize] = useState(10)
 
-  console.log('SSS', selectedCountry)
+  console.log('SSS', selectedCountry, setPageSize)
 
   useEffect(() => {
     setBreadCrumbs([

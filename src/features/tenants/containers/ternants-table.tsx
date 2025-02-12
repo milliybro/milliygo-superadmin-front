@@ -7,7 +7,7 @@ import HotelsTableActionButton from '../components/hotels-table-action-button'
 
 import type { IHotelsTable } from '../types'
 import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
-import { useState } from 'react'
+
 import formatDate from '@/features/clients/components/format-date'
 
 const onChange: TableProps<IHotelsTable>['onChange'] = (
