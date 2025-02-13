@@ -29,6 +29,10 @@ const Complaints = () => {
   console.log(setPageSize)
 
   useEffect(() => {
+    setCurrentPage(1);
+  }, [name, username, fullName]);
+
+  useEffect(() => {
     setBreadCrumbs([
       { title: t('common.main'), href: ROUTE_PATHS.MAIN },
       { title: t('common.hotels'), href: ROUTE_PATHS.HOTELS },

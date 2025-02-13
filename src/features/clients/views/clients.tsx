@@ -28,6 +28,9 @@ const Clients = () => {
       { title: t('common.clients'), href: ROUTE_PATHS.CLIENTS },
     ])
   }, [])
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchTerm])
 
   const { data: ClientsData, isLoading } = useQuery({
     queryKey: ['users-data', currentPage, searchTerm, gender, selectedCountry],
@@ -39,7 +42,7 @@ const Clients = () => {
         page: currentPage,
         search: searchTerm,
         gender: gender || undefined,
-        is_active: isActive
+        is_active: isActive,
       })
       return res
     },
