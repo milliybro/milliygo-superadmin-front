@@ -78,7 +78,7 @@ const Sidebar = () => {
   return (
     <aside
       className={twMerge(
-        'bg-white dark:bg-dark-bg transition-all border-border border-r duration-300',
+        'bg-white dark:bg-dark-bg transition-all border-border border-r duration-300 ',
         isSidebarOpen ? 'w-[219px]' : 'w-14',
       )}
     >

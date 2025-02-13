@@ -42,3 +42,19 @@
   display: flex;
   flex-direction: column;
 }
+
+.ant-spin-nested-loading, .ant-spin-container, .ant-table-empty, .ant-table-container, .ant-table-content, .ant-table-content table{
+  height: 100%;
+}
+
+.ant-tabs, .ant-tabs-content, .ant-tabs-tabpane{
+  height: 100%;
+}
+
+.ant-table-tbody {
+  height: 100%;
+}
+
+.ant-table-wrapper{
+  height: 100%;
+}

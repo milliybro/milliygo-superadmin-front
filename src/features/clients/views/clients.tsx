@@ -34,7 +34,7 @@ const Clients = () => {
     queryFn: async () => {
       const res = await getUsersList({
         page_size: pageSize,
-        // client_or_employee: 'client',
+        client_or_employee: 'client',
         country: selectedCountry ? selectedCountry : null,
         page: currentPage,
         search: searchTerm,

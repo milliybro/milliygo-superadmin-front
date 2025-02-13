@@ -11,6 +11,7 @@ import BedSingleIcon from '@/components/icons/bed-icon'
 import UserOutlinedIcon from '@/components/icons/user-circle-icon'
 import PawPrintIcon from '@/components/icons/paw-icon'
 import CardIcon from '@/components/icons/card-icon'
+import HotelIcon from '@/components/icons/hotel'
 
 interface FormValues {
   username: string
@@ -41,7 +42,7 @@ interface Facility {
 interface PaymentType {
   id: number
   name: string
-  image: string
+  icon_url: string
 }
 
 interface HotelContent {
@@ -175,9 +176,9 @@ const HotelsItemContent = ({ data }: HotelContent) => {
                   <img
                     width={24}
                     key={index}
-                    src={item?.image}
+                    src={item?.icon_url}
                     className="rounded-lg"
-                    alt="user avatar image"
+                    alt="image"
                   />
                 )
               })}
@@ -213,12 +214,18 @@ const HotelsItemContent = ({ data }: HotelContent) => {
         <div className="flex justify-between items-center">
           <div className="flex items-center gap-4">
             {/* <div className="size-[80px] rounded-[8px] border border-border bg-secondary-light" /> */}
-            <Image
-              width={80}
-              height={80}
-              className="object-cover"
-              src={data?.placement_images[0]?.image}
-            />
+            {data?.placement_images[0]?.image ? (
+              <Image
+                width={80}
+                height={80}
+                className="object-cover"
+                src={data?.placement_images[0]?.image}
+              />
+            ) : (
+              <div className='size-[80px] rounded-[8px] border border-border bg-secondary-light flex flex-col justify-center items-center'>
+                <HotelIcon fontSize={48}/>
+              </div>
+            )}
             <div className="flex flex-col gap-[6px]">
               <div className="flex gap-3">
                 <h3 className="text-2xl font-semibold text-[#232E40]">
@@ -260,7 +267,7 @@ const HotelsItemContent = ({ data }: HotelContent) => {
                 key={item?.id}
                 className="flex items-center gap-2 text-base font-normal text-[#232E40]"
               >
-                <img src={item?.icon} alt={item?.name} />
+                <img className='w-6' src={item?.icon} alt={item?.name} />
                 {item?.name}
               </div>
             )

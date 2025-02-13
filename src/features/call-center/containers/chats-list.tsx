@@ -60,7 +60,7 @@ const ChatsList: FC<IProps> = ({
   
 
   return (
-    <aside className="col-span-3 bg-white border flex-col overflow-hidden border-border rounded-[16px]">
+    <aside className="!col-span-2 bg-white border flex-col overflow-hidden border-border rounded-[16px]">
       <Spin spinning={isLoading}>
         <ul className=" divide-y overflow-scroll h-[720px]">
           {messagesData?.length > 0 ? (
@@ -83,12 +83,15 @@ const ChatsList: FC<IProps> = ({
                       alt="user avatar image"
                     />
                     <div>
-                      <p className="text-[16px] font-bold text-primary-dark">
-                        ID:{name.id}
+                      <p className="text-[16px] font-bold text-primary-dark truncate w-[210px]">
+                        {
+                          name?.chat_detail?.first_name ? (name?.chat_detail?.first_name + " " + name?.chat_detail?.last_name) : (`ID: ` + name?.chat_detail?.id)
+                        }
+                        
                       </p>
                       <p
-                        className="text-sm text-gray-500 truncate w-[150px]"
-                        title={name?.last_message?.content} // Tooltip for full message content
+                        className="text-sm text-gray-500 truncate w-[210px]"
+                        title={name?.last_message?.content} 
                       >
                         {name?.last_message?.content}
                       </p>
@@ -109,7 +112,7 @@ const ChatsList: FC<IProps> = ({
                 </li>
               ))
           ) : (
-            <p className="text-gray-500">{t('common.no-chat')}</p>
+            <p className="text-gray-500 flex flex-row justify-center items-center pt-8">{t('common.no-chat')}</p>
           )}
         </ul>
       </Spin>

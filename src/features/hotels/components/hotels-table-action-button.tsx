@@ -8,7 +8,7 @@ import type { FC } from 'react'
 
 interface IProps {
   id?: number
-  tenant_id?: string
+  tenant_id?: number
 }
 
 const HotelsTableActionButton: FC<IProps> = ({ id, tenant_id }) => {

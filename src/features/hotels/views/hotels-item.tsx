@@ -23,6 +23,8 @@ import HotelsItemTransactions from '../containers/hotels-item-transaction'
 import { useQuery } from '@tanstack/react-query'
 import { getHotelDetail } from '../api'
 import { useParams, useSearchParams } from 'react-router'
+import HotelIcon from '@/components/icons/hotel'
+import formatDate from '@/features/clients/components/format-date'
 
 // interface IHotelDetail {
 //   id: number
@@ -104,29 +106,7 @@ const HotelsItem = () => {
     },
   ]
 
-  function formatDate(dateString: string) {
-    const months = [
-      'января',
-      'февраля',
-      'марта',
-      'апреля',
-      'мая',
-      'июня',
-      'июля',
-      'августа',
-      'сентября',
-      'октября',
-      'ноября',
-      'декабря',
-    ]
 
-    const date = new Date(dateString)
-    const day = date.getDate()
-    const month = months[date.getMonth()]
-    const year = date.getFullYear()
-
-    return `${day} ${month}, ${year}`
-  }
 
   return (
     <div className="overflow-y-auto">
@@ -150,12 +130,14 @@ const HotelsItem = () => {
           <div className="bg-gradient-to-b from-[#14B8A61A] h-fit sticky top-6 from-0% to-white to-35% gap-6 flex col-span-3 border flex-col p-6 overflow-hidden border-border rounded-[16px]">
             <div className="flex flex-col justify-center items-center gap-[14px]">
               <div className="overflow-hidden size-[108px] rounded-[8px] border border-border bg-secondary-light">
+                {data?.placement_images[0]?.image ?
                 <Image
-                  src={data?.placement_images[0]?.image}
-                  alt={data?.placement_detail?.name}
-                  width={108}
-                  height={108}
+                src={data?.placement_images[0]?.image}
+                alt={data?.placement_detail?.name}
+                width={108}
+                height={108}
                 />
+              : <div className='flex flex-col justify-center items-center h-full'><HotelIcon fontSize={48}/></div>}
               </div>
               <span className="text-[18px] text-primary-dark font-semibold">
                 {data?.placement_detail?.name}
@@ -218,7 +200,7 @@ const HotelsItem = () => {
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        certificate1928.pdf
+                        
                         <ArrowUpRightIcon className="text-[18px]" />
                       </a>
                     }

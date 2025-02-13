@@ -7,27 +7,28 @@ import StatusTag from '@/components/ui/status-tag'
 import HotelsTableActionButton from '../components/hotels-table-action-button'
 
 import type { IHotelsTable } from '../types'
-import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
-import { getHotelsList } from '../api'
-import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import type { PaginationProps, TableColumnsType } from 'antd'
 import { formatAmount } from '@/helpers/format-amount'
 import HotelIcon from '@/components/icons/hotel'
+import UsersNotFound from '@/features/users/components/users-not-found'
 
-const onChange: TableProps<IHotelsTable>['onChange'] = (
-  pagination,
-  filters,
-  sorter,
-  extra,
-) => {
-  console.log('params', pagination, filters, sorter, extra)
-}
+// const onChange: TableProps<IHotelsTable>['onChange'] = (
+//   pagination,
+//   filters,
+//   sorter,
+//   extra,
+// ) => {
+//   console.log('params', pagination, filters, sorter, extra)
+// }
 
-const HotelsTable = () => {
+const HotelsTable = ({
+  hotelsData,
+  isLoading,
+  currentPage,
+  pageSize,
+  setCurrentPage,
+}: any) => {
   const { t } = useTranslation()
-  const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
-console.log(setPageSize);
 
   const columns: TableColumnsType<IHotelsTable> = [
     {
@@ -143,7 +144,7 @@ console.log(setPageSize);
         compare: (a, b) => a.full_name.localeCompare(b.full_name),
         multiple: 1,
       },
-      render: val => <div>{val === " " ? '-' : val}</div>,
+      render: val => <div>{val === ' ' ? '-' : val}</div>,
     },
     {
       title: 'fields.status.label',
@@ -176,18 +177,6 @@ console.log(setPageSize);
       ),
     },
   ]
-
-  const { data: HotelsData, isLoading } = useQuery({
-    queryKey: ['hotels-data', currentPage],
-    queryFn: async () => {
-      const res = await getHotelsList({
-        page_size: pageSize,
-        page: currentPage,
-      })
-      return res
-    },
-    // keepPreviousData: true,
-  })
 
   const itemRender: PaginationProps['itemRender'] = (
     n,
@@ -226,9 +215,9 @@ console.log(setPageSize);
     setCurrentPage(page)
   }
 
-  const transformedHotelsData =
-    HotelsData?.results.map((item: IHotelsTable | any) => ({
-      key: item.tenant_id,
+  const transformedHotelsData = hotelsData?.results.map(
+    (item: IHotelsTable | any, i:any) => ({
+      key: i,
       id: item.id,
       placement_name: item.placement_name,
       image: item.image,
@@ -243,7 +232,9 @@ console.log(setPageSize);
       password: item.password,
       full_name: item.full_name,
       balance: item.balance,
-    })) || []
+      tenant: item.tenant_id
+    }),
+  )
 
   return (
     <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
@@ -254,18 +245,19 @@ console.log(setPageSize);
         }))}
         loading={isLoading}
         dataSource={transformedHotelsData}
-        onChange={onChange}
+        onChange={pagination => handlePaginationChange(pagination.current!)}
         className="w-full h-full"
         pagination={{
           current: currentPage,
           pageSize: 10,
-          total: HotelsData?.count || 0,
+          total: hotelsData?.count || 0,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],
           itemRender: itemRender,
           onChange: handlePaginationChange,
         }}
+        locale={{ emptyText: <UsersNotFound /> }}
       />
     </div>
   )

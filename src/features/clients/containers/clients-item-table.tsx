@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import type { IClientItemTable } from '../types'
 import type { TableColumnsType, TableProps } from 'antd'
 import formatDate from '../components/format-date'
+import UsersNotFound from '@/features/users/components/users-not-found'
 
 const columns: TableColumnsType<IClientItemTable> = [
   {
@@ -124,6 +125,7 @@ const ClientsItemTable = ({ reviews }: { reviews: any }) => {
 
       //   itemRender: itemRender,
       // }}
+      locale={{ emptyText: <UsersNotFound /> }}
     />
   )
 }

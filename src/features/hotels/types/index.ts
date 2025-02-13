@@ -8,7 +8,7 @@ interface IHotelsItemTable {
 }
 
 interface IHotelsTable {
-  key: string
+  key: number
   id: number
   image: string
   address: string

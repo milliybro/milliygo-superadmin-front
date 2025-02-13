@@ -8,6 +8,7 @@ import type { ISevicesTable } from '../types'
 import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
 import MicrowaveIcon from '@/components/icons/microwave-icon'
 import ServicesActionButton from '../components/services-action-button'
+import UsersNotFound from '@/features/users/components/users-not-found'
 
 
 const data: ISevicesTable[] = [
@@ -183,6 +184,8 @@ const ServicesTable = () => {
 
         itemRender: itemRender,
       }}
+      locale={{ emptyText: <UsersNotFound /> }}
+
     />
   )
 }
