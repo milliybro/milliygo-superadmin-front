@@ -125,7 +125,12 @@ const ClientsItemTable = ({ reviews }: { reviews: any }) => {
 
       //   itemRender: itemRender,
       // }}
-      locale={{ emptyText: <UsersNotFound /> }}
+      locale={{
+        emptyText: <UsersNotFound />,
+        triggerDesc: t('common.sort_descending') ?? '',
+        triggerAsc: t('common.sort_ascending') ?? '',
+        cancelSort: t('common.sort_cancel') ?? '',
+      }}
     />
   )
 }

@@ -403,7 +403,10 @@
     "room": "Raqam",
     "payment-amount": "To'lov summasi",
     "date-and-time": "Sana va vaqt",
-    "login-success": "Mavaffiqatli kirildi"
+    "login-success": "Mavaffiqatli kirildi",
+    "sort_descending": "Kamayish tartibida tartiblash uchun bosing",
+    "sort_ascending": "O'sish tartibida tartiblash uchun bosing",
+    "sort_cancel": "Tartiblashni rad etish uchun bosing"
   },
   "status": {
     "confirmed": "Tasdiqlangan",

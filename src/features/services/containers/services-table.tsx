@@ -10,7 +10,6 @@ import MicrowaveIcon from '@/components/icons/microwave-icon'
 import ServicesActionButton from '../components/services-action-button'
 import UsersNotFound from '@/features/users/components/users-not-found'
 
-
 const data: ISevicesTable[] = [
   {
     key: '1',
@@ -65,7 +64,7 @@ const onChange: TableProps<ISevicesTable>['onChange'] = (
 
 const ServicesTable = () => {
   const { t } = useTranslation()
-  
+
   const columns: TableColumnsType<ISevicesTable> = [
     {
       title: 'ID',
@@ -172,8 +171,7 @@ const ServicesTable = () => {
       }))}
       dataSource={data}
       onChange={onChange}
-      rootClassName='custom-table'
-
+      rootClassName="custom-table"
       className="w-full h-full"
       pagination={{
         pageSize: 10,
@@ -184,8 +182,12 @@ const ServicesTable = () => {
 
         itemRender: itemRender,
       }}
-      locale={{ emptyText: <UsersNotFound /> }}
-
+      locale={{
+        emptyText: <UsersNotFound />,
+        triggerDesc: t('common.sort_descending') ?? '',
+        triggerAsc: t('common.sort_ascending') ?? '',
+        cancelSort: t('common.sort_cancel') ?? '',
+      }}
     />
   )
 }
