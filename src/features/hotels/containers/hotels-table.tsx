@@ -168,11 +168,11 @@ const HotelsTable = ({
       width: 1,
       title: 'common.action',
       // dataIndex: 'id',
-      render: (id, val) => (
+      render: (id, val: any) => (
         <HotelsTableActionButton
           key={id}
           id={val.id}
-          tenant_id={val.key ?? undefined}
+          tenant_id={val.tenant ?? undefined}
         />
       ),
     },
@@ -216,7 +216,7 @@ const HotelsTable = ({
   }
 
   const transformedHotelsData = hotelsData?.results.map(
-    (item: IHotelsTable | any, i:any) => ({
+    (item: IHotelsTable | any, i: any) => ({
       key: i,
       id: item.id,
       placement_name: item.placement_name,
@@ -232,7 +232,7 @@ const HotelsTable = ({
       password: item.password,
       full_name: item.full_name,
       balance: item.balance,
-      tenant: item.tenant_id
+      tenant: item.tenant_id,
     }),
   )
 
@@ -257,7 +257,12 @@ const HotelsTable = ({
           itemRender: itemRender,
           onChange: handlePaginationChange,
         }}
-        locale={{ emptyText: <UsersNotFound /> }}
+        locale={{
+          emptyText: <UsersNotFound />,
+          triggerDesc: t('common.sort_descending') ?? '',
+          triggerAsc: t('common.sort_ascending') ?? '',
+          cancelSort: t('common.sort_cancel') ?? '',
+        }}
       />
     </div>
   )

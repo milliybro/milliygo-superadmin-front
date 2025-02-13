@@ -220,7 +220,12 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
         itemRender: itemRender,
         onChange: handlePaginationChange,
       }}
-      locale={{ emptyText: <UsersNotFound /> }}
+      locale={{
+        emptyText: <UsersNotFound />,
+        triggerDesc: t('common.sort_descending') ?? '',
+        triggerAsc: t('common.sort_ascending') ?? '',
+        cancelSort: t('common.sort_cancel') ?? '',
+      }}
     />
   )
 }

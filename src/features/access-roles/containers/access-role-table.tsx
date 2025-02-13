@@ -116,7 +116,7 @@ const AccessRoleTable = () => {
       dataSource={data}
       onChange={onChange}
       className="w-full h-full"
-      rootClassName='custom-table'
+      rootClassName="custom-table"
       pagination={{
         pageSize: 10,
         total: 100,
@@ -126,8 +126,12 @@ const AccessRoleTable = () => {
 
         itemRender: itemRender,
       }}
-      locale={{ emptyText: <UsersNotFound /> }}
-
+      locale={{
+        triggerDesc: t('common.sort_descending') ?? '',
+        triggerAsc: t('common.sort_ascending') ?? '',
+        cancelSort: t('common.sort_cancel') ?? '',
+        emptyText: <UsersNotFound />,
+      }}
     />
   )
 }

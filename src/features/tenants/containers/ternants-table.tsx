@@ -93,7 +93,9 @@ const TenantsTable = ({
         multiple: 1,
       },
       render: _ => (
-        <div className="flex items-center gap-[10px]">{_ ? formatDate(_) : '-'}</div>
+        <div className="flex items-center gap-[10px]">
+          {_ ? formatDate(_) : '-'}
+        </div>
       ),
     },
     {
@@ -203,8 +205,12 @@ const TenantsTable = ({
           itemRender: itemRender,
           onChange: handlePaginationChange,
         }}
-      locale={{ emptyText: <UsersNotFound /> }}
-
+        locale={{
+          emptyText: <UsersNotFound />,
+          triggerDesc: t('common.sort_descending') ?? '',
+          triggerAsc: t('common.sort_ascending') ?? '',
+          cancelSort: t('common.sort_cancel') ?? '',
+        }}
       />
     </div>
   )

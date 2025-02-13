@@ -126,7 +126,7 @@ const ComplaintsTable = () => {
       dataSource={data}
       onChange={onChange}
       className="w-full h-full"
-      rootClassName='custom-table'
+      rootClassName="custom-table"
       pagination={{
         pageSize: 10,
         total: 100,
@@ -134,11 +134,14 @@ const ComplaintsTable = () => {
         showSizeChanger: false,
         position: ['bottomCenter'],
 
-
         itemRender: itemRender,
       }}
-      locale={{ emptyText: <UsersNotFound /> }}
-
+      locale={{
+        emptyText: <UsersNotFound />,
+        triggerDesc: t('common.sort_descending') ?? '',
+        triggerAsc: t('common.sort_ascending') ?? '',
+        cancelSort: t('common.sort_cancel') ?? '',
+      }}
     />
   )
 }
