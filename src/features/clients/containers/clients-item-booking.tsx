@@ -1,4 +1,3 @@
-import UsersNotFound from '@/features/users/components/users-not-found'
 import ClientsItemHotelCard from '../components/clients-item-hotel-card'
 import NotFoundIcon from '@/components/icons/not-found'
 import { useTranslation } from 'react-i18next'
