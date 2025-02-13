@@ -5,7 +5,7 @@ import type { FC, ReactNode } from 'react'
 
 const Layout: FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="flex h-full bg-[#F8FAFC]">
+    <div className="flex h-screen bg-[#F8FAFC]">
       {/* <span className='h-full'> */}
         <Sidebar />
       {/* </span> */}
