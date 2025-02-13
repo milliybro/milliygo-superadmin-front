@@ -7,6 +7,7 @@ import RoleActionButton from '../components/role-action-button'
 
 import type { IAccessRoleTable } from '../types'
 import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
+import UsersNotFound from '@/features/users/components/users-not-found'
 
 const columns: TableColumnsType<IAccessRoleTable> = [
   {
@@ -125,6 +126,8 @@ const AccessRoleTable = () => {
 
         itemRender: itemRender,
       }}
+      locale={{ emptyText: <UsersNotFound /> }}
+
     />
   )
 }

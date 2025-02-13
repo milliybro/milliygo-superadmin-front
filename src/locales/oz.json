@@ -21,7 +21,9 @@
     "edit-user": "Foydalanuvchini tahrirlash",
     "modal-description": "Yangi foydalanuvchi qo‘shish uchun iltimos, barcha zarur maydonlarni to‘ldiring",
     "delete-modal": "Siz foydalanuvchini o'chiryapsizmi?",
-    "delete-modal-desc": "Siz foydalanuvchini o'chirib tashlamoqchimisiz?"
+    "delete-modal-desc": "Siz foydalanuvchini o'chirib tashlamoqchimisiz?",
+    "not-found": "Hech narsa topilmadi",
+    "not-found-desc": "Afsuski, so‘rovingiz bo‘yicha hech narsa topilmadi"
   },
 
   "complaints-page": {

@@ -226,7 +226,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
     setSelectedFile(file)
   }
   return (
-    <main className="flex-1 col-span-9 bg-white border flex flex-col overflow-hidden border-border rounded-[16px]">
+    <main className="!col-span-4 flex-1  bg-white border flex flex-col overflow-hidden border-border rounded-[16px]">
       <header className="p-4 border-b flex items-center justify-between text-center">
         <Button
           type="text"

@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getHotelDetailReview } from '../api'
 import { IHotelsItemReview } from '../types'
 import dayjs from 'dayjs'
+import UsersNotFound from '@/features/users/components/users-not-found'
 
 interface IHotelDetailReview {
   id: number
@@ -160,6 +161,7 @@ const HotelsItemReviews = () => {
       }
       onChange={onChange}
       pagination={false}
+      locale={{ emptyText: <UsersNotFound /> }}
     />
   )
 }

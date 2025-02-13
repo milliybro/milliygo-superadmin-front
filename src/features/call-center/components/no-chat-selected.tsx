@@ -5,7 +5,7 @@ const NoChatSelected = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="flex-1 col-span-9 flex items-center justify-center bg-white border flex-col overflow-hidden border-border rounded-[16px]">
+    <div className="flex-1 col-span-4 flex items-center justify-center bg-white border flex-col overflow-hidden border-border rounded-[16px]">
       <div className="flex flex-col justify-center gap-3 items-center">
         <NotFoundIcon />
       </div>

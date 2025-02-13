@@ -74,7 +74,7 @@ const ProfilePopover = () => {
         >
           <Avatar
             shape="square"
-            size={46}
+            size={38}
             icon={<UserCircleIcon className="text-[24px]" />}
             src={user?.avatar}
             className="bg-secondary-light mr-4 text-primary-dark dark:text-white dark:bg-white/5 font-normal"

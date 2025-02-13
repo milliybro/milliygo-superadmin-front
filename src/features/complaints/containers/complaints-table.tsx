@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import type { IComplaintsTable } from '../types'
 import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
+import UsersNotFound from '@/features/users/components/users-not-found'
 
 const columns: TableColumnsType<IComplaintsTable> = [
   {
@@ -136,6 +137,8 @@ const ComplaintsTable = () => {
 
         itemRender: itemRender,
       }}
+      locale={{ emptyText: <UsersNotFound /> }}
+
     />
   )
 }

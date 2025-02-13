@@ -10,6 +10,7 @@ import type { PaginationProps, TableColumnsType } from 'antd'
 // import { useQuery } from '@tanstack/react-query'
 // import { getUsersList } from '../api'
 import React from 'react'
+import UsersNotFound from '../components/users-not-found'
 
 // const onChange: TableProps<IUsersTable>['onChange'] = (
 //   pagination,
@@ -83,7 +84,13 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
       },
       render: data => {
         return (
-          <div>{data === 'male' ? t('common.men-small') : data === 'man' ? t('common.men-small') : t('common.women-small')}</div>
+          <div>
+            {data === 'male'
+              ? t('common.men-small')
+              : data === 'man'
+                ? t('common.men-small')
+                : t('common.women-small')}
+          </div>
         )
       },
     },
@@ -213,6 +220,7 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
         itemRender: itemRender,
         onChange: handlePaginationChange,
       }}
+      locale={{ emptyText: <UsersNotFound /> }}
     />
   )
 }

@@ -107,11 +107,13 @@ const ClientsItem = () => {
               <span className="text-[18px] text-primary-dark font-semibold">
                 {data?.first_name} {data?.last_name}
               </span>
+              {data?.passport_sn ?
               <div className="flex items-center gap-2">
                 <span className="shrink-0 text-[12px] font-medium px-[10px] py-[6px] rounded-[6px] text-primary bg-primary-light">
                   {data?.passport_sn}
                 </span>
               </div>
+              : null}
             </div>
             <div className="flex flex-col">
               <section>

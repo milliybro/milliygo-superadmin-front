@@ -9,6 +9,7 @@ import type { IHotelsTable } from '../types'
 import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
 
 import formatDate from '@/features/clients/components/format-date'
+import UsersNotFound from '@/features/users/components/users-not-found'
 
 const onChange: TableProps<IHotelsTable>['onChange'] = (
   pagination,
@@ -202,6 +203,8 @@ const TenantsTable = ({
           itemRender: itemRender,
           onChange: handlePaginationChange,
         }}
+      locale={{ emptyText: <UsersNotFound /> }}
+
       />
     </div>
   )

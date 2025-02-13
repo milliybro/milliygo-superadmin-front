@@ -8,6 +8,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getHotelGuests } from '../api'
 import { useState } from 'react'
 import { useParams } from 'react-router'
+import UsersNotFound from '@/features/users/components/users-not-found'
 
 // interface IHotelDetailGuests {
 //   id: number
@@ -197,6 +198,8 @@ const HotelsItemGuest = () => {
 
           itemRender: itemRender,
         }}
+      locale={{ emptyText: <UsersNotFound /> }}
+
       />
     </div>
   )
