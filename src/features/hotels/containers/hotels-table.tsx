@@ -1,4 +1,4 @@
-import { Image, Table } from 'antd'
+import { Image, Table, Tooltip } from 'antd'
 import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
 
@@ -82,12 +82,14 @@ const HotelsTable = ({
       render: val => (
         <div>
           {val ? (
-            <a
-              style={{ textDecoration: 'underline' }}
-              className="text-[#3276FF]"
-            >
-              {val}
-            </a>
+            <Tooltip title={val} key={val}>
+              <a
+                style={{ textDecoration: 'underline' }}
+                className="text-[#3276FF] line-clamp-2"
+              >
+                {val}
+              </a>
+            </Tooltip>
           ) : (
             <div className="text-center">-</div>
           )}
