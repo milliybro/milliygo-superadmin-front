@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction, FC } from 'react'
+import { type Dispatch, type SetStateAction, type FC, useEffect, useRef, useState } from 'react'
 import { Avatar, Spin } from 'antd'
 import defaultUser from '../../../assets/default-user.png'
 import { useTranslation } from 'react-i18next'
@@ -17,6 +17,16 @@ const ChatsList: FC<IProps> = ({
   isLoading,
 }) => {
   const { t } = useTranslation()
+  const socketRef = useRef<WebSocket | null>(null)
+  const [messages, setMessages] = useState<any[]>([])
+  const user_id = JSON.parse(localStorage.getItem('user') || '1')?.id
+
+  useEffect(() => {
+    if (  messagesData) {
+      setMessages(messagesData)
+    }
+  }, [messagesData])
+
   const handleChatSelect = (chat: string) => {
     setSelectedChat(chat)
   }
@@ -74,12 +84,60 @@ const ChatsList: FC<IProps> = ({
     }
   }
 
+  useEffect(() => {
+    if (typeof window !== 'undefined' && user_id) {
+      const token =
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUzMDA0MzY1LCJpYXQiOjE3MzE0MDQzNjUsImp0aSI6IjI0Yzk3NWVhMWMzYjRjMWNhZDZiZTk2OTI0YzBmYjYzIiwidXNlcl9pZCI6MX0.xjbItyKCCu_l6GqBKlxA5dCpWbJiDuGrPx3QXNcfQKo'
+      const url = `wss://websocket.emehmon.xdevs.uz/ws/complaint-conversation-list/?user_id=${user_id}&token=${token}`
+      const socket = new WebSocket(url)
+      socketRef.current = socket
+
+      const handleMessage = (event: MessageEvent) => {
+        const newMessage = JSON.parse(event.data)
+
+        if (newMessage.type === 'support_conversation_list') {
+          const parsedMessages = newMessage.message
+
+          setMessages(parsedMessages)
+        }
+      }
+
+      socket.addEventListener('message', handleMessage)
+
+      socket.onopen = () => {
+        console.log('WebSocket connection opened')
+      }
+
+      socket.onerror = error => {
+        console.error('WebSocket error:', error)
+      }
+
+      socket.onclose = event => {
+        console.log('WebSocket connection closed', event)
+        // Optionally, attempt to reconnect
+        // setTimeout(() => {
+        //   if (selectedChat) {
+        //     socketRef.current = new WebSocket(url);
+        //   }
+        // }, 5000);
+      }
+
+      return () => {
+        if (socketRef.current) {
+          socketRef.current.removeEventListener('message', handleMessage)
+          socketRef.current.close()
+          socketRef.current = null
+        }
+      }
+    }
+  }, [user_id])
+
   return (
     <aside className="!col-span-2 bg-white border flex-col overflow-hidden border-border rounded-[16px]">
       <Spin spinning={isLoading}>
         <ul className=" divide-y overflow-scroll h-[720px]">
-          {messagesData?.length > 0 ? (
-            messagesData
+          {messages?.length > 0 ? (
+            messages
               .slice()
               .reverse()
               .map((name: any, i: number) => (
