@@ -1,5 +1,4 @@
 import { Avatar, Tabs } from 'antd'
-import { Divider } from 'antd'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -18,6 +17,7 @@ import { useParams } from 'react-router'
 
 import defaultUser from '../../../assets/default-user.png'
 import formatDate from '../components/format-date'
+import CountryRow from '@/components/ui/country-row'
 
 const ClientsItem = () => {
   const { t } = useTranslation()
@@ -121,13 +121,13 @@ const ClientsItem = () => {
                   {t('common.general-information')}
                 </h2>
                 <div className="space-y-3">
-                  <InfoRow
+                  <CountryRow
                     label={t('fields.citizenship.label')}
                     value={data?.country_name}
                   />
                   <InfoRow
-                    label={t('fields.nationality.label')}
-                    value={data?.nationality_name}
+                    label={t('common.email')}
+                    value={data?.email}
                   />
                   <InfoRow
                     label={t('fields.birthdate.label')}
@@ -149,7 +149,7 @@ const ClientsItem = () => {
                   />
                 </div>
               </section>
-              <Divider className="border-border" />
+              {/* <Divider className="border-border" />
               <section>
                 <h2 className="text-[14px] text-primary-dark font-semibold mb-4">
                   {t('common.additional')}
@@ -158,7 +158,7 @@ const ClientsItem = () => {
                   <InfoRow label={t('fields.entry-date.label')} value="-" />
                   <InfoRow label={t('fields.exit-date.label')} value="-" />
                 </div>
-              </section>
+              </section> */}
             </div>
           </div>
         </div>

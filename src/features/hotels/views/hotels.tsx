@@ -8,11 +8,12 @@ import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import useHotelModalStore from '../store/hotel-modal-store'
 
 import AddIcon from '@/components/icons/add'
-import HotelsTable from '../containers/hotels-table'
 import HotelsFilters from '../containers/hotels-filters'
 import HotelsModal from '../components/hotel-modal'
 import { getHotelsList } from '../api'
 import { useQuery } from '@tanstack/react-query'
+import HotelsTab from '../containers/hotels-tabs'
+import { useSearchParams } from 'react-router'
 
 const Complaints = () => {
   const { t } = useTranslation()
@@ -21,16 +22,8 @@ const Complaints = () => {
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
-  const [name, setName] = useState('')
-  const [username, setUsername] = useState('')
-  const [fullName, setFullName] = useState('')
-  const [status, setStatus] = useState(null)
 
   console.log(setPageSize)
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [name, username, fullName]);
 
   useEffect(() => {
     setBreadCrumbs([
@@ -38,6 +31,16 @@ const Complaints = () => {
       { title: t('common.hotels'), href: ROUTE_PATHS.HOTELS },
     ])
   }, [])
+  const [searchParams] = useSearchParams()
+
+  const name = searchParams.get('hotel_search') || ''
+  const username = searchParams.get('login') || ''
+  const fullName = searchParams.get('contact_person') || ''
+  const status = searchParams.get('status') || ''
+
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [name, username, fullName])
   const { data, isLoading } = useQuery({
     queryKey: ['hotels-data', currentPage, name, username, fullName, status],
     queryFn: async () => {
@@ -53,7 +56,6 @@ const Complaints = () => {
     },
     // keepPreviousData: true,
   })
-
   return (
     <div className="p-6 flex flex-col gap-6 flex-1">
       <div className="flex items-start justify-between">
@@ -69,13 +71,8 @@ const Complaints = () => {
         </Button>
       </div>
       <HotelsModal />
-      <HotelsFilters
-        setName={setName}
-        setUsername={setUsername}
-        setFullName={setFullName}
-        setStatus={setStatus}
-      />
-      <HotelsTable
+      <HotelsFilters />
+      <HotelsTab
         hotelsData={data}
         isLoading={isLoading}
         pageSize={pageSize}

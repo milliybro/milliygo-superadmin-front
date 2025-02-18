@@ -119,6 +119,14 @@
     "type": "Тип номер",
     "night": "Ночь"
   },
+  "accommodations-page": {
+    "filter": {
+      "creator": "Владелец",
+      "full-name": "Введите ФИО",
+      "status": "Статус",
+      "status-placeholder": "Выберите статус"
+    }
+  },
 
   "fields": {
     "fullname": {
@@ -336,7 +344,8 @@
     "add-tenant": "Добавить тенант",
     "domen": "Домен",
     "start-date": "Дата начала",
-    "end-date": "Дата окончания"
+    "end-date": "Дата окончания",
+    "edit-tenant": "Редактировать арендатора"
   },
   "common": {
     "statistics": "Статистика",
@@ -427,12 +436,22 @@
     "login-success": "Авторизация прошла успешно",
     "sort_descending": "Нажмите, чтобы отсортировать по убыванию",
     "sort_ascending": "Нажмите, чтобы отсортировать по возрастанию",
-    "sort_cancel": "Нажмите, чтобы отменить сортировку"
+    "sort_cancel": "Нажмите, чтобы отменить сортировку",
+    "houses-and-apartments": "Дома и квартиры",
+    "resorts": "Курорты",
+    "hostels": "Общежития",
+    "email": "Электронная почта",
+    "accommodations": "Объекты размещения",
+    "name": "Название",
+    "requests": "Заявки",
+    "actived": "Активные",
+    "rejected": "Отклоненные"
   },
   "status": {
     "confirmed": "Подтвержден",
     "pending": "В ожидании",
     "canceled":"Отменен",
-    "free": "Свободный"
+    "free": "Свободный",
+    "unknown": "Неизвестный"
   }
 }

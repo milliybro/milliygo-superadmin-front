@@ -7,17 +7,32 @@ import HotelIcon from '@/components/icons/hotel'
 import UserStatusIcon from '@/components/icons/user-status'
 import UserMultipleIcon from '@/components/icons/user-multiple'
 import TimeManagementIcon from '@/components/icons/time-management'
+import { useSearchParams } from 'react-router'
 
-const HotelsFilters = ({
-  setName,
-  setUsername,
-  setFullName,
-  setStatus,
-}: any) => {
+const HotelsFilters = () => {
   const { t } = useTranslation()
 
+  const [searchParams, setSearchParams] = useSearchParams()
+  console.log(searchParams)
+
+  const handleValuesChange = (changedValues: any, allValues: any) => {
+    const newParams = new URLSearchParams()
+    console.log(changedValues)
+
+    Object.keys(allValues).forEach(key => {
+      if (allValues[key]) {
+        newParams.set(key, allValues[key])
+      }
+    })
+
+    setSearchParams(newParams)
+  }
   return (
-    <Form layout="vertical" className="grid grid-cols-4 gap-4">
+    <Form
+      layout="vertical"
+      className="grid grid-cols-4 gap-4"
+      onValuesChange={handleValuesChange}
+    >
       <Form.Item
         validateDebounce={1000}
         label={t('fields.hotel-search.label')}
@@ -30,9 +45,9 @@ const HotelsFilters = ({
           size="large"
           placeholder={t('fields.hotel-search.placeholder')}
           className="select-shadow"
-          onChange={e => setName(e.target.value)}
         />
       </Form.Item>
+
       <Form.Item
         validateDebounce={1000}
         label={t('fields.login.label')}
@@ -45,9 +60,9 @@ const HotelsFilters = ({
           size="large"
           placeholder={t('fields.login.validation-message-required')}
           className="select-shadow"
-          onChange={e => setUsername(e.target.value)}
         />
       </Form.Item>
+
       <Form.Item
         validateDebounce={1000}
         label={t('fields.contact-person.label')}
@@ -60,9 +75,9 @@ const HotelsFilters = ({
           prefix={
             <UserMultipleIcon className="text-[16px] text-secondary ml-2 mr-4" />
           }
-          onChange={e => setFullName(e.target.value)}
         />
       </Form.Item>
+
       <Form.Item label={t('fields.status.label')} name="status">
         <CSelect
           options={[
@@ -77,7 +92,6 @@ const HotelsFilters = ({
             <UserStatusIcon className="text-[16px] text-secondary ml-2 mr-4" />
           }
           allowClear={true}
-          onChange={setStatus}
         />
       </Form.Item>
     </Form>

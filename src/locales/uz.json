@@ -55,6 +55,14 @@
     "edit-services": "Қулайлик ва хизматларни таҳрирлаш",
     "modal-description": "Янги фойдаланувчи қўшиш учун барча керакли майдонларни тўлдиринг"
  },
+ "accommodations-page": {
+  "filter": {
+    "creator": "Егаси",
+    "full-name": "Тўлиқ исмни киритинг",
+    "status": "Статус",
+    "status-placeholder": "Ҳолатни танланг"
+  }
+},
   "fields": {
     "fullname": {
       "label": "Ф.И.О",
@@ -322,6 +330,14 @@
     "login-success": "Маваффиқатли кирилди",
     "sort_descending": "Камайиш тартибида тартиблаш учун босинг",
     "sort_ascending": "Ўсиш тартибида тартиблаш учун босинг",
-    "sort_cancel": "Тартиблашни рад етиш учун босинг"
+    "sort_cancel": "Тартиблашни рад етиш учун босинг",
+    "houses-and-apartments": "Уйлар ва хонадонлар",
+    "resorts": "Дам олиш масканлари",
+    "hostels": "Хостеллар",
+    "email": "Емаил",
+    "accommodations": "Турар жойлар",
+    "requests": "Сўров",
+    "actived": "Фаол",
+    "rejected": "Бекор қилинган"
   }
 }

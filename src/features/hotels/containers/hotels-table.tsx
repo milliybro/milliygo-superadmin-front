@@ -8,7 +8,6 @@ import HotelsTableActionButton from '../components/hotels-table-action-button'
 
 import type { IHotelsTable } from '../types'
 import type { PaginationProps, TableColumnsType } from 'antd'
-import { formatAmount } from '@/helpers/format-amount'
 import HotelIcon from '@/components/icons/hotel'
 import UsersNotFound from '@/features/users/components/users-not-found'
 
@@ -82,7 +81,12 @@ const HotelsTable = ({
       render: val => (
         <div>
           {val ? (
-            <Tooltip title={val} key={val}>
+            <Tooltip
+              color="white"
+              overlayInnerStyle={{ color: '#3276FF', textAlign: 'center', 'textDecoration': "underline" }}
+              title={val}
+              key={val}
+            >
               <a
                 style={{ textDecoration: 'underline' }}
                 className="text-[#3276FF] line-clamp-2"
@@ -96,19 +100,19 @@ const HotelsTable = ({
         </div>
       ),
     },
-    {
-      title: 'fields.price.label',
-      dataIndex: 'price',
-      sorter: {
-        compare: (a, b) => a.price - b.price,
-        multiple: 1,
-      },
-      render: val => (
-        <div>
-          {val ? formatAmount(val) : '0'} {t('common.summ')}
-        </div>
-      ),
-    },
+    // {
+    //   title: 'fields.price.label',
+    //   dataIndex: 'price',
+    //   sorter: {
+    //     compare: (a, b) => a.price - b.price,
+    //     multiple: 1,
+    //   },
+    //   render: val => (
+    //     <div>
+    //       {val ? formatAmount(val) : '0'} {t('common.summ')}
+    //     </div>
+    //   ),
+    // },
     {
       title: 'fields.rating.label',
       dataIndex: 'rating',

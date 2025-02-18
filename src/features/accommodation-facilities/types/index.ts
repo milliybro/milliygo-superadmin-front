@@ -11,6 +11,11 @@ interface IUsersTable {
   password: string
   position: string
   status: boolean
+  name: string
+  address: string
+  price: number
+  rating: number
+  contact: string
 }
 
 interface IUsers {
@@ -38,6 +43,12 @@ interface IUsers {
   country_name: string
   nationality_name: string
   email: string
+  placement_name: string
+  image: string
+  placement_address: string
+  price: number
+  star_rating: number
+  full_name: string
 }
 interface IType {
   name: string

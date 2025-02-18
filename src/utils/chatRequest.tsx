@@ -4,33 +4,35 @@ import { refreshToken } from '@/features/auth'
 
 import type { AxiosError } from 'axios'
 
-const request = axios.create({
-  baseURL: settings.baseURL,
+export const baseURL = 'https://chat.emehmon.xdevs.uz/api/v1'
+
+const requestChat = axios.create({
+  baseURL: baseURL,
   timeout: settings.requestTimeout,
 })
 
-request.interceptors.request.use((config) => {
-  const cookie = document?.cookie
-  ?.split('; ')
-  ?.find((row) => row.startsWith('csrftoken='))
-  ?.split('=')[1]
-  
-  const locale = localStorage.getItem('i18nextLng')
-  
+requestChat.interceptors.request.use(config => {
   const token = localStorage.getItem('access')
+  const cookie = document?.cookie
+    ?.split('; ')
+    ?.find(row => row.startsWith('csrftoken='))
+    ?.split('=')[1]
+
   if (token !== null) {
     // eslint-disable-next-line no-param-reassign
     config.headers.Authorization = `Bearer ${token}`
   }
 
+  const locale = localStorage.getItem('i18nextLng')
   config.headers['Accept-Language'] =
     locale === 'uz'
       ? 'uz-cyrillic'
       : locale === 'oz'
-      ? 'uz-latin'
-      : locale || 'ru'
+        ? 'uz-latin'
+        : locale || 'ru'
 
   if (cookie !== null) {
+    // eslint-disable-next-line no-param-reassign
     config.headers['X-CSRFToken'] = cookie
   }
 
@@ -39,24 +41,24 @@ request.interceptors.request.use((config) => {
   return config
 }, errorHandler)
 
-request.interceptors.response.use((response) => response.data, errorHandler)
+requestChat.interceptors.response.use(response => response.data, errorHandler)
 
 export async function errorHandler(error: AxiosError): Promise<void> {
   if (error.response !== null) {
     // server responded with a status code that falls out of the range of 2xx
     if (error.response?.status === 403) {
-      const rToken = localStorage.getItem('refresh_token')
+      const rToken = localStorage.getItem('refresh')
 
       if (rToken !== null) {
         try {
           const res = await refreshToken({ refresh: rToken })
           const { refresh, access } = res.data.auth_tokens
-          localStorage.setItem('refresh_token', refresh)
-          localStorage.setItem('access_token', access)
+          localStorage.setItem('refresh', refresh)
+          localStorage.setItem('access', access)
         } catch (err) {
           localStorage.setItem('refresh_token_error', JSON.stringify(err))
-          localStorage.removeItem('refresh_token')
-          localStorage.removeItem('access_token')
+          localStorage.removeItem('refresh')
+          localStorage.removeItem('access')
         } finally {
           window.location.reload()
         }
@@ -81,4 +83,4 @@ export async function errorHandler(error: AxiosError): Promise<void> {
   await Promise.reject(error)
 }
 
-export default request
+export default requestChat

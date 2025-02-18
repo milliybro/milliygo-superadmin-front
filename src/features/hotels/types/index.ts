@@ -58,7 +58,7 @@ interface IHotelsGuests {
   key: number
   id: number
   citizenship: string,
-  passport: string,
+  passport_sn: string,
   checkInOut: string,
   first_name: string
   last_name: string

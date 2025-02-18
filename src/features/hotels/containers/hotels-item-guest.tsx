@@ -22,79 +22,6 @@ import UsersNotFound from '@/features/users/components/users-not-found'
 //   check_out: string
 // }
 
-const columns: TableColumnsType<IGuestsTable> = [
-  {
-    title: 'ID',
-    dataIndex: 'id',
-    sorter: {
-      compare: (a: any, b: any) => a.id - b.id,
-      multiple: 1,
-    },
-  },
-  {
-    title: 'fields.fullname.label',
-    dataIndex: 'fullName',
-    sorter: {
-      compare: (a, b) => a.fullName.localeCompare(b.fullName),
-      multiple: 3,
-    },
-  },
-  {
-    title: 'fields.citizenship.label',
-    dataIndex: 'citizenship',
-    sorter: {
-      compare: (a, b) => a.citizenship.localeCompare(b.citizenship),
-      multiple: 2,
-    },
-  },
-  {
-    title: 'common.nation',
-    dataIndex: 'nation',
-    sorter: {
-      compare: (a, b) => a.nation.localeCompare(b.nation),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'common.birthdate',
-    dataIndex: 'birthdate',
-    sorter: {
-      compare: (a, b) => a.birthdate.localeCompare(b.birthdate),
-      multiple: 1,
-    },
-    render: text => {
-      if (!text) return '-'
-      const date = new Date(text)
-      const day = String(date.getDate()).padStart(2, '0')
-      const month = String(date.getMonth() + 1).padStart(2, '0')
-      const year = date.getFullYear()
-      return `${day}.${month}.${year}`
-    },
-  },
-  {
-    title: 'common.passport',
-    dataIndex: 'passport',
-    sorter: {
-      compare: (a, b) => a.passport.localeCompare(b.passport),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'common.check-in-out',
-    dataIndex: 'checkInOut',
-    sorter: {
-      compare: (a, b) => a.checkInOut.localeCompare(b.checkInOut),
-      multiple: 1,
-    },
-  },
-  {
-    width: 200,
-    title: 'common.action',
-    dataIndex: 'id',
-    render: id => <HotelsItemTableActionButton id={id} />,
-  },
-]
-
 const onChange: TableProps<IGuestsTable>['onChange'] = (
   pagination,
   filters,
@@ -110,6 +37,80 @@ const HotelsItemGuest = () => {
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
 
+  const columns: TableColumnsType<IGuestsTable> = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      render: (_text, _record, index) =>
+        (currentPage - 1) * pageSize + index + 1,
+      sorter: {
+        compare: (a: any, b: any) => a.id - b.id,
+        multiple: 1,
+      },
+    },
+    {
+      title: 'fields.fullname.label',
+      dataIndex: 'fullName',
+      sorter: {
+        compare: (a, b) => a.fullName.localeCompare(b.fullName),
+        multiple: 3,
+      },
+    },
+    {
+      title: 'fields.citizenship.label',
+      dataIndex: 'citizenship',
+      sorter: {
+        compare: (a, b) => a.citizenship.localeCompare(b.citizenship),
+        multiple: 2,
+      },
+    },
+    {
+      title: 'common.nation',
+      dataIndex: 'nation',
+      sorter: {
+        compare: (a, b) => a.nation.localeCompare(b.nation),
+        multiple: 1,
+      },
+    },
+    {
+      title: 'common.birthdate',
+      dataIndex: 'birthdate',
+      sorter: {
+        compare: (a, b) => a.birthdate.localeCompare(b.birthdate),
+        multiple: 1,
+      },
+      render: text => {
+        if (!text) return '-'
+        const date = new Date(text)
+        const day = String(date.getDate()).padStart(2, '0')
+        const month = String(date.getMonth() + 1).padStart(2, '0')
+        const year = date.getFullYear()
+        return `${day}.${month}.${year}`
+      },
+    },
+    {
+      title: 'common.passport',
+      dataIndex: 'passport',
+      sorter: {
+        compare: (a, b) => a.passport.localeCompare(b.passport),
+        multiple: 1,
+      },
+    },
+    {
+      title: 'common.check-in-out',
+      dataIndex: 'checkInOut',
+      sorter: {
+        compare: (a, b) => a.checkInOut.localeCompare(b.checkInOut),
+        multiple: 1,
+      },
+    },
+    {
+      width: 200,
+      title: 'common.action',
+      dataIndex: 'id',
+      render: id => <HotelsItemTableActionButton id={id} />,
+    },
+  ]
   console.log(setCurrentPage, setPageSize)
 
   const { data: guests } = useQuery({
@@ -132,10 +133,10 @@ const HotelsItemGuest = () => {
       key: guest?.id,
       id: guest?.id || 'N/A',
       fullName: `${guest?.first_name || ''} ${guest?.last_name || ''}`.trim(),
-      citizenship: guest?.citizenship || 'Unknown',
-      nation: guest?.nationality || 'Unknown',
+      citizenship: guest?.citizenship || 'N/A',
+      nation: guest?.nationality || 'N/A',
       birthdate: guest?.birth_date || 'N/A',
-      passport: guest?.passport || 'N/A',
+      passport: guest?.passport_sn || 'N/A',
       checkInOut:
         guest?.check_in && guest?.check_out
           ? `${guest.check_in} - ${guest.check_out}`
@@ -188,14 +189,12 @@ const HotelsItemGuest = () => {
             : []
         }
         onChange={onChange}
-        className="w-full h-full"
         pagination={{
           pageSize: pageSize,
           total: guests?.count,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],
-
           itemRender: itemRender,
         }}
         locale={{

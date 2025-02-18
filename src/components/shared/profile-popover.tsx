@@ -14,9 +14,10 @@ import { useTranslation } from 'react-i18next'
 import ArrowDownIcon from '../icons/arrow-down'
 import UserCircleIcon from '../icons/user-circle'
 import useUserData from '@/hooks/use-user-data'
+import LogoutIcon from '../icons/login-icon'
 
 const ProfilePopover = () => {
-    const user = useUserData()
+  const user = useUserData()
   const { t } = useTranslation()
   const [modalLogout, setModalLogout] = useState(false)
   const [cookies] = useCookies(['darkTheme'])
@@ -68,7 +69,7 @@ const ProfilePopover = () => {
           </Button>
         }
       >
-         <button
+        <button
           type="button"
           className="flex items-center select-none group font-semibold hover:bg-transparent text-primary-dark dark:text-white text-[15px] leading-[19.12px]"
         >
@@ -100,6 +101,7 @@ const ProfilePopover = () => {
             shape="circle"
             size={62}
             className=" bg-danger/20 mb-5 border-[7px] border-danger/5"
+            src={<LogoutIcon  className='text-[#ff0000]' color='#ff0000' />}
           />
           <Typography.Text className="text-[24px] font-bold leading-[30.6px] mb-[10px]">
             {t('profile-popover.label')}

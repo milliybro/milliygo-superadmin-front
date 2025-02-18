@@ -101,6 +101,14 @@
     "edit-services": "Qulaylik va xizmatlarni tahrirlash",
     "modal-description": "Yangi foydalanuvchi qo'shish uchun barcha kerakli maydonlarni to'ldiring"
  },
+ "accommodations-page": {
+  "filter": {
+    "creator": "Egasi",
+    "full-name": "To'liq ismni kiriting",
+    "status": "Status",
+    "status-placeholder": "Holatni tanlang"
+  }
+},
   "fields": {
     "fullname": {
       "label": "F.I.O",
@@ -406,7 +414,15 @@
     "login-success": "Mavaffiqatli kirildi",
     "sort_descending": "Kamayish tartibida tartiblash uchun bosing",
     "sort_ascending": "O'sish tartibida tartiblash uchun bosing",
-    "sort_cancel": "Tartiblashni rad etish uchun bosing"
+    "sort_cancel": "Tartiblashni rad etish uchun bosing",
+    "houses-and-apartments": "Uylar va xonadonlar",
+    "resorts": "Dam olish maskanlari",
+    "hostels": "Xostellar",
+    "email": "Email",
+    "accommodations": "Turar joylar",
+    "requests": "So'rov",
+    "actived": "Faol",
+    "rejected": "Bekor qilingan"
   },
   "status": {
     "confirmed": "Tasdiqlangan",

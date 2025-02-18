@@ -9,7 +9,7 @@ interface IClientTable {
   entryDate: string
   exitDate: string
   country: string
-  nationality_name: string
+  email: string
   country_name: string
 }
 
