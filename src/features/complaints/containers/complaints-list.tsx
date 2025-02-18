@@ -35,8 +35,6 @@ const ComplaintsList: FC<IProps> = ({
     }
   }, [data])
 
-  console.log(messages)
-
   const handleChatSelect = (chat: string) => {
     setSelectedChat(chat)
   }
@@ -107,10 +105,11 @@ const ComplaintsList: FC<IProps> = ({
       const handleMessage = (event: MessageEvent) => {
         const newMessage = JSON.parse(event.data)
 
-        if (newMessage.message) {
-          setMessages(prevMessages => [newMessage.message, ...prevMessages])
+        if (newMessage.type === 'complaint_conversation_list') {
+          const parsedMessages = newMessage.message
+
+          setMessages(parsedMessages)
         }
-        refetch()
       }
 
       socket.addEventListener('message', handleMessage)
@@ -125,7 +124,6 @@ const ComplaintsList: FC<IProps> = ({
 
       socket.onclose = event => {
         console.log('WebSocket connection closed', event)
-        // Optionally, attempt to reconnect
         // setTimeout(() => {
         //   if (selectedChat) {
         //     socketRef.current = new WebSocket(url);
@@ -142,6 +140,41 @@ const ComplaintsList: FC<IProps> = ({
       }
     }
   }, [user_id])
+
+  // const data = [
+  //   {
+  //     id: 119,
+  //     type: 'complaint',
+  //     unread_count: 0,
+  //     users: [],
+  //     last_message: {
+  //       content: 'hi',
+  //       created_at: '2025-02-18T09:44:34.882535Z',
+  //       user: {
+  //         id: 12,
+  //         username: '52706035440011',
+  //         first_name: 'SHOHRUH',
+  //         last_name: 'RUSTAMOV',
+  //         middle_name: 'TOLLIBOY O‘G‘LI',
+  //         email: '',
+  //         phone: '90 496 90 07',
+  //         avatar: 'https://auth.emehmon.xdevs.uz//media/users/default.png',
+  //         telegram_id: '1930372151',
+  //         type: null,
+  //       },
+  //     },
+  //     object_id: 87,
+  //     placement: [
+  //       {
+  //         id: 87,
+  //         name: 'Marriot',
+  //         image:
+  //           'https://marriot.em.xdevs.uz/media/marriot/relative_media/placements/490863217_kZGzf0r.jpg',
+  //       },
+  //     ],
+  //     created_at: '2025-02-07T17:44:12.657628Z',
+  //   },
+  // ]
 
   return (
     <aside className="!col-span-2 bg-white border flex-col overflow-hidden border-border rounded-[16px]">
@@ -167,10 +200,10 @@ const ComplaintsList: FC<IProps> = ({
                     />
                     <div>
                       <p className="text-[16px] font-bold text-primary-dark truncate w-[210px]">
-                        {name?.users[0]?.first_name
-                          ? name?.users[0]?.first_name +
+                        {name?.last_message?.user?.first_name
+                          ? name?.last_message?.user?.first_name +
                             ' ' +
-                            name?.users[0]?.last_name
+                            name?.last_message?.user?.last_name
                           : `ID: ` + name?.id}
                       </p>
                       <p

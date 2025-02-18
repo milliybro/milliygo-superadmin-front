@@ -156,6 +156,9 @@ const OpenedChatComplaints: FC<IProps> = ({
   //   }
   // }
 
+  const user_id = JSON.parse(localStorage.getItem('user') || '1')?.id
+
+
   useEffect(() => {
     if (chatEndRef.current) {
       chatEndRef.current.scrollIntoView({ behavior: 'smooth' })
@@ -292,7 +295,7 @@ const OpenedChatComplaints: FC<IProps> = ({
             )}
             <div
               className={`rounded-lg p-3 w-fit max-w-[790px] min-w-[250px]  ${
-                message?.user?.type === 'superuser'
+                message?.user?.id === user_id
                   ? 'bg-blue-500 text-white rounded-tr-none'
                   : 'bg-[#F8F8FA] rounded-tl-none text-primary-dark'
               }`}
@@ -304,7 +307,7 @@ const OpenedChatComplaints: FC<IProps> = ({
               ) : null} */}
               <p
                 className={`text-lg font-semibold text-[#232E40] ${
-                  message?.user?.type === 'superuser'
+                  message?.user?.id === user_id
                     ? 'bg-blue-500 text-white rounded-tr-none'
                     : 'bg-[#F8F8FA] rounded-tl-none text-primary-dark'
                 }`}
@@ -345,7 +348,7 @@ const OpenedChatComplaints: FC<IProps> = ({
 
               <div
                 className={`flex items-center justify-end gap-1 mt-1 text-xs ${
-                  message?.user?.type === 'superuser'
+                  message?.user?.id === user_id
                     ? 'text-white'
                     : 'text-secondary'
                 }`}
