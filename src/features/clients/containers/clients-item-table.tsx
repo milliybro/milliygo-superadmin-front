@@ -15,7 +15,6 @@ const columns: TableColumnsType<IClientItemTable> = [
       compare: (a, b) => a.placement.localeCompare(b.placement),
       multiple: 3,
     },
-    width: 250,
     render: value => (
       <Link to="/" className="underline text-primary">
         {value}
@@ -23,7 +22,6 @@ const columns: TableColumnsType<IClientItemTable> = [
     ),
   },
   {
-    width: 220,
     title: 'common.period',
     dataIndex: 'period',
     sorter: {
@@ -41,7 +39,6 @@ const columns: TableColumnsType<IClientItemTable> = [
   {
     title: 'common.comments',
     dataIndex: 'review',
-    width: 700,
   },
 ]
 

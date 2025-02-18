@@ -1,4 +1,4 @@
-import { Flex, Form, Image, Table, TableProps, Typography } from 'antd'
+import { Flex, Form, Image, Table, TableProps, Tooltip, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Divider, message } from 'antd'
 
@@ -222,8 +222,8 @@ const HotelsItemContent = ({ data }: HotelContent) => {
                 src={data?.placement_images[0]?.image}
               />
             ) : (
-              <div className='size-[80px] rounded-[8px] border border-border bg-secondary-light flex flex-col justify-center items-center'>
-                <HotelIcon fontSize={48}/>
+              <div className="size-[80px] rounded-[8px] border border-border bg-secondary-light flex flex-col justify-center items-center">
+                <HotelIcon fontSize={48} />
               </div>
             )}
             <div className="flex flex-col gap-[6px]">
@@ -265,10 +265,17 @@ const HotelsItemContent = ({ data }: HotelContent) => {
             return (
               <div
                 key={item?.id}
-                className="flex items-center gap-2 text-base font-normal text-[#232E40]"
+                className="flex items-center gap-2 text-base font-normal text-[#232E40] "
               >
-                <img className='w-6' src={item?.icon} alt={item?.name} />
-                {item?.name}
+                <img className="w-6" src={item?.icon} alt={item?.name} />
+                <Tooltip
+                  title={item?.name}
+                  color="white"
+                  overlayInnerStyle={{ color: 'black', textAlign: 'center' }}
+                  className="line-clamp-2"
+                >
+                  {item?.name}
+                </Tooltip>
               </div>
             )
           })}

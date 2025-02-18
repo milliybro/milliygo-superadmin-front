@@ -5,7 +5,7 @@ import type { CustomRoute } from '@/types'
 const statisticsRoutes: CustomRoute = {
   id: 'statistics',
   title: 'statistics',
-  path: 'statistics',
+  path: '/',
   element: <Statistics />,
 }
 

@@ -1,4 +1,4 @@
-import { Image, Tabs } from 'antd'
+import { Tabs } from 'antd'
 import { Divider } from 'antd'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -11,7 +11,7 @@ import InfoRow from '@/components/ui/info-row'
 import RatingTag from '@/components/ui/rating-tag'
 import StatusTag from '@/components/ui/status-tag'
 
-import ArrowUpRightIcon from '@/components/icons/arrow-up-right'
+// import ArrowUpRightIcon from '@/components/icons/arrow-up-right'
 
 import HotelsItemContent from '../containers/hotels-item-content'
 import HotelsItemReviews from '../containers/hotels-item-table'
@@ -54,7 +54,11 @@ const HotelsItem = () => {
     queryKey: ['hotels-detail', id, tenant_id],
     queryFn: async () => {
       if (!id) throw new Error('ID is required')
-      const res = await getHotelDetail({ tenant_id, id, type: tenant_id ? 'managment' : 'site' })
+      const res = await getHotelDetail({
+        tenant_id,
+        id,
+        type: tenant_id ? 'managment' : 'site',
+      })
       return res
     },
     enabled: !!id,
@@ -106,8 +110,6 @@ const HotelsItem = () => {
     },
   ]
 
-
-
   return (
     <div className="overflow-y-auto">
       <div className="p-6 flex flex-col gap-6 flex-1">
@@ -130,14 +132,17 @@ const HotelsItem = () => {
           <div className="bg-gradient-to-b from-[#14B8A61A] h-fit sticky top-6 from-0% to-white to-35% gap-6 flex col-span-3 border flex-col p-6 overflow-hidden border-border rounded-[16px]">
             <div className="flex flex-col justify-center items-center gap-[14px]">
               <div className="overflow-hidden size-[108px] rounded-[8px] border border-border bg-secondary-light">
-                {data?.placement_images[0]?.image ?
-                <Image
-                src={data?.placement_images[0]?.image}
-                alt={data?.placement_detail?.name}
-                width={108}
-                height={108}
-                />
-              : <div className='flex flex-col justify-center items-center h-full'><HotelIcon fontSize={48}/></div>}
+                {data?.placement_images[0]?.image ? (
+                  <img
+                    src={data?.placement_images[0]?.image}
+                    alt={data?.placement_detail?.name}
+                    className="w-[108px] h-[108px] object-cover"
+                  />
+                ) : (
+                  <div className="flex flex-col justify-center items-center h-full">
+                    <HotelIcon fontSize={48} />
+                  </div>
+                )}
               </div>
               <span className="text-[18px] text-primary-dark font-semibold">
                 {data?.placement_detail?.name}
@@ -151,7 +156,7 @@ const HotelsItem = () => {
               </div>
             </div>
             <div className="flex flex-col">
-              <section>
+              {/* <section>
                 <h2 className="text-[14px] text-primary-dark font-semibold mb-4">
                   {t('common.general-information')}
                 </h2>
@@ -168,7 +173,7 @@ const HotelsItem = () => {
                   />
                 </div>
               </section>
-              <Divider className="border-border" />
+              <Divider className="border-border" /> */}
               <section>
                 <h2 className="text-[14px] text-primary-dark font-semibold mb-4">
                   {t('fields.balance.label')}
@@ -193,17 +198,17 @@ const HotelsItem = () => {
                 <div className="space-y-3">
                   <InfoRow
                     label={t('common.certificate')}
-                    value={
-                      <a
-                        href="/certificate1928.pdf"
-                        className="text-blue-600 underline inline-flex items-center gap-1"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
-                        
-                        <ArrowUpRightIcon className="text-[18px]" />
-                      </a>
-                    }
+                    value=""
+                    // {
+                    //   <a
+                    //     href="/certificate1928.pdf"
+                    //     className="text-blue-600 underline inline-flex items-center gap-1"
+                    //     target="_blank"
+                    //     rel="noopener noreferrer"
+                    //   >
+                    //     <ArrowUpRightIcon className="text-[18px]" />
+                    //   </a>
+                    // }
                   />
                   <InfoRow
                     label={t('common.issue-date')}

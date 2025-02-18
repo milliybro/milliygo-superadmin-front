@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <header
       id="main-header"
-      className="bg-white border-b dark:bg-dark-bg border-border py-4 px-6 flex justify-between items-center"
+      className="sticky z-10 top-0 bg-white border-b dark:bg-dark-bg border-border py-4 px-6 flex justify-between items-center"
     >
       <Breadcrumbs items={breadCrumbs} />
       <div className="flex items-center space-x-4">

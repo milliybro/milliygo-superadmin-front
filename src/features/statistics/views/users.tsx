@@ -1,17 +1,16 @@
 import NotFoundIcon from '@/components/icons/not-found'
+import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const Statistics = () => {
   const { t } = useTranslation()
 
-  // const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
+  const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
 
-  // useEffect(() => {
-  //   setBreadCrumbs([
-  //     { title: t('common.main'), href: ROUTE_PATHS.MAIN },
-  //     { title: t('common.statistics'), href: ROUTE_PATHS.USERS },
-  //   ])
-  // }, [])
+  useEffect(() => {
+    setBreadCrumbs([])
+  }, [])
 
   return (
     <div className="p-6 flex flex-col gap-6 flex-1">

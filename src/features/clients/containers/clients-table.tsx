@@ -96,6 +96,17 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
       },
     },
     {
+      title: 'common.email',
+      dataIndex: 'email',
+      sorter: {
+        compare: (a, b) => a.email.localeCompare(b.email),
+        multiple: 2,
+      },
+      render: val => {
+        return <div className="text-center">{val ? val : '-'}</div>
+      },
+    },
+    {
       title: 'fields.gender.label',
       dataIndex: 'gender',
       sorter: {
@@ -147,17 +158,17 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
         )
       },
     },
-    {
-      title: 'fields.nationality.label',
-      dataIndex: 'nationality_name',
-      sorter: {
-        compare: (a, b) => a.nationality_name.localeCompare(b.nationality_name),
-        multiple: 1,
-      },
-      render: val => {
-        return <div className="text-center">{val ? val : '-'}</div>
-      },
-    },
+    // {
+    //   title: 'fields.nationality.label',
+    //   dataIndex: 'nationality_name',
+    //   sorter: {
+    //     compare: (a, b) => a.nationality_name.localeCompare(b.nationality_name),
+    //     multiple: 1,
+    //   },
+    //   render: val => {
+    //     return <div className="text-center">{val ? val : '-'}</div>
+    //   },
+    // },
     {
       title: 'common.action',
       dataIndex: 'id',
@@ -211,7 +222,7 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
       last_name: user.last_name,
       middle_name: user.middle_name || '',
       gender: user.gender,
-      passportData: user.passport_sn,
+      email: user.email,
       phoneNumber: user.phone,
       birthYear: user.birth_date,
       country_name: user.country_name,
