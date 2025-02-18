@@ -23,7 +23,6 @@ const ComplaintsList: FC<IProps> = ({
   setSelectedChat,
   data,
   isLoading,
-  refetch,
 }) => {
   const { t } = useTranslation()
   const socketRef = useRef<WebSocket | null>(null)
