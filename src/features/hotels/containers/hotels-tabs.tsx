@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { TabsProps } from 'antd/lib'
 
 import HotelsTable from './hotels-table'
+import { useSearchParams } from 'react-router'
 
 
 const HotelsTab = ({
@@ -13,6 +14,9 @@ const HotelsTab = ({
   setCurrentPage,
 }: any) => {
   const { t } = useTranslation()
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const activeTab = searchParams.get("tab") || "1";
 
   const items: TabsProps['items'] = [
     {
@@ -72,11 +76,14 @@ const HotelsTab = ({
     <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
       <Tabs
         className="p-2"
-        defaultActiveKey="1"
+        activeKey={activeTab}
         items={items.map(val => ({
           ...val,
           label: t(val.label as string),
         }))}
+        onChange={(key) => {
+            setSearchParams({ tab: key });
+          }}
       />
     </div>
   )
