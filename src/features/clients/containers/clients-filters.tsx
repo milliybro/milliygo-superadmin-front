@@ -10,32 +10,12 @@ import Location4Icon from '@/components/icons/location-4'
 import { getCountries } from '../api'
 import { capitalizeFirstLetters } from '@/helpers/capitalize-first-letter'
 import { useQuery } from '@tanstack/react-query'
+import { useSearchParams } from 'react-router'
 
-interface ClientsFiltersProps {
-  setSearchTerm: (value: string) => void
-  searchTerm: string
-  setGender: (value: string) => void
-  gender: string
-  setSelectedCountry: (value: string) => void
-  setIsActive: (value: boolean) => void
-}
 
-const ClientsFilters: React.FC<ClientsFiltersProps> = ({
-  setSearchTerm,
-  // searchTerm,
-  setGender,
-  setSelectedCountry,
-  // gender,
-  setIsActive
-}) => {
+const ClientsFilters = () => {
   const { t } = useTranslation()
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value)
-  }
-  const handleGenderChange = (value: any) => {
-    setGender(value)
-  }
   const { data: countries } = useQuery({
     queryKey: ['countries'],
     queryFn: async () => {
@@ -69,23 +49,35 @@ const ClientsFilters: React.FC<ClientsFiltersProps> = ({
         })
     : []
 
-  const countryHandleSearch = (value: string) => {
-    setSelectedCountry(value)
-  }
-  // const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-  //   const { scrollTop, scrollHeight, clientHeight } = e.currentTarget
-  //   if (scrollHeight - scrollTop === clientHeight) {
-  //     setPage(prev => prev + 1)
-  //   }
-  // }
-  const handleActiveChange = (value: any) => {
-    setIsActive(value)
-  }
+  const [searchParams, setSearchParams] = useSearchParams()
+  console.log(searchParams)
 
+  const handleValuesChange = (changedValues: any, allValues: any) => {
+    const newParams = new URLSearchParams()
+    console.log(changedValues)
+
+    Object.keys(allValues).forEach(key => {
+      if (allValues[key]) {
+        newParams.set(key, allValues[key])
+      } else {
+        newParams.delete(key)
+      }
+    })
+
+    setSearchParams(newParams)
+  }
 
   return (
-    <Form layout="vertical" className="grid grid-cols-4 gap-4">
-      <Form.Item label={t('fields.client-search.label')}>
+    <Form
+      layout="vertical"
+      className="grid grid-cols-4 gap-4"
+      onValuesChange={handleValuesChange}
+    >
+      <Form.Item
+        validateDebounce={1000}
+        label={t('fields.client-search.label')}
+        name="client_search"
+      >
         <Input
           prefix={
             <UserSquareIcon className="text-[16px] text-secondary ml-2 mr-4" />
@@ -93,10 +85,13 @@ const ClientsFilters: React.FC<ClientsFiltersProps> = ({
           size="large"
           placeholder={t('fields.client-search.placeholder')}
           className="select-shadow"
-          onChange={handleSearch}
         />
       </Form.Item>
-      <Form.Item label={t('fields.gender.label')}>
+      <Form.Item
+        name="gender"
+        validateDebounce={1000}
+        label={t('fields.gender.label')}
+      >
         <CSelect
           options={[
             { label: t('common.men'), value: 'male' },
@@ -109,11 +104,14 @@ const ClientsFilters: React.FC<ClientsFiltersProps> = ({
           prefix={
             <UserMultipleIcon className="text-[16px] text-secondary ml-2 mr-4" />
           }
-          onChange={handleGenderChange}
           allowClear={true}
         />
       </Form.Item>
-      <Form.Item label={t('fields.citizenship.label')}>
+      <Form.Item
+        name="country"
+        validateDebounce={1000}
+        label={t('fields.citizenship.label')}
+      >
         <CSelect
           allowClear
           options={countryOptions}
@@ -124,18 +122,20 @@ const ClientsFilters: React.FC<ClientsFiltersProps> = ({
           prefix={
             <Location4Icon className="text-[16px] text-secondary ml-2 mr-4" />
           }
-          // onPopupScroll={handleScroll}
-          onSearch={countryHandleSearch}
-          onChange={value => {
-            console.log(value)
-            setSelectedCountry(value)
-            if (!value) {
-              setSelectedCountry('')
-            }
-          }}
+          // onChange={value => {
+          //   console.log(value)
+          //   setSelectedCountry(value)
+          //   if (!value) {
+          //     setSelectedCountry('')
+          //   }
+          // }}
         />
       </Form.Item>
-      <Form.Item label={t('fields.status.label')}>
+      <Form.Item
+        name="status"
+        validateDebounce={1000}
+        label={t('fields.status.label')}
+      >
         <CSelect
           options={[
             { label: t('common.active'), value: 'true' },
@@ -148,7 +148,6 @@ const ClientsFilters: React.FC<ClientsFiltersProps> = ({
           prefix={
             <UserStatusIcon className="text-[16px] text-secondary ml-2 mr-4" />
           }
-          onChange={handleActiveChange}
           allowClear={true}
         />
       </Form.Item>

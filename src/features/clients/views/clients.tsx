@@ -9,13 +9,13 @@ import ClientsTable from '../containers/clients-table'
 import ClientsFilters from '../containers/clients-filters'
 import { useQuery } from '@tanstack/react-query'
 import { getUsersList } from '@/features/users/api'
+import { useSearchParams } from 'react-router'
 
 const Clients = () => {
   const { t } = useTranslation()
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [currentPage, setCurrentPage] = useState(1)
   const [searchTerm, setSearchTerm] = useState('')
-  const [gender, setGender] = useState('')
   const [selectedCountry, setSelectedCountry] = useState('')
   const [isActive, setIsActive] = useState(true)
   const [pageSize, setPageSize] = useState(10)
@@ -28,21 +28,28 @@ const Clients = () => {
       { title: t('common.clients'), href: ROUTE_PATHS.CLIENTS },
     ])
   }, [])
+
+  const [searchParams] = useSearchParams()
   useEffect(() => {
     setCurrentPage(1)
-  }, [searchTerm])
+  }, [searchParams])
+
+  const search = searchParams.get('client_search') || ''
+  const gender = searchParams.get('gender') || ''
+  const country = searchParams.get('country') || ''
+  const status = searchParams.get('status') || ''
 
   const { data: ClientsData, isLoading } = useQuery({
-    queryKey: ['users-data', currentPage, searchTerm, gender, selectedCountry],
+    queryKey: ['users-data', currentPage, search, gender, country, status],
     queryFn: async () => {
       const res = await getUsersList({
         page_size: pageSize,
         client_or_employee: 'client',
-        country: selectedCountry ? selectedCountry : null,
+        country: country ? country : null,
         page: currentPage,
-        search: searchTerm,
+        search: search,
         gender: gender || undefined,
-        is_active: isActive,
+        is_active: status,
       })
       return res
     },
@@ -54,14 +61,7 @@ const Clients = () => {
       <div className="text-[24px] text-primary-dark font-semibold">
         {t('common.clients')}
       </div>
-      <ClientsFilters
-        setSearchTerm={setSearchTerm}
-        setIsActive={setIsActive}
-        searchTerm={searchTerm}
-        gender={gender}
-        setGender={setGender}
-        setSelectedCountry={setSelectedCountry}
-      />
+      <ClientsFilters />
       <ClientsTable
         clientsData={ClientsData}
         isLoading={isLoading}

@@ -37,7 +37,7 @@ const Complaints = () => {
   const username = searchParams.get('login') || ''
   const fullName = searchParams.get('contact_person') || ''
   const status = searchParams.get('status') || ''
-  const type = searchParams.get('tab') || ''
+  const type = searchParams.get('tab') || '1'
 
   useEffect(() => {
     setCurrentPage(1)
@@ -56,9 +56,9 @@ const Complaints = () => {
       const res = await getHotelsList({
         page_size: pageSize,
         page: currentPage,
-        placement_name: name,
-        username: username,
-        full_name: fullName,
+        placement_name: name || undefined,
+        username: username || undefined,
+        full_name: fullName || undefined,
         status: status,
         placement_key:
           type === '1'

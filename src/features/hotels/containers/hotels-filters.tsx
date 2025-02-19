@@ -22,6 +22,9 @@ const HotelsFilters = () => {
     Object.keys(allValues).forEach(key => {
       if (allValues[key]) {
         newParams.set(key, allValues[key])
+        newParams.set('tab', searchParams.get('tab') ?? '1')
+      } else {
+        newParams.delete(key)
       }
     })
 
@@ -81,8 +84,8 @@ const HotelsFilters = () => {
       <Form.Item label={t('fields.status.label')} name="status">
         <CSelect
           options={[
-            { label: t('common.active'), value: 1 },
-            { label: t('common.inactive'), value: 0 },
+            { label: t('common.active'), value: '1' },
+            { label: t('common.inactive'), value: '0' },
           ]}
           suffixIcon={null}
           className="w-full select-shadow h-[47px]"
