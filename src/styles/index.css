@@ -30,7 +30,7 @@
 }
 
 .custom-table .ant-spin-nested-loading, .custom-table .ant-spin-container, .custom-table .ant-table-wrapper, .custom-table .ant-table-wrapper> * {
-  height: 100%;
+  height: 98%;
 }
 
 .custom-table .ant-pagination {
@@ -38,7 +38,7 @@
 }
 
 .ant-spin-container{
-  height: 100%;
+  height: 98%;
   display: flex;
   flex-direction: column;
 }
@@ -47,7 +47,7 @@
 }
 
 .ant-spin-nested-loading, .ant-spin-container, .ant-table-empty, .ant-table-container, .ant-table-content, .ant-table-content table{
-  height: 100%;
+  height: 98%;
 }
 
 .ant-tabs, .ant-tabs-content, .ant-tabs-tabpane{

@@ -22,6 +22,8 @@ import { ISendMessage } from '../types'
 import FileIcon from '@/components/icons/file-icon'
 import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
 import CloseIcon from '@/components/icons/close-icon'
+import defaultUser from '../../../assets/default-user.png'
+
 
 interface IProps {
   selectedChat: string
@@ -282,7 +284,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
             {message?.admin?.type !== 'superuser' && (
               <div className="size-[32px] border-border border mr-3 bg-secondary-light rounded-full overflow-hidden">
                 <img
-                  src={message?.admin?.avatar || '/default-avatar.png'}
+                  src={defaultUser}
                   alt="Avatar"
                   className="w-full h-full object-cover"
                 />

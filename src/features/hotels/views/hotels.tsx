@@ -37,12 +37,21 @@ const Complaints = () => {
   const username = searchParams.get('login') || ''
   const fullName = searchParams.get('contact_person') || ''
   const status = searchParams.get('status') || ''
+  const type = searchParams.get('tab') || ''
 
   useEffect(() => {
     setCurrentPage(1)
   }, [name, username, fullName])
   const { data, isLoading } = useQuery({
-    queryKey: ['hotels-data', currentPage, name, username, fullName, status],
+    queryKey: [
+      'hotels-data',
+      currentPage,
+      name,
+      username,
+      fullName,
+      status,
+      type,
+    ],
     queryFn: async () => {
       const res = await getHotelsList({
         page_size: pageSize,
@@ -51,6 +60,16 @@ const Complaints = () => {
         username: username,
         full_name: fullName,
         status: status,
+        placement_key:
+          type === '1'
+            ? 'hotel'
+            : type === '3'
+              ? 'accommodations'
+              : type === '4'
+                ? 'hostel'
+                : type === '2'
+                  ? 'apartment'
+                  : type,
       })
       return res
     },
