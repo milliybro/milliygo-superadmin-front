@@ -27,7 +27,7 @@ const CallCenter = () => {
     ])
   }, [])
 
-  const { data: messagesData, isLoading } = useQuery({
+  const { data: messagesData, isLoading, refetch } = useQuery({
     queryKey: ['messages-data', currentPage],
     queryFn: async () => {
       const res = await getMessagesList({
@@ -50,6 +50,7 @@ const CallCenter = () => {
           setSelectedChat={setSelectedChat}
           messagesData={messagesData}
           isLoading={isLoading}
+          refetch={refetch}
         />
         {selectedChat ? (
           <OpenedChat

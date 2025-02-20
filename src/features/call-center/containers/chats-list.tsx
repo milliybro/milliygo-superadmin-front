@@ -1,4 +1,11 @@
-import { type Dispatch, type SetStateAction, type FC, useEffect, useRef, useState } from 'react'
+import {
+  type Dispatch,
+  type SetStateAction,
+  type FC,
+  useEffect,
+  useRef,
+  useState,
+} from 'react'
 import { Avatar, Spin } from 'antd'
 import defaultUser from '../../../assets/default-user.png'
 import { useTranslation } from 'react-i18next'
@@ -8,6 +15,7 @@ interface IProps {
   setSelectedChat: Dispatch<SetStateAction<string | null>>
   messagesData: any
   isLoading: boolean
+  refetch: () => void
 }
 
 const ChatsList: FC<IProps> = ({
@@ -15,6 +23,7 @@ const ChatsList: FC<IProps> = ({
   setSelectedChat,
   messagesData,
   isLoading,
+  refetch
 }) => {
   const { t } = useTranslation()
   const socketRef = useRef<WebSocket | null>(null)
@@ -22,7 +31,7 @@ const ChatsList: FC<IProps> = ({
   const user_id = JSON.parse(localStorage.getItem('user') || '1')?.id
 
   useEffect(() => {
-    if (  messagesData) {
+    if (messagesData) {
       setMessages(messagesData)
     }
   }, [messagesData])
@@ -96,9 +105,10 @@ const ChatsList: FC<IProps> = ({
         const newMessage = JSON.parse(event.data)
 
         if (newMessage.type === 'support_conversation_list') {
-          const parsedMessages = newMessage.message
+          // const parsedMessages = newMessage.message
 
-          setMessages(parsedMessages)
+          // setMessages(parsedMessages)
+          refetch()
         }
       }
 
@@ -139,7 +149,7 @@ const ChatsList: FC<IProps> = ({
           {messages?.length > 0 ? (
             messages
               .slice()
-              .reverse()
+              // .reverse()
               .map((name: any, i: number) => (
                 <li
                   key={name.id}

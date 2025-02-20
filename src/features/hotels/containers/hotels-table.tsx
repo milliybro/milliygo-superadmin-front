@@ -74,8 +74,7 @@ const HotelsTable = ({
       width: 200,
       dataIndex: 'placement_address',
       sorter: {
-        compare: (a, b) =>
-          a.placement_address.localeCompare(b.placement_address),
+        compare: (a, b) => a!.placement_address.localeCompare(b!.placement_address),
         multiple: 2,
       },
       render: val => (
