@@ -15,12 +15,8 @@ const Clients = () => {
   const { t } = useTranslation()
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [currentPage, setCurrentPage] = useState(1)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [selectedCountry, setSelectedCountry] = useState('')
-  const [isActive, setIsActive] = useState(true)
   const [pageSize, setPageSize] = useState(10)
-
-  console.log('SSS', selectedCountry, setPageSize)
+  console.log(setPageSize)
 
   useEffect(() => {
     setBreadCrumbs([
