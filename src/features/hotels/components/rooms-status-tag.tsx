@@ -7,7 +7,7 @@ interface IProps {
   status: string; // Accept the status as a prop
 }
 
-const StatusRoomTag: FC<IProps> = ({ status }) => {
+const StatusRoomsTag: FC<IProps> = ({ status }) => {
   const { t } = useTranslation();
 
   console.log("Status",status);
@@ -15,26 +15,18 @@ const StatusRoomTag: FC<IProps> = ({ status }) => {
 
   // Define a mapping for statuses and their styles
   const statusStyles: Record<string, { text: string; styles: string }> = {
-    'Подтвержден': {
-      text: t('status.confirmed'),
-      styles: 'text-[#115E59] bg-[#CCFBF1]',
+    true: {
+      text: t('status.empty'),
+      styles: 'text-[#1E40AF] bg-[#DBEAFE]',
     },
-    'В ожидании': {
-      text: t('status.pending'),
-      styles: 'text-[#854D0E] bg-[#FEF9C3]',
-    },
-    Отменен: {
+    false: {
       text: t('status.canceled'),
-      styles: 'text-danger-dark bg-danger-light/80',
-    },
-    Свободный: {
-      text: t('status.free'),
-      styles: 'text-primary bg-primary-light',
+      styles: 'text-[#854D0E] bg-[#FEF9C3]',
     },
   };
 
   const currentStatus = statusStyles[status] || {
-    text: t('status.unknown'),
+    text: t('status.booking'),
     styles: 'text-gray-500 bg-gray-200',
   };
 
@@ -50,4 +42,4 @@ const StatusRoomTag: FC<IProps> = ({ status }) => {
   );
 };
 
-export default StatusRoomTag;
+export default StatusRoomsTag;

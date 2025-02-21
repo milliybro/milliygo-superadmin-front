@@ -178,6 +178,7 @@ const HotelsTable = ({
           key={id}
           id={val.id}
           tenant_id={val.tenant ?? undefined}
+          type={val?.type}
         />
       ),
     },
@@ -238,6 +239,7 @@ const HotelsTable = ({
       full_name: item.full_name,
       balance: item.balance,
       tenant: item.tenant_id,
+      type: item.type,
     }),
   )
 
