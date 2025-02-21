@@ -55,10 +55,9 @@ export async function getHotelsList(
   
   export async function getHotelDetailRooms(
     params?: any,
-    id?: number
-  ): Promise<ListResponse<IHotelsRoom[]>> {
-    const res: ListResponse<IHotelsRoom[]> = await request({
-      url: `/placements/rooms/?placement__id=${id}`,
+  ): Promise <IHotelsRoom> {
+    const res: IHotelsRoom = await request({
+      url: `/superadmin/placements/rooms/`,
       method: 'get',
       params,
     })

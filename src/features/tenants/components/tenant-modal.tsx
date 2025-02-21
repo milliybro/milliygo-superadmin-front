@@ -8,7 +8,6 @@ import {
   DatePicker,
   notification,
   Typography,
-  message,
 } from 'antd'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 
@@ -35,7 +34,6 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
   const [form] = Form.useForm()
   const [searchParams] = useSearchParams()
   const { isModalOpen, closeModal } = useHotelModalStore(state => state)
-  const [messageApi] = message.useMessage()
 
   const editTenantId = searchParams.get('edit')
 
@@ -50,17 +48,25 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
     }
   }
 
-  const openNotification = () => {
-    notification.info({
+  const openNotification = (
+    type: 'error' | 'success',
+    messageKey: string,
+    messageDesc: string,
+  ) => {
+    notification[type]({
       closeIcon: null,
-      className:
-        'w-[406px] border-t-[5px] border-primary rounded-[12px] [&_.ant-notification-notice-message]:mb-0',
-      icon: <CheckmarkCircleIcon className="text-[24px] text-primary" />,
+      className: `w-[406px] border-t-[5px] ${
+        type === 'error' ? 'border-danger' : 'border-primary'
+      } rounded-[12px] [&_.ant-notification-notice-message]:mb-0`,
+      icon:
+        type === 'error' ? (
+          <CloseIcon className="text-[24px] text-red-500" />
+        ) : (
+          <CheckmarkCircleIcon className="text-[24px] text-primary" />
+        ),
       message: (
         <Typography.Text className="text-[18px] font-semibold leading-[22.95px]">
-          {editTenantId
-            ? t('fields.user-notification.edit.message')
-            : t('fields.user-notification.add.message')}
+          {t(messageKey)}
         </Typography.Text>
       ),
       placement: 'topRight',
@@ -74,14 +80,13 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
             onClick={() => notification.destroy()}
           />
           <Typography.Text className="text-secondary text-base">
-            {editTenantId
-              ? t('fields.user-notification.add.message')
-              : t('fields.user-notification.edit.message')}
+            {t(messageDesc)}
           </Typography.Text>
         </div>
       ),
     })
   }
+
   const { data, refetch: fetching } = useQuery({
     queryKey: ['tenant', editTenantId],
     queryFn: async () => {
@@ -107,8 +112,12 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
 
       const formattedValues: ITenantsTable = {
         schema_name: values?.schema_name,
-        start_date: values.date ? new Date(values.date[0].$d).toISOString().split('T')[0] : "-",
-        end_date: values.date ? new Date(values.date[1].$d).toISOString().split('T')[0] : "-",
+        start_date: values.date
+          ? new Date(values.date[0].$d).toISOString().split('T')[0]
+          : '-',
+        end_date: values.date
+          ? new Date(values.date[1].$d).toISOString().split('T')[0]
+          : '-',
         is_active: values?.is_active,
         domain: values?.domain + '.em.xdevs.uz',
         user_id: editTenantId ? data?.user_id : null,
@@ -129,7 +138,13 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
       //     ? t('fields.user-notification.edit.message')
       //     : t('fields.user-notification.add.message'),
       // })
-      openNotification()
+      openNotification(
+        'success',
+        editTenantId
+          ? 'fields.user-notification.edit.message'
+          : 'fields.user-notification.add.message',
+        '',
+      )
       console.log('success')
       form.resetFields()
       refetch()
@@ -137,12 +152,18 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
       closeHandler()
     },
     onError: (error: any) => {
+      error?.status === 400 &&
+        openNotification(
+          'error',
+          'fields.user-notification.error.message',
+          error?.data?.domain,
+        )
       openNotificationWithIcon('error')
-      messageApi.open({
-        type: 'error',
-        content: 'This is an error message',
-      })
-      message.error(error?.data?.username)
+      // messageApi.open({
+      //   type: 'error',
+      //   content: 'This is an error message',
+      // })
+      // message.error(error?.data?.username)
       form.getFieldsError()
       console.log('error', error)
     },
@@ -236,25 +257,25 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
             placeholder={t('hotels-page.login.placeholder')}
           />
         </Form.Item>
-        {editTenantId ? (
+        {/* {editTenantId ? (
           null
-        ) : (
-          <Form.Item
-            label={t('hotels-page.password.title')}
-            name="password"
-            // rules={[
-            //   {
-            //     required: true,
-            //     message: t('hotels-page.password.placeholder'),
-            //   },
-            // ]}
-          >
-            <Input
-              className="select-shadow"
-              placeholder={t('hotels-page.password.placeholder')}
-            />
-          </Form.Item>
-        )}
+        ) : ( */}
+        <Form.Item
+          label={t('hotels-page.password.title')}
+          name="password"
+          // rules={[
+          //   {
+          //     required: true,
+          //     message: t('hotels-page.password.placeholder'),
+          //   },
+          // ]}
+        >
+          <Input
+            className="select-shadow"
+            placeholder={t('hotels-page.password.placeholder')}
+          />
+        </Form.Item>
+        {/* )} */}
 
         <Form.Item
           label={t('hotels-page.domen.title')}

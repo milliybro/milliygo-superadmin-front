@@ -9,14 +9,15 @@ import type { FC } from 'react'
 interface IProps {
   id?: number
   tenant_id?: number
+  type?: string
 }
 
-const HotelsTableActionButton: FC<IProps> = ({ id, tenant_id }) => {
+const HotelsTableActionButton: FC<IProps> = ({ id, tenant_id, type }) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
-  console.log('Tenent', tenant_id)
+  console.log('Tenent', tenant_id, type)
 
   return (
     <Button
@@ -26,8 +27,9 @@ const HotelsTableActionButton: FC<IProps> = ({ id, tenant_id }) => {
         navigate(
           pathname +
             '/' +
-            id +
-            (tenant_id !== undefined ? '?tenant_id=' + tenant_id : ''),
+            id + '?' +
+            (tenant_id !== undefined ? 'tenant_id=' + tenant_id + "&" : '') +
+            (type !== undefined ? 'type=' + type : ''),
         )
       }
     >

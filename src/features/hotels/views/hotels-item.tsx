@@ -57,7 +57,7 @@ const HotelsItem = () => {
       const res = await getHotelDetail({
         tenant_id,
         id,
-        type: tenant_id ? 'managment' : 'site',
+        type: tenant_id ? 'management' : 'site',
       })
       return res
     },

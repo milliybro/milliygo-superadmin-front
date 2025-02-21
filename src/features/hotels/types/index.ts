@@ -46,13 +46,14 @@ interface IHotelsItemReview {
 
 
 interface IHotelsRoom {
-  key: string
-  id: number
-  name: string
-  typeNumber: string
-  price: number
-  status: string
-  room_images: string
+  key: any
+  id: any
+  name: any
+  status: boolean
+  room_images: any
+  room_name: any
+  prices: any
+  facilities: any
 }
 interface IHotelsGuests {
   key: number

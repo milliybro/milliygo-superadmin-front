@@ -315,6 +315,9 @@
       },
       "edit": {
         "message": "Foydalanuvchi o'zgardi"
+      }, 
+      "error": {
+        "message": "Xatolik yuz berdi"
       }
     }
   },
@@ -429,6 +432,8 @@
     "pending": "kutilmoqda",
     "canceled":"Bekor qilingan",
     "free": "Bepul",
-    "unknown": "Noma'lum"
+    "unknown": "Noma'lum",
+    "empty": "Bo'sh",
+    "booking": "Band qilingan"
   }
 }
