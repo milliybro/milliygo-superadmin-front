@@ -63,7 +63,7 @@ const Accommodations = () => {
         </div>
       </div>
       <AccommodationsFilters />
-      <div className="bg-white border flex-col overflow-hidden border-border dark:bg-dark-bg rounded-[16px] flex items-center justify-center h-full">
+      <div className="bg-white border w-full flex-col overflow-hidden border-border dark:bg-dark-bg rounded-[16px] flex items-center justify-center h-full">
         <AccommodationsTab
           hotelsData={data}
           isLoading={isLoading}

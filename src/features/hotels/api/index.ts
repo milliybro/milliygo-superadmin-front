@@ -39,6 +39,18 @@ export async function getHotelsList(
     return res
   }
 
+  export async function getHotelManagementGuests(
+    params?: any,
+  ): Promise<ListResponse<IHotelDetail[]>> {
+    const res: ListResponse<IHotelDetail[]> = await request({
+      url: `/superadmin/placements/guests/`,
+      method: 'get',
+      params,
+    })
+  
+    return res
+  }
+
   export async function getHotelDetailReview(
     params?: any,
     id?: number
