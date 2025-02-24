@@ -5,10 +5,11 @@ import { twMerge } from 'tailwind-merge'
 import { IGuestsTable, IHotelsGuests } from '../types'
 import HotelsItemTableActionButton from '../components/hotels-items-table-action'
 import { useQuery } from '@tanstack/react-query'
-import { getHotelGuests } from '../api'
+import { getHotelGuests, getHotelManagementGuests } from '../api'
 import { useState } from 'react'
-import { useParams } from 'react-router'
+import { useParams, useSearchParams } from 'react-router'
 import UsersNotFound from '@/features/users/components/users-not-found'
+import formatDate from '@/features/clients/components/format-date'
 
 // interface IHotelDetailGuests {
 //   id: number
@@ -36,6 +37,7 @@ const HotelsItemGuest = () => {
   const { id } = useParams<{ id: string }>()
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
+  const [searchParams] = useSearchParams()
 
   const columns: TableColumnsType<IGuestsTable> = [
     {
@@ -99,10 +101,12 @@ const HotelsItemGuest = () => {
     {
       title: 'common.check-in-out',
       dataIndex: 'checkInOut',
+      width: 170,
       sorter: {
         compare: (a, b) => a.checkInOut.localeCompare(b.checkInOut),
         multiple: 1,
       },
+      render: val => <div>{val}</div>,
     },
     {
       width: 200,
@@ -113,13 +117,35 @@ const HotelsItemGuest = () => {
   ]
   console.log(setCurrentPage, setPageSize)
 
+  // const { data: guests } = useQuery({
+  //   queryKey: ['hotel-guests', id, currentPage],
+  //   queryFn: async () => {
+  //     if (!id) throw new Error('ID is required')
+  //     const res = await getHotelGuests(
+  //       { page_size: 10, page: currentPage },
+  //       Number(id),
+  //     )
+  //     return res
+  //   },
+  //   enabled: !!id,
+  // })
+  const tenant_id = searchParams.get('tenant_id')
+  const type = searchParams.get('type')
+  
+
   const { data: guests } = useQuery({
-    queryKey: ['hotel-guests', id],
+    queryKey: ['hotel-guests', id, currentPage],
     queryFn: async () => {
       if (!id) throw new Error('ID is required')
-      const res = await getHotelGuests(
-        { page_size: 10, page: currentPage },
-        Number(id),
+      const res = await getHotelManagementGuests(
+        {
+          id: id,
+          page_size: 10,
+          page: currentPage,
+          ...(type === 'management' ? { tenant_id: tenant_id } : {}),
+          type: type,
+        },
+        // Number(id),
       )
       return res
     },
@@ -132,14 +158,14 @@ const HotelsItemGuest = () => {
     return guests.map(guest => ({
       key: guest?.id,
       id: guest?.id || 'N/A',
-      fullName: `${guest?.first_name || ''} ${guest?.last_name || ''}`.trim(),
+      fullName: guest?.full_name,
       citizenship: guest?.citizenship || 'N/A',
       nation: guest?.nationality || 'N/A',
       birthdate: guest?.birth_date || 'N/A',
-      passport: guest?.passport_sn || 'N/A',
+      passport: guest?.passport || 'N/A',
       checkInOut:
-        guest?.check_in && guest?.check_out
-          ? `${guest.check_in} - ${guest.check_out}`
+        guest?.start_date && guest?.end_date
+          ? `${formatDate(guest.start_date)} - ${formatDate(guest.end_date)}`
           : '-',
     }))
   }
@@ -176,6 +202,9 @@ const HotelsItemGuest = () => {
 
     return originalElement
   }
+  const handlePaginationChange = (page: number) => {
+    setCurrentPage(page)
+  }
   return (
     <div>
       <Table<IGuestsTable>
@@ -184,18 +213,18 @@ const HotelsItemGuest = () => {
           title: t(`${val?.title}`),
         }))}
         dataSource={
-          guests?.results
-            ? transformHotelDetailsToTableData(guests.results as any)
-            : []
+          guests ? transformHotelDetailsToTableData(guests as any) : []
         }
-        onChange={onChange}
+        onChange={pagination => handlePaginationChange(pagination.current!)}
         pagination={{
+          current: currentPage,
           pageSize: pageSize,
-          total: guests?.count,
+          total: guests?.count || 0,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],
           itemRender: itemRender,
+          onChange: handlePaginationChange,
         }}
         locale={{
           emptyText: <UsersNotFound />,
