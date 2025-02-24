@@ -1,11 +1,11 @@
-import { PaginationProps, Table, TableColumnsType, TableProps } from 'antd'
+import { PaginationProps, Table, TableColumnsType } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 import { twMerge } from 'tailwind-merge'
 import { IGuestsTable, IHotelsGuests } from '../types'
 import HotelsItemTableActionButton from '../components/hotels-items-table-action'
 import { useQuery } from '@tanstack/react-query'
-import { getHotelGuests, getHotelManagementGuests } from '../api'
+import { getHotelManagementGuests } from '../api'
 import { useState } from 'react'
 import { useParams, useSearchParams } from 'react-router'
 import UsersNotFound from '@/features/users/components/users-not-found'
@@ -23,14 +23,14 @@ import formatDate from '@/features/clients/components/format-date'
 //   check_out: string
 // }
 
-const onChange: TableProps<IGuestsTable>['onChange'] = (
-  pagination,
-  filters,
-  sorter,
-  extra,
-) => {
-  console.log('params', pagination, filters, sorter, extra)
-}
+// const onChange: TableProps<IGuestsTable>['onChange'] = (
+//   pagination,
+//   filters,
+//   sorter,
+//   extra,
+// ) => {
+//   console.log('params', pagination, filters, sorter, extra)
+// }
 
 const HotelsItemGuest = () => {
   const { t } = useTranslation()
