@@ -5,7 +5,6 @@ import EyeIcon from '@/components/icons/eye'
 
 import type { FC } from 'react'
 import useHotelModalStore from '../store/hotel-modal-store'
-import GuestModal from './guest-modal'
 
 interface IProps {
   id?: number
@@ -27,7 +26,6 @@ const HotelsItemTableActionButton: FC<IProps> = ({ id }) => {
         <EyeIcon className="text-[20px]" />
         {t('common.more-details')}
       </Button>
-      <GuestModal />
     </>
   )
 }

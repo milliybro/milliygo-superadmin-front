@@ -58,11 +58,12 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
       render: (_, record: any) => {
         return (
           <div className="flex items-center gap-2">
-            <img
+            {record?.image ?  <img
               className="w-[48px] h-[48px] object-cover rounded-[8px]"
               src={record?.image}
               alt=""
-            />
+            />: null}
+            
             {_}
           </div>
         )
@@ -180,17 +181,17 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
     hotelsData?.results.map((user: IUsers) => ({
       key: user.id.toString(),
       id: user.id,
-      name: user.placement_name,
+      name: user.name,
       image: user.image,
-      address: user.placement_address,
-      price: user.price,
+      address: user.address,
+      price: user.min_price,
       rating: user.star_rating,
       contact: user.full_name,
       gender: user.gender,
       username: user.username,
       password: user.password,
       position: user.type?.name,
-      status: user.is_active,
+      status: user.status,
     })) || []
 
   return (
