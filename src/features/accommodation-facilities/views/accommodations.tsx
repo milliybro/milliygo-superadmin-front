@@ -7,9 +7,10 @@ import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
 import AccommodationsFilters from '../containers/accommodations-filters'
 // import AccommodationsTable from '../containers/accommodations-table'
-import { getHotelsList } from '@/features/hotels/api'
+import { getHotels } from '@/features/hotels/api'
 import { useQuery } from '@tanstack/react-query'
 import AccommodationsTab from '../containers/accommodations-tabs'
+import { useSearchParams } from 'react-router'
 // import UserModal from '../components/user-modal'
 // import HotelsTable from '../containers/users-table'
 // import UsersFilters from '../containers/users-filters'
@@ -36,15 +37,26 @@ const Accommodations = () => {
     ])
   }, [])
 
+  const [searchParams] = useSearchParams()
+  const type = searchParams.get('tab') || '1'
+
   useEffect(() => {
     setCurrentPage(1)
   }, [])
   const { data, isLoading } = useQuery({
-    queryKey: ['hotels-data', currentPage],
+    queryKey: ['hotels-data', currentPage, type],
     queryFn: async () => {
-      const res = await getHotelsList({
+      const res = await getHotels({
         page_size: pageSize,
         page: currentPage,
+        is_approved:
+          type === '1'
+            ? 'approved'
+            : type === '2'
+              ? 'pending'
+              : type === '3'
+                ? 'cancelled'
+                : type,
         // placement_name: name,
         // username: username,
         // full_name: fullName,

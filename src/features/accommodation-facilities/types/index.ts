@@ -19,6 +19,8 @@ interface IUsersTable {
 }
 
 interface IUsers {
+  address: string
+  min_price: number
   id: number
   name: string
   key: string

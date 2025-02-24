@@ -10,6 +10,7 @@ import { useState } from 'react'
 import { useParams, useSearchParams } from 'react-router'
 import UsersNotFound from '@/features/users/components/users-not-found'
 import formatDate from '@/features/clients/components/format-date'
+import GuestModal from '../components/guest-modal'
 
 // interface IHotelDetailGuests {
 //   id: number
@@ -233,6 +234,8 @@ const HotelsItemGuest = () => {
           cancelSort: t('common.sort_cancel') ?? '',
         }}
       />
+      <GuestModal />
+
     </div>
   )
 }

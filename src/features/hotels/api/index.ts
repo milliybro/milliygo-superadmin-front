@@ -14,6 +14,18 @@ export async function getHotelsList(
     return res
   }
 
+  export async function getHotels(
+    params?: any,
+  ): Promise<ListResponse<IHotelsTable[]>> {
+    const res: ListResponse<IHotelsTable[]> = await request({
+      url: '/placements/placements/',
+      method: 'get',
+      params,
+    })
+  
+    return res
+  }
+
   export async function getHotelDetail(
     params?: any,
   ): Promise<ListResponse<IHotelDetail[]>> {
