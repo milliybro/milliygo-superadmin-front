@@ -9,9 +9,7 @@ import type { PaginationProps, TableColumnsType } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { IUsers } from '@/features/users/types'
 import { capitalizeFirstLetters } from '@/helpers/capitalize-first-letter'
-import dayjs from 'dayjs'
 import UsersNotFound from '@/features/users/components/users-not-found'
-import FormattedDate from '../components/formatted-date'
 import formatDate from '../components/format-date'
 
 // const onChange: TableProps<IClientTable>['onChange'] = (

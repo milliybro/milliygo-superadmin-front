@@ -67,6 +67,10 @@ interface IHotelsGuests {
   birth_date: string
   check_in: string
   check_out: string
+  full_name: string
+  passport: string
+  start_date: string
+  end_date: string
 }
 
 interface IGuestsTable {
