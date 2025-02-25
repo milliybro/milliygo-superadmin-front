@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from 'react-router'
 
 import useUserModalStore from '../store/user-modal-store'
 
-import EditIcon from '@/components/icons/edit'
+// import EditIcon from '@/components/icons/edit'
 import DeleteIcon from '@/components/icons/delete'
 
 import { useState } from 'react'
