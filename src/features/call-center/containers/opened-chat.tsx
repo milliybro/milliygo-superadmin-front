@@ -24,9 +24,8 @@ import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
 import CloseIcon from '@/components/icons/close-icon'
 import defaultUser from '../../../assets/default-user.png'
 
-
 interface IProps {
-  selectedChat: string
+  selectedChat: any
   setSelectedChat: Dispatch<SetStateAction<string | null>>
 }
 
@@ -50,18 +49,18 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   const chatBodyRef = useRef<HTMLDivElement>(null)
 
   const { data } = useQuery({
-    queryKey: ['chat', selectedChat],
+    queryKey: ['chat', selectedChat?.id],
     queryFn: async () => {
-      const res = await getMessage({ id: selectedChat })
+      const res = await getMessage({ id: selectedChat?.id })
       return res
     },
-    enabled: !!selectedChat,
+    enabled: !!selectedChat?.id,
   })
 
   const { data: list, refetch } = useQuery({
     queryKey: ['chat_room', selectedChat, data],
     queryFn: async () => {
-      const res = await getChatRoom({ id: selectedChat })
+      const res = await getChatRoom({ id: selectedChat?.id })
       return res
     },
     enabled: !!selectedChat,
@@ -118,8 +117,8 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
       const messageFormData = new FormData()
       messageFormData.append('content', messageText)
 
-      if (selectedChat) {
-        messageFormData.append('chat_room', selectedChat + '')
+      if (selectedChat?.id) {
+        messageFormData.append('chat_room', selectedChat?.id + '')
       }
 
       if (selectedFile) {
@@ -137,7 +136,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   })
 
   const { mutate: askUser } = useMutation({
-    mutationFn: () => askUserInfo(selectedChat),
+    mutationFn: () => askUserInfo(selectedChat?.id),
     onSuccess: (values: ISendMessage) => {
       openNotification()
       console.log('User info fetched successfully:', values)
@@ -166,7 +165,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
     if (typeof window !== 'undefined' && selectedChat) {
       const token =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUzMDA0MzY1LCJpYXQiOjE3MzE0MDQzNjUsImp0aSI6IjI0Yzk3NWVhMWMzYjRjMWNhZDZiZTk2OTI0YzBmYjYzIiwidXNlcl9pZCI6MX0.xjbItyKCCu_l6GqBKlxA5dCpWbJiDuGrPx3QXNcfQKo'
-      const url = `wss://websocket.emehmon.xdevs.uz/ws/support/?chat_room=${selectedChat}&token=${token}`
+      const url = `wss://websocket.emehmon.xdevs.uz/ws/support/?chat_room=${selectedChat?.id}&token=${token}`
       const socket = new WebSocket(url)
       socketRef.current = socket
 
@@ -207,7 +206,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
         }
       }
     }
-  }, [selectedChat])
+  }, [selectedChat?.id])
 
   const handleButtonClick = () => {
     fileInputRef.current?.click()
@@ -264,7 +263,10 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
           onClick={() => setSelectedChat(null)}
         />
         <div>
-          <h3 className="text-lg font-semibold">{selectedChat}</h3>
+          <h3 className="text-lg font-semibold">
+            {selectedChat?.chat_detail?.first_name}{' '}
+            {selectedChat?.chat_detail?.last_name}
+          </h3>
           <p className="text-sm text-gray-500"></p>
         </div>
         <span></span>

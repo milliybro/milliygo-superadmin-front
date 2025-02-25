@@ -448,7 +448,11 @@
     "name": "Название",
     "requests": "Заявки",
     "actived": "Активные",
-    "rejected": "Отклоненные"
+    "rejected": "Отклоненные",
+    "admin": "Администратор",
+    "editor": "Редактор",
+    "viewer": "Зритель",
+    "contributor": "Участник"
   },
   "status": {
     "confirmed": "Подтвержден",

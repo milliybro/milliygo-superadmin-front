@@ -425,7 +425,11 @@
     "accommodations": "Turar joylar",
     "requests": "So'rov",
     "actived": "Faol",
-    "rejected": "Bekor qilingan"
+    "rejected": "Bekor qilingan",
+    "admin": "Administrator",
+    "editor": "Muharrir",
+    "viewer": "Faqat ko'rish",
+    "contributor": "Ishtirokchi"
   },
   "status": {
     "confirmed": "Tasdiqlangan",

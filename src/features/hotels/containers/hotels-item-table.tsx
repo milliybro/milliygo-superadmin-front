@@ -1,5 +1,5 @@
 import { Table } from 'antd'
-import { Link, useParams } from 'react-router'
+import { Link, useParams, useSearchParams } from 'react-router'
 // import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
 
@@ -122,6 +122,9 @@ const HotelsItemReviews = () => {
   //   return originalElement
   // }
 
+  const [searchParams] = useSearchParams()
+  const type = searchParams.get('type') || '1'
+
   const { data: HotelDetailReview } = useQuery({
     queryKey: ['hotels-detail-review', id],
     queryFn: async () => {
@@ -155,9 +158,11 @@ const HotelsItemReviews = () => {
         title: t(val?.title as string),
       }))}
       dataSource={
-        HotelDetailReview?.results
-          ? transformHotelDetailsToTableData(HotelDetailReview.results)
-          : []
+        type === 'site'
+          ? HotelDetailReview?.results
+            ? transformHotelDetailsToTableData(HotelDetailReview.results)
+            : []
+          : transformHotelDetailsToTableData([])
       }
       onChange={onChange}
       pagination={false}

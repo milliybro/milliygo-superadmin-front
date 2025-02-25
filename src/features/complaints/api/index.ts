@@ -38,3 +38,16 @@ export async function getComplaintsList(
   
     return res
   }
+
+  export async function createComplaints(data: {
+
+  }): Promise<any> {
+    const res: any = await requestChat({
+      url: `/chats/create-message/`,
+      method: 'post',
+      data,
+    })
+  
+    return res
+  }
+ 

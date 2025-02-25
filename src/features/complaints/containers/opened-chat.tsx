@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { Button, Image } from 'antd'
+import { Button, Image, Input, Spin } from 'antd'
 
 // import SendIcon from '@/components/icons/send'
 import ArrowLeftIcon from '@/components/icons/arrow-left'
@@ -11,19 +11,30 @@ import type {
   Dispatch,
   SetStateAction,
   FC,
+  ChangeEvent,
+  KeyboardEvent,
   // ChangeEvent,
   // KeyboardEvent,
 } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 // import { askUserInfo, createMessage, getChatRoom, getMessage } from '../api'
 // import BlurImage from '@/components/ui/blur-image'
 // import { ISendMessage } from '../types'
 import FileIcon from '@/components/icons/file-icon'
-import { getComplaintsChatRoom, getComplaintsMessage } from '../api'
+import {
+  createComplaints,
+  getComplaintsChatRoom,
+  getComplaintsMessage,
+} from '../api'
 import defaultUser from '../../../assets/default-user.png'
+import { ISendMessage } from '@/features/call-center/types'
+import { useTranslation } from 'react-i18next'
+import BlurImage from '@/components/ui/blur-image'
+import AttachmentIcon from '@/components/icons/attachment'
+import SendIcon from '@/components/icons/send'
 
 interface IProps {
-  selectedChat: string
+  selectedChat: any
   setSelectedChat: Dispatch<SetStateAction<string | null>>
 }
 
@@ -37,22 +48,22 @@ const OpenedChatComplaints: FC<IProps> = ({
   selectedChat,
   setSelectedChat,
 }) => {
-  // const { t } = useTranslation()
+  const { t } = useTranslation()
   // const [form] = Form.useForm()
-  // const [messageText, setMessageText] = useState('')
+  const [messageText, setMessageText] = useState('')
   // const [image, setImage] = useState<string | null>(null)
   const [messages, setMessages] = useState<any[]>([])
   const chatEndRef = useRef<HTMLDivElement | null>(null)
   const socketRef = useRef<WebSocket | null>(null)
-  // const [selectedFile, setSelectedFile] = useState<any>(null)
+  const [selectedFile, setSelectedFile] = useState<any>(null)
 
-  // const fileInputRef = useRef<HTMLInputElement | null>(null)
-  // const chatBodyRef = useRef<HTMLDivElement>(null)
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
+  const chatBodyRef = useRef<HTMLDivElement>(null)
 
   const { data } = useQuery({
     queryKey: ['chat_complaints', selectedChat],
     queryFn: async () => {
-      const res = await getComplaintsMessage({ id: selectedChat })
+      const res = await getComplaintsMessage({ id: selectedChat?.id })
       return res
     },
     enabled: !!selectedChat,
@@ -61,7 +72,7 @@ const OpenedChatComplaints: FC<IProps> = ({
   const { data: list, refetch } = useQuery({
     queryKey: ['chat_room_complaints', selectedChat, data],
     queryFn: async () => {
-      const res = await getComplaintsChatRoom({ id: selectedChat })
+      const res = await getComplaintsChatRoom({ id: selectedChat?.id })
       return res
     },
     enabled: !!selectedChat,
@@ -106,40 +117,40 @@ const OpenedChatComplaints: FC<IProps> = ({
   //     form.getFieldsError()
   //   },
   // })
-  // const scrollToBottom = () => {
-  //   const chatBody = chatBodyRef.current
-  //   if (chatBody) {
-  //     chatBody.scrollTop = chatBody.scrollHeight
-  //   }
-  // }
+  const scrollToBottom = () => {
+    const chatBody = chatBodyRef.current
+    if (chatBody) {
+      chatBody.scrollTop = chatBody.scrollHeight
+    }
+  }
 
-  // const { mutate: create, isPending: isSendingMessage } = useMutation({
-  //   mutationFn: () => {
-  //     const messageFormData = new FormData()
-  //     messageFormData.append('content', messageText)
+  const { mutate: create, isPending: isSendingMessage } = useMutation({
+    mutationFn: () => {
+      const messageFormData = new FormData()
+      messageFormData.append('content', messageText)
 
-  //     if (selectedChat) {
-  //       messageFormData.append('chat_room', selectedChat + '')
-  //     }
+      if (selectedChat) {
+        messageFormData.append('conversation', selectedChat?.id + '')
+      }
 
-  //     if (selectedFile) {
-  //       messageFormData.append('file', selectedFile)
-  //     }
+      if (selectedFile) {
+        messageFormData.append('file', selectedFile)
+      }
 
-  //     return createMessage(messageFormData)
-  //   },
-  //   onSuccess: (values: ISendMessage) => {
-  //     console.log(values)
-  //     setMessageText('')
-  //     setSelectedFile(null)
-  //     scrollToBottom()
-  //   },
-  // })
+      return createComplaints(messageFormData)
+    },
+    onSuccess: (values: ISendMessage) => {
+      console.log(values)
+      setMessageText('')
+      setSelectedFile(null)
+      scrollToBottom()
+    },
+  })
 
   // const { mutate: askUser } = useMutation({
-  //   mutationFn: () => askUserInfo(selectedChat),
+  //   mutationFn: () => askUserInfo(selectedChat?.id),
   //   onSuccess: (values: ISendMessage) => {
-  //     openNotification()
+  //     // openNotification()
   //     console.log('User info fetched successfully:', values)
   //   },
   //   onError: error => {
@@ -150,14 +161,13 @@ const OpenedChatComplaints: FC<IProps> = ({
   //   askUser()
   // }
 
-  // const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-  //   if (event.key === 'Enter') {
-  //     create()
-  //   }
-  // }
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      create()
+    }
+  }
 
   const user_id = JSON.parse(localStorage.getItem('user') || '1')?.id
-
 
   useEffect(() => {
     if (chatEndRef.current) {
@@ -169,7 +179,7 @@ const OpenedChatComplaints: FC<IProps> = ({
     if (typeof window !== 'undefined' && selectedChat) {
       const token =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUzMDA0MzY1LCJpYXQiOjE3MzE0MDQzNjUsImp0aSI6IjI0Yzk3NWVhMWMzYjRjMWNhZDZiZTk2OTI0YzBmYjYzIiwidXNlcl9pZCI6MX0.xjbItyKCCu_l6GqBKlxA5dCpWbJiDuGrPx3QXNcfQKo'
-      const url = `wss://websocket.emehmon.xdevs.uz/ws/complaint/?chat_room=${selectedChat}&token=${token}`
+      const url = `wss://websocket.emehmon.xdevs.uz/ws/complaint/?chat_room=${selectedChat?.id}&token=${token}`
       const socket = new WebSocket(url)
       socketRef.current = socket
 
@@ -212,23 +222,23 @@ const OpenedChatComplaints: FC<IProps> = ({
     }
   }, [selectedChat])
 
-  // const handleButtonClick = () => {
-  //   fileInputRef.current?.click()
-  // }
-  // const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-  //   const file = event.target.files?.[0] || null
+  const handleButtonClick = () => {
+    fileInputRef.current?.click()
+  }
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0] || null
 
-  //   console.log('images:', file)
+    console.log('images:', file)
 
-  //   // if (file && file.type !== 'application/pdf') {
-  //   //   alert('Iltimos, faqat PDF fayl yuklang!')
-  //   //   return
-  //   // } else {
-  //   //   setSelectedFile(file)
-  //   // }
+    // if (file && file.type !== 'application/pdf') {
+    //   alert('Iltimos, faqat PDF fayl yuklang!')
+    //   return
+    // } else {
+    //   setSelectedFile(file)
+    // }
 
-  //   setSelectedFile(file)
-  // }
+    setSelectedFile(file)
+  }
 
   // const openNotification = () => {
   //   notification.info({
@@ -267,7 +277,9 @@ const OpenedChatComplaints: FC<IProps> = ({
           onClick={() => setSelectedChat(null)}
         />
         <div>
-          <h3 className="text-lg font-semibold">{selectedChat}</h3>
+          <h3 className="text-lg font-semibold">
+            {selectedChat.placement[0]?.name}
+          </h3>
           <p className="text-sm text-gray-500"></p>
         </div>
         <span></span>
@@ -368,14 +380,7 @@ const OpenedChatComplaints: FC<IProps> = ({
         ))}
         <div ref={chatEndRef}></div>
       </div>
-      {/* {data?.email_receive !== 'received' ? (
-        <div className="bg-white p-4">
-          <Button onClick={handleClick} className="w-full text-center">
-            {t('common.request-data')}
-          </Button>
-        </div>
-      ) : null} */}
-      {/* <footer className="p-4 border-t">
+      <footer className="p-4 border-t">
         {selectedFile && (
           <div
             className={`flex w-[150px] h-[100px] rounded-md ${
@@ -431,7 +436,7 @@ const OpenedChatComplaints: FC<IProps> = ({
             }}
           />
         </div>
-      </footer> */}
+      </footer>
     </main>
   )
 }

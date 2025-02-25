@@ -11,6 +11,7 @@ import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { deleteUser } from '../api'
 import ConfirmationModal from '@/components/ui/confirmation-modal'
+import EyeIcon from '@/components/icons/eye'
 
 // interface IProps {
 //   id?: any
@@ -44,17 +45,17 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
         className="text-[16px] font-medium px-0"
         onClick={editHandler}
       >
-        <EditIcon className="text-[20px]" /> {t('common.edit')}
+        <EyeIcon className="text-[20px]" /> {t('common.more-details')}
       </Button>
 
-      <Button
+      {/* <Button
         onClick={() => setDeleteModal(true)}
         type="link"
         danger
         className="text-[16px] font-medium px-0"
       >
         <DeleteIcon className="text-[20px]" /> {t('common.delete')}
-      </Button>
+      </Button> */}
       <ConfirmationModal
         danger
         icon={DeleteIcon}
