@@ -35,8 +35,11 @@ const Clients = () => {
   const country = searchParams.get('country') || ''
   const status = searchParams.get('status') || ''
 
+  const lang = localStorage.getItem('i18nextLng')
+
+
   const { data: ClientsData, isLoading } = useQuery({
-    queryKey: ['users-data', currentPage, search, gender, country, status],
+    queryKey: ['users-data', currentPage, search, gender, country, status, lang],
     queryFn: async () => {
       const res = await getUsersList({
         page_size: pageSize,

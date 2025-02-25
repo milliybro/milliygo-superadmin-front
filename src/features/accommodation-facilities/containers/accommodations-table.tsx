@@ -133,7 +133,6 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
       render: status => <StatusTag active={status} />,
     },
     {
-      width: 300,
       title: 'common.action',
       dataIndex: 'id',
       render: id => <UserActionButton id={id} refetch={isLoading} />,

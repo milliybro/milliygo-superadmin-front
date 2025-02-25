@@ -341,7 +341,11 @@
     "accommodations": "Турар жойлар",
     "requests": "Сўров",
     "actived": "Фаол",
-    "rejected": "Бекор қилинган"
+    "rejected": "Бекор қилинган",
+    "admin": "Aдминистратор",
+    "editor": "Муҳаррир",
+    "viewer": "Фақат кўриш",
+    "contributor": "Иштирокчи"
   },
   "status": {
     "confirmed": "Тасдиқланган",

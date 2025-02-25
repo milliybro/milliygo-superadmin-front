@@ -156,7 +156,7 @@ const ChatsList: FC<IProps> = ({
                   className={`select-none flex items-center gap-4 duration-200 py-4 px-6 hover:bg-gray-100 cursor-pointer ${
                     selectedChat === name.id ? 'bg-primary-light/50' : ''
                   }`}
-                  onClick={() => handleChatSelect(name.id)}
+                  onClick={() => handleChatSelect(name)}
                 >
                   <span className="p-0 m-0">{i + 1}.</span>
                   <div className="flex justify-between w-full p-0 m-0">

@@ -51,11 +51,12 @@ const HotelsItemRooms = () => {
 
   const tenant_id = searchParams.get('tenant_id')
   const type = searchParams.get('type')
+  const lang = localStorage.getItem('i18nextLng')
 
   console.log(setCurrentPage)
 
   const { data: HotelDetailRoom } = useQuery({
-    queryKey: ['hotels-detail-rooms', id],
+    queryKey: ['hotels-detail-rooms', id, lang],
     queryFn: async () => {
       if (!id) throw new Error('ID is required')
       const res = await getHotelDetailRooms({

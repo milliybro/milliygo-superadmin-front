@@ -53,7 +53,7 @@ const Accommodations = () => {
           type === '1'
             ? 'approved'
             : type === '2'
-              ? 'pending'
+              ? 'new'
               : type === '3'
                 ? 'cancelled'
                 : type,

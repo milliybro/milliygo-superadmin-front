@@ -36,33 +36,6 @@ const columns: TableColumnsType<IAccessRoleTable> = [
   },
 ]
 
-const data: IAccessRoleTable[] = [
-  {
-    key: '1',
-    id: '1',
-    roleName: 'Admin',
-    status: true,
-  },
-  {
-    key: '2',
-    id: '2',
-    roleName: 'Editor',
-    status: false,
-  },
-  {
-    key: '3',
-    id: '3',
-    roleName: 'Viewer',
-    status: true,
-  },
-  {
-    key: '4',
-    id: '4',
-    roleName: 'Contributor',
-    status: false,
-  },
-]
-
 const onChange: TableProps<IAccessRoleTable>['onChange'] = (
   pagination,
   filters,
@@ -75,6 +48,32 @@ const onChange: TableProps<IAccessRoleTable>['onChange'] = (
 const AccessRoleTable = () => {
   const { t } = useTranslation()
 
+  const data: IAccessRoleTable[] = [
+    {
+      key: '1',
+      id: '1',
+      roleName: t('common.admin'),
+      status: true,
+    },
+    {
+      key: '2',
+      id: '2',
+      roleName: t('common.editor'),
+      status: false,
+    },
+    {
+      key: '3',
+      id: '3',
+      roleName: t('common.viewer'),
+      status: true,
+    },
+    {
+      key: '4',
+      id: '4',
+      roleName: t('common.contributor'),
+      status: false,
+    },
+  ]
   const itemRender: PaginationProps['itemRender'] = (
     n,
     type,
