@@ -9,6 +9,9 @@ interface ISevicesTable {
   name_en: string
   created_at: string
   status: boolean
+  category: number
+  translations: any
+  icon_url: string
 }
 
 export type { ISevicesTable }
