@@ -304,7 +304,13 @@
       "name-uz": "O'z nomi",
       "name-ru": "RU nomi",
       "name-en": "EN nomi",
-      "placeholder": "Ism kiriting"
+      "placeholder": "Ism kiriting",
+      "name-cry": "Ўз nomi"
+    },
+    "services": {
+      "add-success-notification": "Yangi qulaylik qo'shildi",
+      "edit-success-notification": "Qulaylik tahrirlandi",
+      "error-notification": "Xatolik berdi"
     },
     "created-at": {
       "label": "Yaratilgan sana"
@@ -429,7 +435,14 @@
     "admin": "Administrator",
     "editor": "Muharrir",
     "viewer": "Faqat ko'rish",
-    "contributor": "Ishtirokchi"
+    "contributor": "Ishtirokchi",
+    "service": "Servis",
+    "type": "Tipni tanlang",
+    "category": "Turkum",
+    "category-select": "Turkumni tanlang",
+    "prohibitions": "Taqiqlar",
+    "facility-room": "Xona",
+    "rule": "Iltimos, ma'lumotni kiriting"
   },
   "status": {
     "confirmed": "Tasdiqlangan",

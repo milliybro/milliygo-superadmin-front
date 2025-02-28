@@ -37,7 +37,6 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
 
   const editTenantId = searchParams.get('edit')
 
-  console.log(editTenantId, 'fdfdfdfd')
 
   const closeHandler = () => {
     form.resetFields()

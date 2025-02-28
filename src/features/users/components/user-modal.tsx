@@ -331,7 +331,7 @@ const UserModal = ({ refetch }: UserModalProps) => {
             loading={isLoading}
           >
             {roles?.results.map(role => (
-              <Select.Option key={role.id} value={role.name}>
+              <Select.Option key={role.id} value={role.id}>
                 {t(`common.${role.name}`)}
               </Select.Option>
             ))}
