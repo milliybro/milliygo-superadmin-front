@@ -8,9 +8,9 @@ import { useQuery } from '@tanstack/react-query'
 import { getHotelManagementGuests } from '../api'
 import { useState } from 'react'
 import { useParams, useSearchParams } from 'react-router'
-import UsersNotFound from '@/features/users/components/users-not-found'
 import formatDate from '@/features/clients/components/format-date'
 import GuestModal from '../components/guest-modal'
+import GuestsNotFound from '../components/guest-not-found'
 
 // interface IHotelDetailGuests {
 //   id: number
@@ -231,7 +231,7 @@ const HotelsItemGuest = () => {
           onChange: handlePaginationChange,
         }}
         locale={{
-          emptyText: <UsersNotFound />,
+          emptyText: <GuestsNotFound />,
           triggerDesc: t('common.sort_descending') ?? '',
           triggerAsc: t('common.sort_ascending') ?? '',
           cancelSort: t('common.sort_cancel') ?? '',

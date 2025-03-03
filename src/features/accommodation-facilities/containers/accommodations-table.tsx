@@ -58,12 +58,14 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
       render: (_, record: any) => {
         return (
           <div className="flex items-center gap-2">
-            {record?.image ?  <img
-              className="w-[48px] h-[48px] object-cover rounded-[8px]"
-              src={record?.image}
-              alt=""
-            />: null}
-            
+            {record?.image ? (
+              <img
+                className="w-[48px] h-[48px] object-cover rounded-[8px]"
+                src={record?.image}
+                alt=""
+              />
+            ) : null}
+
             {_}
           </div>
         )
@@ -86,7 +88,7 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
         multiple: 1,
       },
       render: data => {
-        return <div>{data}</div>
+        return <div>{data} UZS</div>
       },
     },
     {
@@ -120,7 +122,7 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
         multiple: 1,
       },
       render: data => {
-        return <div>{data}</div>
+        return <div className='text-center'>{data ? data : '-'}</div>
       },
     },
     {

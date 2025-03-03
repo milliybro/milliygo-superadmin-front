@@ -396,7 +396,7 @@
     "photos": "Фотографии",
     "facilities-and-services": "Удобства и услуги",
     "accommodation-terms": "Условия размещения",
-    "comments": "Комментарий",
+    "comments": "Отзывы",
     "booking": "Бронирования",
     "nights-count": "{{count}} ночей",
     "message": "Сообщение",
@@ -465,7 +465,8 @@
     "category-select": "Выберите категорию",
     "prohibitions": "Запреты",
     "facility-room": "Номер",
-    "rule": "Введите информацию, пожалуйста"
+    "rule": "Введите информацию, пожалуйста",
+    "not-guests": "Гостей ещё нет"
   },
   "status": {
     "confirmed": "Подтвержден",
