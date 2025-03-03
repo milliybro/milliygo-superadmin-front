@@ -53,6 +53,7 @@ const Services = () => {
       return res
     },
     enabled: activeTab === '1' || activeTab === null,
+    gcTime: 0,
   })
 
   const { data: placementFacilities } = useQuery({
@@ -65,6 +66,7 @@ const Services = () => {
       return res
     },
     enabled: activeTab === '2',
+    gcTime: 0,
   })
 
   const { data: prohibitionsFacilities } = useQuery({
@@ -77,6 +79,7 @@ const Services = () => {
       return res
     },
     enabled: activeTab === '3',
+    gcTime: 0,
   })
 
   const items: TabsProps['items'] = [

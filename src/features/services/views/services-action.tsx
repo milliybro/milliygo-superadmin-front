@@ -57,7 +57,7 @@ const ServicesAction = () => {
 
   const typeId = searchParams.get('type') || '1'
 
-  console.log(typeId)
+  // const queryClient = useQueryClient()
 
   const { data: roomFacilitiesCategory } = useQuery({
     queryKey: ['room-facilities-category'],
@@ -245,6 +245,9 @@ const ServicesAction = () => {
           : 'fields.services.add-success-notification',
         '',
       )
+      // queryClient.invalidateQueries(['room-facilities-data'])
+      // queryClient.invalidateQueries(['placements-facilities-data'])
+      // queryClient.invalidateQueries(['prohibitions-facilities-data'])
     },
     onError: (error: any) => {
       openNotification('error', 'fields.services.error-notification', '')

@@ -327,6 +327,11 @@
       "placeholder": "Введите названию",
       "name-cry": "Название Ўз"
     },
+    "services": {
+      "add-success-notification": "Новая услуга успешно добавлена",
+      "edit-success-notification": "Услуга успешно отредактирована",
+      "error-notification": "Произошла ошибка"
+      },
     "created-at": {
       "label": "Дата создания"
     },
