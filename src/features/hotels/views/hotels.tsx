@@ -81,13 +81,13 @@ const Complaints = () => {
         <div className="text-[24px] text-primary-dark font-semibold">
           {t('common.hotels')}
         </div>
-        <Button
+        {/* <Button
           className="inline-flex items-center gap-2"
           type="primary"
           onClick={openModal}
         >
           <AddIcon /> {t('hotels-page.add-hotel')}
-        </Button>
+        </Button> */}
       </div>
       <HotelsModal />
       <HotelsFilters />

@@ -57,7 +57,7 @@ const HotelsTable = ({
                 alt={val?.placement_name}
                 width={48}
                 height={48}
-                className="rounded-[8px]"
+                className="rounded-[8px] object-cover"
               />
             ) : (
               <HotelIcon fontSize={28} />

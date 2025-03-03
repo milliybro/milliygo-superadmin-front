@@ -6,7 +6,7 @@ const FacilitiesCell = ({ val, rowKey }: { val: any[]; rowKey: string }) => {
 
   const showAll = showAllRows[rowKey] || false
   const safeVal = Array.isArray(val) ? val : []
-  const visibleItems = showAll ? safeVal : safeVal.slice(0, 5)
+  const visibleItems = showAll ? safeVal : safeVal.slice(0, 3)
 
   const toggleShowAll = () => {
     setShowAllRows(prev => ({

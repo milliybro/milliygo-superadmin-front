@@ -209,14 +209,12 @@ const ServicesAction = () => {
         'translations',
         JSON.stringify(formattedValues.translations),
       )
-
       if (values.icon?.file && selectedIcon === null) {
-        formData.append('icon', values.icon.file)
+        formData.append('icon', values.icon.file.originFileObj)
       }
       if (selectedIcon) {
         formData.append('icon_url', selectedIcon)
       }
-
       if (editServiceId) {
         return type === 'room'
           ? updateRFacility({
@@ -379,10 +377,10 @@ const ServicesAction = () => {
         form={form}
         name="access-role-action"
         layout="vertical"
-        className="w-full h-full"
+        className="w-full"
         onFinish={handleUserSave}
       >
-        <div className="grid grid-cols-2 gap-6 h-full">
+        <div className="grid grid-cols-2 gap-6 h-screen overflow-y-scroll">
           <div className="flex flex-col gap-6">
             <div className="bg-white border flex-col p-6 overflow-hidden border-border rounded-[16px]">
               <div className="flex flex-col mb-6 gap-6">
@@ -528,6 +526,7 @@ const ServicesAction = () => {
                             uid: Date.now().toString(),
                             name: file.name,
                             status: 'done',
+                            originFileObj: file,
                           },
                         },
                       })
@@ -549,7 +548,7 @@ const ServicesAction = () => {
 
                       if (iconId && iconHTML) {
                         setSelectedValue(iconId)
-                        setSelectedIcon(null)
+                        setSelectedIcon(iconId)
                         form.setFieldsValue({
                           icon: {
                             file: {
@@ -587,8 +586,9 @@ const ServicesAction = () => {
                         src={previewImage}
                         alt="Preview"
                         style={{
-                          maxWidth: '200px',
-                          maxHeight: '200px',
+                          width: '150px',
+                          height: '150px',
+                          objectFit: 'cover',
                           borderRadius: '8px',
                         }}
                       />
@@ -599,13 +599,13 @@ const ServicesAction = () => {
             </div>
           </div>
 
-          <div className="bg-white border flex-col p-6 overflow-hidden border-border rounded-[16px]">
+          <div className="flex flex-col bg-white border p-6 overflow-y-auto  border-border rounded-[16px]">
             <Text className="text-base font-medium">
               {t('fields.icon.icons')}
             </Text>
             <div className="py-2">
               <Radio.Group onChange={onChange} value={selectedValue}>
-                <div className="grid grid-cols-8 gap-4 p-2 overflow-y-auto overflow-x-hidden h-screen">
+                <div className="grid grid-cols-8 gap-4 p-2 overflow-y-auto overflow-x-hidden ">
                   {icons?.results.map((option: any) => (
                     <Card
                       key={option.id}

@@ -115,7 +115,7 @@ const HotelsItem = () => {
     <div className="overflow-y-auto">
       <div className="p-6 flex flex-col gap-6 flex-1">
         <div className="text-[24px] text-primary-dark font-semibold">
-          {data?.name}
+          {data?.placement_detail?.name}
         </div>
 
         {/* <HotelsFilters /> */}
