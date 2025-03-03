@@ -258,6 +258,11 @@
       "placeholder": "Исм киритинг",
       "name-cry": "Ўз номи"
     },
+    "services": {
+      "add-success-notification": "Янги қулайлик қўшилди",
+      "edit-success-notification": "Қулайлик таҳрирланди",
+      "error-notification": "Хатолик берди"
+    },
     "created-at": {
       "label": "Яратилган сана"
     },
