@@ -1,13 +1,10 @@
-import { Button } from 'antd'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ROUTE_PATHS } from '@/config/constants'
 
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
-import useHotelModalStore from '../store/hotel-modal-store'
 
-import AddIcon from '@/components/icons/add'
 import HotelsFilters from '../containers/hotels-filters'
 import HotelsModal from '../components/hotel-modal'
 import { getHotelsList } from '../api'
@@ -18,7 +15,6 @@ import { useSearchParams } from 'react-router'
 const Complaints = () => {
   const { t } = useTranslation()
 
-  const { openModal } = useHotelModalStore(store => store)
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
