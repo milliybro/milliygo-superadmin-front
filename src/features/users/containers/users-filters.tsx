@@ -23,12 +23,12 @@ interface UsersFiltersProps {
 
 const UsersFilters: React.FC<UsersFiltersProps> = ({
   setSearchTerm,
-  searchTerm,
+  // searchTerm,
   setGender,
-  gender,
-  role,
+  // gender,
+  // role,
   setRole,
-  isActive,
+  // isActive,
   setIsActive,
 }) => {
   const { t } = useTranslation()
@@ -54,6 +54,9 @@ const UsersFilters: React.FC<UsersFiltersProps> = ({
     },
     // keepPreviousData: true,
   })
+
+  console.log(isLoading);
+  
 
   return (
     <Form layout="vertical" className="grid grid-cols-4 gap-4">

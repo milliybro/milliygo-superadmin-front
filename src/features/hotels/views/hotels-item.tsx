@@ -24,18 +24,18 @@ import { useQuery } from '@tanstack/react-query'
 import { getHotelDetail } from '../api'
 import { useParams } from 'react-router'
 
-interface IHotelDetail {
-  id: number
-  name: string | undefined
-  description: string
-  rating: number
-  status: boolean
-  avg_rating: number
-  image: string
-  min_price: number
-  published_at: string
-  owner: { first_name: string; last_name: string }
-}
+// interface IHotelDetail {
+//   id: number
+//   name: string | undefined
+//   description: string
+//   rating: number
+//   status: boolean
+//   avg_rating: number
+//   image: string
+//   min_price: number
+//   published_at: string
+//   owner: { first_name: string; last_name: string }
+// }
 
 const HotelsItem = () => {
   const { t } = useTranslation()
@@ -52,6 +52,9 @@ const HotelsItem = () => {
     },
     enabled: !!id,
   })
+
+  console.log(isLoading);
+  
 
   useEffect(() => {
     if (HotelDetail) {

@@ -1,11 +1,10 @@
 import { Table } from 'antd'
 import { Link, useParams } from 'react-router'
-import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
 
 import StarIcon from '@/components/icons/star'
 
-import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
+import type { TableColumnsType, TableProps } from 'antd'
 import { useQuery } from '@tanstack/react-query'
 import { getHotelDetailReview } from '../api'
 import { IHotelsItemReview } from '../types'
@@ -87,38 +86,38 @@ const HotelsItemReviews = () => {
   const { t } = useTranslation()
   const { id } = useParams<{ id: string }>()
 
-  const itemRender: PaginationProps['itemRender'] = (
-    n,
-    type,
-    originalElement,
-  ) => {
-    if (type === 'prev') {
-      return (
-        <span
-          className={twMerge(
-            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 0 ? 'opacity-0 pointer-events-none' : '',
-          )}
-        >
-          {t('common.prev')}
-        </span>
-      )
-    }
-    if (type === 'next') {
-      return (
-        <span
-          className={twMerge(
-            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 10 ? 'opacity-0 pointer-events-none' : '',
-          )}
-        >
-          {t('common.next')}
-        </span>
-      )
-    }
+  // const itemRender: PaginationProps['itemRender'] = (
+  //   n,
+  //   type,
+  //   originalElement,
+  // ) => {
+  //   if (type === 'prev') {
+  //     return (
+  //       <span
+  //         className={twMerge(
+  //           'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
+  //           n === 0 ? 'opacity-0 pointer-events-none' : '',
+  //         )}
+  //       >
+  //         {t('common.prev')}
+  //       </span>
+  //     )
+  //   }
+  //   if (type === 'next') {
+  //     return (
+  //       <span
+  //         className={twMerge(
+  //           'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
+  //           n === 10 ? 'opacity-0 pointer-events-none' : '',
+  //         )}
+  //       >
+  //         {t('common.next')}
+  //       </span>
+  //     )
+  //   }
 
-    return originalElement
-  }
+  //   return originalElement
+  // }
 
   const { data: HotelDetailReview, isLoading } = useQuery({
     queryKey: ['hotels-detail-review', id],
@@ -129,6 +128,8 @@ const HotelsItemReviews = () => {
     },
     enabled: !!id,
   })
+  console.log(isLoading);
+  
 
   const transformHotelDetailsToTableData = (
     data: IHotelDetailReview[], 
