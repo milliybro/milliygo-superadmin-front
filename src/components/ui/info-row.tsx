@@ -12,7 +12,7 @@ const InfoRow: FC<IProps> = ({ label, value, valueClass }) => {
   return (
     <div className="flex justify-between text-[14px]">
       <span className="text-primary-dark">{label}</span>
-      <span className={twMerge('text-primary-dark', valueClass)}>{value}</span>
+      <span className={twMerge('text-primary-dark text-end', valueClass)}>{value}</span>
     </div>
   )
 }

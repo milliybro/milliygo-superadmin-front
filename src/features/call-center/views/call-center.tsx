@@ -9,26 +9,30 @@ import OpenedChat from '../containers/opened-chat'
 import NoChatSelected from '../components/no-chat-selected'
 import { useQuery } from '@tanstack/react-query'
 import { getMessagesList } from '../api'
+import { useTranslation } from 'react-i18next'
 
 const CallCenter = () => {
+  const { t } = useTranslation()
   const [selectedChat, setSelectedChat] = useState<null | string>(null)
   const [currentPage, setCurrentPage] = useState(1)
+
+  console.log(setCurrentPage)
 
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
 
   useEffect(() => {
     setBreadCrumbs([
-      { title: 'Главная', href: ROUTE_PATHS.MAIN },
-      { title: 'Call-center', href: ROUTE_PATHS.CALL_CENTER },
+      { title: t('common.main'), href: ROUTE_PATHS.MAIN },
+      { title: t('common.call-center'), href: ROUTE_PATHS.CALL_CENTER },
     ])
   }, [])
 
-  const { data: messagesData, isLoading } = useQuery({
+  const { data: messagesData, isLoading, refetch } = useQuery({
     queryKey: ['messages-data', currentPage],
     queryFn: async () => {
       const res = await getMessagesList({
         page_size: 10,
-        page: currentPage
+        page: currentPage,
       })
       return res
     },
@@ -38,14 +42,15 @@ const CallCenter = () => {
   return (
     <div className="p-6 flex flex-col gap-6 flex-1">
       <div className="text-[24px] text-primary-dark font-semibold">
-        Call-center
+        {t('common.call-center')}
       </div>
-      <div className="h-full grid grid-cols-12 gap-4">
+      <div className="h-full grid grid-cols-6 gap-4">
         <ChatsList
           selectedChat={selectedChat}
           setSelectedChat={setSelectedChat}
           messagesData={messagesData}
           isLoading={isLoading}
+          refetch={refetch}
         />
         {selectedChat ? (
           <OpenedChat

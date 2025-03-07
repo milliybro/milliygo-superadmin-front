@@ -6,19 +6,20 @@ import StatusTag from '@/components/ui/status-tag'
 import UserActionButton from '../components/user-action-button'
 
 import type { IUsers, IUsersTable } from '../types'
-import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
-import { useQuery } from '@tanstack/react-query'
-import { getUsersList } from '../api'
-import React, { useState } from 'react'
+import type { PaginationProps, TableColumnsType } from 'antd'
+// import { useQuery } from '@tanstack/react-query'
+// import { getUsersList } from '../api'
+import React from 'react'
+import UsersNotFound from '../components/users-not-found'
 
-const onChange: TableProps<IUsersTable>['onChange'] = (
-  pagination,
-  filters,
-  sorter,
-  extra,
-) => {
-  console.log('params', pagination, filters, sorter, extra)
-}
+// const onChange: TableProps<IUsersTable>['onChange'] = (
+//   pagination,
+//   filters,
+//   sorter,
+//   extra,
+// ) => {
+//   console.log('params', pagination, filters, sorter, extra)
+// }
 
 interface UsersFiltersProps {
   setCurrentPage: (value: number) => void
@@ -83,7 +84,13 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
       },
       render: data => {
         return (
-          <div>{data === 'male' ? 'Муж' : data === 'man' ? 'Муж' : 'Жен'}</div>
+          <div>
+            {data === 'male'
+              ? t('common.men-small')
+              : data === 'man'
+                ? t('common.men-small')
+                : t('common.women-small')}
+          </div>
         )
       },
     },
@@ -95,14 +102,14 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
         multiple: 1,
       },
     },
-    {
-      title: 'fields.password.label',
-      dataIndex: 'password',
-      sorter: {
-        compare: (a, b) => a.password.localeCompare(b.password),
-        multiple: 1,
-      },
-    },
+    // {
+    //   title: 'fields.password.label',
+    //   dataIndex: 'password',
+    //   sorter: {
+    //     compare: (a, b) => a.password.localeCompare(b.password),
+    //     multiple: 1,
+    //   },
+    // },
     {
       title: 'fields.role.label',
       dataIndex: 'position',
@@ -212,6 +219,12 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
         position: ['bottomCenter'],
         itemRender: itemRender,
         onChange: handlePaginationChange,
+      }}
+      locale={{
+        emptyText: <UsersNotFound />,
+        triggerDesc: t('common.sort_descending') ?? '',
+        triggerAsc: t('common.sort_ascending') ?? '',
+        cancelSort: t('common.sort_cancel') ?? '',
       }}
     />
   )

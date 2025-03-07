@@ -1,7 +1,9 @@
 import { IUsers } from "@/features/users/types"
 import { ListResponse } from "@/types"
+// import { ListResponse } from "@/types"
 import requestAuth from "@/utils/authRequest"
 import request from "@/utils/axios"
+import { ICountry } from "../types"
 
 
 export async function getUser(
@@ -20,9 +22,9 @@ export async function getUser(
     params?: any,
   ): Promise<IUsers> {
     const res: IUsers = await request({
-      url: `/bookings/bookings/?user=${params.id}`,
+      url: `/superadmin/bookings/list/`,
       method: 'get',
-      params: params.queryParams,
+      params: {...params},
     })
   
     return res
@@ -35,6 +37,18 @@ export async function getUser(
       url: `/placement-reviews/placement_review/?user=${params.id}`,
       method: 'get',
       params: params.queryParams,
+    })
+  
+    return res
+  }
+
+  export async function getCountries(
+    params?: any,
+  ): Promise<ListResponse<ICountry[]>> {
+    const res: ListResponse<ICountry[]> = await requestAuth({
+      url: '/regions/countries/',
+      method: 'get',
+      params,
     })
   
     return res

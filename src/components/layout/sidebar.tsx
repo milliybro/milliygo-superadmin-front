@@ -16,13 +16,14 @@ import UserMultipleIcon from '../icons/user-multiple'
 import TimeManagementIcon from '../icons/time-management'
 import CustomerSupportIcon from '../icons/customer-support'
 import ServicesIcon from '../icons/services-icon'
+import AccommodationsIcon from '../icons/accommodations-icon'
 
 const items = [
   {
     label: 'common.statistics',
     icon: ChartRingIcon,
-    path: ROUTE_PATHS.STATISTICS,
-    disabled: true,
+    path: ROUTE_PATHS.MAIN,
+    // disabled: true,
   },
   {
     label: 'common.users',
@@ -33,6 +34,11 @@ const items = [
     label: 'common.hotels',
     icon: Hotel2Icon,
     path: ROUTE_PATHS.HOTELS,
+  },
+  {
+    label: 'common.accommodations',
+    icon: AccommodationsIcon,
+    path: ROUTE_PATHS.ACCOMMODATIONS,
   },
   {
     label: 'common.clients',
@@ -59,6 +65,11 @@ const items = [
     icon: ServicesIcon,
     path: ROUTE_PATHS.SERVICES,
   },
+  {
+    label: 'common.tenants',
+    icon: Hotel2Icon,
+    path: ROUTE_PATHS.TENANTS,
+  },
 ]
 
 const Sidebar = () => {
@@ -73,7 +84,7 @@ const Sidebar = () => {
   return (
     <aside
       className={twMerge(
-        'bg-white dark:bg-dark-bg transition-all border-border border-r duration-300',
+        'bg-white dark:bg-dark-bg transition-all border-border border-r duration-300 ',
         isSidebarOpen ? 'w-[219px]' : 'w-14',
       )}
     >

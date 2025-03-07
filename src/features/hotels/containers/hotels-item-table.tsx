@@ -1,5 +1,6 @@
 import { Table } from 'antd'
-import { Link, useParams } from 'react-router'
+import { Link, useParams, useSearchParams } from 'react-router'
+// import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
 
 import StarIcon from '@/components/icons/star'
@@ -8,6 +9,8 @@ import type { TableColumnsType, TableProps } from 'antd'
 import { useQuery } from '@tanstack/react-query'
 import { getHotelDetailReview } from '../api'
 import { IHotelsItemReview } from '../types'
+import dayjs from 'dayjs'
+import UsersNotFound from '@/features/users/components/users-not-found'
 
 interface IHotelDetailReview {
   id: number
@@ -29,7 +32,7 @@ const columns: TableColumnsType<IHotelsItemReview> = [
     },
     width: 250,
     render: (_, record) => (
-      <Link to={`/hotel/${record.id}`} className="underline text-primary">
+      <Link to={`/hotels/`} className="underline text-primary">
         {record.name}
       </Link>
     ),
@@ -119,7 +122,10 @@ const HotelsItemReviews = () => {
   //   return originalElement
   // }
 
-  const { data: HotelDetailReview, isLoading } = useQuery({
+  const [searchParams] = useSearchParams()
+  const type = searchParams.get('type') || '1'
+
+  const { data: HotelDetailReview } = useQuery({
     queryKey: ['hotels-detail-review', id],
     queryFn: async () => {
       if (!id) throw new Error('ID is required')
@@ -127,22 +133,20 @@ const HotelsItemReviews = () => {
       return res
     },
     enabled: !!id,
-  })
-  console.log(isLoading);
-  
+  })  
 
   const transformHotelDetailsToTableData = (
-    data: IHotelDetailReview[], 
+    data: IHotelDetailReview[],
   ): IHotelsItemReview[] => {
     return data.map((item, index: any) => {
-      const { id, user, review, rating } = item
+      const { id, booking, review, rating, placement }: any = item
       return {
         key: index,
         id: id,
-        name: user ? `${user.first_name} ${user.last_name}` : 'Anonymous',
-        date: '-', 
-        review: review || 'No review provided', 
-        rating: rating || 0, 
+        name: placement !== null ? placement : 'Anonymous',
+        date: `${dayjs(booking?.start_date).format('DD MMM, YYYY')} - ${dayjs(booking?.end_date).format('DD MMM, YYYY')}`,
+        review: review || 'No review provided',
+        rating: rating || 0,
       }
     })
   }
@@ -154,12 +158,20 @@ const HotelsItemReviews = () => {
         title: t(val?.title as string),
       }))}
       dataSource={
-        HotelDetailReview?.results
-          ? transformHotelDetailsToTableData(HotelDetailReview.results)
-          : []
+        type === 'site'
+          ? HotelDetailReview?.results
+            ? transformHotelDetailsToTableData(HotelDetailReview.results)
+            : []
+          : transformHotelDetailsToTableData([])
       }
       onChange={onChange}
       pagination={false}
+      locale={{
+        emptyText: <UsersNotFound />,
+        triggerDesc: t('common.sort_descending') ?? '',
+        triggerAsc: t('common.sort_ascending') ?? '',
+        cancelSort: t('common.sort_cancel') ?? '',
+      }}
     />
   )
 }

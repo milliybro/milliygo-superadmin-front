@@ -9,44 +9,30 @@ import UserMultipleIcon from '@/components/icons/user-multiple'
 import TimeManagementIcon from '@/components/icons/time-management'
 import { useQuery } from '@tanstack/react-query'
 import { getUserRoles } from '../api'
+import { useSearchParams } from 'react-router'
 
-interface UsersFiltersProps {
-  setSearchTerm: (value: string) => void
-  searchTerm: string
-  setGender: (value: string) => void
-  gender: string
-  role: string
-  setRole: (value: string) => void
-  isActive: any
-  setIsActive: any
-}
-
-const UsersFilters: React.FC<UsersFiltersProps> = ({
-  setSearchTerm,
-  // searchTerm,
-  setGender,
-  // gender,
-  // role,
-  setRole,
-  // isActive,
-  setIsActive,
-}) => {
+const UsersFilters = () => {
   const { t } = useTranslation()
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(e.target.value)
-  }
-  const handleGenderChange = (value: any) => {
-    setGender(value)
-  }
-  const handleRoleChange = (value: any) => {
-    setRole(value)
-  }
-  const handleActiveChange = (value: any) => {
-    setIsActive(value)
-  }
+  const [searchParams, setSearchParams] = useSearchParams()
+  console.log(searchParams)
 
-  const { data: roles, isLoading } = useQuery({
+  const handleValuesChange = (changedValues: any, allValues: any) => {
+    const newParams = new URLSearchParams()
+    console.log(changedValues)
+
+    Object.keys(allValues).forEach(key => {
+      if (allValues[key]) {
+        newParams.set(key, allValues[key])
+      } else {
+        newParams.delete(key)
+      }
+    })
+
+    setSearchParams(newParams)
+  }
+  
+  const { data: roles } = useQuery({
     queryKey: ['users-roles'],
     queryFn: async () => {
       const res = await getUserRoles()
@@ -54,13 +40,19 @@ const UsersFilters: React.FC<UsersFiltersProps> = ({
     },
     // keepPreviousData: true,
   })
-
-  console.log(isLoading);
   
 
   return (
-    <Form layout="vertical" className="grid grid-cols-4 gap-4">
-      <Form.Item label={t('fields.search-user.label')}>
+    <Form
+      layout="vertical"
+      className="grid grid-cols-4 gap-4"
+      onValuesChange={handleValuesChange}
+    >
+      <Form.Item
+        label={t('fields.search-user.label')}
+        name="search"
+        validateDebounce={1000}
+      >
         <Input
           prefix={
             <UserSquareIcon className="text-[16px] text-secondary ml-2 mr-4" />
@@ -68,10 +60,13 @@ const UsersFilters: React.FC<UsersFiltersProps> = ({
           size="large"
           placeholder={t('fields.search-user.placeholder')}
           className="select-shadow"
-          onChange={handleSearch}
         />
       </Form.Item>
-      <Form.Item label={t('fields.gender.label')}>
+      <Form.Item
+        validateDebounce={1000}
+        label={t('fields.gender.label')}
+        name="gender"
+      >
         <CSelect
           options={[
             { label: t('common.men'), value: 'male' },
@@ -84,11 +79,14 @@ const UsersFilters: React.FC<UsersFiltersProps> = ({
           placeholder={t('fields.gender.placeholder')}
           className="select-shadow"
           // value={gender}
-          onChange={handleGenderChange}
           allowClear={true}
         />
       </Form.Item>
-      <Form.Item label={t('fields.role.label')}>
+      <Form.Item
+        validateDebounce={1000}
+        label={t('fields.role.label')}
+        name="role"
+      >
         <CSelect
           options={roles?.results.map(role => ({
             label: t(`common.${role.name}`),
@@ -101,11 +99,14 @@ const UsersFilters: React.FC<UsersFiltersProps> = ({
             <TimeManagementIcon className="text-[16px] text-secondary ml-2 mr-4" />
           }
           // value={role}
-          onChange={handleRoleChange}
           allowClear={true}
         />
       </Form.Item>
-      <Form.Item label={t('fields.status.label')}>
+      <Form.Item
+        validateDebounce={1000}
+        label={t('fields.status.label')}
+        name="status"
+      >
         <CSelect
           options={[
             { label: t('common.active'), value: 'true' },
@@ -118,7 +119,6 @@ const UsersFilters: React.FC<UsersFiltersProps> = ({
           prefix={
             <UserStatusIcon className="text-[16px] text-secondary ml-2 mr-4" />
           }
-          onChange={handleActiveChange}
           allowClear={true}
         />
       </Form.Item>

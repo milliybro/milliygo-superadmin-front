@@ -1,0 +1,17 @@
+stages:
+  - build
+
+build-job:
+  stage: build
+  only:
+    - main
+    #- merge_requests
+  tags:
+    - stage-server
+  script:
+    - cd /home/emehmon_superadmin_front
+    - pwd
+    - whoami
+    - git pull origin main
+    - npm install
+    - npm run build

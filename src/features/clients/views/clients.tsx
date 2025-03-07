@@ -9,13 +9,14 @@ import ClientsTable from '../containers/clients-table'
 import ClientsFilters from '../containers/clients-filters'
 import { useQuery } from '@tanstack/react-query'
 import { getUsersList } from '@/features/users/api'
+import { useSearchParams } from 'react-router'
 
 const Clients = () => {
   const { t } = useTranslation()
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [currentPage, setCurrentPage] = useState(1)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [gender, setGender] = useState('')
+  const [pageSize, setPageSize] = useState(10)
+  console.log(setPageSize)
 
   useEffect(() => {
     setBreadCrumbs([
@@ -24,15 +25,30 @@ const Clients = () => {
     ])
   }, [])
 
+  const [searchParams] = useSearchParams()
+  useEffect(() => {
+    setCurrentPage(1)
+  }, [searchParams])
+
+  const search = searchParams.get('client_search') || ''
+  const gender = searchParams.get('gender') || ''
+  const country = searchParams.get('country') || ''
+  const status = searchParams.get('status') || ''
+
+  const lang = localStorage.getItem('i18nextLng')
+
+
   const { data: ClientsData, isLoading } = useQuery({
-    queryKey: ['users-data', currentPage, searchTerm, gender],
+    queryKey: ['users-data', currentPage, search, gender, country, status, lang],
     queryFn: async () => {
       const res = await getUsersList({
-        page_size: 10,
+        page_size: pageSize,
         client_or_employee: 'client',
+        country: country ? country : null,
         page: currentPage,
-        search: searchTerm,
+        search: search,
         gender: gender || undefined,
+        is_active: status,
       })
       return res
     },
@@ -44,17 +60,13 @@ const Clients = () => {
       <div className="text-[24px] text-primary-dark font-semibold">
         {t('common.clients')}
       </div>
-      <ClientsFilters
-        setSearchTerm={setSearchTerm}
-        searchTerm={searchTerm}
-        gender={gender}
-        setGender={setGender}
-      />
+      <ClientsFilters />
       <ClientsTable
         clientsData={ClientsData}
         isLoading={isLoading}
         currentPage={currentPage}
         setCurrentpage={setCurrentPage}
+        pageSize={pageSize}
       />
     </div>
   )

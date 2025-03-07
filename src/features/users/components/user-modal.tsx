@@ -5,7 +5,6 @@ import {
   Input,
   Select,
   Button,
-  App,
   Typography,
   notification,
   message,
@@ -23,7 +22,7 @@ import { createUser, getUser, getUserRoles, updateUser } from '../api'
 import { useEffect } from 'react'
 import { IUsers } from '../types'
 import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
-import queryClient from '@/utils/query-client'
+// import queryClient from '@/utils/query-client'
 
 type NotificationType = 'success' | 'info' | 'warning' | 'error'
 
@@ -38,7 +37,7 @@ const UserModal = ({ refetch }: UserModalProps) => {
   const [searchParams] = useSearchParams()
   const { isModalOpen, closeModal } = useUserModalStore(state => state)
 
-  const [messageApi, contextHolder] = message.useMessage()
+  const [messageApi] = message.useMessage()
 
   const [form] = Form.useForm()
 
@@ -263,8 +262,8 @@ const UserModal = ({ refetch }: UserModalProps) => {
             placeholder={t('fields.gender.placeholder')}
             className="select-shadow"
           >
-            <Select.Option value="male">Мужчина</Select.Option>
-            <Select.Option value="female">Женщина</Select.Option>
+            <Select.Option value="male">{t('common.men')}</Select.Option>
+            <Select.Option value="female">{t('common.women')}</Select.Option>
           </CSelect>
         </Form.Item>
 
@@ -332,7 +331,7 @@ const UserModal = ({ refetch }: UserModalProps) => {
             loading={isLoading}
           >
             {roles?.results.map(role => (
-              <Select.Option key={role.id} value={role.name}>
+              <Select.Option key={role.id} value={role.id}>
                 {t(`common.${role.name}`)}
               </Select.Option>
             ))}
@@ -353,8 +352,8 @@ const UserModal = ({ refetch }: UserModalProps) => {
             className="select-shadow"
             placeholder={t('fields.status.placeholder')}
           >
-            <Select.Option value={true}>Активный</Select.Option>
-            <Select.Option value={false}>Неактивный</Select.Option>
+            <Select.Option value={true}>{t('common.active')}</Select.Option>
+            <Select.Option value={false}>{t('common.inactive')}</Select.Option>
           </CSelect>
         </Form.Item>
 

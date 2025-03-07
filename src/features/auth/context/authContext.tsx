@@ -1,6 +1,6 @@
 // import { auth } from '@/config/firebase'
 import React, { ReactNode } from 'react'
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 import { useAuthStore } from '../store/authStore'
 import { auth } from '@/config/firebase'
 import { signOut } from 'firebase/auth'
@@ -20,7 +20,7 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const authStore = useAuthStore()
-  const t = useTranslation()
+  // const t = useTranslation()
   // const googleSignIn = () => {
   //   const provider = new GoogleAuthProvider()
 

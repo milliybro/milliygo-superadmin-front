@@ -1,5 +1,4 @@
 import { Avatar, Tabs } from 'antd'
-import { Divider } from 'antd'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
@@ -17,27 +16,44 @@ import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router'
 
 import defaultUser from '../../../assets/default-user.png'
+import formatDate from '../components/format-date'
+import CountryRow from '@/components/ui/country-row'
 
 const ClientsItem = () => {
   const { t } = useTranslation()
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
 
+  const { id } = useParams()
+  console.log(id)
   const { data } = useQuery({
-    queryKey: ['user'],
+    queryKey: ['user', id],
     queryFn: async () => {
       const res = await getUser({ id: id })
       return res
     },
   })
-  const { id } = useParams()
-  console.log(id)
+
+  // const { data: bookings } = useQuery({
+  //   queryKey: ['clients-booking', id],
+  //   queryFn: async () => {
+  //     const res = await getClientBooking({ id: id })
+  //     return res
+  //   },
+  // })
+  const language =
+    localStorage.getItem('i18nextLng') === 'oz'
+      ? 'uz-latin'
+      : localStorage.getItem('i18nextLng') === 'uz'
+        ? 'uz-cyrillic'
+        : localStorage.getItem('i18nextLng')
 
   const { data: bookings } = useQuery({
-    queryKey: ['clients-booking', id],
+    queryKey: ['clients-booking', id, language],
     queryFn: async () => {
-      const res = await getClientBooking({ id: id })
+      const res = await getClientBooking({ user_id: id, language })
       return res
     },
+    enabled: !!id,
   })
   const { data: reviews } = useQuery({
     queryKey: ['clients-review', id],
@@ -53,8 +69,8 @@ const ClientsItem = () => {
       { title: t('common.clients'), href: ROUTE_PATHS.CLIENTS },
       {
         title: data
-          ? `${data.first_name} ${data.last_name}`
-          : t('common.loading'),
+          ? `${data?.first_name} ${data?.last_name}`
+          : `-`,
       },
     ])
   }, [])
@@ -71,16 +87,7 @@ const ClientsItem = () => {
       children: <ClientsItemTable reviews={reviews} />,
     },
   ]
-  const formatDate = (dateString: string | undefined): string => {
-    if (!dateString) return ''
-    const date = new Date(dateString)
 
-    return new Intl.DateTimeFormat('ru-RU', {
-      day: 'numeric',
-      month: 'long',
-      year: 'numeric',
-    }).format(date)
-  }
   return (
     <div className="overflow-y-auto flex-1">
       <div className="p-6 flex flex-col gap-6 h-full">
@@ -100,11 +107,13 @@ const ClientsItem = () => {
               <span className="text-[18px] text-primary-dark font-semibold">
                 {data?.first_name} {data?.last_name}
               </span>
+              {data?.passport_sn ?
               <div className="flex items-center gap-2">
                 <span className="shrink-0 text-[12px] font-medium px-[10px] py-[6px] rounded-[6px] text-primary bg-primary-light">
                   {data?.passport_sn}
                 </span>
               </div>
+              : null}
             </div>
             <div className="flex flex-col">
               <section>
@@ -112,13 +121,13 @@ const ClientsItem = () => {
                   {t('common.general-information')}
                 </h2>
                 <div className="space-y-3">
-                  <InfoRow
+                  <CountryRow
                     label={t('fields.citizenship.label')}
-                    value="Голландия"
+                    value={data?.country_name}
                   />
                   <InfoRow
-                    label={t('fields.nationality.label')}
-                    value="Немец"
+                    label={t('common.email')}
+                    value={data?.email}
                   />
                   <InfoRow
                     label={t('fields.birthdate.label')}
@@ -128,10 +137,10 @@ const ClientsItem = () => {
                     label={t('fields.gender.label')}
                     value={
                       data?.gender === 'male'
-                        ? 'Мужчина'
+                        ? t('common.men')
                         : data?.gender === 'man'
-                          ? 'Мужчина'
-                          : 'Женщина'
+                          ? t('common.men')
+                          : t('common.women')
                     }
                   />
                   <InfoRow
@@ -140,22 +149,16 @@ const ClientsItem = () => {
                   />
                 </div>
               </section>
-              <Divider className="border-border" />
+              {/* <Divider className="border-border" />
               <section>
                 <h2 className="text-[14px] text-primary-dark font-semibold mb-4">
                   {t('common.additional')}
                 </h2>
                 <div className="space-y-3">
-                  <InfoRow
-                    label={t('fields.entry-date.label')}
-                    value="19 ноября, 2024"
-                  />
-                  <InfoRow
-                    label={t('fields.exit-date.label')}
-                    value="28 ноября, 2024"
-                  />
+                  <InfoRow label={t('fields.entry-date.label')} value="-" />
+                  <InfoRow label={t('fields.exit-date.label')} value="-" />
                 </div>
-              </section>
+              </section> */}
             </div>
           </div>
         </div>

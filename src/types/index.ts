@@ -31,6 +31,7 @@ interface ListResponse<T> {
   next: string | null
   previous: string | null
   results: T
+  email_receive?: string
 }
 interface IUser {
   id: number

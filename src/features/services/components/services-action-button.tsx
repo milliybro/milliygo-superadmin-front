@@ -8,15 +8,16 @@ import type { FC } from 'react'
 
 interface IProps {
   id?: number
+  type?: any
 }
 
-const ServicesActionButton: FC<IProps> = ({ id }) => {
+const ServicesActionButton: FC<IProps> = ({ id, type }) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { pathname } = useLocation()
 
   const editHandler = () => {
-    navigate(pathname + '/edit?id=' + id)
+    navigate(pathname + '/edit?id=' + id + '&type=' + (type ? type : 1))
   }
 
   return (

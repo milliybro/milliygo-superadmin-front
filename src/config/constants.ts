@@ -13,6 +13,8 @@ const ROUTE_PATHS = {
   ACCESS_ROLE: '/access-role',
   CALL_CENTER: '/call-center',
   SERVICES: '/services',
+  TENANTS: '/tenants',
+  ACCOMMODATIONS: '/accommodations'
 }
 
 const BASE_URL = ''

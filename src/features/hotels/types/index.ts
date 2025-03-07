@@ -8,21 +8,21 @@ interface IHotelsItemTable {
 }
 
 interface IHotelsTable {
-  key: string
+  key: number
   id: number
-  name: string
   image: string
   address: string
   min_price: number
   star_rating: number
-  location: string
   price: number
   rating: number
   login: string
   password: string
-  contactPerson: string
   status: string
   balance: string
+  placement_name: string
+  placement_address: string
+  full_name: string
 }
 
 interface IHotelDetail {
@@ -46,18 +46,20 @@ interface IHotelsItemReview {
 
 
 interface IHotelsRoom {
-  key: string
-  id: number
-  name: string
-  typeNumber: string
-  price: number
-  status: string
+  key: any
+  id: any
+  name: any
+  status: boolean
+  room_images: any
+  room_name: any
+  prices: any
+  facilities: any
 }
 interface IHotelsGuests {
   key: number
   id: number
   citizenship: string,
-  passport: string,
+  passport_sn: string,
   checkInOut: string,
   first_name: string
   last_name: string
@@ -65,6 +67,10 @@ interface IHotelsGuests {
   birth_date: string
   check_in: string
   check_out: string
+  full_name: string
+  passport: string
+  start_date: string
+  end_date: string
 }
 
 interface IGuestsTable {

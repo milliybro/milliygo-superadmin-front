@@ -19,7 +19,11 @@
   "users-page": {
     "add-user": "Добавить пользователя",
     "edit-user": "Редактирование пользователя",
-    "modal-description": "Для добавления нового пользователя, пожалуйста заполните все необходимые поля"
+    "modal-description": "Для добавления нового пользователя, пожалуйста заполните все необходимые поля",
+    "delete-modal": "Вы удаляете пользователя?",
+    "delete-modal-desc": "Вы уверены, что хотите удалить пользователя?",
+    "not-found": "Ничего не найдено",
+    "not-found-desc": "К сожалению, по вашему запросу ничего не найдено."
   },
 
   "services-page": {
@@ -114,6 +118,14 @@
     "number": "Номер комната",
     "type": "Тип номер",
     "night": "Ночь"
+  },
+  "accommodations-page": {
+    "filter": {
+      "creator": "Владелец",
+      "full-name": "Введите ФИО",
+      "status": "Статус",
+      "status-placeholder": "Выберите статус"
+    }
   },
 
   "fields": {
@@ -251,9 +263,9 @@
     },
     "email": {
       "label": "Логин",
-      "placeholder": "Введите логину",
-      "validation-message-required": "Пожалуйста, введите ваш email",
-      "validation-message-invalid": "Введенный email недействителен"
+      "placeholder": "Введите логин",
+      "validation-message-required": "Пожалуйста, введите ваш логин",
+      "validation-message-invalid": "Введенный логин недействителен"
     },
 
     "passport-data": {
@@ -312,8 +324,14 @@
       "name-uz": "Название O’z",
       "name-ru": "Название РУ",
       "name-en": "Название EN",
-      "placeholder": "Введите названию"
+      "placeholder": "Введите названию",
+      "name-cry": "Название Ўз"
     },
+    "services": {
+      "add-success-notification": "Новая услуга успешно добавлена",
+      "edit-success-notification": "Услуга успешно отредактирована",
+      "error-notification": "Произошла ошибка"
+      },
     "created-at": {
       "label": "Дата создания"
     },
@@ -323,10 +341,21 @@
       },
       "edit": {
         "message": "Пользователь изменен"
+      },
+      "error": {
+        "message": "Произошла ошибка"
       }
     }
   },
-
+  "tenant": {
+    "tenant": "Тенант",
+    "tenant-name": "Название тенант",
+    "add-tenant": "Добавить тенант",
+    "domen": "Домен",
+    "start-date": "Дата начала",
+    "end-date": "Дата окончания",
+    "edit-tenant": "Редактировать арендатора"
+  },
   "common": {
     "statistics": "Статистика",
     "users": "Пользователи",
@@ -367,7 +396,7 @@
     "photos": "Фотографии",
     "facilities-and-services": "Удобства и услуги",
     "accommodation-terms": "Условия размещения",
-    "comments": "Комментарий",
+    "comments": "Отзывы",
     "booking": "Бронирования",
     "nights-count": "{{count}} ночей",
     "message": "Сообщение",
@@ -399,13 +428,54 @@
     "accrued": "Начислен",
     "men": "Мужчины",
     "women": "Женщины",
+    "men-small": "Муж",
+    "women-small": "Жен",
     "support": "Поддерживать",
-    "manager": "Менеджер"
+    "manager": "Менеджер",
+    "no-chat": "Нет доступных чатов",
+    "night": "вчера",
+    "request-data": "Запросить данные",
+    "tenants": "Тенанты",
+    "summ": "сум",
+    "from": "с",
+    "to": "до",
+    "breakfast": "Завтрак включен",
+    "free-cancel": "Бесплатная отмена",
+    "no-add-pay": "Нет предоплаты",
+    "login-success": "Авторизация прошла успешно",
+    "sort_descending": "Нажмите, чтобы отсортировать по убыванию",
+    "sort_ascending": "Нажмите, чтобы отсортировать по возрастанию",
+    "sort_cancel": "Нажмите, чтобы отменить сортировку",
+    "houses-and-apartments": "Дома и квартиры",
+    "resorts": "Курорты",
+    "hostels": "Общежития",
+    "email": "Электронная почта",
+    "accommodations": "Объекты размещения",
+    "name": "Название",
+    "requests": "Заявки",
+    "actived": "Активные",
+    "rejected": "Отклоненные",
+    "admin": "Администратор",
+    "editor": "Редактор",
+    "viewer": "Зритель",
+    "contributor": "Участник",
+    "service": "Сервис",
+    "type": "Выберите тип",
+    "category": "Категория",
+    "category-select": "Выберите категорию",
+    "prohibitions": "Запреты",
+    "facility-room": "Номер",
+    "rule": "Введите информацию, пожалуйста",
+    "not-guests": "Гостей ещё нет"
   },
   "status": {
     "confirmed": "Подтвержден",
     "pending": "В ожидании",
     "canceled":"Отменен",
-    "free": "Свободный"
+    "free": "Свободный",
+    "unknown": "Неизвестный",
+    "empty": "Свободный",
+    "booking": "Забронировано"
   }
+
 }

@@ -2,18 +2,19 @@ import { Table } from 'antd'
 import { Link } from 'react-router'
 import { useTranslation } from 'react-i18next'
 
-import type { IClientItemTable, IClientReview } from '../types'
+import type { IClientItemTable } from '../types'
 import type { TableColumnsType, TableProps } from 'antd'
+import formatDate from '../components/format-date'
+import UsersNotFound from '@/features/users/components/users-not-found'
 
 const columns: TableColumnsType<IClientItemTable> = [
   {
     title: 'common.hotel',
-    dataIndex: 'name',
+    dataIndex: 'placement',
     sorter: {
-      compare: (a, b) => a.name.localeCompare(b.name),
+      compare: (a, b) => a.placement.localeCompare(b.placement),
       multiple: 3,
     },
-    width: 250,
     render: value => (
       <Link to="/" className="underline text-primary">
         {value}
@@ -21,18 +22,23 @@ const columns: TableColumnsType<IClientItemTable> = [
     ),
   },
   {
-    width: 220,
     title: 'common.period',
     dataIndex: 'period',
     sorter: {
       compare: (a, b) => a.period.localeCompare(b.period),
       multiple: 2,
     },
+    render: value => {
+      return (
+        <div className="">
+          {formatDate(value?.start_date)} - {formatDate(value?.end_date)}
+        </div>
+      )
+    },
   },
   {
     title: 'common.comments',
     dataIndex: 'review',
-    width: 700,
   },
 ]
 
@@ -48,14 +54,15 @@ const onChange: TableProps<IClientItemTable>['onChange'] = (
 const ClientsItemTable = ({ reviews }: { reviews: any }) => {
   const { t } = useTranslation()
   const transformHotelDetailsToTableData = (data: any): IClientItemTable[] => {
-    return data.map((item:any, index: any) => {
+    return data.map((item: any, index: any) => {
       const { id } = item
       return {
         key: index,
         id: id,
-        name: item.name,
+        placement: item.placement,
         review: item?.review || 0,
         status: item?.status || 'defaultStatus',
+        period: item?.booking,
       }
     })
   }
@@ -115,6 +122,12 @@ const ClientsItemTable = ({ reviews }: { reviews: any }) => {
 
       //   itemRender: itemRender,
       // }}
+      locale={{
+        emptyText: <UsersNotFound />,
+        triggerDesc: t('common.sort_descending') ?? '',
+        triggerAsc: t('common.sort_ascending') ?? '',
+        cancelSort: t('common.sort_cancel') ?? '',
+      }}
     />
   )
 }

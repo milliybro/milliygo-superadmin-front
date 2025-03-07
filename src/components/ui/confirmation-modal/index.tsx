@@ -3,6 +3,7 @@ import { Avatar, Button, Flex, Modal, Space, Typography } from 'antd'
 // import DeleteIcon from '../icons/delete'
 
 import type { Dispatch, FC, SetStateAction } from 'react'
+import { useTranslation } from 'react-i18next'
 
 const { Text } = Typography
 
@@ -29,8 +30,9 @@ const ConfirmationModal: FC<IProps> = ({
   icon,
   danger,
   primaryBtnText,
-  warn
+  warn,
 }) => {
+  const { t } = useTranslation()
   const cancelHandler = () => {
     if (setOpen) {
       setOpen(false)
@@ -67,13 +69,13 @@ const ConfirmationModal: FC<IProps> = ({
               ? icon({
                   className: danger
                     ? 'text-danger text-[26px]'
-                    : 'text-primary text-[26px]', 
+                    : 'text-primary text-[26px]',
                 })
               : icon({
-                className: warn
-                  ? 'text-warn text-[26px]'
-                  : 'text-primary text-[26px]', 
-              })
+                  className: warn
+                    ? 'text-warn text-[26px]'
+                    : 'text-primary text-[26px]',
+                })
           }
         />
         <Text className="text-[24px] font-bold dark:text-white text-primary-dark leading-[30.6px] mb-[10px]">
@@ -84,7 +86,7 @@ const ConfirmationModal: FC<IProps> = ({
         </Text>
         <Space>
           <Button className="font-semibold" onClick={cancelHandler}>
-            Отмена
+            {t('common.cancel')}
           </Button>
           <Button
             className="bg-primary-dark text-white font-semibold"

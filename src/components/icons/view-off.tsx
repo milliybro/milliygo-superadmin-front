@@ -15,6 +15,7 @@ const ViewOffIcon: FC<SVGProps<SVGSVGElement>> = props => (
       strokeWidth="1.25"
       strokeLinecap="round"
     />
+    
     <path
       d="M10.4999 9.5L11.4999 11.1667"
       stroke="currentColor"

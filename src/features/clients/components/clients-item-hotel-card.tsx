@@ -1,4 +1,4 @@
-import { Divider } from 'antd'
+import { Divider, Image } from 'antd'
 import { Link } from 'react-router'
 import { useTranslation } from 'react-i18next'
 
@@ -6,18 +6,11 @@ import RatingTag from '@/components/ui/rating-tag'
 import CloseIcon from '@/components/icons/close-icon'
 import ArrowUpRightIcon from '@/components/icons/arrow-up-right'
 import { formatAmount } from '@/helpers/format-amount'
+import formatDate from './format-date'
 
 const ClientsItemHotelCard = ({ items }: { items: any }) => {
   const { t } = useTranslation()
-  console.log(items)
-  const formatDate = (dateString: any) => {
-    const date = new Date(dateString)
-    return new Intl.DateTimeFormat('ru-RU', {
-      day: 'numeric',
-      month: 'short',
-      year: 'numeric',
-    }).format(date)
-  }
+ 
   const calculateDaysDifference = (
     startDate: string,
     endDate: string,
@@ -36,8 +29,11 @@ const ClientsItemHotelCard = ({ items }: { items: any }) => {
 
   return (
     <div className="border border-b-border gap-4 flex p-4 rounded-[12px]">
-      <div
-        className="size-[120px] border-border border bg-secondary-light rounded-[12px] shrink-0"
+      <Image
+        width={120}
+        height={120}
+        src={items?.image}
+        className="object-cover size-[120px] border-border border bg-secondary-light rounded-[12px] shrink-0"
         // style={{
         //   boxShadow:
         //     '0px 20px 13px 0px rgba(0, 0, 0, 0.03), 0px 8px 5px 0px rgba(0, 0, 0, 0.08)',
@@ -48,15 +44,15 @@ const ClientsItemHotelCard = ({ items }: { items: any }) => {
         <div className="flex justify-between">
           <div className="flex items-center gap-[10px]">
             <span className="text-[24px] font-semibold text-primary-dark">
-              {items?.placement?.name}
+              {items?.name}
             </span>
-            <RatingTag value={items?.placement?.star_rating} icon />
+            <RatingTag value={items?.avg_rating} icon />
           </div>
           <Link
             to={'/'}
-            className="underline text-primary flex items-center gap-1"
+            className="underline text-primary flex items-center gap-1 text-end"
           >
-            {items?.placement?.address}
+            {items?.address}
             <ArrowUpRightIcon className="text-[18px]" />
           </Link>
         </div>
@@ -72,13 +68,13 @@ const ClientsItemHotelCard = ({ items }: { items: any }) => {
         <div className="flex items-center justify-between">
           <div className="inline-flex items-center gap-3">
             <span className="text-[18px] text-primary-dark font-semibold">
-              TWIN DLX
+              {items?.room_type}
             </span>
             <span className="px-2 py-0.5 border-secondary text-[12px] text-secondary border rounded-[6px]">
-              DLX 123
+              {items?.room_number}
             </span>
             <span className="text-secondary text-[14px]">
-              {formatAmount(items?.items[0]?.subtotal) || 0} UZS
+              {formatAmount(items?.total_price) || 0} UZS
             </span>
           </div>
           <span className="inline-flex items-center gap-1 text-secondary text-[14px]">
