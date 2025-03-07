@@ -71,7 +71,7 @@ const HotelsItem = () => {
     }
   }, [HotelDetail])
 
-  console.log('DATA', data?.placement_detail?.name)
+  console.log('DATA', data?.placement_detail?.external_id)
 
   useEffect(() => {
     if (data) {
@@ -92,7 +92,7 @@ const HotelsItem = () => {
     {
       key: '2',
       label: 'common.reviews',
-      children: <HotelsItemReviews />,
+      children: <HotelsItemReviews data={data?.placement_detail?.external_id} />,
     },
     {
       key: '3',

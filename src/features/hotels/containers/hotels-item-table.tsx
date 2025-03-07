@@ -85,7 +85,7 @@ const onChange: TableProps<IHotelsItemReview>['onChange'] = (
   console.log('params', pagination, filters, sorter, extra)
 }
 
-const HotelsItemReviews = () => {
+const HotelsItemReviews = ({ data }: { data: any }) => {
   const { t } = useTranslation()
   const { id } = useParams<{ id: string }>()
 
@@ -125,15 +125,20 @@ const HotelsItemReviews = () => {
   const [searchParams] = useSearchParams()
   const type = searchParams.get('type') || '1'
 
+  console.log(data, type, id)
+
   const { data: HotelDetailReview } = useQuery({
-    queryKey: ['hotels-detail-review', id],
+    queryKey: ['hotels-detail-review', data, id],
     queryFn: async () => {
-      if (!id) throw new Error('ID is required')
-      const res = await getHotelDetailReview({}, Number(id))
+      // if (!data || !id) throw new Error('ID is required')
+      const res = await getHotelDetailReview(
+        {},
+        Number(type === 'site' ? id : data),
+      )
       return res
     },
-    enabled: !!id,
-  })  
+    enabled: !!(data || id),
+  })
 
   const transformHotelDetailsToTableData = (
     data: IHotelDetailReview[],
@@ -158,11 +163,9 @@ const HotelsItemReviews = () => {
         title: t(val?.title as string),
       }))}
       dataSource={
-        type === 'site'
-          ? HotelDetailReview?.results
-            ? transformHotelDetailsToTableData(HotelDetailReview.results)
-            : []
-          : transformHotelDetailsToTableData([])
+        HotelDetailReview?.results
+          ? transformHotelDetailsToTableData(HotelDetailReview.results)
+          : []
       }
       onChange={onChange}
       pagination={false}
