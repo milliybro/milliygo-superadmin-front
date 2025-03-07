@@ -10,19 +10,27 @@ const request = axios.create({
 })
 
 request.interceptors.request.use((config) => {
-  const token = localStorage.getItem('access')
   const cookie = document?.cookie
-    ?.split('; ')
-    ?.find((row) => row.startsWith('csrftoken='))
-    ?.split('=')[1]
-
+  ?.split('; ')
+  ?.find((row) => row.startsWith('csrftoken='))
+  ?.split('=')[1]
+  
+  const locale = localStorage.getItem('i18nextLng')
+  
+  const token = localStorage.getItem('access')
   if (token !== null) {
     // eslint-disable-next-line no-param-reassign
     config.headers.Authorization = `Bearer ${token}`
   }
 
+  config.headers['Accept-Language'] =
+    locale === 'uz'
+      ? 'uz-cyrillic'
+      : locale === 'oz'
+      ? 'uz-latin'
+      : locale || 'ru'
+
   if (cookie !== null) {
-    // eslint-disable-next-line no-param-reassign
     config.headers['X-CSRFToken'] = cookie
   }
 
@@ -37,18 +45,18 @@ export async function errorHandler(error: AxiosError): Promise<void> {
   if (error.response !== null) {
     // server responded with a status code that falls out of the range of 2xx
     if (error.response?.status === 403) {
-      const rToken = localStorage.getItem('refresh')
+      const rToken = localStorage.getItem('refresh_token')
 
       if (rToken !== null) {
         try {
           const res = await refreshToken({ refresh: rToken })
           const { refresh, access } = res.data.auth_tokens
-          localStorage.setItem('refresh', refresh)
-          localStorage.setItem('access', access)
+          localStorage.setItem('refresh_token', refresh)
+          localStorage.setItem('access_token', access)
         } catch (err) {
           localStorage.setItem('refresh_token_error', JSON.stringify(err))
-          localStorage.removeItem('refresh')
-          localStorage.removeItem('access')
+          localStorage.removeItem('refresh_token')
+          localStorage.removeItem('access_token')
         } finally {
           window.location.reload()
         }

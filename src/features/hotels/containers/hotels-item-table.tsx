@@ -1,14 +1,16 @@
 import { Table } from 'antd'
-import { Link, useParams } from 'react-router'
-import { twMerge } from 'tailwind-merge'
+import { Link, useParams, useSearchParams } from 'react-router'
+// import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
 
 import StarIcon from '@/components/icons/star'
 
-import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
+import type { TableColumnsType, TableProps } from 'antd'
 import { useQuery } from '@tanstack/react-query'
 import { getHotelDetailReview } from '../api'
 import { IHotelsItemReview } from '../types'
+import dayjs from 'dayjs'
+import UsersNotFound from '@/features/users/components/users-not-found'
 
 interface IHotelDetailReview {
   id: number
@@ -30,7 +32,7 @@ const columns: TableColumnsType<IHotelsItemReview> = [
     },
     width: 250,
     render: (_, record) => (
-      <Link to={`/hotel/${record.id}`} className="underline text-primary">
+      <Link to={`/hotels/`} className="underline text-primary">
         {record.name}
       </Link>
     ),
@@ -83,65 +85,74 @@ const onChange: TableProps<IHotelsItemReview>['onChange'] = (
   console.log('params', pagination, filters, sorter, extra)
 }
 
-const HotelsItemReviews = () => {
+const HotelsItemReviews = ({ data }: { data: any }) => {
   const { t } = useTranslation()
+
+  // const itemRender: PaginationProps['itemRender'] = (
+  //   n,
+  //   type,
+  //   originalElement,
+  // ) => {
+  //   if (type === 'prev') {
+  //     return (
+  //       <span
+  //         className={twMerge(
+  //           'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
+  //           n === 0 ? 'opacity-0 pointer-events-none' : '',
+  //         )}
+  //       >
+  //         {t('common.prev')}
+  //       </span>
+  //     )
+  //   }
+  //   if (type === 'next') {
+  //     return (
+  //       <span
+  //         className={twMerge(
+  //           'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
+  //           n === 10 ? 'opacity-0 pointer-events-none' : '',
+  //         )}
+  //       >
+  //         {t('common.next')}
+  //       </span>
+  //     )
+  //   }
+
+  //   return originalElement
+  // }
+
+  const [searchParams] = useSearchParams()
   const { id } = useParams<{ id: string }>()
 
-  const itemRender: PaginationProps['itemRender'] = (
-    n,
-    type,
-    originalElement,
-  ) => {
-    if (type === 'prev') {
-      return (
-        <span
-          className={twMerge(
-            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 0 ? 'opacity-0 pointer-events-none' : '',
-          )}
-        >
-          {t('common.prev')}
-        </span>
-      )
-    }
-    if (type === 'next') {
-      return (
-        <span
-          className={twMerge(
-            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 10 ? 'opacity-0 pointer-events-none' : '',
-          )}
-        >
-          {t('common.next')}
-        </span>
-      )
-    }
+  const type = searchParams.get('type') || '1'
 
-    return originalElement
-  }
+  console.log(type, id, data)
 
-  const { data: HotelDetailReview, isLoading } = useQuery({
-    queryKey: ['hotels-detail-review', id],
+  const { data: HotelDetailReview } = useQuery({
+    queryKey: ['hotels-detail-review', data, id],
     queryFn: async () => {
-      if (!id) throw new Error('ID is required')
-      const res = await getHotelDetailReview({}, Number(id))
+      // if (!data || !id) throw new Error('ID is required')
+      const res = await getHotelDetailReview(
+        {},
+        Number(type === "site" ? id : data),
+      )
       return res
     },
-    enabled: !!id,
+    enabled: !!(data || id),
   })
 
   const transformHotelDetailsToTableData = (
-    data: IHotelDetailReview[], 
+    data: IHotelDetailReview[],
   ): IHotelsItemReview[] => {
     return data.map((item, index: any) => {
-      const { id, user, review, rating } = item
+      const { id, booking, review, rating, placement }: any = item
       return {
         key: index,
         id: id,
-        name: user ? `${user.first_name} ${user.last_name}` : 'Anonymous',
-        date: '-', 
-        review: review || 'No review provided', 
-        rating: rating || 0, 
+        name: placement !== null ? placement : 'Anonymous',
+        date: `${dayjs(booking?.start_date).format('DD MMM, YYYY')} - ${dayjs(booking?.end_date).format('DD MMM, YYYY')}`,
+        review: review || 'No review provided',
+        rating: rating || 0,
       }
     })
   }
@@ -153,12 +164,19 @@ const HotelsItemReviews = () => {
         title: t(val?.title as string),
       }))}
       dataSource={
+        // type === 'site'
         HotelDetailReview?.results
           ? transformHotelDetailsToTableData(HotelDetailReview.results)
           : []
       }
       onChange={onChange}
       pagination={false}
+      locale={{
+        emptyText: <UsersNotFound />,
+        triggerDesc: t('common.sort_descending') ?? '',
+        triggerAsc: t('common.sort_ascending') ?? '',
+        cancelSort: t('common.sort_cancel') ?? '',
+      }}
     />
   )
 }

@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
-import { Button, Form, Input, Spin, Upload } from 'antd'
+import { Button, Input, notification, Spin, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 import SendIcon from '@/components/icons/send'
-import CloseIcon from '@/components/icons/close-icon'
 import ArrowLeftIcon from '@/components/icons/arrow-left'
 import AttachmentIcon from '@/components/icons/attachment'
 import TickDoubleIcon from '@/components/icons/tick-double'
 
-import type { UploadChangeParam } from 'antd/es/upload'
+// import type { UploadChangeParam } from 'antd/es/upload'
 import type {
   Dispatch,
   SetStateAction,
@@ -17,27 +16,30 @@ import type {
   KeyboardEvent,
 } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { askUserInfo, createMessage, getChatRoom } from '../api'
+import { askUserInfo, createMessage, getChatRoom, getMessage } from '../api'
 import BlurImage from '@/components/ui/blur-image'
 import { ISendMessage } from '../types'
 import FileIcon from '@/components/icons/file-icon'
+import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
+import CloseIcon from '@/components/icons/close-icon'
+import defaultUser from '../../../assets/default-user.png'
 
 interface IProps {
-  selectedChat: string
+  selectedChat: any
   setSelectedChat: Dispatch<SetStateAction<string | null>>
 }
 
-type Message = {
-  text: string
-  isSentByUser: boolean
-  image?: string
-}
+// type Message = {
+//   text: string
+//   isSentByUser: boolean
+//   image?: string
+// }
 
 const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   const { t } = useTranslation()
-  const [form] = Form.useForm()
+  // const [form] = Form.useForm()
   const [messageText, setMessageText] = useState('')
-  const [image, setImage] = useState<string | null>(null)
+  // const [image, setImage] = useState<string | null>(null)
   const [messages, setMessages] = useState<any[]>([])
   const chatEndRef = useRef<HTMLDivElement | null>(null)
   const socketRef = useRef<WebSocket | null>(null)
@@ -46,23 +48,19 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null)
   const chatBodyRef = useRef<HTMLDivElement>(null)
 
-  // const { data } = useQuery({
-  //   queryKey: ['chat', selectedChat],
-  //   queryFn: async () => {
-  //     const res = await getMessage({ id: selectedChat })
-  //     return res
-  //   },
-  //   enabled: !!selectedChat,
-  // })
-
-  const {
-    data: list,
-    refetch,
-    isPending: pending,
-  } = useQuery({
-    queryKey: ['chat_room', selectedChat],
+  const { data } = useQuery({
+    queryKey: ['chat', selectedChat?.id],
     queryFn: async () => {
-      const res = await getChatRoom({ id: selectedChat })
+      const res = await getMessage({ id: selectedChat?.id })
+      return res
+    },
+    enabled: !!selectedChat?.id,
+  })
+
+  const { data: list, refetch } = useQuery({
+    queryKey: ['chat_room', selectedChat, data],
+    queryFn: async () => {
+      const res = await getChatRoom({ id: selectedChat?.id })
       return res
     },
     enabled: !!selectedChat,
@@ -119,8 +117,8 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
       const messageFormData = new FormData()
       messageFormData.append('content', messageText)
 
-      if (selectedChat) {
-        messageFormData.append('chat_room', selectedChat + '')
+      if (selectedChat?.id) {
+        messageFormData.append('chat_room', selectedChat?.id + '')
       }
 
       if (selectedFile) {
@@ -130,7 +128,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
       return createMessage(messageFormData)
     },
     onSuccess: (values: ISendMessage) => {
-      // console.log(values)
+      console.log(values)
       setMessageText('')
       setSelectedFile(null)
       scrollToBottom()
@@ -138,8 +136,9 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   })
 
   const { mutate: askUser } = useMutation({
-    mutationFn: () => askUserInfo(selectedChat),
+    mutationFn: () => askUserInfo(selectedChat?.id),
     onSuccess: (values: ISendMessage) => {
+      openNotification()
       console.log('User info fetched successfully:', values)
     },
     onError: error => {
@@ -147,8 +146,8 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
     },
   })
   const handleClick = () => {
-    askUser();
-  };
+    askUser()
+  }
 
   const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === 'Enter') {
@@ -166,7 +165,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
     if (typeof window !== 'undefined' && selectedChat) {
       const token =
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzUzMDA0MzY1LCJpYXQiOjE3MzE0MDQzNjUsImp0aSI6IjI0Yzk3NWVhMWMzYjRjMWNhZDZiZTk2OTI0YzBmYjYzIiwidXNlcl9pZCI6MX0.xjbItyKCCu_l6GqBKlxA5dCpWbJiDuGrPx3QXNcfQKo'
-      const url = `wss://websocket.emehmon.xdevs.uz/ws/support/?chat_room=${selectedChat}&token=${token}`
+      const url = `wss://websocket.emehmon.xdevs.uz/ws/support/?chat_room=${selectedChat?.id}&token=${token}`
       const socket = new WebSocket(url)
       socketRef.current = socket
 
@@ -207,7 +206,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
         }
       }
     }
-  }, [selectedChat])
+  }, [selectedChat?.id])
 
   const handleButtonClick = () => {
     fileInputRef.current?.click()
@@ -226,8 +225,37 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
 
     setSelectedFile(file)
   }
+
+  const openNotification = () => {
+    notification.info({
+      closeIcon: null,
+      className:
+        'w-[406px] border-t-[5px] border-primary rounded-[12px] [&_.ant-notification-notice-message]:mb-0',
+      icon: <CheckmarkCircleIcon className="text-[24px] text-primary" />,
+      message: (
+        <Typography.Text className="text-[18px] font-semibold leading-[22.95px]">
+          So'rov yuborildi
+        </Typography.Text>
+      ),
+      placement: 'topRight',
+      description: (
+        <div>
+          <Button
+            size="small"
+            type="text"
+            className="grid place-items-center rounded-lg absolute right-[10px] top-[10px]"
+            icon={<CloseIcon className="text-base" />}
+            onClick={() => notification.destroy()}
+          />
+          <Typography.Text className="text-secondary text-base">
+            Foydalanuvchi ma'lumotlarini olish uchun so'rov yuborildi
+          </Typography.Text>
+        </div>
+      ),
+    })
+  }
   return (
-    <main className="flex-1 col-span-9 bg-white border flex flex-col overflow-hidden border-border rounded-[16px]">
+    <main className="!col-span-4 flex-1  bg-white border flex flex-col overflow-hidden border-border rounded-[16px]">
       <header className="p-4 border-b flex items-center justify-between text-center">
         <Button
           type="text"
@@ -235,19 +263,18 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
           onClick={() => setSelectedChat(null)}
         />
         <div>
-          <h3 className="text-lg font-semibold">{selectedChat}</h3>
-          <p className="text-sm text-gray-500">Была онлайн 2 дня назад</p>
+          <h3 className="text-lg font-semibold">
+            {selectedChat?.chat_detail?.first_name}{' '}
+            {selectedChat?.chat_detail?.last_name}
+          </h3>
+          <p className="text-sm text-gray-500"></p>
         </div>
-        <Button
-          type="text"
-          icon={<CloseIcon className="text-[24px] text-primary-dark" />}
-          onClick={() => setSelectedChat(null)}
-        />
+        <span></span>
       </header>
 
       <div
         className="relative flex-1 flex flex-col overflow-y-auto p-4 space-y-2"
-        style={{ maxHeight: '580px', overflowY: 'auto' }}
+        style={{ maxHeight: '580px', overflowY: 'auto', position: 'relative' }}
       >
         {[...(messages || [])].reverse().map((message: any) => (
           <div
@@ -259,7 +286,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
             {message?.admin?.type !== 'superuser' && (
               <div className="size-[32px] border-border border mr-3 bg-secondary-light rounded-full overflow-hidden">
                 <img
-                  src={message?.admin?.avatar || '/default-avatar.png'}
+                  src={defaultUser}
                   alt="Avatar"
                   className="w-full h-full object-cover"
                 />
@@ -329,13 +356,14 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
           </div>
         ))}
         <div ref={chatEndRef}></div>
-        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 flex justify-center items-center bg-white p-4">
+      </div>
+      {data?.email_receive !== 'received' ? (
+        <div className="bg-white p-4">
           <Button onClick={handleClick} className="w-full text-center">
-            Запросить данные
+            {t('common.request-data')}
           </Button>
         </div>
-      </div>
-
+      ) : null}
       <footer className="p-4 border-t">
         {selectedFile && (
           <div
@@ -355,18 +383,19 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
             />
           </div>
         )}
+
         <div className="flex items-center">
           {/* <Upload
             showUploadList={false}
             beforeUpload={() => false}
             // onChange={handleImageChange}
-          >
+            >
             <Button
-              onClick={handleButtonClick}
-              type="text"
-              icon={<AttachmentIcon className="text-[24px] text-[#B7BFD5]" />}
+            onClick={handleButtonClick}
+            type="text"
+            icon={<AttachmentIcon className="text-[24px] text-[#B7BFD5]" />}
             />
-          </Upload> */}
+            </Upload> */}
           <Button
             type="link"
             onClick={handleButtonClick}

@@ -8,18 +8,30 @@ import type { FC } from 'react'
 
 interface IProps {
   id?: number
+  tenant_id?: number
+  type?: string
 }
 
-const HotelsTableActionButton: FC<IProps> = ({ id }) => {
+const HotelsTableActionButton: FC<IProps> = ({ id, tenant_id, type }) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { pathname } = useLocation()
+
+  console.log('Tenent', tenant_id, type)
 
   return (
     <Button
       className="inline-flex items-center gap-2 font-medium text-primary"
       type="text"
-      onClick={() => navigate(pathname + '/' + id)}
+      onClick={() =>
+        navigate(
+          pathname +
+            '/' +
+            id + '?' +
+            (tenant_id !== undefined ? 'tenant_id=' + tenant_id + "&" : '') +
+            (type !== undefined ? 'type=' + type : ''),
+        )
+      }
     >
       <EyeIcon className="text-[20px]" />
       {t('common.more-details')}

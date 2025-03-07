@@ -13,6 +13,7 @@ import HotelsTable from '../containers/users-table'
 import UsersFilters from '../containers/users-filters'
 import { useQuery } from '@tanstack/react-query'
 import { getUsersList } from '../api'
+import { useSearchParams } from 'react-router'
 
 const Users = () => {
   const { t } = useTranslation()
@@ -20,10 +21,13 @@ const Users = () => {
   const { openModal } = useUserModalStore(store => store)
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [currentPage, setCurrentPage] = useState(1)
-  const [searchTerm, setSearchTerm] = useState('')
-  const [gender, setGender] = useState('')
-  const [role, setRole] = useState('')
-  const [isActive, setIsActive] = useState(null)
+
+  const [searchParams] = useSearchParams()
+
+  const search = searchParams.get('search') || ''
+  const gender = searchParams.get('gender') || ''
+  const role = searchParams.get('role') || ''
+  const status = searchParams.get('status') || ''
 
   useEffect(() => {
     setBreadCrumbs([
@@ -37,16 +41,16 @@ const Users = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ['users-data', currentPage, searchTerm, gender, role, isActive],
+    queryKey: ['users-data', currentPage, gender, role, searchParams, search, status],
     queryFn: async () => {
       const res = await getUsersList({
         page_size: 10,
         client_or_employee: 'employee',
         page: currentPage,
-        search: searchTerm,
+        search: search || undefined,
         gender: gender || undefined,
         type__name: role || undefined,
-        is_active: isActive || undefined,
+        is_active: status || undefined,
       })
       return res
     },
@@ -68,16 +72,7 @@ const Users = () => {
         </Button>
         <UserModal refetch={refetch} />
       </div>
-      <UsersFilters
-        setSearchTerm={setSearchTerm}
-        searchTerm={searchTerm}
-        gender={gender}
-        setGender={setGender}
-        setRole={setRole}
-        role={role}
-        isActive={isActive}
-        setIsActive={setIsActive}
-      />
+      <UsersFilters />
       <div className="bg-white border flex-col overflow-hidden border-border dark:bg-dark-bg rounded-[16px] flex items-center justify-center h-full">
         <HotelsTable
           refetch={refetch}

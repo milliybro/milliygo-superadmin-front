@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next'
 
 import type { IComplaintsTable } from '../types'
 import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
+import UsersNotFound from '@/features/users/components/users-not-found'
 
 const columns: TableColumnsType<IComplaintsTable> = [
   {
@@ -125,6 +126,7 @@ const ComplaintsTable = () => {
       dataSource={data}
       onChange={onChange}
       className="w-full h-full"
+      rootClassName="custom-table"
       pagination={{
         pageSize: 10,
         total: 100,
@@ -133,6 +135,12 @@ const ComplaintsTable = () => {
         position: ['bottomCenter'],
 
         itemRender: itemRender,
+      }}
+      locale={{
+        emptyText: <UsersNotFound />,
+        triggerDesc: t('common.sort_descending') ?? '',
+        triggerAsc: t('common.sort_ascending') ?? '',
+        cancelSort: t('common.sort_cancel') ?? '',
       }}
     />
   )

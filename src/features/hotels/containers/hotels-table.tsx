@@ -1,4 +1,4 @@
-import { Image, Table } from 'antd'
+import { Image, Table, Tooltip } from 'antd'
 import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
 
@@ -7,143 +7,182 @@ import StatusTag from '@/components/ui/status-tag'
 import HotelsTableActionButton from '../components/hotels-table-action-button'
 
 import type { IHotelsTable } from '../types'
-import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
-import { getHotelsList } from '../api'
-import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
-import { formatAmount } from '@/helpers/format-amount'
+import type { PaginationProps, TableColumnsType } from 'antd'
+import HotelIcon from '@/components/icons/hotel'
+import UsersNotFound from '@/features/users/components/users-not-found'
 
-const columns: TableColumnsType<IHotelsTable> = [
-  {
-    title: 'ID',
-    dataIndex: 'id',
-    className: 'text-center',
-    sorter: {
-      compare: (a, b) => a.id - b.id,
-      multiple: 4,
-    },
-  },
-  {
-    title: 'fields.hotel-name.label',
-    dataIndex: 'name',
-    sorter: {
-      compare: (a, b) => a.name.localeCompare(b.name),
-      multiple: 3,
-    },
-    render: (_, val) => (
-      <div className="flex items-center gap-[10px]">
-        <div className="size-[48px] bg-secondary-light border-border border rounded-[8px]">
-          <Image src={val?.image} alt={val?.name} width={48} height={48} />
-        </div>
-        <span className="text-[14px] text-primary-dark font-medium">
-          {val?.name}
-        </span>
-      </div>
-    ),
-  },
-  {
-    title: 'fields.location.label',
-    dataIndex: 'location',
-    sorter: {
-      compare: (a, b) => a.location.localeCompare(b.location),
-      multiple: 2,
-    },
-    render: val => (
-      <div>
-        <a style={{ textDecoration: 'underline' }} className="text-[#3276FF]">
-          {val}
-        </a>
-      </div>
-    ),
-  },
-  {
-    title: 'fields.price.label',
-    dataIndex: 'price',
-    sorter: {
-      compare: (a, b) => a.price - b.price,
-      multiple: 1,
-    },
-    render: val => <div>{formatAmount(val)} сум</div>,
-  },
-  {
-    title: 'fields.rating.label',
-    dataIndex: 'rating',
-    sorter: {
-      compare: (a, b) => a.rating - b.rating,
-      multiple: 1,
-    },
-    render: val => <RatingTag value={val} />,
-  },
-  {
-    title: 'fields.login.label',
-    dataIndex: 'login',
-    sorter: {
-      compare: (a, b) => a.login.localeCompare(b.login),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'fields.password.label',
-    dataIndex: 'password',
-    sorter: {
-      compare: (a, b) => a.password.localeCompare(b.password),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'fields.contact-person.label',
-    dataIndex: 'contactPerson',
-    sorter: {
-      compare: (a, b) => a.contactPerson.localeCompare(b.contactPerson),
-      multiple: 1,
-    },
-  },
-  {
-    title: 'fields.status.label',
-    dataIndex: 'status',
-    sorter: {
-      compare: (a, b) => a.status.localeCompare(b.status),
-      multiple: 1,
-    },
-    render: status => <StatusTag active={status} />,
-  },
-  {
-    title: 'fields.balance.label',
-    dataIndex: 'balance',
-    sorter: {
-      compare: (a, b) => a.status.localeCompare(b.status),
-      multiple: 1,
-    },
-  },
-  {
-    width: 1,
-    title: 'common.action',
-    dataIndex: 'id',
-    render: val => <HotelsTableActionButton id={val} />,
-  },
-]
+// const onChange: TableProps<IHotelsTable>['onChange'] = (
+//   pagination,
+//   filters,
+//   sorter,
+//   extra,
+// ) => {
+//   console.log('params', pagination, filters, sorter, extra)
+// }
 
-const onChange: TableProps<IHotelsTable>['onChange'] = (
-  pagination,
-  filters,
-  sorter,
-  extra,
-) => {
-  console.log('params', pagination, filters, sorter, extra)
-}
-
-const HotelsTable = () => {
+const HotelsTable = ({
+  hotelsData,
+  isLoading,
+  currentPage,
+  pageSize,
+  setCurrentPage,
+}: any) => {
   const { t } = useTranslation()
-  const [currentPage, setCurrentPage] = useState(1)
 
-  const { data: HotelsData, isLoading } = useQuery({
-    queryKey: ['hotels-data', currentPage],
-    queryFn: async () => {
-      const res = await getHotelsList({ page_size: 10, page: currentPage })
-      return res
+  const columns: TableColumnsType<IHotelsTable> = [
+    {
+      title: 'ID',
+      dataIndex: 'id',
+      className: 'text-center',
+      render: (_text, _record, index) =>
+        (currentPage - 1) * pageSize + index + 1,
+      sorter: {
+        compare: (a, b) => a.id - b.id,
+        multiple: 4,
+      },
     },
-    // keepPreviousData: true,
-  })
+    {
+      title: 'fields.hotel-name.label',
+      dataIndex: 'placement_name',
+      sorter: {
+        compare: (a, b) => a.placement_name.localeCompare(b.placement_name),
+        multiple: 3,
+      },
+      render: (_, val) => (
+        <div className="flex items-center gap-[10px]">
+          <div className="size-[48px] flex justify-center items-center bg-secondary-light border-border border rounded-[8px]">
+            {val?.image ? (
+              <Image
+                src={val?.image}
+                alt={val?.placement_name}
+                width={48}
+                height={48}
+                className="rounded-[8px] object-cover"
+              />
+            ) : (
+              <HotelIcon fontSize={28} />
+            )}
+          </div>
+          <span className="text-[14px] text-primary-dark font-medium">
+            {val?.placement_name ? val?.placement_name : '-'}
+          </span>
+        </div>
+      ),
+    },
+    {
+      title: 'fields.location.label',
+      width: 200,
+      dataIndex: 'placement_address',
+      sorter: {
+        compare: (a, b) => a!.placement_address.localeCompare(b!.placement_address),
+        multiple: 2,
+      },
+      render: val => (
+        <div>
+          {val ? (
+            <Tooltip
+              color="white"
+              overlayInnerStyle={{ color: '#3276FF', textAlign: 'center', 'textDecoration': "underline" }}
+              title={val}
+              key={val}
+            >
+              <a
+                style={{ textDecoration: 'underline' }}
+                className="text-[#3276FF] line-clamp-2"
+              >
+                {val}
+              </a>
+            </Tooltip>
+          ) : (
+            <div className="text-center">-</div>
+          )}
+        </div>
+      ),
+    },
+    // {
+    //   title: 'fields.price.label',
+    //   dataIndex: 'price',
+    //   sorter: {
+    //     compare: (a, b) => a.price - b.price,
+    //     multiple: 1,
+    //   },
+    //   render: val => (
+    //     <div>
+    //       {val ? formatAmount(val) : '0'} {t('common.summ')}
+    //     </div>
+    //   ),
+    // },
+    {
+      title: 'fields.rating.label',
+      dataIndex: 'rating',
+      sorter: {
+        compare: (a, b) => a.rating - b.rating,
+        multiple: 1,
+      },
+      render: val => <RatingTag value={val} />,
+    },
+    {
+      title: 'fields.login.label',
+      dataIndex: 'login',
+      sorter: {
+        compare: (a, b) => a.login.localeCompare(b.login),
+        multiple: 1,
+      },
+      render: _ => (
+        <div className="flex items-center text-center gap-[10px]">
+          {_ ? _ : <div className="text-center">-</div>}
+        </div>
+      ),
+    },
+    // {
+    //   title: 'fields.password.label',
+    //   dataIndex: 'password',
+    //   sorter: {
+    //     compare: (a, b) => a.password.localeCompare(b.password),
+    //     multiple: 1,
+    //   },
+    // },
+    {
+      title: 'fields.contact-person.label',
+      dataIndex: 'full_name',
+      sorter: {
+        compare: (a, b) => a.full_name.localeCompare(b.full_name),
+        multiple: 1,
+      },
+      render: val => <div>{val === ' ' ? '-' : val}</div>,
+    },
+    {
+      title: 'fields.status.label',
+      dataIndex: 'status',
+      sorter: {
+        compare: (a, b) => a.status.localeCompare(b.status),
+        multiple: 1,
+      },
+      render: status => <StatusTag active={status} />,
+    },
+    {
+      title: 'fields.balance.label',
+      dataIndex: 'balance',
+      sorter: {
+        compare: (a, b) => a.status.localeCompare(b.status),
+        multiple: 1,
+      },
+      render: val => <div>{val ? val : '0'}</div>,
+    },
+    {
+      width: 1,
+      title: 'common.action',
+      // dataIndex: 'id',
+      render: (id, val: any) => (
+        <HotelsTableActionButton
+          key={id}
+          id={val.id}
+          tenant_id={val.tenant ?? undefined}
+          type={val?.type}
+        />
+      ),
+    },
+  ]
 
   const itemRender: PaginationProps['itemRender'] = (
     n,
@@ -182,24 +221,27 @@ const HotelsTable = () => {
     setCurrentPage(page)
   }
 
-  const transformedHotelsData =
-    HotelsData?.results.map((item: IHotelsTable) => ({
-      key: item.id.toString(),
+  const transformedHotelsData = hotelsData?.results.map(
+    (item: IHotelsTable | any, i: any) => ({
+      key: i,
       id: item.id,
-      name: item.name,
+      placement_name: item.placement_name,
       image: item.image,
-      location: item.address,
-      price: item.min_price,
+      placement_address: item.placement_address,
+      price: item.price,
       rating: item.star_rating,
       status: item.status,
       address: item.address,
       min_price: item.min_price,
       star_rating: item.star_rating,
-      login: item.login,
+      login: item.username,
       password: item.password,
-      contactPerson: item.contactPerson,
+      full_name: item.full_name,
       balance: item.balance,
-    })) || []
+      tenant: item.tenant_id,
+      type: item.type,
+    }),
+  )
 
   return (
     <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
@@ -210,17 +252,23 @@ const HotelsTable = () => {
         }))}
         loading={isLoading}
         dataSource={transformedHotelsData}
-        onChange={onChange}
+        onChange={pagination => handlePaginationChange(pagination.current!)}
         className="w-full h-full"
         pagination={{
           current: currentPage,
           pageSize: 10,
-          total: HotelsData?.count || 0,
+          total: hotelsData?.count || 0,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],
           itemRender: itemRender,
           onChange: handlePaginationChange,
+        }}
+        locale={{
+          emptyText: <UsersNotFound />,
+          triggerDesc: t('common.sort_descending') ?? '',
+          triggerAsc: t('common.sort_ascending') ?? '',
+          cancelSort: t('common.sort_cancel') ?? '',
         }}
       />
     </div>

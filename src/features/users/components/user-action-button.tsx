@@ -7,14 +7,14 @@ import useUserModalStore from '../store/user-modal-store'
 import EditIcon from '@/components/icons/edit'
 import DeleteIcon from '@/components/icons/delete'
 
-import { useState, type FC } from 'react'
+import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
 import { deleteUser } from '../api'
 import ConfirmationModal from '@/components/ui/confirmation-modal'
 
-interface IProps {
-  id?: any
-}
+// interface IProps {
+//   id?: any
+// }
 
 const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
   const navigate = useNavigate()
@@ -28,7 +28,7 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
     navigate(pathname + '?edit=' + id)
     openModal()
   }
-  const { mutate, isLoading: isDeleting } = useMutation({
+  const { mutate, isLoading: isDeleting }:any = useMutation({
     mutationFn: () => deleteUser(id),
     onSuccess: () => {
       setDeleteModal(false)
@@ -60,11 +60,11 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
         icon={DeleteIcon}
         open={deleteModal}
         setOpen={setDeleteModal}
-        title="Вы удаляете пользователя?"
-        subTitle="Вы уверены, что хотите удалить пользователя?"
+        title={t('users-page.delete-modal')}
+        subTitle={t('users-page.delete-modal-desc')}
         primaryBtnText={t('common.delete')}
         isLoading={isDeleting}
-        action={() => mutate(id)}
+        action={() => mutate(id as any)}
       />
     </div>
   )

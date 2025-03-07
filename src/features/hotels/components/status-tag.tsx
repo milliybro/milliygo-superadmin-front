@@ -10,6 +10,9 @@ interface IProps {
 const StatusRoomTag: FC<IProps> = ({ status }) => {
   const { t } = useTranslation();
 
+  console.log("Status",status);
+  
+
   // Define a mapping for statuses and their styles
   const statusStyles: Record<string, { text: string; styles: string }> = {
     'Подтвержден': {

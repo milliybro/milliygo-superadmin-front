@@ -19,7 +19,9 @@
   "users-page": {
     "add-user": "Фойдаланувчи қўшиш",
     "edit-user": "Фойдаланувчини таҳрирлаш",
-    "modal-description": "Янги фойдаланувчи қўшиш учун илтимос, барча зарур майдонларни тўлдиринг"
+    "modal-description": "Янги фойдаланувчи қўшиш учун илтимос, барча зарур майдонларни тўлдиринг",
+    "not-found": "Ҳеч нарса топилмади",
+    "not-found-desc": "Aфсуски, сўровингиз бўйича ҳеч нарса топилмади"
   },
 
   "complaints-page": {
@@ -47,6 +49,20 @@
     "label": "Аккаунтдан чиқишни хоҳлайсизми?",
     "description": "Аккаунтингиздан чиқишни хоҳлаётганингизни тасдиқланг"
   },
+  "services-page": {
+    "add-user": "Қўшиш",
+    "add-services": "Қулайлик ва хизматлар қўшиш",
+    "edit-services": "Қулайлик ва хизматларни таҳрирлаш",
+    "modal-description": "Янги фойдаланувчи қўшиш учун барча керакли майдонларни тўлдиринг"
+ },
+ "accommodations-page": {
+  "filter": {
+    "creator": "Егаси",
+    "full-name": "Тўлиқ исмни киритинг",
+    "status": "Статус",
+    "status-placeholder": "Ҳолатни танланг"
+  }
+},
   "fields": {
     "fullname": {
       "label": "Ф.И.О",
@@ -226,6 +242,40 @@
     "date": {
       "label": "Сана",
       "placeholder": "Санани танланг"
+    },
+    "icon": {
+      "label": "Белги",
+      "add-icon": "Юклаш белгиси",
+      "select": "Танлаш",
+      "drag-file": "ёки файлни тортинг",
+      "max-size": "Максимал ҳажми: 5 МБ.",
+      "icons": "Aввал юкланган пиктограммалар"
+    },
+    "name": {
+      "name-uz": "O‘z номи",
+      "name-ru": "РУ номи",
+      "name-en": "EN номи",
+      "placeholder": "Исм киритинг",
+      "name-cry": "Ўз номи"
+    },
+    "services": {
+      "add-success-notification": "Янги қулайлик қўшилди",
+      "edit-success-notification": "Қулайлик таҳрирланди",
+      "error-notification": "Хатолик берди"
+    },
+    "created-at": {
+      "label": "Яратилган сана"
+    },
+    "user-notification": {
+      "add": {
+        "message": "Янги фойдаланувчи қўшилди"
+      },
+      "edit": {
+        "message": "Фойдаланувчи ўзгарди"
+      },
+      "error": {
+        "message": "Хатолик юз берди"
+      }
     }
   },
   "common": {
@@ -281,6 +331,43 @@
     "my-account": "Менинг аккаунтим",
     "login-to-account": "Аккаунтга кириш",
     "additional-number": "Қўшимча рақам",
-    "support-service": "Қўллаб-қувватлаш хизмати"
+    "support-service": "Қўллаб-қувватлаш хизмати",
+    "no-chat": "Маълумотлар мавжуд емас",
+    "night": "кеча",
+    "request-data": "Маълумотларни сўраш",
+    "tenants": "Тенантлар",
+    "login-success": "Маваффиқатли кирилди",
+    "sort_descending": "Камайиш тартибида тартиблаш учун босинг",
+    "sort_ascending": "Ўсиш тартибида тартиблаш учун босинг",
+    "sort_cancel": "Тартиблашни рад етиш учун босинг",
+    "houses-and-apartments": "Уйлар ва хонадонлар",
+    "resorts": "Дам олиш масканлари",
+    "hostels": "Хостеллар",
+    "email": "Емаил",
+    "accommodations": "Турар жойлар",
+    "requests": "Сўров",
+    "actived": "Фаол",
+    "rejected": "Бекор қилинган",
+    "admin": "Aдминистратор",
+    "editor": "Муҳаррир",
+    "viewer": "Фақат кўриш",
+    "contributor": "Иштирокчи",
+    "service": "Сервис",
+    "type": "Типни танланг",
+    "category": "Туркум",
+    "category-select": "Туркумни танланг",
+    "prohibitions": "Тақиқлар",
+    "facility-room": "Хона",
+    "rule": "Илтимос, маълумотни киритинг",
+    "not-guests": "Меҳмонлар ҳали йўқ"
+  },
+  "status": {
+    "confirmed": "Тасдиқланган",
+    "pending": "кутилмоқда",
+    "canceled":"Бекор қилинган",
+    "free": "Бепул",
+    "unknown": "Номаълум",
+    "empty": "Бўш",
+    "booking": "Банд қилинган"
   }
 }
