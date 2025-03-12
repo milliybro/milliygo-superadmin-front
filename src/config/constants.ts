@@ -14,7 +14,8 @@ const ROUTE_PATHS = {
   CALL_CENTER: '/call-center',
   SERVICES: '/services',
   TENANTS: '/tenants',
-  ACCOMMODATIONS: '/accommodations'
+  ACCOMMODATIONS: '/accommodations',
+  MAIN_CONTENT: '/main-content'
 }
 
 const BASE_URL = ''
