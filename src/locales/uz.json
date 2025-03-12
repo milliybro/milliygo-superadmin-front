@@ -54,15 +54,15 @@
     "add-services": "Қулайлик ва хизматлар қўшиш",
     "edit-services": "Қулайлик ва хизматларни таҳрирлаш",
     "modal-description": "Янги фойдаланувчи қўшиш учун барча керакли майдонларни тўлдиринг"
- },
- "accommodations-page": {
-  "filter": {
-    "creator": "Егаси",
-    "full-name": "Тўлиқ исмни киритинг",
-    "status": "Статус",
-    "status-placeholder": "Ҳолатни танланг"
-  }
-},
+  },
+  "accommodations-page": {
+    "filter": {
+      "creator": "Егаси",
+      "full-name": "Тўлиқ исмни киритинг",
+      "status": "Статус",
+      "status-placeholder": "Ҳолатни танланг"
+    }
+  },
   "fields": {
     "fullname": {
       "label": "Ф.И.О",
@@ -359,15 +359,40 @@
     "prohibitions": "Тақиқлар",
     "facility-room": "Хона",
     "rule": "Илтимос, маълумотни киритинг",
-    "not-guests": "Меҳмонлар ҳали йўқ"
+    "not-guests": "Меҳмонлар ҳали йўқ",
+    "main-content": "Бош саҳифа"
   },
   "status": {
     "confirmed": "Тасдиқланган",
     "pending": "кутилмоқда",
-    "canceled":"Бекор қилинган",
+    "canceled": "Бекор қилинган",
     "free": "Бепул",
     "unknown": "Номаълум",
     "empty": "Бўш",
     "booking": "Банд қилинган"
+  },
+  "home-content": {
+    "title": "Бош саҳифа контенти",
+    "empty": "Бўш",
+    "video-home": "Бош экрандаги видео",
+    "destinations": "Энг яхши йўналишлар",
+    "recreating": "Дам олиш турлари",
+    "видео-алерт": "Фақат МП4 форматдаги видеоларни юклаш мумкин!",
+    "upload-image": "Video юклаш",
+    "reupload": "Қайта танлаш",
+    "destination-delete": "Йўналишни ўчириб ташлайсизми?",
+    "destination-del-desc": "Ҳақиқатан ҳам ушбу манзилни ўчириб ташламоқчимисиз?",
+    "add-destination": "Йўналиш қўшиш",
+    "edit-destination": "Йўналишни ўзгартириш",
+    "destination-desc": "Йўналишни ўзгартириш учун керакли майдонларни тўлдиринг",
+    "destination-name": "Йўналиш номи",
+    "direction-cover": "Йўналиш муқоваси",
+    "link-destination": "Йўналиш ҳаволаси",
+    "add-recreation": "Дам олиш турини қўшиш",
+    "edit-recreation": "Дам олиш турини ўзгартириш",
+    "desc-recreation": "Дам олиш турини қўшиш учун керакли майдонларни тўлдиринг",
+    "name-recreation": "Дам олиш тури номи",
+    "color": "Ранг",
+    "recreating-cover": "Дам олиш туридаги муқова"
   }
 }

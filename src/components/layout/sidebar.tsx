@@ -17,6 +17,7 @@ import TimeManagementIcon from '../icons/time-management'
 import CustomerSupportIcon from '../icons/customer-support'
 import ServicesIcon from '../icons/services-icon'
 import AccommodationsIcon from '../icons/accommodations-icon'
+import NodeEdit from '../icons/node-edit'
 
 const items = [
   {
@@ -69,6 +70,11 @@ const items = [
     label: 'common.tenants',
     icon: Hotel2Icon,
     path: ROUTE_PATHS.TENANTS,
+  },
+  {
+    label: 'common.main-content',
+    icon: NodeEdit,
+    path: ROUTE_PATHS.MAIN_CONTENT,
   },
 ]
 
