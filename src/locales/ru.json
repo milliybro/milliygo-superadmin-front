@@ -437,6 +437,8 @@
     "summ": "сум",
     "from": "с",
     "to": "до",
+    "time-from": "с {{value}}",
+    "time-to": "до {{value}}",
     "breakfast": "Завтрак включен",
     "free-cancel": "Бесплатная отмена",
     "no-add-pay": "Нет предоплаты",

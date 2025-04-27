@@ -404,6 +404,8 @@
     "transaction": "Tranzaksiyalar",
     "from": "dan",
     "to": "gacha",
+    "time-from": "{{value}} dan",
+    "time-to": "{{value}} gacha",
     "type-number": "Raqam turi",
     "price-night": "Narx (bir kechaga)",
     "convenience": "Qulaylik",
