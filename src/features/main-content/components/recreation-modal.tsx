@@ -6,7 +6,6 @@ import {
   Button,
   Typography,
   notification,
-  message,
   ColorPicker,
 } from 'antd'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
@@ -21,15 +20,12 @@ import Dragger from 'antd/es/upload/Dragger'
 import AddCreateIcon from '@/components/icons/add-icon'
 import useRecreationModalStore from '../store/recreation-modal-store'
 
-type NotificationType = 'success' | 'info' | 'warning' | 'error'
-
 const RecreationModal = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const [searchParams] = useSearchParams()
   const { isModalOpen, closeModal } = useRecreationModalStore(state => state)
-  const [messageApi] = message.useMessage()
   const [form] = Form.useForm()
   const [color, setColor] = useState('')
 
@@ -84,14 +80,7 @@ const RecreationModal = () => {
       ),
     })
   }
-  const [api] = notification.useNotification()
-  const openNotificationWithIcon = (type: NotificationType) => {
-    api[type]({
-      message: 'Notification Title',
-      description:
-        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-    })
-  }
+
   const { mutate: handleUserSave } = useMutation({
     mutationFn: (values: any) => {
       const formattedValues: IUsers = {
@@ -116,15 +105,8 @@ const RecreationModal = () => {
       fetching()
       closeHandler()
     },
-    onError: (error: any) => {
-      openNotificationWithIcon('error')
-      messageApi.open({
-        type: 'error',
-        content: 'This is an error message',
-      })
-      message.error(error?.data?.username)
+    onError: () => {
       form.getFieldsError()
-      console.log('error', error)
     },
   })
 

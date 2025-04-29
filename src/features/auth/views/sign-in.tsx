@@ -36,39 +36,30 @@ export default function SignIn(): React.ReactElement {
     login: () => {},
     logout: () => {},
     userInfo: {},
-  };
-  
+  }
 
   const { isAuthenticated, login: loginAction }: any = authStore
   const { t } = useTranslation()
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const { mutate: mutateLogin } = useMutation({
     mutationFn: login,
-    onSuccess: (res) => {
+    onSuccess: res => {
       if (res.user.is_superuser === true) {
-        localStorage.setItem('refresh', res.refresh);
-        localStorage.setItem('access', res.access);
-        localStorage.setItem('user', JSON.stringify(res.user));
-        loginAction(res.user); 
-        setCookie('user', res.user); 
-        setIsAuth(true); 
-        navigate('/'); 
-        
-        message.success(t('common.login-success'), 2); 
-      } else {
-        message.error(t('user.login-error'), 2); 
-      }
-    },
-    onError: (error: any) => {
-      message.error(error?.data?.detail, 2); 
+        localStorage.setItem('refresh', res.refresh)
+        localStorage.setItem('access', res.access)
+        localStorage.setItem('user', JSON.stringify(res.user))
+        loginAction(res.user)
+        setCookie('user', res.user)
+        setIsAuth(true)
+        navigate('/')
 
-      if (error.response?.status === 401) {
-        message.error(t('user.login-error'), 2); 
+        message.success(t('common.login-success'), 2)
+      } else {
+        message.error(t('user.login-error'), 2)
       }
     },
-  });
-  
+  })
 
   if (isAuthenticated) {
     navigate('/')

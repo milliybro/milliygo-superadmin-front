@@ -247,10 +247,6 @@ const ServicesAction = () => {
       // queryClient.invalidateQueries(['placements-facilities-data'])
       // queryClient.invalidateQueries(['prohibitions-facilities-data'])
     },
-    onError: (error: any) => {
-      openNotification('error', 'fields.services.error-notification', '')
-      console.log('error', error)
-    },
   })
 
   const handlePreview = (file: File) => {

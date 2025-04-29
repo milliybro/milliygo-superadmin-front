@@ -29,13 +29,12 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
     navigate(pathname + '?edit=' + id)
     openModal()
   }
-  const { mutate, isLoading: isDeleting }:any = useMutation({
+  const { mutate, isPending: isDeleting } = useMutation({
     mutationFn: () => deleteUser(id),
     onSuccess: () => {
       setDeleteModal(false)
       refetch()
     },
-    onError: () => {},
   })
 
   return (
@@ -65,7 +64,7 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
         subTitle={t('users-page.delete-modal-desc')}
         primaryBtnText={t('common.delete')}
         isLoading={isDeleting}
-        action={() => mutate(id as any)}
+        action={() => mutate()}
       />
     </div>
   )

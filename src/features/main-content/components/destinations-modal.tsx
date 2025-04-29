@@ -1,13 +1,5 @@
 import { useTranslation } from 'react-i18next'
-import {
-  Modal,
-  Form,
-  Input,
-  Button,
-  Typography,
-  notification,
-  message,
-} from 'antd'
+import { Modal, Form, Input, Button, Typography, notification } from 'antd'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 
 import CloseIcon from '@/components/icons/close-icon'
@@ -20,16 +12,12 @@ import useDestinationModalStore from '../store/destinations-modal-store'
 import Dragger from 'antd/es/upload/Dragger'
 import AddCreateIcon from '@/components/icons/add-icon'
 
-type NotificationType = 'success' | 'info' | 'warning' | 'error'
-
 const DestinationModal = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const [searchParams] = useSearchParams()
   const { isModalOpen, closeModal } = useDestinationModalStore(state => state)
-
-  const [messageApi] = message.useMessage()
 
   const [form] = Form.useForm()
 
@@ -96,14 +84,7 @@ const DestinationModal = () => {
       ),
     })
   }
-  const [api] = notification.useNotification()
-  const openNotificationWithIcon = (type: NotificationType) => {
-    api[type]({
-      message: 'Notification Title',
-      description:
-        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-    })
-  }
+
   const { mutate: handleUserSave } = useMutation({
     mutationFn: (values: any) => {
       const formattedValues: IUsers = {
@@ -128,15 +109,8 @@ const DestinationModal = () => {
       fetching()
       closeHandler()
     },
-    onError: (error: any) => {
-      openNotificationWithIcon('error')
-      messageApi.open({
-        type: 'error',
-        content: 'This is an error message',
-      })
-      message.error(error?.data?.username)
+    onError: () => {
       form.getFieldsError()
-      console.log('error', error)
     },
   })
 
