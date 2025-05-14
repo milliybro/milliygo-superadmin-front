@@ -41,7 +41,7 @@ const UserModal = ({ refetch }: UserModalProps) => {
 
   const [form] = Form.useForm()
 
-  const editUserId = searchParams.get('edit')
+  const editUserId = searchParams.get('edit') 
   console.log(editUserId)
 
   const closeHandler = () => {
@@ -166,7 +166,7 @@ const UserModal = ({ refetch }: UserModalProps) => {
         username: data?.username,
         code: data?.code,
         type: data?.type?.name,
-        status: data?.is_active,
+        is_active: data?.is_active,
       })
     }
   }, [data, form])
@@ -340,7 +340,7 @@ const UserModal = ({ refetch }: UserModalProps) => {
 
         <Form.Item
           label={t('fields.status.label')}
-          name="status"
+          name="is_active"
           rules={[
             {
               required: true,

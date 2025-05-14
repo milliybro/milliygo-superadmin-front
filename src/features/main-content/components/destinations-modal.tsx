@@ -12,9 +12,9 @@ import { useLocation, useNavigate, useSearchParams } from 'react-router'
 
 import CloseIcon from '@/components/icons/close-icon'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { createUser, getUser, getUserRoles, updateUser } from '../api'
+import { getUser, getUserRoles } from '../api'
 import { useEffect } from 'react'
-import { IUsers } from '../types'
+import { IDestinations } from '../types'
 import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
 import useDestinationModalStore from '../store/destinations-modal-store'
 import Dragger from 'antd/es/upload/Dragger'
@@ -44,14 +44,14 @@ const DestinationModal = () => {
     }
   }
 
-  const { data, refetch: fetching } = useQuery({
-    queryKey: ['user', editUserId],
-    queryFn: async () => {
-      const res = await getUser({ id: editUserId })
-      return res
-    },
-    enabled: !!editUserId,
-  })
+//   const { data, refetch: fetching } = useQuery({
+//     queryKey: ['user', editUserId],
+//     queryFn: async () => {
+//       const res = await getUser({ id: editUserId })
+//       return res
+//     },
+//     enabled: !!editUserId,
+//   })
 
   const { data: roles } = useQuery({
     queryKey: ['users-roles'],
@@ -104,55 +104,55 @@ const DestinationModal = () => {
         'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
     })
   }
-  const { mutate: handleUserSave } = useMutation({
-    mutationFn: (values: any) => {
-      const formattedValues: IUsers = {
-        ...values,
-      }
+//   const { mutate: handleUserSave } = useMutation({
+//     mutationFn: (values: any) => {
+//       const formattedValues: IDestinations = {
+//         ...values,
+//       }
 
-      if (editUserId) {
-        return updateUser({ id: editUserId, queryParams: formattedValues })
-      }
+//       if (editUserId) {
+//         return updateUser({ id: editUserId, queryParams: formattedValues })
+//       }
 
-      return createUser(formattedValues)
-    },
-    onSuccess: () => {
-      // notification.success({
-      //   message: editUserId
-      //     ? t('fields.user-notification.edit.message')
-      //     : t('fields.user-notification.add.message'),
-      // })
-      openNotification()
-      console.log('success')
-      form.resetFields()
-      fetching()
-      closeHandler()
-    },
-    onError: (error: any) => {
-      openNotificationWithIcon('error')
-      messageApi.open({
-        type: 'error',
-        content: 'This is an error message',
-      })
-      message.error(error?.data?.username)
-      form.getFieldsError()
-      console.log('error', error)
-    },
-  })
+//       return createUser(formattedValues)
+//     },
+//     onSuccess: () => {
+//       // notification.success({
+//       //   message: editUserId
+//       //     ? t('fields.user-notification.edit.message')
+//       //     : t('fields.user-notification.add.message'),
+//       // })
+//       openNotification()
+//       console.log('success')
+//       form.resetFields()
+//       fetching()
+//       closeHandler()
+//     },
+//     onError: (error: any) => {
+//       openNotificationWithIcon('error')
+//       messageApi.open({
+//         type: 'error',
+//         content: 'This is an error message',
+//       })
+//       message.error(error?.data?.username)
+//       form.getFieldsError()
+//       console.log('error', error)
+//     },
+//   })
 
-  useEffect(() => {
-    if (data && editUserId) {
-      form.setFieldsValue({
-        first_name: data?.first_name + ' ' + data?.last_name,
-        phone: data?.phone,
-        gender: data?.gender,
-        username: data?.username,
-        code: data?.code,
-        type: data?.type?.name,
-        status: data?.is_active,
-      })
-    }
-  }, [data, form])
+//   useEffect(() => {
+//     if (data && editUserId) {
+//       form.setFieldsValue({
+//         first_name: data?.first_name + ' ' + data?.last_name,
+//         phone: data?.phone,
+//         gender: data?.gender,
+//         username: data?.username,
+//         code: data?.code,
+//         type: data?.type?.name,
+//         status: data?.is_active,
+//       })
+//     }
+//   }, [data, form])
 
   return (
     <Modal
@@ -187,7 +187,7 @@ const DestinationModal = () => {
       </div>
       <Form
         layout="vertical"
-        onFinish={values => handleUserSave(values)}
+        // onFinish={values => handleUserSave(values)}
         className="flex flex-col gap-4"
         form={form}
       >
