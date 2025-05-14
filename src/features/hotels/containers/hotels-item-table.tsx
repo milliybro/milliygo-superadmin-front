@@ -87,7 +87,6 @@ const onChange: TableProps<IHotelsItemReview>['onChange'] = (
 
 const HotelsItemReviews = ({ data }: { data: any }) => {
   const { t } = useTranslation()
-  const { id } = useParams<{ id: string }>()
 
   // const itemRender: PaginationProps['itemRender'] = (
   //   n,
@@ -123,6 +122,8 @@ const HotelsItemReviews = ({ data }: { data: any }) => {
   // }
 
   const [searchParams] = useSearchParams()
+  const { id } = useParams<{ id: string }>()
+
   const type = searchParams.get('type') || '1'
 
   console.log(data, type, id)

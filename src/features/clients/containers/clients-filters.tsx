@@ -11,10 +11,11 @@ import { getCountries } from '../api'
 import { capitalizeFirstLetters } from '@/helpers/capitalize-first-letter'
 import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'react-router'
-
+import { useEffect } from 'react'
 
 const ClientsFilters = () => {
   const { t } = useTranslation()
+  const [form] = Form.useForm()
 
   const { data: countries } = useQuery({
     queryKey: ['countries'],
@@ -50,7 +51,11 @@ const ClientsFilters = () => {
     : []
 
   const [searchParams, setSearchParams] = useSearchParams()
-  console.log(searchParams)
+
+  const country = searchParams.get('country') || null
+  const gender = searchParams.get('gender') || null
+  const status = searchParams.get('status') || null
+  const search = searchParams.get('client_search') || null
 
   const handleValuesChange = (changedValues: any, allValues: any) => {
     const newParams = new URLSearchParams()
@@ -67,11 +72,27 @@ const ClientsFilters = () => {
     setSearchParams(newParams)
   }
 
+  const selectedCountry =
+    countryOptions.find(option => option.value === Number(country))?.value ||
+    null
+
+  useEffect(() => {
+    if (selectedCountry) {
+      form.setFieldsValue({
+        country: selectedCountry,
+        gender: gender,
+        status: status,
+        client_search: search,
+      })
+    }
+  }, [countryOptions, form, gender, status, search])
+
   return (
     <Form
       layout="vertical"
       className="grid grid-cols-4 gap-4"
       onValuesChange={handleValuesChange}
+      form={form}
     >
       <Form.Item
         validateDebounce={1000}
@@ -79,6 +100,7 @@ const ClientsFilters = () => {
         name="client_search"
       >
         <Input
+          defaultValue={search || ''}
           prefix={
             <UserSquareIcon className="text-[16px] text-secondary ml-2 mr-4" />
           }

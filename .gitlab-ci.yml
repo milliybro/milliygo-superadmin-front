@@ -12,6 +12,8 @@ build-job:
     - cd /home/emehmon_superadmin_front
     - pwd
     - whoami
-    - git pull origin main
+    - git checkout main || fail
+    - git reset --hard origin/main || fail
+    - git pull origin main || fail
     - npm install
     - npm run build

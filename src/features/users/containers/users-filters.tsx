@@ -10,12 +10,18 @@ import TimeManagementIcon from '@/components/icons/time-management'
 import { useQuery } from '@tanstack/react-query'
 import { getUserRoles } from '../api'
 import { useSearchParams } from 'react-router'
+import { useEffect } from 'react'
 
 const UsersFilters = () => {
   const { t } = useTranslation()
+  const [form] = Form.useForm()
 
   const [searchParams, setSearchParams] = useSearchParams()
-  console.log(searchParams)
+
+  const search = searchParams.get('search') || null
+  const gender = searchParams.get('gender') || null
+  const role = searchParams.get('role') || null
+  const status = searchParams.get('status') || null
 
   const handleValuesChange = (changedValues: any, allValues: any) => {
     const newParams = new URLSearchParams()
@@ -31,7 +37,7 @@ const UsersFilters = () => {
 
     setSearchParams(newParams)
   }
-  
+
   const { data: roles } = useQuery({
     queryKey: ['users-roles'],
     queryFn: async () => {
@@ -42,11 +48,23 @@ const UsersFilters = () => {
   })
   
 
+  useEffect(() => {
+    if (form) {
+      form.setFieldsValue({
+        search: search,
+        role: role,
+        gender: gender,
+        status: status,
+      })
+    }
+  }, [form])
+
   return (
     <Form
       layout="vertical"
       className="grid grid-cols-4 gap-4"
       onValuesChange={handleValuesChange}
+      form={form}
     >
       <Form.Item
         label={t('fields.search-user.label')}

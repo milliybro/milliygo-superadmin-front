@@ -83,6 +83,9 @@ const HotelsItem = () => {
     }
   }, [data, t])
 
+  console.log("data", data?.placement_detail?.external_id);
+  
+
   const items: TabsProps['items'] = [
     {
       key: '1',
