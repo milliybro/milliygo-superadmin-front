@@ -136,7 +136,6 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
       console.log('success')
       form.resetFields()
       refetch()
-      fetching()
       closeHandler()
     },
     onError: () => {
