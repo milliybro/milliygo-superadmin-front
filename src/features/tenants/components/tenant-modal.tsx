@@ -83,7 +83,7 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
     })
   }
 
-  const { data, refetch: fetching } = useQuery({
+  const { data } = useQuery({
     queryKey: ['tenant', editTenantId],
     queryFn: async () => {
       const res = await getTenant({ id: editTenantId })
