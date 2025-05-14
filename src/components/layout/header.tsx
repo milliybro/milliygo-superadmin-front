@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Divider } from 'antd'
 
 import { useTranslation } from 'react-i18next'
@@ -8,7 +9,10 @@ import CSelect from '../ui/select'
 import Breadcrumbs from '../ui/breadcrumbs'
 import ProfilePopover from '../shared/profile-popover'
 import NotificationPopover from '../shared/notification-popover'
-
+import dayjs from 'dayjs'
+import 'dayjs/locale/uz'
+import 'dayjs/locale/uz-latn'
+import 'dayjs/locale/ru'
 const Header = () => {
   const { i18n } = useTranslation()
   const { breadCrumbs } = useBreadCrumbsStore(store => store)
@@ -16,6 +20,18 @@ const Header = () => {
   const changeLanguage = (val: string) => {
     i18n.changeLanguage(val)
   }
+
+  useEffect(() => {
+    const lang =
+      i18n.language === 'uz'
+        ? 'uz'
+        : i18n.language === 'oz'
+          ? 'uz-latn'
+          : i18n.language
+
+    dayjs.locale(lang)
+    console.log('dayjs locale', dayjs().locale(), lang)
+  }, [i18n.language])
 
   return (
     <header
