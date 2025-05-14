@@ -300,8 +300,8 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
             className="select-shadow"
             placeholder={t('fields.status.placeholder')}
           >
-            <Select.Option value={true}>Активный</Select.Option>
-            <Select.Option value={false}>Неактивный</Select.Option>
+            <Select.Option value={true}>{t('common.active')}</Select.Option>
+            <Select.Option value={false}>{t('common.inactive')}</Select.Option>
           </CSelect>
         </Form.Item>
 
