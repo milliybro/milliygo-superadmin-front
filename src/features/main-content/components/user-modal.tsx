@@ -10,7 +10,7 @@ import {
 } from 'antd'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 
-import useUserModalStore from '../store/user-modal-store'
+import useUserModalStore from '../store/destinations-modal-store'
 
 import CSelect from '@/components/ui/select'
 import UserIcon from '@/components/icons/user'

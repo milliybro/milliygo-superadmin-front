@@ -1,9 +1,10 @@
 import axios from 'axios'
+import { notification } from 'antd'
 import settings from '@/config/settings'
 import { refreshToken } from '@/features/auth'
 
 import type { AxiosError } from 'axios'
-
+import type { IErrorMessage } from '@/types'
 
 export const baseURL = 'https://support.emehmon.xdevs.uz/api/v1'
 
@@ -12,11 +13,11 @@ const requestSupport = axios.create({
   timeout: settings.requestTimeout,
 })
 
-requestSupport.interceptors.request.use((config) => {
+requestSupport.interceptors.request.use(config => {
   const token = localStorage.getItem('access')
   const cookie = document?.cookie
     ?.split('; ')
-    ?.find((row) => row.startsWith('csrftoken='))
+    ?.find(row => row.startsWith('csrftoken='))
     ?.split('=')[1]
 
   if (token !== null) {
@@ -29,8 +30,8 @@ requestSupport.interceptors.request.use((config) => {
     locale === 'uz'
       ? 'uz-cyrillic'
       : locale === 'oz'
-      ? 'uz-latin'
-      : locale || 'ru'
+        ? 'uz-latin'
+        : locale || 'ru'
 
   if (cookie !== null) {
     // eslint-disable-next-line no-param-reassign
@@ -42,9 +43,15 @@ requestSupport.interceptors.request.use((config) => {
   return config
 }, errorHandler)
 
-requestSupport.interceptors.response.use((response) => response.data, errorHandler)
+requestSupport.interceptors.response.use(
+  response => response.data,
+  errorHandler,
+)
 
 export async function errorHandler(error: AxiosError): Promise<void> {
+  const errorStatus = error.response?.status
+  const errorData = error?.response?.data as IErrorMessage[]
+
   if (error.response !== null) {
     // server responded with a status code that falls out of the range of 2xx
     if (error.response?.status === 403) {
@@ -64,6 +71,25 @@ export async function errorHandler(error: AxiosError): Promise<void> {
           window.location.reload()
         }
       }
+    }
+
+    if (errorStatus === 500) {
+      notification.error({
+        message: 'Server error | 500',
+        description: 'Please try again later',
+      })
+    } else if (Array.isArray(errorData)) {
+      errorData.forEach((val: IErrorMessage) => {
+        notification.error({
+          message: val?.error_type,
+          description: val?.detail,
+        })
+      })
+    } else {
+      notification.error({
+        message: 'Unexpected error',
+        description: 'An error occurred. Please try again.',
+      })
     }
 
     await Promise.reject(error.response)

@@ -126,7 +126,7 @@ const HotelsItemReviews = ({ data }: { data: any }) => {
 
   const type = searchParams.get('type') || '1'
 
-  console.log(type, id, data)
+  console.log(data, type, id)
 
   const { data: HotelDetailReview } = useQuery({
     queryKey: ['hotels-detail-review', data, id],
@@ -134,7 +134,7 @@ const HotelsItemReviews = ({ data }: { data: any }) => {
       // if (!data || !id) throw new Error('ID is required')
       const res = await getHotelDetailReview(
         {},
-        Number(type === "site" ? id : data),
+        Number(type === 'site' ? id : data),
       )
       return res
     },
@@ -164,7 +164,6 @@ const HotelsItemReviews = ({ data }: { data: any }) => {
         title: t(val?.title as string),
       }))}
       dataSource={
-        // type === 'site'
         HotelDetailReview?.results
           ? transformHotelDetailsToTableData(HotelDetailReview.results)
           : []

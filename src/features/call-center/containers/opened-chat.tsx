@@ -101,9 +101,6 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   //   onSuccess: () => {
   //     refetch()
   //   },
-  //   onError: () => {
-  //     form.getFieldsError()
-  //   },
   // })
   const scrollToBottom = () => {
     const chatBody = chatBodyRef.current
@@ -140,9 +137,6 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
     onSuccess: (values: ISendMessage) => {
       openNotification()
       console.log('User info fetched successfully:', values)
-    },
-    onError: error => {
-      console.error('Failed to fetch user info:', error)
     },
   })
   const handleClick = () => {

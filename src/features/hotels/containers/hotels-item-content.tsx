@@ -104,10 +104,12 @@ const HotelsItemContent = ({ data }: HotelContent) => {
       icon: <LoginIcon className=" w-[18px]" />,
       conditions: (
         <Flex vertical gap={8}>
-          {t('common.from')} {formatTime(data?.placement_detail?.checkin_start)}
-          <Typography.Text className="text-sm text-secondary">
+          {t('common.time-from', {
+            value: formatTime(data?.placement_detail?.checkin_start),
+          })}
+          {/* <Typography.Text className="text-sm text-secondary">
             {t('hotels-page.check-in.desc')}
-          </Typography.Text>
+          </Typography.Text> */}
         </Flex>
       ),
     },
@@ -117,7 +119,9 @@ const HotelsItemContent = ({ data }: HotelContent) => {
       icon: <LogoutIcon className=" w-[18px]" />,
       conditions: (
         <Flex vertical gap={8}>
-          {t('common.to')} {formatTime(data?.placement_detail?.checkout_end)}
+          {t('common.time-to', {
+            value: formatTime(data?.placement_detail?.checkout_end),
+          })}
         </Flex>
       ),
     },

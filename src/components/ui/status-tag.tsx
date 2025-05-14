@@ -14,7 +14,7 @@ const StatusTag: FC<IProps> = ({ active, colorless }) => {
   return (
     <span
       className={twMerge(
-        'shrink-0 text-[12px] font-medium px-[10px] py-[6px] rounded-[6px]',
+        'shrink-0 whitespace-nowrap text-[12px] font-medium px-[10px] py-[6px] rounded-[6px]',
         colorless
           ? active
             ? 'text-primary-dark bg-white border py-[5px] border-border shadow-[0px_1px_2px_0px_rgba(0,_0,_0,_0.05)]'

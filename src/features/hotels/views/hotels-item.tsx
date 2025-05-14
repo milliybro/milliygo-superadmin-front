@@ -63,7 +63,7 @@ const HotelsItem = () => {
       return res
     },
     enabled: !!id,
-  })
+  })  
 
   useEffect(() => {
     if (HotelDetail) {
@@ -71,7 +71,7 @@ const HotelsItem = () => {
     }
   }, [HotelDetail])
 
-  console.log('DATA', data?.placement_detail?.name)
+  console.log('DATA', data?.placement_detail?.external_id)
 
   useEffect(() => {
     if (data) {

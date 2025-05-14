@@ -56,17 +56,19 @@ const AccommodationsTab = ({
       ),
     },
   ]
+  const newParams = new URLSearchParams(searchParams)
+
   return (
     <div className="bg-white w-full border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
       <Tabs
         onChange={key => {
-          const newParams = new URLSearchParams(searchParams)
           newParams.set('tab', key)
 
           setSearchParams(newParams)
         }}
         className="p-2"
         defaultActiveKey="1"
+        activeKey={newParams.get('tab') || '1'}
         items={items.map(val => ({
           ...val,
           label: t(val.label as string),

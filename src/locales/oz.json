@@ -31,7 +31,7 @@
     "not-found-title": "Hech narsa topilmadi",
     "not-found-description": "Hozircha sizda shikoyatlar mavjud emas."
   },
-"hotels-page": {
+  "hotels-page": {
     "add-hotel": "Mehmonxonani qo'shish",
     "add-hotel-desc": "Yangi mehmonxona qo'shish uchun kerakli maydonlarni to'ldiring",
     "name": {
@@ -70,7 +70,7 @@
       "title": "Yosh cheklovlari yo'q",
       "desc": "Kirish uchun yosh chegarasi yo'q."
     },
-    "pets":{
+    "pets": {
       "title": "Uy hayvonlari",
       "desc": "Uy hayvonlariga ruxsat berilmaydi."
     },
@@ -78,7 +78,7 @@
       "title": "To'lov usullari",
       "desc": " ushbu kartalarni qabul qiladi va kelishidan oldin kartangizdagi mablag'larni vaqtincha ushlab turish huquqini o'zida saqlab qoladi."
     }
- },
+  },
 
   "access-role-page": {
     "add-role": "Rol qo‘shish",
@@ -95,20 +95,20 @@
     "label": "Akkountdan chiqishni xohlaysizmi?",
     "description": "Akkountingizdan chiqishni xohlayotganingizni tasdiqlang"
   },
-"services-page": {
+  "services-page": {
     "add-user": "Qo'shish",
     "add-services": "Qulaylik va xizmatlar qo'shish",
     "edit-services": "Qulaylik va xizmatlarni tahrirlash",
     "modal-description": "Yangi foydalanuvchi qo'shish uchun barcha kerakli maydonlarni to'ldiring"
- },
- "accommodations-page": {
-  "filter": {
-    "creator": "Egasi",
-    "full-name": "To'liq ismni kiriting",
-    "status": "Status",
-    "status-placeholder": "Holatni tanlang"
-  }
-},
+  },
+  "accommodations-page": {
+    "filter": {
+      "creator": "Egasi",
+      "full-name": "To'liq ismni kiriting",
+      "status": "Status",
+      "status-placeholder": "Holatni tanlang"
+    }
+  },
   "fields": {
     "fullname": {
       "label": "F.I.O",
@@ -321,7 +321,7 @@
       },
       "edit": {
         "message": "Foydalanuvchi o'zgardi"
-      }, 
+      },
       "error": {
         "message": "Xatolik yuz berdi"
       }
@@ -337,7 +337,7 @@
     "edit-tenant": "Tenantni tahrirlash"
   },
   "common": {
-    "name":"Nomi",
+    "name": "Nomi",
     "statistics": "Statistika",
     "users": "Foydalanuvchilar",
     "hotels": "Mehmonxonalar",
@@ -349,6 +349,8 @@
     "inactive": "Faol emas",
     "main": "Asosiy",
     "cancel": "Bekor qilish",
+    "reject": "Rad etish",
+    "confirm": "Tasdiqlash",
     "action": "Amallar",
     "next": "Keyingi",
     "prev": "Oldingi",
@@ -396,14 +398,16 @@
     "request-data": "Ma'lumotlarni so'rash",
     "tenants": "Tenantlar",
     "men": "Erkak",
-    "women": "Ayol",    
-    "men-small": "Erkak", 
+    "women": "Ayol",
+    "men-small": "Erkak",
     "women-small": "Ayol",
     "support": "Qo'llab-quvvatlash",
     "summ": "so'm",
     "transaction": "Tranzaksiyalar",
     "from": "dan",
     "to": "gacha",
+    "time-from": "{{value}} dan",
+    "time-to": "{{value}} gacha",
     "type-number": "Raqam turi",
     "price-night": "Narx (bir kechaga)",
     "convenience": "Qulaylik",
@@ -444,15 +448,40 @@
     "prohibitions": "Taqiqlar",
     "facility-room": "Xona",
     "rule": "Iltimos, ma'lumotni kiriting",
-    "not-guests": "Mehmonlar hali yo‘q"
+    "not-guests": "Mehmonlar hali yo‘q",
+    "main-content": "Bosh sahifa"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
     "pending": "kutilmoqda",
-    "canceled":"Bekor qilingan",
+    "canceled": "Bekor qilingan",
     "free": "Bepul",
     "unknown": "Noma'lum",
     "empty": "Bo'sh",
     "booking": "Band qilingan"
+  },
+  "home-content": {
+    "title": "Bosh sahifa kontenti",
+    "empty": "Bo'sh",
+    "video-home": "Bosh ekrandagi video",
+    "destinations": "Eng yaxshi yo‘nalishlar",
+    "recreating": "Dam olish turlari",
+    "video-alert": "Faqat MP4 formatdagi videolarni yuklash mumkin!",
+    "upload-image": "Video yuklash",
+    "reupload": "Qayta tanlash",
+    "destination-delete": "Yo‘nalishni o‘chirib tashlaysizmi?",
+    "destination-del-desc": "Haqiqatan ham ushbu manzilni o‘chirib tashlamoqchimisiz?",
+    "add-destination": "Yo‘nalish qo‘shish",
+    "edit-destination": "Yo‘nalishni o‘zgartirish",
+    "destination-desc": "Yo‘nalishni o‘zgartirish uchun kerakli maydonlarni to‘ldiring",
+    "destination-name": "Yo‘nalish nomi",
+    "direction-cover": "Yo‘nalish muqovasi",
+    "link-destination": "Yo‘nalish havolasi",
+    "add-recreation": "Dam olish turini qo‘shish",
+    "edit-recreation": "Dam olish turini o‘zgartirish",
+    "desc-recreation": "Dam olish turini qo‘shish uchun kerakli maydonlarni to‘ldiring",
+    "name-recreation": "Dam olish turi nomi",
+    "color": "Rang",
+    "recreating-cover": "Dam olish turidagi muqova"
   }
 }

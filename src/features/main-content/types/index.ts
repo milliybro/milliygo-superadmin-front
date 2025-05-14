@@ -11,7 +11,6 @@ interface IUsersTable {
   password: string
   position: string
   status: boolean
-  slug: string
   name: string
   address: string
   price: number
@@ -23,7 +22,6 @@ interface IUsers {
   address: string
   min_price: number
   id: number
-  slug: string
   name: string
   key: string
   icon: any
