@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next'
 import { IUsers } from '@/features/users/types'
 import { capitalizeFirstLetters } from '@/helpers/capitalize-first-letter'
 import UsersNotFound from '@/features/users/components/users-not-found'
-import formatDate from '../components/format-date'
+import dayjs from 'dayjs'
 
 // const onChange: TableProps<IClientTable>['onChange'] = (
 //   pagination,
@@ -90,7 +90,7 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
       render: data => {
         return (
           <div className="text-center">
-            {data ? formatDate(data) : '-'}
+            {data ? dayjs(data).format('DD, MMMM YYYY') : '-'}
           </div>
         )
       },
