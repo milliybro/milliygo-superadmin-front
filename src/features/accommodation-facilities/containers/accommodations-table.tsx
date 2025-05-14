@@ -11,6 +11,7 @@ import type { PaginationProps, TableColumnsType } from 'antd'
 // import { getUsersList } from '../api'
 import React from 'react'
 import UsersNotFound from '../components/users-not-found'
+import { formatAmount } from '@/helpers/format-amount'
 
 // const onChange: TableProps<IUsersTable>['onChange'] = (
 //   pagination,
@@ -55,18 +56,18 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
         compare: (a, b) => a.name.localeCompare(b.name),
         multiple: 3,
       },
-      render: (_, record: any) => {
+      render: (value, record: any) => {
         return (
           <div className="flex items-center gap-2">
             {record?.image ? (
               <img
-                className="w-[48px] h-[48px] object-cover rounded-[8px]"
+                className="w-[48px] h-[48px] shrink-0 object-cover rounded-[8px]"
                 src={record?.image}
                 alt=""
               />
             ) : null}
 
-            {_}
+            <div className="w-full line-clamp-2">{value}</div>
           </div>
         )
       },
@@ -78,7 +79,10 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
         compare: (a, b) => a.address.localeCompare(b.address),
         multiple: 2,
       },
-      render: text => <a className="text-[#3276FF] underline">{text}</a>,
+      width: 500,
+      render: text => (
+        <div className="text-[#3276FF] underline line-clamp-1">{text}</div>
+      ),
     },
     {
       title: 'fields.price.label',
@@ -88,7 +92,9 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
         multiple: 1,
       },
       render: data => {
-        return <div>{data} UZS</div>
+        return (
+          <span className="whitespace-nowrap">{formatAmount(data)} UZS</span>
+        )
       },
     },
     {
@@ -117,12 +123,12 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
     {
       title: 'fields.contact-person.label',
       dataIndex: 'contact',
-      sorter: {
-        compare: (a, b) => a.contact.localeCompare(b.contact),
-        multiple: 1,
-      },
+      // sorter: {
+      //   compare: (a, b) => a.contact.localeCompare(b.contact),
+      //   multiple: 1,
+      // },
       render: data => {
-        return <div className='text-center'>{data ? data : '-'}</div>
+        return <div className="text-center">{data ? data : '-'}</div>
       },
     },
     {
@@ -137,7 +143,9 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
     {
       title: 'common.action',
       dataIndex: 'id',
-      render: id => <UserActionButton id={id} refetch={isLoading} />,
+      render: (id, record) => (
+        <UserActionButton id={id} slug={record?.slug} refetch={isLoading} />
+      ),
     },
   ]
 
@@ -178,6 +186,8 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
     setCurrentPage(page)
   }
 
+  console.log(hotelsData)
+
   const transformedData =
     hotelsData?.results.map((user: IUsers) => ({
       key: user.id.toString(),
@@ -193,6 +203,7 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
       password: user.password,
       position: user.type?.name,
       status: user.status,
+      slug: user.slug,
     })) || []
 
   return (

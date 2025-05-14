@@ -96,4 +96,19 @@ interface Groups {
   key: any
 }
 
-export type { IUser, User, CustomRoute, IBreadCrumb, IBreadCrumbsStore, ListResponse }
+interface IErrorMessage {
+  error_type: string
+  field: any
+  detail: string
+  status_code: number
+}
+
+export type {
+  IUser,
+  User,
+  CustomRoute,
+  IBreadCrumb,
+  IBreadCrumbsStore,
+  ListResponse,
+  IErrorMessage,
+}

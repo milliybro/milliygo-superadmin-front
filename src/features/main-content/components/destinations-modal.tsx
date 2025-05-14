@@ -1,26 +1,13 @@
 import { useTranslation } from 'react-i18next'
-import {
-  Modal,
-  Form,
-  Input,
-  Button,
-  Typography,
-  notification,
-  message,
-} from 'antd'
+import { Modal, Form, Input, Button } from 'antd'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 
 import CloseIcon from '@/components/icons/close-icon'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { getUser, getUserRoles } from '../api'
-import { useEffect } from 'react'
-import { IDestinations } from '../types'
-import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
+import { getUserRoles } from '../api'
 import useDestinationModalStore from '../store/destinations-modal-store'
 import Dragger from 'antd/es/upload/Dragger'
 import AddCreateIcon from '@/components/icons/add-icon'
-
-type NotificationType = 'success' | 'info' | 'warning' | 'error'
+import { useQuery } from '@tanstack/react-query'
 
 const DestinationModal = () => {
   const { t } = useTranslation()
@@ -28,8 +15,6 @@ const DestinationModal = () => {
   const { pathname } = useLocation()
   const [searchParams] = useSearchParams()
   const { isModalOpen, closeModal } = useDestinationModalStore(state => state)
-
-  const [messageApi] = message.useMessage()
 
   const [form] = Form.useForm()
 
@@ -44,14 +29,14 @@ const DestinationModal = () => {
     }
   }
 
-//   const { data, refetch: fetching } = useQuery({
-//     queryKey: ['user', editUserId],
-//     queryFn: async () => {
-//       const res = await getUser({ id: editUserId })
-//       return res
-//     },
-//     enabled: !!editUserId,
-//   })
+  //   const { data, refetch: fetching } = useQuery({
+  //     queryKey: ['user', editUserId],
+  //     queryFn: async () => {
+  //       const res = await getUser({ id: editUserId })
+  //       return res
+  //     },
+  //     enabled: !!editUserId,
+  //   })
 
   const { data: roles } = useQuery({
     queryKey: ['users-roles'],
@@ -64,95 +49,55 @@ const DestinationModal = () => {
 
   console.log(roles)
 
-  const openNotification = () => {
-    notification.info({
-      closeIcon: null,
-      className:
-        'w-[406px] border-t-[5px] border-primary rounded-[12px] [&_.ant-notification-notice-message]:mb-0',
-      icon: <CheckmarkCircleIcon className="text-[24px] text-primary" />,
-      message: (
-        <Typography.Text className="text-[18px] font-semibold leading-[22.95px]">
-          {editUserId
-            ? t('fields.user-notification.edit.message')
-            : t('fields.user-notification.add.message')}
-        </Typography.Text>
-      ),
-      placement: 'topRight',
-      description: (
-        <div>
-          <Button
-            size="small"
-            type="text"
-            className="grid place-items-center rounded-lg absolute right-[10px] top-[10px]"
-            icon={<CloseIcon className="text-base" />}
-            onClick={() => notification.destroy()}
-          />
-          <Typography.Text className="text-secondary text-base">
-            {editUserId
-              ? t('fields.user-notification.add.message')
-              : t('fields.user-notification.edit.message')}
-          </Typography.Text>
-        </div>
-      ),
-    })
-  }
-  const [api] = notification.useNotification()
-  const openNotificationWithIcon = (type: NotificationType) => {
-    api[type]({
-      message: 'Notification Title',
-      description:
-        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-    })
-  }
-//   const { mutate: handleUserSave } = useMutation({
-//     mutationFn: (values: any) => {
-//       const formattedValues: IDestinations = {
-//         ...values,
-//       }
+  //   const { mutate: handleUserSave } = useMutation({
+  //     mutationFn: (values: any) => {
+  //       const formattedValues: IDestinations = {
+  //         ...values,
+  //       }
 
-//       if (editUserId) {
-//         return updateUser({ id: editUserId, queryParams: formattedValues })
-//       }
+  //       if (editUserId) {
+  //         return updateUser({ id: editUserId, queryParams: formattedValues })
+  //       }
 
-//       return createUser(formattedValues)
-//     },
-//     onSuccess: () => {
-//       // notification.success({
-//       //   message: editUserId
-//       //     ? t('fields.user-notification.edit.message')
-//       //     : t('fields.user-notification.add.message'),
-//       // })
-//       openNotification()
-//       console.log('success')
-//       form.resetFields()
-//       fetching()
-//       closeHandler()
-//     },
-//     onError: (error: any) => {
-//       openNotificationWithIcon('error')
-//       messageApi.open({
-//         type: 'error',
-//         content: 'This is an error message',
-//       })
-//       message.error(error?.data?.username)
-//       form.getFieldsError()
-//       console.log('error', error)
-//     },
-//   })
+  //       return createUser(formattedValues)
+  //     },
+  //     onSuccess: () => {
+  //       // notification.success({
+  //       //   message: editUserId
+  //       //     ? t('fields.user-notification.edit.message')
+  //       //     : t('fields.user-notification.add.message'),
+  //       // })
+  //       openNotification()
+  //       console.log('success')
+  //       form.resetFields()
+  //       fetching()
+  //       closeHandler()
+  //     },
+  //     onError: (error: any) => {
+  //       openNotificationWithIcon('error')
+  //       messageApi.open({
+  //         type: 'error',
+  //         content: 'This is an error message',
+  //       })
+  //       message.error(error?.data?.username)
+  //       form.getFieldsError()
+  //       console.log('error', error)
+  //     },
+  //   })
 
-//   useEffect(() => {
-//     if (data && editUserId) {
-//       form.setFieldsValue({
-//         first_name: data?.first_name + ' ' + data?.last_name,
-//         phone: data?.phone,
-//         gender: data?.gender,
-//         username: data?.username,
-//         code: data?.code,
-//         type: data?.type?.name,
-//         status: data?.is_active,
-//       })
-//     }
-//   }, [data, form])
+  //   useEffect(() => {
+  //     if (data && editUserId) {
+  //       form.setFieldsValue({
+  //         first_name: data?.first_name + ' ' + data?.last_name,
+  //         phone: data?.phone,
+  //         gender: data?.gender,
+  //         username: data?.username,
+  //         code: data?.code,
+  //         type: data?.type?.name,
+  //         status: data?.is_active,
+  //       })
+  //     }
+  //   }, [data, form])
 
   return (
     <Modal

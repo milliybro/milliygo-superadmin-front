@@ -6,8 +6,8 @@ import {
   Button,
   Typography,
   notification,
-  message,
   ColorPicker,
+  message,
 } from 'antd'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 
@@ -19,8 +19,6 @@ import Dragger from 'antd/es/upload/Dragger'
 import AddCreateIcon from '@/components/icons/add-icon'
 import useRecreationModalStore from '../store/recreation-modal-store'
 import { createRecreation, getRecreation, updateRecreation } from '../api'
-
-type NotificationType = 'success' | 'info' | 'warning' | 'error'
 
 const RecreationModal = () => {
   const { t } = useTranslation()
@@ -83,8 +81,8 @@ const RecreationModal = () => {
       ),
     })
   }
-  const [api] = notification.useNotification()
-  const openNotificationWithIcon = (type: NotificationType) => {
+  const [api] = notification.useNotification() as any
+  const openNotificationWithIcon = (type: any) => {
     api[type]({
       message: 'Notification Title',
       description:

@@ -7,7 +7,6 @@ import {
   Button,
   Typography,
   notification,
-  message,
 } from 'antd'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 
@@ -24,8 +23,6 @@ import { IUsers } from '../types'
 import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
 // import queryClient from '@/utils/query-client'
 
-type NotificationType = 'success' | 'info' | 'warning' | 'error'
-
 interface UserModalProps {
   refetch: () => Promise<any>
 }
@@ -36,8 +33,6 @@ const UserModal = ({ refetch }: UserModalProps) => {
   const { pathname } = useLocation()
   const [searchParams] = useSearchParams()
   const { isModalOpen, closeModal } = useUserModalStore(state => state)
-
-  const [messageApi] = message.useMessage()
 
   const [form] = Form.useForm()
 
@@ -104,14 +99,7 @@ const UserModal = ({ refetch }: UserModalProps) => {
       ),
     })
   }
-  const [api] = notification.useNotification()
-  const openNotificationWithIcon = (type: NotificationType) => {
-    api[type]({
-      message: 'Notification Title',
-      description:
-        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-    })
-  }
+
   const { mutate: handleUserSave } = useMutation({
     mutationFn: (values: any) => {
       const formattedValues: IUsers = {
@@ -137,15 +125,8 @@ const UserModal = ({ refetch }: UserModalProps) => {
       fetching()
       closeHandler()
     },
-    onError: (error: any) => {
-      openNotificationWithIcon('error')
-      messageApi.open({
-        type: 'error',
-        content: 'This is an error message',
-      })
-      message.error(error?.data?.username)
+    onError: () => {
       form.getFieldsError()
-      console.log('error', error)
     },
   })
 

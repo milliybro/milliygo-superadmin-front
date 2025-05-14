@@ -25,8 +25,6 @@ import dayjs from 'dayjs'
 
 const { RangePicker } = DatePicker
 
-type NotificationType = 'success' | 'info' | 'warning' | 'error'
-
 const TernantsModal = ({ refetch }: { refetch: any }) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
@@ -36,7 +34,6 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
   const { isModalOpen, closeModal } = useHotelModalStore(state => state)
 
   const editTenantId = searchParams.get('edit')
-
 
   const closeHandler = () => {
     form.resetFields()
@@ -97,14 +94,6 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
 
   console.log(data)
 
-  const [api] = notification.useNotification()
-  const openNotificationWithIcon = (type: NotificationType) => {
-    api[type]({
-      message: 'Notification Title',
-      description:
-        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
-    })
-  }
   const { mutate: handleUserSave, isPending } = useMutation({
     mutationFn: (values: any) => {
       console.log('Values:', values)
@@ -150,21 +139,8 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
       fetching()
       closeHandler()
     },
-    onError: (error: any) => {
-      error?.status === 400 &&
-        openNotification(
-          'error',
-          'fields.user-notification.error.message',
-          error?.data?.domain,
-        )
-      openNotificationWithIcon('error')
-      // messageApi.open({
-      //   type: 'error',
-      //   content: 'This is an error message',
-      // })
-      // message.error(error?.data?.username)
+    onError: () => {
       form.getFieldsError()
-      console.log('error', error)
     },
   })
 
