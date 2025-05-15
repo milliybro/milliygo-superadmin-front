@@ -14,7 +14,6 @@ import { useTranslation } from 'react-i18next'
 const CallCenter = () => {
   const { t } = useTranslation()
   const [selectedChat, setSelectedChat] = useState<null | string>(null)
-  const [currentPage, setCurrentPage] = useState(1)
 
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
 
@@ -30,11 +29,10 @@ const CallCenter = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ['messages-data', currentPage],
+    queryKey: ['messages-data'],
     queryFn: async () => {
       const res = await getMessagesList({
         page_size: 10,
-        page: currentPage,
       })
       return res
     },

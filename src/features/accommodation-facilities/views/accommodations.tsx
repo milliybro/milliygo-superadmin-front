@@ -22,7 +22,7 @@ const Accommodations = () => {
 
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
+  const pageSize = 10
 
   // const [searchTerm, setSearchTerm] = useState('')
   // const [gender, setGender] = useState('')

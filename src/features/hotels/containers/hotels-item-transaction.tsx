@@ -1,18 +1,12 @@
-import {
-  Divider,
-  PaginationProps,
-  Table,
-  TableColumnsType,
-  TableProps,
-} from 'antd'
+import { Divider, PaginationProps, Table, TableColumnsType } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { twMerge } from 'tailwind-merge'
 
-import { IGuestsTransaction } from '../types'
-import { formatAmount } from '@/helpers/format-amount'
-import StatusRoomTag from '../components/status-tag'
 import CheckMarkIcon from '@/components/icons/check-mark-icon'
 import PaymentSuccessIcon from '@/components/icons/payment-success-icon'
+import { formatAmount } from '@/helpers/format-amount'
+import StatusRoomTag from '../components/status-tag'
+import { IGuestsTransaction } from '../types'
 
 const columns: TableColumnsType<IGuestsTransaction> = [
   {
@@ -114,13 +108,6 @@ const data: IGuestsTransaction[] = [
   },
 ]
 
-const onChange: TableProps<IGuestsTransaction>['onChange'] = (
-  pagination,
-  filters,
-  sorter,
-  extra,
-) => {}
-
 const HotelsItemTransactions = () => {
   const { t } = useTranslation()
 
@@ -195,7 +182,6 @@ const HotelsItemTransactions = () => {
           title: t(`${val?.title}`),
         }))}
         dataSource={data}
-        onChange={onChange}
         className="w-full h-full"
         pagination={{
           pageSize: 10,

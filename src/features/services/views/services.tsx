@@ -23,7 +23,8 @@ const Services = () => {
   const { pathname } = useLocation()
 
   const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
+
+  const pageSize = 10
 
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [searchParams, setSearchParams] = useSearchParams()
