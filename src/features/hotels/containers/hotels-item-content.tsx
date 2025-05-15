@@ -13,12 +13,6 @@ import PawPrintIcon from '@/components/icons/paw-icon'
 import CardIcon from '@/components/icons/card-icon'
 import HotelIcon from '@/components/icons/hotel'
 
-interface FormValues {
-  username: string
-  email: string
-  password: string
-}
-
 interface DataType {
   key: any
   price: any
@@ -197,7 +191,7 @@ const HotelsItemContent = ({ data }: HotelContent) => {
     },
   ]
 
-  const onFinish = (values: FormValues) => {
+  const onFinish = () => {
     message.success('Форма успешно отправлена!')
   }
 

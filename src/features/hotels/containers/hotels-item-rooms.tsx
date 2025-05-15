@@ -1,23 +1,17 @@
-import {
-  Image,
-  PaginationProps,
-  Table,
-  TableColumnsType,
-  TableProps,
-} from 'antd'
+import { Image, PaginationProps, Table, TableColumnsType } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { twMerge } from 'tailwind-merge'
 
-import { IHotelsRoom } from '../types'
+import BedSingleIcon from '@/components/icons/bed-icon'
+import UsersNotFound from '@/features/users/components/users-not-found'
 import { formatAmount } from '@/helpers/format-amount'
 import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
 import { useParams, useSearchParams } from 'react-router'
 import { getHotelDetailRooms } from '../api'
-import { useState } from 'react'
-import UsersNotFound from '@/features/users/components/users-not-found'
-import StatusRoomsTag from '../components/rooms-status-tag'
 import FacilitiesCell from '../components/facilities-cell'
-import BedSingleIcon from '@/components/icons/bed-icon'
+import StatusRoomsTag from '../components/rooms-status-tag'
+import { IHotelsRoom } from '../types'
 
 // interface IHotelDetailRooms {
 //   key: any
@@ -32,18 +26,13 @@ import BedSingleIcon from '@/components/icons/bed-icon'
 
 // name: item?.room_name,
 
-const onChange: TableProps<IHotelsRoom>['onChange'] = (
-  pagination,
-  filters,
-  sorter,
-  extra,
-) => {}
 const HotelsItemRooms = () => {
   const { t } = useTranslation()
   const { id } = useParams<{ id: string }>()
-  const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
+  const [currentPage, _] = useState(1)
   const [searchParams] = useSearchParams()
+
+  const pageSize = 10
 
   const tenant_id = searchParams.get('tenant_id')
   const type = searchParams.get('type')
@@ -201,7 +190,6 @@ const HotelsItemRooms = () => {
             ? transformHotelDetailsToTableData(HotelDetailRoom)
             : []
         }
-        onChange={onChange}
         className="w-full h-full"
         pagination={{
           current: currentPage,

@@ -123,7 +123,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
 
       return createMessage(messageFormData)
     },
-    onSuccess: (values: ISendMessage) => {
+    onSuccess: (_: ISendMessage) => {
       setMessageText('')
       setSelectedFile(null)
       scrollToBottom()
@@ -132,7 +132,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
 
   const { mutate: askUser } = useMutation({
     mutationFn: () => askUserInfo(selectedChat?.id),
-    onSuccess: (values: ISendMessage) => {
+    onSuccess: (_: ISendMessage) => {
       openNotification()
     },
   })

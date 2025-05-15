@@ -36,8 +36,9 @@ const HotelsItemGuest = () => {
   const { t } = useTranslation()
   const { id } = useParams<{ id: string }>()
   const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
   const [searchParams] = useSearchParams()
+
+  const pageSize = 10
 
   const columns: TableColumnsType<IGuestsTable> = [
     {

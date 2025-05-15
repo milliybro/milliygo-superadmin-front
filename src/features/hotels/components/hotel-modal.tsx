@@ -65,7 +65,6 @@ const HotelsModal = () => {
       </div>
       <Form
         layout="vertical"
-        onFinish={values => {}}
         className="flex flex-col gap-4"
       >
         <Form.Item

@@ -10,7 +10,7 @@ interface IProps {
   id?: number
 }
 
-const HotelsItemTableActionButton: FC<IProps> = ({ id }) => {
+const HotelsItemTableActionButton: FC<IProps> = () => {
   const { t } = useTranslation()
   const { openModal } = useHotelModalStore(store => store)
 

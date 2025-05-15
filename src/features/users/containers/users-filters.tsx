@@ -23,7 +23,7 @@ const UsersFilters = () => {
   const role = searchParams.get('role') || null
   const status = searchParams.get('status') || null
 
-  const handleValuesChange = (changedValues: any, allValues: any) => {
+  const handleValuesChange = (_: any, allValues: any) => {
     const newParams = new URLSearchParams()
 
     Object.keys(allValues).forEach(key => {

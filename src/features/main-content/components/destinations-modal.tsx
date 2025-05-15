@@ -1,16 +1,16 @@
+import { Button, Form, Input, Modal, Typography, notification } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { Modal, Form, Input, Button, Typography, notification } from 'antd'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 
+import AddCreateIcon from '@/components/icons/add-icon'
+import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
 import CloseIcon from '@/components/icons/close-icon'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { createUser, getUser, getUserRoles, updateUser } from '../api'
-import { useEffect } from 'react'
-import { IUsers } from '../types'
-import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
-import useDestinationModalStore from '../store/destinations-modal-store'
 import Dragger from 'antd/es/upload/Dragger'
-import AddCreateIcon from '@/components/icons/add-icon'
+import { useEffect } from 'react'
+import { createUser, getUser, updateUser } from '../api'
+import useDestinationModalStore from '../store/destinations-modal-store'
+import { IUsers } from '../types'
 
 const DestinationModal = () => {
   const { t } = useTranslation()
@@ -38,15 +38,6 @@ const DestinationModal = () => {
       return res
     },
     enabled: !!editUserId,
-  })
-
-  const { data: roles } = useQuery({
-    queryKey: ['users-roles'],
-    queryFn: async () => {
-      const res = await getUserRoles()
-      return res
-    },
-    // keepPreviousData: true,
   })
 
   const openNotification = () => {

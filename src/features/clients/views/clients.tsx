@@ -15,7 +15,8 @@ const Clients = () => {
   const { t } = useTranslation()
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
+
+  const pageSize = 10
 
   useEffect(() => {
     setBreadCrumbs([

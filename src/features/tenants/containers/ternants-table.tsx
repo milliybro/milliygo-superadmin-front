@@ -1,22 +1,15 @@
 import { Button, Table } from 'antd'
-import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
+import { twMerge } from 'tailwind-merge'
 
 import StatusTag from '@/components/ui/status-tag'
 import HotelsTableActionButton from '../components/hotels-table-action-button'
 
+import type { PaginationProps, TableColumnsType } from 'antd'
 import type { IHotelsTable } from '../types'
-import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
 
 import formatDate from '@/features/clients/components/format-date'
 import UsersNotFound from '@/features/users/components/users-not-found'
-
-const onChange: TableProps<IHotelsTable>['onChange'] = (
-  pagination,
-  filters,
-  sorter,
-  extra,
-) => {}
 
 const TenantsTable = ({
   tenantsData,
@@ -191,7 +184,6 @@ const TenantsTable = ({
         }))}
         loading={isLoading}
         dataSource={transformedTenantsData}
-        onChange={onChange}
         className="w-full h-full"
         pagination={{
           current: currentPage,

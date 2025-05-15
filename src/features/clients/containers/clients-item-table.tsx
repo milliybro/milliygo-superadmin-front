@@ -1,11 +1,11 @@
 import { Table } from 'antd'
-import { Link } from 'react-router'
 import { useTranslation } from 'react-i18next'
+import { Link } from 'react-router'
 
-import type { IClientItemTable } from '../types'
-import type { TableColumnsType, TableProps } from 'antd'
-import formatDate from '../components/format-date'
 import UsersNotFound from '@/features/users/components/users-not-found'
+import type { TableColumnsType } from 'antd'
+import formatDate from '../components/format-date'
+import type { IClientItemTable } from '../types'
 
 const columns: TableColumnsType<IClientItemTable> = [
   {
@@ -41,13 +41,6 @@ const columns: TableColumnsType<IClientItemTable> = [
     dataIndex: 'review',
   },
 ]
-
-const onChange: TableProps<IClientItemTable>['onChange'] = (
-  pagination,
-  filters,
-  sorter,
-  extra,
-) => {}
 
 const ClientsItemTable = ({ reviews }: { reviews: any }) => {
   const { t } = useTranslation()
@@ -109,7 +102,6 @@ const ClientsItemTable = ({ reviews }: { reviews: any }) => {
           ? transformHotelDetailsToTableData(reviews.results)
           : []
       }
-      onChange={onChange}
       pagination={false}
       // pagination={{
       //   pageSize: 10,

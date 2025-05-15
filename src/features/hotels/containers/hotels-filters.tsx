@@ -14,7 +14,7 @@ const HotelsFilters = () => {
 
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const handleValuesChange = (changedValues: any, allValues: any) => {
+  const handleValuesChange = (_: any, allValues: any) => {
     const newParams = new URLSearchParams()
 
     Object.keys(allValues).forEach(key => {

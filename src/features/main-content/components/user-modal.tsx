@@ -116,7 +116,6 @@ const UserModal = ({ refetch }: UserModalProps) => {
       //     : t('fields.user-notification.add.message'),
       // })
       openNotification()
-      console.log('success')
       form.resetFields()
       refetch()
       fetching()

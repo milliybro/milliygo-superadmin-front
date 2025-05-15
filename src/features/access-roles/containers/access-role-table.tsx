@@ -1,13 +1,13 @@
 import { Table } from 'antd'
-import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
+import { twMerge } from 'tailwind-merge'
 
 import StatusTag from '@/components/ui/status-tag'
 import RoleActionButton from '../components/role-action-button'
 
-import type { IAccessRoleTable } from '../types'
-import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
 import UsersNotFound from '@/features/users/components/users-not-found'
+import type { PaginationProps, TableColumnsType } from 'antd'
+import type { IAccessRoleTable } from '../types'
 
 const columns: TableColumnsType<IAccessRoleTable> = [
   {
@@ -35,13 +35,6 @@ const columns: TableColumnsType<IAccessRoleTable> = [
     render: id => <RoleActionButton id={id} />,
   },
 ]
-
-const onChange: TableProps<IAccessRoleTable>['onChange'] = (
-  pagination,
-  filters,
-  sorter,
-  extra,
-) => {}
 
 const AccessRoleTable = () => {
   const { t } = useTranslation()
@@ -111,7 +104,6 @@ const AccessRoleTable = () => {
         title: t(val?.title as string),
       }))}
       dataSource={data}
-      onChange={onChange}
       className="w-full h-full"
       rootClassName="custom-table"
       pagination={{

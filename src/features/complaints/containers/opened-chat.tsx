@@ -135,7 +135,7 @@ const OpenedChatComplaints: FC<IProps> = ({
 
       return createComplaints(messageFormData)
     },
-    onSuccess: (values: ISendMessage) => {
+    onSuccess: (_: ISendMessage) => {
       setMessageText('')
       setSelectedFile(null)
       scrollToBottom()

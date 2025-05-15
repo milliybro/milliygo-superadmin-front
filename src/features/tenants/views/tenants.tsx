@@ -17,7 +17,8 @@ import { getTenantsList } from '../api'
 const Tenants = () => {
   const { t } = useTranslation()
   const [currentPage, setCurrentPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
+
+  const pageSize = 10
 
   const { openModal } = useHotelModalStore(store => store)
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)

@@ -5,12 +5,12 @@ import { useTranslation } from 'react-i18next'
 
 import StarIcon from '@/components/icons/star'
 
-import type { TableColumnsType, TableProps } from 'antd'
+import UsersNotFound from '@/features/users/components/users-not-found'
 import { useQuery } from '@tanstack/react-query'
+import type { TableColumnsType } from 'antd'
+import dayjs from 'dayjs'
 import { getHotelDetailReview } from '../api'
 import { IHotelsItemReview } from '../types'
-import dayjs from 'dayjs'
-import UsersNotFound from '@/features/users/components/users-not-found'
 
 interface IHotelDetailReview {
   id: number
@@ -75,13 +75,6 @@ const columns: TableColumnsType<IHotelsItemReview> = [
     ),
   },
 ]
-
-const onChange: TableProps<IHotelsItemReview>['onChange'] = (
-  pagination,
-  filters,
-  sorter,
-  extra,
-) => {}
 
 const HotelsItemReviews = ({ data }: { data: any }) => {
   const { t } = useTranslation()
@@ -164,7 +157,6 @@ const HotelsItemReviews = ({ data }: { data: any }) => {
           ? transformHotelDetailsToTableData(HotelDetailReview.results)
           : []
       }
-      onChange={onChange}
       pagination={false}
       locale={{
         emptyText: <UsersNotFound />,
