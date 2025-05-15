@@ -1,21 +1,18 @@
-import { twMerge } from 'tailwind-merge';
-import { useTranslation } from 'react-i18next';
+import { twMerge } from 'tailwind-merge'
+import { useTranslation } from 'react-i18next'
 
-import type { FC } from 'react';
+import type { FC } from 'react'
 
 interface IProps {
-  status: string; // Accept the status as a prop
+  status: string // Accept the status as a prop
 }
 
 const StatusRoomTag: FC<IProps> = ({ status }) => {
-  const { t } = useTranslation();
-
-  console.log("Status",status);
-  
+  const { t } = useTranslation()
 
   // Define a mapping for statuses and their styles
   const statusStyles: Record<string, { text: string; styles: string }> = {
-    'Подтвержден': {
+    Подтвержден: {
       text: t('status.confirmed'),
       styles: 'text-[#115E59] bg-[#CCFBF1]',
     },
@@ -31,23 +28,23 @@ const StatusRoomTag: FC<IProps> = ({ status }) => {
       text: t('status.free'),
       styles: 'text-primary bg-primary-light',
     },
-  };
+  }
 
   const currentStatus = statusStyles[status] || {
     text: t('status.unknown'),
     styles: 'text-gray-500 bg-gray-200',
-  };
+  }
 
   return (
     <span
       className={twMerge(
         'shrink-0 text-[12px] font-medium px-[10px] py-[6px] rounded-[6px]',
-        currentStatus.styles
+        currentStatus.styles,
       )}
     >
       {currentStatus.text}
     </span>
-  );
-};
+  )
+}
 
-export default StatusRoomTag;
+export default StatusRoomTag

@@ -100,7 +100,6 @@ const RecreationModal = () => {
       //     : t('fields.user-notification.add.message'),
       // })
       openNotification()
-      console.log('success')
       form.resetFields()
       fetching()
       closeHandler()

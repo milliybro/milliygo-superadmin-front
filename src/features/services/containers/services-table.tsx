@@ -59,7 +59,6 @@ import dayjs from 'dayjs'
 //   sorter,
 //   extra,
 // ) => {
-//   console.log('params', pagination, filters, sorter, extra)
 // }
 
 const ServicesTable = ({
@@ -94,7 +93,9 @@ const ServicesTable = ({
         compare: (a, b) => a.id - b.id,
         multiple: 4,
       },
-      render: (icon_url, record) => <Image width={24} src={icon_url || record.icon} />,
+      render: (icon_url, record) => (
+        <Image width={24} src={icon_url || record.icon} />
+      ),
     },
     {
       title: 'fields.name.name-uz',

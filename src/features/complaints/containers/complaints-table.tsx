@@ -78,9 +78,7 @@ const onChange: TableProps<IComplaintsTable>['onChange'] = (
   filters,
   sorter,
   extra,
-) => {
-  console.log('params', pagination, filters, sorter, extra)
-}
+) => {}
 
 const ComplaintsTable = () => {
   const { t } = useTranslation()

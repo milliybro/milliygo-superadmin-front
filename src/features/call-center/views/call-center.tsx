@@ -16,8 +16,6 @@ const CallCenter = () => {
   const [selectedChat, setSelectedChat] = useState<null | string>(null)
   const [currentPage, setCurrentPage] = useState(1)
 
-  console.log(setCurrentPage)
-
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
 
   useEffect(() => {
@@ -27,7 +25,11 @@ const CallCenter = () => {
     ])
   }, [])
 
-  const { data: messagesData, isLoading, refetch } = useQuery({
+  const {
+    data: messagesData,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ['messages-data', currentPage],
     queryFn: async () => {
       const res = await getMessagesList({

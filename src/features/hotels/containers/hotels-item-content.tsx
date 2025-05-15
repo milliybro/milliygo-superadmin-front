@@ -198,7 +198,6 @@ const HotelsItemContent = ({ data }: HotelContent) => {
   ]
 
   const onFinish = (values: FormValues) => {
-    console.log('Form values:', values)
     message.success('Форма успешно отправлена!')
   }
 

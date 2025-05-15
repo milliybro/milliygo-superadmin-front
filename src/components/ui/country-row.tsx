@@ -18,7 +18,6 @@ const CountryRow: FC<IProps> = ({ label, value, valueClass }: any) => {
   const flagUrl = countryCode
     ? `https://flagcdn.com/w40/${countryCode}.png`
     : null
-console.log("CCCC",countries);
 
   return (
     <div className="flex justify-between text-[14px]">

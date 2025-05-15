@@ -92,12 +92,8 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
     enabled: !!editTenantId,
   })
 
-  console.log(data)
-
   const { mutate: handleUserSave, isPending } = useMutation({
     mutationFn: (values: any) => {
-      console.log('Values:', values)
-
       const formattedValues: ITenantsTable = {
         schema_name: values?.schema_name,
         start_date: values.date
@@ -112,7 +108,6 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
         username: values?.username,
         password: values?.password,
       }
-      console.log('formattedValues:', formattedValues)
 
       if (editTenantId) {
         return updateTenant({ id: editTenantId, queryParams: formattedValues })
@@ -133,7 +128,6 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
           : 'fields.user-notification.add.message',
         '',
       )
-      console.log('success')
       form.resetFields()
       refetch()
       closeHandler()

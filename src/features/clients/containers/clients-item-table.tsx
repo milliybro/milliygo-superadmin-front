@@ -47,9 +47,7 @@ const onChange: TableProps<IClientItemTable>['onChange'] = (
   filters,
   sorter,
   extra,
-) => {
-  console.log('params', pagination, filters, sorter, extra)
-}
+) => {}
 
 const ClientsItemTable = ({ reviews }: { reviews: any }) => {
   const { t } = useTranslation()

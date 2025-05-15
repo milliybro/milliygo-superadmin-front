@@ -37,7 +37,6 @@ const UserModal = ({ refetch }: UserModalProps) => {
   const [form] = Form.useForm()
 
   const editUserId = searchParams.get('edit')
-  console.log(editUserId)
 
   const closeHandler = () => {
     closeModal()
@@ -64,8 +63,6 @@ const UserModal = ({ refetch }: UserModalProps) => {
     },
     // keepPreviousData: true,
   })
-
-  console.log(roles)
 
   const openNotification = () => {
     notification.info({
@@ -119,7 +116,6 @@ const UserModal = ({ refetch }: UserModalProps) => {
       //     : t('fields.user-notification.add.message'),
       // })
       openNotification()
-      console.log('success')
       form.resetFields()
       refetch()
       fetching()
@@ -135,8 +131,6 @@ const UserModal = ({ refetch }: UserModalProps) => {
       refetch()
     }
   }, [editUserId, refetch])
-
-  console.log(data)
 
   useEffect(() => {
     if (data && editUserId) {

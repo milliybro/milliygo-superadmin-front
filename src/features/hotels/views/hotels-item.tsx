@@ -49,8 +49,6 @@ const HotelsItem = () => {
   const tenant_id = searchParams.get('tenant_id')
   const lang = localStorage.getItem('i18nextLng')
 
-  console.log(tenant_id)
-
   const { data: HotelDetail } = useQuery({
     queryKey: ['hotels-detail', id, tenant_id, lang],
     queryFn: async () => {
@@ -63,15 +61,13 @@ const HotelsItem = () => {
       return res
     },
     enabled: !!id,
-  })  
+  })
 
   useEffect(() => {
     if (HotelDetail) {
       setData(HotelDetail as any)
     }
   }, [HotelDetail])
-
-  console.log('DATA', data?.placement_detail?.external_id)
 
   useEffect(() => {
     if (data) {
@@ -83,9 +79,6 @@ const HotelsItem = () => {
     }
   }, [data, t])
 
-  console.log("data", data?.placement_detail?.external_id);
-  
-
   const items: TabsProps['items'] = [
     {
       key: '1',
@@ -95,7 +88,9 @@ const HotelsItem = () => {
     {
       key: '2',
       label: 'common.reviews',
-      children: <HotelsItemReviews data={data?.placement_detail?.external_id} />,
+      children: (
+        <HotelsItemReviews data={data?.placement_detail?.external_id} />
+      ),
     },
     {
       key: '3',

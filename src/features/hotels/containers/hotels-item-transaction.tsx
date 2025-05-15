@@ -119,9 +119,7 @@ const onChange: TableProps<IGuestsTransaction>['onChange'] = (
   filters,
   sorter,
   extra,
-) => {
-  console.log('params', pagination, filters, sorter, extra)
-}
+) => {}
 
 const HotelsItemTransactions = () => {
   const { t } = useTranslation()

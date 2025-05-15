@@ -16,9 +16,7 @@ const onChange: TableProps<IHotelsTable>['onChange'] = (
   filters,
   sorter,
   extra,
-) => {
-  console.log('params', pagination, filters, sorter, extra)
-}
+) => {}
 
 const TenantsTable = ({
   tenantsData,

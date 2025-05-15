@@ -24,7 +24,6 @@ const ClientsItem = () => {
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
 
   const { id } = useParams()
-  console.log(id)
   const { data } = useQuery({
     queryKey: ['user', id],
     queryFn: async () => {
@@ -68,9 +67,7 @@ const ClientsItem = () => {
       { title: t('common.main'), href: ROUTE_PATHS.MAIN },
       { title: t('common.clients'), href: ROUTE_PATHS.CLIENTS },
       {
-        title: data
-          ? `${data?.first_name} ${data?.last_name}`
-          : `-`,
+        title: data ? `${data?.first_name} ${data?.last_name}` : `-`,
       },
     ])
   }, [])
@@ -107,13 +104,13 @@ const ClientsItem = () => {
               <span className="text-[18px] text-primary-dark font-semibold">
                 {data?.first_name} {data?.last_name}
               </span>
-              {data?.passport_sn ?
-              <div className="flex items-center gap-2">
-                <span className="shrink-0 text-[12px] font-medium px-[10px] py-[6px] rounded-[6px] text-primary bg-primary-light">
-                  {data?.passport_sn}
-                </span>
-              </div>
-              : null}
+              {data?.passport_sn ? (
+                <div className="flex items-center gap-2">
+                  <span className="shrink-0 text-[12px] font-medium px-[10px] py-[6px] rounded-[6px] text-primary bg-primary-light">
+                    {data?.passport_sn}
+                  </span>
+                </div>
+              ) : null}
             </div>
             <div className="flex flex-col">
               <section>
@@ -125,10 +122,7 @@ const ClientsItem = () => {
                     label={t('fields.citizenship.label')}
                     value={data?.country_name}
                   />
-                  <InfoRow
-                    label={t('common.email')}
-                    value={data?.email}
-                  />
+                  <InfoRow label={t('common.email')} value={data?.email} />
                   <InfoRow
                     label={t('fields.birthdate.label')}
                     value={formatDate(data?.birth_date)}

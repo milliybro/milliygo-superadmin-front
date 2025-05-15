@@ -19,7 +19,6 @@ import { formatAmount } from '@/helpers/format-amount'
 //   sorter,
 //   extra,
 // ) => {
-//   console.log('params', pagination, filters, sorter, extra)
 // }
 
 interface UsersFiltersProps {
@@ -185,8 +184,6 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
   const handlePaginationChange = (page: number) => {
     setCurrentPage(page)
   }
-
-  console.log(hotelsData)
 
   const transformedData =
     hotelsData?.results.map((user: IUsers) => ({

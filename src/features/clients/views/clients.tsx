@@ -16,7 +16,6 @@ const Clients = () => {
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
-  console.log(setPageSize)
 
   useEffect(() => {
     setBreadCrumbs([
@@ -37,9 +36,16 @@ const Clients = () => {
 
   const lang = localStorage.getItem('i18nextLng')
 
-
   const { data: ClientsData, isLoading } = useQuery({
-    queryKey: ['users-data', currentPage, search, gender, country, status, lang],
+    queryKey: [
+      'users-data',
+      currentPage,
+      search,
+      gender,
+      country,
+      status,
+      lang,
+    ],
     queryFn: async () => {
       const res = await getUsersList({
         page_size: pageSize,

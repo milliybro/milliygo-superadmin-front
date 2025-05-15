@@ -17,7 +17,6 @@ import UsersNotFound from '@/features/users/components/users-not-found'
 //   sorter,
 //   extra,
 // ) => {
-//   console.log('params', pagination, filters, sorter, extra)
 // }
 
 const HotelsTable = ({
@@ -74,7 +73,8 @@ const HotelsTable = ({
       width: 200,
       dataIndex: 'placement_address',
       sorter: {
-        compare: (a, b) => a!.placement_address.localeCompare(b!.placement_address),
+        compare: (a, b) =>
+          a!.placement_address.localeCompare(b!.placement_address),
         multiple: 2,
       },
       render: val => (
@@ -82,7 +82,11 @@ const HotelsTable = ({
           {val ? (
             <Tooltip
               color="white"
-              overlayInnerStyle={{ color: '#3276FF', textAlign: 'center', 'textDecoration': "underline" }}
+              overlayInnerStyle={{
+                color: '#3276FF',
+                textAlign: 'center',
+                textDecoration: 'underline',
+              }}
               title={val}
               key={val}
             >

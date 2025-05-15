@@ -59,7 +59,6 @@ const ClientsFilters = () => {
 
   const handleValuesChange = (changedValues: any, allValues: any) => {
     const newParams = new URLSearchParams()
-    console.log(changedValues)
 
     Object.keys(allValues).forEach(key => {
       if (allValues[key]) {
@@ -145,7 +144,6 @@ const ClientsFilters = () => {
             <Location4Icon className="text-[16px] text-secondary ml-2 mr-4" />
           }
           // onChange={value => {
-          //   console.log(value)
           //   setSelectedCountry(value)
           //   if (!value) {
           //     setSelectedCountry('')
