@@ -18,7 +18,6 @@ import UsersNotFound from '../components/users-not-found'
 //   sorter,
 //   extra,
 // ) => {
-//   console.log('params', pagination, filters, sorter, extra)
 // }
 
 interface UsersFiltersProps {

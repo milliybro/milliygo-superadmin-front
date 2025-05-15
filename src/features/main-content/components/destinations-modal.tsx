@@ -22,7 +22,6 @@ const DestinationModal = () => {
   const [form] = Form.useForm()
 
   const editUserId = searchParams.get('edit')
-  console.log(isModalOpen)
 
   const closeHandler = () => {
     closeModal()
@@ -49,8 +48,6 @@ const DestinationModal = () => {
     },
     // keepPreviousData: true,
   })
-
-  console.log(roles)
 
   const openNotification = () => {
     notification.info({
@@ -104,7 +101,6 @@ const DestinationModal = () => {
       //     : t('fields.user-notification.add.message'),
       // })
       openNotification()
-      console.log('success')
       form.resetFields()
       fetching()
       closeHandler()

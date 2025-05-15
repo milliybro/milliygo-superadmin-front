@@ -17,7 +17,6 @@ const Complaints = () => {
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
-  console.log(setPageSize)
 
   const [selectedChat, setSelectedChat] = useState<null | string>(null)
 

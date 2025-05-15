@@ -13,8 +13,6 @@ interface IProps {
 const HotelsItemTableActionButton: FC<IProps> = ({ id }) => {
   const { t } = useTranslation()
   const { openModal } = useHotelModalStore(store => store)
-  console.log(id);
-  
 
   return (
     <>

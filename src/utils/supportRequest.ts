@@ -21,7 +21,6 @@ requestSupport.interceptors.request.use(config => {
     ?.split('=')[1]
 
   if (token !== null) {
-    // eslint-disable-next-line no-param-reassign
     config.headers.Authorization = `Bearer ${token}`
   }
 
@@ -34,7 +33,6 @@ requestSupport.interceptors.request.use(config => {
         : locale || 'ru'
 
   if (cookie !== null) {
-    // eslint-disable-next-line no-param-reassign
     config.headers['X-CSRFToken'] = cookie
   }
 

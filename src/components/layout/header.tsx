@@ -33,7 +33,6 @@ const Header = () => {
           : i18n.language
 
     dayjs.locale(lang)
-    console.log('dayjs locale', dayjs().locale(), lang)
   }, [i18n.language])
 
   return (

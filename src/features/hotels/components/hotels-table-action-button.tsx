@@ -17,8 +17,6 @@ const HotelsTableActionButton: FC<IProps> = ({ id, tenant_id, type }) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
-  console.log('Tenent', tenant_id, type)
-
   return (
     <Button
       className="inline-flex items-center gap-2 font-medium text-primary"
@@ -27,8 +25,9 @@ const HotelsTableActionButton: FC<IProps> = ({ id, tenant_id, type }) => {
         navigate(
           pathname +
             '/' +
-            id + '?' +
-            (tenant_id !== undefined ? 'tenant_id=' + tenant_id + "&" : '') +
+            id +
+            '?' +
+            (tenant_id !== undefined ? 'tenant_id=' + tenant_id + '&' : '') +
             (type !== undefined ? 'type=' + type : ''),
         )
       }

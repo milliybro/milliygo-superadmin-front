@@ -18,7 +18,6 @@ import dayjs from 'dayjs'
 //   sorter,
 //   extra,
 // ) => {
-//   console.log('params', pagination, filters, sorter, extra)
 // }
 interface ClientsFiltersProps {
   setCurrentpage: (value: number) => void

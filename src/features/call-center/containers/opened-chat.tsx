@@ -74,7 +74,6 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   //   if (selectedChat) {
   //     if (messageText.trim() || image) {
   //       create({ content: messageText, chat_room: selectedChat })
-  //       console.log('New message:', { text: messageText, image })
   //       setMessageText('')
   //       setImage(null)
   //     }
@@ -125,7 +124,6 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
       return createMessage(messageFormData)
     },
     onSuccess: (values: ISendMessage) => {
-      console.log(values)
       setMessageText('')
       setSelectedFile(null)
       scrollToBottom()
@@ -136,7 +134,6 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
     mutationFn: () => askUserInfo(selectedChat?.id),
     onSuccess: (values: ISendMessage) => {
       openNotification()
-      console.log('User info fetched successfully:', values)
     },
   })
   const handleClick = () => {
@@ -207,8 +204,6 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   }
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0] || null
-
-    console.log('images:', file)
 
     // if (file && file.type !== 'application/pdf') {
     //   alert('Iltimos, faqat PDF fayl yuklang!')

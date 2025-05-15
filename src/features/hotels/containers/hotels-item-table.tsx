@@ -81,9 +81,7 @@ const onChange: TableProps<IHotelsItemReview>['onChange'] = (
   filters,
   sorter,
   extra,
-) => {
-  console.log('params', pagination, filters, sorter, extra)
-}
+) => {}
 
 const HotelsItemReviews = ({ data }: { data: any }) => {
   const { t } = useTranslation()
@@ -125,8 +123,6 @@ const HotelsItemReviews = ({ data }: { data: any }) => {
   const { id } = useParams<{ id: string }>()
 
   const type = searchParams.get('type') || '1'
-
-  console.log(data, type, id)
 
   const { data: HotelDetailReview } = useQuery({
     queryKey: ['hotels-detail-review', data, id],

@@ -30,7 +30,6 @@ import GuestsNotFound from '../components/guest-not-found'
 //   sorter,
 //   extra,
 // ) => {
-//   console.log('params', pagination, filters, sorter, extra)
 // }
 
 const HotelsItemGuest = () => {
@@ -116,7 +115,6 @@ const HotelsItemGuest = () => {
       render: id => <HotelsItemTableActionButton id={id} />,
     },
   ]
-  console.log(setCurrentPage, setPageSize)
 
   // const { data: guests } = useQuery({
   //   queryKey: ['hotel-guests', id, currentPage],
@@ -134,8 +132,6 @@ const HotelsItemGuest = () => {
   const type = searchParams.get('type')
 
   const lang = localStorage.getItem('i18nextLng')
-
-  
 
   const { data: guests } = useQuery({
     queryKey: ['hotel-guests', id, currentPage, lang],
@@ -238,7 +234,6 @@ const HotelsItemGuest = () => {
         }}
       />
       <GuestModal />
-
     </div>
   )
 }

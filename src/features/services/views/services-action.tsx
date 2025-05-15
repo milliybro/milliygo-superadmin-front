@@ -188,8 +188,6 @@ const ServicesAction = () => {
     mutationFn: (values: any) => {
       const formData = new FormData()
 
-      console.log('ICON', values.icon)
-
       const formattedValues = {
         key: values.id,
         category: values.category,
@@ -226,7 +224,6 @@ const ServicesAction = () => {
             : updateFacility({ id: editServiceId, queryParams: formData })
       }
 
-      console.log(type, 'FORM')
       return type === 'room'
         ? createRoomFacility(formData)
         : type === 'prohibitions'
@@ -358,8 +355,6 @@ const ServicesAction = () => {
       return res
     },
   })
-
-  console.log(previewImage)
 
   return (
     <div className="p-6 flex flex-col gap-6 flex-1">

@@ -24,14 +24,11 @@ const Services = () => {
 
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
-  console.log(setPageSize)
 
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [searchParams, setSearchParams] = useSearchParams()
 
   const activeTab = searchParams.get('tab')
-
-  console.log(activeTab, 'ACTIVE')
 
   useEffect(() => {
     setBreadCrumbs([

@@ -41,9 +41,7 @@ const onChange: TableProps<IAccessRoleTable>['onChange'] = (
   filters,
   sorter,
   extra,
-) => {
-  console.log('params', pagination, filters, sorter, extra)
-}
+) => {}
 
 const AccessRoleTable = () => {
   const { t } = useTranslation()

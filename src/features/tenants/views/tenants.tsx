@@ -18,7 +18,6 @@ const Tenants = () => {
   const { t } = useTranslation()
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(10)
-  console.log(setPageSize)
 
   const { openModal } = useHotelModalStore(store => store)
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)

@@ -25,7 +25,6 @@ const UsersFilters = () => {
 
   const handleValuesChange = (changedValues: any, allValues: any) => {
     const newParams = new URLSearchParams()
-    console.log(changedValues)
 
     Object.keys(allValues).forEach(key => {
       if (allValues[key]) {
@@ -46,7 +45,6 @@ const UsersFilters = () => {
     },
     // keepPreviousData: true,
   })
-  
 
   useEffect(() => {
     if (form) {

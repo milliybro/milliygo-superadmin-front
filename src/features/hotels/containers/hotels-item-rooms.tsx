@@ -37,9 +37,7 @@ const onChange: TableProps<IHotelsRoom>['onChange'] = (
   filters,
   sorter,
   extra,
-) => {
-  console.log('params', pagination, filters, sorter, extra)
-}
+) => {}
 const HotelsItemRooms = () => {
   const { t } = useTranslation()
   const { id } = useParams<{ id: string }>()
@@ -47,13 +45,9 @@ const HotelsItemRooms = () => {
   const [pageSize, setPageSize] = useState(10)
   const [searchParams] = useSearchParams()
 
-  console.log(setPageSize)
-
   const tenant_id = searchParams.get('tenant_id')
   const type = searchParams.get('type')
   const lang = localStorage.getItem('i18nextLng')
-
-  console.log(setCurrentPage)
 
   const { data: HotelDetailRoom } = useQuery({
     queryKey: ['hotels-detail-rooms', id, lang],
