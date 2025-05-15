@@ -13,12 +13,15 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/uz'
 import 'dayjs/locale/uz-latn'
 import 'dayjs/locale/ru'
+import queryClient from '@/utils/query-client'
+
 const Header = () => {
   const { i18n } = useTranslation()
   const { breadCrumbs } = useBreadCrumbsStore(store => store)
 
   const changeLanguage = (val: string) => {
     i18n.changeLanguage(val)
+    queryClient.invalidateQueries()
   }
 
   useEffect(() => {

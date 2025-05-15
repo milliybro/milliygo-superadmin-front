@@ -92,8 +92,6 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
     enabled: !!editTenantId,
   })
 
-  console.log(data)
-
   const { mutate: handleUserSave, isPending } = useMutation({
     mutationFn: (values: any) => {
       console.log('Values:', values)
