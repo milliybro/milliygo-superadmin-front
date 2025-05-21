@@ -53,25 +53,20 @@ const HotelsItemRooms = () => {
     },
     enabled: !!id,
   })
+
   const columns: TableColumnsType<IHotelsRoom> = [
     {
       title: 'ID',
       dataIndex: 'id',
       className: 'text-center',
-      sorter: {
-        compare: (a, b) => a.id - b.id,
-        multiple: 4,
-      },
+      sorter: false,
       render: (_text, _record, index) =>
         (currentPage - 1) * pageSize + index + 1,
     },
     {
       title: 'common.type-number',
       dataIndex: 'room_name',
-      sorter: {
-        compare: (a, b) => a.room_name.localeCompare(b.room_name),
-        multiple: 3,
-      },
+      sorter: false,
       render: (_, val: any) => (
         <div className="flex items-center gap-[10px]">
           {val?.room_images?.length > 0 ? (
@@ -94,10 +89,7 @@ const HotelsItemRooms = () => {
     {
       title: 'common.price-night',
       dataIndex: 'prices',
-      sorter: {
-        compare: (a, b) => a.prices - b.prices,
-        multiple: 1,
-      },
+      sorter: false,
       render: val => (
         <div>
           {val.map((val: any, i: number) => (
@@ -112,19 +104,13 @@ const HotelsItemRooms = () => {
     {
       title: 'common.convenience',
       dataIndex: 'facilities',
-      sorter: {
-        compare: (a, b) => a.facilities.localeCompare(b.facilities),
-        multiple: 1,
-      },
+      sorter: false,
       render: (val, record) => <FacilitiesCell val={val} rowKey={record.key} />,
     },
     {
       title: 'fields.status.label',
       dataIndex: 'status',
-      sorter: {
-        compare: (a, b) => Number(a.status) - Number(b.status),
-        multiple: 1,
-      },
+      sorter: false,
       render: record => <StatusRoomsTag status={record || 'defaultStatus'} />,
     },
   ]

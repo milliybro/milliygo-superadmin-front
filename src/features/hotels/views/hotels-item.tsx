@@ -88,9 +88,7 @@ const HotelsItem = () => {
     {
       key: '2',
       label: 'common.reviews',
-      children: (
-        <HotelsItemReviews data={data?.placement_detail?.external_id} />
-      ),
+      children: <HotelsItemReviews data={data?.placement_detail?.id} />,
     },
     {
       key: '3',
