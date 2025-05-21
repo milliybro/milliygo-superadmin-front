@@ -13,6 +13,7 @@ import TernantsFilters from '../containers/ternants-filters'
 import TenantsTable from '../containers/ternants-table'
 import { useQuery } from '@tanstack/react-query'
 import { getTenantsList } from '../api'
+import { useSearchParams } from 'react-router'
 
 const Tenants = () => {
   const { t } = useTranslation()
@@ -22,6 +23,13 @@ const Tenants = () => {
 
   const { openModal } = useHotelModalStore(store => store)
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
+
+  const [searchParams] = useSearchParams()
+
+  const schema_name__icontains =
+    searchParams.get('schema_name__icontains') || ''
+  const username__icontains = searchParams.get('username__icontains') || ''
+  const is_active = searchParams.get('is_active') || ''
 
   useEffect(() => {
     setBreadCrumbs([
@@ -35,11 +43,20 @@ const Tenants = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ['tenants-data', currentPage],
+    queryKey: [
+      'tenants-data',
+      currentPage,
+      username__icontains,
+      schema_name__icontains,
+      is_active,
+    ],
     queryFn: async () => {
       const res = await getTenantsList({
         page_size: pageSize,
         page: currentPage,
+        schema_name__icontains,
+        username__icontains,
+        is_active,
       })
       return res
     },
