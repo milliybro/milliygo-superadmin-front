@@ -5,12 +5,31 @@ import CSelect from '@/components/ui/select'
 
 import UserSquareIcon from '@/components/icons/user-square'
 import UserMultipleIcon from '@/components/icons/user-multiple'
+import { useSearchParams } from 'react-router'
 
 const AccommodationsFilters = () => {
   const { t } = useTranslation()
 
+  const [searchParams, setSearchParams] = useSearchParams()
+  console.log(searchParams)
+
+  const handleValuesChange = (changedValues: any, allValues: any) => {
+    const newParams = new URLSearchParams()
+    console.log(changedValues)
+
+    Object.keys(allValues).forEach(key => {
+      if (allValues[key]) {
+        newParams.set(key, allValues[key])
+      } else {
+        newParams.delete(key)
+      }
+    })
+
+    setSearchParams(newParams)
+  }
+  
   return (
-    <Form layout="vertical" className="grid grid-cols-2 gap-4">
+    <Form onValuesChange={handleValuesChange} layout="vertical" className="grid grid-cols-2 gap-4">
       <Form.Item label={t('accommodations-page.filter.creator')}>
         <Input
           prefix={
@@ -21,11 +40,11 @@ const AccommodationsFilters = () => {
           className="select-shadow"
         />
       </Form.Item>
-      <Form.Item label={t('accommodations-page.filter.status')}>
+      <Form.Item name="status" label={t('accommodations-page.filter.status')}>
         <CSelect
           options={[
-            { label: t('common.active'), value: 'male' },
-            { label: t('common.inactive'), value: 'female' },
+            { label: t('common.active'), value: 'true' },
+            { label: t('common.inactive'), value: 'false' },
           ]}
           prefix={
             <UserMultipleIcon className="text-[16px] text-secondary ml-2 mr-4" />
