@@ -19,7 +19,6 @@ import { useSearchParams } from 'react-router'
 
 const Accommodations = () => {
   const { t } = useTranslation()
-
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 10
@@ -37,17 +36,22 @@ const Accommodations = () => {
   }, [])
 
   const [searchParams] = useSearchParams()
+  const search = searchParams.get('search') || null
+  const status = searchParams.get('status') || null
   const type = searchParams.get('tab') || '1'
 
   useEffect(() => {
     setCurrentPage(1)
   }, [])
+
   const { data, isLoading } = useQuery({
-    queryKey: ['hotels-data', currentPage, type],
+    queryKey: ['hotels-data', currentPage, type, search, status],
     queryFn: async () => {
       const res = await getHotels({
         page_size: pageSize,
         page: currentPage,
+        search,
+        status,
         is_approved:
           type === '1'
             ? 'approved'
