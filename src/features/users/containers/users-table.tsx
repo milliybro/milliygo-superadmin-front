@@ -49,9 +49,9 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
       dataIndex: ['first_name', 'last_name', 'middle_name'],
       sorter: false,
       render: (_, record) => {
-        const fullName =
-          `${record.first_name} ${record.middle_name || ''} ${record.last_name}`.trim()
-        return <div className="flex items-center gap-2">{fullName}</div>
+        return (
+          <div className="flex items-center gap-2">{record?.full_name}</div>
+        )
       },
     },
     {
@@ -90,7 +90,7 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
     // },
     {
       title: 'fields.role.label',
-      dataIndex: 'position',
+      dataIndex: 'type_name',
       sorter: false,
       render: data => {
         return (
@@ -157,6 +157,8 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
 
   const transformedData =
     UsersData?.results.map((user: IUsers) => ({
+      full_name: user.full_name,
+      type_name: user.type_name,
       key: user.id.toString(),
       id: user.id,
       fullName:

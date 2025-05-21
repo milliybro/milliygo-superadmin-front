@@ -80,7 +80,9 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
       sorter: false,
       render: data => {
         return (
-          <span className="whitespace-nowrap">{formatAmount(data)} UZS</span>
+          <span className="whitespace-nowrap">
+            {data ? formatAmount(data) + ' UZS' : '-'}
+          </span>
         )
       },
     },
@@ -174,7 +176,7 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
       name: user.name,
       image: user.image,
       address: user.address,
-      price: user.min_price,
+      price: user.price,
       rating: user.star_rating,
       contact: user.full_name,
       gender: user.gender,

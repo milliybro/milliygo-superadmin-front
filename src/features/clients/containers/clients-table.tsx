@@ -45,7 +45,7 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
     },
     {
       title: 'fields.fullname.label',
-      dataIndex: 'fullName',
+      dataIndex: 'full_name',
       sorter: false,
       render: val => {
         return <div className="">{val ? val : '-'}</div>
@@ -53,7 +53,7 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
     },
     {
       title: 'fields.passport-data.label',
-      dataIndex: 'passportData',
+      dataIndex: 'passport_sn',
       sorter: false,
       render: val => {
         return <div className="text-center">{val ? val : '-'}</div>
@@ -61,7 +61,7 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
     },
     {
       title: 'fields.phone.label',
-      dataIndex: 'phoneNumber',
+      dataIndex: 'phone',
       sorter: false,
       render(value) {
         return <div className="text-center">{formatPhoneNumber(value)}</div>
@@ -189,6 +189,9 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
 
   const transformedData =
     clientsData?.results.map((user: IUsers) => ({
+      full_name: user.full_name,
+      passport_sn: user.passport_sn,
+      phone: user.phone,
       key: user.id.toString(),
       id: user.id,
       fullName:
