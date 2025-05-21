@@ -81,18 +81,12 @@ const ServicesTable = ({
     {
       title: 'ID',
       dataIndex: 'id',
-      sorter: {
-        compare: (a, b) => a.id - b.id,
-        multiple: 4,
-      },
+      sorter: false,
     },
     {
       title: 'fields.icon.label',
       dataIndex: 'icon_url',
-      sorter: {
-        compare: (a, b) => a.id - b.id,
-        multiple: 4,
-      },
+      sorter: false,
       render: (icon_url, record) => (
         <Image width={24} src={icon_url || record.icon} />
       ),
@@ -100,43 +94,28 @@ const ServicesTable = ({
     {
       title: 'fields.name.name-uz',
       dataIndex: 'name_uz',
-      sorter: {
-        compare: (a, b) => a.name_uz.localeCompare(b.name_uz),
-        multiple: 2,
-      },
+      sorter: false,
     },
     {
       title: 'fields.name.name-cry',
       dataIndex: 'name_cry',
-      sorter: {
-        compare: (a, b) => a.name_en.localeCompare(b.name_en),
-        multiple: 1,
-      },
+      sorter: false,
     },
     {
       title: 'fields.name.name-ru',
       dataIndex: 'name_ru',
-      sorter: {
-        compare: (a, b) => a.name_ru.localeCompare(b.name_ru),
-        multiple: 1,
-      },
+      sorter: false,
     },
     {
       title: 'fields.created-at.label',
       dataIndex: 'created_at',
-      sorter: {
-        compare: (a, b) => a.created_at.localeCompare(b.created_at),
-        multiple: 1,
-      },
+      sorter: false,
       render: val => <div>{dayjs(val).format('DD.MM.YYYY')}</div>,
     },
     {
       title: 'fields.status.label',
       dataIndex: 'status',
-      sorter: {
-        compare: (a, b) => Number(a.status) - Number(b.status),
-        multiple: 1,
-      },
+      sorter: false,
       render: status => <StatusTag active={status || true} />,
     },
     {

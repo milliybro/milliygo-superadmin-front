@@ -14,19 +14,13 @@ const columns: TableColumnsType<IAccessRoleTable> = [
     width: 1000,
     title: 'fields.role-name.label',
     dataIndex: 'roleName',
-    sorter: {
-      compare: (a, b) => a.roleName.localeCompare(b.roleName),
-      multiple: 2,
-    },
+    sorter: false,
   },
   {
     width: 1000,
     title: 'fields.status.label',
     dataIndex: 'status',
-    sorter: {
-      compare: (a, b) => Number(a.status) - Number(b.status),
-      multiple: 1,
-    },
+    sorter: false,
     render: status => <StatusTag active={status} colorless />,
   },
   {
