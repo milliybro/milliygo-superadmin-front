@@ -58,7 +58,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
     enabled: !!selectedChat?.id,
   })
 
-  const { data: list, refetch } = useQuery({
+  const { data: list } = useQuery({
     queryKey: ['chat_room', selectedChat, data],
     queryFn: async () => {
       const res = await getChatMessages({ chat_room: selectedChat?.id })
