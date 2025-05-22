@@ -58,7 +58,7 @@ const AccommodationsFilters = () => {
           className="select-shadow"
         />
       </Form.Item>
-      <Form.Item label={t('accommodations-page.filter.status')}>
+      <Form.Item label={t('accommodations-page.filter.status')} name="status">
         <CSelect
           options={[
             { label: t('common.active'), value: 'true' },

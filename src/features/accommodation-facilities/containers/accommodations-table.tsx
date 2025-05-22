@@ -71,7 +71,9 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
       sorter: false,
       width: 500,
       render: text => (
-        <div className="text-[#3276FF] underline line-clamp-1">{text}</div>
+        <div className="text-[#3276FF] underline line-clamp-1 w-[450px]">
+          {text}
+        </div>
       ),
     },
     {
