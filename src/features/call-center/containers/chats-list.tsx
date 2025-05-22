@@ -4,16 +4,17 @@ import {
   type FC,
   useEffect,
   useRef,
-  useState,
 } from 'react'
 import { Avatar, Spin } from 'antd'
 import defaultUser from '../../../assets/default-user.png'
 import { useTranslation } from 'react-i18next'
+import { ISupportChat } from '../types'
+import { ListResponse } from '@/types'
 
 interface IProps {
-  selectedChat: string | null
-  setSelectedChat: Dispatch<SetStateAction<string | null>>
-  messagesData: any
+  selectedChat: ISupportChat | null
+  setSelectedChat: Dispatch<SetStateAction<ISupportChat | null>>
+  chatsData?: ListResponse<ISupportChat[]>
   isLoading: boolean
   refetch: () => void
 }
@@ -21,22 +22,17 @@ interface IProps {
 const ChatsList: FC<IProps> = ({
   selectedChat,
   setSelectedChat,
-  messagesData,
+  chatsData: messagesData,
   isLoading,
-  refetch
+  refetch,
 }) => {
   const { t } = useTranslation()
   const socketRef = useRef<WebSocket | null>(null)
-  const [messages, setMessages] = useState<any[]>([])
   const user_id = JSON.parse(localStorage.getItem('user') || '1')?.id
 
-  useEffect(() => {
-    if (messagesData) {
-      setMessages(messagesData)
-    }
-  }, [messagesData])
+  const chats = messagesData?.results || []
 
-  const handleChatSelect = (chat: string) => {
+  const handleChatSelect = (chat: ISupportChat) => {
     setSelectedChat(chat)
   }
 
@@ -146,17 +142,17 @@ const ChatsList: FC<IProps> = ({
     <aside className="!col-span-2 bg-white border flex-col overflow-hidden border-border rounded-[16px]">
       <Spin spinning={isLoading}>
         <ul className=" divide-y overflow-scroll h-[720px]">
-          {messages?.length > 0 ? (
-            messages
-              .slice()
+          {chats?.length > 0 ? (
+            chats
+              ?.slice()
               // .reverse()
-              .map((name: any, i: number) => (
+              ?.map((chat, i: number) => (
                 <li
-                  key={name.id}
+                  key={chat.id}
                   className={`select-none flex items-center gap-4 duration-200 py-4 px-6 hover:bg-gray-100 cursor-pointer ${
-                    selectedChat === name.id ? 'bg-primary-light/50' : ''
+                    selectedChat?.id === chat.id ? 'bg-primary-light/50' : ''
                   }`}
-                  onClick={() => handleChatSelect(name)}
+                  onClick={() => handleChatSelect(chat)}
                 >
                   <span className="p-0 m-0">{i + 1}.</span>
                   <div className="flex justify-between w-full p-0 m-0">
@@ -169,29 +165,29 @@ const ChatsList: FC<IProps> = ({
                       />
                       <div>
                         <p className="text-[16px] font-bold text-primary-dark truncate w-[210px]">
-                          {name?.chat_detail?.first_name
-                            ? name?.chat_detail?.first_name +
+                          {chat?.chat_detail?.first_name
+                            ? chat?.chat_detail?.first_name +
                               ' ' +
-                              name?.chat_detail?.last_name
-                            : `ID: ` + name?.chat_detail?.id}
+                              chat?.chat_detail?.last_name
+                            : `ID: ` + chat?.chat_detail?.id}
                         </p>
                         <p
                           className="text-sm text-gray-500 truncate w-[210px]"
-                          title={name?.last_message?.content}
+                          title={chat?.last_message?.content ?? ''}
                         >
-                          {name?.last_message?.content}
+                          {chat?.last_message?.content}
                         </p>
                       </div>
                     </div>
                     <div className="inline-flex shrink-0 flex-col items-end gap-2">
                       <span className="text-[12px] text-secondary">
-                        {name?.last_message?.created_at
-                          ? formatDate(name.last_message.created_at)
+                        {chat?.last_message?.created_at
+                          ? formatDate(chat.last_message.created_at)
                           : '00:00'}
                       </span>
-                      {name?.unread_messages_count !== 0 ? (
+                      {chat?.unread_messages_count !== 0 ? (
                         <span className="size-[20px] rounded-full bg-primary overflow-hidden flex items-center justify-center text-white text-[14px]">
-                          {name?.unread_messages_count}
+                          {chat?.unread_messages_count}
                         </span>
                       ) : null}
                     </div>

@@ -1,11 +1,11 @@
 import { ListResponse } from '@/types'
-import { ISupport } from '../types'
+import { ISupport, ISupportChat, ISupportMessage } from '../types'
 import requestSupport from '@/utils/supportRequest'
 
-export async function getMessagesList(
+export async function getChatsList(
   params?: any,
-): Promise<ListResponse<ISupport[]>> {
-  const res: ListResponse<ISupport[]> = await requestSupport({
+): Promise<ListResponse<ISupportChat[]>> {
+  const res: ListResponse<ISupportChat[]> = await requestSupport({
     url: '/chats/chat/',
     method: 'get',
     params,
@@ -18,19 +18,18 @@ export async function getMessage(
   params?: any,
 ): Promise<ListResponse<ISupport[]>> {
   const res: ListResponse<ISupport[]> = await requestSupport({
-    url: `/chats/chat/${params.id}`,
+    url: `/chats/chat/${params?.id}`,
     method: 'get',
-    params,
   })
 
   return res
 }
 
-export async function getChatRoom(
+export async function getChatMessages(
   params?: any,
-): Promise<ListResponse<ISupport[]>> {
-  const res: ListResponse<ISupport[]> = await requestSupport({
-    url: `/chats/messages/?chat_room=${params.id}`,
+): Promise<ListResponse<ISupportMessage[]>> {
+  const res: ListResponse<ISupportMessage[]> = await requestSupport({
+    url: `/chats/messages/`,
     method: 'get',
     params,
   })

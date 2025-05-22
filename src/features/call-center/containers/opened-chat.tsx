@@ -16,17 +16,17 @@ import type {
   KeyboardEvent,
 } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { askUserInfo, createMessage, getChatRoom, getMessage } from '../api'
+import { askUserInfo, createMessage, getChatMessages, getMessage } from '../api'
 import BlurImage from '@/components/ui/blur-image'
-import { ISendMessage } from '../types'
+import { ISendMessage, ISupportChat, ISupportMessage } from '../types'
 import FileIcon from '@/components/icons/file-icon'
 import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
 import CloseIcon from '@/components/icons/close-icon'
 import defaultUser from '../../../assets/default-user.png'
 
 interface IProps {
-  selectedChat: any
-  setSelectedChat: Dispatch<SetStateAction<string | null>>
+  selectedChat: ISupportChat | null
+  setSelectedChat: Dispatch<SetStateAction<ISupportChat | null>>
 }
 
 // type Message = {
@@ -40,7 +40,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   // const [form] = Form.useForm()
   const [messageText, setMessageText] = useState('')
   // const [image, setImage] = useState<string | null>(null)
-  const [messages, setMessages] = useState<any[]>([])
+  const [messages, setMessages] = useState<ISupportMessage[]>([])
   const chatEndRef = useRef<HTMLDivElement | null>(null)
   const socketRef = useRef<WebSocket | null>(null)
   const [selectedFile, setSelectedFile] = useState<any>(null)
@@ -60,14 +60,14 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   const { data: list, refetch } = useQuery({
     queryKey: ['chat_room', selectedChat, data],
     queryFn: async () => {
-      const res = await getChatRoom({ id: selectedChat?.id })
+      const res = await getChatMessages({ chat_room: selectedChat?.id })
       return res
     },
     enabled: !!selectedChat,
   })
 
   useEffect(() => {
-    setMessages(list as any)
+    setMessages(list?.results || [])
   }, [list])
 
   // const handleSendMessage = () => {
@@ -131,7 +131,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   })
 
   const { mutate: askUser } = useMutation({
-    mutationFn: () => askUserInfo(selectedChat?.id),
+    mutationFn: () => askUserInfo('' + selectedChat?.id),
     onSuccess: (_: ISendMessage) => {
       openNotification()
     },
@@ -265,7 +265,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
         className="relative flex-1 flex flex-col overflow-y-auto p-4 space-y-2"
         style={{ maxHeight: '580px', overflowY: 'auto', position: 'relative' }}
       >
-        {[...(messages || [])].reverse().map((message: any) => (
+        {[...(messages || [])].reverse().map(message => (
           <div
             key={message.id}
             className={`flex items-start ${

@@ -8,12 +8,13 @@ import ChatsList from '../containers/chats-list'
 import OpenedChat from '../containers/opened-chat'
 import NoChatSelected from '../components/no-chat-selected'
 import { useQuery } from '@tanstack/react-query'
-import { getMessagesList } from '../api'
+import { getChatsList } from '../api'
 import { useTranslation } from 'react-i18next'
+import { ISupportChat } from '../types'
 
 const CallCenter = () => {
   const { t } = useTranslation()
-  const [selectedChat, setSelectedChat] = useState<null | string>(null)
+  const [selectedChat, setSelectedChat] = useState<null | ISupportChat>(null)
 
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
 
@@ -31,7 +32,7 @@ const CallCenter = () => {
   } = useQuery({
     queryKey: ['messages-data'],
     queryFn: async () => {
-      const res = await getMessagesList({
+      const res = await getChatsList({
         page_size: 10,
       })
       return res
@@ -48,7 +49,7 @@ const CallCenter = () => {
         <ChatsList
           selectedChat={selectedChat}
           setSelectedChat={setSelectedChat}
-          messagesData={messagesData}
+          chatsData={messagesData}
           isLoading={isLoading}
           refetch={refetch}
         />
