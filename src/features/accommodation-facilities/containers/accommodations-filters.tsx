@@ -6,7 +6,8 @@ import CSelect from '@/components/ui/select'
 import UserSquareIcon from '@/components/icons/user-square'
 import UserMultipleIcon from '@/components/icons/user-multiple'
 import { useSearchParams } from 'react-router'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
+import debounce from 'lodash/debounce'
 
 const AccommodationsFilters = () => {
   const { t } = useTranslation()
@@ -32,12 +33,21 @@ const AccommodationsFilters = () => {
     setSearchParams(newParams)
   }
 
+  const debouncedValuesChangeHandler = useMemo(
+    () => debounce(handleValuesChange, 500),
+    [],
+  )
+
   useEffect(() => {
     if (form) {
       form.setFieldsValue({
         search: search,
         status: status,
       })
+    }
+
+    return () => {
+      debouncedValuesChangeHandler.cancel()
     }
   }, [form])
 
@@ -46,7 +56,7 @@ const AccommodationsFilters = () => {
       layout="vertical"
       className="grid grid-cols-2 gap-4"
       form={form}
-      onValuesChange={handleValuesChange}
+      onValuesChange={debouncedValuesChangeHandler}
     >
       <Form.Item label={t('hotels-page.name.title')} name="search">
         <Input

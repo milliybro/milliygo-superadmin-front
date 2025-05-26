@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ROUTE_PATHS } from '@/config/constants'
@@ -9,8 +9,8 @@ import AccommodationsFilters from '../containers/accommodations-filters'
 // import AccommodationsTable from '../containers/accommodations-table'
 import { getHotels } from '@/features/hotels/api'
 import { useQuery } from '@tanstack/react-query'
-import AccommodationsTab from '../containers/accommodations-tabs'
 import { useSearchParams } from 'react-router'
+import AccommodationsTab from '../containers/accommodations-tabs'
 // import UserModal from '../components/user-modal'
 // import HotelsTable from '../containers/users-table'
 // import UsersFilters from '../containers/users-filters'
@@ -20,7 +20,6 @@ import { useSearchParams } from 'react-router'
 const Accommodations = () => {
   const { t } = useTranslation()
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
-  const [currentPage, setCurrentPage] = useState(1)
   const pageSize = 10
 
   // const [searchTerm, setSearchTerm] = useState('')
@@ -35,14 +34,21 @@ const Accommodations = () => {
     ])
   }, [])
 
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const search = searchParams.get('search') || null
   const status = searchParams.get('status') || null
   const type = searchParams.get('tab') || '1'
+  const currentPage = Number(searchParams.get('page')) || 1
 
   useEffect(() => {
-    setCurrentPage(1)
-  }, [])
+    if (currentPage !== 1) {
+      setSearchParams(prev => {
+        const params = new URLSearchParams(prev)
+        params.set('page', '1')
+        return params
+      })
+    }
+  }, [search, status])
 
   const { data, isLoading } = useQuery({
     queryKey: ['hotels-data', currentPage, type, search, status],
@@ -84,7 +90,13 @@ const Accommodations = () => {
           isLoading={isLoading}
           pageSize={pageSize}
           currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
+          setCurrentPage={(page: number) =>
+            setSearchParams(prev => {
+              const params = new URLSearchParams(prev)
+              params.set('page', String(page))
+              return params
+            })
+          }
         />
       </div>
     </div>
