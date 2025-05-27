@@ -1,16 +1,13 @@
-import { Button, Form, Input, Modal, Typography, notification } from 'antd'
+import { Button, Form, Input, Modal } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 
 import AddCreateIcon from '@/components/icons/add-icon'
-import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
 import CloseIcon from '@/components/icons/close-icon'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import Dragger from 'antd/es/upload/Dragger'
-import { useEffect } from 'react'
-import { createUser, getUser, updateUser } from '../api'
+import { getUserRoles } from '../api'
 import useDestinationModalStore from '../store/destinations-modal-store'
-import { IUsers } from '../types'
+import Dragger from 'antd/es/upload/Dragger'
+import { useQuery } from '@tanstack/react-query'
 
 const DestinationModal = () => {
   const { t } = useTranslation()
@@ -31,89 +28,75 @@ const DestinationModal = () => {
     }
   }
 
-  const { data, refetch: fetching } = useQuery({
-    queryKey: ['user', editUserId],
+  //   const { data, refetch: fetching } = useQuery({
+  //     queryKey: ['user', editUserId],
+  //     queryFn: async () => {
+  //       const res = await getUser({ id: editUserId })
+  //       return res
+  //     },
+  //     enabled: !!editUserId,
+  //   })
+
+  const { data: roles } = useQuery({
+    queryKey: ['users-roles'],
     queryFn: async () => {
-      const res = await getUser({ id: editUserId })
+      const res = await getUserRoles()
       return res
     },
-    enabled: !!editUserId,
+    // keepPreviousData: true,
   })
 
-  const openNotification = () => {
-    notification.info({
-      closeIcon: null,
-      className:
-        'w-[406px] border-t-[5px] border-primary rounded-[12px] [&_.ant-notification-notice-message]:mb-0',
-      icon: <CheckmarkCircleIcon className="text-[24px] text-primary" />,
-      message: (
-        <Typography.Text className="text-[18px] font-semibold leading-[22.95px]">
-          {editUserId
-            ? t('fields.user-notification.edit.message')
-            : t('fields.user-notification.add.message')}
-        </Typography.Text>
-      ),
-      placement: 'topRight',
-      description: (
-        <div>
-          <Button
-            size="small"
-            type="text"
-            className="grid place-items-center rounded-lg absolute right-[10px] top-[10px]"
-            icon={<CloseIcon className="text-base" />}
-            onClick={() => notification.destroy()}
-          />
-          <Typography.Text className="text-secondary text-base">
-            {editUserId
-              ? t('fields.user-notification.add.message')
-              : t('fields.user-notification.edit.message')}
-          </Typography.Text>
-        </div>
-      ),
-    })
-  }
+  console.log(roles)
 
-  const { mutate: handleUserSave } = useMutation({
-    mutationFn: (values: any) => {
-      const formattedValues: IUsers = {
-        ...values,
-      }
+  //   const { mutate: handleUserSave } = useMutation({
+  //     mutationFn: (values: any) => {
+  //       const formattedValues: IDestinations = {
+  //         ...values,
+  //       }
 
-      if (editUserId) {
-        return updateUser({ id: editUserId, queryParams: formattedValues })
-      }
+  //       if (editUserId) {
+  //         return updateUser({ id: editUserId, queryParams: formattedValues })
+  //       }
 
-      return createUser(formattedValues)
-    },
-    onSuccess: () => {
-      // notification.success({
-      //   message: editUserId
-      //     ? t('fields.user-notification.edit.message')
-      //     : t('fields.user-notification.add.message'),
-      // })
-      openNotification()
-      form.resetFields()
-      fetching()
-      closeHandler()
-    },
-    onError: () => {
-      form.getFieldsError()
-    },
-  })
+  //       return createUser(formattedValues)
+  //     },
+  //     onSuccess: () => {
+  //       // notification.success({
+  //       //   message: editUserId
+  //       //     ? t('fields.user-notification.edit.message')
+  //       //     : t('fields.user-notification.add.message'),
+  //       // })
+  //       openNotification()
+  //       console.log('success')
+  //       form.resetFields()
+  //       fetching()
+  //       closeHandler()
+  //     },
+  //     onError: (error: any) => {
+  //       openNotificationWithIcon('error')
+  //       messageApi.open({
+  //         type: 'error',
+  //         content: 'This is an error message',
+  //       })
+  //       message.error(error?.data?.username)
+  //       form.getFieldsError()
+  //       console.log('error', error)
+  //     },
+  //   })
 
-  useEffect(() => {
-    if (data && editUserId) {
-      form.setFieldsValue({
-        first_name: data?.first_name + ' ' + data?.last_name,
-        phone: data?.phone,
-        gender: data?.gender,
-        username: data?.username,
-        code: data?.code,
-        type: data?.type?.name,
-        status: data?.is_active,
-      })
-    }
-  }, [data, form])
+  //   useEffect(() => {
+  //     if (data && editUserId) {
+  //       form.setFieldsValue({
+  //         first_name: data?.first_name + ' ' + data?.last_name,
+  //         phone: data?.phone,
+  //         gender: data?.gender,
+  //         username: data?.username,
+  //         code: data?.code,
+  //         type: data?.type?.name,
+  //         status: data?.is_active,
+  //       })
+  //     }
+  //   }, [data, form])
 
   return (
     <Modal
@@ -148,7 +131,7 @@ const DestinationModal = () => {
       </div>
       <Form
         layout="vertical"
-        onFinish={values => handleUserSave(values)}
+        // onFinish={values => handleUserSave(values)}
         className="flex flex-col gap-4"
         form={form}
       >

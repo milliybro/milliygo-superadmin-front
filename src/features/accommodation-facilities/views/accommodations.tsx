@@ -28,26 +28,28 @@ const Accommodations = () => {
   // const [gender, setGender] = useState('')
   // const [role, setRole] = useState('')
   // const [isActive, setIsActive] = useState(null)
-
+  
   useEffect(() => {
     setBreadCrumbs([
       { title: t('common.main'), href: ROUTE_PATHS.MAIN },
       { title: t('common.accommodations'), href: ROUTE_PATHS.ACCOMMODATIONS },
     ])
   }, [])
-
+  
   const [searchParams] = useSearchParams()
+  const status = searchParams.get('status') || ''
   const type = searchParams.get('tab') || '1'
 
   useEffect(() => {
     setCurrentPage(1)
   }, [])
   const { data, isLoading } = useQuery({
-    queryKey: ['hotels-data', currentPage, type],
+    queryKey: ['hotels-data', currentPage, type, status],
     queryFn: async () => {
       const res = await getHotels({
         page_size: pageSize,
         page: currentPage,
+        status: status || undefined,
         is_approved:
           type === '1'
             ? 'approved'

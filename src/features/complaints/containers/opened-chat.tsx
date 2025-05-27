@@ -32,6 +32,8 @@ import { useTranslation } from 'react-i18next'
 import BlurImage from '@/components/ui/blur-image'
 import AttachmentIcon from '@/components/icons/attachment'
 import SendIcon from '@/components/icons/send'
+import dayjs from 'dayjs'
+dayjs.locale('uz')
 
 interface IProps {
   selectedChat: any
@@ -278,95 +280,114 @@ const OpenedChatComplaints: FC<IProps> = ({
         className="relative flex-1 flex flex-col overflow-y-auto p-4 space-y-2"
         style={{ maxHeight: '620px', overflowY: 'auto', position: 'relative' }}
       >
-        {[...(messages || [])].reverse().map((message: any) => (
-          <div
-            key={message.id}
-            className={`flex items-start ${
-              message?.user?.type === 'superuser' ? 'justify-end' : ''
-            }`}
-          >
-            {message?.user?.type !== 'superuser' && (
-              <div className="size-[32px] border-border border mr-3 bg-secondary-light rounded-full overflow-hidden">
-                <img
-                  src={defaultUser}
-                  alt="Avatar"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            )}
-            <div
-              className={`rounded-lg p-3 w-fit max-w-[790px] min-w-[250px]  ${
-                message?.user?.id === user_id
-                  ? 'bg-blue-500 text-white rounded-tr-none'
-                  : 'bg-[#F8F8FA] rounded-tl-none text-primary-dark'
-              }`}
-            >
-              {/* {message?.user?.type !== 'superuser' ? (
-                <h4 className="text-[14px] font-bold break-words">
-                  {message?.user?.username}
-                </h4>
-              ) : null} */}
-              <p
-                className={`text-lg font-semibold text-[#232E40] ${
-                  message?.user?.id === user_id
-                    ? 'bg-blue-500 text-white rounded-tr-none'
-                    : 'bg-[#F8F8FA] rounded-tl-none text-primary-dark'
-                }`}
-              >
-                {message?.user?.first_name} {message?.user?.last_name}
-              </p>
-              <p className="text-[14px] font-normal break-words">
-                {message?.content}
-              </p>
-              {message?.file && (
-                <>
-                  {message.file.endsWith('.jpg') ||
-                  message.file.endsWith('.svg') ||
-                  message.file.endsWith('.png') ||
-                  message.file.endsWith('.webp') ? (
-                    <Image
-                      src={message.file}
-                      alt="Uploaded"
-                      className="rounded-lg mt-2 w-40"
-                    />
-                  ) : (
-                    <a
-                      href={message.file}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white underline-none mt-2 flex items-center gap-2"
-                    >
-                      <div className="bg-blue-500 rounded-full flex justify-center items-center border-[#ffffff] p-2 border w-10 h-10">
-                        <FileIcon />
-                      </div>
-                      {message.file.substring(
-                        message.file.lastIndexOf('/') + 1,
-                      )}
-                    </a>
-                  )}
-                </>
-              )}
+        {[...(messages || [])]
+          .reverse()
+          .reduce((acc: any[], message: any, index, arr) => {
+            const currentDate = new Date(message.created_at).toDateString()
+            const prevDate =
+              index > 0
+                ? new Date(arr[index - 1].created_at).toDateString()
+                : null
 
+            if (currentDate !== prevDate) {
+              acc.push({ type: 'date', date: currentDate })
+            }
+
+            acc.push({ type: 'message', data: message })
+            return acc
+          }, [])
+          .map((item: any, index: number) => {
+            if (item.type === 'date') {
+              return (
+                <div
+                  key={`date-${index}`}
+                  className="text-center my-4 text-sm text-gray-500 font-medium"
+                >
+                  {dayjs(item.date).format('D MMMM')}
+                </div>
+              )
+            }
+
+            const message = item.data
+
+            return (
               <div
-                className={`flex items-center justify-end gap-1 mt-1 text-xs ${
-                  message?.user?.id === user_id
-                    ? 'text-white'
-                    : 'text-secondary'
+                key={message.id}
+                className={`flex items-start ${
+                  message?.user?.type === 'superuser' ? 'justify-end' : ''
                 }`}
               >
-                <span>
-                  {new Date(message?.created_at).toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
-                </span>
-                {message?.admin?.type === 'superuser' ? (
-                  <TickDoubleIcon className="text-[16px] text-[#4DD282]" />
-                ) : null}
+                {message?.user?.type !== 'superuser' && (
+                  <div className="size-[32px] border-border border mr-3 bg-secondary-light rounded-full overflow-hidden">
+                    <img
+                      src={defaultUser}
+                      alt="Avatar"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                )}
+                <div
+                  className={`rounded-lg p-3 w-fit max-w-[790px] min-w-[250px]  ${
+                    message?.user?.id === user_id
+                      ? 'bg-blue-500 text-white rounded-tr-none'
+                      : 'bg-[#F8F8FA] rounded-tl-none text-primary-dark'
+                  }`}
+                >
+                  <p className="text-lg font-semibold text-[#232E40]">
+                    {message?.user?.first_name} {message?.user?.last_name}
+                  </p>
+                  <p className="text-[14px] font-normal break-words">
+                    {message?.content}
+                  </p>
+                  {message?.file && (
+                    <>
+                      {['.jpg', '.svg', '.png', '.webp'].some(ext =>
+                        message.file.endsWith(ext),
+                      ) ? (
+                        <Image
+                          src={message.file}
+                          alt="Uploaded"
+                          className="rounded-lg mt-2 w-40"
+                        />
+                      ) : (
+                        <a
+                          href={message.file}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-white underline-none mt-2 flex items-center gap-2"
+                        >
+                          <div className="bg-blue-500 rounded-full flex justify-center items-center border-[#ffffff] p-2 border w-10 h-10">
+                            <FileIcon />
+                          </div>
+                          {message.file.substring(
+                            message.file.lastIndexOf('/') + 1,
+                          )}
+                        </a>
+                      )}
+                    </>
+                  )}
+                  <div
+                    className={`flex items-center justify-end gap-1 mt-1 text-xs ${
+                      message?.user?.id === user_id
+                        ? 'text-white'
+                        : 'text-secondary'
+                    }`}
+                  >
+                    <span>
+                      {new Date(message?.created_at).toLocaleTimeString([], {
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </span>
+                    {message?.admin?.type === 'superuser' ? (
+                      <TickDoubleIcon className="text-[16px] text-[#4DD282]" />
+                    ) : null}
+                  </div>
+                </div>
               </div>
-            </div>
-          </div>
-        ))}
+            )
+          })}
+
         <div ref={chatEndRef}></div>
       </div>
       <footer className="p-4 border-t">

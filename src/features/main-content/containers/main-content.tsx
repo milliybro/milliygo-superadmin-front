@@ -5,9 +5,19 @@ import RecreationItem from '../components/recreation'
 import DestinationModal from '../components/destinations-modal'
 import RecreationModal from '../components/recreation-modal'
 import VideoUploader from '../components/video-uploader'
+import { useQuery } from '@tanstack/react-query'
+import { getRecreationList } from '../api'
 
 const Content = () => {
   const { t } = useTranslation()
+  const { data: destinationsData } = useQuery({
+    queryKey: ['destination-data'],
+    queryFn: async () => {
+      const res = await getRecreationList()
+      return res
+    },
+    // keepPreviousData: true,
+  })
 
   const destinations = [
     {},
@@ -22,31 +32,13 @@ const Content = () => {
     },
   ]
 
-  const categories = [
-    {
-      title: 'Название',
-      size: 'col-span-1 row-span-2',
-      color: 'text-white',
-    },
-    {
-      title: 'Название',
-      image: '/gastronomy.png',
-      size: 'col-span-1 row-span-2',
-      color: 'text-white',
-    },
-    {
-      title: 'Название',
-      image: '/adventure.png',
-      size: 'col-span-2 row-span-1',
-      color: 'text-[#232E40]',
-    },
-    {
-      title: 'Название',
-      image: '/extreme.png',
-      size: 'col-span-2 row-span-1',
-      color: 'text-[#232E40]',
-    },
+  const sizes = [
+    'col-span-1 row-span-2',
+    'col-span-1 row-span-2',
+    'col-span-2 row-span-1',
+    'col-span-2 row-span-1',
   ]
+
   return (
     <>
       <Form layout="vertical" className="flex flex-col gap-6">
@@ -70,9 +62,14 @@ const Content = () => {
           {t('home-content.recreating')}
           <Divider />
           <div className="container grid grid-cols-4 grid-rows-2 gap-4 py-4 h-[500px]">
-            {categories.map((category, index) => (
-              <RecreationItem key={index} category={category} />
-            ))}
+            {destinationsData?.results
+              .slice(0, 4)
+              .map((category, index) => (
+                <RecreationItem
+                  key={index}
+                  category={{ ...category, size: sizes[index] }}
+                />
+              ))}
           </div>
         </div>
       </Form>

@@ -7,18 +7,18 @@ import {
   Typography,
   notification,
   ColorPicker,
+  message,
 } from 'antd'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 
 import CloseIcon from '@/components/icons/close-icon'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { createUser, getUser, updateUser } from '../api'
 import { useEffect, useState } from 'react'
-import { IUsers } from '../types'
 import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
 import Dragger from 'antd/es/upload/Dragger'
 import AddCreateIcon from '@/components/icons/add-icon'
 import useRecreationModalStore from '../store/recreation-modal-store'
+import { createRecreation, getRecreation, updateRecreation } from '../api'
 
 const RecreationModal = () => {
   const { t } = useTranslation()
@@ -28,6 +28,7 @@ const RecreationModal = () => {
   const { isModalOpen, closeModal } = useRecreationModalStore(state => state)
   const [form] = Form.useForm()
   const [color, setColor] = useState('')
+  const [fileList, setFileList] = useState([])
 
   const editUserId = searchParams.get('edit')
 
@@ -39,10 +40,10 @@ const RecreationModal = () => {
     }
   }
 
-  const { data, refetch: fetching } = useQuery({
+  const { data } = useQuery({
     queryKey: ['user', editUserId],
     queryFn: async () => {
-      const res = await getUser({ id: editUserId })
+      const res = await getRecreation({ id: editUserId })
       return res
     },
     enabled: !!editUserId,
@@ -80,46 +81,75 @@ const RecreationModal = () => {
       ),
     })
   }
+  const [api] = notification.useNotification() as any
+  const openNotificationWithIcon = (type: any) => {
+    api[type]({
+      message: 'Notification Title',
+      description:
+        'This is the content of the notification. This is the content of the notification. This is the content of the notification.',
+    })
+  }
+  const { mutate: handleUserSave, isPending } = useMutation({
+    mutationFn: async (values: any) => {
+      const formData = new FormData()
 
-  const { mutate: handleUserSave } = useMutation({
-    mutationFn: (values: any) => {
-      const formattedValues: IUsers = {
-        ...values,
+      Object.entries(values).forEach(([key, value]) => {
+        if (key !== 'icon' && key !== 'uploaded_files') {
+          formData.append(
+            key,
+            typeof value === 'object' ? JSON.stringify(value) : String(value),
+          )
+        }
+      })
+
+      if (values.icon?.fileList) {
+        values.icon.fileList.forEach((file: any) => {
+          formData.append('icon', file.originFileObj)
+        })
+      }
+
+      if (values.uploaded_files?.fileList) {
+        values.uploaded_files.fileList.forEach((file: any) => {
+          formData.append('uploaded_files', file.originFileObj)
+        })
       }
 
       if (editUserId) {
-        return updateUser({ id: editUserId, queryParams: formattedValues })
+        return updateRecreation({ id: editUserId, queryParams: formData })
       }
-
-      return createUser(formattedValues)
+      return createRecreation(formData)
     },
     onSuccess: () => {
-      // notification.success({
-      //   message: editUserId
-      //     ? t('fields.user-notification.edit.message')
-      //     : t('fields.user-notification.add.message'),
-      // })
       openNotification()
       form.resetFields()
-      fetching()
       closeHandler()
     },
-    onError: () => {
-      form.getFieldsError()
+    onError: (error: any) => {
+      openNotificationWithIcon('error')
+      message.error(error?.data?.username)
+      console.log('error', error)
     },
   })
 
   useEffect(() => {
     if (data && editUserId) {
+      const files =
+        data?.content_files?.map((file: any) => ({
+          uid: file.id.toString(),
+          name: file.file_path.split('/').pop(),
+          status: 'done',
+          url: file.file_path,
+        })) || []
+
+      setFileList(files)
+
       form.setFieldsValue({
-        first_name: data?.first_name + ' ' + data?.last_name,
-        phone: data?.phone,
-        gender: data?.gender,
-        username: data?.username,
-        code: data?.code,
-        type: data?.type?.name,
-        status: data?.is_active,
+        title: data?.title,
+        font_color: data?.font_color || '#000000',
+        file_url: data?.content_files[0]?.file_path?.replace(/^http:\/\//, ''),
       })
+
+      setColor(data?.font_color || '#000000')
     }
   }, [data, form])
 
@@ -162,7 +192,7 @@ const RecreationModal = () => {
       >
         <Form.Item
           label={t('home-content.name-recreation')}
-          name="name"
+          name="title"
           rules={[
             {
               required: true,
@@ -178,7 +208,7 @@ const RecreationModal = () => {
 
         <Form.Item
           label={t('home-content.color')}
-          name="color"
+          name="font_color"
           rules={[{ required: true, message: 'Rang tanlash majburiy' }]}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -191,17 +221,22 @@ const RecreationModal = () => {
         </Form.Item>
 
         <Form.Item
-          name="icon"
+          name="uploaded_files"
           label={t('home-content.recreating-cover')}
           className="flex-1"
-          rules={[
-            {
-              required: true,
-              message: t('common.rule'),
-            },
-          ]}
+          rules={[{ required: false, message: t('common.rule') }]}
         >
-          <Dragger>
+          <Dragger
+            multiple={false}
+            fileList={fileList}
+            beforeUpload={() => false}
+            onChange={({ fileList }: { fileList: any }) =>
+              setFileList(fileList)
+            }
+            onRemove={file =>
+              setFileList(prev => prev.filter((f: any) => f.uid !== file.uid))
+            }
+          >
             <div>
               <p className="ant-upload-drag-icon flex justify-center">
                 <AddCreateIcon />
@@ -218,25 +253,11 @@ const RecreationModal = () => {
               <p className="ant-upload-hint">{t('fields.icon.max-size')}</p>
             </div>
           </Dragger>
-          {/* {previewImage && (
-            <div className="mt-2 flex justify-start">
-              <img
-                src={previewImage}
-                alt="Preview"
-                style={{
-                  width: '150px',
-                  height: '150px',
-                  objectFit: 'cover',
-                  borderRadius: '8px',
-                }}
-              />
-            </div>
-          )} */}
         </Form.Item>
 
         <Form.Item
           label={t('home-content.link-destination')}
-          name="link"
+          name="file_url"
           rules={[
             {
               required: true,
@@ -250,7 +271,7 @@ const RecreationModal = () => {
         <Form.Item>
           <div className="flex justify-center gap-4">
             <Button onClick={closeHandler}>{t('common.cancel')}</Button>
-            <Button type="primary" htmlType="submit">
+            <Button type="primary" htmlType="submit" loading={isPending}>
               {editUserId
                 ? t('home-content.edit-recreation')
                 : t('home-content.add-recreation')}
