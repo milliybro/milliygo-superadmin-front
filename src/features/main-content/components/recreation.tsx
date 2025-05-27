@@ -9,6 +9,7 @@ const RecreationItem = ({ category }: { category: any }) => {
   const { pathname } = useLocation()
   const navigate = useNavigate()
   const [id, setId] = useState<number | null>(1)
+  console.log(id)
 
   const editHandler = (id: any) => {
     if (category.image) {

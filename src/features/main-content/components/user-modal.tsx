@@ -19,8 +19,8 @@ import Edit2Icon from '@/components/icons/edit-2'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { createUser, getUser, getUserRoles, updateUser } from '../api'
 import { useEffect } from 'react'
-import { IUsers } from '../types'
 import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
+import { IUsers } from '@/features/accommodation-facilities/types'
 // import queryClient from '@/utils/query-client'
 
 interface UserModalProps {

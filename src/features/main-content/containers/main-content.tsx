@@ -64,7 +64,7 @@ const Content = () => {
           <div className="container grid grid-cols-4 grid-rows-2 gap-4 py-4 h-[500px]">
             {destinationsData?.results
               .slice(0, 4)
-              .map((category, index) => (
+              .map((category, index: number) => (
                 <RecreationItem
                   key={index}
                   category={{ ...category, size: sizes[index] }}
