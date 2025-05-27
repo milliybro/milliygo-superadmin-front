@@ -35,18 +35,12 @@ const HotelsTable = ({
       className: 'text-center',
       render: (_text, _record, index) =>
         (currentPage - 1) * pageSize + index + 1,
-      sorter: {
-        compare: (a, b) => a.id - b.id,
-        multiple: 4,
-      },
+      sorter: false,
     },
     {
       title: 'fields.hotel-name.label',
       dataIndex: 'placement_name',
-      sorter: {
-        compare: (a, b) => a.placement_name.localeCompare(b.placement_name),
-        multiple: 3,
-      },
+      sorter: false,
       render: (_, val) => (
         <div className="flex items-center gap-[10px]">
           <div className="size-[48px] flex justify-center items-center bg-secondary-light border-border border rounded-[8px]">
@@ -72,11 +66,7 @@ const HotelsTable = ({
       title: 'fields.location.label',
       width: 200,
       dataIndex: 'placement_address',
-      sorter: {
-        compare: (a, b) =>
-          a!.placement_address.localeCompare(b!.placement_address),
-        multiple: 2,
-      },
+      sorter: false,
       render: val => (
         <div>
           {val ? (
@@ -119,19 +109,13 @@ const HotelsTable = ({
     {
       title: 'fields.rating.label',
       dataIndex: 'rating',
-      sorter: {
-        compare: (a, b) => a.rating - b.rating,
-        multiple: 1,
-      },
+      sorter: false,
       render: val => <RatingTag value={val} />,
     },
     {
       title: 'fields.login.label',
       dataIndex: 'login',
-      sorter: {
-        compare: (a, b) => a.login.localeCompare(b.login),
-        multiple: 1,
-      },
+      sorter: false,
       render: _ => (
         <div className="flex items-center text-center gap-[10px]">
           {_ ? _ : <div className="text-center">-</div>}
@@ -149,28 +133,19 @@ const HotelsTable = ({
     {
       title: 'fields.contact-person.label',
       dataIndex: 'full_name',
-      sorter: {
-        compare: (a, b) => a.full_name.localeCompare(b.full_name),
-        multiple: 1,
-      },
+      sorter: false,
       render: val => <div>{val === ' ' ? '-' : val}</div>,
     },
     {
       title: 'fields.status.label',
       dataIndex: 'status',
-      sorter: {
-        compare: (a, b) => a.status.localeCompare(b.status),
-        multiple: 1,
-      },
+      sorter: false,
       render: status => <StatusTag active={status} />,
     },
     {
       title: 'fields.balance.label',
       dataIndex: 'balance',
-      sorter: {
-        compare: (a, b) => a.status.localeCompare(b.status),
-        multiple: 1,
-      },
+      sorter: false,
       render: val => <div>{val ? val : '0'}</div>,
     },
     {

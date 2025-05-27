@@ -41,7 +41,15 @@ const Users = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: ['users-data', currentPage, gender, role, searchParams, search, status],
+    queryKey: [
+      'users-data',
+      currentPage,
+      gender,
+      role,
+      searchParams,
+      search,
+      status,
+    ],
     queryFn: async () => {
       const res = await getUsersList({
         page_size: 10,

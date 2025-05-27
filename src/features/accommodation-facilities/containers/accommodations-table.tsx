@@ -43,18 +43,12 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
       title: 'ID',
       dataIndex: 'id',
       render: (_text, _record, index) => index + 1,
-      sorter: {
-        compare: (a, b) => a.id - b.id,
-        multiple: 4,
-      },
+      sorter: false,
     },
     {
       title: 'common.name',
       dataIndex: 'name',
-      sorter: {
-        compare: (a, b) => a.name.localeCompare(b.name),
-        multiple: 3,
-      },
+      sorter: false,
       render: (value, record: any) => {
         return (
           <div className="flex items-center gap-2">
@@ -74,35 +68,30 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
     {
       title: 'fields.address.label',
       dataIndex: 'address',
-      sorter: {
-        compare: (a, b) => a.address.localeCompare(b.address),
-        multiple: 2,
-      },
+      sorter: false,
       width: 500,
       render: text => (
-        <div className="text-[#3276FF] underline line-clamp-1">{text}</div>
+        <div className="text-[#3276FF] underline line-clamp-1 w-[450px]">
+          {text}
+        </div>
       ),
     },
     {
       title: 'fields.price.label',
       dataIndex: 'price',
-      sorter: {
-        compare: (a, b) => a.price - b.price,
-        multiple: 1,
-      },
+      sorter: false,
       render: data => {
         return (
-          <span className="whitespace-nowrap">{formatAmount(data)} UZS</span>
+          <span className="whitespace-nowrap">
+            {data ? formatAmount(data) + ' UZS' : '-'}
+          </span>
         )
       },
     },
     {
       title: 'fields.rating.label',
       dataIndex: 'rating',
-      sorter: {
-        compare: (a, b) => a.rating - b.rating,
-        multiple: 1,
-      },
+      sorter: false,
       render: data => {
         return (
           <div className="bg-[#FEF9C3] flex justify-center py-[6px] rounded-[8px] w-[38px]">
@@ -133,10 +122,7 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
     {
       title: 'fields.status.label',
       dataIndex: 'status',
-      sorter: {
-        compare: (a, b) => Number(a.status) - Number(b.status),
-        multiple: 1,
-      },
+      sorter: false,
       render: status => <StatusTag active={status} />,
     },
     {
@@ -192,7 +178,7 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
       name: user.name,
       image: user.image,
       address: user.address,
-      price: user.min_price,
+      price: user.price,
       rating: user.star_rating,
       contact: user.full_name,
       gender: user.gender,

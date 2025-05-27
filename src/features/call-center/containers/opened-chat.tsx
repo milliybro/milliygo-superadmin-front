@@ -16,17 +16,18 @@ import type {
   KeyboardEvent,
 } from 'react'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { askUserInfo, createMessage, getChatRoom, getMessage } from '../api'
+import { askUserInfo, createMessage, getChatMessages, getMessage } from '../api'
 import BlurImage from '@/components/ui/blur-image'
-import { ISendMessage } from '../types'
+import { ISendMessage, ISupportChat, ISupportMessage } from '../types'
 import FileIcon from '@/components/icons/file-icon'
 import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
 import CloseIcon from '@/components/icons/close-icon'
 import defaultUser from '../../../assets/default-user.png'
+import dayjs from 'dayjs'
 
 interface IProps {
-  selectedChat: any
-  setSelectedChat: Dispatch<SetStateAction<string | null>>
+  selectedChat: ISupportChat | null
+  setSelectedChat: Dispatch<SetStateAction<ISupportChat | null>>
 }
 
 // type Message = {
@@ -40,7 +41,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   // const [form] = Form.useForm()
   const [messageText, setMessageText] = useState('')
   // const [image, setImage] = useState<string | null>(null)
-  const [messages, setMessages] = useState<any[]>([])
+  const [messages, setMessages] = useState<ISupportMessage[]>([])
   const chatEndRef = useRef<HTMLDivElement | null>(null)
   const socketRef = useRef<WebSocket | null>(null)
   const [selectedFile, setSelectedFile] = useState<any>(null)
@@ -57,17 +58,17 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
     enabled: !!selectedChat?.id,
   })
 
-  const { data: list, refetch } = useQuery({
+  const { data: list } = useQuery({
     queryKey: ['chat_room', selectedChat, data],
     queryFn: async () => {
-      const res = await getChatRoom({ id: selectedChat?.id })
+      const res = await getChatMessages({ chat_room: selectedChat?.id })
       return res
     },
     enabled: !!selectedChat,
   })
 
   useEffect(() => {
-    setMessages(list as any)
+    setMessages(list?.results || [])
   }, [list])
 
   // const handleSendMessage = () => {
@@ -131,7 +132,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
   })
 
   const { mutate: askUser } = useMutation({
-    mutationFn: () => askUserInfo(selectedChat?.id),
+    mutationFn: () => askUserInfo('' + selectedChat?.id),
     onSuccess: (_: ISendMessage) => {
       openNotification()
     },
@@ -166,7 +167,6 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
         if (data.message) {
           setMessages(prevMessages => [...prevMessages, data.message])
         }
-        refetch()
       }
 
       socket.addEventListener('message', handleMessage)
@@ -265,85 +265,89 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
         className="relative flex-1 flex flex-col overflow-y-auto p-4 space-y-2"
         style={{ maxHeight: '580px', overflowY: 'auto', position: 'relative' }}
       >
-        {[...(messages || [])].reverse().map((message: any) => (
-          <div
-            key={message.id}
-            className={`flex items-start ${
-              message?.admin?.type === 'superuser' ? 'justify-end' : ''
-            }`}
-          >
-            {message?.admin?.type !== 'superuser' && (
-              <div className="size-[32px] border-border border mr-3 bg-secondary-light rounded-full overflow-hidden">
-                <img
-                  src={defaultUser}
-                  alt="Avatar"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            )}
+        {[...(messages || [])]
+          .sort((a, b) =>
+            dayjs(a.created_at).isBefore(dayjs(b.created_at)) ? -1 : 1,
+          )
+          .map(message => (
             <div
-              className={`rounded-lg p-3 w-fit max-w-[790px] min-w-[250px]  ${
-                message?.admin?.type === 'superuser'
-                  ? 'bg-blue-500 text-white rounded-tr-none'
-                  : 'bg-[#F8F8FA] rounded-tl-none text-primary-dark'
+              key={message.id}
+              className={`flex items-start ${
+                message?.admin?.type === 'superuser' ? 'justify-end' : ''
               }`}
             >
-              {message?.admin?.type !== 'superuser' ? (
-                <h4 className="text-[14px] font-bold break-words">
-                  {message?.admin?.username}
-                </h4>
-              ) : null}
-
-              <p className="text-[14px] break-words">{message?.content}</p>
-              {message?.file && (
-                <>
-                  {message.file.endsWith('.jpg') ||
-                  message.file.endsWith('.svg') ||
-                  message.file.endsWith('.png') ||
-                  message.file.endsWith('.webp') ? (
-                    <img
-                      src={message.file}
-                      alt="Uploaded"
-                      className="rounded-lg mt-2 w-40"
-                    />
-                  ) : (
-                    <a
-                      href={message.file}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-white underline-none mt-2 flex items-center gap-2"
-                    >
-                      <div className="bg-blue-500 rounded-full flex justify-center items-center border-[#ffffff] p-2 border w-10 h-10">
-                        <FileIcon />
-                      </div>
-                      {message.file.substring(
-                        message.file.lastIndexOf('/') + 1,
-                      )}
-                    </a>
-                  )}
-                </>
+              {message?.admin?.type !== 'superuser' && (
+                <div className="size-[32px] border-border border mr-3 bg-secondary-light rounded-full overflow-hidden">
+                  <img
+                    src={defaultUser}
+                    alt="Avatar"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
               )}
-
               <div
-                className={`flex items-center justify-end gap-1 mt-1 text-xs ${
+                className={`rounded-lg p-3 w-fit max-w-[790px] min-w-[250px]  ${
                   message?.admin?.type === 'superuser'
-                    ? 'text-white'
-                    : 'text-secondary'
+                    ? 'bg-blue-500 text-white rounded-tr-none'
+                    : 'bg-[#F8F8FA] rounded-tl-none text-primary-dark'
                 }`}
               >
-                <span>
-                  {new Date(message?.created_at).toLocaleTimeString([], {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                  })}
-                </span>
-                {message?.admin?.type === 'superuser' ? (
-                  <TickDoubleIcon className="text-[16px] text-[#4DD282]" />
+                {message?.admin?.type !== 'superuser' ? (
+                  <h4 className="text-[14px] font-bold break-words">
+                    {message?.admin?.username}
+                  </h4>
                 ) : null}
+
+                <p className="text-[14px] break-words">{message?.content}</p>
+                {message?.file && (
+                  <>
+                    {message.file.endsWith('.jpg') ||
+                    message.file.endsWith('.svg') ||
+                    message.file.endsWith('.png') ||
+                    message.file.endsWith('.webp') ? (
+                      <img
+                        src={message.file}
+                        alt="Uploaded"
+                        className="rounded-lg mt-2 w-40"
+                      />
+                    ) : (
+                      <a
+                        href={message.file}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-white underline-none mt-2 flex items-center gap-2"
+                      >
+                        <div className="bg-blue-500 rounded-full flex justify-center items-center border-[#ffffff] p-2 border w-10 h-10">
+                          <FileIcon />
+                        </div>
+                        {message.file.substring(
+                          message.file.lastIndexOf('/') + 1,
+                        )}
+                      </a>
+                    )}
+                  </>
+                )}
+
+                <div
+                  className={`flex items-center justify-end gap-1 mt-1 text-xs ${
+                    message?.admin?.type === 'superuser'
+                      ? 'text-white'
+                      : 'text-secondary'
+                  }`}
+                >
+                  <span>
+                    {new Date(message?.created_at).toLocaleTimeString([], {
+                      hour: '2-digit',
+                      minute: '2-digit',
+                    })}
+                  </span>
+                  {message?.admin?.type === 'superuser' ? (
+                    <TickDoubleIcon className="text-[16px] text-[#4DD282]" />
+                  ) : null}
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
         <div ref={chatEndRef}></div>
       </div>
       {data?.email_receive !== 'received' ? (

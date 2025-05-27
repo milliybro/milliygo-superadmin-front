@@ -41,40 +41,28 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
       dataIndex: 'id',
       render: (_text, _record, index) =>
         (currentPage - 1) * pageSize + index + 1,
-      sorter: {
-        compare: (a, b) => a.id - b.id,
-        multiple: 4,
-      },
+      sorter: false,
     },
     {
       title: 'fields.fullname.label',
-      dataIndex: 'fullName',
-      sorter: {
-        compare: (a, b) => a.fullName.localeCompare(b.fullName),
-        multiple: 3,
-      },
+      dataIndex: 'full_name',
+      sorter: false,
       render: val => {
         return <div className="">{val ? val : '-'}</div>
       },
     },
     {
       title: 'fields.passport-data.label',
-      dataIndex: 'passportData',
-      sorter: {
-        compare: (a, b) => a.passportData.localeCompare(b.passportData),
-        multiple: 2,
-      },
+      dataIndex: 'passport_sn',
+      sorter: false,
       render: val => {
         return <div className="text-center">{val ? val : '-'}</div>
       },
     },
     {
       title: 'fields.phone.label',
-      dataIndex: 'phoneNumber',
-      sorter: {
-        compare: (a, b) => a.phoneNumber.localeCompare(b.phoneNumber),
-        multiple: 1,
-      },
+      dataIndex: 'phone',
+      sorter: false,
       render(value) {
         return <div className="text-center">{formatPhoneNumber(value)}</div>
       },
@@ -82,10 +70,7 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
     {
       title: 'fields.birthyear.label',
       dataIndex: 'birthYear',
-      sorter: {
-        compare: (a, b) => a.birthYear - b.birthYear,
-        multiple: 1,
-      },
+      sorter: false,
       render: data => {
         return (
           <div className="text-center">
@@ -97,10 +82,7 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
     {
       title: 'common.email',
       dataIndex: 'email',
-      sorter: {
-        compare: (a, b) => a.email.localeCompare(b.email),
-        multiple: 2,
-      },
+      sorter: false,
       render: val => {
         return <div className="text-center">{val ? val : '-'}</div>
       },
@@ -108,10 +90,7 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
     {
       title: 'fields.gender.label',
       dataIndex: 'gender',
-      sorter: {
-        compare: (a, b) => a.gender.localeCompare(b.gender),
-        multiple: 1,
-      },
+      sorter: false,
       render: data => {
         return (
           <div>
@@ -145,10 +124,7 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
     {
       title: 'fields.country.label',
       dataIndex: 'country_name',
-      sorter: {
-        compare: (a, b) => a.country_name.localeCompare(b.country_name),
-        multiple: 1,
-      },
+      sorter: false,
       render: country_name => {
         return (
           <div className="text-center">
@@ -213,6 +189,9 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
 
   const transformedData =
     clientsData?.results.map((user: IUsers) => ({
+      full_name: user.full_name,
+      passport_sn: user.passport_sn,
+      phone: user.phone,
       key: user.id.toString(),
       id: user.id,
       fullName:

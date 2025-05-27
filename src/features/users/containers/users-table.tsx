@@ -42,45 +42,27 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
       title: 'ID',
       dataIndex: 'id',
       render: (_text, _record, index) => index + 1,
-      sorter: {
-        compare: (a, b) => a.id - b.id,
-        multiple: 4,
-      },
+      sorter: false,
     },
     {
       title: 'fields.fullname.label',
       dataIndex: ['first_name', 'last_name', 'middle_name'],
-      sorter: {
-        compare: (a, b) => {
-          const fullNameA =
-            `${a.first_name} ${a.middle_name || ''} ${a.last_name}`.trim()
-          const fullNameB =
-            `${b.first_name} ${b.middle_name || ''} ${b.last_name}`.trim()
-          return fullNameA.localeCompare(fullNameB)
-        },
-        multiple: 3,
-      },
+      sorter: false,
       render: (_, record) => {
-        const fullName =
-          `${record.first_name} ${record.middle_name || ''} ${record.last_name}`.trim()
-        return <div className="flex items-center gap-2">{fullName}</div>
+        return (
+          <div className="flex items-center gap-2">{record?.full_name}</div>
+        )
       },
     },
     {
       title: 'fields.phone.label',
       dataIndex: 'phone',
-      sorter: {
-        compare: (a, b) => Number(a.phone) - Number(b.phone),
-        multiple: 2,
-      },
+      sorter: false,
     },
     {
       title: 'fields.gender.label',
       dataIndex: 'gender',
-      sorter: {
-        compare: (a, b) => a.gender.localeCompare(b.gender),
-        multiple: 1,
-      },
+      sorter: false,
       render: data => {
         return (
           <div>
@@ -96,10 +78,7 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
     {
       title: 'fields.login.label',
       dataIndex: 'username',
-      sorter: {
-        compare: (a, b) => a.username.localeCompare(b.username),
-        multiple: 1,
-      },
+      sorter: false,
     },
     // {
     //   title: 'fields.password.label',
@@ -111,11 +90,8 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
     // },
     {
       title: 'fields.role.label',
-      dataIndex: 'position',
-      sorter: {
-        compare: (a, b) => a.position.localeCompare(b.position),
-        multiple: 1,
-      },
+      dataIndex: 'type_name',
+      sorter: false,
       render: data => {
         return (
           <div>
@@ -131,10 +107,7 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
     {
       title: 'fields.status.label',
       dataIndex: 'status',
-      sorter: {
-        compare: (a, b) => Number(a.status) - Number(b.status),
-        multiple: 1,
-      },
+      sorter: false,
       render: status => <StatusTag active={status} />,
     },
     {
@@ -184,6 +157,8 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
 
   const transformedData =
     UsersData?.results.map((user: IUsers) => ({
+      full_name: user.full_name,
+      type_name: user.type_name,
       key: user.id.toString(),
       id: user.id,
       fullName:

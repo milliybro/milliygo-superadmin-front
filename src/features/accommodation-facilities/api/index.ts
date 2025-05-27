@@ -7,7 +7,7 @@ export async function getUsersList(
   params?: any,
 ): Promise<ListResponse<IUsers[]>> {
   const res: ListResponse<IUsers[]> = await requestAuth({
-    url: '/account/users/',
+    url: '/account/super-admin/users/',
     method: 'get',
     params,
   })
@@ -29,7 +29,7 @@ export async function getUserRoles(
 
 export async function getUser(params?: any): Promise<IUsers> {
   const res: IUsers = await requestAuth({
-    url: `/account/users/${params.id}`,
+    url: `/account/super-admin/users/${params.id}`,
     method: 'get',
     params: params.queryParams,
   })
@@ -46,7 +46,7 @@ export async function updateUser(params: {
     throw new Error('User ID is required for updating a user.')
   }
   const res: IUsers = await requestAuth({
-    url: `/account/users/${id}/`,
+    url: `/account/super-admin/users/${id}/`,
     method: 'patch',
     data: queryParams,
   })
@@ -56,7 +56,7 @@ export async function updateUser(params: {
 
 export async function createUser(data?: any): Promise<IUsers> {
   const res: IUsers = await requestAuth({
-    url: `/account/users/`,
+    url: `/account/super-admin/users/`,
     method: 'post',
     data,
   })
@@ -66,7 +66,7 @@ export async function createUser(data?: any): Promise<IUsers> {
 
 export async function deleteUser(id: string | number): Promise<any> {
   const res: any = await requestAuth({
-    url: `/account/users/${id}/`,
+    url: `/account/super-admin/users/${id}/`,
     method: 'delete',
   })
 

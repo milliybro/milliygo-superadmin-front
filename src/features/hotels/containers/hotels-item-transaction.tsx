@@ -12,42 +12,27 @@ const columns: TableColumnsType<IGuestsTransaction> = [
   {
     title: 'ID',
     dataIndex: 'id',
-    sorter: {
-      compare: (a, b) => a.id.localeCompare(b.id),
-      multiple: 3,
-    },
+    sorter: false,
   },
   {
     title: 'common.fullName-guest',
     dataIndex: 'fullName',
-    sorter: {
-      compare: (a, b) => a.fullName.localeCompare(b.fullName),
-      multiple: 3,
-    },
+    sorter: false,
   },
   {
     title: 'common.payment-method',
     dataIndex: 'payment',
-    sorter: {
-      compare: (a, b) => a.payment.localeCompare(b.payment),
-      multiple: 2,
-    },
+    sorter: false,
   },
   {
     title: 'common.room',
     dataIndex: 'room',
-    sorter: {
-      compare: (a, b) => a.room.localeCompare(b.room),
-      multiple: 1,
-    },
+    sorter: false,
   },
   {
     title: 'common.payment-amount',
     dataIndex: 'paymentAmount',
-    sorter: {
-      compare: (a, b) => a.paymentAmount - b.paymentAmount,
-      multiple: 1,
-    },
+    sorter: false,
     render: val => <div>{formatAmount(val)} UZS</div>,
   },
   {
@@ -58,10 +43,7 @@ const columns: TableColumnsType<IGuestsTransaction> = [
   {
     title: 'common.date-and-time',
     dataIndex: 'checkInOut',
-    sorter: {
-      compare: (a, b) => a.checkInOut.localeCompare(b.checkInOut),
-      multiple: 1,
-    },
+    sorter: false,
   },
 ]
 

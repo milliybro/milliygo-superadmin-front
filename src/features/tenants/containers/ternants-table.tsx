@@ -24,20 +24,14 @@ const TenantsTable = ({
       title: 'ID',
       dataIndex: 'id',
       className: 'text-center',
-      sorter: {
-        compare: (a: any, b: any) => a.id - b.id,
-        multiple: 4,
-      },
+      sorter: false,
       render: (_text, _record, index) =>
         (currentPage - 1) * pageSize + index + 1,
     },
     {
       title: 'tenant.tenant-name',
       dataIndex: 'schema_name',
-      sorter: {
-        compare: (a, b) => a.schema_name.localeCompare(b.schema_name),
-        multiple: 3,
-      },
+      sorter: false,
       render: _ => (
         <div className="flex items-center gap-[10px]">
           <span className="text-[14px] text-primary-dark font-medium">{_}</span>
@@ -47,10 +41,7 @@ const TenantsTable = ({
     {
       title: 'fields.login.label',
       dataIndex: 'username',
-      sorter: {
-        compare: (a, b) => a.username.localeCompare(b.username),
-        multiple: 1,
-      },
+      sorter: false,
       render: _ => (
         <div className="flex items-center gap-[10px]">{_ ? _ : '-'}</div>
       ),
@@ -66,10 +57,7 @@ const TenantsTable = ({
     {
       title: 'tenant.start-date',
       dataIndex: 'start_date',
-      sorter: {
-        compare: (a, b) => a.start_date.localeCompare(b.start_date),
-        multiple: 1,
-      },
+      sorter: false,
       render: _ => (
         <div className="flex items-center gap-[10px]">
           {_ ? formatDate(_) : '-'}
@@ -79,10 +67,7 @@ const TenantsTable = ({
     {
       title: 'tenant.end-date',
       dataIndex: 'end_date',
-      sorter: {
-        compare: (a, b) => a.end_date.localeCompare(b.end_date),
-        multiple: 1,
-      },
+      sorter: false,
       render: _ => (
         <div className="flex items-center gap-[10px]">
           {_ ? formatDate(_) : '-'}
@@ -92,10 +77,7 @@ const TenantsTable = ({
     {
       title: 'tenant.domen',
       dataIndex: 'domain',
-      sorter: {
-        compare: (a, b) => a.domain.localeCompare(b.domain),
-        multiple: 1,
-      },
+      sorter: false,
       render: _ => (
         <Button
           type="link"
@@ -111,10 +93,7 @@ const TenantsTable = ({
     {
       title: 'fields.status.label',
       dataIndex: 'is_active',
-      sorter: {
-        compare: (a, b) => a.is_active.localeCompare(b.is_active),
-        multiple: 1,
-      },
+      sorter: false,
       render: status => <StatusTag active={status} />,
     },
     {

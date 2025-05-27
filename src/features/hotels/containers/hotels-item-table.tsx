@@ -26,10 +26,7 @@ const columns: TableColumnsType<IHotelsItemReview> = [
   {
     title: 'common.hotel',
     dataIndex: 'name',
-    sorter: {
-      compare: (a, b) => a.name.localeCompare(b.name),
-      multiple: 3,
-    },
+    sorter: false,
     width: 250,
     render: (_, record) => (
       <Link to={`/hotels/`} className="underline text-primary">
@@ -41,10 +38,7 @@ const columns: TableColumnsType<IHotelsItemReview> = [
     width: 220,
     title: 'fields.rating.label',
     dataIndex: 'rating',
-    sorter: {
-      compare: (a, b) => a.rating - b.rating,
-      multiple: 2,
-    },
+    sorter: false,
     render: (_, record) => (
       <div className="flex items-center gap-1 text-[20px]">
         {Array.from({ length: record.rating }, (_, i) => (
@@ -57,18 +51,12 @@ const columns: TableColumnsType<IHotelsItemReview> = [
     width: 220,
     title: 'common.period',
     dataIndex: 'date',
-    sorter: {
-      compare: (a, b) => a.date.localeCompare(b.date),
-      multiple: 2,
-    },
+    sorter: false,
   },
   {
     title: 'common.comments',
     dataIndex: 'review',
-    sorter: {
-      compare: (a, b) => a.review.localeCompare(b.review),
-      multiple: 1,
-    },
+    sorter: false,
     width: 700,
     render: (_, record) => (
       <span className="text-sm text-gray-700">{record.review}</span>

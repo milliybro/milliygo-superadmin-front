@@ -46,42 +46,27 @@ const HotelsItemGuest = () => {
       dataIndex: 'id',
       render: (_text, _record, index) =>
         (currentPage - 1) * pageSize + index + 1,
-      sorter: {
-        compare: (a: any, b: any) => a.id - b.id,
-        multiple: 1,
-      },
+      sorter: false,
     },
     {
       title: 'fields.fullname.label',
       dataIndex: 'fullName',
-      sorter: {
-        compare: (a, b) => a.fullName.localeCompare(b.fullName),
-        multiple: 3,
-      },
+      sorter: false,
     },
     {
       title: 'fields.citizenship.label',
       dataIndex: 'citizenship',
-      sorter: {
-        compare: (a, b) => a.citizenship.localeCompare(b.citizenship),
-        multiple: 2,
-      },
+      sorter: false,
     },
     {
       title: 'common.nation',
       dataIndex: 'nation',
-      sorter: {
-        compare: (a, b) => a.nation.localeCompare(b.nation),
-        multiple: 1,
-      },
+      sorter: false,
     },
     {
       title: 'common.birthdate',
       dataIndex: 'birthdate',
-      sorter: {
-        compare: (a, b) => a.birthdate.localeCompare(b.birthdate),
-        multiple: 1,
-      },
+      sorter: false,
       render: text => {
         if (!text) return '-'
         const date = new Date(text)
@@ -94,19 +79,13 @@ const HotelsItemGuest = () => {
     {
       title: 'common.passport',
       dataIndex: 'passport',
-      sorter: {
-        compare: (a, b) => a.passport.localeCompare(b.passport),
-        multiple: 1,
-      },
+      sorter: false,
     },
     {
       title: 'common.check-in-out',
       dataIndex: 'checkInOut',
       width: 170,
-      sorter: {
-        compare: (a, b) => a.checkInOut.localeCompare(b.checkInOut),
-        multiple: 1,
-      },
+      sorter: false,
       render: val => <div>{val}</div>,
     },
     {

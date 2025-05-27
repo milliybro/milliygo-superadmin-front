@@ -11,9 +11,12 @@ interface IUsersTable {
   password: string
   position: string
   status: boolean
+  full_name: string
 }
 
 interface IUsers {
+  full_name: string
+  type_name: string
   id: number
   name: string
   key: string
