@@ -63,6 +63,7 @@ const AccommodationsTab = ({
       <Tabs
         onChange={key => {
           newParams.set('tab', key)
+          newParams.set('page', '1')
 
           setSearchParams(newParams)
         }}

@@ -37,7 +37,7 @@ const Clients = () => {
 
   const lang = localStorage.getItem('i18nextLng')
 
-  const { data: ClientsData, isLoading } = useQuery({
+  const { data: ClientsData, isFetching } = useQuery({
     queryKey: [
       'users-data',
       currentPage,
@@ -59,7 +59,7 @@ const Clients = () => {
       })
       return res
     },
-    // keepPreviousData: true,
+    placeholderData: data => data,
   })
 
   return (
@@ -70,7 +70,7 @@ const Clients = () => {
       <ClientsFilters />
       <ClientsTable
         clientsData={ClientsData}
-        isLoading={isLoading}
+        isLoading={isFetching}
         currentPage={currentPage}
         setCurrentpage={setCurrentPage}
         pageSize={pageSize}

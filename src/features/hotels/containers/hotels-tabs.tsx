@@ -84,11 +84,12 @@ const HotelsTab = ({
         //   setSearchParams({ tab: key })
         // }}
         onChange={key => {
-            const newParams = new URLSearchParams(searchParams);
-            newParams.set("tab", key);
-        
-            setSearchParams(newParams);
-          }}
+          const newParams = new URLSearchParams(searchParams)
+          newParams.set('tab', key)
+          newParams.set('page', '1')
+
+          setSearchParams(newParams)
+        }}
       />
     </div>
   )

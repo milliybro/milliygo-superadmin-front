@@ -119,7 +119,7 @@ const ServicesTable = ({
       render: status => <StatusTag active={status || true} />,
     },
     {
-      width: 300,
+      width: 0,
       title: 'common.action',
       dataIndex: 'id',
       render: id => <ServicesActionButton type={type} id={id} />,

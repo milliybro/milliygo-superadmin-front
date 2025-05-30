@@ -26,7 +26,7 @@ const Accommodations = () => {
   // const [gender, setGender] = useState('')
   // const [role, setRole] = useState('')
   // const [isActive, setIsActive] = useState(null)
-  
+
   useEffect(() => {
     setBreadCrumbs([
       { title: t('common.main'), href: ROUTE_PATHS.MAIN },
@@ -40,17 +40,7 @@ const Accommodations = () => {
   const type = searchParams.get('tab') || '1'
   const currentPage = Number(searchParams.get('page')) || 1
 
-  useEffect(() => {
-    if (currentPage !== 1) {
-      setSearchParams(prev => {
-        const params = new URLSearchParams(prev)
-        params.set('page', '1')
-        return params
-      })
-    }
-  }, [search, status])
-
-  const { data, isLoading } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ['hotels-data', currentPage, type, search, status],
     queryFn: async () => {
       const res = await getHotels({
@@ -73,7 +63,7 @@ const Accommodations = () => {
       })
       return res
     },
-    // keepPreviousData: true,
+    placeholderData: data => data,
   })
 
   return (
@@ -87,7 +77,7 @@ const Accommodations = () => {
       <div className="bg-white border w-full flex-col overflow-hidden border-border dark:bg-dark-bg rounded-[16px] flex items-center justify-center h-full">
         <AccommodationsTab
           hotelsData={data}
-          isLoading={isLoading}
+          isLoading={isFetching}
           pageSize={pageSize}
           currentPage={currentPage}
           setCurrentPage={(page: number) =>

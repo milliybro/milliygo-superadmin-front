@@ -38,7 +38,7 @@ const Users = () => {
 
   const {
     data: UsersData,
-    isLoading,
+    isFetching,
     refetch,
   } = useQuery({
     queryKey: [
@@ -62,7 +62,7 @@ const Users = () => {
       })
       return res
     },
-    // keepPreviousData: true,
+    placeholderData: data => data,
   })
 
   return (
@@ -85,7 +85,7 @@ const Users = () => {
         <HotelsTable
           refetch={refetch}
           UsersData={UsersData}
-          isLoading={isLoading}
+          isLoading={isFetching}
           currentPage={currentPage}
           setCurrentPage={setCurrentPage}
         />

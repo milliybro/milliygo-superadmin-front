@@ -1,22 +1,21 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ROUTE_PATHS } from '@/config/constants'
 
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
-import HotelsFilters from '../containers/hotels-filters'
-import HotelsModal from '../components/hotel-modal'
-import { getHotelsList } from '../api'
 import { useQuery } from '@tanstack/react-query'
-import HotelsTab from '../containers/hotels-tabs'
 import { useSearchParams } from 'react-router'
+import { getHotelsList } from '../api'
+import HotelsModal from '../components/hotel-modal'
+import HotelsFilters from '../containers/hotels-filters'
+import HotelsTab from '../containers/hotels-tabs'
 
 const Complaints = () => {
   const { t } = useTranslation()
 
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
-  const [currentPage, setCurrentPage] = useState(1)
 
   const pageSize = 10
 
@@ -26,18 +25,16 @@ const Complaints = () => {
       { title: t('common.hotels'), href: ROUTE_PATHS.HOTELS },
     ])
   }, [])
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const name = searchParams.get('hotel_search') || ''
   const username = searchParams.get('login') || ''
   const fullName = searchParams.get('contact_person') || ''
   const status = searchParams.get('status') || ''
   const type = searchParams.get('tab') || '1'
+  const currentPage = Number(searchParams.get('page')) || 1
 
-  useEffect(() => {
-    setCurrentPage(1)
-  }, [name, username, fullName])
-  const { data, isLoading } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: [
       'hotels-data',
       currentPage,
@@ -68,7 +65,7 @@ const Complaints = () => {
       })
       return res
     },
-    // keepPreviousData: true,
+    placeholderData: data => data,
   })
   return (
     <div className="p-6 flex flex-col gap-6 flex-1">
@@ -88,10 +85,16 @@ const Complaints = () => {
       <HotelsFilters />
       <HotelsTab
         hotelsData={data}
-        isLoading={isLoading}
+        isLoading={isFetching}
         pageSize={pageSize}
         currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
+        setCurrentPage={(page: number) => {
+          setSearchParams(prev => {
+            const params = new URLSearchParams(prev)
+            params.set('page', String(page))
+            return params
+          })
+        }}
       />
     </div>
   )
