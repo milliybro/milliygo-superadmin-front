@@ -1,5 +1,5 @@
 import { Button, Tabs } from 'antd'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 
@@ -8,27 +8,26 @@ import { ROUTE_PATHS } from '@/config/constants'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
 import AddIcon from '@/components/icons/add'
-import ServicesList from '../containers/services-list'
-import { TabsProps } from 'antd/lib'
 import { useQuery } from '@tanstack/react-query'
+import { TabsProps } from 'antd/lib'
 import {
   getPlacementsFacilities,
   getProhibitionsFacilities,
   getRoomFacilities,
 } from '../api'
+import ServicesList from '../containers/services-list'
 
 const Services = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
-  const [currentPage, setCurrentPage] = useState(1)
-
   const pageSize = 10
 
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [searchParams, setSearchParams] = useSearchParams()
 
+  const currentPage = Number(searchParams.get('page')) || 1
   const activeTab = searchParams.get('tab')
 
   useEffect(() => {
@@ -41,7 +40,7 @@ const Services = () => {
     ])
   }, [])
 
-  const { data, isLoading } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ['room-facilities-data', currentPage],
     queryFn: async () => {
       const res = await getRoomFacilities({
@@ -50,6 +49,7 @@ const Services = () => {
       })
       return res
     },
+    placeholderData: data => data,
     enabled: activeTab === '1' || activeTab === null,
     gcTime: 0,
   })
@@ -86,11 +86,17 @@ const Services = () => {
       label: 'common.facility-room',
       children: (
         <ServicesList
-          isLoading={isLoading}
+          isLoading={isFetching}
           data={data}
           pageSize={pageSize}
           currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
+          setCurrentPage={(page: number) =>
+            setSearchParams(prev => {
+              const params = new URLSearchParams(prev)
+              params.set('page', String(page))
+              return params
+            })
+          }
           type={activeTab}
         />
       ),
@@ -100,10 +106,16 @@ const Services = () => {
       label: 'common.hotel',
       children: (
         <ServicesList
-          isLoading={isLoading}
+          isLoading={isFetching}
           pageSize={pageSize}
           currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
+          setCurrentPage={(page: number) =>
+            setSearchParams(prev => {
+              const params = new URLSearchParams(prev)
+              params.set('page', String(page))
+              return params
+            })
+          }
           data={placementFacilities}
           type={activeTab}
         />
@@ -114,10 +126,16 @@ const Services = () => {
       label: 'common.prohibitions',
       children: (
         <ServicesList
-          isLoading={isLoading}
+          isLoading={isFetching}
           pageSize={pageSize}
           currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
+          setCurrentPage={(page: number) =>
+            setSearchParams(prev => {
+              const params = new URLSearchParams(prev)
+              params.set('page', String(page))
+              return params
+            })
+          }
           data={prohibitionsFacilities}
           type={activeTab}
         />
@@ -153,6 +171,7 @@ const Services = () => {
           onChange={key => {
             const newParams = new URLSearchParams(searchParams)
             newParams.set('tab', key)
+            newParams.set('page', '1')
 
             setSearchParams(newParams)
           }}
