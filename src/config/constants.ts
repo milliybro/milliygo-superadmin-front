@@ -15,7 +15,8 @@ const ROUTE_PATHS = {
   SERVICES: '/services',
   TENANTS: '/tenants',
   ACCOMMODATIONS: '/accommodations',
-  MAIN_CONTENT: '/main-content'
+  MAIN_CONTENT: '/main-content',
+  GUIDES: '/guides',
 }
 
 const BASE_URL = ''

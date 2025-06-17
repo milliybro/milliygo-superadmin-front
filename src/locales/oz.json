@@ -346,6 +346,8 @@
     "complaints": "Shikoyatlar",
     "call-center": "Aloqa markaz",
     "active": "Faol",
+    "un-active": "Nofaol",
+    "request": "So‘rov bo‘yicha",
     "inactive": "Faol emas",
     "main": "Asosiy",
     "cancel": "Bekor qilish",
@@ -483,5 +485,24 @@
     "name-recreation": "Dam olish turi nomi",
     "color": "Rang",
     "recreating-cover": "Dam olish turidagi muqova"
+  },
+  "hotel-guest": {
+    "title": "Mehmon haqida axborot",
+    "lfm": "FIO",
+    "citizenship": "Fuqarolik",
+    "nation": "Millat",
+    "birth": "Tug‘ilgan kun",
+    "passport": "Pasport seriyasi",
+    "check-in-out": "Kirish/ketish sanasi",
+    "gender": "Jins",
+    "phone": "Telefon raqami",
+    "review": "Sharh",
+    "number": "Xona raqami",
+    "type": "Tip raqami",
+    "night": "Tun"
+  },
+  "guides": {
+    "guides": "Gidlar",
+    "service-location": "Xizmat ko‘rsatish joylari"
   }
 }

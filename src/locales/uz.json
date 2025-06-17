@@ -288,6 +288,8 @@
     "complaints": "Шикоятлар",
     "call-center": "Алоқа маркази",
     "active": "Фаол",
+    "un-active": "Нофаол",
+    "request": "Сўров бўйича",
     "inactive": "Фаол эмас",
     "main": "Асосий",
     "cancel": "Бекор қилиш",
@@ -425,5 +427,9 @@
     "name-recreation": "Дам олиш тури номи",
     "color": "Ранг",
     "recreating-cover": "Дам олиш туридаги муқова"
+  },
+  "guides": {
+    "guides": "Гиды",
+    "service-locations": "Места обслуживания"
   }
 }

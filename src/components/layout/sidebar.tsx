@@ -18,6 +18,7 @@ import CustomerSupportIcon from '../icons/customer-support'
 import ServicesIcon from '../icons/services-icon'
 import AccommodationsIcon from '../icons/accommodations-icon'
 import NodeEdit from '../icons/node-edit'
+import FlagIcon from '../icons/flag-icon'
 
 const items = [
   {
@@ -75,6 +76,11 @@ const items = [
     label: 'common.main-content',
     icon: NodeEdit,
     path: ROUTE_PATHS.MAIN_CONTENT,
+  },
+  {
+    label: 'guides.guides',
+    icon: FlagIcon,
+    path: ROUTE_PATHS.GUIDES,
   },
 ]
 

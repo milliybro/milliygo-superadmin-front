@@ -16,6 +16,7 @@ import tenantsRoutes from '@/features/tenants/routes'
 import statisticsRoutes from '@/features/statistics/routes'
 import accommodationsRoutes from '@/features/accommodation-facilities/routes'
 import mainContentRoutes from '@/features/main-content/routes'
+import guidesRoutes from '@/features/guides/routes'
 
 const routes: CustomRoute[] = [
   {
@@ -33,7 +34,8 @@ const routes: CustomRoute[] = [
       servicesRoutes,
       tenantsRoutes,
       accommodationsRoutes,
-      mainContentRoutes
+      mainContentRoutes,
+      guidesRoutes,
     ],
   },
   authRoutes,

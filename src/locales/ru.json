@@ -456,6 +456,8 @@
     "name": "Название",
     "requests": "Заявки",
     "actived": "Активные",
+    "un-active": "Неактивные",
+    "request": "По запросу",
     "rejected": "Отклоненные",
     "admin": "Администратор",
     "editor": "Редактор",
@@ -503,5 +505,9 @@
     "name-recreation": "Название типа отдыха",
     "color": "Цвет",
     "recreating-cover": "Обложка типа отдыха"
+  },
+  "guides": {
+    "guides": "Гиды",
+    "service-location": "Места обслуживания"
   }
 }
