@@ -3,6 +3,7 @@ interface IAccessRoleTable {
   id: string
   roleName: string
   status: boolean
+  display_name?: string
 }
 
 export type { IAccessRoleTable }
