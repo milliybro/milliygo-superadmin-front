@@ -32,9 +32,7 @@ const columns: TableColumnsType<IAccessRoleTable> = [
 
 const AccessRoleTable = ({
   data,
-  currentPage,
-  setCurrentpage,
-  pageSize,
+  currentPage
 }: any) => {
   const { t } = useTranslation()
 
