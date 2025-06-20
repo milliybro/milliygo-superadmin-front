@@ -224,7 +224,6 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],
-
           itemRender: itemRender,
         }}
         locale={{

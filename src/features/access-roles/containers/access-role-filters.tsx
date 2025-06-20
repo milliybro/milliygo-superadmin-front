@@ -2,18 +2,38 @@ import { Form, Input } from 'antd'
 
 import { useTranslation } from 'react-i18next'
 
-import CSelect from '@/components/ui/select'
-
-import UserStatusIcon from '@/components/icons/user-status'
 import UserSquareIcon from '@/components/icons/user-square'
+import { useSearchParams } from 'react-router'
 
 const AccessRoleFilters = () => {
   const { t } = useTranslation()
 
+  const [searchParams, setSearchParams] = useSearchParams()
+  const search = searchParams.get('roles_search') || null
+
+  const handleValuesChange = (_: any, allValues: any) => {
+    const newParams = new URLSearchParams()
+
+    Object.keys(allValues).forEach(key => {
+      if (allValues[key]) {
+        newParams.set(key, allValues[key])
+      } else {
+        newParams.delete(key)
+      }
+    })
+
+    setSearchParams(newParams)
+  }
+
   return (
-    <Form layout="vertical" className="grid grid-cols-2 gap-4">
-      <Form.Item label={t('fields.role-search.label')}>
+    <Form
+      layout="vertical"
+      className="grid grid-cols-2 gap-4"
+      onValuesChange={handleValuesChange}
+    >
+      <Form.Item label={t('fields.role-search.label')} name="roles_search">
         <Input
+          defaultValue={search || ''}
           prefix={
             <UserSquareIcon className="text-[16px] text-secondary ml-2 mr-4" />
           }
@@ -23,7 +43,7 @@ const AccessRoleFilters = () => {
         />
       </Form.Item>
 
-      <Form.Item label={t('fields.status.label')}>
+      {/* <Form.Item label={t('fields.status.label')}>
         <CSelect
           options={[{ label: '123', value: 123 }]}
           suffixIcon={null}
@@ -34,7 +54,7 @@ const AccessRoleFilters = () => {
             <UserStatusIcon className="text-[16px] text-secondary ml-2 mr-4" />
           }
         />
-      </Form.Item>
+      </Form.Item> */}
     </Form>
   )
 }

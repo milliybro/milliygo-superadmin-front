@@ -1,12 +1,7 @@
 import { ListResponse } from '@/types'
 import request from '@/utils/axios'
-import {
-  IHotelDetail,
-  IHotelsItemReview,
-  IHotelsRoom,
-  IHotelsTable,
-} from '../types'
-// import requestAuth from "@/utils/authRequest"
+import { IHotelDetail, IHotelsItemReview, IHotelsRoom } from '../types'
+import { IHotelsTable } from '@/features/hotels/types'
 
 export async function getTenantsList(
   params?: any,
