@@ -17,6 +17,11 @@ const ROUTE_PATHS = {
   ACCOMMODATIONS: '/accommodations',
   MAIN_CONTENT: '/main-content',
   GUIDES: '/guides',
+  SUPPLIER: '/supplier',
+  UPROFILE: '/u-profile',
+  MYLICENSES: '/my-licenses',
+  MYCONTRACTS: '/my-contracts',
+  INVOICECONTROL: '/invoice-control',
 }
 
 const BASE_URL = ''
