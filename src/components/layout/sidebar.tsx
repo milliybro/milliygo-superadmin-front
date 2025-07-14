@@ -6,85 +6,79 @@ import { Link, useLocation } from 'react-router'
 
 import { ROUTE_PATHS } from '@/config/constants'
 
-import IdIcon from '../icons/id'
-import AlertIcon from '../icons/alert'
 import Hotel2Icon from '../icons/hotel-2'
 import ProjectLogo from '../icons/project-logo'
 import ChartRingIcon from '../icons/chart-ring'
 import SidebarLeftIcon from '../icons/sidebar-left'
-import UserMultipleIcon from '../icons/user-multiple'
 import TimeManagementIcon from '../icons/time-management'
-import CustomerSupportIcon from '../icons/customer-support'
-import ServicesIcon from '../icons/services-icon'
-import AccommodationsIcon from '../icons/accommodations-icon'
-import NodeEdit from '../icons/node-edit'
-import FlagIcon from '../icons/flag-icon'
-import UserCircleIcon from '../icons/user-circle'
-import NotificationIcon from '../icons/notification'
-import FileIcon from '../icons/file-icon'
-import depositIcon from '../icons/deposit-icon'
+import UsersGroupIcon from '../icons/user-group-icon'
+import HomeIcon from '../icons/home-icon'
+import TipsIcon from '../icons/tips-icon'
+import BeachIcon from '../icons/beach-icon'
+import TeachingIcon from '../icons/teaching-icon'
+import WalletIcon from '../icons/wallet-icon'
+import AnalyticsIcon from '../icons/analytics-icon'
+import MegaPhoneIcon from '../icons/megaphone-icon'
 
 const adminItems = [
-  { label: 'common.statistics', icon: ChartRingIcon, path: ROUTE_PATHS.MAIN },
-  { label: 'common.users', icon: UserMultipleIcon, path: ROUTE_PATHS.USERS },
-  { label: 'common.hotels', icon: Hotel2Icon, path: ROUTE_PATHS.HOTELS },
+  { label: 'routes.statistics', icon: ChartRingIcon, path: ROUTE_PATHS.MAIN },
   {
-    label: 'common.accommodations',
-    icon: AccommodationsIcon,
+    label: 'routes.placement-funds',
+    icon: Hotel2Icon,
+    path: ROUTE_PATHS.HOTELS,
+  },
+  { label: 'routes.tourists', icon: UsersGroupIcon, path: ROUTE_PATHS.USERS },
+  { label: 'routes.landlords', icon: HomeIcon, path: ROUTE_PATHS.TENANTS },
+  {
+    label: 'routes.service-providers',
+    icon: TipsIcon,
     path: ROUTE_PATHS.ACCOMMODATIONS,
   },
-  { label: 'common.clients', icon: IdIcon, path: ROUTE_PATHS.CLIENTS },
   {
-    label: 'common.access-role',
+    label: 'routes.travel-agencies',
+    icon: BeachIcon,
+    path: ROUTE_PATHS.TENANTS,
+  },
+  { label: 'routes.guides', icon: TeachingIcon, path: ROUTE_PATHS.GUIDES },
+  { label: 'routes.billing', icon: WalletIcon, path: ROUTE_PATHS.GUIDES },
+  { label: 'routes.bi-service', icon: AnalyticsIcon, path: ROUTE_PATHS.GUIDES },
+
+  {
+    label: 'routes.content',
+    icon: MegaPhoneIcon,
+    path: ROUTE_PATHS.HOTELS,
+  },
+  {
+    label: 'routes.roles',
     icon: TimeManagementIcon,
     path: ROUTE_PATHS.ACCESS_ROLE,
   },
-  { label: 'common.complaints', icon: AlertIcon, path: ROUTE_PATHS.COMPLAINTS },
-  {
-    label: 'common.call-center',
-    icon: CustomerSupportIcon,
-    path: ROUTE_PATHS.CALL_CENTER,
-  },
-  {
-    label: 'common.facilities-and-services',
-    icon: ServicesIcon,
-    path: ROUTE_PATHS.SERVICES,
-  },
-  { label: 'common.tenants', icon: Hotel2Icon, path: ROUTE_PATHS.TENANTS },
-  {
-    label: 'common.main-content',
-    icon: NodeEdit,
-    path: ROUTE_PATHS.MAIN_CONTENT,
-  },
-  { label: 'guides.guides', icon: FlagIcon, path: ROUTE_PATHS.GUIDES },
-]
-
-const supplierItems = [
-  { label: 'Мой профиль', icon: UserCircleIcon, path: ROUTE_PATHS.UPROFILE },
-  {
-    label: 'Мои лицензии',
-    icon: depositIcon,
-    path: ROUTE_PATHS.MYLICENSES,
-  },
-  { label: 'Мои контракты', icon: FileIcon, path: ROUTE_PATHS.MYCONTRACTS },
-  {
-    label: 'Контроль счетов-фактур',
-    icon: AccommodationsIcon,
-    path: ROUTE_PATHS.INVOICECONTROL,
-  },
-  { label: 'Уведомления', icon: NotificationIcon, path: ROUTE_PATHS.CLIENTS },
+  // { label: 'common.clients', icon: IdIcon, path: ROUTE_PATHS.CLIENTS },
+  // { label: 'common.complaints', icon: AlertIcon, path: ROUTE_PATHS.COMPLAINTS },
+  // {
+  //   label: 'common.call-center',
+  //   icon: CustomerSupportIcon,
+  //   path: ROUTE_PATHS.CALL_CENTER,
+  // },
+  // {
+  //   label: 'common.facilities-and-services',
+  //   icon: ServicesIcon,
+  //   path: ROUTE_PATHS.SERVICES,
+  // },
+  // {
+  //   label: 'common.main-content',
+  //   icon: NodeEdit,
+  //   path: ROUTE_PATHS.MAIN_CONTENT,
+  // },
 ]
 
 const Sidebar = () => {
   const { t } = useTranslation()
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   const { pathname } = useLocation()
-  // const { role } = useAuthContext()
-  const role = 'admin'
 
   const sidebarItems = adminItems
 
-  console.log('role:', role)
   console.log('sidebarItems:', sidebarItems)
 
   const toggleSidebar = () => {
@@ -95,7 +89,7 @@ const Sidebar = () => {
     <aside
       className={twMerge(
         'bg-white dark:bg-dark-bg transition-all border-border border-r duration-300',
-        isSidebarOpen ? 'w-[219px]' : 'w-14',
+        isSidebarOpen ? 'w-[260px]' : 'w-14',
       )}
     >
       <div className="p-4 flex justify-between items-center">
@@ -121,7 +115,12 @@ const Sidebar = () => {
                     isActive ? 'bg-[#F8F8FA]' : '',
                   )}
                 >
-                  <item.icon className="text-primary-dark text-[24px]" />
+                  <item.icon
+                    className={twMerge(
+                      'text-[24px]',
+                      isActive ? 'text-primary-dark' : 'text-[#69757A]',
+                    )}
+                  />
                   {isSidebarOpen && (
                     <span
                       className={twMerge(

@@ -6,6 +6,16 @@ const TOKEN = {
 const ROUTE_PATHS = {
   MAIN: '/',
   STATISTICS: '/statistics',
+  PLACEMENTS: '/placements',
+  TOURISTS: '/tourists',
+  LANDLORDS: '/landlords',
+  SERVICE_PROVIDERS: '/service-providers',
+  TRAVEL_AGENCIES: '/travel-agencies',
+  BILLING: '/billing',
+  BI_SERVICE: '/bi-service',
+  CONTENT: '/content',
+  ROLES: '/roles',
+
   USERS: '/users',
   HOTELS: '/hotels',
   CLIENTS: '/clients',
