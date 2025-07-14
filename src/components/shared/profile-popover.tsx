@@ -51,15 +51,10 @@ const ProfilePopover = () => {
         trigger="click"
         placement="bottomRight"
         className="shrink-0 overflow-hidden"
-        styles={{
-          root: {
-            zIndex: 10,
-          },
-          body: {
-            padding: 0,
-            overflow: 'hidden',
-            // width: 347,
-          },
+        overlayInnerStyle={{
+          padding: 0,
+          overflow: 'hidden',
+          // width: 347,
         }}
         content={
           <Button

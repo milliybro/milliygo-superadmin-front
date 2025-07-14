@@ -13,7 +13,7 @@ const NotificationPopover = () => {
       arrow={false}
       trigger="click"
       placement="bottomRight"
-      styles={{ body: { padding: 0, overflow: 'hidden', width: 390 } }}
+      overlayInnerStyle={{ padding: 0, overflow: 'hidden', width: 390 }}
       className="shrink-0"
       content={
         <div className="flex flex-col">
