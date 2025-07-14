@@ -16,27 +16,56 @@ import tenantsRoutes from '@/features/tenants/routes'
 import statisticsRoutes from '@/features/statistics/routes'
 import accommodationsRoutes from '@/features/accommodation-facilities/routes'
 import mainContentRoutes from '@/features/main-content/routes'
+import guidesRoutes from '@/features/guides/routes'
+import myContractRoutes from '@/features/my-contracts/routes'
+import invoiceControlRoutes from '@/features/invoice-control/routes'
+import uProfileRoutes from '@/features/u-profie/routes'
+import myLicensesRoutes from '@/features/my-licenses/routes'
 
-const routes: CustomRoute[] = [
-  {
-    id: 'root',
-    path: ROUTE_PATHS.MAIN,
-    element: <Root />,
-    children: [
-      statisticsRoutes,
-      complaintsRoutes,
-      hotelsRoutes,
-      clientsRoutes,
-      callCenterRoutes,
-      usersRoutes,
-      accessRoleRoutes,
-      servicesRoutes,
-      tenantsRoutes,
-      accommodationsRoutes,
-      mainContentRoutes
-    ],
-  },
-  authRoutes,
-]
+export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
+  const commonAuthRoutes = [authRoutes]
 
-export default routes
+  if (role === 'admin') {
+    return [
+      {
+        id: 'root',
+        path: ROUTE_PATHS.MAIN,
+        element: <Root />,
+        children: [
+          statisticsRoutes,
+          complaintsRoutes,
+          hotelsRoutes,
+          clientsRoutes,
+          callCenterRoutes,
+          servicesRoutes,
+          tenantsRoutes,
+          accommodationsRoutes,
+          mainContentRoutes,
+          guidesRoutes,
+          usersRoutes,
+          accessRoleRoutes,
+        ],
+      },
+      ...commonAuthRoutes,
+    ]
+  }
+
+  if (role === 'supplier') {
+    return [
+      {
+        id: 'udocs-root',
+        path: ROUTE_PATHS.MAIN,
+        element: <Root />,
+        children: [
+          uProfileRoutes,
+          myLicensesRoutes,
+          myContractRoutes,
+          invoiceControlRoutes,
+        ],
+      },
+      ...commonAuthRoutes,
+    ]
+  }
+
+  return commonAuthRoutes
+}

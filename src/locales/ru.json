@@ -1,4 +1,17 @@
 {
+  "routes": {
+    "statistics": "Статистика",
+    "placement-funds": "Cредств размещения",
+    "tourists": "Tуристы",
+    "landlords": "Aрендодателей",
+    "service-providers": "Поставщиков услуг",
+    "travel-agencies": "Tуристических агентств",
+    "guides": "Гиды",
+    "billing": "Биллинг",
+    "bi-service": "BI-сервис",
+    "content": "Контент",
+    "roles": "Роли"
+  },
   "auth-page": {
     "welcome-title": "Добро пожаловать!",
     "welcome-description": "Управляйте всеми аспектами платформы: добавлять и редактировать объявления, отслеживать активности пользователей",
@@ -456,6 +469,8 @@
     "name": "Название",
     "requests": "Заявки",
     "actived": "Активные",
+    "un-active": "Неактивные",
+    "request": "По запросу",
     "rejected": "Отклоненные",
     "admin": "Администратор",
     "editor": "Редактор",
@@ -503,5 +518,9 @@
     "name-recreation": "Название типа отдыха",
     "color": "Цвет",
     "recreating-cover": "Обложка типа отдыха"
+  },
+  "guides": {
+    "guides": "Гиды",
+    "service-location": "Места обслуживания"
   }
 }

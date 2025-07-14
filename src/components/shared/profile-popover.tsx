@@ -50,7 +50,7 @@ const ProfilePopover = () => {
         arrow={false}
         trigger="click"
         placement="bottomRight"
-        overlayClassName="z-[10]"
+        className="shrink-0 overflow-hidden"
         overlayInnerStyle={{
           padding: 0,
           overflow: 'hidden',
@@ -101,7 +101,7 @@ const ProfilePopover = () => {
             shape="circle"
             size={62}
             className=" bg-danger/20 mb-5 border-[7px] border-danger/5"
-            src={<LogoutIcon  className='text-[#ff0000]' color='#ff0000' />}
+            src={<LogoutIcon className="text-[#ff0000]" color="#ff0000" />}
           />
           <Typography.Text className="text-[24px] font-bold leading-[30.6px] mb-[10px]">
             {t('profile-popover.label')}

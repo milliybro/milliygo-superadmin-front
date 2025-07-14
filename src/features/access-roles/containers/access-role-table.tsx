@@ -13,7 +13,7 @@ const columns: TableColumnsType<IAccessRoleTable> = [
   {
     width: 1000,
     title: 'fields.role-name.label',
-    dataIndex: 'roleName',
+    dataIndex: 'name',
     sorter: false,
   },
   {
@@ -30,35 +30,9 @@ const columns: TableColumnsType<IAccessRoleTable> = [
   },
 ]
 
-const AccessRoleTable = () => {
+const AccessRoleTable = ({ data, currentPage }: any) => {
   const { t } = useTranslation()
 
-  const data: IAccessRoleTable[] = [
-    {
-      key: '1',
-      id: '1',
-      roleName: t('common.admin'),
-      status: true,
-    },
-    {
-      key: '2',
-      id: '2',
-      roleName: t('common.editor'),
-      status: false,
-    },
-    {
-      key: '3',
-      id: '3',
-      roleName: t('common.viewer'),
-      status: true,
-    },
-    {
-      key: '4',
-      id: '4',
-      roleName: t('common.contributor'),
-      status: false,
-    },
-  ]
   const itemRender: PaginationProps['itemRender'] = (
     n,
     type,
@@ -97,12 +71,13 @@ const AccessRoleTable = () => {
         ...val,
         title: t(val?.title as string),
       }))}
-      dataSource={data}
+      dataSource={data?.results}
       className="w-full h-full"
       rootClassName="custom-table"
       pagination={{
+        current: currentPage,
         pageSize: 10,
-        total: 100,
+        total: data?.count || 0,
         hideOnSinglePage: true,
         showSizeChanger: false,
         position: ['bottomCenter'],
