@@ -1,4 +1,17 @@
 {
+  "routes": {
+    "statistics": "Statistika",
+    "placement-funds": "Joylashtirish vositalari",
+    "tourists": "Turistlar",
+    "landlords": "Ijaraga beruvchilar",
+    "service-providers": "Xizmat provayderlari",
+    "travel-agencies": "Sayyohlik agentliklari",
+    "guides": "Gidlar",
+    "billing": "Billing",
+    "bi-service": "BI-servis",
+    "content": "Kontent",
+    "roles": "Rollar"
+  },
   "auth-page": {
     "welcome-title": "Xush kelibsiz!",
     "welcome-description": "Platformaning barcha jihatlarini boshqaring: e‘lonlarni qo‘shish va tahrirlash, foydalanuvchilar faolliklarini kuzatish",

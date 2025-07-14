@@ -14,7 +14,7 @@ export default function Root(): React.ReactElement {
   }
 
   return (
-    <Layout>
+    <Layout >
       <Suspense fallback={<Loader />}>
         <Outlet />
       </Suspense>
