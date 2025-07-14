@@ -7,12 +7,13 @@ import type { FC } from 'react'
 
 interface IProps {
   items: { title: string | undefined; href?: string; noTranslate?: boolean }[]
+  className?: string
 }
 
-const Breadcrumbs: FC<IProps> = ({ items }) => {
+const Breadcrumbs: FC<IProps> = ({ items, className }) => {
   return (
     <nav
-      className={twMerge('container dlg:hidden')}
+      className={twMerge('container dlg:hidden', className)}
       itemScope
       itemType="https://schema.org/BreadcrumbList"
     >

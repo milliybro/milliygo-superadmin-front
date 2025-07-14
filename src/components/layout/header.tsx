@@ -40,7 +40,7 @@ const Header = () => {
       id="main-header"
       className="sticky z-10 top-0 bg-white border-b dark:bg-dark-bg border-border py-4 px-6 flex justify-between items-center"
     >
-      <Breadcrumbs items={breadCrumbs} />
+      <Breadcrumbs items={breadCrumbs} className="w-auto m-0" />
       <div className="flex items-center space-x-4">
         <CSelect
           className="[&_.ant-select-selector]:shadow-none"

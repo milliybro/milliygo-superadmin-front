@@ -14,6 +14,7 @@ const NotificationPopover = () => {
       trigger="click"
       placement="bottomRight"
       overlayInnerStyle={{ padding: 0, overflow: 'hidden', width: 390 }}
+      className="shrink-0"
       content={
         <div className="flex flex-col">
           <div className="text-sm font-medium p-5 leading-[20px] ">
