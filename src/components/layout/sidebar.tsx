@@ -25,41 +25,33 @@ const adminItems = [
   {
     label: 'routes.placement-funds',
     icon: Hotel2Icon,
-    path: ROUTE_PATHS.PLACEMENTS,
+    path: ROUTE_PATHS.HOTELS,
   },
-  {
-    label: 'routes.tourists',
-    icon: UsersGroupIcon,
-    path: ROUTE_PATHS.TOURISTS,
-  },
-  { label: 'routes.landlords', icon: HomeIcon, path: ROUTE_PATHS.LANDLORDS },
+  { label: 'routes.tourists', icon: UsersGroupIcon, path: ROUTE_PATHS.USERS },
+  { label: 'routes.landlords', icon: HomeIcon, path: ROUTE_PATHS.TENANTS },
   {
     label: 'routes.service-providers',
     icon: TipsIcon,
-    path: ROUTE_PATHS.SERVICE_PROVIDERS,
+    path: ROUTE_PATHS.ACCOMMODATIONS,
   },
   {
     label: 'routes.travel-agencies',
     icon: BeachIcon,
-    path: ROUTE_PATHS.TRAVEL_AGENCIES,
+    path: ROUTE_PATHS.TENANTS,
   },
   { label: 'routes.guides', icon: TeachingIcon, path: ROUTE_PATHS.GUIDES },
-  { label: 'routes.billing', icon: WalletIcon, path: ROUTE_PATHS.BILLING },
-  {
-    label: 'routes.bi-service',
-    icon: AnalyticsIcon,
-    path: ROUTE_PATHS.BI_SERVICE,
-  },
+  { label: 'routes.billing', icon: WalletIcon, path: ROUTE_PATHS.GUIDES },
+  { label: 'routes.bi-service', icon: AnalyticsIcon, path: ROUTE_PATHS.GUIDES },
 
   {
     label: 'routes.content',
     icon: MegaPhoneIcon,
-    path: ROUTE_PATHS.CONTENT,
+    path: ROUTE_PATHS.HOTELS,
   },
   {
     label: 'routes.roles',
     icon: TimeManagementIcon,
-    path: ROUTE_PATHS.ROLES,
+    path: ROUTE_PATHS.ACCESS_ROLE,
   },
   // { label: 'common.clients', icon: IdIcon, path: ROUTE_PATHS.CLIENTS },
   // { label: 'common.complaints', icon: AlertIcon, path: ROUTE_PATHS.COMPLAINTS },
@@ -112,7 +104,7 @@ const Sidebar = () => {
       <nav>
         <ul className={twMerge('space-y-2', isSidebarOpen ? 'p-3' : 'p-2')}>
           {sidebarItems.map((item, i) => {
-            const isActive = pathname.includes(item.path)
+            const isActive = pathname === item.path
             return (
               <li key={`routes-${i}`}>
                 <Link
