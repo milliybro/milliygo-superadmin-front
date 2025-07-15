@@ -3,7 +3,6 @@ import EditIcon from '@/components/icons/edit'
 import ImageUploadIcon from '@/components/icons/image-upload'
 import ResetIcon from '@/components/icons/reset'
 import UserIcon from '@/components/icons/user'
-import BlurImage from '@/components/ui/blur-image'
 import { CloseOutlined, PlusOutlined } from '@ant-design/icons'
 import {
   App,
