@@ -464,7 +464,9 @@
     "facility-room": "Xona",
     "rule": "Iltimos, ma'lumotni kiriting",
     "not-guests": "Mehmonlar hali yo‘q",
-    "main-content": "Bosh sahifa"
+    "main-content": "Bosh sahifa",
+    "select_or_drag": "Rasmni tanlang yoki sudrab olib keling",
+    "images_limit": "Maksimal hajmi: 5 MB."
   },
   "status": {
     "confirmed": "Tasdiqlangan",
