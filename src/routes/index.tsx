@@ -21,6 +21,7 @@ import myContractRoutes from '@/features/my-contracts/routes'
 import invoiceControlRoutes from '@/features/invoice-control/routes'
 import uProfileRoutes from '@/features/u-profie/routes'
 import myLicensesRoutes from '@/features/my-licenses/routes'
+import { contentRoutes } from '@/features/content/'
 
 export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
   const commonAuthRoutes = [authRoutes]
@@ -44,6 +45,7 @@ export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
           guidesRoutes,
           usersRoutes,
           accessRoleRoutes,
+          contentRoutes,
         ],
       },
       ...commonAuthRoutes,

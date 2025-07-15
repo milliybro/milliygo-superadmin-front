@@ -46,7 +46,7 @@ const adminItems = [
   {
     label: 'routes.content',
     icon: MegaPhoneIcon,
-    path: ROUTE_PATHS.HOTELS,
+    path: ROUTE_PATHS.CONTENT,
   },
   {
     label: 'routes.roles',
@@ -79,8 +79,6 @@ const Sidebar = () => {
 
   const sidebarItems = adminItems
 
-  console.log('sidebarItems:', sidebarItems)
-
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => !prev)
   }
@@ -88,11 +86,11 @@ const Sidebar = () => {
   return (
     <aside
       className={twMerge(
-        'bg-white dark:bg-dark-bg transition-all border-border border-r duration-300',
+        'border-r border-border bg-white transition-all duration-300 dark:bg-dark-bg',
         isSidebarOpen ? 'w-[260px]' : 'w-14',
       )}
     >
-      <div className="p-4 flex justify-between items-center">
+      <div className="flex items-center justify-between p-4">
         {isSidebarOpen && <ProjectLogo />}
         <button onClick={toggleSidebar} aria-label="Toggle Sidebar">
           <SidebarLeftIcon className="text-[24px] text-[#B7BFD5]" />
@@ -110,7 +108,7 @@ const Sidebar = () => {
                 <Link
                   to={item.path || '#'}
                   className={twMerge(
-                    'flex items-center p-2 gap-2 hover:bg-[#F8F8FA] rounded',
+                    'flex items-center gap-2 rounded p-2 hover:bg-[#F8F8FA]',
                     isSidebarOpen ? '' : 'justify-center',
                     isActive ? 'bg-[#F8F8FA]' : '',
                   )}
@@ -124,7 +122,7 @@ const Sidebar = () => {
                   {isSidebarOpen && (
                     <span
                       className={twMerge(
-                        'flex-1 line-clamp-1',
+                        'line-clamp-1 flex-1',
                         isActive ? 'text-primary-dark' : 'text-[#69757A]',
                       )}
                     >
