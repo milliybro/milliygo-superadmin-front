@@ -8,7 +8,7 @@ import DiscoverUzbekistanContent from '../discover-uzbekistan'
 import EventsContent from '../events'
 import ExpertAdviceContent from '../expert-advice'
 import InstagramContent from '../instagram'
-import MainPageContent from '../main-page'
+import MainPageContent from '../hero'
 import TopDestinationsContent from '../top-destinations'
 
 function Content() {
