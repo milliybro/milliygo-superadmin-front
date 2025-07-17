@@ -22,7 +22,7 @@ export default function TopDestinationForm() {
   const [form] = Form.useForm()
   const { message } = App.useApp()
   const { t } = useTranslation()
-  const [file, setFile] = useState<{ file: File; url: string } | null>(null)
+  const [_file, setFile] = useState<{ file: File; url: string } | null>(null)
   const { images, removeImage, addImage, setMainImage, setImages } =
     useTourImageStore()
 
@@ -48,6 +48,11 @@ export default function TopDestinationForm() {
       { title: 'Контент', href: '/content/top-destinations' },
       { title: 'Лучшие направления' },
     ])
+
+    return () => {
+      setImages([])
+      setFile(null)
+    }
   }, [])
 
   return (

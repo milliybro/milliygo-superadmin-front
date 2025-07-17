@@ -4,7 +4,7 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
 
-import DiscoverUzbekistanContent from '../discover-uzbekistan'
+import DiscoverContent from '../discover'
 import EventsContent from '../events'
 import ExpertAdviceContent from '../expert-advice'
 import InstagramContent from '../instagram'
@@ -38,7 +38,7 @@ function Content() {
     {
       key: 'discover-uzbekistan',
       label: 'Discover Uzbekistan',
-      children: <DiscoverUzbekistanContent />,
+      children: <DiscoverContent />,
     },
     {
       key: 'expert-advice',
