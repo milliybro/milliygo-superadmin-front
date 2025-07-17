@@ -1,17 +1,28 @@
 import { CustomRoute } from '@/types'
 import Content from './views/content'
+import CreateContent from './views/create-content'
+import ContentLayout from './views/content-layout'
 
 const contentRoutes: CustomRoute = {
   id: 'content',
   title: 'content',
   path: 'content',
-  element: <Content />,
+  element: <ContentLayout />,
   children: [
     {
-      path: ':tab',
+      path: '',
       title: 'Main page',
-      index: true,
       element: <Content />,
+    },
+    {
+      path: ':tab',
+      title: 'Content page',
+      element: <Content />,
+    },
+    {
+      path: ':tab/create',
+      title: 'Create Content',
+      element: <CreateContent />,
     },
   ],
 }

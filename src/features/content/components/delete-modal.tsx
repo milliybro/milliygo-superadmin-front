@@ -6,9 +6,16 @@ import { Dispatch, SetStateAction } from 'react'
 interface IProps {
   open: boolean
   setOpen: Dispatch<SetStateAction<boolean>>
+  title?: string
+  description?: string
 }
 
-export default function DeleteModal({ open, setOpen }: IProps) {
+export default function DeleteModal({
+  open,
+  setOpen,
+  title,
+  description,
+}: IProps) {
   return (
     <Modal
       open={open}
@@ -24,10 +31,11 @@ export default function DeleteModal({ open, setOpen }: IProps) {
           level={4}
           className="mb-0 text-center text-2xl font-bold"
         >
-          Удалить фон?
+          {title || 'Удалить фон?'}
         </Typography.Title>
         <Typography.Text className="text-center text-base text-secondary">
-          Подтвердите, что вы действительно хотите удалить данного контекстa?
+          {description ||
+            'Подтвердите, что вы действительно хотите удалить данного контекстa?'}
         </Typography.Text>
         <div className="flex items-center justify-center gap-5">
           <Button onClick={() => setOpen(false)}>Отмена</Button>
