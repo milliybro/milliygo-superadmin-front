@@ -2,7 +2,6 @@ import { PaginationProps, Table, TableColumnsType } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 import { twMerge } from 'tailwind-merge'
-import { IGuestsTable, IHotelsGuests } from '../types'
 import HotelsItemTableActionButton from '../components/hotels-items-table-action'
 import { useQuery } from '@tanstack/react-query'
 import { getHotelManagementGuests } from '../api'
@@ -40,7 +39,7 @@ const PlacementsItemGuest = () => {
 
   const pageSize = 10
 
-  const columns: TableColumnsType<IGuestsTable> = [
+  const columns: TableColumnsType<any> = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -132,9 +131,7 @@ const PlacementsItemGuest = () => {
     enabled: !!id,
   })
 
-  function transformHotelDetailsToTableData(
-    guests: IHotelsGuests[],
-  ): IGuestsTable[] {
+  function transformHotelDetailsToTableData(guests: any[]): any[] {
     return guests.map(guest => ({
       key: guest?.id,
       id: guest?.id || 'N/A',
@@ -187,7 +184,7 @@ const PlacementsItemGuest = () => {
   }
   return (
     <div>
-      <Table<IGuestsTable>
+      <Table<any>
         columns={columns.map(val => ({
           ...val,
           title: t(`${val?.title}`),
