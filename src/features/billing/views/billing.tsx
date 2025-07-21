@@ -6,9 +6,9 @@ import { ROUTE_PATHS } from '@/config/constants'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
 import { useQuery } from '@tanstack/react-query'
-import { getTenantsList } from '../api'
 import { useSearchParams } from 'react-router'
 import GuidesTab from '../containers/billing-tabs'
+import { getHotelDetail } from '../api'
 
 const Billing = () => {
   const { t } = useTranslation()
@@ -45,7 +45,7 @@ const Billing = () => {
       is_active,
     ],
     queryFn: async () => {
-      const res = await getTenantsList({
+      const res = await getHotelDetail({
         page_size: pageSize,
         page: currentPage,
         schema_name__icontains,
