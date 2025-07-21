@@ -289,6 +289,58 @@
       "error": {
         "message": "Хатолик юз берди"
       }
+    },
+    "register-address": {
+      "label": "Ro‘yxatdan o‘tish joyi"
+    },
+    "type-document": {
+      "label": "Hujjat turi"
+    },
+    "birth-country": {
+      "label": "Tug‘ilgan mamlakat"
+    },
+    "passport-info": {
+      "label": "Pasport ma’lumotlari"
+    },
+    "passport-issued-date": {
+      "label": "Pasport berilgan sana"
+    },
+    "passport-issued-by": {
+      "label": "Pasport kim tomonidan berilgan"
+    },
+    "destination-country": {
+      "label": "Manzil mamlakati"
+    },
+    "tourist-arrival-date": {
+      "label": "Turistning kelish sanasi"
+    },
+    "tourist-departure-date": {
+      "label": "Turistning jo‘nab ketish sanasi"
+    },
+    "ro‘yxatdan o‘tish joyi": {
+      "label": "Ro‘yxatdan o‘tish joyi"
+    },
+    "yetib kelish manzili": {
+      "label": "Kelish maqsadi"
+    },
+    "kpp": {
+      "number": "KPP No",
+      "entry-date": "KPP kirish sanasi"
+    },
+    "type-mehmon": {
+      "label": "Mehmon turi"
+    },
+    "visa": {
+      "visa-type": "Viza turi",
+      "number-visa": "Viza raqami",
+      "visa-issued-date": "Viza amal qilishining boshlanish sanasi",
+      "visa-issued-by": "Viza kim tomonidan berilgan",
+      "visa-expiry-date": "Viza muddati tugaydigan sana"
+    },
+    "child": {
+      "fullname": "Bolaning F.I.O.",
+      "birth-date": "Bolaning tug‘ilgan kuni",
+      "departure-date": "Ketish kuni"
     }
   },
   "common": {
@@ -444,5 +496,15 @@
   "guides": {
     "guides": "Гиды",
     "service-locations": "Места обслуживания"
+  },
+  "placements": {
+    "hotels": "Меҳмонхоналар",
+    "recreation-areas": "Дам олиш жойлари",
+    "tourist-bases": "Сайёҳлик базалари",
+    "boarding-houses": "Пансионатлар",
+    "campsites": "Кемпинглар",
+    "guest-houses": "Меҳмон уйлари",
+    "sanatoriums": "Санаториялар",
+    "hostel": "Хостел"
   }
 }

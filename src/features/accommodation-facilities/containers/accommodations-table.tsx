@@ -172,8 +172,8 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
   }
 
   const transformedData =
-    hotelsData?.results.map((user: IUsers) => ({
-      key: user.id.toString(),
+    hotelsData?.results.map((user: IUsers, i: number) => ({
+      key: i,
       id: user.id,
       name: user.name,
       image: user.image,

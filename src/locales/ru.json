@@ -356,6 +356,58 @@
       "error": {
         "message": "Произошла ошибка"
       }
+    },
+    "register-address": {
+      "label": "Место регистрации"
+    },
+    "type-document": {
+      "label": "Тип документа"
+    },
+    "birth-country": {
+      "label": "Страна рождения"
+    },
+    "passport-info": {
+      "label": "Паспортные данные"
+    },
+    "passport-issued-date": {
+      "label": "Дата выдачи паспорта"
+    },
+    "passport-issued-by": {
+      "label": "Кем выдан паспорт"
+    },
+    "destination-country": {
+      "label": "Страна назначения"
+    },
+    "tourist-arrival-date": {
+      "label": "Дата прибытия туриста"
+    },
+    "tourist-departure-date": {
+      "label": "Дата отъезда туриста"
+    },
+    "place-of-registration": {
+      "label": "Место регистрации"
+    },
+    "arrival-destination": {
+      "label": "Цель прибытия"
+    },
+    "kpp": {
+      "number": "КПП №",
+      "entry-date": "КПП дата заезда"
+    },
+    "type-guest": {
+      "label": "Тип гостя"
+    },
+    "visa": {
+      "visa-type": "Тип визы",
+      "number-visa": "Номер визы",
+      "visa-issued-date": "Дата начала действия визы",
+      "visa-issued-by": "Кем выдана виза",
+      "visa-expiry-date": "Дата истечения визы"
+    },
+    "child": {
+      "fullname": "Ф.И.О. ребенка",
+      "birth-date": "День рождения ребенка",
+      "departure-date": "День отъезда"
     }
   },
   "tenant": {
@@ -484,7 +536,8 @@
     "facility-room": "Номер",
     "rule": "Введите информацию, пожалуйста",
     "not-guests": "Гостей ещё нет",
-    "main-content": "Главная страница"
+    "main-content": "Главная страница",
+    "cost-per-day": "Стоимость за день"
   },
   "status": {
     "confirmed": "Подтвержден",
@@ -522,5 +575,66 @@
   "guides": {
     "guides": "Гиды",
     "service-location": "Места обслуживания"
+  },
+  "placements": {
+    "hotels": "Гостиницы",
+    "recreation-areas": "Места отдыха",
+    "tourist-bases": "Туристические базы",
+    "boarding-houses": "Пансионаты",
+    "campsites": "Кемпинги",
+    "guest-houses": "Гостевые дома",
+    "sanatoriums": "Санатории",
+    "hostel": "Хостел"
+  },
+  "travel-agencies": {
+    "name-agencies": "Название туристического агентства",
+    "license_validity": "Срок действия лицензии",
+    "all-tours": "Все туры",
+    "all-employee": "Список всех сотрудников",
+    "duration": "Длительность",
+    "type-tour": "Тип тура",
+    "people-tour": "Сколько человек в туре",
+    "fullname-employee": "Ф.И.О. сотрудника",
+    "brief-employee": "Краткая информация сотрудника"
+  },
+  "billing": {
+    "accrual": "Начислении тс",
+    "payments": "Платежи",
+    "recalculations": "Перерасчеты",
+    "tour-levy-report": "Турсбор отчет",
+    "region": "Регион",
+    "city": "Район/город",
+    "hotel": "Гостиница",
+    "month-year": "Год/месяц",
+    "accrual-type": "Тип начисления",
+    "count": "Кол-во листков",
+    "accrued": "Начислено",
+    "contract": "Дог. №",
+    "operation": "Опер.",
+    "pay_number": "Плат. №",
+    "sum": "Сумма",
+    "accountant": "Бухгалтер",
+    "note": "Примечание",
+    "start-period": "Период c",
+    "end-period": "Период до",
+    "fund_number": "Номерной Фонд",
+    "number_beds": "Кол-во Коек",
+    "stars": "Звезды",
+    "guest-count": "Кол-во Гостей",
+    "spent-day": "Прожито Суток",
+    "bca": "БРВ",
+    "tour-fee": "Турсбор",
+    "accrued-days": "Начислен.тс (Сутки)",
+    "total-sum": "Итого Тс (Сумма)"
+  },
+  "tourists": {
+    "tourist-fullname": "Ф.И.О. туриста",
+    "search-tourists": "Поиск туриста",
+    "register-region": "Регистрационная область",
+    "register-district": "Регистрационный район",
+    "tourist-information": "Информация о туристах",
+    "main-information": "Основная информация",
+    "visa-information": "Визовые данные",
+    "under-chilren": "Информации о детях до 16 лет, прибывших вместе"
   }
 }

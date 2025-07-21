@@ -7,8 +7,6 @@ import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
 import AccommodationsFilters from '../containers/accommodations-filters'
 // import AccommodationsTable from '../containers/accommodations-table'
-import { getHotels } from '@/features/hotels/api'
-import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'react-router'
 import AccommodationsTab from '../containers/accommodations-tabs'
 // import UserModal from '../components/user-modal'
@@ -35,36 +33,35 @@ const Accommodations = () => {
   }, [])
 
   const [searchParams, setSearchParams] = useSearchParams()
-  const search = searchParams.get('search') || null
-  const status = searchParams.get('status') || null
-  const type = searchParams.get('tab') || '1'
+
   const currentPage = Number(searchParams.get('page')) || 1
 
-  const { data, isFetching } = useQuery({
-    queryKey: ['hotels-data', currentPage, type, search, status],
-    queryFn: async () => {
-      const res = await getHotels({
-        page_size: pageSize,
-        page: currentPage,
-        search,
-        status,
-        is_approved:
-          type === '1'
-            ? 'approved'
-            : type === '2'
-              ? 'new'
-              : type === '3'
-                ? 'cancelled'
-                : type,
-        // placement_name: name,
-        // username: username,
-        // full_name: fullName,
-        // status: status,
-      })
-      return res
-    },
-    placeholderData: data => data,
-  })
+  // const { data, isFetching } = useQuery({
+  //   queryKey: ['hotels-data', currentPage, type, search, status],
+  //   queryFn: async () => {
+  //     const res = await getHotels({
+  //       page_size: pageSize,
+  //       page: currentPage,
+  //       search,
+  //       status,
+  //       is_approved:
+  //         type === '1'
+  //           ? 'approved'
+  //           : type === '2'
+  //             ? 'new'
+  //             : type === '3'
+  //               ? 'cancelled'
+  //               : type,
+  //       // placement_name: name,
+  //       // username: username,
+  //       // full_name: fullName,
+  //       // status: status,
+  //     })
+  //     return res
+  //   },
+  //   placeholderData: data => data,
+  // })
+  const data: any = []
 
   return (
     <div className="p-6 flex flex-col gap-6 flex-1">
@@ -77,7 +74,6 @@ const Accommodations = () => {
       <div className="bg-white border w-full flex-col overflow-hidden border-border dark:bg-dark-bg rounded-[16px] flex items-center justify-center h-full">
         <AccommodationsTab
           hotelsData={data}
-          isLoading={isFetching}
           pageSize={pageSize}
           currentPage={currentPage}
           setCurrentPage={(page: number) =>

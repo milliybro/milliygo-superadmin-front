@@ -7,7 +7,7 @@ import { refreshToken } from '@/features/auth'
 import type { AxiosError } from 'axios'
 import type { IErrorMessage } from '@/types'
 
-export const baseURL = 'https://auth.emehmon.xdevs.uz/api/v1'
+export const baseURL = 'https://superapi.emehmon.xdevs.uz/api/v1'
 
 const requestAuth = axios.create({
   baseURL: baseURL,
