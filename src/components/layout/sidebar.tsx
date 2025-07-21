@@ -21,37 +21,72 @@ import AnalyticsIcon from '../icons/analytics-icon'
 import MegaPhoneIcon from '../icons/megaphone-icon'
 
 const adminItems = [
-  { label: 'routes.statistics', icon: ChartRingIcon, path: ROUTE_PATHS.MAIN },
+  {
+    label: 'routes.statistics',
+    icon: ChartRingIcon,
+    path: ROUTE_PATHS.MAIN,
+    status: 'in progress',
+  },
   {
     label: 'routes.placement-funds',
     icon: Hotel2Icon,
-    path: ROUTE_PATHS.HOTELS,
+    path: ROUTE_PATHS.PLACEMENTS,
+    status: 'in progress',
   },
-  { label: 'routes.tourists', icon: UsersGroupIcon, path: ROUTE_PATHS.USERS },
-  { label: 'routes.landlords', icon: HomeIcon, path: ROUTE_PATHS.TENANTS },
+  {
+    label: 'routes.tourists',
+    icon: UsersGroupIcon,
+    path: ROUTE_PATHS.TOURISTS,
+    status: 'finished',
+  },
+  {
+    label: 'routes.landlords',
+    icon: HomeIcon,
+    path: ROUTE_PATHS.LANDLORDS,
+    status: 'in progress',
+  },
   {
     label: 'routes.service-providers',
     icon: TipsIcon,
-    path: ROUTE_PATHS.ACCOMMODATIONS,
+    path: ROUTE_PATHS.SERVICE_PROVIDERS,
+    status: 'in progress',
   },
   {
     label: 'routes.travel-agencies',
     icon: BeachIcon,
-    path: ROUTE_PATHS.TENANTS,
+    path: ROUTE_PATHS.TRAVEL_AGENCIES,
+    status: 'in progress',
   },
-  { label: 'routes.guides', icon: TeachingIcon, path: ROUTE_PATHS.GUIDES },
-  { label: 'routes.billing', icon: WalletIcon, path: ROUTE_PATHS.GUIDES },
-  { label: 'routes.bi-service', icon: AnalyticsIcon, path: ROUTE_PATHS.GUIDES },
+  {
+    label: 'routes.guides',
+    icon: TeachingIcon,
+    path: ROUTE_PATHS.GUIDES,
+    status: 'in progress',
+  },
+  {
+    label: 'routes.billing',
+    icon: WalletIcon,
+    path: ROUTE_PATHS.BILLING,
+    status: 'in progress',
+  },
+  {
+    label: 'routes.bi-service',
+    icon: AnalyticsIcon,
+    path: ROUTE_PATHS.GUIDES,
+    status: 'unstarted',
+  },
 
   {
     label: 'routes.content',
     icon: MegaPhoneIcon,
     path: ROUTE_PATHS.HOTELS,
+    status: 'in progress',
   },
   {
     label: 'routes.roles',
     icon: TimeManagementIcon,
     path: ROUTE_PATHS.ACCESS_ROLE,
+    status: 'unstarted',
   },
   // { label: 'common.clients', icon: IdIcon, path: ROUTE_PATHS.CLIENTS },
   // { label: 'common.complaints', icon: AlertIcon, path: ROUTE_PATHS.COMPLAINTS },
@@ -124,11 +159,14 @@ const Sidebar = () => {
                   {isSidebarOpen && (
                     <span
                       className={twMerge(
-                        'flex-1 line-clamp-1',
+                        'flex-1 line-clamp-1 flex justify-between items-center gap-2',
                         isActive ? 'text-primary-dark' : 'text-[#69757A]',
                       )}
                     >
-                      {t(item.label)}
+                      {t(item.label)}{' '}
+                      <div
+                        className={`w-2 h-2 rounded-full ${item.status === 'unstarted' ? 'bg-danger' : item.status === 'in progress' ? 'bg-yellow-500' : 'bg-green-500'}`}
+                      />
                     </span>
                   )}
                 </Link>

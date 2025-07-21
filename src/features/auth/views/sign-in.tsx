@@ -45,7 +45,7 @@ export default function SignIn(): React.ReactElement {
   const { mutate: mutateLogin } = useMutation({
     mutationFn: login,
     onSuccess: res => {
-      if (res.user.is_superuser === true) {
+      if (res.user.pin) {
         localStorage.setItem('refresh', res.refresh)
         localStorage.setItem('access', res.access)
         localStorage.setItem('user', JSON.stringify(res.user))

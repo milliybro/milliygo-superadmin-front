@@ -4,7 +4,6 @@ import Root from '@/features/root'
 
 import authRoutes from '@/features/auth/routes'
 import usersRoutes from '@/features/users/routes'
-import hotelsRoutes from '@/features/hotels/routes'
 import clientsRoutes from '@/features/clients/routes'
 import complaintsRoutes from '@/features/complaints/routes'
 import callCenterRoutes from '@/features/call-center/routes'
@@ -17,10 +16,12 @@ import statisticsRoutes from '@/features/statistics/routes'
 import accommodationsRoutes from '@/features/accommodation-facilities/routes'
 import mainContentRoutes from '@/features/main-content/routes'
 import guidesRoutes from '@/features/guides/routes'
-import myContractRoutes from '@/features/my-contracts/routes'
-import invoiceControlRoutes from '@/features/invoice-control/routes'
-import uProfileRoutes from '@/features/u-profie/routes'
-import myLicensesRoutes from '@/features/my-licenses/routes'
+import placementRoutes from '@/features/placements/routes'
+import touristsRoutes from '@/features/tourists/routes'
+import landlordsRoutes from '@/features/landlords/routes'
+import serviceProvidersRoutes from '@/features/service-providers/routes'
+import travelAgenciesRoutes from '@/features/travel-agencies/routes'
+import billingRoutes from '@/features/billing/routes'
 
 export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
   const commonAuthRoutes = [authRoutes]
@@ -33,34 +34,23 @@ export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
         element: <Root />,
         children: [
           statisticsRoutes,
+          placementRoutes,
+          touristsRoutes,
+          landlordsRoutes,
+          serviceProvidersRoutes,
+          travelAgenciesRoutes,
+          guidesRoutes,
+          billingRoutes,
+
           complaintsRoutes,
-          hotelsRoutes,
           clientsRoutes,
           callCenterRoutes,
           servicesRoutes,
           tenantsRoutes,
           accommodationsRoutes,
           mainContentRoutes,
-          guidesRoutes,
           usersRoutes,
           accessRoleRoutes,
-        ],
-      },
-      ...commonAuthRoutes,
-    ]
-  }
-
-  if (role === 'supplier') {
-    return [
-      {
-        id: 'udocs-root',
-        path: ROUTE_PATHS.MAIN,
-        element: <Root />,
-        children: [
-          uProfileRoutes,
-          myLicensesRoutes,
-          myContractRoutes,
-          invoiceControlRoutes,
         ],
       },
       ...commonAuthRoutes,
