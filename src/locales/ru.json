@@ -501,7 +501,7 @@
     "night": "вчера",
     "request-data": "Запросить данные",
     "tenants": "Тенанты",
-    "summ": "сум",
+    "sum": "сум",
     "from": "с",
     "to": "до",
     "time-from": "с {{value}}",
