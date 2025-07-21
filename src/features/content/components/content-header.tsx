@@ -12,10 +12,12 @@ export default function ContentHeader({ onAddClick, title }: IProps) {
       <Typography.Title level={2} className="text-lg font-medium">
         {title || 'Главная страница'}
       </Typography.Title>
-      <Button type="primary" onClick={onAddClick}>
-        <PlusOutlined />
-        Добавить
-      </Button>
+      {!!onAddClick && (
+        <Button type="primary" onClick={onAddClick}>
+          <PlusOutlined />
+          Добавить
+        </Button>
+      )}
     </div>
   )
 }

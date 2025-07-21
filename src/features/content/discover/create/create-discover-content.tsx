@@ -1,7 +1,7 @@
+import ImageUploadIcon from '@/components/icons/image-upload'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import {
   App,
-  Button,
   Divider,
   Form,
   Input,
@@ -10,11 +10,9 @@ import {
   UploadProps,
 } from 'antd'
 import { useEffect, useState } from 'react'
-import QuillEditor from '../../components/quill-editor'
-import ImageUploadIcon from '@/components/icons/image-upload'
-import { CloseOutlined, StarFilled } from '@ant-design/icons'
-import { useTourImageStore } from '../../store/image-store'
 import { useTranslation } from 'react-i18next'
+import QuillEditor from '../../components/quill-editor'
+import { useTourImageStore } from '../../store/image-store'
 
 export default function CreateDiscoverContent() {
   const { setBreadCrumbs } = useBreadCrumbsStore()
@@ -23,8 +21,7 @@ export default function CreateDiscoverContent() {
   const { message } = App.useApp()
   const { t } = useTranslation()
   const [_file, setFile] = useState<{ file: File; url: string } | null>(null)
-  const { images, removeImage, addImage, setMainImage, setImages } =
-    useTourImageStore()
+  const { setImages } = useTourImageStore()
 
   const handleUpload: UploadProps['beforeUpload'] = file => {
     if (file?.size && file?.size > 5 * 1024 * 1024) {
@@ -32,14 +29,6 @@ export default function CreateDiscoverContent() {
       return
     }
     setFile({ file, url: URL.createObjectURL(file) })
-  }
-
-  const handleUploadGallery: UploadProps['beforeUpload'] = file => {
-    if (file?.size && file?.size > 5 * 1024 * 1024) {
-      message.error(t('common.images_limit'))
-      return
-    }
-    addImage({ file, image: URL.createObjectURL(file), is_main: false })
   }
 
   useEffect(() => {

@@ -9,16 +9,10 @@ const ServicesIcon: FC<SVGProps<SVGSVGElement>> = props => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <circle cx="17.75" cy="6.25" r="4.25" stroke="#141B34" stroke-width="1.5" />
-    <circle cx="6.25" cy="6.25" r="4.25" stroke="#141B34" stroke-width="1.5" />
-    <circle
-      cx="17.75"
-      cy="17.75"
-      r="4.25"
-      stroke="#141B34"
-      stroke-width="1.5"
-    />
-    <circle cx="6.25" cy="17.75" r="4.25" stroke="#141B34" stroke-width="1.5" />
+    <circle cx="17.75" cy="6.25" r="4.25" stroke="#141B34" strokeWidth="1.5" />
+    <circle cx="6.25" cy="6.25" r="4.25" stroke="#141B34" strokeWidth="1.5" />
+    <circle cx="17.75" cy="17.75" r="4.25" stroke="#141B34" strokeWidth="1.5" />
+    <circle cx="6.25" cy="17.75" r="4.25" stroke="#141B34" strokeWidth="1.5" />
   </svg>
 )
 

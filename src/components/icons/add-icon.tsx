@@ -12,12 +12,12 @@ const AddCreateIcon: FC<SVGProps<SVGSVGElement>> = props => (
     <path
       d="M6.30172 8.745L17.4631 6.88477V40.7372L12.5518 41.7712C9.26306 42.4636 6.04705 40.3199 5.42081 37.0179L1.39319 15.7814C0.765988 12.4743 2.98148 9.29837 6.30172 8.745Z"
       stroke="#635BFF"
-      stroke-width="2"
+      strokeWidth="2"
     />
     <path
       d="M64.1983 8.745L53.0369 6.88477V40.7372L57.9482 41.7712C61.2369 42.4636 64.453 40.3199 65.0792 37.0179L69.1068 15.7814C69.734 12.4743 67.5185 9.29837 64.1983 8.745Z"
       stroke="#635BFF"
-      stroke-width="2"
+      strokeWidth="2"
     />
     <g filter="url(#filter0_dd_10422_13572)">
       <rect
@@ -27,7 +27,7 @@ const AddCreateIcon: FC<SVGProps<SVGSVGElement>> = props => (
         height="42.7541"
         rx="5"
         stroke="#635BFF"
-        stroke-width="2"
+        strokeWidth="2"
         shape-rendering="crispEdges"
       />
     </g>
@@ -35,7 +35,7 @@ const AddCreateIcon: FC<SVGProps<SVGSVGElement>> = props => (
       d="M48.1843 43.7546H22.3154C19.554 43.7546 17.3154 41.516 17.3154 38.7546L17.3154 35.2935L29.7222 22.1457L39.2324 33.0896C40.0331 34.011 41.4653 34.0064 42.26 33.0799L47.4955 26.977L53.1843 33.0984V38.7546C53.1843 41.516 50.9457 43.7546 48.1843 43.7546Z"
       fill="#E0DEFF"
       stroke="#635BFF"
-      stroke-width="2"
+      strokeWidth="2"
     />
     <circle
       cx="39.8402"
@@ -43,7 +43,7 @@ const AddCreateIcon: FC<SVGProps<SVGSVGElement>> = props => (
       r="4.16393"
       fill="#E0DEFF"
       stroke="#635BFF"
-      stroke-width="2"
+      strokeWidth="2"
     />
     <defs>
       <filter
