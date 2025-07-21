@@ -119,11 +119,11 @@ const StatisticsList = () => {
   }, [])
 
   return (
-    <div className="grid grid-cols-4 gap-6 col-span-full">
+    <>
       {formattedStats.map((val, i) => (
         <StatisticsCard key={`statistics-card-${i}`} {...(val as any)} />
       ))}
-    </div>
+    </>
   )
 }
 

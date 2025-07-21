@@ -31,13 +31,13 @@ const StatisticsCard: FC<IProps> = props => {
   return (
     // <Card classNames={{ body: 'w-[380px]' }}>
     <Card className={props?.className} classNames={{ body: 'flex h-full' }}>
-      <div className="flex flex-col">
+      <div className="flex flex-col w-full">
         <div className="flex items-start justify-between gap-[10px] mb-4">
           <Text className="text-medium text-success">{title}</Text>
           <Avatar
             size={48}
             shape="square"
-            className="bg-[#F8FAFC] text-primary-dark dark:bg-white/5 dark:text-white rounded-lg"
+            className="bg-[#F8FAFC] shrink-0 text-primary-dark dark:bg-white/5 dark:text-white rounded-lg"
             icon={<TrendingUpIcon className="text-[24px]" />}
           />
         </div>
