@@ -135,6 +135,19 @@ const PlacementsTable = ({
         </div>
       ),
     },
+    // {
+    //   title: 'fields.price.label',
+    //   dataIndex: 'price',
+    //   sorter: {
+    //     compare: (a, b) => a.price - b.price,
+    //     multiple: 1,
+    //   },
+    //   render: val => (
+    //     <div>
+    //       {val ? formatAmount(val) : '0'} {t('common.sum')}
+    //     </div>
+    //   ),
+    // },
     {
       title: 'fields.rating.label',
       dataIndex: 'rating',
