@@ -3,13 +3,6 @@ import { useMemo } from 'react'
 import { formatAmount } from '@/helpers/format-amount'
 import StatisticsCard from '../components/statistics-card'
 
-// import DoorIcon from '@/components/icons/door'
-// import LoginIcon from '@/components/icons/login'
-// import LogoutIcon from '@/components/icons/logout'
-// import WrenchIcon from '@/components/icons/wrench'
-// import PieChartIcon from '@/components/icons/pie-chart'
-// import BedDoubleIcon from '@/components/icons/bed-double'
-
 const staticItems = {
   room: {
     total: 320,
@@ -61,18 +54,18 @@ const StatisticsList = () => {
     return [
       {
         // icon: DoorIcon,
-        title: 'total-room-numbers',
+        title: 'Всего пользователей',
         value: staticItems.room.total,
       },
       {
         // icon: BedDoubleIcon,
-        title: 'available-occupied-rooms',
+        title: 'Общее количество бронирований',
         value: staticItems.daily_room_stats.available,
         out_of: staticItems.daily_room_stats?.booked,
       },
       {
         // icon: BedDoubleIcon,
-        title: 'guests-in-rooms',
+        title: 'Онлайн пользователи',
         value: staticItems.guests.today,
         direction: staticItems.guests.direction,
         change: staticItems.guests.change,
@@ -80,7 +73,7 @@ const StatisticsList = () => {
       },
       {
         // icon: LoginIcon,
-        title: 'hotel-occupancy-monthly',
+        title: 'Общее количество отелей',
         value: staticItems.monthly_room_stats.busy,
         change: staticItems.monthly_room_stats.change,
         direction: staticItems.monthly_room_stats.direction,
@@ -89,7 +82,7 @@ const StatisticsList = () => {
       },
       {
         // icon: LogoutIcon,
-        title: 'current-month-revenue',
+        title: 'Загруженность',
         value: formatAmount(staticItems.this_month_prices.price),
         unit: 'UZS',
         change: staticItems.this_month_prices.change,
@@ -98,7 +91,7 @@ const StatisticsList = () => {
       },
       {
         // icon: WrenchIcon,
-        title: 'average-receipt',
+        title: 'Количество активных туристических агентств',
         value: formatAmount(staticItems.avg_checks.price),
         unit: 'UZS',
         change: staticItems.avg_checks.change,
@@ -107,7 +100,7 @@ const StatisticsList = () => {
       },
       {
         // icon: PieChartIcon,
-        title: 'expected-revenue',
+        title: 'Общее количество организованных туров',
         value: formatAmount(staticItems.incomes.price),
         unit: 'UZS',
         change: staticItems.incomes.change,
@@ -116,7 +109,7 @@ const StatisticsList = () => {
       },
       {
         // icon: PieChartIcon,
-        title: 'average-stay-nights',
+        title: 'Средняя продолжительность проживания (в разрезе ночей)',
         value: formatAmount(staticItems.nights.count),
         change: staticItems.nights.change,
         direction: staticItems.nights.direction,

@@ -26,16 +26,14 @@ interface IProps {
 
 const StatisticsCard: FC<IProps> = props => {
   const { title, value, unit, out_of } = props
-  const { t, i18n } = useTranslation()
+  // const { t, i18n } = useTranslation()
 
   return (
     // <Card classNames={{ body: 'w-[380px]' }}>
-    <Card className={props?.className}>
+    <Card className={props?.className} classNames={{ body: 'flex h-full' }}>
       <div className="flex flex-col">
-        <div className="flex items-center justify-between gap-[10px] mb-4">
-          <Text className="text-medium text-success">
-            {t('statistics-page.' + title)}
-          </Text>
+        <div className="flex items-start justify-between gap-[10px] mb-4">
+          <Text className="text-medium text-success">{title}</Text>
           <Avatar
             size={48}
             shape="square"
@@ -43,6 +41,7 @@ const StatisticsCard: FC<IProps> = props => {
             icon={<TrendingUpIcon className="text-[24px]" />}
           />
         </div>
+        <div className="flex-1"></div>
         <div className="flex flex-col">
           <div className="flex items-center gap-1">
             <Text className="text-[32px] font-bold text-primary-dark dark:text-white">
@@ -75,18 +74,11 @@ const StatisticsCard: FC<IProps> = props => {
                 </Text>
               </Text>
               {props?.yesterday_date ? (
-                <Text className="text-success">
-                  {t('statistics-page.than-yesterday')} ({props?.yesterday_date}
-                  )
-                </Text>
+                <Text className="text-success">чем вчера (13.02.2024)</Text>
               ) : null}
               {props?.last_month ? (
                 <Text className="text-success">
-                  {t('statistics-page.than-last-month', {
-                    month: format(props?.last_month, 'MMM', {
-                      locale: i18n.language === 'oz' ? uz : ru,
-                    })?.toLowerCase(),
-                  })}
+                  чем в прошлом месяце (Март)
                 </Text>
               ) : null}
             </div>
