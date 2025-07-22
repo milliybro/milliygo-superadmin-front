@@ -72,9 +72,9 @@ const GuidesTable = ({
             title: 'fields.rating.label',
             dataIndex: 'rating',
             sorter: false,
-            render: (_: any) => (
+            render: (rating: any) => (
               <span className="flex items-center px-[10px] py-[6px] gap-[10px] bg-[#FEF9C3] w-fit rounded-[6px]">
-                {_ ? _ : '-'}
+                {rating !== null && rating !== undefined ? rating : '-'}
               </span>
             ),
           },
@@ -91,7 +91,7 @@ const GuidesTable = ({
       width: 1,
       title: 'common.action',
       dataIndex: 'id',
-      render: val => <GuidesTableActionButton  id={val} type={type} />,
+      render: val => <GuidesTableActionButton id={val} type={type} />,
     },
   ]
 
@@ -132,41 +132,16 @@ const GuidesTable = ({
     setCurrentPage(page)
   }
 
-  // const transformedTenantsData =
-  //   guidesData?.results.map((item: IHotelsTable) => ({
-  //     key: item.id,
-  //     id: item.id,
-  //     schema_name: item.schema_name,
-  //     username: item.username,
-  //     is_active: item.is_active,
-  //     password: item.password,
-  //     domain: item.domain,
-  //     start_date: item.start_date,
-  //     end_date: item.end_date,
-  //   })) || []
-
-  const transformedTenantsData = [
-    {
-      key: 1,
-      id: 1,
-      fio: 'Alexandra Penova',
-      placements: ['Toshkent', 'Samarqand'],
-      rating: 2.5,
-      status: 'active',
-      image:
-        'https://globalbar.se/wp-content/uploads/2023/07/Tourist-shutterstock.jpg',
-    },
-    {
-      key: 1,
-      id: 1,
-      fio: 'Alexandra Penova',
-      placements: ['Toshkent', 'Samarqand'],
-      rating: 2.5,
-      status: 'active',
-      image:
-        'https://globalbar.se/wp-content/uploads/2023/07/Tourist-shutterstock.jpg',
-    },
-  ]
+  const transformedTenantsData =
+    guidesData?.results.map((item: any) => ({
+      key: item.id,
+      id: item.id,
+      fio: item.full_name,
+      placements: item.regions,
+      rating: item.rating,
+      status: item.status,
+      image: item.avatar,
+    })) || []
 
   return (
     <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">

@@ -79,7 +79,7 @@ const TravelAgenciesTable = ({
     },
 
     {
-      width: 1,
+      width: 100,
       title: 'common.action',
       render: (id, val: any) => (
         <HotelsTableActionButton
@@ -87,6 +87,7 @@ const TravelAgenciesTable = ({
           id={val.id}
           tenant_id={val.tenant ?? undefined}
           type={val?.type}
+          slug={val.name}
         />
       ),
     },

@@ -55,7 +55,7 @@ const adminItems = [
     label: 'routes.travel-agencies',
     icon: BeachIcon,
     path: ROUTE_PATHS.TRAVEL_AGENCIES,
-    status: 'in progress',
+    status: 'finished',
   },
   {
     label: 'routes.guides',

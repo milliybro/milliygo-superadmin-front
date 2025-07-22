@@ -590,7 +590,8 @@
     "type-tour": "Sayohat turi",
     "people-tour": "Turda necha kishi bor",
     "fullname-employee": "Xodimning F.I.O.",
-    "brief-employee": "Xodim haqida qisqacha ma’lumot"
+    "brief-employee": "Xodim haqida qisqacha ma’lumot",
+    "agent-name":"Turistik agentlik nomi"
   },
   "billing": {
     "accrual": "Hisoblangan pul",

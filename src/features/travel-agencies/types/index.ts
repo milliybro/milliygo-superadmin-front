@@ -13,4 +13,13 @@ interface ITourAgents {
   }[]
 }
 
-export type { ITourAgents }
+interface IAgentTourData {
+  id: number
+  name: string
+  duration_days: number
+  type_tour: string
+  number_people: number
+  price: number
+}
+
+export type { ITourAgents, IAgentTourData }
