@@ -10,7 +10,11 @@ import NewRegionPoint from './new-region-point'
 // hovered = #8494B3
 // normal = #3276FF
 
-function CountryMapSVG() {
+interface IProps {
+  pointTitle?: string
+}
+
+function CountryMapSVG({ pointTitle }: IProps) {
   const mapRef = useRef<SVGSVGElement>(null)
   const { region: selectedRegion } = useParams()
 

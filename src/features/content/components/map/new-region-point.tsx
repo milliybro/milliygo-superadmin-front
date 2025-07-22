@@ -58,33 +58,27 @@ export default function NewRegionPoint({
     ;(e.target as Element).setPointerCapture(e.pointerId)
   }, [])
 
-  const handlePointerMove = useCallback((e: PointerEvent<SVGElement>) => {
-    const selectedPath = document.getElementById(
-      '' + reg?.id || '',
-    ) as SVGPathElement | null
-    if (!selectedPath) return
+  const handlePointerMove = useCallback(
+    (e: PointerEvent<SVGElement>) => {
+      const selectedPath = document.getElementById(
+        '' + reg?.id || '',
+      ) as SVGPathElement | null
+      if (!selectedPath) return
 
-    if (!dragging.current) return
+      if (!dragging.current) return
 
-    // if (
-    //   e.clientY > top ||
-    //   e.clientY < bottom ||
-    //   e.clientX < left ||
-    //   e.clientX > right
-    // ) {
-    //   dragging.current = false
-    //   return
-    // }
-    const dx = (e.clientX - lastMousePos.current.x) / scaleFactor
-    const dy = (e.clientY - lastMousePos.current.y) / scaleFactor
+      const dx = (e.clientX - lastMousePos.current.x) / scaleFactor
+      const dy = (e.clientY - lastMousePos.current.y) / scaleFactor
 
-    setNewCoords(prev => ({
-      x: prev.x + dx,
-      y: prev.y + dy,
-    }))
+      setNewCoords(prev => ({
+        x: prev.x + dx,
+        y: prev.y + dy,
+      }))
 
-    lastMousePos.current = { x: e.clientX, y: e.clientY }
-  }, [])
+      lastMousePos.current = { x: e.clientX, y: e.clientY }
+    },
+    [scaleFactor],
+  )
 
   const handlePointerUp = useCallback((e: PointerEvent<SVGAElement>) => {
     dragging.current = false
@@ -117,6 +111,7 @@ export default function NewRegionPoint({
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
     >
+      {/* <foreignObject></foreignObject> */}
       <rect
         xmlns="http://www.w3.org/2000/svg"
         x={rectX}
