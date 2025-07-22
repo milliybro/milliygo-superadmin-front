@@ -80,6 +80,7 @@ const adminItems = [
     label: 'routes.content',
     icon: MegaPhoneIcon,
     path: ROUTE_PATHS.CONTENT,
+    status: 'in progress',
   },
   {
     label: 'routes.roles',
@@ -162,7 +163,7 @@ const Sidebar = () => {
                     >
                       {t(item.label)}{' '}
                       <div
-                        className={`w-2 h-2 rounded-full ${item.status === 'unstarted' ? 'bg-danger' : item.status === 'in progress' ? 'bg-yellow-500' : 'bg-green-500'}`}
+                        className={`h-2 w-2 rounded-full ${item.status === 'unstarted' ? 'bg-danger' : item.status === 'in progress' ? 'bg-yellow-500' : 'bg-green-500'}`}
                       />
                     </span>
                   )}
