@@ -1,10 +1,8 @@
 import { Form } from 'antd'
-import { useTranslation } from 'react-i18next'
 
 import StatsPieChart from '../components/stats-pie-chart'
 
 const RegionsWithMostBookings = () => {
-  const { t } = useTranslation()
   const [form] = Form.useForm()
 
   const paymentData = [

@@ -1,12 +1,8 @@
-import { format } from 'date-fns'
-import { twMerge } from 'tailwind-merge'
-import { useTranslation } from 'react-i18next'
 import { Avatar, Card, Typography } from 'antd'
+import { twMerge } from 'tailwind-merge'
 
 import type { FC, JSXElementConstructor, SVGProps } from 'react'
 
-import { ru } from 'date-fns/locale/ru'
-import { uz } from 'date-fns/locale/uz'
 import TrendingUpIcon from '@/components/icons/trending-up'
 
 const { Text } = Typography
@@ -31,13 +27,13 @@ const StatisticsCard: FC<IProps> = props => {
   return (
     // <Card classNames={{ body: 'w-[380px]' }}>
     <Card className={props?.className} classNames={{ body: 'flex h-full' }}>
-      <div className="flex flex-col w-full">
-        <div className="flex items-start justify-between gap-[10px] mb-4">
+      <div className="flex w-full flex-col">
+        <div className="mb-4 flex items-start justify-between gap-[10px]">
           <Text className="text-medium text-success">{title}</Text>
           <Avatar
             size={48}
             shape="square"
-            className="bg-[#F8FAFC] shrink-0 text-primary-dark dark:bg-white/5 dark:text-white rounded-lg"
+            className="shrink-0 rounded-lg bg-[#F8FAFC] text-primary-dark dark:bg-white/5 dark:text-white"
             icon={<TrendingUpIcon className="text-[24px]" />}
           />
         </div>
@@ -69,7 +65,7 @@ const StatisticsCard: FC<IProps> = props => {
                     props?.direction === 'down' ? 'rotate-180' : '',
                   )}
                 />
-                <Text className="text-inherit whitespace-nowrap font-medium">
+                <Text className="whitespace-nowrap font-medium text-inherit">
                   {props?.change}%
                 </Text>
               </Text>

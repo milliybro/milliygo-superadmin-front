@@ -1,23 +1,22 @@
-import { Card, Tabs, DatePicker, Form } from 'antd'
+import { Card, DatePicker, Form, Tabs } from 'antd'
 import { Line } from 'react-chartjs-2'
-import { useTranslation } from 'react-i18next'
 import { twMerge } from 'tailwind-merge'
 
 import {
+  CategoryScale,
   Chart as ChartJS,
+  Filler,
+  LinearScale,
   LineElement,
   PointElement,
-  LinearScale,
-  CategoryScale,
   Tooltip,
-  Filler,
 } from 'chart.js'
 
 // import CalendarIcon from '@/components/icons/calendar'
 import { formatAmount } from '@/helpers/format-amount'
 
-import type { FC } from 'react'
 import Calendar3Icon from '@/components/icons/calendar-3'
+import type { FC } from 'react'
 
 ChartJS.register(
   LineElement,
@@ -76,8 +75,6 @@ const chartOptions = {
 }
 
 const FinanceStatsChart: FC<{ className?: string }> = props => {
-  const { t } = useTranslation()
-
   const chartData = {
     labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
     datasets: [
@@ -110,8 +107,8 @@ const FinanceStatsChart: FC<{ className?: string }> = props => {
       className={twMerge('w-full', props?.className)}
       classNames={{ body: '!p-0' }}
     >
-      <div className="flex flex-col p-4 border-b">
-        <h2 className="font-bold text-[20px] mb-2">
+      <div className="flex flex-col border-b p-4">
+        <h2 className="mb-2 text-[20px] font-bold">
           Статистика финансов и доходов (млн сум)
         </h2>
         <Form className="flex items-center justify-between">
