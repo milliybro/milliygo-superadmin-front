@@ -1,6 +1,9 @@
 import type { FC, SVGProps } from 'react'
 
-const UsersGroupIcon: FC<SVGProps<SVGSVGElement>> = props => (
+const UsersGroupIcon: FC<SVGProps<SVGSVGElement>> = ({
+  className,
+  ...props
+}) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width="1em"

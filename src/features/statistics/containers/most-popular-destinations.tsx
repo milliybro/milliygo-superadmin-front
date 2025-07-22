@@ -1,10 +1,7 @@
-import React from 'react'
-import StatsPieChart from '../components/stats-pie-chart'
-import { useTranslation } from 'react-i18next'
 import { Form } from 'antd'
+import StatsPieChart from '../components/stats-pie-chart'
 
 const MostPopularDestinations = () => {
-  const { t } = useTranslation()
   const [form] = Form.useForm()
 
   const paymentData = [

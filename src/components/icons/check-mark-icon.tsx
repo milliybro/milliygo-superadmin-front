@@ -5,7 +5,7 @@ const CheckMarkIcon: FC<SVGProps<SVGSVGElement>> = ({
   ...props
 }) => (
   <svg
-  {...props}
+    {...props}
     width="24"
     height="24"
     viewBox="0 0 24 24"
@@ -15,9 +15,9 @@ const CheckMarkIcon: FC<SVGProps<SVGSVGElement>> = ({
     <path
       d="M15 2.4578C14.053 2.16035 13.0452 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 10.9548 21.8396 9.94704 21.5422 9"
       stroke="#3276FF"
-      stroke-width="1.5"
+      strokeWidth="1.5"
     />
-    <path d="M8.5 9.5L12 13L21.0002 3" stroke="#3276FF" stroke-width="1.5" />
+    <path d="M8.5 9.5L12 13L21.0002 3" stroke="#3276FF" strokeWidth="1.5" />
   </svg>
 )
 

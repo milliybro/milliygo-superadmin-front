@@ -2,6 +2,7 @@ import type { FC, SVGProps } from 'react'
 
 const TipsIcon: FC<SVGProps<SVGSVGElement>> = props => (
   <svg
+    {...props}
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
     height="1em"
