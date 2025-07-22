@@ -51,6 +51,7 @@ interface IUser {
   updated_at: string
   deleted: any
   deleted_by_cascade: boolean
+  pin: number
 }
 
 interface AuthResponse {

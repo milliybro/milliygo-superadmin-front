@@ -1,13 +1,14 @@
 import type { FC, SVGProps } from 'react'
 
-const TipsIcon: FC<SVGProps<SVGSVGElement>> = ({ className, ...props }) => (
+const TipsIcon: FC<SVGProps<SVGSVGElement>> = props => (
   <svg
     {...props}
     xmlns="http://www.w3.org/2000/svg"
-    width="24"
-    height="24"
+    width="1em"
+    height="1em"
     viewBox="0 0 24 24"
     fill="none"
+    {...props}
   >
     <path
       d="M20 8C20 9.93293 18.433 11.5 16.5 11.5C14.567 11.5 13 9.93293 13 8C13 6.067 14.567 4.5 16.5 4.5C18.433 4.5 20 6.067 20 8Z"
