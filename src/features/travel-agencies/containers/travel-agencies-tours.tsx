@@ -3,18 +3,11 @@ import { useTranslation } from 'react-i18next'
 
 import UsersNotFound from '@/features/users/components/users-not-found'
 import type { TableColumnsType } from 'antd'
-import { ITourAgents } from '../types'
+import { IAgentTourData, ITourAgents } from '../types'
 import { formatAmount } from '@/helpers/format-amount'
-
-// interface IAgenciesToursDetail {
-//   key: number
-//   id: number
-//   name: string
-//   duration: number
-//   type: string
-//   count_person: number
-//   price: number
-// }
+import { useQuery } from '@tanstack/react-query'
+import { getTourAgentTours } from '../api'
+import { useParams } from 'react-router'
 
 const columns: TableColumnsType<ITourAgents> = [
   {
@@ -46,42 +39,28 @@ const columns: TableColumnsType<ITourAgents> = [
   },
 ]
 
-const staticHotelsData = {
-  count: 2,
-  results: [
-    {
-      id: 1,
-      name: 'Hotel Grand Palace',
-      duration: 3,
-      type: 'Горная прогулка',
-      count_person: 4,
-      price: 496443,
-    },
-    {
-      id: 2,
-      name: 'Silk Road Inn',
-      duration: 3,
-      type: 'Горная прогулка',
-      count_person: 4,
-      price: 534534,
-    },
-  ],
-}
-
 const TravelAgenciesTours = () => {
   const { t } = useTranslation()
+  const { id } = useParams<{ id: string }>()
 
-  const transformHotelDetailsToTableData = (
-    data: any[],
-  ): any[] => {
+  const { data } = useQuery({
+    queryKey: ['agent-tour', id],
+    queryFn: async () => {
+      const res = await getTourAgentTours({ tour_agent_id: id })
+      return res
+    },
+    enabled: !!id,
+  })
+
+  const transformHotelDetailsToTableData = (data: IAgentTourData[]): any[] => {
     return data.map((item, index: any) => {
       return {
         key: index,
         id: item.id,
         name: item.name,
-        duration: item.duration,
-        type: item.type,
-        count_person: item.count_person,
+        duration: item.duration_days,
+        type: item.type_tour,
+        count_person: item.number_people,
         price: item.price,
       }
     })
@@ -94,9 +73,7 @@ const TravelAgenciesTours = () => {
         title: t(val?.title as string),
       }))}
       dataSource={
-        staticHotelsData?.results
-          ? transformHotelDetailsToTableData(staticHotelsData?.results)
-          : []
+        data?.results ? transformHotelDetailsToTableData(data?.results) : []
       }
       pagination={false}
       locale={{

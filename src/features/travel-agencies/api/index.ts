@@ -1,6 +1,6 @@
 import { ListResponse } from '@/types'
 import request from '@/utils/axios'
-import { ITourAgents } from '../types'
+import { IAgentTourData, ITourAgents } from '../types'
 import requestSuper from '@/utils/superRequest'
 
 export async function getTourAgentsList(
@@ -8,6 +8,30 @@ export async function getTourAgentsList(
 ): Promise<ListResponse<ITourAgents[]>> {
   const res: ListResponse<ITourAgents[]> = await requestSuper({
     url: '/tour-agents/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
+export async function getTourAgentTours(
+  params?: any,
+): Promise<ListResponse<IAgentTourData[]>> {
+  const res: ListResponse<IAgentTourData[]> = await requestSuper({
+    url: '/tour-agents/tours/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
+export async function getTourAgentEmployees(
+  params?: any,
+): Promise<ListResponse<IAgentTourData[]>> {
+  const res: ListResponse<IAgentTourData[]> = await requestSuper({
+    url: '/tour-agents/employees/',
     method: 'get',
     params,
   })
