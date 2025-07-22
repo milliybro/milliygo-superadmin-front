@@ -17,6 +17,7 @@ interface IProps {
 function CountryMapSVG({ pointTitle }: IProps) {
   const mapRef = useRef<SVGSVGElement>(null)
   const { region: selectedRegion } = useParams()
+  console.log(pointTitle)
 
   const [viewBox, setViewBox] = useState<string>('0 0 906 563')
   const [scaleFactor, setScaleFactor] = useState<number>(1)
