@@ -1,15 +1,14 @@
 import axios from 'axios'
 import { notification } from 'antd'
+
 import settings from '@/config/settings'
 import { refreshToken } from '@/features/auth'
 
 import type { AxiosError } from 'axios'
 import type { IErrorMessage } from '@/types'
 
-export const baseURL = 'https://support.emehmon.xdevs.uz/api/v1'
-
 const requestSupport = axios.create({
-  baseURL: baseURL,
+  baseURL: settings.baseSupportURL,
   timeout: settings.requestTimeout,
 })
 
