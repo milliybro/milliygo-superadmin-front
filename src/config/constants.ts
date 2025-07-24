@@ -34,6 +34,4 @@ const ROUTE_PATHS = {
   INVOICECONTROL: '/invoice-control',
 }
 
-const BASE_URL = ''
-
-export { TOKEN, ROUTE_PATHS, BASE_URL }
+export { TOKEN, ROUTE_PATHS }
