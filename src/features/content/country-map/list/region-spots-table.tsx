@@ -1,17 +1,17 @@
 import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
-import { useQuery } from '@tanstack/react-query'
 import { Button, Switch, Table, TableProps, Tooltip, Typography } from 'antd'
-import { Dispatch, SetStateAction } from 'react'
-import { useParams } from 'react-router'
-import { getRegionMapPoints } from '../../api'
+import { Dispatch, SetStateAction, useMemo } from 'react'
+import { useNavigate } from 'react-router'
+import useCountryMapContext from '../hooks/use-country-map'
 
 interface IProps {
   setDeleteOpen: Dispatch<SetStateAction<boolean>>
 }
 
 function RegionSpotsTable({ setDeleteOpen }: IProps) {
-  const { region } = useParams()
+  const navigate = useNavigate()
+  const { points } = useCountryMapContext()
   const columns: TableProps['columns'] = [
     {
       title: 'Название на карте',
@@ -46,10 +46,14 @@ function RegionSpotsTable({ setDeleteOpen }: IProps) {
       key: 'action',
       dataIndex: 'action',
       width: 0,
-      render: () => (
+      render: (_, record) => (
         <div className="flex items-center gap-4 text-base font-medium">
           <Tooltip title="Редактировать">
-            <Button type="link" className="p-0">
+            <Button
+              type="link"
+              className="p-0"
+              onClick={() => navigate(`edit?id=${record.id}`)}
+            >
               <EditIcon className="text-xl" />
             </Button>
           </Tooltip>
@@ -68,19 +72,17 @@ function RegionSpotsTable({ setDeleteOpen }: IProps) {
     },
   ]
 
-  const { data } = useQuery({
-    queryKey: ['region-spots', region],
-    queryFn: () => getRegionMapPoints({ region_id: +region! }),
-    enabled: !!region,
-    select: data =>
-      data?.results?.map(item => ({
+  const data = useMemo(() => {
+    return (
+      points?.results?.map(item => ({
         key: item.id,
+        id: item.id,
         name: item?.front_data?.point_title,
         destination: item?.top_destination?.title,
         status: item?.is_active,
-      })),
-    gcTime: 0,
-  })
+      })) || []
+    )
+  }, [points])
 
   return (
     <Table

@@ -8,6 +8,8 @@ interface IProps {
   setOpen: Dispatch<SetStateAction<boolean>>
   title?: string
   description?: string
+  onDelete?: () => void
+  isLoading?: boolean
 }
 
 export default function DeleteModal({
@@ -15,6 +17,8 @@ export default function DeleteModal({
   setOpen,
   title,
   description,
+  onDelete,
+  isLoading,
 }: IProps) {
   return (
     <Modal
@@ -39,7 +43,12 @@ export default function DeleteModal({
         </Typography.Text>
         <div className="flex items-center justify-center gap-5">
           <Button onClick={() => setOpen(false)}>Отмена</Button>
-          <Button type="primary" className="bg-primary-dark">
+          <Button
+            type="primary"
+            className="bg-primary-dark"
+            onClick={onDelete}
+            loading={isLoading}
+          >
             Удалить
           </Button>
         </div>

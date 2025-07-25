@@ -13,14 +13,19 @@ import {
   regionPaths,
   textClassname,
 } from '../../assets/region-paths'
-import useCountryMapContext from '../../country-map/hooks/use-country-map'
+import useCountryMapContext from '../hooks/use-country-map'
+import { IRegionMapPoint } from '../../types'
 
 export default function NewRegionPoint({
   scaleFactor = 1,
   pointTitle,
+  isEdit,
+  point,
 }: {
   scaleFactor?: number
   pointTitle?: string
+  isEdit?: boolean
+  point?: IRegionMapPoint
 }) {
   // const [newCoords, setNewCoords] = useState<{ x: number; y: number }>({
   //   x: 0,
@@ -32,7 +37,7 @@ export default function NewRegionPoint({
   const pointerRef = useRef<SVGGElement>(null)
   const measureRef1 = useRef<SVGTextElement>(null)
   const measureRef2 = useRef<SVGTextElement>(null)
-  const [rectWidth, setRectWidth] = useState(90 / scaleFactor)
+  const [rectW, setRectW] = useState(90 / scaleFactor)
 
   const { region: selectedRegion } = useParams()
 
@@ -67,7 +72,7 @@ export default function NewRegionPoint({
       ? measureRef2.current.getComputedTextLength()
       : 0
     const maxLen = Math.max(len1, len2)
-    setRectWidth(Math.max(maxLen + paddingX * 2, 90 / scaleFactor))
+    setRectW(Math.max(maxLen + paddingX * 2, 90 / scaleFactor))
   }, [line1, line2, scaleFactor])
 
   useEffect(() => {
@@ -149,6 +154,10 @@ export default function NewRegionPoint({
   const rectX = newCoords.x + width
   const rectY = newCoords.y - rectHeight / 2 - height
 
+  if (isEdit && !point) {
+    return null
+  }
+
   return (
     <g
       ref={pointerRef}
@@ -182,7 +191,7 @@ export default function NewRegionPoint({
         x={rectX}
         y={rectY}
         height={rectHeight}
-        width={rectWidth}
+        width={rectW}
         rx={8 / scaleFactor}
         fill="white"
         stroke="#B7BFD5"
@@ -191,7 +200,7 @@ export default function NewRegionPoint({
         z={10}
       />
       <text
-        x={rectX + rectWidth / 2}
+        x={rectX + rectW / 2}
         y={rectY + paddingY + (isTwoLines ? 0 : lineHeight / 2) + fontSize / 2}
         textAnchor="middle"
         fill="black"
@@ -200,11 +209,11 @@ export default function NewRegionPoint({
         vectorEffect="non-scaling-size"
         className={textClassname}
       >
-        <tspan x={rectX + rectWidth / 2} dy={0}>
+        <tspan x={rectX + rectW / 2} dy={0}>
           {line1}
         </tspan>
         {isTwoLines && (
-          <tspan x={rectX + rectWidth / 2} dy={lineHeight}>
+          <tspan x={rectX + rectW / 2} dy={lineHeight}>
             {line2}
           </tspan>
         )}

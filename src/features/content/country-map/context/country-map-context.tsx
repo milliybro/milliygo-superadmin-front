@@ -7,10 +7,24 @@ import {
   useEffect,
   useState,
 } from 'react'
-import { createMapPoint, getRegion } from '../../api'
-import { useNavigate, useParams } from 'react-router'
+import {
+  createMapPoint,
+  deleteRegionMapPoint,
+  getRegion,
+  getRegionMapPoints,
+  updateRegionMapPoint,
+} from '../../api'
+import {
+  useLocation,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from 'react-router'
 import { AxiosResponse } from 'axios'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
+import { IRegionMapPoint } from '../../types'
+import { ListResponse } from '@/types'
+import { App } from 'antd'
 
 interface CountryMapContext {
   newCoords: { x: number; y: number }
@@ -24,6 +38,22 @@ interface CountryMapContext {
     },
     unknown
   >
+  updateMapPointMutation: UseMutationResult<
+    AxiosResponse<any, any>,
+    Error,
+    {
+      point_title: string
+      destination: number
+    },
+    unknown
+  >
+  deleteMapPointMutation: UseMutationResult<
+    AxiosResponse<any, any>,
+    Error,
+    number,
+    unknown
+  >
+  points?: ListResponse<IRegionMapPoint[]>
 }
 
 const CountryMapContext = createContext<CountryMapContext | null>(null)
@@ -34,10 +64,15 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
     y: 0,
   })
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+  const { notification } = App.useApp()
 
   const { setBreadCrumbs } = useBreadCrumbsStore()
 
   const { region } = useParams()
+
+  const [searchParams] = useSearchParams()
+  const pointId = searchParams.get('id')
 
   const { data: regionData } = useQuery({
     queryKey: ['region', region],
@@ -49,6 +84,26 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
     },
   })
 
+  const { data: points } = useQuery({
+    queryKey: ['region-spots', region, pathname],
+    queryFn: () => getRegionMapPoints({ region_id: +region! }),
+    enabled: !!region,
+    gcTime: 0,
+  })
+
+  useEffect(() => {
+    const editingPoint = points?.results?.find(
+      point => point.id === +(pointId || NaN),
+    )
+
+    if (editingPoint) {
+      setNewCoords({
+        x: editingPoint.front_data.x,
+        y: editingPoint.front_data.y,
+      })
+    }
+  }, [points])
+
   useEffect(() => {
     setBreadCrumbs([
       { title: 'Главная', href: '/' },
@@ -58,7 +113,9 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
         href: `/content/country-map/${region}`,
       },
       {
-        title: 'Создать точку на карте',
+        title: pathname?.includes('create')
+          ? 'Создать точку на карте'
+          : 'Редактировать точку на карте',
       },
     ])
   }, [regionData])
@@ -72,11 +129,47 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
         front_data: { ...newCoords, point_title: values.point_title },
       })
     },
+    onSuccess: () => {
+      notification.success({
+        message: 'Точка успешно создана',
+      })
+      navigate(`/content/country-map/${region}`)
+    },
+  })
+
+  const updateMapPointMutation = useMutation({
+    mutationFn: (values: { point_title: string; destination: number }) =>
+      updateRegionMapPoint({
+        region: +region!,
+        id: +pointId!,
+        top_destination: values?.destination,
+        front_data: {
+          ...newCoords,
+          point_title: values?.point_title || '',
+        },
+      }),
+    onSuccess: () => {
+      notification.success({
+        message: 'Точка успешно обновлена',
+      })
+      navigate(`/content/country-map/${region}`)
+    },
+  })
+
+  const deleteMapPointMutation = useMutation({
+    mutationFn: deleteRegionMapPoint,
   })
 
   return (
     <CountryMapContext.Provider
-      value={{ newCoords, setNewCoords, createMapPointMutation }}
+      value={{
+        newCoords,
+        setNewCoords,
+        createMapPointMutation,
+        updateMapPointMutation,
+        deleteMapPointMutation,
+        points,
+      }}
     >
       {children}
     </CountryMapContext.Provider>

@@ -53,3 +53,25 @@ export async function getRegionMapPoints(params: {
     params,
   })
 }
+
+export async function updateRegionMapPoint(data: {
+  id: number
+  region: number
+  top_destination?: number
+  is_active?: boolean
+  front_data?: object
+}) {
+  const { id, ...rest } = data
+  return await requestAuth({
+    url: `/site-content/uzbekistans_map/${id}/`,
+    method: 'patch',
+    data: rest,
+  })
+}
+
+export async function deleteRegionMapPoint(id: number) {
+  return await requestAuth({
+    url: `/site-content/uzbekistans_map/${id}`,
+    method: 'delete',
+  })
+}
