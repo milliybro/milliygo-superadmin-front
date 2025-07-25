@@ -520,7 +520,10 @@
     "cost-per-day": "Kunlik narx",
     "map-title": "O'zbekiston xaritasi",
     "select_or_drag": "Rasmni tanlang yoki sudrab olib keling",
-    "images_limit": "Maksimal hajmi: 5 MB."
+    "images_limit": "Maksimal hajmi: 5 MB.",
+    "avia": "Avia",
+    "railway": "Temir yo‘l",
+    "ticket-seller": "Bilet sotuvchilar"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
@@ -582,7 +585,8 @@
     "campsites": "Kempinglar",
     "guest-houses": "Mehmon uylari",
     "sanatoriums": "Sanatoriyalar",
-    "hostel": "Xostel"
+    "hostel": "Xostel",
+    "all-status": "Barcha holatlar"
   },
   "travel-agencies": {
     "name-agencies": "Sayyohlik agentligining nomi",
@@ -594,7 +598,7 @@
     "people-tour": "Turda necha kishi bor",
     "fullname-employee": "Xodimning F.I.O.",
     "brief-employee": "Xodim haqida qisqacha ma’lumot",
-    "agent-name":"Turistik agentlik nomi"
+    "agent-name": "Turistik agentlik nomi"
   },
   "billing": {
     "accrual": "Hisoblangan pul",

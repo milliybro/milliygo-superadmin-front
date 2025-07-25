@@ -31,30 +31,30 @@ const GuidesTable = ({
     {
       title: 'hotel-guest.lfm',
       dataIndex: 'fio',
-      sorter: false,
+      sorter: true,
       render: (_, record: any) => (
         <div className="flex items-center gap-[10px]">
           <Image
             src={record?.image}
             height={36}
             width={36}
-            className="w-9 h-9 object-cover rounded-[8px]"
+            className="h-9 w-9 rounded-[8px] object-cover"
           />
-          <span className="text-[14px] text-primary-dark font-medium">{_}</span>
+          <span className="text-[14px] font-medium text-primary-dark">{_}</span>
         </div>
       ),
     },
     {
       title: 'guides.service-location',
       dataIndex: 'placements',
-      sorter: false,
+      sorter: true,
       render: (placements: string[]) => (
-        <div className="flex items-center gap-[10px] flex-wrap">
+        <div className="flex flex-wrap items-center gap-[10px]">
           {placements && placements.length > 0 ? (
             placements.map((place, idx) => (
               <div
                 key={idx}
-                className="bg-[#6B728029] text-[#333] text-sm px-3 py-1 rounded-[8px]"
+                className="rounded-[8px] bg-[#6B728029] px-3 py-1 text-sm text-[#333]"
               >
                 {place}
               </div>
@@ -71,9 +71,9 @@ const GuidesTable = ({
           {
             title: 'fields.rating.label',
             dataIndex: 'rating',
-            sorter: false,
+            sorter: true,
             render: (rating: any) => (
-              <span className="flex items-center px-[10px] py-[6px] gap-[10px] bg-[#FEF9C3] w-fit rounded-[6px]">
+              <span className="flex w-fit items-center gap-[10px] rounded-[6px] bg-[#FEF9C3] px-[10px] py-[6px]">
                 {rating !== null && rating !== undefined ? rating : '-'}
               </span>
             ),
@@ -84,7 +84,7 @@ const GuidesTable = ({
     {
       title: 'fields.status.label',
       dataIndex: 'status',
-      sorter: false,
+      sorter: true,
       render: status => <GuidesStatusTag active={status} type={type} />,
     },
     {
@@ -104,8 +104,8 @@ const GuidesTable = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 0 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
+            n === 0 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.prev')}
@@ -116,8 +116,8 @@ const GuidesTable = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 10 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
+            n === 10 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.next')}
@@ -144,7 +144,7 @@ const GuidesTable = ({
     })) || []
 
   return (
-    <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
+    <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] bg-white">
       <Table<IGuidesTable>
         columns={columns?.map(val => ({
           ...val,
@@ -152,7 +152,8 @@ const GuidesTable = ({
         }))}
         loading={isLoading}
         dataSource={transformedTenantsData}
-        className="w-full h-full"
+        className="h-full w-full"
+        bordered
         pagination={{
           current: currentPage,
           pageSize: 10,

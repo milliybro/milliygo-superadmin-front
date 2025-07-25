@@ -540,7 +540,10 @@
     "cost-per-day": "Стоимость за день",
     "map-title": "Карта Узбекистана",
     "select_or_drag": "Выберите или перетащите фото",
-    "images_limit": "Максимальный размер: 5 МБ."
+    "images_limit": "Максимальный размер: 5 МБ.",
+    "avia": "Aвиа",
+    "railway": "Железная дорога",
+    "ticket-seller":"Продавцы билетов"
   },
   "status": {
     "confirmed": "Подтвержден",
@@ -587,7 +590,8 @@
     "campsites": "Кемпинги",
     "guest-houses": "Гостевые дома",
     "sanatoriums": "Санатории",
-    "hostel": "Хостел"
+    "hostel": "Хостел",
+    "all-status": "Все статусы"
   },
   "travel-agencies": {
     "name-agencies": "Название туристического агентства",
