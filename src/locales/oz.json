@@ -520,7 +520,9 @@
     "cost-per-day": "Kunlik narx",
     "map-title": "O'zbekiston xaritasi",
     "select_or_drag": "Rasmni tanlang yoki sudrab olib keling",
-    "images_limit": "Maksimal hajmi: 5 MB."
+    "images_limit": "Maksimal hajmi: 5 MB.",
+    "go-home": "Bosh sahifaga o'tish",
+    "refresh": "Sahifani yangilash"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
@@ -634,6 +636,10 @@
     "main-information": "Asosiy axborot",
     "visa-information": "Viza ma’lumotlari",
     "under-chilren": "Birga kelgan 16 yoshgacha bo‘lgan bolalar haqida ma’lumot"
+  },
+  "error": {
+    "unexpected": "Nimadir noto'g'ri ketdi",
+    "not-found": "Sahifa topilmadi"
   },
   "region": {
     "points-1": "Samarqand tumani_(Konigil qishlog'i)",

@@ -19,3 +19,19 @@ export interface ITopDestination {
   created_at: string
   updated_at: string
 }
+
+export interface IRegionMapPoint {
+  id: number
+  region: IRegion
+  top_destination: {
+    id: number
+    title: string
+    description: string
+  }
+  is_active: boolean
+  front_data: {
+    x: number
+    y: number
+    point_title: string
+  }
+}

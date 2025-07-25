@@ -3,7 +3,7 @@ import Content from './views/content'
 import CreateContent from './views/create-content'
 import ContentLayout from './views/content-layout'
 import RegionSpots from './country-map/region-spots'
-import CreateRegionSpot from './country-map/create/create-region-spot'
+import CreateRegion from './country-map/create'
 
 const contentRoutes: CustomRoute = {
   id: 'content',
@@ -34,7 +34,7 @@ const contentRoutes: CustomRoute = {
     {
       path: ':tab/:region/create',
       title: 'Create Region Content',
-      element: <CreateRegionSpot />,
+      element: <CreateRegion />,
     },
   ],
 }

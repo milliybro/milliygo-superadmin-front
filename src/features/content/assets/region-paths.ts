@@ -17,7 +17,7 @@ export const pathClassname =
   'transition-colors  group-hover:fill-[#8494B3] group-hover:stroke-[#2457A0]'
 export const rectClassname =
   'group-hover:stroke-[#2457A0] group-hover:fill-[#2457A0] transition-colors '
-export const textClassname = 'group-hover:fill-white'
+export const textClassname = 'group-hover:fill-white fill-black'
 
 export const regionPaths: IRegionPath[] = [
   {

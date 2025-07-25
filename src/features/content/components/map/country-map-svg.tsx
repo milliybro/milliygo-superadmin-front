@@ -12,12 +12,12 @@ import NewRegionPoint from './new-region-point'
 
 interface IProps {
   pointTitle?: string
+  isAddingNew?: boolean
 }
 
-function CountryMapSVG({ pointTitle }: IProps) {
+function CountryMapSVG({ pointTitle, isAddingNew }: IProps) {
   const mapRef = useRef<SVGSVGElement>(null)
   const { region: selectedRegion } = useParams()
-  console.log(pointTitle)
 
   const [viewBox, setViewBox] = useState<string>('0 0 906 563')
   const [scaleFactor, setScaleFactor] = useState<number>(1)
@@ -51,8 +51,8 @@ function CountryMapSVG({ pointTitle }: IProps) {
     const bbox = pathG.getBBox()
     const { x, y, width, height } = bbox
 
-    const padding = 15
-    const scale = 0.9
+    const padding = 15 / scaleFactor
+    const scale = 1
     const newWidth = width / scale
     const newHeight = height / scale
     const offsetX = (newWidth - width) / 2
@@ -90,7 +90,9 @@ function CountryMapSVG({ pointTitle }: IProps) {
           {selectedRegion !== null && (
             <RegionPointsSVG scaleFactor={scaleFactor} />
           )}
-          <NewRegionPoint scaleFactor={scaleFactor} />
+          {isAddingNew && (
+            <NewRegionPoint scaleFactor={scaleFactor} pointTitle={pointTitle} />
+          )}
         </g>
       </motion.svg>
     </div>
