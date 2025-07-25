@@ -22,7 +22,9 @@ import statisticsRoutes from '@/features/statistics/routes'
 import tenantsRoutes from '@/features/tenants/routes'
 import touristsRoutes from '@/features/tourists/routes'
 import travelAgenciesRoutes from '@/features/travel-agencies/routes'
+import Error from '@/views/error'
 import type { CustomRoute } from '@/types'
+import NotFound from '@/views/not-found'
 
 export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
   const commonAuthRoutes = [authRoutes]
@@ -33,6 +35,7 @@ export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
         id: 'root',
         path: ROUTE_PATHS.MAIN,
         element: <Root />,
+        errorElement: <Error />,
         children: [
           statisticsRoutes,
           placementRoutes,
@@ -55,6 +58,7 @@ export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
           contentRoutes,
         ],
       },
+      { path: '/not-found', element: <NotFound /> },
       ...commonAuthRoutes,
     ]
   }

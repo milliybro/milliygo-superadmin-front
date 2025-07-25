@@ -20,6 +20,10 @@ request.interceptors.request.use(config => {
 
   const locale = localStorage.getItem('i18nextLng')
 
+  if (config.url?.[config.url?.length - 1] !== '/') {
+    config.url += '/'
+  }
+
   const token = localStorage.getItem('access')
   if (token !== null) {
     config.headers.Authorization = `Bearer ${token}`

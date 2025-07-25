@@ -1,23 +1,33 @@
 import { useEffect, useRef, useState } from 'react'
 
 import { motion } from 'motion/react'
-import { useParams } from 'react-router'
+import { useParams, useSearchParams } from 'react-router'
 import { regionPaths } from '../../assets/region-paths'
 import RegionPointsSVG from './region-points-svg'
 import RegionSVG from './region-svg'
 import NewRegionPoint from './new-region-point'
+import { IRegionMapPoint } from '../../types'
 
 // hovered = #8494B3
 // normal = #3276FF
 
 interface IProps {
   pointTitle?: string
+  isEdit?: boolean
+  isCreating?: boolean
+  editingPoint?: IRegionMapPoint
 }
 
-function CountryMapSVG({ pointTitle }: IProps) {
+function CountryMapSVG({
+  pointTitle,
+  isEdit,
+  isCreating,
+  editingPoint,
+}: IProps) {
   const mapRef = useRef<SVGSVGElement>(null)
   const { region: selectedRegion } = useParams()
-  console.log(pointTitle)
+  const [searchParams] = useSearchParams()
+  const pointId = Number(searchParams.get('id'))
 
   const [viewBox, setViewBox] = useState<string>('0 0 906 563')
   const [scaleFactor, setScaleFactor] = useState<number>(1)
@@ -51,8 +61,8 @@ function CountryMapSVG({ pointTitle }: IProps) {
     const bbox = pathG.getBBox()
     const { x, y, width, height } = bbox
 
-    const padding = 15
-    const scale = 0.9
+    const padding = 15 / scaleFactor
+    const scale = 1
     const newWidth = width / scale
     const newHeight = height / scale
     const offsetX = (newWidth - width) / 2
@@ -88,9 +98,16 @@ function CountryMapSVG({ pointTitle }: IProps) {
         <g id="regions" className="*:cursor-pointer">
           {regionPaths?.map(reg => <RegionSVG reg={reg} key={reg?.id} />)}
           {selectedRegion !== null && (
-            <RegionPointsSVG scaleFactor={scaleFactor} />
+            <RegionPointsSVG scaleFactor={scaleFactor} exclude={pointId} />
           )}
-          <NewRegionPoint scaleFactor={scaleFactor} />
+          {(isCreating || isEdit) && (
+            <NewRegionPoint
+              scaleFactor={scaleFactor}
+              pointTitle={pointTitle}
+              isEdit={isEdit}
+              point={editingPoint}
+            />
+          )}
         </g>
       </motion.svg>
     </div>

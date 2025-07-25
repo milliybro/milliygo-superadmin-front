@@ -13,18 +13,31 @@ import {
   regionPaths,
   textClassname,
 } from '../../assets/region-paths'
+import useCountryMapContext from '../hooks/use-country-map'
+import { IRegionMapPoint } from '../../types'
 
 export default function NewRegionPoint({
   scaleFactor = 1,
+  pointTitle,
+  isEdit,
+  point,
 }: {
   scaleFactor?: number
+  pointTitle?: string
+  isEdit?: boolean
+  point?: IRegionMapPoint
 }) {
-  const [newCoords, setNewCoords] = useState<{ x: number; y: number }>({
-    x: 0,
-    y: 0,
-  })
+  // const [newCoords, setNewCoords] = useState<{ x: number; y: number }>({
+  //   x: 0,
+  //   y: 0,
+  // })
+  const { newCoords, setNewCoords } = useCountryMapContext()
   const dragging = useRef(false)
   const lastMousePos = useRef<{ x: number; y: number }>({ x: 0, y: 0 })
+  const pointerRef = useRef<SVGGElement>(null)
+  const measureRef1 = useRef<SVGTextElement>(null)
+  const measureRef2 = useRef<SVGTextElement>(null)
+  const [rectW, setRectW] = useState(90 / scaleFactor)
 
   const { region: selectedRegion } = useParams()
 
@@ -33,16 +46,41 @@ export default function NewRegionPoint({
     [selectedRegion],
   )
 
+  const [line1, line2] = useMemo(() => {
+    if (!pointTitle) return ['', '']
+
+    const words = pointTitle?.trim()?.split(/\s+/)
+    if (words?.length <= 1) {
+      return [pointTitle?.trim(), '']
+    }
+
+    const mid = Math.ceil(words?.length / 2)
+    return [words?.slice(0, mid).join(' '), words?.slice(mid).join(' ')]
+  }, [pointTitle])
+
+  const isTwoLines = !!line2
+  const fontSize = 14 / scaleFactor
+  const lineHeight = fontSize * 1.2
+  const paddingY = 6 / scaleFactor
+  const paddingX = 12 / scaleFactor
+
+  useEffect(() => {
+    const len1 = measureRef1.current
+      ? measureRef1.current.getComputedTextLength()
+      : 0
+    const len2 = measureRef2.current
+      ? measureRef2.current.getComputedTextLength()
+      : 0
+    const maxLen = Math.max(len1, len2)
+    setRectW(Math.max(maxLen + paddingX * 2, 90 / scaleFactor))
+  }, [line1, line2, scaleFactor])
+
   useEffect(() => {
     const selectedPath = document.getElementById(
       '' + reg?.id || '',
     ) as SVGPathElement | null
     if (!selectedPath) return
 
-    selectedPath.addEventListener('mouseleave', () => {
-      dragging.current = false
-      console.log('mouseleave')
-    })
     const bbox = selectedPath.getBBox()
     const { x, y, height, width } = bbox
 
@@ -59,25 +97,38 @@ export default function NewRegionPoint({
   }, [])
 
   const handlePointerMove = useCallback(
-    (e: PointerEvent<SVGElement>) => {
+    (e: PointerEvent<SVGAElement>) => {
       const selectedPath = document.getElementById(
         '' + reg?.id || '',
       ) as SVGPathElement | null
+
+      const newPointer = pointerRef.current
+
+      if (!newPointer) return
+
       if (!selectedPath) return
 
       if (!dragging.current) return
+
+      const bbox = selectedPath.getBBox()
 
       const dx = (e.clientX - lastMousePos.current.x) / scaleFactor
       const dy = (e.clientY - lastMousePos.current.y) / scaleFactor
 
       setNewCoords(prev => ({
-        x: prev.x + dx,
-        y: prev.y + dy,
+        x:
+          dx < 0
+            ? Math.max(prev.x + dx, bbox.x)
+            : Math.min(prev.x + dx, bbox.x + bbox.width),
+        y:
+          dy < 0
+            ? Math.max(prev.y + dy, bbox.y)
+            : Math.min(prev.y + dy, bbox.y + bbox.height),
       }))
 
       lastMousePos.current = { x: e.clientX, y: e.clientY }
     },
-    [scaleFactor],
+    [scaleFactor, reg?.id],
   )
 
   const handlePointerUp = useCallback((e: PointerEvent<SVGAElement>) => {
@@ -98,26 +149,49 @@ export default function NewRegionPoint({
     L ${x + width} ${y - height}
   `
 
-  const rectHeight = 30 / scaleFactor
-  const rectWidth = 90 / scaleFactor
+  const rectHeight = (isTwoLines ? 2 : 1) * lineHeight + paddingY * 2
 
   const rectX = newCoords.x + width
   const rectY = newCoords.y - rectHeight / 2 - height
 
+  if (isEdit && !point) {
+    return null
+  }
+
   return (
     <g
+      ref={pointerRef}
       className="group"
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
     >
-      {/* <foreignObject></foreignObject> */}
+      <text
+        ref={measureRef1}
+        x={-9999}
+        y={-9999}
+        fontSize={14 / scaleFactor}
+        fontWeight={500}
+        className={textClassname}
+      >
+        {line1}
+      </text>
+      <text
+        ref={measureRef2}
+        x={-9999}
+        y={-9999}
+        fontSize={14 / scaleFactor}
+        fontWeight={500}
+        className={textClassname}
+      >
+        {line2}
+      </text>
       <rect
         xmlns="http://www.w3.org/2000/svg"
         x={rectX}
         y={rectY}
         height={rectHeight}
-        width={rectWidth}
+        width={rectW}
         rx={8 / scaleFactor}
         fill="white"
         stroke="#B7BFD5"
@@ -126,17 +200,25 @@ export default function NewRegionPoint({
         z={10}
       />
       <text
-        x={newCoords.x + 30 / 2}
-        y={newCoords.y + 20 / 2}
+        x={rectX + rectW / 2}
+        y={rectY + paddingY + (isTwoLines ? 0 : lineHeight / 2) + fontSize / 2}
         textAnchor="middle"
-        dominantBaseline="middle"
         fill="black"
         fontWeight={500}
-        className={textClassname}
-        fontSize={14 / scaleFactor}
-        stroke="none"
+        fontSize={fontSize}
         vectorEffect="non-scaling-size"
-      ></text>
+        className={textClassname}
+      >
+        <tspan x={rectX + rectW / 2} dy={0}>
+          {line1}
+        </tspan>
+        {isTwoLines && (
+          <tspan x={rectX + rectW / 2} dy={lineHeight}>
+            {line2}
+          </tspan>
+        )}
+      </text>
+
       <path
         xmlns="http://www.w3.org/2000/svg"
         d={roundedPathD}

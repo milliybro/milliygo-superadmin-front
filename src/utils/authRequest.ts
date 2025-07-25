@@ -22,7 +22,12 @@ requestAuth.interceptors.request.use(config => {
   if (token !== null) {
     config.headers.Authorization = `Bearer ${token}`
   }
+
   const locale = localStorage.getItem('i18nextLng')
+
+  if (config.url?.[config.url?.length - 1] !== '/') {
+    config.url += '/'
+  }
 
   config.headers['Accept-Language'] =
     locale === 'uz'
