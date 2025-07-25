@@ -79,7 +79,7 @@ const adminItems = [
   {
     label: 'routes.content',
     icon: MegaPhoneIcon,
-    path: ROUTE_PATHS.HOTELS,
+    path: ROUTE_PATHS.CONTENT,
     status: 'in progress',
   },
   {
@@ -114,8 +114,6 @@ const Sidebar = () => {
 
   const sidebarItems = adminItems
 
-  console.log('sidebarItems:', sidebarItems)
-
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => !prev)
   }
@@ -123,11 +121,11 @@ const Sidebar = () => {
   return (
     <aside
       className={twMerge(
-        'bg-white dark:bg-dark-bg transition-all border-border border-r duration-300',
-        isSidebarOpen ? 'w-[260px]' : 'w-14',
+        'border-r border-border bg-white transition-all duration-300 dark:bg-dark-bg',
+        isSidebarOpen ? 'w-[300px]' : 'w-14',
       )}
     >
-      <div className="p-4 flex justify-between items-center">
+      <div className="flex items-center justify-between p-4">
         {isSidebarOpen && <ProjectLogo />}
         <button onClick={toggleSidebar} aria-label="Toggle Sidebar">
           <SidebarLeftIcon className="text-[24px] text-[#B7BFD5]" />
@@ -139,13 +137,13 @@ const Sidebar = () => {
       <nav>
         <ul className={twMerge('space-y-2', isSidebarOpen ? 'p-3' : 'p-2')}>
           {sidebarItems.map((item, i) => {
-            const isActive = pathname.includes(item.path)
+            const isActive = pathname === item.path
             return (
               <li key={`routes-${i}`}>
                 <Link
                   to={item.path || '#'}
                   className={twMerge(
-                    'flex items-center p-2 gap-2 hover:bg-[#F8F8FA] rounded',
+                    'flex items-center gap-2 rounded p-2 hover:bg-[#F8F8FA]',
                     isSidebarOpen ? '' : 'justify-center',
                     isActive ? 'bg-[#F8F8FA]' : '',
                   )}
@@ -159,13 +157,13 @@ const Sidebar = () => {
                   {isSidebarOpen && (
                     <span
                       className={twMerge(
-                        'flex-1 line-clamp-1 flex justify-between items-center gap-2',
+                        'line-clamp-1 flex flex-1 items-center justify-between',
                         isActive ? 'text-primary-dark' : 'text-[#69757A]',
                       )}
                     >
                       {t(item.label)}{' '}
                       <div
-                        className={`w-2 h-2 rounded-full ${item.status === 'unstarted' ? 'bg-danger' : item.status === 'in progress' ? 'bg-yellow-500' : 'bg-green-500'}`}
+                        className={`h-2 w-2 rounded-full ${item.status === 'unstarted' ? 'bg-danger' : item.status === 'in progress' ? 'bg-yellow-500' : 'bg-green-500'}`}
                       />
                     </span>
                   )}

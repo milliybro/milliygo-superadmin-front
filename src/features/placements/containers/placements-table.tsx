@@ -76,10 +76,10 @@ const PlacementsTable = ({
     {
       title: 'fields.hotel-name.label',
       dataIndex: 'placement_name',
-      sorter: false,
+      sorter: true,
       render: (_, val) => (
         <div className="flex items-center gap-[10px]">
-          <div className="size-[48px] flex justify-center items-center bg-secondary-light border-border border rounded-[8px]">
+          <div className="flex size-[48px] items-center justify-center rounded-[8px] border border-border bg-secondary-light">
             {val?.image ? (
               <Image
                 src={val?.image}
@@ -92,7 +92,7 @@ const PlacementsTable = ({
               <HotelIcon fontSize={28} />
             )}
           </div>
-          <span className="text-[14px] text-primary-dark font-medium">
+          <span className="text-[14px] font-medium text-primary-dark">
             {val?.placement_name ? val?.placement_name : '-'}
           </span>
         </div>
@@ -102,13 +102,13 @@ const PlacementsTable = ({
       title: 'fields.address.label',
       width: 200,
       dataIndex: 'placement_address',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'fields.location.label',
       width: 200,
       dataIndex: 'location',
-      sorter: false,
+      sorter: true,
       render: val => (
         <div>
           {val ? (
@@ -124,7 +124,7 @@ const PlacementsTable = ({
             >
               <a
                 style={{ textDecoration: 'underline' }}
-                className="text-[#3276FF] line-clamp-2"
+                className="line-clamp-2 text-[#3276FF]"
               >
                 {val}
               </a>
@@ -135,18 +135,31 @@ const PlacementsTable = ({
         </div>
       ),
     },
+    // {
+    //   title: 'fields.price.label',
+    //   dataIndex: 'price',
+    //   sorter: {
+    //     compare: (a, b) => a.price - b.price,
+    //     multiple: 1,
+    //   },
+    //   render: val => (
+    //     <div>
+    //       {val ? formatAmount(val) : '0'} {t('common.sum')}
+    //     </div>
+    //   ),
+    // },
     {
       title: 'fields.rating.label',
       dataIndex: 'rating',
-      sorter: false,
+      sorter: true,
       render: val => <RatingTag value={val} />,
     },
     {
       title: 'fields.login.label',
       dataIndex: 'phone_number',
-      sorter: false,
+      sorter: true,
       render: _ => (
-        <div className="flex items-center text-center gap-[10px]">
+        <div className="flex items-center gap-[10px] text-center">
           {_ ? _ : <div className="text-center">-</div>}
         </div>
       ),
@@ -154,7 +167,7 @@ const PlacementsTable = ({
     {
       title: 'fields.status.label',
       dataIndex: 'status',
-      sorter: false,
+      sorter: true,
       render: status => <StatusTag active={status} />,
     },
     {
@@ -180,8 +193,8 @@ const PlacementsTable = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 0 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
+            n === 0 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.prev')}
@@ -192,8 +205,8 @@ const PlacementsTable = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 10 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
+            n === 10 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.next')}
@@ -233,7 +246,7 @@ const PlacementsTable = ({
   )
 
   return (
-    <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
+    <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white">
       <Table<IHotelsTable>
         columns={columns?.map(val => ({
           ...val,
@@ -242,7 +255,8 @@ const PlacementsTable = ({
         loading={isLoading}
         dataSource={transformedHotelsData}
         onChange={pagination => handlePaginationChange(pagination.current!)}
-        className="w-full h-full"
+        className="h-full w-full"
+        bordered
         pagination={{
           current: currentPage,
           pageSize: 10,

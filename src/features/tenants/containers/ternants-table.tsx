@@ -155,7 +155,7 @@ const TenantsTable = ({
     })) || []
 
   return (
-    <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
+    <div className="bg-white border flex-col overflow-x-auto border-border rounded-[16px] flex items-center justify-center h-full">
       <Table<IHotelsTable>
         columns={columns?.map(val => ({
           ...val,

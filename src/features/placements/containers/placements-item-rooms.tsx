@@ -94,7 +94,7 @@ const PlacementsItemRooms = () => {
         <div>
           {val.map((val: any, i: number) => (
             <div key={i} className="py-1 text-sm font-medium text-[#232E40]">
-              {val === 0 ? 0 : formatAmount(val?.price)} {t('common.summ')}{' '}
+              {val === 0 ? 0 : formatAmount(val?.price)} {t('common.sum')}{' '}
               {val?.tarif !== '' ? `(${val?.tarif})` : ''}
             </div>
           ))}

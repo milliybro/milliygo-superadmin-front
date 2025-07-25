@@ -59,52 +59,52 @@ const BillingPaymentsTable = ({
     {
       title: 'billing.region',
       dataIndex: 'region',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.city',
       dataIndex: 'city',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.hotel',
       dataIndex: 'hotel_name',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'fields.date.label',
       dataIndex: 'date',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.contract',
       dataIndex: 'contract',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.operation',
       dataIndex: 'operation',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.pay_number',
       dataIndex: 'pay_number',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.sum',
       dataIndex: 'sum',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.accountant',
       dataIndex: 'accountant',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.note',
       dataIndex: 'note',
-      sorter: false,
+      sorter: true,
     },
   ]
 
@@ -175,6 +175,7 @@ const BillingPaymentsTable = ({
         loading={isLoading}
         dataSource={transformedTenantsData}
         className="w-full h-full"
+        bordered
         pagination={{
           current: currentPage,
           pageSize: 10,

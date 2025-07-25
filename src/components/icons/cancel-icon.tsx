@@ -12,16 +12,16 @@ const CancelIcon: FC<SVGProps<SVGSVGElement>> = ({ className, ...props }) => (
     <path
       d="M12 4.25L4 12.25"
       stroke="#991B1B"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
     <path
       d="M4 4.25L12 12.25"
       stroke="#991B1B"
-      stroke-width="2"
-      stroke-linecap="round"
-      stroke-linejoin="round"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
     />
   </svg>
 )

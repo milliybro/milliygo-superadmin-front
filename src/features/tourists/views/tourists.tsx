@@ -84,8 +84,8 @@ const Tourists = () => {
           {t('routes.tourists')}
         </div>
       </div>
+      <div className="p-6 gap-6 bg-white border flex-col overflow-hidden border-border dark:bg-dark-bg rounded-[16px] flex items-center justify-center h-full">
       <TouristsFilters />
-      <div className="bg-white border flex-col overflow-hidden border-border dark:bg-dark-bg rounded-[16px] flex items-center justify-center h-full">
         <TouristsTable
           refetch={refetch}
           TouristsData={TouristsData}

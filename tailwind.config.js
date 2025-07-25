@@ -4,6 +4,7 @@ import { colors } from './src/config/colors'
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   darkMode: 'class',
+  important: true,
   theme: {
     extend: {
       container: { center: true },

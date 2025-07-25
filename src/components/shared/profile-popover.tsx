@@ -51,10 +51,11 @@ const ProfilePopover = () => {
         trigger="click"
         placement="bottomRight"
         className="shrink-0 overflow-hidden"
-        overlayInnerStyle={{
-          padding: 0,
-          overflow: 'hidden',
-          // width: 347,
+        styles={{
+          body: {
+            padding: 0,
+            overflow: 'hidden',
+          },
         }}
         content={
           <Button
@@ -71,14 +72,14 @@ const ProfilePopover = () => {
       >
         <button
           type="button"
-          className="flex items-center select-none group font-semibold hover:bg-transparent text-primary-dark dark:text-white text-[15px] leading-[19.12px]"
+          className="group flex select-none items-center text-[15px] font-semibold leading-[19.12px] text-primary-dark hover:bg-transparent dark:text-white"
         >
           <Avatar
             shape="square"
             size={38}
             icon={<UserCircleIcon className="text-[24px]" />}
             src={user?.avatar}
-            className="bg-secondary-light mr-4 text-primary-dark dark:text-white dark:bg-white/5 font-normal"
+            className="mr-4 bg-secondary-light font-normal text-primary-dark dark:bg-white/5 dark:text-white"
           />
           {user?.first_name + ' ' + user?.last_name}
           <ArrowDownIcon className="ml-2 text-base" />
@@ -100,24 +101,24 @@ const ProfilePopover = () => {
           <Avatar
             shape="circle"
             size={62}
-            className=" bg-danger/20 mb-5 border-[7px] border-danger/5"
+            className="mb-5 border-[7px] border-danger/5 bg-danger/20"
             src={<LogoutIcon className="text-[#ff0000]" color="#ff0000" />}
           />
-          <Typography.Text className="text-[24px] font-bold leading-[30.6px] mb-[10px]">
+          <Typography.Text className="mb-[10px] text-[24px] font-bold leading-[30.6px]">
             {t('profile-popover.label')}
           </Typography.Text>
-          <Typography.Text className="text-secondary leading-[25.6px] mb-[20px]">
+          <Typography.Text className="mb-[20px] leading-[25.6px] text-secondary">
             {t('profile-popover.description')}
           </Typography.Text>
           <Space>
             <Button
-              className=" font-semibold"
+              className="font-semibold"
               onClick={() => setModalLogout(false)}
             >
               {t('common.cancel')}
             </Button>
             <Button
-              className="bg-primary-dark dark:bg-dark-bg text-white font-semibold"
+              className="bg-primary-dark font-semibold text-white dark:bg-dark-bg"
               onClick={() => {
                 setModalLogout(false)
                 localStorage.removeItem('user')

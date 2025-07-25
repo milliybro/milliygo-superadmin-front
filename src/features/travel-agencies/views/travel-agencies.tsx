@@ -48,22 +48,24 @@ const TravelAgencies = () => {
     placeholderData: data => data,
   })
   return (
-    <div className="p-6 flex flex-col gap-6 flex-1">
+    <div className="flex flex-1 flex-col gap-6 p-6">
       <TravelAgenciesHeader />
-      <AgentsFilters />
-      <TravelAgenciesTable
-        AgentsData={data}
-        isLoading={isFetching}
-        pageSize={pageSize}
-        currentPage={currentPage}
-        setCurrentPage={(page: number) => {
-          setSearchParams(prev => {
-            const params = new URLSearchParams(prev)
-            params.set('page', String(page))
-            return params
-          })
-        }}
-      />
+      <div className="flex gap-6 p-6 h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white">
+        <AgentsFilters />
+        <TravelAgenciesTable
+          AgentsData={data}
+          isLoading={isFetching}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          setCurrentPage={(page: number) => {
+            setSearchParams(prev => {
+              const params = new URLSearchParams(prev)
+              params.set('page', String(page))
+              return params
+            })
+          }}
+        />
+      </div>
     </div>
   )
 }

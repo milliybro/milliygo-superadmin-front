@@ -40,7 +40,7 @@ const Tenants = () => {
 
   const {
     data: tenantsData,
-    isLoading,
+    isFetching: isLoading,
     refetch,
   } = useQuery({
     queryKey: [
@@ -60,7 +60,7 @@ const Tenants = () => {
       })
       return res
     },
-    // keepPreviousData: true,
+    placeholderData: data => data,
   })
 
   return (

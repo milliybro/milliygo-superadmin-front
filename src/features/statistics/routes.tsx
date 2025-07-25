@@ -1,4 +1,4 @@
-import Statistics from './views/users'
+import Statistics from './views/statistics'
 
 import type { CustomRoute } from '@/types'
 
