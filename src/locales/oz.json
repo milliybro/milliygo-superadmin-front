@@ -521,6 +521,9 @@
     "map-title": "O'zbekiston xaritasi",
     "select_or_drag": "Rasmni tanlang yoki sudrab olib keling",
     "images_limit": "Maksimal hajmi: 5 MB.",
+    "avia": "Avia",
+    "railway": "Temir yo‘l",
+    "ticket-seller": "Bilet sotuvchilar",
     "go-home": "Bosh sahifaga o'tish",
     "refresh": "Sahifani yangilash"
   },
@@ -584,7 +587,8 @@
     "campsites": "Kempinglar",
     "guest-houses": "Mehmon uylari",
     "sanatoriums": "Sanatoriyalar",
-    "hostel": "Xostel"
+    "hostel": "Xostel",
+    "all-status": "Barcha holatlar"
   },
   "travel-agencies": {
     "name-agencies": "Sayyohlik agentligining nomi",
@@ -595,7 +599,8 @@
     "type-tour": "Sayohat turi",
     "people-tour": "Turda necha kishi bor",
     "fullname-employee": "Xodimning F.I.O.",
-    "brief-employee": "Xodim haqida qisqacha ma’lumot"
+    "brief-employee": "Xodim haqida qisqacha ma’lumot",
+    "agent-name": "Turistik agentlik nomi"
   },
   "billing": {
     "accrual": "Hisoblangan pul",

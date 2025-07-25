@@ -64,7 +64,7 @@ function Content() {
   ]
 
   return (
-    <div className="flex flex-1 flex-col gap-6 p-6">
+    <div className="flex flex-1 flex-col gap-6">
       <Typography.Text className="text-2xl font-semibold text-primary-dark">
         Content
       </Typography.Text>

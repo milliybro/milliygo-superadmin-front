@@ -7,6 +7,9 @@ import UsersNotFound from '@/features/users/components/users-not-found'
 import { useState } from 'react'
 
 import { ITourAgents } from '../types'
+import { useParams } from 'react-router'
+import { useQuery } from '@tanstack/react-query'
+import { getTourAgentEmployees } from '../api'
 
 // interface IHotelDetailRooms {
 //   key: any
@@ -21,49 +24,20 @@ import { ITourAgents } from '../types'
 
 // name: item?.room_name,
 
-const staticHotelsData = {
-  count: 2,
-  results: [
-    {
-      id: 1,
-      employee_name: 'Azizbek Khamidov',
-      brief_info: 'Некоторая информация о сотрудниках',
-    },
-    {
-      id: 2,
-      employee_name: 'Azizbek Khamidov',
-      brief_info: 'Некоторая информация о сотрудниках',
-    },
-  ],
-}
 const TravelAgenciesEmployees = () => {
   const { t } = useTranslation()
-  // const { id } = useParams<{ id: string }>()
+  const { id } = useParams<{ id: string }>()
   const [currentPage, _] = useState(1)
-  // const [searchParams] = useSearchParams()
-
   const pageSize = 10
 
-  // const tenant_id = searchParams.get('tenant_id')
-  // const type = searchParams.get('type')
-  // const lang = localStorage.getItem('i18nextLng')
-
-  // const { data: HotelDetailRoom } = useQuery({
-  //   queryKey: ['hotels-detail-rooms', id, lang],
-  //   queryFn: async () => {
-  //     if (!id) throw new Error('ID is required')
-  //     const res = await getHotelDetailRooms({
-  //       page_size: 10,
-  //       page: currentPage,
-  //       placement_id: id,
-  //       ...(type === 'management' ? { tenant_id: tenant_id } : {}),
-  //       type: type,
-  //     })
-  //     return res
-  //   },
-  //   enabled: !!id,
-  // })
-
+  const { data } = useQuery({
+    queryKey: ['agent-employee', id],
+    queryFn: async () => {
+      const res = await getTourAgentEmployees({ tour_agent_id: id })
+      return res
+    },
+    enabled: !!id,
+  })
   const columns: TableColumnsType<ITourAgents> = [
     {
       title: 'ID',
@@ -84,7 +58,7 @@ const TravelAgenciesEmployees = () => {
               width={48}
               height={48}
               className="rounded-[8px] object-cover"
-              src={val?.room_images}
+              src={val?.avatar}
             />
           ) : (
             <span className="w-12 h-12 rounded-lg bg-slate-100 flex justify-center items-center">
@@ -142,8 +116,9 @@ const TravelAgenciesEmployees = () => {
       return {
         key: index,
         id: id,
-        brief_info: item.brief_info,
-        employee_name: item.employee_name,
+        brief_info: item.description,
+        employee_name: item.full_name,
+        avatar: item.avatar_url,
       }
     })
   }
@@ -156,9 +131,7 @@ const TravelAgenciesEmployees = () => {
           title: t(val?.title as string),
         }))}
         dataSource={
-          staticHotelsData?.results
-            ? transformHotelDetailsToTableData(staticHotelsData?.results)
-            : []
+          data?.results ? transformHotelDetailsToTableData(data?.results) : []
         }
         className="w-full h-full"
         pagination={{

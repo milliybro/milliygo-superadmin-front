@@ -55,7 +55,7 @@ const adminItems = [
     label: 'routes.travel-agencies',
     icon: BeachIcon,
     path: ROUTE_PATHS.TRAVEL_AGENCIES,
-    status: 'in progress',
+    status: 'finished',
   },
   {
     label: 'routes.guides',
@@ -122,7 +122,7 @@ const Sidebar = () => {
     <aside
       className={twMerge(
         'border-r border-border bg-white transition-all duration-300 dark:bg-dark-bg',
-        isSidebarOpen ? 'w-[260px]' : 'w-14',
+        isSidebarOpen ? 'w-[300px]' : 'w-14',
       )}
     >
       <div className="flex items-center justify-between p-4">
@@ -157,7 +157,7 @@ const Sidebar = () => {
                   {isSidebarOpen && (
                     <span
                       className={twMerge(
-                        'line-clamp-1 flex-1',
+                        'line-clamp-1 flex flex-1 items-center justify-between',
                         isActive ? 'text-primary-dark' : 'text-[#69757A]',
                       )}
                     >

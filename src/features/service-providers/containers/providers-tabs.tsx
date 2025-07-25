@@ -18,7 +18,7 @@ const ProvidersTab = ({
   const items: TabsProps['items'] = [
     {
       key: '1',
-      label: 'Aвиа',
+      label: t('common.avia'),
       children: (
         <ProvidersTable
           hotelsData={hotelsData}
@@ -31,7 +31,7 @@ const ProvidersTab = ({
     },
     {
       key: '2',
-      label: 'Железная дорога',
+      label: t('common.railway'),
       children: (
         <ProvidersTable
           hotelsData={hotelsData}
@@ -44,7 +44,7 @@ const ProvidersTab = ({
     },
     {
       key: '3',
-      label: 'Продавцы билетов',
+      label: t('common.ticket-seller'),
       children: (
         <ProvidersTable
           hotelsData={hotelsData}
@@ -59,7 +59,7 @@ const ProvidersTab = ({
   const newParams = new URLSearchParams(searchParams)
 
   return (
-    <div className="bg-white w-full border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
+    <div className="h-full w-full flex-col overflow-hidden bg-white">
       <Tabs
         onChange={key => {
           newParams.set('tab', key)

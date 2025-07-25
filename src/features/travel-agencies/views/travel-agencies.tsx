@@ -12,6 +12,7 @@ import { getTourAgentsList } from '../api'
 import TravelAgenciesHeader from '../containers/travel-agencies-header'
 
 import TravelAgenciesTable from '../containers/travel-agencies-table'
+import AgentsFilters from '../containers/travel-agencies-filters'
 
 const TravelAgencies = () => {
   const { t } = useTranslation()
@@ -29,37 +30,42 @@ const TravelAgencies = () => {
 
   const [searchParams, setSearchParams] = useSearchParams()
 
-  // const status = searchParams.get('status') || ''
-  // const type = searchParams.get('tab') || '1'
+  const search = searchParams.get('search') || ''
+  const region = searchParams.get('region') || ''
   const currentPage = Number(searchParams.get('page')) || 1
 
   const { data, isFetching } = useQuery({
-    queryKey: ['tour-agents', currentPage],
+    queryKey: ['tour-agents', currentPage, search, region],
     queryFn: async () => {
       const res = await getTourAgentsList({
         page_size: pageSize,
         page: currentPage,
+        address: region ? region : null,
+        name: search ? search : null,
       })
       return res
     },
     placeholderData: data => data,
   })
   return (
-    <div className="p-6 flex flex-col gap-6 flex-1">
+    <div className="flex flex-1 flex-col gap-6 p-6">
       <TravelAgenciesHeader />
-      <TravelAgenciesTable
-        AgentsData={data}
-        isLoading={isFetching}
-        pageSize={pageSize}
-        currentPage={currentPage}
-        setCurrentPage={(page: number) => {
-          setSearchParams(prev => {
-            const params = new URLSearchParams(prev)
-            params.set('page', String(page))
-            return params
-          })
-        }}
-      />
+      <div className="flex gap-6 p-6 h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white">
+        <AgentsFilters />
+        <TravelAgenciesTable
+          AgentsData={data}
+          isLoading={isFetching}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          setCurrentPage={(page: number) => {
+            setSearchParams(prev => {
+              const params = new URLSearchParams(prev)
+              params.set('page', String(page))
+              return params
+            })
+          }}
+        />
+      </div>
     </div>
   )
 }

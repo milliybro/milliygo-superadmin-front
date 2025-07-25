@@ -61,57 +61,57 @@ const BillingReportTable = ({
     {
       title: 'billing.hotel',
       dataIndex: 'hotel_name',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'common.tin',
       dataIndex: 'tin',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.fund_number',
       dataIndex: 'fund_number',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.number_beds',
       dataIndex: 'number_beds',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.stars',
       dataIndex: 'stars',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.guest-count',
       dataIndex: 'guest_count',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.spent-day',
       dataIndex: 'spent_day',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.bca',
       dataIndex: 'bca',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.tour-fee',
       dataIndex: 'tour_fee',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.accrued-days',
       dataIndex: 'accrued_days',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.total-sum',
       dataIndex: 'total_sum',
-      sorter: false,
+      sorter: true,
     },
   ]
 
@@ -179,6 +179,7 @@ const BillingReportTable = ({
         loading={isLoading}
         dataSource={transformedTenantsData}
         className="w-full h-full"
+        bordered
         pagination={{
           current: currentPage,
           pageSize: 10,

@@ -9,7 +9,7 @@ import TernantsModal from '../components/guide-view-modal'
 import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'react-router'
 import GuidesTab from '../containers/guides-tabs'
-import { getDistricts } from '@/features/tourists/api'
+import { getGuides } from '../api'
 
 const Guides = () => {
   const { t } = useTranslation()
@@ -21,10 +21,9 @@ const Guides = () => {
 
   const [searchParams] = useSearchParams()
 
-  const schema_name__icontains =
-    searchParams.get('schema_name__icontains') || ''
-  const username__icontains = searchParams.get('username__icontains') || ''
-  const is_active = searchParams.get('is_active') || ''
+  const tab = searchParams.get('tab') || ''
+
+  console.log(tab, 'TTTT')
 
   useEffect(() => {
     setBreadCrumbs([
@@ -38,20 +37,12 @@ const Guides = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryKey: [
-      'tenants-data',
-      currentPage,
-      username__icontains,
-      schema_name__icontains,
-      is_active,
-    ],
+    queryKey: ['guides-data', currentPage, tab],
     queryFn: async () => {
-      const res = await getDistricts({
+      const res = await getGuides({
         page_size: pageSize,
         page: currentPage,
-        schema_name__icontains,
-        username__icontains,
-        is_active,
+        status: tab === '1' ? true : false,
       })
       return res
     },

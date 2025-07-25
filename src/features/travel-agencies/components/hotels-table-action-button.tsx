@@ -10,9 +10,10 @@ interface IProps {
   id?: number
   tenant_id?: number
   type?: string
+  slug?: string
 }
 
-const HotelsTableActionButton: FC<IProps> = ({ id, tenant_id, type }) => {
+const HotelsTableActionButton: FC<IProps> = ({ id, slug }) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { pathname } = useLocation()
@@ -22,14 +23,7 @@ const HotelsTableActionButton: FC<IProps> = ({ id, tenant_id, type }) => {
       className="inline-flex items-center gap-2 font-medium text-primary"
       type="text"
       onClick={() =>
-        navigate(
-          pathname +
-            '/' +
-            id +
-            '?' +
-            (tenant_id !== undefined ? 'tenant_id=' + tenant_id + '&' : '') +
-            (type !== undefined ? 'type=' + type : ''),
-        )
+        navigate(pathname + '/' + id + '?' + (slug ? 'slug=' + slug : ''))
       }
     >
       <EyeIcon className="text-[20px]" />

@@ -34,17 +34,15 @@ const TravelAgenciesItem = () => {
   const [data, setData] = useState<any | null>(null)
   const [searchParams] = useSearchParams()
 
-  const tenant_id = searchParams.get('tenant_id')
+  const slug = searchParams.get('slug')
   const lang = localStorage.getItem('i18nextLng')
 
   const { data: HotelDetail } = useQuery({
-    queryKey: ['hotels-detail', id, tenant_id, lang],
+    queryKey: ['hotels-detail', id, lang],
     queryFn: async () => {
       if (!id) throw new Error('ID is required')
       const res = await getHotelDetail({
-        tenant_id,
         id,
-        type: tenant_id ? 'management' : 'site',
       })
       return res
     },
@@ -83,14 +81,14 @@ const TravelAgenciesItem = () => {
     setBreadCrumbs([
       { title: t('common.main'), href: ROUTE_PATHS.MAIN },
       { title: t('routes.travel-agencies'), href: ROUTE_PATHS.TRAVEL_AGENCIES },
-      { title: 'Radisson BLU' },
+      { title: slug as any },
     ])
   }, [])
   return (
     <div className="overflow-y-auto">
       <div className="p-6 flex flex-col gap-6 flex-1">
         <div className="text-[24px] text-primary-dark font-semibold">
-          Radisson BLU
+          {slug}
         </div>
 
         <div className="gap-4">

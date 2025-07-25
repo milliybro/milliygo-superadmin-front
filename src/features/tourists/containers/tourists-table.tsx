@@ -33,12 +33,12 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       dataIndex: 'id',
       render: (_: any, __: any, index: number) =>
         ((Number(currentPage) || 1) - 1) * 10 + index + 1,
-      sorter: false,
+
     },
     {
       title: 'fields.fullname.label',
       dataIndex: 'full_name',
-      sorter: false,
+      sorter: true,
       render: (_, record) => {
         return (
           <div className="flex items-center gap-2">{record?.full_name}</div>
@@ -48,7 +48,7 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
     {
       title: 'fields.birthdate.label',
       dataIndex: 'birth_date',
-      sorter: false,
+      sorter: true,
       render: date => {
         return <div>{date && dayjs(date).format('DD MMM, YYYY')}</div>
       },
@@ -56,12 +56,12 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
     {
       title: 'fields.passport-data.label',
       dataIndex: 'passport_number',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'fields.gender.label',
       dataIndex: 'gender',
-      sorter: false,
+      sorter: true,
       render: data => {
         console.log(data, 'dddd')
 
@@ -79,15 +79,15 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
     {
       title: 'fields.register-address.label',
       dataIndex: 'address',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'fields.type-document.label',
       dataIndex: 'type_document',
-      sorter: false,
+      sorter: true,
     },
     {
-      width: 300,
+      width: 150,
       title: 'common.action',
       dataIndex: 'id',
       render: id => <TouristActionButton id={id} showDrawer={showDrawer} />,
@@ -153,6 +153,7 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       }))}
       dataSource={transformedData}
       loading={isLoading}
+      bordered
       onChange={pagination => handlePaginationChange(pagination.current!)}
       className="w-full h-full"
       pagination={{

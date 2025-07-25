@@ -55,42 +55,42 @@ const BillingTable = ({
     {
       title: 'billing.region',
       dataIndex: 'region',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.city',
       dataIndex: 'city',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.hotel',
       dataIndex: 'hotel_name',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.month-year',
       dataIndex: 'month_year',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.accrual-type',
       dataIndex: 'accrual_type',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.count',
       dataIndex: 'count',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'billing.accrued',
       dataIndex: 'accrued',
-      sorter: false,
+      sorter: true,
     },
     {
       title: 'fields.date.label',
       dataIndex: 'date',
-      sorter: false,
+      sorter: true,
     },
   ]
 
@@ -155,6 +155,7 @@ const BillingTable = ({
         loading={isLoading}
         dataSource={transformedTenantsData}
         className="w-full h-full"
+        bordered
         pagination={{
           current: currentPage,
           pageSize: 10,

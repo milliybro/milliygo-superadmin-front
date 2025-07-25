@@ -32,20 +32,20 @@ const GuidesTab = ({
         />
       ),
     },
-    {
-      key: '2',
-      label: 'common.request',
-      children: (
-        <GuidesTable
-          guidesData={guidesData}
-          isLoading={isLoading}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          type="request"
-        />
-      ),
-    },
+    // {
+    //   key: '2',
+    //   label: 'common.request',
+    //   children: (
+    //     <GuidesTable
+    //       guidesData={guidesData}
+    //       isLoading={isLoading}
+    //       pageSize={pageSize}
+    //       currentPage={currentPage}
+    //       setCurrentPage={setCurrentPage}
+    //       type="request"
+    //     />
+    //   ),
+    // },
     {
       key: '3',
       label: 'common.un-active',

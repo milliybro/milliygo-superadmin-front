@@ -30,10 +30,10 @@ const TravelAgenciesTable = ({
     {
       title: 'travel-agencies.name-agencies',
       dataIndex: 'name',
-      sorter: false,
+      sorter: true,
       render: (_, val) => (
         <div className="flex items-center gap-[10px]">
-          <div className="size-[48px] flex justify-center items-center bg-secondary-light border-border border rounded-[8px]">
+          <div className="flex size-[48px] items-center justify-center rounded-[8px] border border-border bg-secondary-light">
             {val?.file ? (
               <Image
                 src={val?.file}
@@ -46,7 +46,7 @@ const TravelAgenciesTable = ({
               <BeachIcon fontSize={28} />
             )}
           </div>
-          <span className="text-[14px] text-primary-dark font-medium">
+          <span className="text-[14px] font-medium text-primary-dark">
             {val?.name ? val?.name : '-'}
           </span>
         </div>
@@ -55,13 +55,13 @@ const TravelAgenciesTable = ({
     {
       title: 'travel-agencies.license_validity',
       dataIndex: 'license_validity',
-      sorter: false,
+      sorter: true,
       render: item => <div>{dayjs(item).format('DD MMM, YYYY')}</div>,
     },
     {
       title: t('fields.phone.label'),
       dataIndex: 'phone_number',
-      sorter: false,
+      sorter: true,
       render: (phones: string[]) => (
         <div className="flex flex-col gap-[4px]">
           {phones && phones.length > 0 ? (
@@ -75,11 +75,11 @@ const TravelAgenciesTable = ({
     {
       title: 'fields.address.label',
       dataIndex: 'address',
-      sorter: false,
+      sorter: true,
     },
 
     {
-      width: 1,
+      width: 100,
       title: 'common.action',
       render: (id, val: any) => (
         <HotelsTableActionButton
@@ -87,6 +87,7 @@ const TravelAgenciesTable = ({
           id={val.id}
           tenant_id={val.tenant ?? undefined}
           type={val?.type}
+          slug={val.name}
         />
       ),
     },
@@ -101,8 +102,8 @@ const TravelAgenciesTable = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 0 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
+            n === 0 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.prev')}
@@ -113,8 +114,8 @@ const TravelAgenciesTable = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 10 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
+            n === 10 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.next')}
@@ -142,7 +143,7 @@ const TravelAgenciesTable = ({
   )
 
   return (
-    <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
+    <div className="flex h-full flex-col items-center justify-center overflow-hidden bg-white">
       <Table<ITourAgents>
         columns={columns?.map(val => ({
           ...val,
@@ -151,7 +152,8 @@ const TravelAgenciesTable = ({
         loading={isLoading}
         dataSource={transformedHotelsData}
         onChange={pagination => handlePaginationChange(pagination.current!)}
-        className="w-full h-full"
+        className="h-full w-full"
+        bordered
         pagination={{
           current: currentPage,
           pageSize: 10,
