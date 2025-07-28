@@ -63,7 +63,12 @@ export default function RegionPointSVG({ point, scaleFactor = 1 }: IProps) {
   const rectY = y - rectHeight / 2 - height
 
   return (
-    <g className="group select-none">
+    <g
+      className={twMerge(
+        'group select-none',
+        point.is_active ? '' : 'opacity-50',
+      )}
+    >
       <text
         ref={measureRef1}
         x={-9999}

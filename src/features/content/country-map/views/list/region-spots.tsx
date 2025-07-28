@@ -7,6 +7,7 @@ import DeleteModal from '../../../components/delete-modal'
 import CountryMapSVG from '../../components/map/country-map-svg'
 import RegionSpotsTable from '../../components/region-spots-table'
 import useCountryMapContext from '../../hooks/use-country-map'
+import { useTranslation } from 'react-i18next'
 
 export default function RegionSpots() {
   const { setBreadCrumbs } = useBreadCrumbsStore()
@@ -17,11 +18,12 @@ export default function RegionSpots() {
     setDeletingId,
     regionData,
   } = useCountryMapContext()
+  const { t } = useTranslation()
 
   useEffect(() => {
     setBreadCrumbs([
-      { title: 'Главная', href: '/' },
-      { title: 'Контент', href: '/content/country-map' },
+      { title: t('common.main'), href: '/' },
+      { title: t('routes.content'), href: '/content/country-map' },
       {
         title: regionData?.name || ' ',
       },
@@ -32,11 +34,11 @@ export default function RegionSpots() {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <Typography.Title level={2} className="text-2xl font-semibold">
-          {regionData?.name || 'Регион'}
+          {regionData?.name || t('billing.region')}
         </Typography.Title>
         <Button type="primary" onClick={() => navigate('create')}>
           <PlusOutlined />
-          Добавить
+          {t('services-page.add-user')}
         </Button>
       </div>
       <CountryMapSVG isEdit={false} />

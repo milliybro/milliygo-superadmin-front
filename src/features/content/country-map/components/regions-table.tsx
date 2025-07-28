@@ -2,14 +2,16 @@ import { getRegions } from '@/features/tourists/api'
 import { EyeOutlined } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
 import { Button, Table, TableProps } from 'antd'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 
 function RegionsTable() {
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const columns: TableProps['columns'] = [
     {
-      title: 'Регион',
+      title: t('billing.region'),
       key: 'region',
       dataIndex: 'region',
       render: (_, record) => (
@@ -36,7 +38,7 @@ function RegionsTable() {
     //   ),
     // },
     {
-      title: 'Действие',
+      title: t('common.action'),
       key: 'action',
       dataIndex: 'action',
       width: 0,
@@ -50,7 +52,7 @@ function RegionsTable() {
             }
           >
             <EyeOutlined className="text-xl" />
-            Посмотреть
+            {t('common.view')}
           </Button>
         </div>
       ),
@@ -59,7 +61,7 @@ function RegionsTable() {
 
   const { data } = useQuery({
     queryKey: ['regions'],
-    queryFn: getRegions,
+    queryFn: () => getRegions({ page_size: 14 }),
     enabled: true,
     refetchOnWindowFocus: false,
     placeholderData: data => data,

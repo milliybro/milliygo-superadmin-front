@@ -43,7 +43,7 @@ function Content() {
     },
     {
       key: 'country-map',
-      label: 'Карта Узбекистана',
+      label: t('content.country-map.title'),
       children: <CountryMap />,
     },
     {

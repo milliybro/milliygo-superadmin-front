@@ -1,7 +1,16 @@
 import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
-import { Button, Switch, Table, TableProps, Tooltip, Typography } from 'antd'
+import {
+  Button,
+  Image,
+  Table,
+  TableProps,
+  Tag,
+  Tooltip,
+  Typography,
+} from 'antd'
 import { Dispatch, SetStateAction, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import useCountryMapContext from '../hooks/use-country-map'
 
@@ -12,22 +21,30 @@ interface IProps {
 function RegionSpotsTable({ setDeleteOpen }: IProps) {
   const navigate = useNavigate()
   const { pointsQuery } = useCountryMapContext()
+  const { t } = useTranslation()
   const columns: TableProps['columns'] = [
     {
-      title: 'Название на карте',
+      title: t('fields.map-point.label'),
       key: 'name',
       dataIndex: 'name',
       className: 'w-1/2',
       render: value => <div className="font-semibold">{value}</div>,
     },
     {
-      title: 'Направление точки',
+      title: t('content.country-map.point-destination'),
       key: 'description',
       dataIndex: 'description',
       className: 'w-1/2',
       render: (_, record) => (
         <div className="flex items-center gap-4">
-          <div className="size-[52px] shrink-0 rounded-2xl bg-secondary"></div>
+          <div className="size-[52px] shrink-0 overflow-hidden rounded-2xl bg-secondary">
+            <Image
+              src={record?.image}
+              alt={record?.destination}
+              className="h-full w-full object-cover"
+              rootClassName="h-full w-full"
+            />
+          </div>
           <Typography.Text className="block w-max text-sm font-medium">
             {record?.destination}
           </Typography.Text>
@@ -35,20 +52,24 @@ function RegionSpotsTable({ setDeleteOpen }: IProps) {
       ),
     },
     {
-      title: 'Статус',
+      title: t('fields.status.label'),
       key: 'status',
       dataIndex: 'status',
       width: 0,
-      render: (_, record) => <Switch checked={record?.status} />,
+      render: value => (
+        <Tag color={value ? 'green' : 'red'}>
+          {value ? t('common.active') : t('common.inactive')}
+        </Tag>
+      ),
     },
     {
-      title: 'Действие',
+      title: t('common.action'),
       key: 'action',
       dataIndex: 'action',
       width: 0,
       render: (_, record) => (
         <div className="flex items-center gap-4 text-base font-medium">
-          <Tooltip title="Редактировать">
+          <Tooltip title={t('common.edit')}>
             <Button
               type="link"
               className="p-0"
@@ -57,7 +78,7 @@ function RegionSpotsTable({ setDeleteOpen }: IProps) {
               <EditIcon className="text-xl" />
             </Button>
           </Tooltip>
-          <Tooltip title="Удалить">
+          <Tooltip title={t('common.delete')}>
             <Button
               type="link"
               danger

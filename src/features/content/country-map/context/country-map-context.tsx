@@ -31,6 +31,7 @@ import {
   updateRegionMapPoint,
 } from '../../api'
 import { IRegion, IRegionMapPoint } from '../../types'
+import { useTranslation } from 'react-i18next'
 
 interface CountryMapContext {
   newCoords: { x: number; y: number }
@@ -72,6 +73,7 @@ interface CountryMapContext {
 const CountryMapContext = createContext<CountryMapContext | null>(null)
 
 const CountryMapProvider = ({ children }: { children: ReactNode }) => {
+  const { t } = useTranslation()
   const [newCoords, setNewCoords] = useState<{ x: number; y: number }>({
     x: 0,
     y: 0,
@@ -121,52 +123,63 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     setBreadCrumbs([
-      { title: 'Главная', href: '/' },
-      { title: 'Контент', href: '/content/country-map' },
+      { title: t('common.main'), href: '/' },
+      { title: t('routes.content'), href: '/content/country-map' },
       {
-        title: regionData?.name || 'Регион',
+        title: regionData?.name || t('billing.region'),
         href: `/content/country-map/${region}`,
       },
       {
         title: pathname?.includes('create')
-          ? 'Создать точку на карте'
-          : 'Редактировать точку на карте',
+          ? t('content.country-map.create-point')
+          : t('content.country-map.edit-point'),
       },
     ])
   }, [regionData])
 
   const createMapPointMutation = useMutation({
-    mutationFn: (values: { point_title: string; destination: number }) => {
+    mutationFn: (values: {
+      point_title: string
+      destination: number
+      is_active?: boolean
+    }) => {
       return createMapPoint({
         region: +region!,
-        is_active: true,
+        is_active: values?.is_active ?? true,
         top_destination: values.destination,
         front_data: { ...newCoords, point_title: values.point_title },
       })
     },
     onSuccess: () => {
       notification.success({
-        message: 'Точка успешно создана',
+        message: t('content.country-map.add-success'),
       })
       navigate(`/content/country-map/${region}`)
     },
   })
 
   const updateMapPointMutation = useMutation({
-    mutationFn: (values: { point_title: string; destination: number }) =>
-      updateRegionMapPoint({
+    mutationFn: (values: {
+      point_title: string
+      destination: number
+      is_active?: boolean
+    }) => {
+      console.log(values)
+      return updateRegionMapPoint({
         region: +region!,
         id: +pointId!,
         top_destination: values?.destination,
+        is_active: values?.is_active,
         front_data: {
           ...newCoords,
           point_title: values?.point_title || '',
         },
-      }),
+      })
+    },
     onSuccess: () => {
       console.log('success')
       notification.success({
-        message: 'Точка успешно обновлена',
+        message: t('content.country-map.edit-success'),
       })
       navigate(`/content/country-map/${region}`)
     },
@@ -187,7 +200,7 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
       pointsQuery.refetch()
       setDeletingId(null)
       notification.success({
-        message: 'Точка успешно удалена',
+        message: t('content.country-map.delete-success'),
       })
     },
   })
