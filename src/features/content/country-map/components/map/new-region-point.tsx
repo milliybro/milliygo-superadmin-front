@@ -1,3 +1,4 @@
+import { IRegionMapPoint } from '@/features/content/types'
 import {
   PointerEvent,
   useCallback,
@@ -13,8 +14,7 @@ import {
   regionPaths,
   textClassname,
 } from '../../assets/region-paths'
-import useCountryMapContext from '../hooks/use-country-map'
-import { IRegionMapPoint } from '../../types'
+import useCountryMapContext from '../../hooks/use-country-map'
 
 export default function NewRegionPoint({
   scaleFactor = 1,
@@ -201,7 +201,7 @@ export default function NewRegionPoint({
       />
       <text
         x={rectX + rectW / 2}
-        y={rectY + paddingY + (isTwoLines ? 0 : lineHeight / 2) + fontSize / 2}
+        y={rectY + paddingY + rectHeight / (isTwoLines ? 4 : 2)}
         textAnchor="middle"
         fill="black"
         fontWeight={500}

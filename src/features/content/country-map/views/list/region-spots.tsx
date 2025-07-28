@@ -1,34 +1,29 @@
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { PlusOutlined } from '@ant-design/icons'
-import { useQuery } from '@tanstack/react-query'
 import { Button, Typography } from 'antd'
-import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
-import { getRegion } from '../api'
-import DeleteModal from '../components/delete-modal'
-import RegionSpotsTable from './list/region-spots-table'
-import CountryMapSVG from './map/country-map-svg'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router'
+import DeleteModal from '../../../components/delete-modal'
+import CountryMapSVG from '../../components/map/country-map-svg'
+import RegionSpotsTable from '../../components/region-spots-table'
+import useCountryMapContext from '../../hooks/use-country-map'
+import { useTranslation } from 'react-i18next'
 
 export default function RegionSpots() {
-  const [deleteOpen, setDeleteOpen] = useState(false)
   const { setBreadCrumbs } = useBreadCrumbsStore()
   const navigate = useNavigate()
-
-  const { region } = useParams()
-
-  const { data: regionData } = useQuery({
-    queryKey: ['region', region],
-    queryFn: () => getRegion(+region!),
-    throwOnError: () => {
-      navigate('/not-found')
-      return false
-    },
-  })
+  const {
+    deleteMapPointMutation: { mutate, isPending },
+    deletingId,
+    setDeletingId,
+    regionData,
+  } = useCountryMapContext()
+  const { t } = useTranslation()
 
   useEffect(() => {
     setBreadCrumbs([
-      { title: 'Главная', href: '/' },
-      { title: 'Контент', href: '/content/country-map' },
+      { title: t('common.main'), href: '/' },
+      { title: t('routes.content'), href: '/content/country-map' },
       {
         title: regionData?.name || ' ',
       },
@@ -39,22 +34,24 @@ export default function RegionSpots() {
     <div className="flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <Typography.Title level={2} className="text-2xl font-semibold">
-          {regionData?.name || 'Регион'}
+          {regionData?.name || t('billing.region')}
         </Typography.Title>
         <Button type="primary" onClick={() => navigate('create')}>
           <PlusOutlined />
-          Добавить
+          {t('services-page.add-user')}
         </Button>
       </div>
       <CountryMapSVG isEdit={false} />
-      <RegionSpotsTable setDeleteOpen={setDeleteOpen} />
+      <RegionSpotsTable setDeleteOpen={setDeletingId} />
       <DeleteModal
-        open={deleteOpen}
-        setOpen={setDeleteOpen}
+        open={!!deletingId}
+        onClose={() => setDeletingId(null)}
         title="Удалить точку с карты?"
         description="Подтвердите, что вы действительно хотите удалить данную точку с карты?"
-        // onDelete={() => mutate(+region!)}
-        // isLoading={isPending}
+        onDelete={() => {
+          mutate(deletingId!)
+        }}
+        isLoading={isPending}
       />
     </div>
   )

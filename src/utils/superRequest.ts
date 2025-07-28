@@ -22,6 +22,10 @@ requestSuper.interceptors.request.use(config => {
     config.headers.Authorization = `Bearer ${token}`
   }
 
+  if (config.url?.[config.url?.length - 1] !== '/') {
+    config.url += '/'
+  }
+
   const locale = localStorage.getItem('i18nextLng')
   config.headers['Accept-Language'] =
     locale === 'uz'

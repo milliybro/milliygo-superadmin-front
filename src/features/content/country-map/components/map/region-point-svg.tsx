@@ -1,8 +1,8 @@
+import { IRegionMapPoint } from '@/features/content/types'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
+import { twMerge } from 'tailwind-merge'
 import { rectClassname, textClassname } from '../../assets/region-paths'
-import { IRegionMapPoint } from '../../types'
 
 interface IProps {
   point: IRegionMapPoint
@@ -63,7 +63,12 @@ export default function RegionPointSVG({ point, scaleFactor = 1 }: IProps) {
   const rectY = y - rectHeight / 2 - height
 
   return (
-    <g className="group select-none">
+    <g
+      className={twMerge(
+        'group select-none',
+        point.is_active ? '' : 'opacity-50',
+      )}
+    >
       <text
         ref={measureRef1}
         x={-9999}
@@ -99,7 +104,7 @@ export default function RegionPointSVG({ point, scaleFactor = 1 }: IProps) {
 
       <text
         x={rectX + rectWidth / 2}
-        y={rectY + paddingY + fontSize}
+        y={rectY + paddingY + rectHeight / (isTwoLines ? 4 : 2)}
         textAnchor="middle"
         fill="black"
         fontWeight={500}

@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge'
-import useCountryMapContext from '../hooks/use-country-map'
 import RegionPointSVG from './region-point-svg'
+import useCountryMapContext from '../../hooks/use-country-map'
 
 function RegionPointsSVG({
   scaleFactor = 1,
@@ -9,7 +9,9 @@ function RegionPointsSVG({
   scaleFactor?: number
   exclude?: number
 }) {
-  const { points } = useCountryMapContext()
+  const {
+    pointsQuery: { data: points },
+  } = useCountryMapContext()
 
   // const reg = useMemo(
   //   () => regionPaths?.find(r => r.id === +(selectedRegion || 0)),

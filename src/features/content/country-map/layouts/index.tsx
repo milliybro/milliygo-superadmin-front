@@ -1,10 +1,10 @@
+import { Outlet } from 'react-router'
 import CountryMapProvider from '../context/country-map-context'
-import CreateRegionSpot from './create-region-spot'
 
-export default function CreateRegion() {
+export default function CountryMapLayout() {
   return (
     <CountryMapProvider>
-      <CreateRegionSpot />
+      <Outlet />
     </CountryMapProvider>
   )
 }
