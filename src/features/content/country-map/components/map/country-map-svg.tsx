@@ -1,12 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 
+import { IRegionMapPoint } from '@/features/content/types'
 import { motion } from 'motion/react'
 import { useParams, useSearchParams } from 'react-router'
 import { regionPaths } from '../../assets/region-paths'
+import NewRegionPoint from './new-region-point'
 import RegionPointsSVG from './region-points-svg'
 import RegionSVG from './region-svg'
-import NewRegionPoint from './new-region-point'
-import { IRegionMapPoint } from '../../types'
 
 // hovered = #8494B3
 // normal = #3276FF

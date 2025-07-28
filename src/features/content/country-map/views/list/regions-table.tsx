@@ -1,8 +1,8 @@
+import { getRegions } from '@/features/tourists/api'
 import { EyeOutlined } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
 import { Button, Table, TableProps } from 'antd'
 import { useNavigate } from 'react-router'
-import { getRegions } from '../../api'
 
 function RegionsTable() {
   const navigate = useNavigate()

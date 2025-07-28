@@ -1,33 +1,22 @@
 import ArrowDownIcon from '@/components/icons/arrow-down'
-import { useQuery } from '@tanstack/react-query'
 import { Button, Form, Input, Select, Typography } from 'antd'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useParams, useSearchParams } from 'react-router'
-import { getTopDestinations } from '../../api'
-import useCountryMapContext from '../hooks/use-country-map'
-import CountryMapSVG from '../map/country-map-svg'
+import { useSearchParams } from 'react-router'
+import useCountryMapContext from '../../hooks/use-country-map'
+import CountryMapSVG from '../../components/map/country-map-svg'
 
 export default function EditRegionSpot() {
-  const { region } = useParams()
   const { t } = useTranslation()
   const [form] = Form.useForm<{ point_title: string; destination: number }>()
   const pointTitle = Form.useWatch('point_title', form)
   const [searchParams] = useSearchParams()
   const {
     updateMapPointMutation: { mutate, isPending },
+    topDestinationOptions,
     points,
   } = useCountryMapContext()
   const pointId = +searchParams.get('id')!
-
-  const { data } = useQuery({
-    queryKey: ['destinations', region],
-    queryFn: () => getTopDestinations({ region }),
-    enabled: true,
-    select: data =>
-      data?.results?.map(item => ({ label: item?.title, value: item?.id })) ||
-      [],
-  })
 
   useEffect(() => {
     const editingPoint = points?.results?.find(point => point.id === pointId)
@@ -49,7 +38,8 @@ export default function EditRegionSpot() {
       </Typography.Title>
       <CountryMapSVG
         pointTitle={pointTitle}
-        isEdit={true}
+        isEdit
+        isCreating={false}
         editingPoint={editingPoint}
       />
       <Form
@@ -70,7 +60,7 @@ export default function EditRegionSpot() {
             size="large"
             suffixIcon={<ArrowDownIcon className="text-xl text-inherit" />}
             className="w-full"
-            options={data}
+            options={topDestinationOptions}
             placeholder="Выберите направление соответствующее карте"
           />
         </Form.Item>

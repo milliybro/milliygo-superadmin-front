@@ -1,9 +1,9 @@
 import { ListResponse } from '@/types'
-import requestAuth from '@/utils/authRequest'
 import { IRegion, IRegionMapPoint, ITopDestination } from '../types'
+import requestSuper from '@/utils/superRequest'
 
 export async function getRegions(): Promise<ListResponse<IRegion[]>> {
-  const res: ListResponse<IRegion[]> = await requestAuth({
+  const res: ListResponse<IRegion[]> = await requestSuper({
     url: '/regions/regions',
     method: 'get',
   })
@@ -11,7 +11,7 @@ export async function getRegions(): Promise<ListResponse<IRegion[]>> {
 }
 
 export async function getRegion(id: number): Promise<IRegion> {
-  const res: IRegion = await requestAuth({
+  const res: IRegion = await requestSuper({
     url: `/regions/regions/${id}`,
     method: 'get',
   })
@@ -21,7 +21,7 @@ export async function getRegion(id: number): Promise<IRegion> {
 export async function getTopDestinations(
   params?: any,
 ): Promise<ListResponse<ITopDestination[]>> {
-  const res: ListResponse<ITopDestination[]> = await requestAuth({
+  const res: ListResponse<ITopDestination[]> = await requestSuper({
     url: '/site-content/top_destinations',
     method: 'get',
     params,
@@ -35,7 +35,7 @@ export async function createMapPoint(data: {
   is_active: boolean
   front_data: object
 }) {
-  return await requestAuth({
+  return await requestSuper({
     url: '/site-content/uzbekistans_map',
     method: 'post',
     data,
@@ -47,7 +47,7 @@ export async function getRegionMapPoints(params: {
   page?: number
   page_size?: number
 }): Promise<ListResponse<IRegionMapPoint[]>> {
-  return await requestAuth({
+  return await requestSuper({
     url: `/site-content/uzbekistans_map/filter-with-region/`,
     method: 'get',
     params,
@@ -62,7 +62,7 @@ export async function updateRegionMapPoint(data: {
   front_data?: object
 }) {
   const { id, ...rest } = data
-  return await requestAuth({
+  return await requestSuper({
     url: `/site-content/uzbekistans_map/${id}/`,
     method: 'patch',
     data: rest,
@@ -70,7 +70,7 @@ export async function updateRegionMapPoint(data: {
 }
 
 export async function deleteRegionMapPoint(id: number) {
-  return await requestAuth({
+  return await requestSuper({
     url: `/site-content/uzbekistans_map/${id}`,
     method: 'delete',
   })

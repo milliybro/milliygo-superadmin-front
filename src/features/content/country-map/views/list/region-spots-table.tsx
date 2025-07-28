@@ -3,7 +3,7 @@ import EditIcon from '@/components/icons/edit'
 import { Button, Switch, Table, TableProps, Tooltip, Typography } from 'antd'
 import { Dispatch, SetStateAction, useMemo } from 'react'
 import { useNavigate } from 'react-router'
-import useCountryMapContext from '../hooks/use-country-map'
+import useCountryMapContext from '../../hooks/use-country-map'
 
 interface IProps {
   setDeleteOpen: Dispatch<SetStateAction<boolean>>

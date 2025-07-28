@@ -6,8 +6,8 @@ import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import { getRegion } from '../api'
 import DeleteModal from '../components/delete-modal'
-import RegionSpotsTable from './list/region-spots-table'
-import CountryMapSVG from './map/country-map-svg'
+import RegionSpotsTable from './views/list/region-spots-table'
+import CountryMapSVG from './components/map/country-map-svg'
 
 export default function RegionSpots() {
   const [deleteOpen, setDeleteOpen] = useState(false)

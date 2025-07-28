@@ -1,4 +1,8 @@
+import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
+import { ListResponse } from '@/types'
 import { useMutation, UseMutationResult, useQuery } from '@tanstack/react-query'
+import { notification } from 'antd'
+import { AxiosResponse } from 'axios'
 import {
   createContext,
   Dispatch,
@@ -8,23 +12,20 @@ import {
   useState,
 } from 'react'
 import {
-  createMapPoint,
-  deleteRegionMapPoint,
-  getRegion,
-  getRegionMapPoints,
-  updateRegionMapPoint,
-} from '../../api'
-import {
   useLocation,
   useNavigate,
   useParams,
   useSearchParams,
 } from 'react-router'
-import { AxiosResponse } from 'axios'
-import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
+import {
+  createMapPoint,
+  deleteRegionMapPoint,
+  getRegion,
+  getRegionMapPoints,
+  getTopDestinations,
+  updateRegionMapPoint,
+} from '../../api'
 import { IRegionMapPoint } from '../../types'
-import { ListResponse } from '@/types'
-import { App } from 'antd'
 
 interface CountryMapContext {
   newCoords: { x: number; y: number }
@@ -53,6 +54,11 @@ interface CountryMapContext {
     number,
     unknown
   >
+  topDestinationOptions?: {
+    label: string
+    value: number
+  }[]
+
   points?: ListResponse<IRegionMapPoint[]>
 }
 
@@ -65,7 +71,6 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
   })
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const { notification } = App.useApp()
 
   const { setBreadCrumbs } = useBreadCrumbsStore()
 
@@ -149,11 +154,21 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
         },
       }),
     onSuccess: () => {
+      console.log('success')
       notification.success({
         message: 'Точка успешно обновлена',
       })
       navigate(`/content/country-map/${region}`)
     },
+  })
+
+  const { data: topDestinationOptions } = useQuery({
+    queryKey: ['destinations', region],
+    queryFn: () => getTopDestinations({ region }),
+    enabled: true,
+    select: data =>
+      data?.results?.map(item => ({ label: item?.title, value: item?.id })) ||
+      [],
   })
 
   const deleteMapPointMutation = useMutation({
@@ -168,6 +183,7 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
         createMapPointMutation,
         updateMapPointMutation,
         deleteMapPointMutation,
+        topDestinationOptions,
         points,
       }}
     >
@@ -178,4 +194,4 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
 
 export default CountryMapProvider
 
-export { CountryMapProvider, CountryMapContext }
+export { CountryMapContext, CountryMapProvider }

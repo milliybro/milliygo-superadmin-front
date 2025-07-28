@@ -1,6 +1,6 @@
 import { twMerge } from 'tailwind-merge'
-import useCountryMapContext from '../hooks/use-country-map'
 import RegionPointSVG from './region-point-svg'
+import useCountryMapContext from '../../hooks/use-country-map'
 
 function RegionPointsSVG({
   scaleFactor = 1,

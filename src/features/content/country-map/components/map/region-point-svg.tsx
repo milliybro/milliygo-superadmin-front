@@ -1,8 +1,8 @@
+import { IRegionMapPoint } from '@/features/content/types'
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
+import { twMerge } from 'tailwind-merge'
 import { rectClassname, textClassname } from '../../assets/region-paths'
-import { IRegionMapPoint } from '../../types'
 
 interface IProps {
   point: IRegionMapPoint
