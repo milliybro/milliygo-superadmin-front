@@ -10,7 +10,7 @@ import ExpertAdviceContent from '../expert-advice'
 import InstagramContent from '../instagram'
 import MainPageContent from '../hero'
 import TopDestinationsContent from '../top-destinations'
-import CountryMap from '../country-map'
+import CountryMap from '../country-map/views/list'
 
 function Content() {
   const { t } = useTranslation()

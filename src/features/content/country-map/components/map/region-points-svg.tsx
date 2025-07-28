@@ -9,7 +9,9 @@ function RegionPointsSVG({
   scaleFactor?: number
   exclude?: number
 }) {
-  const { points } = useCountryMapContext()
+  const {
+    pointsQuery: { data: points },
+  } = useCountryMapContext()
 
   // const reg = useMemo(
   //   () => regionPaths?.find(r => r.id === +(selectedRegion || 0)),

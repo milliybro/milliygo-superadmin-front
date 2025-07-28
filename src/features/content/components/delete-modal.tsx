@@ -1,11 +1,10 @@
 import DeleteIcon from '@/components/icons/delete'
 import { CloseOutlined } from '@ant-design/icons'
 import { Button, Modal, Typography } from 'antd'
-import { Dispatch, SetStateAction } from 'react'
 
 interface IProps {
   open: boolean
-  setOpen: Dispatch<SetStateAction<boolean>>
+  onClose: () => void
   title?: string
   description?: string
   onDelete?: () => void
@@ -14,7 +13,7 @@ interface IProps {
 
 export default function DeleteModal({
   open,
-  setOpen,
+  onClose,
   title,
   description,
   onDelete,
@@ -23,7 +22,7 @@ export default function DeleteModal({
   return (
     <Modal
       open={open}
-      onCancel={() => setOpen(false)}
+      onCancel={onClose}
       footer={null}
       closeIcon={<CloseOutlined className="text-black" />}
     >
@@ -42,7 +41,7 @@ export default function DeleteModal({
             'Подтвердите, что вы действительно хотите удалить данного контекстa?'}
         </Typography.Text>
         <div className="flex items-center justify-center gap-5">
-          <Button onClick={() => setOpen(false)}>Отмена</Button>
+          <Button onClick={onClose}>Отмена</Button>
           <Button
             type="primary"
             className="bg-primary-dark"

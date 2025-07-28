@@ -1,5 +1,5 @@
-import ContentHeader from '../components/content-header'
-import RegionsTable from './views/list/regions-table'
+import ContentHeader from '../../../components/content-header'
+import RegionsTable from '../../components/regions-table'
 
 export default function CountryMap() {
   return (

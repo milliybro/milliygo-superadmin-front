@@ -1,6 +1,11 @@
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { ListResponse } from '@/types'
-import { useMutation, UseMutationResult, useQuery } from '@tanstack/react-query'
+import {
+  useMutation,
+  UseMutationResult,
+  useQuery,
+  UseQueryResult,
+} from '@tanstack/react-query'
 import { notification } from 'antd'
 import { AxiosResponse } from 'axios'
 import {
@@ -25,11 +30,13 @@ import {
   getTopDestinations,
   updateRegionMapPoint,
 } from '../../api'
-import { IRegionMapPoint } from '../../types'
+import { IRegion, IRegionMapPoint } from '../../types'
 
 interface CountryMapContext {
   newCoords: { x: number; y: number }
   setNewCoords: Dispatch<SetStateAction<{ x: number; y: number }>>
+  deletingId: number | null
+  setDeletingId: Dispatch<SetStateAction<number | null>>
   createMapPointMutation: UseMutationResult<
     AxiosResponse<any, any>,
     Error,
@@ -58,8 +65,8 @@ interface CountryMapContext {
     label: string
     value: number
   }[]
-
-  points?: ListResponse<IRegionMapPoint[]>
+  pointsQuery: UseQueryResult<ListResponse<IRegionMapPoint[]>, Error>
+  regionData?: IRegion
 }
 
 const CountryMapContext = createContext<CountryMapContext | null>(null)
@@ -69,6 +76,8 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
     x: 0,
     y: 0,
   })
+  const [deletingId, setDeletingId] = useState<number | null>(null)
+
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
@@ -89,7 +98,7 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
     },
   })
 
-  const { data: points } = useQuery({
+  const pointsQuery = useQuery({
     queryKey: ['region-spots', region, pathname],
     queryFn: () => getRegionMapPoints({ region_id: +region! }),
     enabled: !!region,
@@ -97,6 +106,7 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
   })
 
   useEffect(() => {
+    const points = pointsQuery.data
     const editingPoint = points?.results?.find(
       point => point.id === +(pointId || NaN),
     )
@@ -107,7 +117,7 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
         y: editingPoint.front_data.y,
       })
     }
-  }, [points])
+  }, [pointsQuery.data])
 
   useEffect(() => {
     setBreadCrumbs([
@@ -173,6 +183,13 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
 
   const deleteMapPointMutation = useMutation({
     mutationFn: deleteRegionMapPoint,
+    onSuccess: () => {
+      pointsQuery.refetch()
+      setDeletingId(null)
+      notification.success({
+        message: 'Точка успешно удалена',
+      })
+    },
   })
 
   return (
@@ -180,11 +197,14 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
       value={{
         newCoords,
         setNewCoords,
+        deletingId,
+        setDeletingId,
         createMapPointMutation,
         updateMapPointMutation,
         deleteMapPointMutation,
         topDestinationOptions,
-        points,
+        regionData,
+        pointsQuery,
       }}
     >
       {children}

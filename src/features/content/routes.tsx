@@ -3,7 +3,7 @@ import Content from './views/content'
 import ContentLayout from './views/content-layout'
 import CreateContent from './views/create-content'
 import CountryMapLayout from './country-map/layouts'
-import RegionSpots from './country-map/region-spots'
+import RegionSpots from './country-map/views/list/region-spots'
 import CreateRegionSpot from './country-map/views/create/create-region-spot'
 import EditRegionSpot from './country-map/views/edit/edit-region-spot'
 

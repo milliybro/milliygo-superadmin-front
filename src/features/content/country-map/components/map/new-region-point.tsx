@@ -201,7 +201,7 @@ export default function NewRegionPoint({
       />
       <text
         x={rectX + rectW / 2}
-        y={rectY + paddingY + (isTwoLines ? 0 : lineHeight / 2) + fontSize / 2}
+        y={rectY + paddingY + rectHeight / (isTwoLines ? 4 : 2)}
         textAnchor="middle"
         fill="black"
         fontWeight={500}

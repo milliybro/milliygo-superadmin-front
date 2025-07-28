@@ -60,6 +60,11 @@ export interface IRegionMapPoint {
     id: number
     title: string
     description: string
+    images: {
+      id: number
+      is_main: boolean
+      file_path: string
+    }[]
   }
   is_active: boolean
   front_data: {

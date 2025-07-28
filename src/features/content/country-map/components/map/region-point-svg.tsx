@@ -99,7 +99,7 @@ export default function RegionPointSVG({ point, scaleFactor = 1 }: IProps) {
 
       <text
         x={rectX + rectWidth / 2}
-        y={rectY + paddingY + fontSize}
+        y={rectY + paddingY + rectHeight / (isTwoLines ? 4 : 2)}
         textAnchor="middle"
         fill="black"
         fontWeight={500}

@@ -3,15 +3,15 @@ import EditIcon from '@/components/icons/edit'
 import { Button, Switch, Table, TableProps, Tooltip, Typography } from 'antd'
 import { Dispatch, SetStateAction, useMemo } from 'react'
 import { useNavigate } from 'react-router'
-import useCountryMapContext from '../../hooks/use-country-map'
+import useCountryMapContext from '../hooks/use-country-map'
 
 interface IProps {
-  setDeleteOpen: Dispatch<SetStateAction<boolean>>
+  setDeleteOpen: Dispatch<SetStateAction<number | null>>
 }
 
 function RegionSpotsTable({ setDeleteOpen }: IProps) {
   const navigate = useNavigate()
-  const { points } = useCountryMapContext()
+  const { pointsQuery } = useCountryMapContext()
   const columns: TableProps['columns'] = [
     {
       title: 'Название на карте',
@@ -61,7 +61,7 @@ function RegionSpotsTable({ setDeleteOpen }: IProps) {
             <Button
               type="link"
               danger
-              onClick={() => setDeleteOpen(true)}
+              onClick={() => setDeleteOpen(record?.id || record?.key || null)}
               className="p-0"
             >
               <DeleteIcon className="text-xl" />
@@ -74,15 +74,19 @@ function RegionSpotsTable({ setDeleteOpen }: IProps) {
 
   const data = useMemo(() => {
     return (
-      points?.results?.map(item => ({
+      pointsQuery?.data?.results?.map(item => ({
         key: item.id,
         id: item.id,
         name: item?.front_data?.point_title,
         destination: item?.top_destination?.title,
+        image:
+          item?.top_destination?.images?.find(img => img.is_main)?.file_path ||
+          item?.top_destination?.images?.[0]?.file_path ||
+          '',
         status: item?.is_active,
       })) || []
     )
-  }, [points])
+  }, [pointsQuery?.data])
 
   return (
     <Table

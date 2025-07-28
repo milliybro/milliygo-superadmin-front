@@ -1,29 +1,22 @@
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { PlusOutlined } from '@ant-design/icons'
-import { useQuery } from '@tanstack/react-query'
 import { Button, Typography } from 'antd'
-import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router'
-import { getRegion } from '../api'
-import DeleteModal from '../components/delete-modal'
-import RegionSpotsTable from './views/list/region-spots-table'
-import CountryMapSVG from './components/map/country-map-svg'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router'
+import DeleteModal from '../../../components/delete-modal'
+import CountryMapSVG from '../../components/map/country-map-svg'
+import RegionSpotsTable from '../../components/region-spots-table'
+import useCountryMapContext from '../../hooks/use-country-map'
 
 export default function RegionSpots() {
-  const [deleteOpen, setDeleteOpen] = useState(false)
   const { setBreadCrumbs } = useBreadCrumbsStore()
   const navigate = useNavigate()
-
-  const { region } = useParams()
-
-  const { data: regionData } = useQuery({
-    queryKey: ['region', region],
-    queryFn: () => getRegion(+region!),
-    throwOnError: () => {
-      navigate('/not-found')
-      return false
-    },
-  })
+  const {
+    deleteMapPointMutation: { mutate, isPending },
+    deletingId,
+    setDeletingId,
+    regionData,
+  } = useCountryMapContext()
 
   useEffect(() => {
     setBreadCrumbs([
@@ -47,14 +40,16 @@ export default function RegionSpots() {
         </Button>
       </div>
       <CountryMapSVG isEdit={false} />
-      <RegionSpotsTable setDeleteOpen={setDeleteOpen} />
+      <RegionSpotsTable setDeleteOpen={setDeletingId} />
       <DeleteModal
-        open={deleteOpen}
-        setOpen={setDeleteOpen}
+        open={!!deletingId}
+        onClose={() => setDeletingId(null)}
         title="Удалить точку с карты?"
         description="Подтвердите, что вы действительно хотите удалить данную точку с карты?"
-        // onDelete={() => mutate(+region!)}
-        // isLoading={isPending}
+        onDelete={() => {
+          mutate(deletingId!)
+        }}
+        isLoading={isPending}
       />
     </div>
   )

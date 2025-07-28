@@ -14,7 +14,7 @@ export default function EditRegionSpot() {
   const {
     updateMapPointMutation: { mutate, isPending },
     topDestinationOptions,
-    points,
+    pointsQuery: { data: points },
   } = useCountryMapContext()
   const pointId = +searchParams.get('id')!
 
