@@ -73,3 +73,50 @@ export interface IRegionMapPoint {
     point_title: string
   }
 }
+
+export interface IExpertAdvice {
+  id: number
+  slug: string
+  type: Type
+  created_at: string
+  updated_at: string
+  images: Image[]
+  title: string
+  description: string
+  social_links: any[]
+  content: string
+}
+
+export interface Type {
+  id: number
+  name: string
+}
+
+export interface Image {
+  id: number
+  is_main: boolean
+  image_path: string
+}
+
+export interface IEvent {
+  id: number
+  slug: string
+  name: string
+  description: string
+  date: string
+  location: string
+  images: {
+    id: number
+    image: string
+  }[]
+  organizer: string
+}
+
+export interface IInstagramContent {
+  id: number
+  title: string
+  description: string
+  url: string
+  image: string
+  is_active: boolean
+}
