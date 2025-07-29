@@ -1,16 +1,19 @@
-import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
-import { Tabs, TabsProps, Typography } from 'antd'
 import { useEffect } from 'react'
+import { Tabs, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
 
-import DiscoverContent from '../discover'
-import EventsContent from '../events'
-import ExpertAdviceContent from '../expert-advice'
-import InstagramContent from '../instagram'
+import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
+
 import MainPageContent from '../hero'
-import TopDestinationsContent from '../top-destinations'
+import DiscoverContent from '../discover'
+import EventsContent from '../events/list'
+import InstagramContent from '../instagram/list'
 import CountryMap from '../country-map/views/list'
+import ExpertAdviceContent from '../expert-advice/list'
+import TopDestinationsContent from '../top-destinations'
+
+import type { TabsProps } from 'antd'
 
 function Content() {
   const { t } = useTranslation()
