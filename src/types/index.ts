@@ -36,6 +36,14 @@ interface ListResponse<T> {
   results: T
   email_receive?: string
 }
+
+interface ListResponseShort<T> {
+  count: number
+  next: string
+  previous: string
+  results: T[]
+}
+
 interface IUser {
   id: number
   username: string
@@ -114,4 +122,5 @@ export type {
   IBreadCrumbsStore,
   ListResponse,
   IErrorMessage,
+  ListResponseShort,
 }
