@@ -1,119 +1,100 @@
-import DeleteIcon from '@/components/icons/delete'
-import EditIcon from '@/components/icons/edit'
-import { Button, Switch, Table, TableProps, Typography } from 'antd'
-import { Dispatch, SetStateAction } from 'react'
+import { useState } from 'react'
+import { TableColumnsType } from 'antd'
+import { useQuery } from '@tanstack/react-query'
 
-interface IProps {
-  setDeleteOpen: Dispatch<SetStateAction<boolean>>
-}
+import { getEvents } from '../../api'
 
-function EventsTable({ setDeleteOpen }: IProps) {
-  const columns: TableProps['columns'] = [
+import EventsDate from './events-date'
+import EventsTitle from './events-title'
+import EventsAction from './events-action'
+import EventsStatus from './events-status'
+import EventsAddress from './events-address'
+import EventsOrganizer from './events-organizer'
+import EventsDescription from './events-description'
+import CustomTable from '@/components/ui/custom-table'
+
+import type { IEvent } from '../../types'
+
+function EventsTable() {
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const { data, isPending } = useQuery({
+    queryKey: ['events', currentPage],
+    queryFn: () => getEvents({ page_size: 10, page: currentPage }),
+  })
+
+  const handlePaginationChange = (page: number) => {
+    setCurrentPage(page)
+  }
+
+  const columns: TableColumnsType<IEvent> = [
     {
       title: 'Название',
       key: 'name',
       dataIndex: 'name',
-      width: 250,
-      render: (_, record) => (
-        <div className="flex items-center gap-4">
-          <div className="size-[52px] rounded-2xl bg-secondary"></div>
-          <Typography.Text className="text-sm font-medium">
-            {record?.name}
-          </Typography.Text>
-        </div>
-      ),
+      width: 350,
+      render: (_, record) => <EventsTitle {...record} />,
     },
     {
       title: 'Описание',
       key: 'description',
       dataIndex: 'description',
       width: 250,
-      render: value => (
-        <Typography.Text className="line-clamp-2 text-sm font-medium">
-          {value || 'Нет описания'}
-        </Typography.Text>
-      ),
+      render: (_, record) => <EventsDescription {...record} />,
     },
     {
       title: 'Организатор',
-      key: 'organization',
-      dataIndex: 'organization',
+      key: 'organizer',
+      dataIndex: 'organizer',
       width: 180,
-      render: value => (
-        <Typography.Text className="line-clamp-2 text-sm font-medium">
-          {value || 'Нет организация'}
-        </Typography.Text>
-      ),
+      render: (_, record) => <EventsOrganizer {...record} />,
     },
     {
       title: 'Дата',
-      key: 'data',
-      dataIndex: 'data',
-      render: value => (
-        <Typography.Text className="line-clamp-2 text-sm font-medium">
-          {value || 'Нет дата'}
-        </Typography.Text>
-      ),
+      key: 'date',
+      dataIndex: 'date',
+      width: 150,
+      render: (_, record) => <EventsDate {...record} />,
     },
     {
       title: 'Адрес',
-      key: 'address',
-      dataIndex: 'address',
-      render: value => (
-        <Typography.Text className="line-clamp-2 text-sm font-medium">
-          {value || 'Нет адрес'}
-        </Typography.Text>
-      ),
+      key: 'location',
+      dataIndex: 'location',
+      width: 200,
+      render: (_, record) => <EventsAddress {...record} />,
     },
     {
       title: 'Статус',
       key: 'status',
       dataIndex: 'status',
       width: 0,
-      render: () => <Switch />,
+      render: (_, record) => <EventsStatus {...record} />,
     },
     {
       title: 'Действие',
       key: 'action',
       dataIndex: 'action',
       width: 0,
-      render: () => (
-        <div className="flex items-center gap-4 text-base font-medium">
-          <Button type="link">
-            <EditIcon className="text-xl" />
-            Редактировать
-          </Button>
-          <Button type="link" danger onClick={() => setDeleteOpen(true)}>
-            <DeleteIcon className="text-xl" />
-            Удалить
-          </Button>
-        </div>
-      ),
-    },
-  ]
-
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Париж',
-      description:
-        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse a corruptiiure pariatur? Molestiae consequuntur, quia explicabo optio quidem fugitratione dolorem neque modi inventore ipsa asperiores corporis reprehenderit minima.',
-      status: true,
-      data: '30 нояб, 2024',
-      organization: 'Azizbek Khamedov',
-      address: 'г. Ташкент, Юнусабадский р.',
+      render: (_, record) => <EventsAction {...record} />,
     },
   ]
 
   return (
-    <Table
+    <CustomTable
       columns={columns}
-      dataSource={dataSource}
+      dataSource={data?.results}
+      rowKey="id"
       bordered
+      loading={isPending}
+      className="custom-table-2"
       pagination={{
-        hideOnSinglePage: true,
+        current: currentPage,
         pageSize: 10,
+        total: data?.count || 0,
+        hideOnSinglePage: true,
+        showSizeChanger: false,
         position: ['bottomCenter'],
+        onChange: handlePaginationChange,
       }}
     />
   )
