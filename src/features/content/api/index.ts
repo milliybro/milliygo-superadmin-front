@@ -1,5 +1,12 @@
-import { ListResponse } from '@/types'
-import { IRegion, IRegionMapPoint, ITopDestination } from '../types'
+import { ListResponse, ListResponseShort } from '@/types'
+import {
+  IEvent,
+  IExpertAdvice,
+  IInstagramContent,
+  IRegion,
+  IRegionMapPoint,
+  ITopDestination,
+} from '../types'
 import requestSuper from '@/utils/superRequest'
 
 export async function getRegions(): Promise<ListResponse<IRegion[]>> {
@@ -72,6 +79,60 @@ export async function updateRegionMapPoint(data: {
 export async function deleteRegionMapPoint(id: number) {
   return await requestSuper({
     url: `/site-content/uzbekistans_map/${id}`,
+    method: 'delete',
+  })
+}
+
+export async function getExpertAdvices(params?: {
+  page?: number
+  page_size?: number
+}): Promise<ListResponseShort<IExpertAdvice>> {
+  return await requestSuper({
+    url: '/site-content/expert_advice/',
+    method: 'get',
+    params,
+  })
+}
+
+export async function deleteExpertAdvice(slug: string) {
+  return await requestSuper({
+    url: `/site-content/expert_advice/${slug}/`,
+    method: 'delete',
+  })
+}
+
+export async function getEvents(params?: {
+  page?: number
+  page_size?: number
+}): Promise<ListResponseShort<IEvent>> {
+  return await requestSuper({
+    url: '/site-content/events/',
+    method: 'get',
+    params,
+  })
+}
+
+export async function deleteEvent(slug: string) {
+  return await requestSuper({
+    url: `/site-content/events/${slug}/`,
+    method: 'delete',
+  })
+}
+
+export async function getInstagramContents(params?: {
+  page?: number
+  page_size?: number
+}): Promise<ListResponseShort<IInstagramContent>> {
+  return await requestSuper({
+    url: '/site-content/instagram_contents/',
+    method: 'get',
+    params,
+  })
+}
+
+export async function deleteInstagramContent(id: number) {
+  return await requestSuper({
+    url: `/site-content/instagram_contents/${id}/`,
     method: 'delete',
   })
 }
