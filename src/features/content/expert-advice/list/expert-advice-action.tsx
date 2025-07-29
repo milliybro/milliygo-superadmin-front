@@ -36,7 +36,7 @@ const ExpertAdviceAction: FC<IExpertAdvice> = props => {
 
   return (
     <>
-      <div className="flex items-center gap-4 text-base font-medium">
+      <div className="flex items-center text-base font-medium">
         <Button type="link">
           <EditIcon className="text-xl" /> {t('Редактировать')}
         </Button>
