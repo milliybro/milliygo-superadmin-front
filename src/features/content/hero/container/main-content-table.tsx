@@ -1,7 +1,10 @@
 import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
+import { useQuery } from '@tanstack/react-query'
 import { Button, Switch, Table, TableProps } from 'antd'
 import { Dispatch, SetStateAction } from 'react'
+import { getBackgrounds } from '../api'
+import VideoThumbnail from '@/components/shared/video-thumbnail'
 
 interface IProps {
   setDeleteOpen: Dispatch<SetStateAction<boolean>>
@@ -14,8 +17,10 @@ function MainContentTable({ setDeleteOpen }: IProps) {
       key: 'image',
       dataIndex: 'image',
       className: 'w-1/2',
-      render: () => (
-        <div className="size-[52px] rounded-2xl bg-secondary"></div>
+      render: value => (
+        <div className="size-[52px] overflow-hidden rounded-2xl bg-secondary-light">
+          <VideoThumbnail videoSrc={value} />
+        </div>
       ),
     },
     {
@@ -44,10 +49,23 @@ function MainContentTable({ setDeleteOpen }: IProps) {
       ),
     },
   ]
+
+  const { data } = useQuery({
+    queryKey: ['backgrounds'],
+    queryFn: getBackgrounds,
+    enabled: true,
+    select: data =>
+      data.results?.map(item => ({
+        key: item?.id,
+        image: item?.video,
+        status: item?.is_active,
+      })) || [],
+  })
+
   return (
     <Table
       columns={columns}
-      dataSource={[{ key: '1' }]}
+      dataSource={data}
       bordered
       pagination={{
         hideOnSinglePage: true,

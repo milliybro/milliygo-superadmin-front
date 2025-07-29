@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import ContentHeader from '../components/content-header'
-import DeleteModal from '../components/delete-modal'
-import AddModal from './list/add-modal'
-import MainContentTable from './list/main-content-table'
+import ContentHeader from '../../components/content-header'
+import DeleteModal from '../../components/delete-modal'
+import AddModal from '../components/add-modal'
+import MainContentTable from '../container/main-content-table'
 
 function MainPageContent() {
   const [showModal, setShowModal] = useState<boolean>(false)
@@ -21,7 +21,7 @@ function MainPageContent() {
 
       <DeleteModal
         open={showDeleteModal}
-        setOpen={setShowDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
         title="Удалить фон?"
         description="Подтвердите, что вы действительно хотите удалить данного контекстa?"
       />

@@ -8,7 +8,7 @@ import DiscoverContent from '../discover'
 import EventsContent from '../events'
 import ExpertAdviceContent from '../expert-advice'
 import InstagramContent from '../instagram'
-import MainPageContent from '../hero'
+import MainPageContent from '../hero/views'
 import TopDestinationsContent from '../top-destinations'
 import CountryMap from '../country-map/views/list'
 
