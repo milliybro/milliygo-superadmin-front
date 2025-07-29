@@ -1,85 +1,76 @@
-import DeleteIcon from '@/components/icons/delete'
-import EditIcon from '@/components/icons/edit'
-import { Button, Switch, Table, TableProps, Typography } from 'antd'
-import { Dispatch, SetStateAction } from 'react'
+import { useState } from 'react'
+import { useQuery } from '@tanstack/react-query'
 
-interface IProps {
-  setDeleteOpen: Dispatch<SetStateAction<boolean>>
-}
+import { getInstagramContents } from '../../api'
 
-function InstagramTable({ setDeleteOpen }: IProps) {
-  const columns: TableProps['columns'] = [
+import InstagramTitle from './instagram-title'
+import InstagramAction from './instagram-action'
+import InstagramStatus from './instagram-status'
+import CustomTable from '@/components/ui/custom-table'
+import InstagramDescription from './instagram-description'
+
+import type { TableColumnsType } from 'antd'
+import type { IInstagramContent } from '../../types'
+
+function InstagramTable() {
+  const [currentPage, setCurrentPage] = useState(1)
+
+  const { data, isPending } = useQuery({
+    queryKey: ['instagram-contents', currentPage],
+    queryFn: () => getInstagramContents({ page_size: 10, page: currentPage }),
+  })
+
+  const handlePaginationChange = (page: number) => {
+    setCurrentPage(page)
+  }
+
+  const columns: TableColumnsType<IInstagramContent> = [
     {
       title: 'Название',
       key: 'name',
       dataIndex: 'name',
       className: 'w-1/2',
-      render: (_, record) => (
-        <div className="flex items-center gap-4">
-          <div className="size-[52px] rounded-2xl bg-secondary"></div>
-          <Typography.Text className="text-sm font-medium">
-            {record?.name}
-          </Typography.Text>
-        </div>
-      ),
+      render: (_, record) => <InstagramTitle {...record} />,
     },
     {
       title: 'Описание',
       key: 'description',
       dataIndex: 'description',
       className: 'w-1/2',
-      render: value => (
-        <Typography.Text className="line-clamp-2 text-sm font-medium">
-          {value || 'Нет описания'}
-        </Typography.Text>
-      ),
+      render: (_, record) => <InstagramDescription {...record} />,
     },
     {
       title: 'Статус',
       key: 'status',
       dataIndex: 'status',
       width: 0,
-      render: () => <Switch />,
+      render: (_, record) => <InstagramStatus {...record} />,
     },
     {
       title: 'Действие',
       key: 'action',
       dataIndex: 'action',
       width: 0,
-      render: () => (
-        <div className="flex items-center gap-4 text-base font-medium">
-          <Button type="link">
-            <EditIcon className="text-xl" />
-            Редактировать
-          </Button>
-          <Button type="link" danger onClick={() => setDeleteOpen(true)}>
-            <DeleteIcon className="text-xl" />
-            Удалить
-          </Button>
-        </div>
-      ),
-    },
-  ]
-
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Париж',
-      description:
-        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse a corruptiiure pariatur? Molestiae consequuntur, quia explicabo optio quidem fugitratione dolorem neque modi inventore ipsa asperiores corporis reprehenderit minima.',
-      status: true,
+      render: (_, record) => <InstagramAction {...record} />,
     },
   ]
 
   return (
-    <Table
+    <CustomTable
       columns={columns}
-      dataSource={dataSource}
+      dataSource={data?.results}
+      rowKey="id"
       bordered
+      loading={isPending}
+      className="custom-table-2"
       pagination={{
-        hideOnSinglePage: true,
+        current: currentPage,
         pageSize: 10,
+        total: data?.count || 0,
+        hideOnSinglePage: true,
+        showSizeChanger: false,
         position: ['bottomCenter'],
+        onChange: handlePaginationChange,
       }}
     />
   )
