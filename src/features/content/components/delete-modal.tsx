@@ -1,6 +1,7 @@
+import { Button, Modal, Typography } from 'antd'
+
 import DeleteIcon from '@/components/icons/delete'
 import { CloseOutlined } from '@ant-design/icons'
-import { Button, Modal, Typography } from 'antd'
 
 interface IProps {
   open: boolean
@@ -24,10 +25,11 @@ export default function DeleteModal({
       open={open}
       onCancel={onClose}
       footer={null}
+      centered
       closeIcon={<CloseOutlined className="text-black" />}
     >
       <div className="flex flex-col items-center gap-4">
-        <div className="border-[#FEF2F2 mt-5 flex size-[62px] items-center justify-center rounded-full border-[7px] bg-[#FEE2E2]">
+        <div className="mt-5 flex size-[62px] items-center justify-center rounded-full border-[7px] border-[#FEF2F2] bg-[#FEE2E2]">
           <DeleteIcon className="text-xl text-danger" />
         </div>
         <Typography.Title
@@ -38,7 +40,7 @@ export default function DeleteModal({
         </Typography.Title>
         <Typography.Text className="text-center text-base text-secondary">
           {description ||
-            'Подтвердите, что вы действительно хотите удалить данного контекстa?'}
+            'Подтвердите, что вы действительно хотите удалить данного контекста?'}
         </Typography.Text>
         <div className="flex items-center justify-center gap-5">
           <Button onClick={onClose}>Отмена</Button>
