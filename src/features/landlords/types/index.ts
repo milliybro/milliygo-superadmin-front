@@ -7,22 +7,16 @@ interface IHotelsItemTable {
   rating: number
 }
 
-interface IHotelsTable {
-  key: number
-  id: number
-  image: string
-  address: string
-  min_price: number
-  star_rating: number
-  price: number
-  rating: number
-  login: string
-  password: string
-  status: string
-  balance: string
+interface IApartmentsTable {
   placement_name: string
-  placement_address: string
+  id: number
+  apartment_name: string
+  lat: number
+  long: number
+  room_price: string
   full_name: string
+  phone: string
+  status: boolean
 }
 
 interface ILandlordsTable {
@@ -110,7 +104,7 @@ export type {
   IHotelsGuests,
   IHotelsItemReview,
   IHotelsItemTable,
-  IHotelsTable,
+  IApartmentsTable,
   IHotelsRoom,
   IGuestsTable,
   IGuestsTransaction,

@@ -44,7 +44,7 @@ const ProvidersTab = ({
     },
     {
       key: '3',
-      label: t('common.ticket-seller'),
+      label: t('common.ticket-sellerPDF'),
       children: (
         <ProvidersTable
           hotelsData={hotelsData}
