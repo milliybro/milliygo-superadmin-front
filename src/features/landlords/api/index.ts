@@ -1,17 +1,13 @@
 import { ListResponse } from '@/types'
-import request from '@/utils/axios'
-import {
-  IHotelDetail,
-  IHotelsItemReview,
-  IHotelsRoom,
-  IHotelsTable,
-} from '../types'
+import { IApartmentsTable } from '../types'
+import requestAuth from '@/utils/authRequest'
+import axios from 'axios'
 
-export async function getHotelsList(
+export async function getApartmentsList(
   params?: any,
-): Promise<ListResponse<IHotelsTable[]>> {
-  const res: ListResponse<IHotelsTable[]> = await request({
-    url: '/superadmin/placements/list/',
+): Promise<ListResponse<IApartmentsTable[]>> {
+  const res: ListResponse<IApartmentsTable[]> = await requestAuth({
+    url: '/apartments/',
     method: 'get',
     params,
   })
@@ -19,74 +15,41 @@ export async function getHotelsList(
   return res
 }
 
-export async function getHotels(
-  params?: any,
-): Promise<ListResponse<IHotelsTable[]>> {
-  const res: ListResponse<IHotelsTable[]> = await request({
-    url: '/superadmin/placements/',
-    method: 'get',
-    params,
-  })
-
-  return res
-}
-
-export async function getHotelDetail(
-  params?: any,
-): Promise<ListResponse<IHotelDetail[]>> {
-  const res: ListResponse<IHotelDetail[]> = await request({
-    url: `/superadmin/placements/detail/`,
-    method: 'get',
-    params,
-  })
-
-  return res
-}
-
-export async function getHotelGuests(
-  params?: any,
+export async function getApartmentItem(
   id?: number,
-): Promise<ListResponse<IHotelDetail[]>> {
-  const res: ListResponse<IHotelDetail[]> = await request({
-    url: `/superadmin/placements/${id}/guests/`,
+): Promise<ListResponse<IApartmentsTable[]>> {
+  const res: ListResponse<IApartmentsTable[]> = await requestAuth({
+    url: `/apartments/${id}`,
     method: 'get',
-    params,
   })
 
   return res
 }
 
-export async function getHotelManagementGuests(
-  params?: any,
-): Promise<ListResponse<IHotelDetail[]>> {
-  const res: ListResponse<IHotelDetail[]> = await request({
-    url: `/superadmin/placements/guests/`,
-    method: 'get',
-    params,
-  })
+export const getNominalByLatLng = async (
+  lat: number,
+  lon: number,
+  lang = 'en',
+): Promise<string | null> => {
+  try {
+    const response = await axios.get(
+      'https://nominatim.openstreetmap.org/reverse',
+      {
+        params: {
+          lat,
+          lon,
+          format: 'json',
+        },
+        headers: {
+          'Accept-Language': lang,
+          'User-Agent': 'your-app-name',
+        },
+      },
+    )
 
-  return res
-}
-
-export async function getHotelDetailReview(
-  params?: any,
-  id?: number,
-): Promise<ListResponse<IHotelsItemReview[]>> {
-  const res: ListResponse<IHotelsItemReview[]> = await request({
-    url: `/placement-reviews/placement_review/?placement=${id}`,
-    method: 'get',
-    params,
-  })
-
-  return res
-}
-
-export async function getHotelDetailRooms(params?: any): Promise<IHotelsRoom> {
-  const res: IHotelsRoom = await request({
-    url: `/superadmin/placements/rooms/`,
-    method: 'get',
-    params,
-  })
-
-  return res
+    return response.data.display_name || null
+  } catch (error) {
+    console.error('Reverse geocoding error:', error)
+    return null
+  }
 }
