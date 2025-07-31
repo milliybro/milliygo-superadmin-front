@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useMemo } from 'react'
 import { TableColumnsType } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
 
 import { getExpertAdvices } from '../../api'
@@ -15,7 +16,12 @@ import type { IExpertAdvice } from '../../types'
 
 function ExpertAdvicesList() {
   const { t } = useTranslation()
-  const [currentPage, setCurrentPage] = useState(1)
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const currentPage = useMemo(() => {
+    const pageParam = parseInt(searchParams.get('page') || '1', 10)
+    return isNaN(pageParam) || pageParam < 1 ? 1 : pageParam
+  }, [searchParams])
 
   const { data, isPending } = useQuery({
     queryKey: ['expert-advices', currentPage],
@@ -23,7 +29,11 @@ function ExpertAdvicesList() {
   })
 
   const handlePaginationChange = (page: number) => {
-    setCurrentPage(page)
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev)
+      newParams.set('page', page.toString())
+      return newParams
+    })
   }
 
   const columns: TableColumnsType<IExpertAdvice> = [
