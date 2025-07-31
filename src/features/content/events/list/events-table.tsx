@@ -1,9 +1,9 @@
-import { useMemo } from 'react'
-import { TableColumnsType } from 'antd'
 import { useSearchParams } from 'react-router'
+import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
 
 import { getEvents } from '../../api'
+import { getTableSortOrder } from '@/helpers/get-table-sort-order'
 
 import EventsDate from './events-date'
 import EventsTitle from './events-title'
@@ -16,72 +16,111 @@ import CustomTable from '@/components/ui/custom-table'
 
 import type { IEvent } from '../../types'
 
+import type { TableColumnsType, TablePaginationConfig } from 'antd'
+import type { FilterValue, SorterResult } from 'antd/es/table/interface'
+
 function EventsTable() {
+  const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const currentPage = useMemo(() => {
-    const pageParam = parseInt(searchParams.get('page') || '1', 10)
-    return isNaN(pageParam) || pageParam < 1 ? 1 : pageParam
-  }, [searchParams])
+  const currentPage = Number(searchParams.get('page') || '1')
+  const orderingParam = searchParams.get('ordering') || ''
+  const orderingFields = orderingParam.split(',').filter(Boolean)
 
   const { data, isPending } = useQuery({
-    queryKey: ['events', currentPage],
-    queryFn: () => getEvents({ page_size: 10, page: currentPage }),
+    queryKey: ['events', currentPage, orderingParam],
+    queryFn: () =>
+      getEvents({
+        page_size: 10,
+        page: currentPage,
+        ordering: orderingFields.join(',') || undefined,
+      }),
   })
 
-  const handlePaginationChange = (page: number) => {
+  const handleTableChange = (
+    pagination: TablePaginationConfig,
+    _: Record<string, FilterValue | null>,
+    sorter: SorterResult<IEvent> | SorterResult<IEvent>[],
+  ) => {
+    const sorterArray = Array.isArray(sorter) ? sorter : [sorter]
+
+    const newOrdering = sorterArray
+      .filter(s => s.order)
+      .map(s => (s.order === 'ascend' ? s.field : `-${s.field}`))
+
     setSearchParams(prev => {
       const newParams = new URLSearchParams(prev)
-      newParams.set('page', page.toString())
+
+      const newPage = pagination.current ?? 1
+      newParams.set('page', newPage.toString())
+
+      if (newOrdering.length > 0) {
+        newParams.set('ordering', newOrdering.join(','))
+      } else {
+        newParams.delete('ordering')
+      }
+
       return newParams
     })
   }
 
   const columns: TableColumnsType<IEvent> = [
     {
-      title: 'Название',
+      title: t('Название'),
       key: 'name',
       dataIndex: 'name',
       width: 350,
       render: (_, record) => <EventsTitle {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'title'),
     },
     {
-      title: 'Описание',
+      title: t('Описание'),
       key: 'description',
       dataIndex: 'description',
       width: 250,
       render: (_, record) => <EventsDescription {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'description'),
     },
     {
-      title: 'Организатор',
+      title: t('Организатор'),
       key: 'organizer',
       dataIndex: 'organizer',
       width: 180,
       render: (_, record) => <EventsOrganizer {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'organizer'),
     },
     {
-      title: 'Дата',
+      title: t('Дата'),
       key: 'date',
       dataIndex: 'date',
       width: 150,
       render: (_, record) => <EventsDate {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'date'),
     },
     {
-      title: 'Адрес',
+      title: t('Адрес'),
       key: 'location',
       dataIndex: 'location',
       width: 200,
       render: (_, record) => <EventsAddress {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'location'),
     },
     {
-      title: 'Статус',
+      title: t('Статус'),
       key: 'status',
       dataIndex: 'status',
       width: 0,
       render: (_, record) => <EventsStatus {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'status'),
     },
     {
-      title: 'Действие',
+      title: t('Действие'),
       key: 'action',
       dataIndex: 'action',
       width: 0,
@@ -91,21 +130,15 @@ function EventsTable() {
 
   return (
     <CustomTable
-      columns={columns}
-      dataSource={data?.results}
-      rowKey="id"
       bordered
-      loading={isPending}
+      rowKey="id"
       className="custom-table-2"
-      pagination={{
-        current: currentPage,
-        pageSize: 10,
-        total: data?.count || 0,
-        hideOnSinglePage: true,
-        showSizeChanger: false,
-        position: ['bottomCenter'],
-        onChange: handlePaginationChange,
-      }}
+      loading={isPending}
+      columns={columns}
+      currentPage={currentPage}
+      totalCount={data?.count}
+      dataSource={data?.results}
+      onChange={handleTableChange}
     />
   )
 }
