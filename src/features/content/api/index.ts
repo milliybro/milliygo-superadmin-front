@@ -87,8 +87,9 @@ export async function deleteRegionMapPoint(id: number) {
 }
 
 export async function getExpertAdvices(params?: {
-  page?: number
+  page?: number | string
   page_size?: number
+  ordering?: string
 }): Promise<ListResponseShort<IExpertAdvice>> {
   return await requestSuper({
     url: '/site-content/expert_advice/',
@@ -118,6 +119,7 @@ export async function patchExpertAdvice(
 export async function getEvents(params?: {
   page?: number | string
   page_size?: number
+  ordering?: string
 }): Promise<ListResponseShort<IEvent>> {
   return await requestSuper({
     url: '/site-content/events/',
@@ -144,6 +146,7 @@ export async function patchEvent(slug: string, data: IPatchEventData) {
 export async function getInstagramContents(params?: {
   page?: number
   page_size?: number
+  ordering?: string
 }): Promise<ListResponseShort<IInstagramContent>> {
   return await requestSuper({
     url: '/site-content/instagram_contents/',
