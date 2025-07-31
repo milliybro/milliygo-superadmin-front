@@ -73,6 +73,7 @@ function Content() {
       </Typography.Text>
       <div className="rounded-2xl border bg-white p-6">
         <Tabs
+          destroyOnHidden
           items={tabItems}
           activeKey={tab || 'main'}
           onChange={key => navigate(`/content/${key}`, { replace: true })}
