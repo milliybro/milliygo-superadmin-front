@@ -4,8 +4,11 @@ import { useTranslation } from 'react-i18next'
 
 import type { PaginationProps, TableColumnsType } from 'antd'
 
-interface IProps<T> extends TableProps<T> {
+interface IProps<T extends object> extends Omit<TableProps<T>, 'columns'> {
   columns: TableColumnsType<T>
+  totalCount?: number
+  currentPage?: number
+  pageSize?: number
 }
 
 const CustomTable = <T extends object>(props: IProps<T>) => {
@@ -33,7 +36,10 @@ const CustomTable = <T extends object>(props: IProps<T>) => {
         showSizeChanger: false,
         position: ['bottomCenter'],
         itemRender,
-        ...props.pagination,
+        current: props?.currentPage,
+        pageSize: props?.pageSize || 10,
+        total: props?.totalCount || 0,
+        ...props?.pagination,
       }}
     />
   )
