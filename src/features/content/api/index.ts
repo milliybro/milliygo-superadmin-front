@@ -3,6 +3,9 @@ import {
   IEvent,
   IExpertAdvice,
   IInstagramContent,
+  IPatchEventData,
+  IPatchExpertAdviceData,
+  IPatchInstagramContentData,
   IRegion,
   IRegionMapPoint,
   ITopDestination,
@@ -101,8 +104,19 @@ export async function deleteExpertAdvice(slug: string) {
   })
 }
 
+export async function patchExpertAdvice(
+  slug: string,
+  data: IPatchExpertAdviceData,
+) {
+  return await requestSuper({
+    url: `/site-content/expert_advice/${slug}/`,
+    method: 'patch',
+    data,
+  })
+}
+
 export async function getEvents(params?: {
-  page?: number
+  page?: number | string
   page_size?: number
 }): Promise<ListResponseShort<IEvent>> {
   return await requestSuper({
@@ -116,6 +130,14 @@ export async function deleteEvent(slug: string) {
   return await requestSuper({
     url: `/site-content/events/${slug}/`,
     method: 'delete',
+  })
+}
+
+export async function patchEvent(slug: string, data: IPatchEventData) {
+  return await requestSuper({
+    url: `/site-content/events/${slug}/`,
+    method: 'patch',
+    data,
   })
 }
 
@@ -134,5 +156,16 @@ export async function deleteInstagramContent(id: number) {
   return await requestSuper({
     url: `/site-content/instagram_contents/${id}/`,
     method: 'delete',
+  })
+}
+
+export async function patchInstagramContent(
+  id: number,
+  data: IPatchInstagramContentData,
+) {
+  return await requestSuper({
+    url: `/site-content/instagram_contents/${id}/`,
+    method: 'patch',
+    data,
   })
 }
