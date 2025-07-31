@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useMemo } from 'react'
+import { useSearchParams } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
 
 import { getInstagramContents } from '../../api'
@@ -13,7 +14,12 @@ import type { TableColumnsType } from 'antd'
 import type { IInstagramContent } from '../../types'
 
 function InstagramTable() {
-  const [currentPage, setCurrentPage] = useState(1)
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const currentPage = useMemo(() => {
+    const pageParam = parseInt(searchParams.get('page') || '1', 10)
+    return isNaN(pageParam) || pageParam < 1 ? 1 : pageParam
+  }, [searchParams])
 
   const { data, isPending } = useQuery({
     queryKey: ['instagram-contents', currentPage],
@@ -21,7 +27,11 @@ function InstagramTable() {
   })
 
   const handlePaginationChange = (page: number) => {
-    setCurrentPage(page)
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev)
+      newParams.set('page', page.toString())
+      return newParams
+    })
   }
 
   const columns: TableColumnsType<IInstagramContent> = [
