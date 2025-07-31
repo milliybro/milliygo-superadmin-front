@@ -82,6 +82,7 @@ export interface IExpertAdvice {
   updated_at: string
   images: Image[]
   title: string
+  status: boolean
   description: string
   social_links: any[]
   content: string
@@ -105,6 +106,7 @@ export interface IEvent {
   description: string
   date: string
   location: string
+  status: boolean
   images: {
     id: number
     image: string
@@ -119,4 +121,27 @@ export interface IInstagramContent {
   url: string
   image: string
   is_active: boolean
+}
+
+export interface IPatchExpertAdviceData {
+  title?: string
+  description?: string
+  content?: string
+  uploaded_images?: string[]
+  status?: boolean
+  type?: number
+}
+
+export interface IPatchInstagramContentData {
+  url?: string
+  is_active?: boolean
+}
+
+export interface IPatchEventData {
+  name?: string
+  description?: string
+  date?: string
+  location?: string
+  status?: boolean
+  organizer?: string
 }
