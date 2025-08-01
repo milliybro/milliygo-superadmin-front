@@ -1,13 +1,19 @@
 import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
-import { Button, Switch, Table, TableProps, Typography } from 'antd'
-import { Dispatch, SetStateAction } from 'react'
+import { Button, Switch, Table, TableProps, Tooltip, Typography } from 'antd'
+import { useTranslation } from 'react-i18next'
+import { useNavigate } from 'react-router'
+import { useDiscoverContext } from '../hooks/use-discover-context'
 
 interface IProps {
-  setDeleteOpen: Dispatch<SetStateAction<boolean>>
+  setDeleteOpen: (id: number | null) => void
 }
 
-function TopDestinationsTable({ setDeleteOpen }: IProps) {
+function DiscoverTable({ setDeleteOpen }: IProps) {
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const { discover } = useDiscoverContext()
+
   const columns: TableProps['columns'] = [
     {
       title: 'Название',
@@ -16,7 +22,7 @@ function TopDestinationsTable({ setDeleteOpen }: IProps) {
       className: 'w-1/2',
       render: (_, record) => (
         <div className="flex items-center gap-4">
-          <div className="size-[52px] rounded-2xl bg-secondary"></div>
+          <div className="size-[52px] shrink-0 rounded-2xl bg-secondary"></div>
           <Typography.Text className="text-sm font-medium">
             {record?.name}
           </Typography.Text>
@@ -46,30 +52,38 @@ function TopDestinationsTable({ setDeleteOpen }: IProps) {
       key: 'action',
       dataIndex: 'action',
       width: 0,
-      render: () => (
+      render: (_, record) => (
         <div className="flex items-center gap-4 text-base font-medium">
-          <Button type="link">
-            <EditIcon className="text-xl" />
-            Редактировать
-          </Button>
-          <Button type="link" danger onClick={() => setDeleteOpen(true)}>
-            <DeleteIcon className="text-xl" />
-            Удалить
-          </Button>
+          <Tooltip title={t('common.edit')}>
+            <Button
+              type="link"
+              className="p-0"
+              onClick={() => navigate(`edit?id=${record.id}`)}
+            >
+              <EditIcon className="text-xl" />
+            </Button>
+          </Tooltip>
+          <Tooltip title={t('common.delete')}>
+            <Button
+              type="link"
+              danger
+              onClick={() => setDeleteOpen(record?.id || record?.key || null)}
+              className="p-0"
+            >
+              <DeleteIcon className="text-xl" />
+            </Button>
+          </Tooltip>
         </div>
       ),
     },
   ]
 
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Париж',
-      description:
-        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse a corruptiiure pariatur? Molestiae consequuntur, quia explicabo optio quidem fugitratione dolorem neque modi inventore ipsa asperiores corporis reprehenderit minima.',
-      status: true,
-    },
-  ]
+  const dataSource = discover.data?.results?.map(item => ({
+    key: item?.id,
+    name: item?.name,
+    description: item?.description,
+    status: true,
+  }))
 
   return (
     <Table
@@ -85,4 +99,4 @@ function TopDestinationsTable({ setDeleteOpen }: IProps) {
   )
 }
 
-export default TopDestinationsTable
+export default DiscoverTable

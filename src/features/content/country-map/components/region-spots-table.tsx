@@ -114,6 +114,7 @@ function RegionSpotsTable({ setDeleteOpen }: IProps) {
       columns={columns}
       dataSource={data}
       bordered
+      loading={pointsQuery?.isFetching}
       pagination={{
         hideOnSinglePage: true,
         pageSize: 10,

@@ -1,4 +1,6 @@
 import ImageUploadIcon from '@/components/icons/image-upload'
+import QuillEditor from '@/features/content/components/quill-editor'
+import { useTourImageStore } from '@/features/content/store/image-store'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import {
   App,
@@ -11,8 +13,6 @@ import {
 } from 'antd'
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import QuillEditor from '../../components/quill-editor'
-import { useTourImageStore } from '../../store/image-store'
 
 export default function CreateDiscoverContent() {
   const { setBreadCrumbs } = useBreadCrumbsStore()

@@ -18,6 +18,7 @@ export interface ITopDestination {
   video_url: string | null
   created_at: string
   updated_at: string
+  status: boolean
 }
 
 export interface INominatimResponse {

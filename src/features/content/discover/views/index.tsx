@@ -1,11 +1,11 @@
 import { useNavigate, useParams } from 'react-router'
-import ContentHeader from '../components/content-header'
-import DeleteModal from '../components/delete-modal'
-import TopDestinationsTable from '../top-destinations/list/top-destination-table'
+import ContentHeader from '../../components/content-header'
+import DeleteModal from '../../components/delete-modal'
 import { useState } from 'react'
+import DiscoverTable from '../components/discover-table'
 
 function DiscoverContent() {
-  const [deleteOpen, setDeleteOpen] = useState(false)
+  const [deleteOpen, setDeleteOpen] = useState<number | null>(null)
   const navigate = useNavigate()
   const { tab } = useParams()
 
@@ -18,11 +18,11 @@ function DiscoverContent() {
         }}
       />
 
-      <TopDestinationsTable setDeleteOpen={setDeleteOpen} />
+      <DiscoverTable setDeleteOpen={setDeleteOpen} />
 
       <DeleteModal
-        open={deleteOpen}
-        setOpen={setDeleteOpen}
+        open={!!deleteOpen}
+        onClose={() => setDeleteOpen(null)}
         title="Удалить направление?"
         description="Подтвердите, что вы действительно хотите удалить данное направление?"
       />

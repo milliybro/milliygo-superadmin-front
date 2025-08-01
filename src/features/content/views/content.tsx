@@ -4,13 +4,15 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
 
-import DiscoverContent from '../discover'
+import DiscoverContent from '../discover/views'
 import EventsContent from '../events'
 import ExpertAdviceContent from '../expert-advice'
 import InstagramContent from '../instagram'
 import MainPageContent from '../hero/views'
-import TopDestinationsContent from '../top-destinations'
+import TopDestinationsContent from '../top-destinations/views'
 import CountryMap from '../country-map/views/list'
+import TopDestinationProvider from '../top-destinations/context/top-destination-context'
+import DiscoverProvider from '../discover/context'
 
 function Content() {
   const { t } = useTranslation()
@@ -34,12 +36,20 @@ function Content() {
     {
       key: 'top-destinations',
       label: 'Top Destinations',
-      children: <TopDestinationsContent />,
+      children: (
+        <TopDestinationProvider>
+          <TopDestinationsContent />
+        </TopDestinationProvider>
+      ),
     },
     {
       key: 'discover-uzbekistan',
       label: 'Discover Uzbekistan',
-      children: <DiscoverContent />,
+      children: (
+        <DiscoverProvider>
+          <DiscoverContent />
+        </DiscoverProvider>
+      ),
     },
     {
       key: 'country-map',

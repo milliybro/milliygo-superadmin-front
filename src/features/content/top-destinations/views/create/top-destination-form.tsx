@@ -13,9 +13,9 @@ import {
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import QuillEditor from '../../components/quill-editor'
-import { useTourImageStore } from '../../store/image-store'
 import { CloseOutlined, StarFilled } from '@ant-design/icons'
+import { useTourImageStore } from '@/features/content/store/image-store'
+import QuillEditor from '@/features/content/components/quill-editor'
 
 export default function TopDestinationForm() {
   const { setBreadCrumbs } = useBreadCrumbsStore()

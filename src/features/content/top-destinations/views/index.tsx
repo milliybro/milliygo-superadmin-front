@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
-import ContentHeader from '../components/content-header'
-import DeleteModal from '../components/delete-modal'
-import TopDestinationsTable from './list/top-destination-table'
+import ContentHeader from '../../components/content-header'
+import DeleteModal from '../../components/delete-modal'
+import TopDestinationsTable from '../components/top-destination-table'
 
 function TopDestinationsContent() {
   const [deleteOpen, setDeleteOpen] = useState(false)
@@ -20,7 +20,7 @@ function TopDestinationsContent() {
       <TopDestinationsTable setDeleteOpen={setDeleteOpen} />
       <DeleteModal
         open={deleteOpen}
-        setOpen={setDeleteOpen}
+        onClose={() => setDeleteOpen(false)}
         title="Удалить направление?"
         description="Подтвердите, что вы действительно хотите удалить данное направление?"
       />
