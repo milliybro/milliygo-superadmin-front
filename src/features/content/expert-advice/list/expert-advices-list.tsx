@@ -2,20 +2,20 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
 
-import { getInstagramContents } from '../../api'
+import { getExpertAdvices } from '../../api'
 import { getTableSortOrder } from '@/helpers/get-table-sort-order'
 
-import InstagramTitle from './instagram-title'
-import InstagramAction from './instagram-action'
-import InstagramStatus from './instagram-status'
+import ExpertAdviceTitle from './expert-advice-title'
 import CustomTable from '@/components/ui/custom-table'
-import InstagramDescription from './instagram-description'
+import ExpertAdviceStatus from './expert-advice-status'
+import ExpertAdviceAction from './expert-advice-action'
+import ExpertAdviceDescription from './expert-advice-description'
 
-import type { IInstagramContent } from '../../types'
+import type { IExpertAdvice } from '../../types'
 import type { TableColumnsType, TablePaginationConfig } from 'antd'
 import type { FilterValue, SorterResult } from 'antd/es/table/interface'
 
-function InstagramTable() {
+function ExpertAdvicesList() {
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -24,9 +24,9 @@ function InstagramTable() {
   const orderingFields = orderingParam.split(',').filter(Boolean)
 
   const { data, isPending } = useQuery({
-    queryKey: ['instagram-contents', currentPage, orderingParam],
+    queryKey: ['expert-advices', currentPage, orderingParam],
     queryFn: () =>
-      getInstagramContents({
+      getExpertAdvices({
         page_size: 10,
         page: currentPage,
         ordering: orderingFields.join(',') || undefined,
@@ -36,7 +36,7 @@ function InstagramTable() {
   const handleTableChange = (
     pagination: TablePaginationConfig,
     _: Record<string, FilterValue | null>,
-    sorter: SorterResult<IInstagramContent> | SorterResult<IInstagramContent>[],
+    sorter: SorterResult<IExpertAdvice> | SorterResult<IExpertAdvice>[],
   ) => {
     const sorterArray = Array.isArray(sorter) ? sorter : [sorter]
 
@@ -60,40 +60,36 @@ function InstagramTable() {
     })
   }
 
-  const columns: TableColumnsType<IInstagramContent> = [
+  const columns: TableColumnsType<IExpertAdvice> = [
     {
       title: t('Название'),
-      key: 'name',
-      dataIndex: 'name',
-      className: 'w-1/2',
+      dataIndex: 'title',
+      width: 500,
+      render: (_, record) => <ExpertAdviceTitle {...record} />,
       sorter: true,
       sortOrder: getTableSortOrder(orderingFields, 'title'),
-      render: (_, record) => <InstagramTitle {...record} />,
     },
     {
       title: t('Описание'),
-      key: 'description',
       dataIndex: 'description',
-      className: 'w-1/2',
+      width: 500,
+      render: (_, record) => <ExpertAdviceDescription {...record} />,
       sorter: true,
       sortOrder: getTableSortOrder(orderingFields, 'description'),
-      render: (_, record) => <InstagramDescription {...record} />,
     },
     {
       title: t('Статус'),
-      key: 'status',
       dataIndex: 'status',
-      width: 0,
+      width: 95,
+      render: (_, record) => <ExpertAdviceStatus {...record} />,
       sorter: true,
       sortOrder: getTableSortOrder(orderingFields, 'status'),
-      render: (_, record) => <InstagramStatus {...record} />,
     },
     {
       title: t('Действие'),
-      key: 'action',
       dataIndex: 'action',
-      width: 0,
-      render: (_, record) => <InstagramAction {...record} />,
+      width: 318.3,
+      render: (_, record) => <ExpertAdviceAction {...record} />,
     },
   ]
 
@@ -112,4 +108,4 @@ function InstagramTable() {
   )
 }
 
-export default InstagramTable
+export default ExpertAdvicesList

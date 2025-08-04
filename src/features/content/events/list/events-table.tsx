@@ -1,120 +1,144 @@
-import DeleteIcon from '@/components/icons/delete'
-import EditIcon from '@/components/icons/edit'
-import { Button, Switch, Table, TableProps, Typography } from 'antd'
-import { Dispatch, SetStateAction } from 'react'
+import { useSearchParams } from 'react-router'
+import { useTranslation } from 'react-i18next'
+import { useQuery } from '@tanstack/react-query'
 
-interface IProps {
-  setDeleteOpen: Dispatch<SetStateAction<boolean>>
-}
+import { getEvents } from '../../api'
+import { getTableSortOrder } from '@/helpers/get-table-sort-order'
 
-function EventsTable({ setDeleteOpen }: IProps) {
-  const columns: TableProps['columns'] = [
+import EventsDate from './events-date'
+import EventsTitle from './events-title'
+import EventsAction from './events-action'
+import EventsStatus from './events-status'
+import EventsAddress from './events-address'
+import EventsOrganizer from './events-organizer'
+import EventsDescription from './events-description'
+import CustomTable from '@/components/ui/custom-table'
+
+import type { IEvent } from '../../types'
+
+import type { TableColumnsType, TablePaginationConfig } from 'antd'
+import type { FilterValue, SorterResult } from 'antd/es/table/interface'
+
+function EventsTable() {
+  const { t } = useTranslation()
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const currentPage = Number(searchParams.get('page') || '1')
+  const orderingParam = searchParams.get('ordering') || ''
+  const orderingFields = orderingParam.split(',').filter(Boolean)
+
+  const { data, isPending } = useQuery({
+    queryKey: ['events', currentPage, orderingParam],
+    queryFn: () =>
+      getEvents({
+        page_size: 10,
+        page: currentPage,
+        ordering: orderingFields.join(',') || undefined,
+      }),
+  })
+
+  const handleTableChange = (
+    pagination: TablePaginationConfig,
+    _: Record<string, FilterValue | null>,
+    sorter: SorterResult<IEvent> | SorterResult<IEvent>[],
+  ) => {
+    const sorterArray = Array.isArray(sorter) ? sorter : [sorter]
+
+    const newOrdering = sorterArray
+      .filter(s => s.order)
+      .map(s => (s.order === 'ascend' ? s.field : `-${s.field}`))
+
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev)
+
+      const newPage = pagination.current ?? 1
+      newParams.set('page', newPage.toString())
+
+      if (newOrdering.length > 0) {
+        newParams.set('ordering', newOrdering.join(','))
+      } else {
+        newParams.delete('ordering')
+      }
+
+      return newParams
+    })
+  }
+
+  const columns: TableColumnsType<IEvent> = [
     {
-      title: 'Название',
+      title: t('Название'),
       key: 'name',
       dataIndex: 'name',
-      width: 250,
-      render: (_, record) => (
-        <div className="flex items-center gap-4">
-          <div className="size-[52px] rounded-2xl bg-secondary"></div>
-          <Typography.Text className="text-sm font-medium">
-            {record?.name}
-          </Typography.Text>
-        </div>
-      ),
+      width: 350,
+      render: (_, record) => <EventsTitle {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'title'),
     },
     {
-      title: 'Описание',
+      title: t('Описание'),
       key: 'description',
       dataIndex: 'description',
       width: 250,
-      render: value => (
-        <Typography.Text className="line-clamp-2 text-sm font-medium">
-          {value || 'Нет описания'}
-        </Typography.Text>
-      ),
+      render: (_, record) => <EventsDescription {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'description'),
     },
     {
-      title: 'Организатор',
-      key: 'organization',
-      dataIndex: 'organization',
+      title: t('Организатор'),
+      key: 'organizer',
+      dataIndex: 'organizer',
       width: 180,
-      render: value => (
-        <Typography.Text className="line-clamp-2 text-sm font-medium">
-          {value || 'Нет организация'}
-        </Typography.Text>
-      ),
+      render: (_, record) => <EventsOrganizer {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'organizer'),
     },
     {
-      title: 'Дата',
-      key: 'data',
-      dataIndex: 'data',
-      render: value => (
-        <Typography.Text className="line-clamp-2 text-sm font-medium">
-          {value || 'Нет дата'}
-        </Typography.Text>
-      ),
+      title: t('Дата'),
+      key: 'date',
+      dataIndex: 'date',
+      width: 150,
+      render: (_, record) => <EventsDate {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'date'),
     },
     {
-      title: 'Адрес',
-      key: 'address',
-      dataIndex: 'address',
-      render: value => (
-        <Typography.Text className="line-clamp-2 text-sm font-medium">
-          {value || 'Нет адрес'}
-        </Typography.Text>
-      ),
+      title: t('Адрес'),
+      key: 'location',
+      dataIndex: 'location',
+      width: 200,
+      render: (_, record) => <EventsAddress {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'location'),
     },
     {
-      title: 'Статус',
+      title: t('Статус'),
       key: 'status',
       dataIndex: 'status',
       width: 0,
-      render: () => <Switch />,
+      render: (_, record) => <EventsStatus {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'status'),
     },
     {
-      title: 'Действие',
+      title: t('Действие'),
       key: 'action',
       dataIndex: 'action',
       width: 0,
-      render: () => (
-        <div className="flex items-center gap-4 text-base font-medium">
-          <Button type="link">
-            <EditIcon className="text-xl" />
-            Редактировать
-          </Button>
-          <Button type="link" danger onClick={() => setDeleteOpen(true)}>
-            <DeleteIcon className="text-xl" />
-            Удалить
-          </Button>
-        </div>
-      ),
-    },
-  ]
-
-  const dataSource = [
-    {
-      key: '1',
-      name: 'Париж',
-      description:
-        'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse a corruptiiure pariatur? Molestiae consequuntur, quia explicabo optio quidem fugitratione dolorem neque modi inventore ipsa asperiores corporis reprehenderit minima.',
-      status: true,
-      data: '30 нояб, 2024',
-      organization: 'Azizbek Khamedov',
-      address: 'г. Ташкент, Юнусабадский р.',
+      render: (_, record) => <EventsAction {...record} />,
     },
   ]
 
   return (
-    <Table
-      columns={columns}
-      dataSource={dataSource}
+    <CustomTable
       bordered
-      pagination={{
-        hideOnSinglePage: true,
-        pageSize: 10,
-        position: ['bottomCenter'],
-      }}
+      rowKey="id"
+      className="custom-table-2"
+      loading={isPending}
+      columns={columns}
+      currentPage={currentPage}
+      totalCount={data?.count}
+      dataSource={data?.results}
+      onChange={handleTableChange}
     />
   )
 }

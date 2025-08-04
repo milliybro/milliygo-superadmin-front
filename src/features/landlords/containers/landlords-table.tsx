@@ -1,49 +1,26 @@
-import { Table, Tooltip } from 'antd'
+import { Table } from 'antd'
 import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
 
 import StatusTag from '@/components/ui/status-tag'
 import HotelsTableActionButton from '../components/hotels-table-action-button'
 
-import type { ILandlordsTable } from '../types'
+import type { IApartmentsTable } from '../types'
 import type { PaginationProps, TableColumnsType } from 'antd'
 import UsersNotFound from '@/features/users/components/users-not-found'
 import { formatAmount } from '@/helpers/format-amount'
+import AddressCell from '../components/address-cell'
 
-const staticHotelsData = {
-  count: 2,
-  results: [
-    {
-      id: 1,
-      placement_name: 'Hotel Grand Palace',
-      location: 'Tashkent, Amir Temur street 100',
-      per_price: 300000,
-      status: true,
-      phone_number: '+998901234567',
-      contact_person: 'Alisher Mahmudov',
-    },
-    {
-      id: 2,
-      placement_name: 'Silk Road Inn',
-      location: 'Samarkand, Navoi street 20',
-      per_price: 280000,
-      status: false,
-      phone_number: '+998901234568',
-      contact_person: 'Dilnoza Karimova',
-    },
-  ],
-}
 
 const LandlordsTable = ({
-  // hotelsData,
+  ApartmentsData,
   isLoading,
   currentPage,
   pageSize,
   setCurrentPage,
 }: any) => {
   const { t } = useTranslation()
-  const hotelsData = staticHotelsData
-  const columns: TableColumnsType<ILandlordsTable> = [
+  const columns: TableColumnsType<IApartmentsTable> = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -69,31 +46,7 @@ const LandlordsTable = ({
       width: 200,
       dataIndex: 'location',
       sorter: true,
-      render: val => (
-        <div>
-          {val ? (
-            <Tooltip
-              color="white"
-              overlayInnerStyle={{
-                color: '#3276FF',
-                textAlign: 'center',
-                textDecoration: 'underline',
-              }}
-              title={val}
-              key={val}
-            >
-              <a
-                style={{ textDecoration: 'underline' }}
-                className="line-clamp-2 text-[#3276FF]"
-              >
-                {val}
-              </a>
-            </Tooltip>
-          ) : (
-            <div className="text-center">-</div>
-          )}
-        </div>
-      ),
+      render: (_, data) => <AddressCell lat={data.lat} lon={data.long} />,
     },
     {
       title: 'common.cost-per-day',
@@ -144,6 +97,8 @@ const LandlordsTable = ({
     },
   ]
 
+  console.log(ApartmentsData, 'AAAAA')
+
   const itemRender: PaginationProps['itemRender'] = (
     n,
     type,
@@ -181,22 +136,24 @@ const LandlordsTable = ({
     setCurrentPage(page)
   }
 
-  const transformedHotelsData = hotelsData?.results.map(
-    (item: ILandlordsTable | any, i: number) => ({
+  const transformedHotelsData = ApartmentsData?.results.map(
+    (item: IApartmentsTable | any, i: number) => ({
       key: i,
       id: item.id,
-      placement_name: item.placement_name,
+      placement_name: item.apartment_name,
       location: item.location,
-      per_price: item.per_price,
+      per_price: item.room_price,
       status: item.status,
-      contact_person: item.contact_person,
-      phone_number: item.phone_number,
+      contact_person: item.full_name,
+      phone_number: item.phone,
+      lat: item.lat,
+      long: item.long,
     }),
   )
 
   return (
     <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white p-6">
-      <Table<ILandlordsTable>
+      <Table<IApartmentsTable>
         columns={columns?.map(val => ({
           ...val,
           title: t(val?.title as string),
@@ -209,7 +166,7 @@ const LandlordsTable = ({
         pagination={{
           current: currentPage,
           pageSize: 10,
-          total: hotelsData?.count || 0,
+          total: ApartmentsData?.count || 0,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],

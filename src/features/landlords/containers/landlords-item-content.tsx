@@ -12,6 +12,7 @@ import UserOutlinedIcon from '@/components/icons/user-circle-icon'
 import PawPrintIcon from '@/components/icons/paw-icon'
 import CardIcon from '@/components/icons/card-icon'
 import HotelIcon from '@/components/icons/hotel'
+import AddressCell from '../components/address-cell'
 
 interface DataType {
   key: any
@@ -36,7 +37,7 @@ interface Facility {
 interface PaymentType {
   id: number
   name: string
-  icon_url: string
+  image: string
 }
 
 interface HotelContent {
@@ -49,28 +50,32 @@ interface HotelContent {
       avg_rating: string
       name: string
     }
-    placement_images: any
+    image_url: string
     placement_facilities: any
     id: number
     name: string
-    avg_rating: number
+    rating: number
     address: string
     description: string
     facilities: Facility[]
     checkin_start: string
     checkout_end: string
     payment_types: PaymentType[]
+    apartment_name: string
+    phone: string
+    lat: number
+    long: number
   }
 }
 
-const PlacementsItemContent = ({ data }: HotelContent) => {
+const LandlordsItemContent = ({ data }: HotelContent) => {
   const [form] = Form.useForm()
   const { t } = useTranslation()
 
   function formatTime(timeString: string | undefined): string {
-    if (!timeString) return '' // Agar undefined bo'lsa, bo'sh string qaytar
-    const [hours, minutes] = timeString.split(':') // Soat va daqiqalarni ajratib olamiz
-    return `${hours}:${minutes}` // Faqat soat va daqiqalarni qaytaramiz
+    if (!timeString) return ''
+    const [hours, minutes] = timeString.split(':')
+    return `${hours}:${minutes}`
   }
 
   const columns: TableProps<DataType>['columns'] = [
@@ -80,7 +85,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
       width: 282,
 
       render: (text, vals) => (
-        <Flex align="center" gap={10} className=" font-semibold">
+        <Flex align="center" gap={10} className="font-semibold">
           {vals.icon} {text}
         </Flex>
       ),
@@ -95,26 +100,23 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
     {
       key: '1',
       price: t('hotels-page.check-in.title'),
-      icon: <LoginIcon className=" w-[18px]" />,
+      icon: <LoginIcon className="w-[18px]" />,
       conditions: (
         <Flex vertical gap={8}>
           {t('common.time-from', {
-            value: formatTime(data?.placement_detail?.checkin_start),
+            value: formatTime(data?.checkin_start),
           })}
-          {/* <Typography.Text className="text-sm text-secondary">
-            {t('hotels-page.check-in.desc')}
-          </Typography.Text> */}
         </Flex>
       ),
     },
     {
       key: '2',
       price: t('hotels-page.check-out.title'),
-      icon: <LogoutIcon className=" w-[18px]" />,
+      icon: <LogoutIcon className="w-[18px]" />,
       conditions: (
         <Flex vertical gap={8}>
           {t('common.time-to', {
-            value: formatTime(data?.placement_detail?.checkout_end),
+            value: formatTime(data?.checkout_end),
           })}
         </Flex>
       ),
@@ -125,7 +127,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
       icon: <BedSingleIcon className="w-[18px]" />,
       conditions: (
         <Flex vertical gap={8}>
-          <Typography.Text className=" font-medium">
+          <Typography.Text className="font-medium">
             {t('hotels-page.bed-for-child.desc')}
           </Typography.Text>
 
@@ -146,7 +148,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
       price: t('hotels-page.no-age.title'),
       icon: <UserOutlinedIcon className="w-[18px]" />,
       conditions: (
-        <Typography.Text className="text-secondary text-sm">
+        <Typography.Text className="text-sm text-secondary">
           {t('hotels-page.no-age.desc')}
         </Typography.Text>
       ),
@@ -156,7 +158,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
       price: t('hotels-page.pets.title'),
       icon: <PawPrintIcon className="w-[18px]" />,
       conditions: (
-        <Typography.Text className="text-secondary text-sm">
+        <Typography.Text className="text-sm text-secondary">
           {t('hotels-page.pets.desc')}
         </Typography.Text>
       ),
@@ -174,7 +176,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
                   <img
                     width={24}
                     key={index}
-                    src={item?.icon_url}
+                    src={`https://api.emehmon.xdevs.uz/media/${item?.image}`}
                     className="rounded-lg"
                     alt="image"
                   />
@@ -203,68 +205,69 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
       name="hotelContentForm"
       className="flex flex-col gap-6"
     >
-      <div className="p-6 border border-border rounded-[12px]">
+      <div className="rounded-[12px] border border-border p-6">
         <h2 className="text-[24px] font-medium text-primary-dark">
           {t('common.main-information')}
         </h2>
         <Divider />
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
-            {/* <div className="size-[80px] rounded-[8px] border border-border bg-secondary-light" /> */}
-            {data?.placement_images[0]?.image ? (
+            {data?.image_url ? (
               <Image
                 width={80}
                 height={80}
                 className="object-cover"
-                src={data?.placement_images[0]?.image}
+                src={data?.image_url}
               />
             ) : (
-              <div className="size-[80px] rounded-[8px] border border-border bg-secondary-light flex flex-col justify-center items-center">
+              <div className="flex size-[80px] flex-col items-center justify-center rounded-[8px] border border-border bg-secondary-light">
                 <HotelIcon fontSize={48} />
               </div>
             )}
             <div className="flex flex-col gap-[6px]">
               <div className="flex gap-3">
                 <h3 className="text-2xl font-semibold text-[#232E40]">
-                  {data?.placement_detail?.name}
+                  {data?.apartment_name}
                 </h3>
                 <div className="flex items-center gap-2">
-                  <RatingTag value={data?.placement_detail?.avg_rating} icon />
+                  <RatingTag value={data?.rating} icon />
                 </div>
               </div>
               <a
                 style={{ textDecoration: 'underline' }}
-                className="text-[#2563EB] text-sm font-normal"
+                className="text-sm font-normal text-[#2563EB]"
               >
-                {data?.placement_detail?.address}
+                <AddressCell lat={data?.lat} lon={data?.long} />
               </a>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <CallIcon />
             <p className="text-2xl font-semibold text-[#3276FF]">
-              71 207 12 34 (-)
+              {data?.phone}
             </p>
           </div>
         </div>
         <Divider />
-        <p className="text-base font-normal">
-          {data?.placement_detail?.description}
-        </p>
+        <p className="text-base font-normal">{data?.description}</p>
       </div>
-      <div className="p-6 border border-border rounded-[12px]">
+      <div className="rounded-[12px] border border-border p-6">
         <h2 className="text-[24px] font-medium text-primary-dark">
           {t('common.facilities-and-services')}
         </h2>
         <Divider />
         <div className="grid grid-cols-5 gap-2">
-          {data?.placement_facilities.map((item: any) => {
+          {data?.facilities.map((item: any) => {
             return (
               <div
                 key={item?.id}
-                className="flex items-center gap-2 text-base font-normal text-[#232E40] "
+                className="flex items-center gap-2 text-base font-normal text-[#232E40]"
               >
-                <img className="w-6" src={item?.icon} alt={item?.name} />
+                <img
+                  className="w-6"
+                  src={`https://api.emehmon.xdevs.uz/media/${item?.icon}`}
+                  alt={item?.name}
+                />
                 <Tooltip
                   title={item?.name}
                   color="white"
@@ -279,7 +282,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
         </div>
       </div>
 
-      <div className="p-6 border rounded-[12px]">
+      <div className="rounded-[12px] border p-6">
         <h2 className="text-[24px] font-medium text-primary-dark">
           {t('common.accommodation-terms')}
         </h2>
@@ -296,4 +299,4 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
   )
 }
 
-export default PlacementsItemContent
+export default LandlordsItemContent

@@ -1,9 +1,19 @@
-import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
-import { Tabs, TabsProps, Typography } from 'antd'
 import { useEffect } from 'react'
+import { Tabs, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router'
 
+import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
+
+import MainPageContent from '../hero'
+import DiscoverContent from '../discover'
+import EventsContent from '../events/list'
+import InstagramContent from '../instagram/list'
+import CountryMap from '../country-map/views/list'
+import ExpertAdviceContent from '../expert-advice/list'
+import TopDestinationsContent from '../top-destinations'
+
+import type { TabsProps } from 'antd'
 import DiscoverContent from '../discover/views'
 import EventsContent from '../events'
 import ExpertAdviceContent from '../expert-advice'
@@ -80,6 +90,7 @@ function Content() {
       </Typography.Text>
       <div className="rounded-2xl border bg-white p-6">
         <Tabs
+          destroyOnHidden
           items={tabItems}
           activeKey={tab || 'main'}
           onChange={key => navigate(`/content/${key}`, { replace: true })}

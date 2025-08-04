@@ -74,3 +74,75 @@ export interface IRegionMapPoint {
     point_title: string
   }
 }
+
+export interface IExpertAdvice {
+  id: number
+  slug: string
+  type: Type
+  created_at: string
+  updated_at: string
+  images: Image[]
+  title: string
+  status: boolean
+  description: string
+  social_links: any[]
+  content: string
+}
+
+export interface Type {
+  id: number
+  name: string
+}
+
+export interface Image {
+  id: number
+  is_main: boolean
+  image_path: string
+}
+
+export interface IEvent {
+  id: number
+  slug: string
+  name: string
+  description: string
+  date: string
+  location: string
+  status: boolean
+  images: {
+    id: number
+    image: string
+  }[]
+  organizer: string
+}
+
+export interface IInstagramContent {
+  id: number
+  title: string
+  description: string
+  url: string
+  image: string
+  is_active: boolean
+}
+
+export interface IPatchExpertAdviceData {
+  title?: string
+  description?: string
+  content?: string
+  uploaded_images?: string[]
+  status?: boolean
+  type?: number
+}
+
+export interface IPatchInstagramContentData {
+  url?: string
+  is_active?: boolean
+}
+
+export interface IPatchEventData {
+  name?: string
+  description?: string
+  date?: string
+  location?: string
+  status?: boolean
+  organizer?: string
+}
