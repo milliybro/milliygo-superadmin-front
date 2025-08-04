@@ -1,7 +1,7 @@
+import { useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import ContentHeader from '../../components/content-header'
 import DeleteModal from '../../components/delete-modal'
-import { useState } from 'react'
 import DiscoverTable from '../components/discover-table'
 
 function DiscoverContent() {

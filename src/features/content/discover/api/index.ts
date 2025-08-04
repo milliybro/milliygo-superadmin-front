@@ -11,3 +11,28 @@ export async function getDiscoveries(
     params,
   })
 }
+
+export async function getDiscovery(
+  slug: string,
+): Promise<IDiscover & { content: string | null }> {
+  return await request({
+    url: `/site-content/discover/${slug}`,
+    method: 'GET',
+  })
+}
+
+export async function createDiscovery(data: FormData) {
+  return await request({
+    url: '/site-content/discover',
+    method: 'POST',
+    data,
+  })
+}
+
+export async function editDiscovery(slug: string, data: FormData) {
+  return await request({
+    url: `/site-content/discover/${slug}`,
+    method: 'PUT',
+    data,
+  })
+}

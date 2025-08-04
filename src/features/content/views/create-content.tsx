@@ -5,6 +5,7 @@ import CreateEvent from '../events/create/create-events'
 import TopDestinationProvider from '../top-destinations/context/top-destination-context'
 import TopDestinationForm from '../top-destinations/views/create/top-destination-form'
 import CreateDiscoverContent from '../discover/views/create/create-discover-content'
+import DiscoverProvider from '../discover/context'
 
 const createForms = [
   {
@@ -17,7 +18,11 @@ const createForms = [
   },
   {
     key: 'discover-uzbekistan',
-    element: <CreateDiscoverContent />,
+    element: (
+      <DiscoverProvider>
+        <CreateDiscoverContent />
+      </DiscoverProvider>
+    ),
   },
   {
     key: 'expert-advice',

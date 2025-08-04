@@ -3,6 +3,8 @@ import { Button, Form, Input, Select, Switch, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import CountryMapSVG from '../../components/map/country-map-svg'
 import useCountryMapContext from '../../hooks/use-country-map'
+import { useEffect } from 'react'
+import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
 export default function CreateRegionSpot() {
   const { t } = useTranslation()
@@ -11,7 +13,20 @@ export default function CreateRegionSpot() {
   const {
     createMapPointMutation: { mutate, isPending },
     topDestinationOptions,
+    regionData,
   } = useCountryMapContext()
+  const { setBreadCrumbs } = useBreadCrumbsStore()
+
+  useEffect(() => {
+    setBreadCrumbs([
+      { title: t('common.main'), href: '/' },
+      { title: t('routes.content'), href: '/content/country-map' },
+      { title: t('content.country-map.title'), href: '/content/country-map/' },
+      {
+        title: regionData?.name || ' ',
+      },
+    ])
+  }, [regionData])
 
   return (
     <div className="flex flex-col">
@@ -24,6 +39,7 @@ export default function CreateRegionSpot() {
         className="mt-10 space-y-5"
         form={form}
         onFinish={mutate}
+        initialValues={{ is_active: true }}
       >
         <Form.Item label={t('fields.map-point.label')} name="point_title">
           <Input

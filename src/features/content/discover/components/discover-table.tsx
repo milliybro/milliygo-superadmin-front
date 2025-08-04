@@ -58,7 +58,7 @@ function DiscoverTable({ setDeleteOpen }: IProps) {
             <Button
               type="link"
               className="p-0"
-              onClick={() => navigate(`edit?id=${record.id}`)}
+              onClick={() => navigate(`edit?slug=${record.id}`)}
             >
               <EditIcon className="text-xl" />
             </Button>
@@ -80,6 +80,7 @@ function DiscoverTable({ setDeleteOpen }: IProps) {
 
   const dataSource = discover.data?.results?.map(item => ({
     key: item?.id,
+    id: item?.slug,
     name: item?.name,
     description: item?.description,
     status: true,

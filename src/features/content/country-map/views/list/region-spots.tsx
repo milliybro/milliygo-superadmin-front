@@ -24,6 +24,7 @@ export default function RegionSpots() {
     setBreadCrumbs([
       { title: t('common.main'), href: '/' },
       { title: t('routes.content'), href: '/content/country-map' },
+      { title: t('content.country-map.title'), href: '/content/country-map/' },
       {
         title: regionData?.name || ' ',
       },
