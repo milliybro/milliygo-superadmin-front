@@ -25,6 +25,9 @@ export default function CreateRegionSpot() {
       {
         title: regionData?.name || ' ',
       },
+      {
+        title: t('content.country-map.create-point'),
+      },
     ])
   }, [regionData])
 
