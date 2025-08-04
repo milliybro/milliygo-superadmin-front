@@ -2,6 +2,7 @@ import { Button, Modal, Typography } from 'antd'
 
 import DeleteIcon from '@/components/icons/delete'
 import { CloseOutlined } from '@ant-design/icons'
+import { useTranslation } from 'react-i18next'
 
 interface IProps {
   open: boolean
@@ -20,6 +21,7 @@ export default function DeleteModal({
   onDelete,
   isLoading,
 }: IProps) {
+  const { t } = useTranslation()
   return (
     <Modal
       open={open}
@@ -43,14 +45,14 @@ export default function DeleteModal({
             'Подтвердите, что вы действительно хотите удалить данного контекста?'}
         </Typography.Text>
         <div className="flex items-center justify-center gap-5">
-          <Button onClick={onClose}>Отмена</Button>
+          <Button onClick={onClose}>{t('common.cancel')}</Button>
           <Button
             type="primary"
             className="bg-primary-dark"
             onClick={onDelete}
             loading={isLoading}
           >
-            Удалить
+            {t('common.delete')}
           </Button>
         </div>
       </div>
