@@ -61,7 +61,6 @@ export default function CreateDiscoverContent() {
       </div>
       <Button
         type="primary"
-        onClick={() => form.submit()}
         size="large"
         className="w-[200px]"
         form="create-discover-form"

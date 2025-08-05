@@ -24,7 +24,7 @@ export default function TopDestinationGallery() {
         <Upload.Dragger
           className="mb-2 flex flex-col items-center gap-2 [&_.ant-upload-btn]:py-12"
           accept="image/*"
-          multiple={false}
+          multiple={true}
           showUploadList={false}
           beforeUpload={handleUpload}
         >
