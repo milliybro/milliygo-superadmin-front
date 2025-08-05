@@ -108,6 +108,17 @@ export async function deleteExpertAdvice(slug: string) {
   })
 }
 
+export async function createExpertAdvice(data: IPatchExpertAdviceData) {
+  return await requestSuper({
+    url: `/site-content/expert_advice/`,
+    method: 'post',
+    data,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+}
+
 export async function patchExpertAdvice(
   slug: string,
   data: IPatchExpertAdviceData,
@@ -138,6 +149,17 @@ export async function deleteEvent(slug: string) {
   })
 }
 
+export async function createEvent(data: IPatchExpertAdviceData) {
+  return await requestSuper({
+    url: `/site-content/events/`,
+    method: 'post',
+    data,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+}
+
 export async function patchEvent(slug: string, data: IPatchEventData) {
   return await requestSuper({
     url: `/site-content/events/${slug}/`,
@@ -162,6 +184,17 @@ export async function deleteInstagramContent(id: number) {
   return await requestSuper({
     url: `/site-content/instagram_contents/${id}/`,
     method: 'delete',
+  })
+}
+
+export async function createInstagramContent(data: IPatchExpertAdviceData) {
+  return await requestSuper({
+    url: `/site-content/instagram_contents/`,
+    method: 'post',
+    data,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   })
 }
 
