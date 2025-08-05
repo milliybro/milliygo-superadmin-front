@@ -1,7 +1,12 @@
 import ReactQuill from 'react-quill'
 import 'react-quill/dist/quill.snow.css'
 
-export default function QuillEditor() {
+interface IQuillEditorProps {
+  value?: string
+  onChange?: (value: string) => void
+}
+
+export default function QuillEditor({ value, onChange }: IQuillEditorProps) {
   const modules = {
     toolbar: [
       [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -37,7 +42,8 @@ export default function QuillEditor() {
       modules={modules}
       formats={formats}
       className="mb-[50px] font-[Onest,_sans-serif]"
-      onChange={value => console.log(value)}
+      onChange={onChange}
+      value={value}
     />
   )
 }

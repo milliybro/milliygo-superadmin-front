@@ -29,6 +29,11 @@ const contentRoutes: CustomRoute = {
       element: <CreateContent />,
     },
     {
+      path: ':tab/edit',
+      title: 'Create Content',
+      element: <CreateContent />,
+    },
+    {
       path: 'country-map/:region',
       element: <CountryMapLayout />,
       children: [

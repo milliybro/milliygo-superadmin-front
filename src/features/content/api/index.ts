@@ -12,10 +12,13 @@ import {
 } from '../types'
 import requestSuper from '@/utils/superRequest'
 
-export async function getRegions(): Promise<ListResponse<IRegion[]>> {
+export async function getRegions(
+  params?: any,
+): Promise<ListResponse<IRegion[]>> {
   const res: ListResponse<IRegion[]> = await requestSuper({
     url: '/regions/regions',
     method: 'get',
+    params,
   })
   return res
 }

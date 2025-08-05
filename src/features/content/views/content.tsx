@@ -5,15 +5,16 @@ import { useNavigate, useParams } from 'react-router'
 
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
-import MainPageContent from '../hero'
-import DiscoverContent from '../discover'
-import EventsContent from '../events/list'
-import InstagramContent from '../instagram/list'
-import CountryMap from '../country-map/views/list'
-import ExpertAdviceContent from '../expert-advice/list'
-import TopDestinationsContent from '../top-destinations'
-
 import type { TabsProps } from 'antd'
+import DiscoverContent from '../discover/views'
+import MainPageContent from '../hero/views'
+import TopDestinationsContent from '../top-destinations/views'
+import CountryMap from '../country-map/views/list'
+import TopDestinationProvider from '../top-destinations/context/top-destination-context'
+import DiscoverProvider from '../discover/context'
+import ExpertAdviceContent from '../expert-advice/list'
+import InstagramContent from '../instagram/list'
+import EventsContent from '../events/list'
 
 function Content() {
   const { t } = useTranslation()
@@ -37,12 +38,20 @@ function Content() {
     {
       key: 'top-destinations',
       label: 'Top Destinations',
-      children: <TopDestinationsContent />,
+      children: (
+        <TopDestinationProvider>
+          <TopDestinationsContent />
+        </TopDestinationProvider>
+      ),
     },
     {
       key: 'discover-uzbekistan',
       label: 'Discover Uzbekistan',
-      children: <DiscoverContent />,
+      children: (
+        <DiscoverProvider>
+          <DiscoverContent />
+        </DiscoverProvider>
+      ),
     },
     {
       key: 'country-map',

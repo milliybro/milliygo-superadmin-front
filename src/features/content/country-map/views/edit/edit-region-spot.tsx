@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
 import useCountryMapContext from '../../hooks/use-country-map'
 import CountryMapSVG from '../../components/map/country-map-svg'
+import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
 export default function EditRegionSpot() {
   const { t } = useTranslation()
@@ -15,11 +16,13 @@ export default function EditRegionSpot() {
   }>()
   const status = Form.useWatch('is_active', form)
   const pointTitle = Form.useWatch('point_title', form)
+  const { setBreadCrumbs } = useBreadCrumbsStore()
   const [searchParams] = useSearchParams()
   const {
     updateMapPointMutation: { mutate, isPending },
     topDestinationOptions,
     pointsQuery: { data: points },
+    regionData,
   } = useCountryMapContext()
   const pointId = +searchParams.get('id')!
 
@@ -34,6 +37,23 @@ export default function EditRegionSpot() {
       })
     }
   }, [points])
+
+  useEffect(() => {
+    setBreadCrumbs([
+      { title: t('common.main'), href: '/' },
+      { title: t('routes.content'), href: '/content/country-map' },
+      {
+        title: t('content.country-map.title'),
+        href: '/content/country-map/',
+      },
+      {
+        title: regionData?.name || ' ',
+      },
+      {
+        title: t('content.country-map.edit-point'),
+      },
+    ])
+  }, [regionData])
 
   const editingPoint = points?.results?.find(point => point.id === +pointId)
 

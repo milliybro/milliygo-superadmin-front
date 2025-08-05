@@ -121,22 +121,6 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
     }
   }, [pointsQuery.data])
 
-  useEffect(() => {
-    setBreadCrumbs([
-      { title: t('common.main'), href: '/' },
-      { title: t('routes.content'), href: '/content/country-map' },
-      {
-        title: regionData?.name || t('billing.region'),
-        href: `/content/country-map/${region}`,
-      },
-      {
-        title: pathname?.includes('create')
-          ? t('content.country-map.create-point')
-          : t('content.country-map.edit-point'),
-      },
-    ])
-  }, [regionData])
-
   const createMapPointMutation = useMutation({
     mutationFn: (values: {
       point_title: string

@@ -59,7 +59,7 @@ function RegionsTable() {
     },
   ]
 
-  const { data } = useQuery({
+  const { data, isFetching } = useQuery({
     queryKey: ['regions'],
     queryFn: () => getRegions({ page_size: 14 }),
     enabled: true,
@@ -73,6 +73,7 @@ function RegionsTable() {
       dataSource={data?.results}
       bordered
       pagination={false}
+      loading={isFetching}
     />
   )
 }
