@@ -1,6 +1,5 @@
 import ImageUploadIcon from '@/components/icons/image-upload'
 import QuillEditor from '@/features/content/components/quill-editor'
-import { useTourImageStore } from '@/features/content/store/image-store'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import {
   App,
@@ -12,22 +11,24 @@ import {
   Upload,
   UploadProps,
 } from 'antd'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useDiscoverContext } from '../../hooks/use-discover-context'
 import { useLocation } from 'react-router'
+import { useDiscoverContext } from '../../hooks/use-discover-context'
 
 export default function CreateDiscoverContent() {
   const { setBreadCrumbs } = useBreadCrumbsStore()
   const [form] = Form.useForm()
-  const [content, setContent] = useState<string>('')
-  const { singleDiscover, createDiscovery, editDiscovery } =
-    useDiscoverContext()
+  const {
+    singleDiscover,
+    createDiscovery,
+    editDiscovery,
+    content,
+    setContent,
+  } = useDiscoverContext()
 
   const { message } = App.useApp()
   const { t } = useTranslation()
-  const [_file, setFile] = useState<{ file: File; url: string } | null>(null)
-  const { addImage, setImages } = useTourImageStore()
   const { pathname } = useLocation()
 
   const handleUpload: UploadProps['beforeUpload'] = file => {
@@ -35,7 +36,6 @@ export default function CreateDiscoverContent() {
       message.error(t('common.images_limit'))
       return
     }
-    setFile({ file, url: URL.createObjectURL(file) })
   }
 
   useEffect(() => {
@@ -65,34 +65,25 @@ export default function CreateDiscoverContent() {
         title: pathname.includes('create') ? 'Создать' : 'Редактировать',
       },
     ])
-
-    return () => {
-      setImages([])
-      setFile(null)
-    }
   }, [])
 
   const finishHandler = (values: any) => {
-    const data = new FormData()
-    const obj = {
-      title: values.title,
-      description: values.description,
-      content,
+    const translations = {
+      ru: {
+        title: values.title,
+        description: values.description,
+        content,
+      },
     }
 
-    data.append('translations', JSON.stringify(obj))
-    // data.append('translations[ru][name]', values.title)
-    // data.append('translations[ru][description]', values.description)
-    // data.append('translations[ru][content]', content)
-
-    if (_file) {
-      data.append('image', _file.file)
+    const submittingData = {
+      translations: JSON.stringify(translations),
     }
 
     if (pathname.includes('edit')) {
-      editDiscovery.mutate(data)
+      editDiscovery.mutate(submittingData)
     } else if (pathname.includes('create')) {
-      createDiscovery.mutate(data)
+      createDiscovery.mutate(submittingData)
     }
   }
 

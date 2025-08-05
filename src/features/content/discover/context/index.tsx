@@ -1,6 +1,12 @@
 import { ListResponse } from '@/types'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { createContext, useMemo } from 'react'
+import {
+  createContext,
+  Dispatch,
+  SetStateAction,
+  useMemo,
+  useState,
+} from 'react'
 import { useLocation, useSearchParams } from 'react-router'
 import {
   createDiscovery,
@@ -21,13 +27,15 @@ export interface IDiscoverContext {
     isFetching: boolean
   }
   createDiscovery: {
-    mutate: (data: FormData) => void
+    mutate: (data: object) => void
     isLoading: boolean
   }
   editDiscovery: {
-    mutate: (data: FormData) => void
+    mutate: (data: object) => void
     isLoading: boolean
   }
+  content: string
+  setContent: Dispatch<SetStateAction<string>>
 }
 
 const DiscoverContext = createContext<IDiscoverContext | null>(null)
@@ -37,6 +45,7 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation()
   const slug = searchParams.get('slug')
   const { notification } = App.useApp()
+  const [content, setContent] = useState<string>('')
 
   const discoverQuery = useQuery({
     queryKey: ['discoveries'],
@@ -56,7 +65,7 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
   })
 
   const createDiscoveryMutation = useMutation({
-    mutationFn: (data: FormData) => createDiscovery(data),
+    mutationFn: (data: object) => createDiscovery(data),
     onSuccess: () => {
       discoverQuery.refetch()
       singleDiscoverQuery.refetch()
@@ -68,7 +77,7 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
   })
 
   const editDiscoveryMutation = useMutation({
-    mutationFn: (data: FormData) => editDiscovery(slug as string, data),
+    mutationFn: (data: object) => editDiscovery(slug as string, data),
     onSuccess: () => {
       discoverQuery.refetch()
       singleDiscoverQuery.refetch()
@@ -97,12 +106,16 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
         mutate: editDiscoveryMutation.mutate,
         isLoading: editDiscoveryMutation.isPending,
       },
+      content,
+      setContent,
     }),
     [
       discoverQuery.data,
       discoverQuery.isFetching,
       singleDiscoverQuery.data,
       singleDiscoverQuery.isFetching,
+      content,
+      setContent,
     ],
   )
 
