@@ -38,25 +38,28 @@ export default function TopDestinationGallery() {
         </Upload.Dragger>
       </Form.Item>
       {images.length > 0 && (
-        <div className="flex items-center gap-3">
-          {images.map((img, i) => (
-            <div
-              key={img.url + '-' + i}
-              className="relative h-[100px] w-[150px]"
-            >
-              <Image
-                src={img.url}
-                alt="Invalid image"
-                className="h-full w-full rounded-2xl object-cover"
-              />
-              <button
-                onClick={() => removeImage(i)}
-                className="absolute right-0 top-0 flex size-[20px] -translate-y-1/2 translate-x-1/2 items-center justify-center rounded-full bg-secondary-dark text-white transition-colors hover:bg-secondary-dark/80"
+        <div className="max-w-full overflow-x-auto overflow-y-hidden">
+          <div className="flex items-center gap-3">
+            {images.map((img, i) => (
+              <div
+                key={img.url + '-' + i}
+                className="relative h-[120px] w-[200px] shrink-0"
               >
-                <CloseIcon />
-              </button>
-            </div>
-          ))}
+                <Image
+                  src={img.url}
+                  alt="Invalid image"
+                  className="h-full w-full rounded-sm object-cover"
+                  rootClassName="h-full w-full"
+                />
+                <button
+                  onClick={() => removeImage(i)}
+                  className="absolute right-0 top-0 flex size-[20px] -translate-x-[2px] translate-y-[2px] items-center justify-center rounded-sm bg-secondary-dark text-white transition-colors hover:bg-secondary-dark/80"
+                >
+                  <CloseIcon />
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </>
