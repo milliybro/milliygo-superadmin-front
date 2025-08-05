@@ -1,12 +1,17 @@
-import { Divider, Form, Input, Typography } from 'antd'
+import { Divider, Form, FormInstance, Input, Typography } from 'antd'
 import { useLocation } from 'react-router'
 import { useDiscoverContext } from '../hooks/use-discover-context'
 import DiscoverGallery from './discover-gallery'
+import { useDiscoverImage } from '../hooks/use-discover-image'
 
-export default function CreateDiscoverForm() {
-  const [form] = Form.useForm()
+interface CreateDiscoverFormProps {
+  form?: FormInstance<any>
+}
+
+export default function CreateDiscoverForm({ form }: CreateDiscoverFormProps) {
   const { pathname } = useLocation()
   const { createDiscovery, editDiscovery, content } = useDiscoverContext()
+  const { image } = useDiscoverImage()
 
   const finishHandler = (values: any) => {
     const translations = {
@@ -19,6 +24,7 @@ export default function CreateDiscoverForm() {
 
     const submittingData = {
       translations: JSON.stringify(translations),
+      image: image?.file,
     }
 
     if (pathname.includes('edit')) {
@@ -34,6 +40,7 @@ export default function CreateDiscoverForm() {
       form={form}
       layout="vertical"
       onFinish={finishHandler}
+      id="create-discover-form"
     >
       <div className="flex flex-col gap-4 rounded-2xl border p-6">
         <Typography.Title level={5} className="text-xl font-medium">
