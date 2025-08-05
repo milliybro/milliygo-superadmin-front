@@ -3,7 +3,7 @@ import CreateExpertAdvice from '../expert-advice/create/create-expert-advice'
 import CreateInstagramContent from '../instagram/create/create-instagram-content'
 import CreateEvent from '../events/create/create-events'
 import TopDestinationProvider from '../top-destinations/context/top-destination-context'
-import TopDestinationForm from '../top-destinations/views/create/top-destination-form'
+import TopDestinationForm from '../top-destinations/views/create/create-top-destination'
 import CreateDiscoverContent from '../discover/views/create/create-discover-content'
 import DiscoverProvider from '../discover/context'
 

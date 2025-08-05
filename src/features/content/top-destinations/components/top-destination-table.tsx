@@ -2,20 +2,17 @@ import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
 import truncateHtml from '@/helpers/truncate-html'
 import { Button, Switch, Table, TableProps, Tooltip, Typography } from 'antd'
-import { Dispatch, memo, SetStateAction } from 'react'
+import { memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useNavigate } from 'react-router'
 import useTopDestinationsContext from '../hooks/use-top-destinations'
 
-interface IProps {
-  setDeleteOpen: Dispatch<SetStateAction<boolean>>
-}
-
-function TopDestinationsTable({ setDeleteOpen }: IProps) {
+function TopDestinationsTable() {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const {
     topDestinations: { isFetching, data },
+    setDeleteOpen,
   } = useTopDestinationsContext()
 
   const destinationsData = data?.results?.map(des => ({
