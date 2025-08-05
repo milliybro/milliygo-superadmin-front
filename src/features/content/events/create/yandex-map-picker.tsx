@@ -6,7 +6,13 @@ import request from '@/utils/axios'
 
 import type { INominatimResponse } from '../../types'
 
-export default function YandexMapPicker() {
+interface YandexMapPickerProps {
+  onCoordsChange?: (coords: [number, number]) => void
+}
+
+export default function YandexMapPicker({
+  onCoordsChange,
+}: YandexMapPickerProps) {
   const mapRef = useRef<any>(null)
   const form = Form.useFormInstance()
 
@@ -44,9 +50,10 @@ export default function YandexMapPicker() {
   }
 
   const handleMapClick = (e: any) => {
-    const coords: [number, number] = e.get('coords')
-    setCoords(coords)
-    getNominalByCoords(coords[0], coords[1])
+    const newCoords: [number, number] = e.get('coords')
+    setCoords(newCoords)
+    getNominalByCoords(newCoords[0], newCoords[1])
+    onCoordsChange?.(newCoords)
   }
 
   return (
