@@ -23,7 +23,22 @@ import QuillEditor from '../../components/quill-editor'
 import ImageUploadIcon from '@/components/icons/image-upload'
 
 import type { Rule } from 'antd/es/form'
+import type { UploadFile } from 'antd/lib'
 import type { RcFile } from 'antd/es/upload'
+
+type CreateExpertAdviceValues = {
+  name: string
+  description: string
+  content: string
+  organizer: string
+  location: string
+  lon: string
+  lat: string
+  date: string
+  images: {
+    fileList: UploadFile<RcFile>[]
+  }
+}
 
 export default function CreateEvent() {
   const { t } = useTranslation()
@@ -35,18 +50,32 @@ export default function CreateEvent() {
   const imagesField = Form.useWatch('images', form)
 
   const create = useMutation({
-    mutationFn: (values: any) => {
-      const formattedValues = {
-        ...values,
-        images: values?.images?.fileList?.map((val: any) => val?.originFileObj),
-        date: dayjs(values?.date).toISOString(),
-        type: 1,
+    mutationFn: (values: CreateExpertAdviceValues) => {
+      const formData = new FormData()
+
+      formData.append('name', values.name)
+      formData.append('description', values.description)
+      formData.append('organizer', values.organizer)
+      formData.append('content', values.content)
+      formData.append('location', values.location)
+      formData.append('date', dayjs(values.date).toISOString())
+
+      console.log(values)
+
+      values.images?.fileList?.forEach(file => {
+        if (file.originFileObj) {
+          formData.append('uploaded_images', file.originFileObj)
+        }
+      })
+
+      if (values?.lat && values?.lon) {
+        formData.append('lon', values.lon)
+        formData.append('lat', values.lat)
       }
 
-      return createEvent(formattedValues)
+      return createEvent(formData)
     },
     onSuccess: () => {
-      // setChecked(prev => !prev)
       queryClient.invalidateQueries({ queryKey: ['events'] })
       navigate('/content/events')
       message.success('Event created!')
@@ -139,6 +168,22 @@ export default function CreateEvent() {
             <Divider className="m-0" />
             <Form.Item name="name" label="Название">
               <Input placeholder="Введите название" size="large" />
+            </Form.Item>
+            <Form.Item
+              label="Опишите описание"
+              name="description"
+              rules={[
+                {
+                  required: true,
+                  message: "Maydonni to'ldiring",
+                },
+              ]}
+            >
+              <Input.TextArea
+                placeholder="Причина"
+                rows={6}
+                className="resize-none"
+              />
             </Form.Item>
             <Form.Item name="lon" hidden noStyle />
             <Form.Item name="lat" hidden noStyle />
@@ -242,12 +287,7 @@ export default function CreateEvent() {
       </Form>
       <div className="flex justify-end gap-4">
         <Button disabled={create.isPending}>Ortga</Button>
-        <Button
-          type="primary"
-          onClick={form.submit}
-          loading={create.isPending}
-          className="duration-150 active:scale-95"
-        >
+        <Button type="primary" onClick={form.submit} loading={create.isPending}>
           Yaratish
         </Button>
       </div>
