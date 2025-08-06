@@ -1,5 +1,5 @@
 import ArrowDownIcon from '@/components/icons/arrow-down'
-import { Button, Form, Input, Select, Switch, Typography } from 'antd'
+import { Button, Form, Input, Select, Switch, Tag, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import CountryMapSVG from '../../components/map/country-map-svg'
 import useCountryMapContext from '../../hooks/use-country-map'
@@ -16,6 +16,7 @@ export default function CreateRegionSpot() {
     regionData,
   } = useCountryMapContext()
   const { setBreadCrumbs } = useBreadCrumbsStore()
+  const status = Form.useWatch('is_active', form)
 
   useEffect(() => {
     setBreadCrumbs([
@@ -61,9 +62,14 @@ export default function CreateRegionSpot() {
           />
         </Form.Item>
 
-        <Form.Item label={t('fields.status.label')} name="is_active">
-          <Switch />
-        </Form.Item>
+        <div className="flex items-end gap-5">
+          <Form.Item label={t('fields.status.label')} name="is_active">
+            <Switch />
+          </Form.Item>
+          <Tag color={status ? 'green' : 'red'} className="px-2 py-2 text-sm">
+            {status ? t('common.active') : t('common.inactive')}
+          </Tag>
+        </div>
 
         <Button type="primary" htmlType="submit" loading={isPending}>
           {t('content.country-map.save-point')}
