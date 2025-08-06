@@ -10,7 +10,9 @@
     "billing": "Биллинг",
     "bi-service": "BI-сервис",
     "content": "Контент",
-    "roles": "Роли"
+    "roles": "Роли",
+    "expert-advices": "Советы экспертов",
+    "events": "Мероприятия"
   },
   "auth-page": {
     "welcome-title": "Добро пожаловать!",
@@ -229,7 +231,8 @@
     "address": {
       "label": "Адрес",
       "validation-message-required": "Введите адрес",
-      "placeholder": "Введите адрес вашего отеля"
+      "placeholder": "Введите адрес вашего отеля",
+      "placeholder2": "Введите адрес"
     },
     "photos": {
       "label": "Добавить фотографии отеля",
@@ -332,11 +335,24 @@
       "icons": "Ранее загруженные иконки"
     },
     "name": {
+      "label": "Название",
+      "placeholder": "Введите названию",
+      "required": "Пожалуйста, введите название",
       "name-uz": "Название O’z",
       "name-ru": "Название РУ",
       "name-en": "Название EN",
-      "placeholder": "Введите названию",
       "name-cry": "Название Ўз"
+    },
+    "description": {
+      "label": "Описание",
+      "placeholder": "Опишите описание"
+    },
+    "images": {
+      "label": "Добавить фотографии"
+    },
+    "organizer": {
+      "label": "Организатор",
+      "placeholder": "Написать название"
     },
     "services": {
       "add-success-notification": "Новая услуга успешно добавлена",
@@ -428,6 +444,7 @@
     "edit-tenant": "Редактировать арендатора"
   },
   "common": {
+    "create": "Создать",
     "statistics": "Статистика",
     "users": "Пользователи",
     "hotels": "Отели",

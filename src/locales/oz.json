@@ -10,7 +10,9 @@
     "billing": "Billing",
     "bi-service": "BI-servis",
     "content": "Kontent",
-    "roles": "Rollar"
+    "roles": "Rollar",
+    "expert-advices": "Mutaxassis maslahatlari",
+    "events": "Tadbirlar"
   },
   "auth-page": {
     "welcome-title": "Xush kelibsiz!",
@@ -211,7 +213,8 @@
     "address": {
       "label": "Manzil",
       "validation-message-required": "Manzilni kiriting",
-      "placeholder": "Mehmonxonangiz manzilini kiriting"
+      "placeholder": "Mehmonxonangiz manzilini kiriting",
+      "placeholder2": "Manzilni kiriting"
     },
     "photos": {
       "label": "Mehmonxona suratlarini qo‘shish",
@@ -314,11 +317,24 @@
       "icons": "Avval yuklangan piktogrammalar"
     },
     "name": {
+      "label": "Nomi",
+      "placeholder": "Nomini kiriting",
+      "required": "Iltimos, nomini kiriting",
       "name-uz": "O'z nomi",
       "name-ru": "RU nomi",
       "name-en": "EN nomi",
-      "placeholder": "Ism kiriting",
       "name-cry": "Ўз nomi"
+    },
+    "description": {
+      "label": "Tavsif",
+      "placeholder": "Tavsifni yozing"
+    },
+    "images": {
+      "label": "Rasmlarni yuklash"
+    },
+    "organizer": {
+      "label": "Tashkilotchi",
+      "placeholder": "Nomini yozing"
     },
     "services": {
       "add-success-notification": "Yangi qulaylik qo'shildi",
@@ -410,6 +426,7 @@
     "edit-tenant": "Tenantni tahrirlash"
   },
   "common": {
+    "create": "Yaratish",
     "name": "Nomi",
     "statistics": "Statistika",
     "users": "Foydalanuvchilar",

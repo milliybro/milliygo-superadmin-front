@@ -10,7 +10,9 @@
     "billing": "Биллинг",
     "bi-service": "BI-сервис",
     "content": "Контент",
-    "roles": "Роллар"
+    "roles": "Роллар",
+    "expert-advices": "Мутахассис маслаҳатлари",
+    "events": "Тадбирлар"
   },
   "auth-page": {
     "welcome-title": "Хуш келибсиз!",
@@ -229,7 +231,8 @@
     "address": {
       "label": "Манзил",
       "validation-message-required": "Манзилни киритинг",
-      "placeholder": "Меҳмонхона манзилини киритинг"
+      "placeholder": "Меҳмонхона манзилини киритинг",
+      "placeholder2": "Манзилни киритинг"
     },
     "photos": {
       "label": "Меҳмонхона суратларини қўшиш",
@@ -332,11 +335,24 @@
       "icons": "Аввал юкланган иконкалар"
     },
     "name": {
+      "label": "Номи",
+      "placeholder": "Номини киритинг",
+      "required": "Илтимос, номини киритинг",
       "name-uz": "Номи Ўз",
       "name-ru": "Номи Ру",
       "name-en": "Номи En",
-      "placeholder": "Номини киритинг",
       "name-cry": "Номи Ўз"
+    },
+    "description": {
+      "label": "Тавсиф",
+      "placeholder": "Тавсифни ёзинг"
+    },
+    "images": {
+      "label": "Расмларни юклаш"
+    },
+    "organizer": {
+      "label": "Ташкилотчи",
+      "placeholder": "Номини ёзинг"
     },
     "services": {
       "add-success-notification": "Янги хизмат муваффақиятли қўшилди",
@@ -428,6 +444,7 @@
     "edit-tenant": "Ижарачини таҳрирлаш"
   },
   "common": {
+    "create": "Яратиш",
     "statistics": "Статистика",
     "users": "Фойдаланувчилар",
     "hotels": "Меҳмонхоналар",
