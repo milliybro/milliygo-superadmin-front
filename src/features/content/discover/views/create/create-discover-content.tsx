@@ -10,7 +10,12 @@ import { useDiscoverContext } from '../../hooks/use-discover-context'
 export default function CreateDiscoverContent() {
   const { setBreadCrumbs } = useBreadCrumbsStore()
   const [form] = Form.useForm()
-  const { singleDiscover, content, setContent } = useDiscoverContext()
+  const {
+    singleDiscover,
+    content,
+    setContent,
+    editDiscovery: { isLoading },
+  } = useDiscoverContext()
 
   const { t } = useTranslation()
   const { pathname } = useLocation()
@@ -65,6 +70,7 @@ export default function CreateDiscoverContent() {
         className="w-[200px]"
         form="create-discover-form"
         htmlType="submit"
+        loading={isLoading}
       >
         {t('common.save')}
       </Button>
