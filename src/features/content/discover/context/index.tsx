@@ -3,10 +3,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { App } from 'antd'
 import {
   createContext,
-  Dispatch,
-  SetStateAction,
-  useMemo,
-  useState,
+  useMemo
 } from 'react'
 import { useLocation, useParams } from 'react-router'
 import {
@@ -34,8 +31,6 @@ export interface IDiscoverContext {
     mutate: (data: object) => void
     isLoading: boolean
   }
-  content: string
-  setContent: Dispatch<SetStateAction<string>>
 }
 
 const DiscoverContext = createContext<IDiscoverContext | null>(null)
@@ -45,7 +40,6 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
   const { pathname } = useLocation()
   const slug = params?.slug
   const { notification } = App.useApp()
-  const [content, setContent] = useState<string>('')
 
   const discoverQuery = useQuery({
     queryKey: ['discoveries'],
@@ -106,16 +100,12 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
         mutate: editDiscoveryMutation.mutate,
         isLoading: editDiscoveryMutation.isPending,
       },
-      content,
-      setContent,
     }),
     [
       discoverQuery.data,
       discoverQuery.isFetching,
       singleDiscoverQuery.data,
       singleDiscoverQuery.isFetching,
-      content,
-      setContent,
     ],
   )
 
@@ -128,3 +118,4 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
 
 export default DiscoverProvider
 export { DiscoverContext, DiscoverProvider }
+
