@@ -33,7 +33,7 @@ export default function CreateInstagramContent() {
     onSuccess: () => {
       // setChecked(prev => !prev)
       queryClient.invalidateQueries({ queryKey: ['instagram-contents'] })
-      navigate('/content/instagram-contents')
+      navigate('/content/instagram')
       message.success('Instagram content created!')
     },
   })
