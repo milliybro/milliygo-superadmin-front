@@ -44,8 +44,11 @@ export default function YandexMapPicker({
           .filter(Boolean)
           .join(', ')
         form.setFieldValue('location', formattedAddress)
-        form.setFieldValue('lon', longitude)
-        form.setFieldValue('lat', latitude)
+
+        if (longitude && latitude) {
+          form.setFieldValue('lon', longitude)
+          form.setFieldValue('lat', latitude)
+        }
       }
     } catch (error) {
       console.error('Error during reverse geocoding:', error)
