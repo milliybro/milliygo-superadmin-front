@@ -108,9 +108,9 @@ export async function deleteExpertAdvice(slug: string) {
   })
 }
 
-export async function createExpertAdvice(data: IPatchExpertAdviceData) {
+export async function createExpertAdvice(data: FormData) {
   return await requestSuper({
-    url: `/site-content/expert_advice/`,
+    url: '/site-content/expert_advice/',
     method: 'post',
     data,
     headers: {
@@ -149,7 +149,7 @@ export async function deleteEvent(slug: string) {
   })
 }
 
-export async function createEvent(data: IPatchExpertAdviceData) {
+export async function createEvent(data: FormData) {
   return await requestSuper({
     url: `/site-content/events/`,
     method: 'post',

@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router'
 import { useTranslation } from 'react-i18next'
+import { useNavigate, useParams } from 'react-router'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { Button, Divider, Form, Input, message, Typography, Upload } from 'antd'
 
@@ -12,28 +12,45 @@ import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import QuillEditor from '../../components/quill-editor'
 
 import type { Rule } from 'antd/es/form'
+import type { UploadFile } from 'antd/lib'
 import type { RcFile } from 'antd/es/upload'
+
+type CreateExpertAdviceValues = {
+  title: string
+  description: string
+  content: string
+  uploaded_images: {
+    fileList: UploadFile<RcFile>[]
+  }
+}
 
 export default function CreateExpertAdvice() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const queryClient = useQueryClient()
+  const asd = useParams()
+  console.log(asd)
 
   const { setBreadCrumbs } = useBreadCrumbsStore()
   const [form] = Form.useForm()
   const images = Form.useWatch('uploaded_images', form)
 
   const create = useMutation({
-    mutationFn: (values: any) => {
-      const formattedValues = {
-        ...values,
-        uploaded_images: values?.uploaded_images?.fileList?.map(
-          (val: any) => val?.originFileObj,
-        ),
-        type: 1,
-      }
+    mutationFn: (values: CreateExpertAdviceValues) => {
+      const formData = new FormData()
 
-      return createExpertAdvice(formattedValues)
+      formData.append('title', values.title)
+      formData.append('description', values.description)
+      formData.append('content', values.content)
+      formData.append('type', '1')
+
+      values.uploaded_images?.fileList?.forEach(file => {
+        if (file.originFileObj) {
+          formData.append('uploaded_images', file.originFileObj)
+        }
+      })
+
+      return createExpertAdvice(formData)
     },
     onSuccess: () => {
       // setChecked(prev => !prev)

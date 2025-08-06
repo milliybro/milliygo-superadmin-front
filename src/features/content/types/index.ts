@@ -81,7 +81,7 @@ export interface IExpertAdvice {
   type: Type
   created_at: string
   updated_at: string
-  images: Image[]
+  image: string
   title: string
   status: boolean
   description: string
@@ -108,10 +108,7 @@ export interface IEvent {
   date: string
   location: string
   status: boolean
-  images: {
-    id: number
-    image: string
-  }[]
+  image: string
   organizer: string
 }
 
