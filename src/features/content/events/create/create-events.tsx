@@ -64,9 +64,9 @@ export default function CreateEvent() {
 
   useEffect(() => {
     setBreadCrumbs([
-      { title: 'Главная', href: '/' },
-      { title: 'Контент', href: '/content/events' },
-      { title: 'Мероприятия' },
+      { title: t('common.main'), href: '/' },
+      { title: t('routes.content'), href: '/content/events' },
+      { title: t('routes.events') },
     ])
   }, [])
 
@@ -208,21 +208,21 @@ export default function CreateEvent() {
               Предпросмотр
             </Typography.Title>
             <Divider className="m-0" />
-            <Form.Item name="name" label="Название">
-              <Input placeholder="Введите название" size="large" />
+            <Form.Item name="name" label={t('fields.name.label')}>
+              <Input placeholder={t('fields.name.placeholder')} size="large" />
             </Form.Item>
             <Form.Item
-              label="Опишите описание"
+              label={t('fields.description.label')}
               name="description"
               rules={[
                 {
                   required: true,
-                  message: "Maydonni to'ldiring",
+                  message: t('fields.description.required'),
                 },
               ]}
             >
               <Input.TextArea
-                placeholder="Причина"
+                placeholder={t('fields.description.placeholder')}
                 rows={6}
                 className="resize-none"
               />
@@ -231,7 +231,9 @@ export default function CreateEvent() {
             <Form.Item name="lat" hidden noStyle />
 
             <div className="flex flex-col">
-              <div className="mb-[5px] text-[14px]">Добавить фотографии</div>
+              <div className="mb-[5px] text-[14px]">
+                {t('fields.images.label')}
+              </div>
               {imagesField?.fileList?.length > 0 ? (
                 <div className="grid grid-cols-3 gap-4">
                   {imagesField?.fileList?.map((image: any, index: number) => (
@@ -311,14 +313,24 @@ export default function CreateEvent() {
               Дополнительная информация
             </Typography.Title>
             <Divider className="m-0" />
-            <Form.Item name="organizer" label="Организатор">
-              <Input placeholder="Написать название" size="large" />
+            <Form.Item name="organizer" label={t('fields.organizer.label')}>
+              <Input
+                placeholder={t('fields.organizer.placeholder')}
+                size="large"
+              />
             </Form.Item>
-            <Form.Item label="Дата" name="date">
-              <DatePicker placeholder="Дата" size="large" className="w-full" />
+            <Form.Item label={t('fields.date.label')} name="date">
+              <DatePicker
+                placeholder={t('fields.date.placeholder')}
+                size="large"
+                className="w-full"
+              />
             </Form.Item>
-            <Form.Item label="Адрес" name="location">
-              <Input placeholder="Введите адрес вашего отеля" size="large" />
+            <Form.Item label={t('fields.address.label')} name="location">
+              <Input
+                placeholder={t('fields.address.placeholder2')}
+                size="large"
+              />
             </Form.Item>
             <Form.Item className="overflow-hidden rounded-xl border">
               <YandexMapPicker />
@@ -331,14 +343,14 @@ export default function CreateEvent() {
           disabled={createOrUpdate.isPending}
           onClick={() => navigate('/content/events')}
         >
-          Ortga
+          {t('common.cancel')}
         </Button>
         <Button
           type="primary"
           onClick={form.submit}
           loading={createOrUpdate.isPending}
         >
-          Yaratish
+          {isEditing ? t('common.edit') : t('common.create')}
         </Button>
       </div>
     </div>

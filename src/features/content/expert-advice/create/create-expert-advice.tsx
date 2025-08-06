@@ -53,9 +53,9 @@ export default function CreateExpertAdvice() {
 
   useEffect(() => {
     setBreadCrumbs([
-      { title: 'Главная', href: '/' },
-      { title: 'Контент', href: '/content/expert-advice' },
-      { title: 'Советы экспертов' },
+      { title: t('common.main'), href: '/' },
+      { title: t('routes.content'), href: '/content/expert-advice' },
+      { title: t('routes.expert-advices') },
     ])
   }, [])
 
