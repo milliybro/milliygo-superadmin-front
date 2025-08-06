@@ -1,8 +1,8 @@
 import dayjs from 'dayjs'
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useLocation, useNavigate, useParams } from 'react-router'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import {
   Button,
@@ -15,8 +15,8 @@ import {
   Upload,
 } from 'antd'
 
-import { createEvent } from '../../api'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
+import { createEvent, deleteEventImage, getEvent, patchEvent } from '../../api'
 
 import YandexMapPicker from './yandex-map-picker'
 import QuillEditor from '../../components/quill-editor'
@@ -41,46 +41,52 @@ type CreateExpertAdviceValues = {
 }
 
 export default function CreateEvent() {
-  const { t } = useTranslation()
+  const params = useParams()
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+
+  const { t } = useTranslation()
   const queryClient = useQueryClient()
+
   const { setBreadCrumbs } = useBreadCrumbsStore()
 
   const [form] = Form.useForm()
   const imagesField = Form.useWatch('images', form)
+  const isEditing = pathname.includes('/edit')
 
-  const create = useMutation({
-    mutationFn: (values: CreateExpertAdviceValues) => {
-      const formData = new FormData()
-
-      formData.append('name', values.name)
-      formData.append('description', values.description)
-      formData.append('organizer', values.organizer)
-      formData.append('content', values.content)
-      formData.append('location', values.location)
-      formData.append('date', dayjs(values.date).toISOString())
-
-      console.log(values)
-
-      values.images?.fileList?.forEach(file => {
-        if (file.originFileObj) {
-          formData.append('uploaded_images', file.originFileObj)
-        }
-      })
-
-      if (values?.lat && values?.lon) {
-        formData.append('lon', values.lon)
-        formData.append('lat', values.lat)
-      }
-
-      return createEvent(formData)
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['events'] })
-      navigate('/content/events')
-      message.success('Event created!')
-    },
+  const eventItem = useQuery({
+    queryKey: ['events-item', params.slug],
+    queryFn: () => getEvent(params.slug),
+    enabled: Boolean(params.slug),
+    gcTime: 0,
+    staleTime: 0,
   })
+
+  useEffect(() => {
+    setBreadCrumbs([
+      { title: 'Главная', href: '/' },
+      { title: 'Контент', href: '/content/events' },
+      { title: 'Мероприятия' },
+    ])
+  }, [])
+
+  useEffect(() => {
+    if (eventItem?.data) {
+      const transformedImages = eventItem.data?.images?.map(url => ({
+        id: url?.id,
+        uid: `existing-${url.id}`,
+        url: url?.image,
+      }))
+
+      form.setFieldsValue({
+        ...eventItem.data,
+        date: eventItem.data?.date ? dayjs(eventItem.data?.date) : undefined,
+        images: {
+          fileList: transformedImages || [],
+        },
+      })
+    }
+  }, [eventItem.data])
 
   const uploadImagesRules: Rule[] = [
     {
@@ -101,6 +107,46 @@ export default function CreateEvent() {
       },
     },
   ]
+
+  const createOrUpdate = useMutation({
+    mutationFn: (values: CreateExpertAdviceValues) => {
+      const formData = new FormData()
+
+      formData.append('name', values.name)
+      formData.append('description', values.description)
+      formData.append('organizer', values.organizer)
+      formData.append('content', values.content)
+      formData.append('location', values.location)
+      formData.append('date', dayjs(values.date).toISOString())
+
+      values.images?.fileList?.forEach(file => {
+        if (file.originFileObj) {
+          formData.append('uploaded_images', file.originFileObj)
+        }
+      })
+
+      if (values?.lat && values?.lon) {
+        formData.append('lon', values.lon)
+        formData.append('lat', values.lat)
+      }
+
+      if (isEditing && params?.slug) {
+        return patchEvent(params.slug, formData)
+      }
+
+      return createEvent(formData)
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['events'] })
+      navigate('/content/events')
+      message.success(isEditing ? 'Event edited!' : 'Event created!')
+    },
+  })
+
+  const deleteImage = useMutation({
+    mutationFn: (values: { image_id: number }) => deleteEventImage(values),
+    onSuccess: () => {},
+  })
 
   const beforeUploadHandler = (file: RcFile) => {
     const fileSizeInMB = file.size / 1024 / 1024
@@ -125,20 +171,16 @@ export default function CreateEvent() {
     return false
   }
 
-  const removeHandler = (index: number) => {
+  const removeHandler = (index: number, imageId: number) => {
+    if (imageId) {
+      deleteImage.mutate({ image_id: imageId })
+    }
+
     const newList = [...(imagesField?.fileList || [])]
     newList.splice(index, 1)
 
     form.setFieldValue('images', { fileList: newList })
   }
-
-  useEffect(() => {
-    setBreadCrumbs([
-      { title: 'Главная', href: '/' },
-      { title: 'Контент', href: '/content/events' },
-      { title: 'Мероприятия' },
-    ])
-  }, [])
 
   return (
     <div className="mb-[200px] flex flex-col gap-5">
@@ -149,7 +191,7 @@ export default function CreateEvent() {
         className="flex gap-6 [&_.ant-form-item-required]:before:hidden"
         form={form}
         layout="vertical"
-        onFinish={create.mutate}
+        onFinish={createOrUpdate.mutate}
       >
         <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border bg-white p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
@@ -197,9 +239,13 @@ export default function CreateEvent() {
                       key={index}
                       className="relative aspect-square overflow-hidden rounded-xl border"
                     >
-                      {image?.originFileObj ? (
+                      {image?.originFileObj || image?.url ? (
                         <img
-                          src={URL.createObjectURL(image?.originFileObj)}
+                          src={
+                            image?.originFileObj
+                              ? URL.createObjectURL(image.originFileObj)
+                              : image?.url
+                          }
                           alt={`preview-${index}`}
                           className="h-full w-full object-cover"
                         />
@@ -208,7 +254,7 @@ export default function CreateEvent() {
                         danger
                         size="small"
                         className="absolute right-2 top-2"
-                        onClick={() => removeHandler(index)}
+                        onClick={() => removeHandler(index, image?.id)}
                       >
                         Удалить
                       </Button>
@@ -217,14 +263,12 @@ export default function CreateEvent() {
                   <Upload.Dragger
                     className="flex size-[214.6px] flex-col items-center gap-2"
                     accept="image/*"
-                    // multiple
                     maxCount={1}
                     showUploadList={false}
                     customRequest={({ onSuccess }) => {
                       setTimeout(() => onSuccess?.('ok'), 0)
                     }}
                     beforeUpload={beforeUploadHandler}
-                    // beforeUpload={handleUpload}
                   >
                     <ImageUploadIcon className="text-[70px]" />
                     <Typography.Title className="m-0 text-base font-medium">
@@ -239,15 +283,12 @@ export default function CreateEvent() {
                 <Upload.Dragger
                   className="flex flex-col items-center gap-2 [&_.ant-upload-btn]:py-12"
                   accept="image/*"
-                  // multiple
                   maxCount={1}
                   showUploadList={false}
                   customRequest={({ onSuccess }) => {
                     setTimeout(() => onSuccess?.('ok'), 0)
                   }}
                   beforeUpload={beforeUploadHandler}
-
-                  // beforeUpload={handleUpload}
                 >
                   <ImageUploadIcon className="text-[70px]" />
                   <Typography.Title className="m-0 text-base font-medium">
@@ -286,8 +327,17 @@ export default function CreateEvent() {
         </div>
       </Form>
       <div className="flex justify-end gap-4">
-        <Button disabled={create.isPending}>Ortga</Button>
-        <Button type="primary" onClick={form.submit} loading={create.isPending}>
+        <Button
+          disabled={createOrUpdate.isPending}
+          onClick={() => navigate('/content/events')}
+        >
+          Ortga
+        </Button>
+        <Button
+          type="primary"
+          onClick={form.submit}
+          loading={createOrUpdate.isPending}
+        >
           Yaratish
         </Button>
       </div>
