@@ -5,27 +5,29 @@ type ImageItem = {
   url: string
 }
 
-type ImageStore = {
-  images: ImageItem[]
-  setImages: (images: ImageItem[]) => void
-  addImage: (image: ImageItem) => void
+type ImageStore<T = ImageItem> = {
+  images: T[]
+  setImages: (images: T[]) => void
+  addImage: (image: T) => void
   removeImage: (index: number) => void
-  updateImage: (index: number, newImage: ImageItem) => void
+  updateImage: (index: number, newImage: T) => void
 }
 
-type SignleImageStore = {
-  image: ImageItem | null
-  setImage: (image: ImageItem | null) => void
+type SignleImageStore<T = ImageItem> = {
+  image: T | null
+  setImage: (image: T | null) => void
   removeImage: () => void
 }
 
-export function createImageStore(
+export function createImageStore<T = ImageItem>(
   type: 'single',
-): UseBoundStore<StoreApi<SignleImageStore>>
-export function createImageStore(
+): UseBoundStore<StoreApi<SignleImageStore<T>>>
+export function createImageStore<T = ImageItem>(
   type: 'multiple',
-): UseBoundStore<StoreApi<ImageStore>>
-export function createImageStore(): UseBoundStore<StoreApi<ImageStore>>
+): UseBoundStore<StoreApi<ImageStore<T>>>
+export function createImageStore<T = ImageItem>(): UseBoundStore<
+  StoreApi<ImageStore<T>>
+>
 export function createImageStore(type?: 'single' | 'multiple') {
   if (type === 'single') {
     return create<SignleImageStore>(set => ({
