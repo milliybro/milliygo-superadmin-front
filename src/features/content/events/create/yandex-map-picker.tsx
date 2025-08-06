@@ -32,7 +32,8 @@ export default function YandexMapPicker({
 
       if (response?.display_name) {
         const formattedAddress = [
-          // response?.address?.county,
+          response?.address?.city,
+          response?.address?.county,
           response?.address?.suburb,
           response?.address?.road,
           response?.address?.neighbourhood,
@@ -42,7 +43,12 @@ export default function YandexMapPicker({
         ]
           .filter(Boolean)
           .join(', ')
-        form.setFieldValue('address', formattedAddress)
+        form.setFieldValue('location', formattedAddress)
+
+        if (longitude && latitude) {
+          form.setFieldValue('lon', longitude)
+          form.setFieldValue('lat', latitude)
+        }
       }
     } catch (error) {
       console.error('Error during reverse geocoding:', error)

@@ -7,7 +7,7 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { useLocation, useSearchParams } from 'react-router'
+import { useLocation, useParams, useSearchParams } from 'react-router'
 import {
   createDiscovery,
   editDiscovery,
@@ -41,9 +41,9 @@ export interface IDiscoverContext {
 const DiscoverContext = createContext<IDiscoverContext | null>(null)
 
 function DiscoverProvider({ children }: { children: React.ReactNode }) {
-  const [searchParams] = useSearchParams()
+  const params = useParams()
   const { pathname } = useLocation()
-  const slug = searchParams.get('slug')
+  const slug = params?.slug
   const { notification } = App.useApp()
   const [content, setContent] = useState<string>('')
 

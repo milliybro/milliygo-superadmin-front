@@ -58,7 +58,7 @@ function DiscoverTable({ setDeleteOpen }: IProps) {
             <Button
               type="link"
               className="p-0"
-              onClick={() => navigate(`edit?slug=${record.id}`)}
+              onClick={() => navigate(`edit/${record.id}`)}
             >
               <EditIcon className="text-xl" />
             </Button>

@@ -5,8 +5,8 @@ import type { IEvent } from '@/features/content/types'
 
 const EventsAddress: FC<IEvent> = props => {
   return (
-    <Typography.Text className="line-clamp-2 text-sm font-medium">
-      {props?.organizer || 'Нет адрес'}
+    <Typography.Text className="line-clamp-2 break-all text-sm font-medium">
+      {props?.location || 'Нет адрес'}
     </Typography.Text>
   )
 }
