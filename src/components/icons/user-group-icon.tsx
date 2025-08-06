@@ -1,16 +1,13 @@
 import type { FC, SVGProps } from 'react'
 
-const UsersGroupIcon: FC<SVGProps<SVGSVGElement>> = ({
-  className,
-  ...props
-}) => (
+const UsersGroupIcon: FC<SVGProps<SVGSVGElement>> = props => (
   <svg
+    {...props}
     xmlns="http://www.w3.org/2000/svg"
     width="1em"
     height="1em"
     viewBox="0 0 24 24"
     fill="none"
-    {...props}
   >
     <path
       d="M15 8C15 9.65685 13.6569 11 12 11C10.3431 11 9 9.65685 9 8C9 6.34315 10.3431 5 12 5C13.6569 5 15 6.34315 15 8Z"
