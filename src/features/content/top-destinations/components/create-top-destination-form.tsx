@@ -13,17 +13,10 @@ export default function CreateTopDestinationForm() {
 
   const {
     regions: { data: regions },
-    coords,
   } = useTopDestinationsContext()
 
   return (
-    <Form
-      className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6"
-      form={form}
-      layout="vertical"
-      onFinish={values => console.log(values, coords)}
-      requiredMark={false}
-    >
+    <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
       <div className="flex flex-col gap-4 rounded-2xl border p-6">
         <Typography.Title level={5} className="text-xl font-medium">
           Предпросмотр
@@ -34,6 +27,7 @@ export default function CreateTopDestinationForm() {
         </Form.Item>
         <Form.Item name="region" label="Регион">
           <Select
+            placeholder="Выберите регион"
             options={regions?.results?.map(reg => ({
               label: reg.name,
               value: reg.id,
@@ -71,6 +65,6 @@ export default function CreateTopDestinationForm() {
 
         <PopularSpotsList />
       </div>
-    </Form>
+    </div>
   )
 }

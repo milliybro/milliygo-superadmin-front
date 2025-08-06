@@ -1,13 +1,12 @@
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { Button, Divider, Form, Typography } from 'antd'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import QuillEditor from '@/features/content/components/quill-editor'
 import CreateTopDestinationForm from '../../components/create-top-destination-form'
 
 export default function TopDestinationForm() {
-  const [content, setContent] = useState<string>('')
   const { setBreadCrumbs } = useBreadCrumbsStore()
   const [form] = Form.useForm()
   const { t } = useTranslation()
@@ -25,16 +24,24 @@ export default function TopDestinationForm() {
       <Typography.Title level={3} className="text-2xl font-semibold">
         Добавить лучшие направления
       </Typography.Title>
-      <div className="flex gap-10">
+      <Form
+        className="flex gap-10"
+        form={form}
+        layout="vertical"
+        onFinish={values => console.log(values)}
+        requiredMark={false}
+      >
         <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
             Добавить контента
           </Typography.Title>
           <Divider className="m-0" />
-          <QuillEditor value={content} onChange={setContent} />
+          <Form.Item name="content" className="mb-0">
+            <QuillEditor />
+          </Form.Item>
         </div>
         <CreateTopDestinationForm />
-      </div>
+      </Form>
       <Button
         type="primary"
         htmlType="submit"

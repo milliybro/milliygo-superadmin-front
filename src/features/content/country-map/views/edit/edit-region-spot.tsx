@@ -1,11 +1,11 @@
 import ArrowDownIcon from '@/components/icons/arrow-down'
+import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { Button, Form, Input, Select, Switch, Tag, Typography } from 'antd'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSearchParams } from 'react-router'
-import useCountryMapContext from '../../hooks/use-country-map'
+import { useParams } from 'react-router'
 import CountryMapSVG from '../../components/map/country-map-svg'
-import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
+import useCountryMapContext from '../../hooks/use-country-map'
 
 export default function EditRegionSpot() {
   const { t } = useTranslation()
@@ -17,17 +17,17 @@ export default function EditRegionSpot() {
   const status = Form.useWatch('is_active', form)
   const pointTitle = Form.useWatch('point_title', form)
   const { setBreadCrumbs } = useBreadCrumbsStore()
-  const [searchParams] = useSearchParams()
   const {
     updateMapPointMutation: { mutate, isPending },
     topDestinationOptions,
     pointsQuery: { data: points },
     regionData,
   } = useCountryMapContext()
-  const pointId = +searchParams.get('id')!
+  const { slug: pointId } = useParams()
 
   useEffect(() => {
-    const editingPoint = points?.results?.find(point => point.id === pointId)
+    if (!pointId) return
+    const editingPoint = points?.results?.find(point => point.id === +pointId)
 
     if (points) {
       form.setFieldsValue({
@@ -55,7 +55,9 @@ export default function EditRegionSpot() {
     ])
   }, [regionData])
 
-  const editingPoint = points?.results?.find(point => point.id === +pointId)
+  const editingPoint = points?.results?.find(
+    point => point.id === +(pointId as string),
+  )
 
   return (
     <div className="flex flex-col">
