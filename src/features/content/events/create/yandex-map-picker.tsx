@@ -1,5 +1,5 @@
 import { Form } from 'antd'
-import { useRef, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Map, Placemark, YMaps } from '@pbe/react-yandex-maps'
 
 import request from '@/utils/axios'
@@ -7,16 +7,26 @@ import request from '@/utils/axios'
 import type { INominatimResponse } from '../../types'
 
 interface YandexMapPickerProps {
+  coordsValue?: [number, number]
   onCoordsChange?: (coords: [number, number]) => void
+  height?: string
 }
 
 export default function YandexMapPicker({
   onCoordsChange,
+  coordsValue,
+  height = '584px',
 }: YandexMapPickerProps) {
   const mapRef = useRef<any>(null)
   const form = Form.useFormInstance()
 
-  const [coords, setCoords] = useState<[number, number]>([41.3111, 69.2797])
+  const [coordsState, setCoords] = useState<[number, number]>(
+    coordsValue || [41.3111, 69.2797],
+  )
+
+  const coords = useMemo(() => {
+    return coordsState
+  }, [coordsValue, coordsState])
 
   const getNominalByCoords = async (
     latitude: number,
@@ -67,7 +77,7 @@ export default function YandexMapPicker({
       <Map
         defaultState={{ center: coords, zoom: 12 }}
         width="100%"
-        height="584px"
+        height={height}
         onClick={handleMapClick}
         instanceRef={mapRef}
       >
