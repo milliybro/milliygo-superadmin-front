@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 import { Button, notification } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -13,6 +14,7 @@ import type { FC } from 'react'
 import type { IInstagramContent } from '../../types'
 
 const InstagramAction: FC<IInstagramContent> = props => {
+  const navigate = useNavigate()
   const { t } = useTranslation()
   const queryClient = useQueryClient()
   const [deleteOpen, setDeleteOpen] = useState(false)
@@ -37,7 +39,7 @@ const InstagramAction: FC<IInstagramContent> = props => {
   return (
     <>
       <div className="flex items-center text-base font-medium">
-        <Button type="link">
+        <Button type="link" onClick={() => navigate(`edit/${props?.id}`)}>
           <EditIcon className="text-xl" /> {t('Редактировать')}
         </Button>
         <Button type="link" danger onClick={handleDelete}>
