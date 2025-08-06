@@ -1,10 +1,15 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useParams } from 'react-router'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useLocation, useNavigate, useParams } from 'react-router'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { Button, Divider, Form, Input, message, Typography, Upload } from 'antd'
 
-import { createExpertAdvice } from '../../api'
+import {
+  createExpertAdvice,
+  deleteExpertAdviceImage,
+  getExpertAdvice,
+  patchExpertAdvice,
+} from '../../api'
 
 import ImageUploadIcon from '@/components/icons/image-upload'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
@@ -25,39 +30,25 @@ type CreateExpertAdviceValues = {
 }
 
 export default function CreateExpertAdvice() {
-  const { t } = useTranslation()
+  const params = useParams()
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+
+  const { t } = useTranslation()
   const queryClient = useQueryClient()
-  const asd = useParams()
-  console.log(asd)
 
   const { setBreadCrumbs } = useBreadCrumbsStore()
+
   const [form] = Form.useForm()
-  const images = Form.useWatch('uploaded_images', form)
+  const imagesField = Form.useWatch('uploaded_images', form)
+  const isEditing = pathname.includes('/edit')
 
-  const create = useMutation({
-    mutationFn: (values: CreateExpertAdviceValues) => {
-      const formData = new FormData()
-
-      formData.append('title', values.title)
-      formData.append('description', values.description)
-      formData.append('content', values.content)
-      formData.append('type', '1')
-
-      values.uploaded_images?.fileList?.forEach(file => {
-        if (file.originFileObj) {
-          formData.append('uploaded_images', file.originFileObj)
-        }
-      })
-
-      return createExpertAdvice(formData)
-    },
-    onSuccess: () => {
-      // setChecked(prev => !prev)
-      queryClient.invalidateQueries({ queryKey: ['expert-advices'] })
-      navigate('/content/expert-advice')
-      message.success('Expert advice created!')
-    },
+  const expertAdviceItem = useQuery({
+    queryKey: ['expert-advices-item', params.slug],
+    queryFn: () => getExpertAdvice(params.slug),
+    enabled: Boolean(params.slug),
+    gcTime: 0,
+    staleTime: 0,
   })
 
   useEffect(() => {
@@ -67,6 +58,23 @@ export default function CreateExpertAdvice() {
       { title: 'Советы экспертов' },
     ])
   }, [])
+
+  useEffect(() => {
+    if (expertAdviceItem?.data) {
+      const transformedImages = expertAdviceItem.data?.images?.map(url => ({
+        id: url?.id,
+        uid: `existing-${url.id}`,
+        url: url?.image_path,
+      }))
+
+      form.setFieldsValue({
+        ...expertAdviceItem.data,
+        uploaded_images: {
+          fileList: transformedImages || [],
+        },
+      })
+    }
+  }, [expertAdviceItem.data])
 
   const uploadImagesRules: Rule[] = [
     {
@@ -88,6 +96,41 @@ export default function CreateExpertAdvice() {
     },
   ]
 
+  const createOrUpdate = useMutation({
+    mutationFn: (values: CreateExpertAdviceValues) => {
+      const formData = new FormData()
+
+      formData.append('title', values.title)
+      formData.append('description', values.description)
+      formData.append('content', values.content)
+      formData.append('type', '1')
+
+      values.uploaded_images?.fileList?.forEach(file => {
+        if (file.originFileObj) {
+          formData.append('uploaded_images', file.originFileObj)
+        }
+      })
+
+      if (isEditing && params?.slug) {
+        return patchExpertAdvice(params.slug, formData)
+      }
+
+      return createExpertAdvice(formData)
+    },
+    onSuccess: () => {
+      // setChecked(prev => !prev)
+      queryClient.invalidateQueries({ queryKey: ['expert-advices'] })
+      navigate('/content/expert-advice')
+      message.success('Expert advice created!')
+    },
+  })
+
+  const deleteImage = useMutation({
+    mutationFn: (values: { image_id: number }) =>
+      deleteExpertAdviceImage(values),
+    onSuccess: () => {},
+  })
+
   const beforeUploadHandler = (file: RcFile, fileList: RcFile[]) => {
     const fileSizeInMB = file.size / 1024 / 1024
 
@@ -98,7 +141,7 @@ export default function CreateExpertAdvice() {
       })
       .map(item => ({ ...file, originFileObj: item }))
 
-    const allFiles = [...(images?.fileList || []), ...(newFiles || [])]
+    const allFiles = [...(imagesField?.fileList || []), ...(newFiles || [])]
 
     if (fileSizeInMB > 5) {
       message.error(`Файл "${file.name}" превышает 5MB`)
@@ -118,8 +161,12 @@ export default function CreateExpertAdvice() {
     return false
   }
 
-  const removeHandler = (index: number) => {
-    const newList = [...(images?.fileList || [])]
+  const removeHandler = (index: number, imageId: number) => {
+    if (imageId) {
+      deleteImage.mutate({ image_id: imageId })
+    }
+
+    const newList = [...(imagesField?.fileList || [])]
     newList.splice(index, 1)
 
     form.setFieldValue('uploaded_images', { fileList: newList })
@@ -134,7 +181,7 @@ export default function CreateExpertAdvice() {
         className="flex gap-6 [&_.ant-form-item-required]:before:hidden"
         form={form}
         layout="vertical"
-        onFinish={create.mutate}
+        onFinish={createOrUpdate.mutate}
       >
         <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border bg-white p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
@@ -182,16 +229,20 @@ export default function CreateExpertAdvice() {
 
             <div className="flex flex-col">
               <div className="mb-[5px] text-[14px]">Добавить фотографии</div>
-              {images?.fileList?.length > 0 ? (
+              {imagesField?.fileList?.length > 0 ? (
                 <div className="grid grid-cols-3 gap-4">
-                  {images?.fileList?.map((image: any, index: number) => (
+                  {imagesField?.fileList?.map((image: any, index: number) => (
                     <div
                       key={index}
                       className="relative aspect-square overflow-hidden rounded-xl border"
                     >
-                      {image?.originFileObj ? (
+                      {image?.originFileObj || image?.url ? (
                         <img
-                          src={URL.createObjectURL(image?.originFileObj)}
+                          src={
+                            image?.originFileObj
+                              ? URL.createObjectURL(image.originFileObj)
+                              : image?.url
+                          }
                           alt={`preview-${index}`}
                           className="h-full w-full object-cover"
                         />
@@ -200,7 +251,7 @@ export default function CreateExpertAdvice() {
                         danger
                         size="small"
                         className="absolute right-2 top-2"
-                        onClick={() => removeHandler(index)}
+                        onClick={() => removeHandler(index, image?.id)}
                       >
                         Удалить
                       </Button>
@@ -258,15 +309,20 @@ export default function CreateExpertAdvice() {
         </div>
       </Form>
       <div className="flex justify-end gap-4">
-        <Button disabled={create.isPending}>Ortga</Button>
+        <Button
+          disabled={createOrUpdate.isPending}
+          onClick={() => navigate('/content/expert-advice')}
+        >
+          Ortga
+        </Button>
         <Button
           type="primary"
           onClick={form.submit}
-          loading={create.isPending}
+          loading={createOrUpdate.isPending}
           className="duration-150 active:scale-95"
           // disabled={images?.fileList?.length === 0}
         >
-          Yaratish
+          {params?.slug ? "O'zgartirish" : 'Yaratish'}
         </Button>
       </div>
     </div>
