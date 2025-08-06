@@ -1,5 +1,5 @@
 import { Form } from 'antd'
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 import { Map, Placemark, YMaps } from '@pbe/react-yandex-maps'
 
 import request from '@/utils/axios'
@@ -15,8 +15,10 @@ export default function YandexMapPicker({
 }: YandexMapPickerProps) {
   const mapRef = useRef<any>(null)
   const form = Form.useFormInstance()
+  const lon = Form.useWatch('lon', form)
+  const lat = Form.useWatch('lat', form)
 
-  const [coords, setCoords] = useState<[number, number]>([41.3111, 69.2797])
+  // const [coords, setCoords] = useState<[number, number]>([41.3111, 69.2797])
 
   const getNominalByCoords = async (
     latitude: number,
@@ -57,7 +59,7 @@ export default function YandexMapPicker({
 
   const handleMapClick = (e: any) => {
     const newCoords: [number, number] = e.get('coords')
-    setCoords(newCoords)
+    // setCoords(newCoords)
     getNominalByCoords(newCoords[0], newCoords[1])
     onCoordsChange?.(newCoords)
   }
@@ -65,18 +67,18 @@ export default function YandexMapPicker({
   return (
     <YMaps query={{ lang: 'ru_RU' }}>
       <Map
-        defaultState={{ center: coords, zoom: 12 }}
+        defaultState={{ center: [lat, lon], zoom: 12 }}
         width="100%"
         height="584px"
         onClick={handleMapClick}
         instanceRef={mapRef}
       >
         <Placemark
-          geometry={coords}
-          onDragEnd={(e: any) => {
-            const newCoords = e.get('target').geometry.getCoordinates()
-            setCoords(newCoords)
-          }}
+          geometry={[lat, lon]}
+          // onDragEnd={(e: any) => {
+          //   const newCoords = e.get('target').geometry.getCoordinates()
+          //   setCoords(newCoords)
+          // }}
           options={{
             iconLayout: 'default#image',
             iconImageHref: '/location-icon.svg',
