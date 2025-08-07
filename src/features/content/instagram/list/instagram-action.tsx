@@ -27,7 +27,9 @@ const InstagramAction: FC<IInstagramContent> = props => {
       // }
 
       setDeleteOpen(false)
-      notification.success({ message: 'Контент успешно удалён' })
+      notification.success({
+        message: t('content.instagram-content.status-deleted'),
+      })
       queryClient.invalidateQueries({ queryKey: ['instagram-contents'] })
     },
   })

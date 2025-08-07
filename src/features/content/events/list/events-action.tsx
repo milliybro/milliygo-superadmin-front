@@ -27,7 +27,9 @@ const EventsAction: FC<IEvent> = props => {
       // }
 
       setDeleteOpen(false)
-      notification.success({ message: 'Мероприятие успешно удалено' })
+      notification.success({
+        message: t('content.events.status-deleted'),
+      })
       queryClient.invalidateQueries({ queryKey: ['events'] })
     },
   })

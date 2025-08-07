@@ -27,7 +27,9 @@ const ExpertAdviceAction: FC<IExpertAdvice> = props => {
       // }
 
       setDeleteOpen(false)
-      notification.success({ message: 'Совет успешно удалён' })
+      notification.success({
+        message: t('content.expert-advice.status-deleted'),
+      })
       queryClient.invalidateQueries({ queryKey: ['expert-advices'] })
     },
   })
