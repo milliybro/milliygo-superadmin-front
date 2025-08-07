@@ -125,6 +125,9 @@
     }
   },
   "fields": {
+    "url": {
+      "label": "Havola"
+    },
     "fullname": {
       "label": "F.I.O",
       "placeholder": "Oybek Turonov O‘ktam o‘g‘li",
@@ -327,10 +330,14 @@
     },
     "description": {
       "label": "Tavsif",
-      "placeholder": "Tavsifni yozing"
+      "placeholder": "Tavsifni yozing",
+      "required": "Iltimos, tavsif kiriting"
     },
     "images": {
-      "label": "Rasmlarni yuklash"
+      "label": "Rasmlarni yuklash",
+      "required": "Rasm yuklang",
+      "max-size-limit": "Fayl {{value}} hajmi 5 MB dan oshib ketgan",
+      "max-length-limit": "{{value}} tadan ortiq rasm yuklay olmaysiz"
     },
     "organizer": {
       "label": "Tashkilotchi",
@@ -676,6 +683,9 @@
     "not-found": "Sahifa topilmadi"
   },
   "content": {
+    "preview": "Oldindan ko‘rish",
+    "add-content": "Kontent qo‘shish",
+    "additional-information": "Qo‘shimcha ma’lumot",
     "country-map": {
       "title": "O‘zbekiston xaritasi",
       "point-destination": "Nuqta yo‘nalishi",
@@ -687,6 +697,30 @@
       "delete-success": "Nuqta muvaffaqiyatli o‘chirildi",
       "edit-point": "Xaritada nuqta tahrirlash",
       "create-point": "Xaritada nuqta yaratish"
+    },
+    "expert-advice": {
+      "title": "Mutaxassis maslahati qo‘shish",
+      "delete-modal-title": "Maslahatni o‘chirilsinmi?",
+      "delete-modal-description": "Ushbu mutaxassis maslahatini o‘chirmoqchimisiz?",
+      "status-created": "Mutaxassis maslahati muvaffaqiyatli qo‘shildi",
+      "status-updated": "Mutaxassis maslahati yangilandi",
+      "status-deleted": "Mutaxassis maslahati o‘chirildi"
+    },
+    "instagram-content": {
+      "title": "Instagram kontentini qo‘shish",
+      "delete-modal-title": "Kontent o‘chirilsinmi?",
+      "delete-modal-description": "Ushbu Instagram kontentini o‘chirmoqchimisiz?",
+      "status-created": "Instagram kontenti muvaffaqiyatli qo‘shildi",
+      "status-updated": "Instagram kontenti yangilandi",
+      "status-deleted": "Instagram kontenti o‘chirildi"
+    },
+    "events": {
+      "title": "Tadbir qo‘shish",
+      "delete-modal-title": "Tadbir o‘chirilsinmi?",
+      "delete-modal-description": "Ushbu tadbirni o‘chirmoqchimisiz?",
+      "status-created": "Tadbir muvaffaqiyatli qo‘shildi",
+      "status-updated": "Tadbir yangilandi",
+      "status-deleted": "Tadbir o‘chirildi"
     }
   },
   "region": {

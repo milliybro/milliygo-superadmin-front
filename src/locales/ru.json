@@ -143,6 +143,9 @@
   },
 
   "fields": {
+    "url": {
+      "label": "Ссылка"
+    },
     "fullname": {
       "label": "ФИО",
       "placeholder": "Введите ФИО",
@@ -345,10 +348,14 @@
     },
     "description": {
       "label": "Описание",
-      "placeholder": "Опишите описание"
+      "placeholder": "Опишите описание",
+      "required": "Пожалуйста, опишите описание"
     },
     "images": {
-      "label": "Добавить фотографии"
+      "label": "Добавить фотографии",
+      "required": "Загрузите изображение",
+      "max-size-limit": "Файл {{value}} превышает 5MB",
+      "max-length-limit": "Вы можете загрузить не более {{value}} изображений"
     },
     "organizer": {
       "label": "Организатор",
@@ -679,6 +686,9 @@
     "not-found": "Страница не найдена"
   },
   "content": {
+    "preview": "Предпросмотр",
+    "add-content": "Добавить контент",
+    "additional-information": "Дополнительная информация",
     "country-map": {
       "title": "Карта Узбекистана",
       "point-destination": "Направление точки",
@@ -690,6 +700,30 @@
       "delete-success": "Точка успешно удалена",
       "edit-point": "Редактировать точку на карте",
       "create-point": "Создать точку на карте"
+    },
+    "expert-advice": {
+      "title": "Добавить советы экспертов",
+      "delete-modal-title": "Удалить совет?",
+      "delete-modal-description": "Вы уверены, что хотите удалить этот экспертный совет?",
+      "status-created": "Совет эксперта успешно добавлен",
+      "status-updated": "Совет эксперта обновлён",
+      "status-deleted": "Совет эксперта удалён"
+    },
+    "instagram-content": {
+      "title": "Добавить Instagram контент",
+      "delete-modal-title": "Удалить контент?",
+      "delete-modal-description": "Вы уверены, что хотите удалить этот Instagram контент?",
+      "status-created": "Контент Instagram успешно добавлен",
+      "status-updated": "Контент Instagram обновлён",
+      "status-deleted": "Контент Instagram удалён"
+    },
+    "events": {
+      "title": "Добавить мероприятия",
+      "delete-modal-title": "Удалить мероприятие?",
+      "delete-modal-description": "Вы уверены, что хотите удалить это мероприятие?",
+      "status-created": "Мероприятие успешно добавлено",
+      "status-updated": "Мероприятие обновлено",
+      "status-deleted": "Мероприятие удалено"
     }
   },
   "region": {
