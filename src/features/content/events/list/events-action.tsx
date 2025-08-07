@@ -40,10 +40,10 @@ const EventsAction: FC<IEvent> = props => {
     <>
       <div className="flex items-center text-base font-medium">
         <Button type="link" onClick={() => navigate(`edit/${props.slug}`)}>
-          <EditIcon className="text-xl" /> {t('Редактировать')}
+          <EditIcon className="text-xl" /> {t('common.edit')}
         </Button>
         <Button type="link" danger onClick={handleDelete}>
-          <DeleteIcon className="text-xl" /> {t('Удалить')}
+          <DeleteIcon className="text-xl" /> {t('common.delete')}
         </Button>
       </div>
 
@@ -52,8 +52,8 @@ const EventsAction: FC<IEvent> = props => {
         onClose={() => setDeleteOpen(false)}
         onDelete={() => deleteMutate.mutate()}
         isLoading={deleteMutate?.isPending}
-        title={t('Удалить мероприятие?')}
-        description={t('Вы уверены, что хотите удалить это мероприятие?')}
+        title={t('content.events.delete-modal-title')}
+        description={t('content.events.delete-modal-description')}
       />
     </>
   )

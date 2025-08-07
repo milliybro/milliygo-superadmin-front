@@ -40,10 +40,10 @@ const ExpertAdviceAction: FC<IExpertAdvice> = props => {
     <>
       <div className="flex items-center text-base font-medium">
         <Button type="link" onClick={() => navigate(`edit/${props?.slug}`)}>
-          <EditIcon className="text-xl" /> {t('Редактировать')}
+          <EditIcon className="text-xl" /> {t('common.edit')}
         </Button>
         <Button type="link" danger onClick={handleDelete}>
-          <DeleteIcon className="text-xl" /> {t('Удалить')}
+          <DeleteIcon className="text-xl" /> {t('common.delete')}
         </Button>
       </div>
 
@@ -52,8 +52,8 @@ const ExpertAdviceAction: FC<IExpertAdvice> = props => {
         onClose={() => setDeleteOpen(false)}
         onDelete={() => deleteMutate.mutate()}
         isLoading={deleteMutate?.isPending}
-        title={t('Удалить совет?')}
-        description={t('Вы уверены, что хотите удалить этот экспертный совет?')}
+        title={t('content.expert-advice.delete-modal-title')}
+        description={t('content.expert-advice.delete-modal-description')}
       />
     </>
   )

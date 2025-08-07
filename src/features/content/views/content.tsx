@@ -25,7 +25,7 @@ function Content() {
   useEffect(() => {
     setBreadCrumbs([
       { title: t('common.main'), href: '/' },
-      { title: 'Content' },
+      { title: t('routes.content') },
     ])
   }, [])
 
@@ -78,7 +78,7 @@ function Content() {
   return (
     <div className="flex flex-1 flex-col gap-6">
       <Typography.Text className="text-2xl font-semibold text-primary-dark">
-        Content
+        {t('routes.content')}
       </Typography.Text>
       <div className="rounded-2xl border bg-white p-6">
         <Tabs

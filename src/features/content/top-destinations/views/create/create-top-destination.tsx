@@ -33,7 +33,7 @@ export default function TopDestinationForm() {
       >
         <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
-            Добавить контента
+            {t('content.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
           <Form.Item name="content" className="mb-0">

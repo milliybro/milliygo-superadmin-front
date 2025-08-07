@@ -2,7 +2,16 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Button, Divider, Form, Input, message, Typography, Upload } from 'antd'
+import {
+  Button,
+  Divider,
+  Form,
+  Input,
+  message,
+  notification,
+  Typography,
+  Upload,
+} from 'antd'
 
 import {
   createInstagramContent,
@@ -34,9 +43,8 @@ type CreateInstagramContentValues = {
 export default function CreateInstagramContent() {
   const params = useParams()
   const navigate = useNavigate()
-  const { pathname } = useLocation()
-
   const { t } = useTranslation()
+  const { pathname } = useLocation()
   const queryClient = useQueryClient()
 
   const { setBreadCrumbs } = useBreadCrumbsStore()
@@ -55,8 +63,8 @@ export default function CreateInstagramContent() {
 
   useEffect(() => {
     setBreadCrumbs([
-      { title: 'Главная', href: '/' },
-      { title: 'Контент', href: '/content/instagram' },
+      { title: t('common.main'), href: '/' },
+      { title: t('routes.content'), href: '/content/instagram' },
       { title: 'Instagram' },
     ])
   }, [])
@@ -89,7 +97,11 @@ export default function CreateInstagramContent() {
       // setChecked(prev => !prev)
       queryClient.invalidateQueries({ queryKey: ['instagram-contents'] })
       navigate('/content/instagram')
-      message.success('Instagram content created!')
+      notification.success({
+        message: t(
+          `content.instagram-content.status-${isEditing ? 'updated' : 'created'}`,
+        ),
+      })
     },
   })
 
@@ -97,7 +109,7 @@ export default function CreateInstagramContent() {
     {
       validator: (_, value) => {
         if (!value) {
-          return Promise.reject(new Error('Загрузите изображение'))
+          return Promise.reject(new Error(t('fields.images.required')))
         }
 
         return Promise.resolve()
@@ -109,7 +121,7 @@ export default function CreateInstagramContent() {
     const fileSizeInMB = file.size / 1024 / 1024
 
     if (fileSizeInMB > 5) {
-      message.error(`Файл "${file.name}" превышает 5MB`)
+      message.error(t('fields.images.max-size-limit', { value: file?.name }))
       return false
     }
 
@@ -125,34 +137,36 @@ export default function CreateInstagramContent() {
   return (
     <div className="mb-[200px] flex flex-col gap-5">
       <Typography.Title level={3} className="text-2xl font-semibold">
-        Добавить instagram content
+        {t('content.instagram-content.title')}
       </Typography.Title>
       <Form
-        className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6"
         form={form}
         layout="vertical"
         onFinish={createOrUpdate.mutate}
+        className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6"
       >
         <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
           <Typography.Title level={5} className="text-xl font-medium">
-            Добавить контента
+            {t('content.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
-          <Form.Item label="Название" name="title">
-            <Input placeholder="Введите название" size="large" />
+          <Form.Item label={t('fields.name.label')} name="title">
+            <Input placeholder={t('fields.name.placeholder')} size="large" />
           </Form.Item>
-          <Form.Item label="Ссылка" name="url">
+          <Form.Item label={t('fields.url.label')} name="url">
             <Input placeholder="https://" size="large" />
           </Form.Item>
-          <Form.Item label="Опишите описание" name="description">
+          <Form.Item label={t('fields.description.label')} name="description">
             <Input.TextArea
-              placeholder="Причина"
+              placeholder={t('fields.description.placeholder')}
               rows={6}
               className="resize-none"
             />
           </Form.Item>
           <div className="flex flex-col">
-            <div className="mb-[5px] text-[14px]">Добавить фотографии</div>
+            <div className="mb-[5px] text-[14px]">
+              {t('fields.images.label')}
+            </div>
             {imageField ? (
               <div className="grid grid-cols-3 gap-4">
                 <div className="relative aspect-square overflow-hidden rounded-xl border">
@@ -173,7 +187,7 @@ export default function CreateInstagramContent() {
                     className="absolute right-2 top-2"
                     onClick={removeHandler}
                   >
-                    Удалить
+                    {t('common.delete')}
                   </Button>
                 </div>
                 <Upload.Dragger
@@ -228,14 +242,14 @@ export default function CreateInstagramContent() {
           disabled={createOrUpdate.isPending}
           onClick={() => navigate('/content/instagram')}
         >
-          Ortga
+          {t('common.cancel')}
         </Button>
         <Button
           type="primary"
           onClick={form.submit}
           loading={createOrUpdate.isPending}
         >
-          Yaratish
+          {t('common.create')}
         </Button>
       </div>
     </div>

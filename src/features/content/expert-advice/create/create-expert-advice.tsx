@@ -2,7 +2,16 @@ import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { Button, Divider, Form, Input, message, Typography, Upload } from 'antd'
+import {
+  Button,
+  Divider,
+  Form,
+  Input,
+  message,
+  notification,
+  Typography,
+  Upload,
+} from 'antd'
 
 import {
   createExpertAdvice,
@@ -82,12 +91,12 @@ export default function CreateExpertAdvice() {
         const list = value?.fileList || []
 
         if (list.length === 0) {
-          return Promise.reject(new Error('Загрузите хотя бы одно изображение'))
+          return Promise.reject(new Error(t('fields.images.required')))
         }
 
         if (list.length > 6) {
           return Promise.reject(
-            new Error('Вы можете загрузить не более 6 изображений.'),
+            new Error(t('fields.images.max-size-limit', { value: 6 })),
           )
         }
 
@@ -121,7 +130,11 @@ export default function CreateExpertAdvice() {
       // setChecked(prev => !prev)
       queryClient.invalidateQueries({ queryKey: ['expert-advices'] })
       navigate('/content/expert-advice')
-      message.success('Expert advice created!')
+      notification.success({
+        message: t(
+          `content.expert-advice.status-${isEditing ? 'updated' : 'created'}`,
+        ),
+      })
     },
   })
 
@@ -144,7 +157,7 @@ export default function CreateExpertAdvice() {
     const allFiles = [...(imagesField?.fileList || []), ...(newFiles || [])]
 
     if (fileSizeInMB > 5) {
-      message.error(`Файл "${file.name}" превышает 5MB`)
+      message.error(t('fields.images.max-size-limit', { value: file?.name }))
       return false
     }
 
@@ -175,7 +188,7 @@ export default function CreateExpertAdvice() {
   return (
     <div className="mb-[200px] flex flex-col gap-5">
       <Typography.Title level={3} className="text-2xl font-semibold">
-        Добавить cоветы экспертов
+        {t('content.expert-advice.title')}
       </Typography.Title>
       <Form
         className="flex gap-6 [&_.ant-form-item-required]:before:hidden"
@@ -185,7 +198,7 @@ export default function CreateExpertAdvice() {
       >
         <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border bg-white p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
-            Добавить контента
+            {t('content.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
           <Form.Item name="content">
@@ -195,40 +208,42 @@ export default function CreateExpertAdvice() {
         <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
           <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
             <Typography.Title level={5} className="text-xl font-medium">
-              Предпросмотр
+              {t('content.preview')}
             </Typography.Title>
             <Divider className="m-0" />
             <Form.Item
               name="title"
-              label="Название"
+              label={t('fields.name.label')}
               rules={[
                 {
                   required: true,
-                  message: "Maydonni to'ldiring",
+                  message: t('fields.name.required'),
                 },
               ]}
             >
-              <Input placeholder="Введите название" size="large" />
+              <Input placeholder={t('fields.name.placeholder')} size="large" />
             </Form.Item>
             <Form.Item
-              label="Опишите описание"
+              label={t('fields.description.label')}
               name="description"
               rules={[
                 {
                   required: true,
-                  message: "Maydonni to'ldiring",
+                  message: t('fields.description.required'),
                 },
               ]}
             >
               <Input.TextArea
-                placeholder="Причина"
+                placeholder={t('fields.description.placeholder')}
                 rows={6}
                 className="resize-none"
               />
             </Form.Item>
 
             <div className="flex flex-col">
-              <div className="mb-[5px] text-[14px]">Добавить фотографии</div>
+              <div className="mb-[5px] text-[14px]">
+                {t('fields.images.label')}
+              </div>
               {imagesField?.fileList?.length > 0 ? (
                 <div className="grid grid-cols-3 gap-4">
                   {imagesField?.fileList?.map((image: any, index: number) => (
@@ -253,7 +268,7 @@ export default function CreateExpertAdvice() {
                         className="absolute right-2 top-2"
                         onClick={() => removeHandler(index, image?.id)}
                       >
-                        Удалить
+                        {t('common.delete')}
                       </Button>
                     </div>
                   ))}
@@ -313,7 +328,7 @@ export default function CreateExpertAdvice() {
           disabled={createOrUpdate.isPending}
           onClick={() => navigate('/content/expert-advice')}
         >
-          Ortga
+          {t('common.cancel')}
         </Button>
         <Button
           type="primary"

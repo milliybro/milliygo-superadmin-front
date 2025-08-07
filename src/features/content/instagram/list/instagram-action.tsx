@@ -40,10 +40,10 @@ const InstagramAction: FC<IInstagramContent> = props => {
     <>
       <div className="flex items-center text-base font-medium">
         <Button type="link" onClick={() => navigate(`edit/${props?.id}`)}>
-          <EditIcon className="text-xl" /> {t('Редактировать')}
+          <EditIcon className="text-xl" /> {t('common.edit')}
         </Button>
         <Button type="link" danger onClick={handleDelete}>
-          <DeleteIcon className="text-xl" /> {t('Удалить')}
+          <DeleteIcon className="text-xl" /> {t('common.delete')}
         </Button>
       </div>
 
@@ -52,10 +52,8 @@ const InstagramAction: FC<IInstagramContent> = props => {
         onClose={() => setDeleteOpen(false)}
         onDelete={() => deleteMutate.mutate()}
         isLoading={deleteMutate?.isPending}
-        title={t('Удалить контент?')}
-        description={t(
-          'Вы уверены, что хотите удалить этот Instagram контент?',
-        )}
+        title={t('content.instagram-content.delete-modal-title')}
+        description={t('content.instagram-content.delete-modal-description')}
       />
     </>
   )

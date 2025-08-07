@@ -11,6 +11,7 @@ import {
   Form,
   Input,
   message,
+  notification,
   Typography,
   Upload,
 } from 'antd'
@@ -94,12 +95,12 @@ export default function CreateEvent() {
         const list = value?.fileList || []
 
         if (list.length === 0) {
-          return Promise.reject(new Error('Загрузите изображение'))
+          return Promise.reject(new Error(t('fields.images.required')))
         }
 
         if (list.length > 1) {
           return Promise.reject(
-            new Error('Вы можете загрузить не более 1 изображений.'),
+            new Error(t('fields.images.max-size-limit', { value: 1 })),
           )
         }
 
@@ -139,7 +140,11 @@ export default function CreateEvent() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['events'] })
       navigate('/content/events')
-      message.success(isEditing ? 'Event edited!' : 'Event created!')
+      notification.success({
+        message: t(
+          `content.events.status-${isEditing ? 'updated' : 'created'}`,
+        ),
+      })
     },
   })
 
@@ -160,7 +165,7 @@ export default function CreateEvent() {
       .map(item => ({ ...file, originFileObj: item }))
 
     if (fileSizeInMB > 5) {
-      message.error(`Файл "${file.name}" превышает 5MB`)
+      message.error(t('fields.images.max-size-limit', { value: file?.name }))
       return false
     }
 
@@ -185,7 +190,7 @@ export default function CreateEvent() {
   return (
     <div className="mb-[200px] flex flex-col gap-5">
       <Typography.Title level={3} className="text-2xl font-semibold">
-        Добавить мероприятия
+        {t('content.events.title')}
       </Typography.Title>
       <Form
         className="flex gap-6 [&_.ant-form-item-required]:before:hidden"
@@ -195,7 +200,7 @@ export default function CreateEvent() {
       >
         <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border bg-white p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
-            Добавить контента
+            {t('content.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
           <Form.Item name="content">
@@ -205,7 +210,7 @@ export default function CreateEvent() {
         <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
           <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
             <Typography.Title level={5} className="text-xl font-medium">
-              Предпросмотр
+              {t('content.preview')}
             </Typography.Title>
             <Divider className="m-0" />
             <Form.Item name="name" label={t('fields.name.label')}>
@@ -258,7 +263,7 @@ export default function CreateEvent() {
                         className="absolute right-2 top-2"
                         onClick={() => removeHandler(index, image?.id)}
                       >
-                        Удалить
+                        {t('common.delete')}
                       </Button>
                     </div>
                   ))}
@@ -310,7 +315,7 @@ export default function CreateEvent() {
           </div>
           <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
             <Typography.Title level={5} className="text-xl font-medium">
-              Дополнительная информация
+              {t('content.additional-information')}
             </Typography.Title>
             <Divider className="m-0" />
             <Form.Item name="organizer" label={t('fields.organizer.label')}>
