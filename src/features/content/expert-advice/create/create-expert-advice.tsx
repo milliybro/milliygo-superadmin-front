@@ -15,7 +15,6 @@ import {
 
 import {
   createExpertAdvice,
-  deleteExpertAdviceImage,
   getExpertAdvice,
   patchExpertAdvice,
 } from '../../api'
@@ -26,16 +25,13 @@ import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import QuillEditor from '../../components/quill-editor'
 
 import type { Rule } from 'antd/es/form'
-import type { UploadFile } from 'antd/lib'
 import type { RcFile } from 'antd/es/upload'
 
 type CreateExpertAdviceValues = {
   title: string
   description: string
   content: string
-  uploaded_images: {
-    fileList: UploadFile<RcFile>[]
-  }
+  image: RcFile
 }
 
 export default function CreateExpertAdvice() {
@@ -49,7 +45,7 @@ export default function CreateExpertAdvice() {
   const { setBreadCrumbs } = useBreadCrumbsStore()
 
   const [form] = Form.useForm()
-  const imagesField = Form.useWatch('uploaded_images', form)
+  const imageField = Form.useWatch('image', form)
   const isEditing = pathname.includes('/edit')
 
   const expertAdviceItem = useQuery({
@@ -70,16 +66,10 @@ export default function CreateExpertAdvice() {
 
   useEffect(() => {
     if (expertAdviceItem?.data) {
-      const transformedImages = expertAdviceItem.data?.images?.map(url => ({
-        id: url?.id,
-        uid: `existing-${url.id}`,
-        url: url?.image_path,
-      }))
-
       form.setFieldsValue({
         ...expertAdviceItem.data,
-        uploaded_images: {
-          fileList: transformedImages || [],
+        image: {
+          url: expertAdviceItem.data?.image || [],
         },
       })
     }
@@ -88,16 +78,8 @@ export default function CreateExpertAdvice() {
   const uploadImagesRules: Rule[] = [
     {
       validator: (_, value) => {
-        const list = value?.fileList || []
-
-        if (list.length === 0) {
+        if (!value) {
           return Promise.reject(new Error(t('fields.images.required')))
-        }
-
-        if (list.length > 6) {
-          return Promise.reject(
-            new Error(t('fields.images.max-size-limit', { value: 6 })),
-          )
         }
 
         return Promise.resolve()
@@ -112,13 +94,8 @@ export default function CreateExpertAdvice() {
       formData.append('title', values.title)
       formData.append('description', values.description)
       formData.append('content', values.content)
+      formData.append('image', values.image)
       formData.append('type', '1')
-
-      values.uploaded_images?.fileList?.forEach(file => {
-        if (file.originFileObj) {
-          formData.append('uploaded_images', file.originFileObj)
-        }
-      })
 
       if (isEditing && params?.slug) {
         return patchExpertAdvice(params.slug, formData)
@@ -138,23 +115,8 @@ export default function CreateExpertAdvice() {
     },
   })
 
-  const deleteImage = useMutation({
-    mutationFn: (values: { image_id: number }) =>
-      deleteExpertAdviceImage(values),
-    onSuccess: () => {},
-  })
-
-  const beforeUploadHandler = (file: RcFile, fileList: RcFile[]) => {
+  const beforeUploadHandler = (file: RcFile) => {
     const fileSizeInMB = file.size / 1024 / 1024
-
-    const newFiles = fileList
-      .filter(item => {
-        const fileSizeInMB = item?.size / 1024 / 1024
-        return fileSizeInMB < 6
-      })
-      .map(item => ({ ...file, originFileObj: item }))
-
-    const allFiles = [...(imagesField?.fileList || []), ...(newFiles || [])]
 
     if (fileSizeInMB > 5) {
       message.error(t('fields.images.max-size-limit', { value: file?.name }))
@@ -167,28 +129,19 @@ export default function CreateExpertAdvice() {
     //   return false
     // }
 
-    form.setFieldValue('uploaded_images', {
-      fileList: allFiles,
-    })
+    form.setFieldValue('image', file)
 
     return false
   }
 
-  const removeHandler = (index: number, imageId: number) => {
-    if (imageId) {
-      deleteImage.mutate({ image_id: imageId })
-    }
-
-    const newList = [...(imagesField?.fileList || [])]
-    newList.splice(index, 1)
-
-    form.setFieldValue('uploaded_images', { fileList: newList })
+  const removeHandler = () => {
+    form.setFieldValue('image', undefined)
   }
 
   return (
     <div className="mb-[200px] flex flex-col gap-5">
       <Typography.Title level={3} className="text-2xl font-semibold">
-        {t('content.expert-advice.title')}
+        {t(`content.expert-advice.title-${isEditing ? 'edit' : 'add'}`)}
       </Typography.Title>
       <Form
         className="flex gap-6 [&_.ant-form-item-required]:before:hidden"
@@ -198,7 +151,7 @@ export default function CreateExpertAdvice() {
       >
         <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border bg-white p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
-            {t('content.add-content')}
+            {t(isEditing ? 'content.edit-content' : 'content.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
           <Form.Item name="content">
@@ -244,38 +197,32 @@ export default function CreateExpertAdvice() {
               <div className="mb-[5px] text-[14px]">
                 {t('fields.images.label')}
               </div>
-              {imagesField?.fileList?.length > 0 ? (
+              {imageField ? (
                 <div className="grid grid-cols-3 gap-4">
-                  {imagesField?.fileList?.map((image: any, index: number) => (
-                    <div
-                      key={index}
-                      className="relative aspect-square overflow-hidden rounded-xl border"
+                  <div className="relative aspect-square overflow-hidden rounded-xl border">
+                    {imageField ? (
+                      <img
+                        src={
+                          imageField?.url
+                            ? imageField?.url
+                            : URL.createObjectURL(imageField)
+                        }
+                        alt={expertAdviceItem.data?.title}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : null}
+                    <Button
+                      danger
+                      size="small"
+                      className="absolute right-2 top-2"
+                      onClick={removeHandler}
                     >
-                      {image?.originFileObj || image?.url ? (
-                        <img
-                          src={
-                            image?.originFileObj
-                              ? URL.createObjectURL(image.originFileObj)
-                              : image?.url
-                          }
-                          alt={`preview-${index}`}
-                          className="h-full w-full object-cover"
-                        />
-                      ) : null}
-                      <Button
-                        danger
-                        size="small"
-                        className="absolute right-2 top-2"
-                        onClick={() => removeHandler(index, image?.id)}
-                      >
-                        {t('common.delete')}
-                      </Button>
-                    </div>
-                  ))}
+                      {t('common.delete')}
+                    </Button>
+                  </div>
                   <Upload.Dragger
                     className="flex size-[214.6px] flex-col items-center gap-2"
                     accept="image/*"
-                    multiple
                     showUploadList={false}
                     customRequest={({ onSuccess }) => {
                       setTimeout(() => onSuccess?.('ok'), 0)
@@ -296,7 +243,6 @@ export default function CreateExpertAdvice() {
                 <Upload.Dragger
                   className="flex flex-col items-center gap-2 [&_.ant-upload-btn]:py-12"
                   accept="image/*"
-                  multiple
                   showUploadList={false}
                   customRequest={({ onSuccess }) => {
                     setTimeout(() => onSuccess?.('ok'), 0)
@@ -315,7 +261,7 @@ export default function CreateExpertAdvice() {
                 </Upload.Dragger>
               )}
               <Form.Item
-                name="uploaded_images"
+                name="image"
                 className="m-0 [&_.ant-form-item-control-input]:min-h-0"
                 rules={uploadImagesRules}
               />
@@ -335,9 +281,8 @@ export default function CreateExpertAdvice() {
           onClick={form.submit}
           loading={createOrUpdate.isPending}
           className="duration-150 active:scale-95"
-          // disabled={images?.fileList?.length === 0}
         >
-          {params?.slug ? "O'zgartirish" : 'Yaratish'}
+          {params?.slug ? t('common.edit') : t('common.save')}
         </Button>
       </div>
     </div>

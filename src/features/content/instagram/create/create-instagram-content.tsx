@@ -6,6 +6,7 @@ import {
   Button,
   Divider,
   Form,
+  Image,
   Input,
   message,
   notification,
@@ -23,7 +24,6 @@ import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import ImageUploadIcon from '@/components/icons/image-upload'
 
 import type { Rule } from 'antd/es/form'
-import type { UploadFile } from 'antd/lib'
 import type { RcFile } from 'antd/es/upload'
 
 type CreateInstagramContentValues = {
@@ -35,9 +35,7 @@ type CreateInstagramContentValues = {
   lon: string
   lat: string
   date: string
-  images: {
-    fileList: UploadFile<RcFile>[]
-  }
+  image: RcFile
 }
 
 export default function CreateInstagramContent() {
@@ -82,16 +80,11 @@ export default function CreateInstagramContent() {
 
   const createOrUpdate = useMutation({
     mutationFn: (values: CreateInstagramContentValues) => {
-      const formattedValues = {
-        ...values,
-        images: values?.images?.fileList?.map(val => val?.originFileObj),
-      }
-
       if (isEditing && params?.slug) {
-        return patchInstagramContent(params.slug, formattedValues)
+        return patchInstagramContent(params.slug, values)
       }
 
-      return createInstagramContent(formattedValues)
+      return createInstagramContent(values)
     },
     onSuccess: () => {
       // setChecked(prev => !prev)
@@ -137,7 +130,7 @@ export default function CreateInstagramContent() {
   return (
     <div className="mb-[200px] flex flex-col gap-5">
       <Typography.Title level={3} className="text-2xl font-semibold">
-        {t('content.instagram-content.title')}
+        {t(`content.instagram-content.title-${isEditing ? 'edit' : 'add'}`)}
       </Typography.Title>
       <Form
         form={form}
@@ -147,7 +140,7 @@ export default function CreateInstagramContent() {
       >
         <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
           <Typography.Title level={5} className="text-xl font-medium">
-            {t('content.add-content')}
+            {t(isEditing ? 'content.edit-content' : 'content.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
           <Form.Item label={t('fields.name.label')} name="title">
@@ -168,46 +161,26 @@ export default function CreateInstagramContent() {
               {t('fields.images.label')}
             </div>
             {imageField ? (
-              <div className="grid grid-cols-3 gap-4">
-                <div className="relative aspect-square overflow-hidden rounded-xl border">
-                  {imageField ? (
-                    <img
-                      src={
-                        imageField?.url
-                          ? imageField?.url
-                          : URL.createObjectURL(imageField)
-                      }
-                      alt={instagramContentItem.data?.title}
-                      className="h-full w-full object-cover"
-                    />
-                  ) : null}
-                  <Button
-                    danger
-                    size="small"
-                    className="absolute right-2 top-2"
-                    onClick={removeHandler}
-                  >
-                    {t('common.delete')}
-                  </Button>
-                </div>
-                <Upload.Dragger
-                  className="flex size-[214.6px] flex-col items-center gap-2"
-                  accept="image/*"
-                  maxCount={1}
-                  showUploadList={false}
-                  customRequest={({ onSuccess }) => {
-                    setTimeout(() => onSuccess?.('ok'), 0)
-                  }}
-                  beforeUpload={beforeUploadHandler}
+              <div className="relative aspect-square h-[212px] overflow-hidden rounded-xl border">
+                {imageField ? (
+                  <Image
+                    src={
+                      imageField?.url
+                        ? imageField?.url
+                        : URL.createObjectURL(imageField)
+                    }
+                    alt={instagramContentItem.data?.title}
+                    className="h-full w-full object-cover"
+                  />
+                ) : null}
+                <Button
+                  danger
+                  size="small"
+                  className="absolute right-2 top-2"
+                  onClick={removeHandler}
                 >
-                  <ImageUploadIcon className="text-[70px]" />
-                  <Typography.Title className="m-0 text-base font-medium">
-                    {t('common.select_or_drag')}
-                  </Typography.Title>
-                  <Typography.Paragraph className="m-0 text-sm text-secondary">
-                    {t('common.images_limit')}
-                  </Typography.Paragraph>
-                </Upload.Dragger>
+                  {t('common.delete')}
+                </Button>
               </div>
             ) : (
               <Upload.Dragger
@@ -249,7 +222,7 @@ export default function CreateInstagramContent() {
           onClick={form.submit}
           loading={createOrUpdate.isPending}
         >
-          {t('common.create')}
+          {t(isEditing ? 'common.save' : 'common.create')}
         </Button>
       </div>
     </div>

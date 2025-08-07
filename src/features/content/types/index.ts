@@ -98,11 +98,7 @@ export interface IExpertAdviceDetailed {
   }
   created_at: string
   updated_at: string
-  images: {
-    id: number
-    is_main: boolean
-    image_path: string
-  }[]
+  image: string
   title: string
   description: string
   content: string
@@ -116,10 +112,7 @@ export interface IEventDetailed {
   description: string
   date: string
   location: string
-  images: {
-    id: number
-    image: string
-  }[]
+  image: string
   organizer: string
   status: boolean
   content: string

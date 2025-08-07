@@ -17,14 +17,13 @@ import {
 } from 'antd'
 
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
-import { createEvent, deleteEventImage, getEvent, patchEvent } from '../../api'
+import { createEvent, getEvent, patchEvent } from '../../api'
 
 import YandexMapPicker from './yandex-map-picker'
 import QuillEditor from '../../components/quill-editor'
 import ImageUploadIcon from '@/components/icons/image-upload'
 
 import type { Rule } from 'antd/es/form'
-import type { UploadFile } from 'antd/lib'
 import type { RcFile } from 'antd/es/upload'
 
 type CreateExpertAdviceValues = {
@@ -36,9 +35,7 @@ type CreateExpertAdviceValues = {
   lon: string
   lat: string
   date: string
-  images: {
-    fileList: UploadFile<RcFile>[]
-  }
+  image: RcFile
 }
 
 export default function CreateEvent() {
@@ -52,7 +49,7 @@ export default function CreateEvent() {
   const { setBreadCrumbs } = useBreadCrumbsStore()
 
   const [form] = Form.useForm()
-  const imagesField = Form.useWatch('images', form)
+  const imageField = Form.useWatch('image', form)
   const isEditing = pathname.includes('/edit')
 
   const eventItem = useQuery({
@@ -73,17 +70,11 @@ export default function CreateEvent() {
 
   useEffect(() => {
     if (eventItem?.data) {
-      const transformedImages = eventItem.data?.images?.map(url => ({
-        id: url?.id,
-        uid: `existing-${url.id}`,
-        url: url?.image,
-      }))
-
       form.setFieldsValue({
         ...eventItem.data,
         date: eventItem.data?.date ? dayjs(eventItem.data?.date) : undefined,
-        images: {
-          fileList: transformedImages || [],
+        image: {
+          url: eventItem.data?.image || [],
         },
       })
     }
@@ -92,16 +83,8 @@ export default function CreateEvent() {
   const uploadImagesRules: Rule[] = [
     {
       validator: (_, value) => {
-        const list = value?.fileList || []
-
-        if (list.length === 0) {
+        if (!value) {
           return Promise.reject(new Error(t('fields.images.required')))
-        }
-
-        if (list.length > 1) {
-          return Promise.reject(
-            new Error(t('fields.images.max-size-limit', { value: 1 })),
-          )
         }
 
         return Promise.resolve()
@@ -118,13 +101,8 @@ export default function CreateEvent() {
       formData.append('organizer', values.organizer)
       formData.append('content', values.content)
       formData.append('location', values.location)
+      formData.append('image', values.image)
       formData.append('date', dayjs(values.date).toISOString())
-
-      values.images?.fileList?.forEach(file => {
-        if (file.originFileObj) {
-          formData.append('uploaded_images', file.originFileObj)
-        }
-      })
 
       if (values?.lat && values?.lon) {
         formData.append('lon', values.lon)
@@ -148,49 +126,27 @@ export default function CreateEvent() {
     },
   })
 
-  const deleteImage = useMutation({
-    mutationFn: (values: { image_id: number }) => deleteEventImage(values),
-    onSuccess: () => {},
-  })
-
   const beforeUploadHandler = (file: RcFile) => {
     const fileSizeInMB = file.size / 1024 / 1024
-    const fileList = [file]
-
-    const newFiles = fileList
-      .filter(item => {
-        const fileSizeInMB = item?.size / 1024 / 1024
-        return fileSizeInMB < 6
-      })
-      .map(item => ({ ...file, originFileObj: item }))
 
     if (fileSizeInMB > 5) {
       message.error(t('fields.images.max-size-limit', { value: file?.name }))
       return false
     }
 
-    form.setFieldValue('images', {
-      fileList: newFiles,
-    })
+    form.setFieldValue('image', file)
 
     return false
   }
 
-  const removeHandler = (index: number, imageId: number) => {
-    if (imageId) {
-      deleteImage.mutate({ image_id: imageId })
-    }
-
-    const newList = [...(imagesField?.fileList || [])]
-    newList.splice(index, 1)
-
-    form.setFieldValue('images', { fileList: newList })
+  const removeHandler = () => {
+    form.setFieldValue('image', undefined)
   }
 
   return (
     <div className="mb-[200px] flex flex-col gap-5">
       <Typography.Title level={3} className="text-2xl font-semibold">
-        {t('content.events.title')}
+        {t(`content.events.title-${isEditing ? 'edit' : 'add'}`)}
       </Typography.Title>
       <Form
         className="flex gap-6 [&_.ant-form-item-required]:before:hidden"
@@ -200,7 +156,7 @@ export default function CreateEvent() {
       >
         <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border bg-white p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
-            {t('content.add-content')}
+            {t(isEditing ? 'content.edit-content' : 'content.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
           <Form.Item name="content">
@@ -239,34 +195,28 @@ export default function CreateEvent() {
               <div className="mb-[5px] text-[14px]">
                 {t('fields.images.label')}
               </div>
-              {imagesField?.fileList?.length > 0 ? (
+              {imageField ? (
                 <div className="grid grid-cols-3 gap-4">
-                  {imagesField?.fileList?.map((image: any, index: number) => (
-                    <div
-                      key={index}
-                      className="relative aspect-square overflow-hidden rounded-xl border"
+                  <div className="relative aspect-square overflow-hidden rounded-xl border">
+                    {imageField ? (
+                      <img
+                        src={
+                          imageField?.url
+                            ? imageField?.url
+                            : URL.createObjectURL(imageField)
+                        }
+                        className="h-full w-full object-cover"
+                      />
+                    ) : null}
+                    <Button
+                      danger
+                      size="small"
+                      className="absolute right-2 top-2"
+                      onClick={removeHandler}
                     >
-                      {image?.originFileObj || image?.url ? (
-                        <img
-                          src={
-                            image?.originFileObj
-                              ? URL.createObjectURL(image.originFileObj)
-                              : image?.url
-                          }
-                          alt={`preview-${index}`}
-                          className="h-full w-full object-cover"
-                        />
-                      ) : null}
-                      <Button
-                        danger
-                        size="small"
-                        className="absolute right-2 top-2"
-                        onClick={() => removeHandler(index, image?.id)}
-                      >
-                        {t('common.delete')}
-                      </Button>
-                    </div>
-                  ))}
+                      {t('common.delete')}
+                    </Button>
+                  </div>
                   <Upload.Dragger
                     className="flex size-[214.6px] flex-col items-center gap-2"
                     accept="image/*"
@@ -307,7 +257,7 @@ export default function CreateEvent() {
                 </Upload.Dragger>
               )}
               <Form.Item
-                name="images"
+                name="image"
                 className="m-0 [&_.ant-form-item-control-input]:min-h-0"
                 rules={uploadImagesRules}
               />
@@ -355,7 +305,7 @@ export default function CreateEvent() {
           onClick={form.submit}
           loading={createOrUpdate.isPending}
         >
-          {isEditing ? t('common.edit') : t('common.create')}
+          {isEditing ? t('common.edit') : t('common.save')}
         </Button>
       </div>
     </div>
