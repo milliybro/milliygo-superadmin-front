@@ -60,7 +60,7 @@ function Content() {
     },
     {
       key: 'expert-advice',
-      label: 'Expert Advice',
+      label: t('routes.expert-advices'),
       children: <ExpertAdviceContent />,
     },
     {
@@ -70,7 +70,7 @@ function Content() {
     },
     {
       key: 'events',
-      label: 'Events',
+      label: t('routes.events'),
       children: <EventsContent />,
     },
   ]
