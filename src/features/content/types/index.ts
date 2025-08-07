@@ -9,16 +9,27 @@ export interface ITopDestination {
   id: number
   title: string
   description: string
+  youtube_url: string
+  front_data: any
+  district: any
   region: IRegion
+  status: boolean
   images: {
     id: number
     is_main: boolean
     file_path: string
   }[]
-  video_url: string | null
   created_at: string
   updated_at: string
-  status: boolean
+  place_attractions: {
+    id: number
+    name: string
+    description: string
+    longitude: number
+    latitude: number
+    image: string | null
+    created_at: string
+  }[]
 }
 
 export interface INominatimResponse {

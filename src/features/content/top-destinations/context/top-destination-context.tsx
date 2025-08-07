@@ -10,12 +10,24 @@ import {
 } from 'react'
 import { getRegions, getTopDestinations } from '../../api'
 import { IRegion, ITopDestination } from '../../types'
-import { deleteTopDestination } from '../api'
+import {
+  createTopDestination,
+  deleteTopDestination,
+  editTopDestination,
+  getTopDestination,
+} from '../api'
 import { App } from 'antd'
+import { useLocation, useNavigate, useParams } from 'react-router'
+import queryString from 'query-string'
 
 interface ITopDestinationContextValue {
   topDestinations: {
     data?: ListResponse<ITopDestination[]>
+    refetch: () => void
+    isFetching: boolean
+  }
+  singleTopDestination: {
+    data?: ITopDestination
     isFetching: boolean
   }
   deleteOpen: number | null
@@ -28,8 +40,14 @@ interface ITopDestinationContextValue {
     data?: ListResponse<IRegion[]>
     isFetching: boolean
   }
-  coords: [number, number][] | null
-  setCoords: Dispatch<SetStateAction<[number, number][] | null>>
+  createTopDestination: {
+    mutate: (data: FormData) => void
+    isLoading: boolean
+  }
+  editTopDestination: {
+    mutate: (params: { id?: number | string; data: FormData }) => void
+    isLoading: boolean
+  }
 }
 
 const TopDestinationsContext =
@@ -41,14 +59,26 @@ export default function TopDestinationProvider({
   children: ReactNode
 }) {
   const [deleteOpen, setDeleteOpen] = useState<number | null>(null)
-  const [coords, setCoords] = useState<[number, number][] | null>(null)
+  const navigate = useNavigate()
+  const { search } = useLocation()
+  const queries = useMemo(() => queryString.parse(search), [search])
+
+  const { slug: destinationId } = useParams()
 
   const { notification } = App.useApp()
+
   const topDestinationsQuery = useQuery({
-    queryKey: ['topDestinations'],
-    queryFn: () => getTopDestinations(),
+    queryKey: ['topDestinations', queries],
+    queryFn: () => getTopDestinations({ ...queries, page_size: 10 }),
     enabled: true,
     placeholderData: data => data,
+  })
+
+  const singleTopDestinationQuery = useQuery({
+    queryKey: ['topDestinations', 'single', destinationId],
+    queryFn: () => getTopDestination(destinationId as string),
+    enabled: !!destinationId,
+    throwOnError: true,
   })
 
   const deleteTopDestinationMutation = useMutation({
@@ -68,11 +98,36 @@ export default function TopDestinationProvider({
     enabled: true,
   })
 
+  const createMutation = useMutation({
+    mutationFn: (data: FormData) => createTopDestination(data),
+    onSuccess: () => {
+      notification.success({
+        message: 'Направление успешно создано',
+      })
+      topDestinationsQuery.refetch()
+      navigate('/content/top-destinations')
+    },
+  })
+
+  const editMutation = useMutation({
+    mutationKey: ['editTopDestination'],
+    mutationFn: ({ data, id }: { id?: number | string; data: FormData }) =>
+      editTopDestination(destinationId! || id!, data),
+    onSuccess: () => {
+      notification.success({
+        message: 'Направление успешно обновлено',
+      })
+      topDestinationsQuery.refetch()
+      navigate('/content/top-destinations')
+    },
+  })
+
   const value = useMemo<ITopDestinationContextValue>(() => {
     return {
       topDestinations: {
         data: topDestinationsQuery.data,
         isFetching: topDestinationsQuery.isFetching,
+        refetch: topDestinationsQuery.refetch,
       },
       deleteOpen,
       setDeleteOpen,
@@ -84,8 +139,18 @@ export default function TopDestinationProvider({
         data: regionsQuery.data,
         isFetching: regionsQuery.isFetching,
       },
-      coords,
-      setCoords,
+      createTopDestination: {
+        mutate: createMutation.mutate,
+        isLoading: createMutation.isPending,
+      },
+      editTopDestination: {
+        mutate: editMutation.mutate,
+        isLoading: editMutation.isPending,
+      },
+      singleTopDestination: {
+        data: singleTopDestinationQuery.data,
+        isFetching: singleTopDestinationQuery.isFetching,
+      },
     }
   }, [
     topDestinationsQuery.data,
@@ -96,8 +161,12 @@ export default function TopDestinationProvider({
     deleteTopDestinationMutation.mutate,
     regionsQuery.data,
     regionsQuery.isFetching,
-    coords,
-    setCoords,
+    createMutation.mutate,
+    createMutation.isPending,
+    singleTopDestinationQuery.data,
+    singleTopDestinationQuery.isFetching,
+    editMutation.mutate,
+    editMutation.isPending,
   ])
 
   return (

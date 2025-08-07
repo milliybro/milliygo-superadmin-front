@@ -7,7 +7,7 @@ import PopularSpotsList from './popular-spots-list'
 import TopDestinationGallery from './top-destination-gallery'
 
 export default function CreateTopDestinationForm() {
-  const [form] = Form.useForm()
+  const form = Form.useFormInstance()
   const [checkingEmbed, setCheckingEmbed] = useState<boolean>(false)
   const youtubeUrl = Form.useWatch('youtube_url', form)
 
@@ -29,8 +29,8 @@ export default function CreateTopDestinationForm() {
           <Select
             placeholder="Выберите регион"
             options={regions?.results?.map(reg => ({
-              label: reg.name,
-              value: reg.id,
+              label: reg?.name,
+              value: reg?.id,
             }))}
             size="large"
             suffixIcon={<ArrowDownIcon className="text-xl" />}

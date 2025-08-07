@@ -1,3 +1,9 @@
 import { createImageStore } from '@/helpers/create-image-store'
 
-export const useTopDestinationImage = createImageStore('multiple')
+type TopDestinationImage = {
+  file: File | null
+  url: string
+} | null
+
+export const useTopDestinationImage =
+  createImageStore<TopDestinationImage>('multiple')

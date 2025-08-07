@@ -28,15 +28,15 @@ export function createImageStore<T = ImageItem>(
 export function createImageStore<T = ImageItem>(): UseBoundStore<
   StoreApi<ImageStore<T>>
 >
-export function createImageStore(type?: 'single' | 'multiple') {
+export function createImageStore<T = ImageItem>(type?: 'single' | 'multiple') {
   if (type === 'single') {
-    return create<SignleImageStore>(set => ({
+    return create<SignleImageStore<T>>(set => ({
       image: null,
       setImage: image => set({ image }),
       removeImage: () => set({ image: null }),
     }))
   } else {
-    return create<ImageStore>(set => ({
+    return create<ImageStore<T>>(set => ({
       images: [],
       setImages: images => set({ images }),
       addImage: image => set(state => ({ images: [...state.images, image] })),
