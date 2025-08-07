@@ -688,6 +688,7 @@
   "content": {
     "preview": "Предпросмотр",
     "add-content": "Добавить контент",
+    "edit-content": "Редактировать контент",
     "additional-information": "Дополнительная информация",
     "country-map": {
       "title": "Карта Узбекистана",
@@ -702,7 +703,8 @@
       "create-point": "Создать точку на карте"
     },
     "expert-advice": {
-      "title": "Добавить советы экспертов",
+      "title-add": "Добавить советы экспертов",
+      "title-edit": "Редактировать советы экспертов",
       "delete-modal-title": "Удалить совет?",
       "delete-modal-description": "Вы уверены, что хотите удалить этот экспертный совет?",
       "status-created": "Совет эксперта успешно добавлен",
@@ -710,7 +712,8 @@
       "status-deleted": "Совет эксперта удалён"
     },
     "instagram-content": {
-      "title": "Добавить Instagram контент",
+      "title-add": "Добавить контент Instagram контент",
+      "title-edit": "Редактировать контент Instagram контент",
       "delete-modal-title": "Удалить контент?",
       "delete-modal-description": "Вы уверены, что хотите удалить этот Instagram контент?",
       "status-created": "Контент Instagram успешно добавлен",
@@ -718,7 +721,8 @@
       "status-deleted": "Контент Instagram удалён"
     },
     "events": {
-      "title": "Добавить мероприятия",
+      "title-add": "Добавить мероприятие",
+      "title-edit": "Редактировать мероприятие",
       "delete-modal-title": "Удалить мероприятие?",
       "delete-modal-description": "Вы уверены, что хотите удалить это мероприятие?",
       "status-created": "Мероприятие успешно добавлено",

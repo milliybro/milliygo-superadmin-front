@@ -688,6 +688,7 @@
   "content": {
     "preview": "Олдиндан кўриш",
     "add-content": "Контент қўшиш",
+    "edit-content": "Контентни таҳрирлаш",
     "additional-information": "Қўшимча маълумот",
     "country-map": {
       "title": "Ўзбекистон харитаси",
@@ -702,7 +703,8 @@
       "create-point": "Харитада нуқта яратиш"
     },
     "expert-advice": {
-      "title": "Мутахассис маслаҳатини қўшиш",
+      "add-title": "Мутахассис маслаҳатини қўшиш",
+      "edit-title": "Мутахассис маслаҳатини таҳрирлаш",
       "delete-modal-title": "Маслаҳат ўчирилсинми?",
       "delete-modal-description": "Ушбу мутахассис маслаҳатини ўчирмоқчимисиз?",
       "status-created": "Мутахассис маслаҳати муваффақиятли қўшилди",
@@ -710,7 +712,8 @@
       "status-deleted": "Мутахассис маслаҳати ўчирилди"
     },
     "instagram-content": {
-      "title": "Instagram контентини қўшиш",
+      "title-add": "Instagram контентини қўшиш",
+      "title-edit": "Instagram контентини таҳрирлаш",
       "delete-modal-title": "Контент ўчирилсинми?",
       "delete-modal-description": "Ушбу Instagram контентини ўчирмоқчимисиз?",
       "status-created": "Instagram контенти муваффақиятли қўшилди",
@@ -718,7 +721,8 @@
       "status-deleted": "Instagram контенти ўчирилди"
     },
     "events": {
-      "title": "Тадбир қўшиш",
+      "title-add": "Тадбир қўшиш",
+      "title-edit": "Тадбирни таҳрирлаш",
       "delete-modal-title": "Тадбир ўчирилсинми?",
       "delete-modal-description": "Ушбу тадбирни ўчирмоқчимисиз?",
       "status-created": "Тадбир муваффақиятли қўшилди",

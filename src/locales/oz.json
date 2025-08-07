@@ -685,6 +685,7 @@
   "content": {
     "preview": "Oldindan ko‘rish",
     "add-content": "Kontent qo‘shish",
+    "edit-content": "Kontentni tahrirlash",
     "additional-information": "Qo‘shimcha ma’lumot",
     "country-map": {
       "title": "O‘zbekiston xaritasi",
@@ -699,7 +700,8 @@
       "create-point": "Xaritada nuqta yaratish"
     },
     "expert-advice": {
-      "title": "Mutaxassis maslahati qo‘shish",
+      "title-add": "Mutaxassis maslahati qo‘shish",
+      "title-edit": "Mutaxassis maslahatini tahrirlash",
       "delete-modal-title": "Maslahatni o‘chirilsinmi?",
       "delete-modal-description": "Ushbu mutaxassis maslahatini o‘chirmoqchimisiz?",
       "status-created": "Mutaxassis maslahati muvaffaqiyatli qo‘shildi",
@@ -707,7 +709,8 @@
       "status-deleted": "Mutaxassis maslahati o‘chirildi"
     },
     "instagram-content": {
-      "title": "Instagram kontentini qo‘shish",
+      "title-add": "Instagram kontentini qo‘shish",
+      "title-edit": "Instagram kontentini tahrirlash",
       "delete-modal-title": "Kontent o‘chirilsinmi?",
       "delete-modal-description": "Ushbu Instagram kontentini o‘chirmoqchimisiz?",
       "status-created": "Instagram kontenti muvaffaqiyatli qo‘shildi",
@@ -715,7 +718,8 @@
       "status-deleted": "Instagram kontenti o‘chirildi"
     },
     "events": {
-      "title": "Tadbir qo‘shish",
+      "title-add": "Tadbir qo‘shish",
+      "title-edit": "Tadbirni tahrirlash",
       "delete-modal-title": "Tadbir o‘chirilsinmi?",
       "delete-modal-description": "Ushbu tadbirni o‘chirmoqchimisiz?",
       "status-created": "Tadbir muvaffaqiyatli qo‘shildi",
