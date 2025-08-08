@@ -5,16 +5,18 @@ import { useDiscoverImage } from '../hooks/use-discover-image'
 
 export default function DiscoverGallery() {
   const { t } = useTranslation()
-  const { message } = App.useApp()
+  const { notification } = App.useApp()
   const { setImage, image, removeImage } = useDiscoverImage()
 
   const handleUpload: UploadProps['beforeUpload'] = file => {
     if (file?.size && file?.size > 5 * 1024 * 1024) {
-      message.error(t('common.images_limit'))
+      notification.error({ message: t('common.images_limit') })
       return
     }
 
     setImage({ file, url: URL.createObjectURL(file) })
+
+    return false
   }
 
   return (

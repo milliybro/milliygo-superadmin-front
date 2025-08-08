@@ -1,18 +1,31 @@
 import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
+import MegaPhoneIcon from '@/components/icons/megaphone-icon'
+import { truthyObject } from '@/helpers/truthy-object'
 import { Button, Switch, Table, TableProps, Tooltip, Typography } from 'antd'
+import queryString from 'query-string'
+import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
+import { twMerge } from 'tailwind-merge'
 import { useDiscoverContext } from '../hooks/use-discover-context'
 
-interface IProps {
-  setDeleteOpen: (id: number | null) => void
-}
-
-function DiscoverTable({ setDeleteOpen }: IProps) {
+function DiscoverTable() {
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const { discover } = useDiscoverContext()
+  const {
+    discover,
+    editDiscovery: { toggleStatusMutate, togglePending },
+    setDeleteOpen,
+  } = useDiscoverContext()
+  const { search, pathname } = useLocation()
+  const queries = useMemo(() => queryString.parse(search), [search])
+
+  const toggleStatusHandler = (slug: string, status: boolean) => {
+    const formData = new FormData()
+    formData.append('status', status ? 'true' : 'false')
+    toggleStatusMutate({ slug, data: formData })
+  }
 
   const columns: TableProps['columns'] = [
     {
@@ -20,9 +33,27 @@ function DiscoverTable({ setDeleteOpen }: IProps) {
       key: 'name',
       dataIndex: 'name',
       className: 'w-1/2',
+      sorter: true,
       render: (_, record) => (
         <div className="flex items-center gap-4">
-          <div className="size-[52px] shrink-0 rounded-2xl bg-secondary"></div>
+          <div
+            className={twMerge(
+              'size-[52px] shrink-0 overflow-hidden rounded-2xl',
+              record?.image
+                ? ''
+                : 'flex items-center justify-center bg-gray-200',
+            )}
+          >
+            {record?.image ? (
+              <img
+                src={record?.image || ''}
+                alt="Invalid image"
+                className="h-full w-full object-cover"
+              />
+            ) : (
+              <MegaPhoneIcon className="text-lg text-secondary" />
+            )}
+          </div>
           <Typography.Text className="text-sm font-medium">
             {record?.name}
           </Typography.Text>
@@ -45,7 +76,16 @@ function DiscoverTable({ setDeleteOpen }: IProps) {
       key: 'status',
       dataIndex: 'status',
       width: 0,
-      render: () => <Switch />,
+      sorter: true,
+      render: (v, record) => {
+        return (
+          <Switch
+            checked={v}
+            onChange={checked => toggleStatusHandler(record.id, checked)}
+            loading={togglePending}
+          />
+        )
+      },
     },
     {
       title: 'Действие',
@@ -67,7 +107,9 @@ function DiscoverTable({ setDeleteOpen }: IProps) {
             <Button
               type="link"
               danger
-              onClick={() => setDeleteOpen(record?.id || record?.key || null)}
+              onClick={() => {
+                setDeleteOpen(record?.id || record?.key)
+              }}
               className="p-0"
             >
               <DeleteIcon className="text-xl" />
@@ -79,22 +121,46 @@ function DiscoverTable({ setDeleteOpen }: IProps) {
   ]
 
   const dataSource = discover.data?.results?.map(item => ({
-    key: item?.id,
+    key: item?.slug,
     id: item?.slug,
     name: item?.name,
     description: item?.description,
-    status: true,
+    image: item?.image,
+    status: item?.status,
   }))
+
+  const handleTableChange: TableProps['onChange'] = (pagination, _, sorter) => {
+    const sort = Array.isArray(sorter) ? sorter[0] : sorter
+    const ordering = sort?.field
+      ? (sort?.order === 'descend' ? '-' : '') + sort?.field
+      : null
+
+    const newPage = pagination?.current
+
+    const updatedQuery = queryString.stringify(
+      truthyObject({
+        ...queries,
+        page: newPage,
+        ordering,
+      }),
+    )
+
+    navigate({ pathname, search: updatedQuery })
+  }
 
   return (
     <Table
       columns={columns}
       dataSource={dataSource}
       bordered
+      onChange={handleTableChange}
+      loading={discover.isFetching}
       pagination={{
         hideOnSinglePage: true,
         pageSize: 10,
         position: ['bottomCenter'],
+        total: discover.data?.count || 0,
+        current: Number(queries?.page) || 1,
       }}
     />
   )

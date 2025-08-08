@@ -1,3 +1,8 @@
 import { createImageStore } from '@/helpers/create-image-store'
 
-export const useDiscoverImage = createImageStore('single')
+interface DiscoverImage {
+  file: File | null
+  url: string
+}
+
+export const useDiscoverImage = createImageStore<DiscoverImage>('single')

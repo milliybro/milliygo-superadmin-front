@@ -98,7 +98,10 @@ function CountryMapSVG({
         <g id="regions" className="*:cursor-pointer">
           {regionPaths?.map(reg => <RegionSVG reg={reg} key={reg?.id} />)}
           {selectedRegion !== null && (
-            <RegionPointsSVG scaleFactor={scaleFactor} exclude={pointId} />
+            <RegionPointsSVG
+              scaleFactor={scaleFactor}
+              exclude={isCreating ? -1 : pointId}
+            />
           )}
           {(isCreating || isEdit) && (
             <NewRegionPoint

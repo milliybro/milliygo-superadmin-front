@@ -7,23 +7,46 @@ import { useLocation } from 'react-router'
 import CreateDiscoverForm from '../../components/create-discover-form'
 import { useDiscoverContext } from '../../hooks/use-discover-context'
 import { useDiscoverImage } from '../../hooks/use-discover-image'
+import { ICreateDiscoverForm } from '../../types'
 
 export default function CreateDiscoverContent() {
   const { setBreadCrumbs } = useBreadCrumbsStore()
-  const [form] = Form.useForm()
+  const [form] = Form.useForm<ICreateDiscoverForm>()
   const { singleDiscover, editDiscovery, createDiscovery } =
     useDiscoverContext()
 
   const { pathname } = useLocation()
-  const { image } = useDiscoverImage()
+  const { image, setImage, removeImage } = useDiscoverImage()
 
   const { t } = useTranslation()
 
   useEffect(() => {
+    removeImage()
+
+    return () => {
+      removeImage()
+    }
+  }, [])
+
+  useEffect(() => {
     if (singleDiscover?.data) {
       form.setFieldsValue({
-        title: singleDiscover.data.name,
+        name: singleDiscover.data.name || '',
+        content: singleDiscover.data.content || '',
+        description: singleDiscover.data.description || '',
+        status: singleDiscover.data.status,
+        social_links: singleDiscover.data.social_links.map(item => ({
+          platform: item.platform,
+          url: item.url,
+        })),
       })
+
+      if (singleDiscover.data.image) {
+        setImage({
+          file: null,
+          url: singleDiscover.data.image,
+        })
+      }
     }
   }, [singleDiscover])
 
@@ -47,24 +70,27 @@ export default function CreateDiscoverContent() {
     ])
   }, [])
 
-  const finishHandler = (values: any) => {
-    const translations = {
-      ru: {
-        title: values.title,
-        description: values.description,
-        content: values.content,
-      },
+  const finishHandler = (values: ICreateDiscoverForm) => {
+    const formData = new FormData()
+
+    formData.append('name', values.name)
+    formData.append('description', values.description)
+    formData.append('content', values.content)
+    formData.append('status', String(values.status))
+
+    if (image?.file) {
+      formData.append('image', image.file)
     }
 
-    const submittingData = {
-      translations: JSON.stringify(translations),
-      image: image?.file,
-    }
+    values?.social_links?.map((item: any, i: number) => {
+      formData.append(`social_links[${i}]platform`, item.platform)
+      formData.append(`social_links[${i}]url`, item.url)
+    })
 
     if (pathname.includes('edit')) {
-      editDiscovery.mutate(submittingData)
+      editDiscovery.mutate(formData)
     } else if (pathname.includes('create')) {
-      createDiscovery.mutate(submittingData)
+      createDiscovery.mutate(formData)
     }
   }
 
