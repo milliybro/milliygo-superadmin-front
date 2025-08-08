@@ -1,6 +1,6 @@
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { Button, Divider, Form, Typography } from 'antd'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import QuillEditor from '@/features/content/components/quill-editor'
@@ -29,11 +29,17 @@ export default function TopDestinationForm() {
 
   useEffect(() => {
     setBreadCrumbs([
-      { title: 'Главная', href: '/' },
-      { title: 'Контент', href: '/content/top-destinations' },
-      { title: 'Лучшие направления' },
+      { title: t('common.main'), href: '/' },
+      { title: t('routes.content'), href: '/content' },
+      {
+        title: t('content.top_destinations.title'),
+        href: '/content/top-destinations',
+      },
     ])
   }, [])
+
+  const isEdit = useMemo(() => pathname.includes('/edit'), [pathname])
+  const isCreate = useMemo(() => pathname.includes('/create'), [pathname])
 
   useEffect(() => {
     if (data) {
@@ -99,9 +105,9 @@ export default function TopDestinationForm() {
         formData.append(`place_attractions[${i}]image`, placeImages?.[i]?.file)
     })
 
-    if (pathname.includes('edit')) {
+    if (isEdit) {
       editMutate({ data: formData })
-    } else if (pathname.includes('create')) {
+    } else if (isCreate) {
       createMutate(formData)
     }
   }
@@ -109,7 +115,11 @@ export default function TopDestinationForm() {
   return (
     <div className="mb-[200px] flex flex-col gap-5">
       <Typography.Title level={3} className="text-2xl font-semibold">
-        Добавить лучшие направления
+        {isEdit
+          ? t('content.top_destinations.edit')
+          : isCreate
+            ? t('content.top_destinations.add')
+            : ''}
       </Typography.Title>
       <Form
         className="flex gap-10"
@@ -120,7 +130,7 @@ export default function TopDestinationForm() {
       >
         <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
-            Добавить контента
+            {t('content.top_destinations.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
           <Form.Item name="description" className="mb-0">

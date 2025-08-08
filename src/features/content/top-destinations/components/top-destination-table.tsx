@@ -47,7 +47,7 @@ function TopDestinationsTable() {
 
   const columns: TableProps['columns'] = [
     {
-      title: 'Название',
+      title: t('common.name'),
       key: 'title',
       dataIndex: 'title',
       className: 'w-2/5',
@@ -61,7 +61,7 @@ function TopDestinationsTable() {
       ),
     },
     {
-      title: 'Описание',
+      title: t('common.description'),
       key: 'description',
       dataIndex: 'description',
       className: 'h-[80px] overflow-hidden',
@@ -70,7 +70,7 @@ function TopDestinationsTable() {
       },
     },
     {
-      title: 'Статус',
+      title: t('fields.status.label'),
       key: 'status',
       dataIndex: 'status',
       width: 0,
@@ -83,7 +83,7 @@ function TopDestinationsTable() {
       ),
     },
     {
-      title: 'Действие',
+      title: t('common.action'),
       key: 'action',
       dataIndex: 'action',
       width: 0,

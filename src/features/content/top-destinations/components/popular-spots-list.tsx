@@ -50,7 +50,7 @@ export default function PopularSpotsList() {
                 name={[field.name, 'name']}
                 label={
                   <div className="flex w-full items-center justify-between">
-                    <div className="grow">Название места</div>
+                    <div className="grow">{t('fields.place_name.label')}</div>
                     {fields.length > 1 && (
                       <Button
                         danger
@@ -67,19 +67,22 @@ export default function PopularSpotsList() {
                 }
                 className="[&_.ant-form-item-label]:w-full [&_.ant-form-item-label_label::after]:hidden [&_.ant-form-item-label_label]:w-full"
               >
-                <Input placeholder="Введите название" size="large" />
-              </Form.Item>
-              <Form.Item
-                name={[field.name, 'description']}
-                label="Описание места"
-              >
-                <Input.TextArea
-                  rows={5}
-                  placeholder="Введите описание"
+                <Input
+                  placeholder={t('fields.place_name.placeholder')}
                   size="large"
                 />
               </Form.Item>
-              <Form.Item label="Изображение">
+              <Form.Item
+                name={[field.name, 'description']}
+                label={t('fields.place_description.label')}
+              >
+                <Input.TextArea
+                  rows={5}
+                  placeholder={t('fields.place_description.placeholder')}
+                  size="large"
+                />
+              </Form.Item>
+              <Form.Item label={t('fields.image.label')}>
                 {images[field?.name]?.url ? (
                   <div className="group relative h-[250px] w-full overflow-hidden rounded-2xl border">
                     <img
@@ -94,7 +97,7 @@ export default function PopularSpotsList() {
                           updateImage(field.name, null)
                         }}
                       >
-                        Изменить изображение
+                        {t('fields.image.edit')}
                       </Button>
                     </div>
                   </div>
@@ -138,7 +141,7 @@ export default function PopularSpotsList() {
             type="dashed"
             size="large"
           >
-            Добавить место
+            {t('content.top_destinations.add_place')}
           </Button>
         </>
       )}

@@ -19,6 +19,7 @@ import {
 import { App } from 'antd'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import queryString from 'query-string'
+import { useTranslation } from 'react-i18next'
 
 interface ITopDestinationContextValue {
   topDestinations: {
@@ -62,6 +63,7 @@ export default function TopDestinationProvider({
   const navigate = useNavigate()
   const { search } = useLocation()
   const queries = useMemo(() => queryString.parse(search), [search])
+  const { t } = useTranslation()
 
   const { slug: destinationId } = useParams()
 
@@ -86,7 +88,7 @@ export default function TopDestinationProvider({
     onSuccess: () => {
       topDestinationsQuery.refetch()
       notification.success({
-        message: 'Направление успешно удалено',
+        message: t('content.top_destinations.delete-success'),
       })
       setDeleteOpen(null)
     },
@@ -102,7 +104,7 @@ export default function TopDestinationProvider({
     mutationFn: (data: FormData) => createTopDestination(data),
     onSuccess: () => {
       notification.success({
-        message: 'Направление успешно создано',
+        message: t('content.top_destinations.create-success'),
       })
       topDestinationsQuery.refetch()
       navigate('/content/top-destinations')
@@ -115,7 +117,7 @@ export default function TopDestinationProvider({
       editTopDestination(destinationId! || id!, data),
     onSuccess: () => {
       notification.success({
-        message: 'Направление успешно обновлено',
+        message: t('content.top_destinations.edit-success'),
       })
       topDestinationsQuery.refetch()
       navigate('/content/top-destinations')

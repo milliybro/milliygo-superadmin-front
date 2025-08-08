@@ -22,7 +22,7 @@ export default function TopDestinationGallery() {
 
   return (
     <>
-      <Form.Item label="Добавить фотографии">
+      <Form.Item label={t('fields.add-photo.label')}>
         <Upload.Dragger
           className="mb-2 flex flex-col items-center gap-2 [&_.ant-upload-btn]:py-12"
           accept="image/*"
