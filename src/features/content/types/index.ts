@@ -100,6 +100,46 @@ export interface IExpertAdvice {
   content: string
 }
 
+export interface IExpertAdviceDetailed {
+  id: number
+  slug: string
+  type: {
+    id: number
+    name: string
+  }
+  created_at: string
+  updated_at: string
+  image: string
+  title: string
+  description: string
+  content: string
+  status: boolean
+}
+
+export interface IEventDetailed {
+  id: number
+  slug: string
+  name: string
+  description: string
+  date: string
+  location: string
+  image: string
+  organizer: string
+  status: boolean
+  content: string
+  lon: number
+  lat: number
+}
+
+export interface IInstagramDetailed {
+  id: number
+  title: string
+  description: string
+  url: string
+  image: string
+  is_active: boolean
+}
+
 export interface Type {
   id: number
   name: string

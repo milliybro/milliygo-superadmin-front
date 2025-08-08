@@ -1,29 +1,30 @@
 import dayjs from 'dayjs'
 import { useEffect } from 'react'
-import { useNavigate } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useLocation, useNavigate, useParams } from 'react-router'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 
 import {
   Button,
   DatePicker,
   Divider,
   Form,
+  Image,
   Input,
   message,
+  notification,
   Typography,
   Upload,
 } from 'antd'
 
-import { createEvent } from '../../api'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
+import { createEvent, getEvent, patchEvent } from '../../api'
 
 import YandexMapPicker from './yandex-map-picker'
 import QuillEditor from '../../components/quill-editor'
 import ImageUploadIcon from '@/components/icons/image-upload'
 
 import type { Rule } from 'antd/es/form'
-import type { UploadFile } from 'antd/lib'
 import type { RcFile } from 'antd/es/upload'
 
 type CreateExpertAdviceValues = {
@@ -35,21 +36,64 @@ type CreateExpertAdviceValues = {
   lon: string
   lat: string
   date: string
-  images: {
-    fileList: UploadFile<RcFile>[]
-  }
+  image: RcFile
 }
 
 export default function CreateEvent() {
-  const { t } = useTranslation()
+  const params = useParams()
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+
+  const { t } = useTranslation()
   const queryClient = useQueryClient()
+
   const { setBreadCrumbs } = useBreadCrumbsStore()
 
   const [form] = Form.useForm()
-  const imagesField = Form.useWatch('images', form)
+  const imageField = Form.useWatch('image', form)
+  const isEditing = pathname.includes('/edit')
 
-  const create = useMutation({
+  const eventItem = useQuery({
+    queryKey: ['events-item', params.slug],
+    queryFn: () => getEvent(params.slug),
+    enabled: Boolean(params.slug),
+    gcTime: 0,
+    staleTime: 0,
+  })
+
+  useEffect(() => {
+    setBreadCrumbs([
+      { title: t('common.main'), href: '/' },
+      { title: t('routes.content'), href: '/content/events' },
+      { title: t('routes.events') },
+    ])
+  }, [])
+
+  useEffect(() => {
+    if (eventItem?.data) {
+      form.setFieldsValue({
+        ...eventItem.data,
+        date: eventItem.data?.date ? dayjs(eventItem.data?.date) : undefined,
+        image: {
+          url: eventItem.data?.image || [],
+        },
+      })
+    }
+  }, [eventItem.data])
+
+  const uploadImagesRules: Rule[] = [
+    {
+      validator: (_, value) => {
+        if (!value) {
+          return Promise.reject(new Error(t('fields.images.required')))
+        }
+
+        return Promise.resolve()
+      },
+    },
+  ]
+
+  const createOrUpdate = useMutation({
     mutationFn: (values: CreateExpertAdviceValues) => {
       const formData = new FormData()
 
@@ -58,19 +102,16 @@ export default function CreateEvent() {
       formData.append('organizer', values.organizer)
       formData.append('content', values.content)
       formData.append('location', values.location)
+      formData.append('image', values.image)
       formData.append('date', dayjs(values.date).toISOString())
-
-      console.log(values)
-
-      values.images?.fileList?.forEach(file => {
-        if (file.originFileObj) {
-          formData.append('uploaded_images', file.originFileObj)
-        }
-      })
 
       if (values?.lat && values?.lon) {
         formData.append('lon', values.lon)
         formData.append('lat', values.lat)
+      }
+
+      if (isEditing && params?.slug) {
+        return patchEvent(params.slug, formData)
       }
 
       return createEvent(formData)
@@ -78,82 +119,45 @@ export default function CreateEvent() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['events'] })
       navigate('/content/events')
-      message.success('Event created!')
+      notification.success({
+        message: t(
+          `content.events.status-${isEditing ? 'updated' : 'created'}`,
+        ),
+      })
     },
   })
 
-  const uploadImagesRules: Rule[] = [
-    {
-      validator: (_, value) => {
-        const list = value?.fileList || []
-
-        if (list.length === 0) {
-          return Promise.reject(new Error('Загрузите изображение'))
-        }
-
-        if (list.length > 1) {
-          return Promise.reject(
-            new Error('Вы можете загрузить не более 1 изображений.'),
-          )
-        }
-
-        return Promise.resolve()
-      },
-    },
-  ]
-
   const beforeUploadHandler = (file: RcFile) => {
     const fileSizeInMB = file.size / 1024 / 1024
-    const fileList = [file]
-
-    const newFiles = fileList
-      .filter(item => {
-        const fileSizeInMB = item?.size / 1024 / 1024
-        return fileSizeInMB < 6
-      })
-      .map(item => ({ ...file, originFileObj: item }))
 
     if (fileSizeInMB > 5) {
-      message.error(`Файл "${file.name}" превышает 5MB`)
+      message.error(t('fields.images.max-size-limit', { value: file?.name }))
       return false
     }
 
-    form.setFieldValue('images', {
-      fileList: newFiles,
-    })
+    form.setFieldValue('image', file)
 
     return false
   }
 
-  const removeHandler = (index: number) => {
-    const newList = [...(imagesField?.fileList || [])]
-    newList.splice(index, 1)
-
-    form.setFieldValue('images', { fileList: newList })
+  const removeHandler = () => {
+    form.setFieldValue('image', undefined)
   }
-
-  useEffect(() => {
-    setBreadCrumbs([
-      { title: 'Главная', href: '/' },
-      { title: 'Контент', href: '/content/events' },
-      { title: 'Мероприятия' },
-    ])
-  }, [])
 
   return (
     <div className="mb-[200px] flex flex-col gap-5">
       <Typography.Title level={3} className="text-2xl font-semibold">
-        Добавить мероприятия
+        {t(`content.events.title-${isEditing ? 'edit' : 'add'}`)}
       </Typography.Title>
       <Form
         className="flex gap-6 [&_.ant-form-item-required]:before:hidden"
         form={form}
         layout="vertical"
-        onFinish={create.mutate}
+        onFinish={createOrUpdate.mutate}
       >
         <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border bg-white p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
-            Добавить контента
+            {t(isEditing ? 'content.edit-content' : 'content.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
           <Form.Item name="content">
@@ -163,24 +167,24 @@ export default function CreateEvent() {
         <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
           <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
             <Typography.Title level={5} className="text-xl font-medium">
-              Предпросмотр
+              {t('content.preview')}
             </Typography.Title>
             <Divider className="m-0" />
-            <Form.Item name="name" label="Название">
-              <Input placeholder="Введите название" size="large" />
+            <Form.Item name="name" label={t('fields.name.label')}>
+              <Input placeholder={t('fields.name.placeholder')} size="large" />
             </Form.Item>
             <Form.Item
-              label="Опишите описание"
+              label={t('fields.description.label')}
               name="description"
               rules={[
                 {
                   required: true,
-                  message: "Maydonni to'ldiring",
+                  message: t('fields.description.required'),
                 },
               ]}
             >
               <Input.TextArea
-                placeholder="Причина"
+                placeholder={t('fields.description.placeholder')}
                 rows={6}
                 className="resize-none"
               />
@@ -189,65 +193,41 @@ export default function CreateEvent() {
             <Form.Item name="lat" hidden noStyle />
 
             <div className="flex flex-col">
-              <div className="mb-[5px] text-[14px]">Добавить фотографии</div>
-              {imagesField?.fileList?.length > 0 ? (
-                <div className="grid grid-cols-3 gap-4">
-                  {imagesField?.fileList?.map((image: any, index: number) => (
-                    <div
-                      key={index}
-                      className="relative aspect-square overflow-hidden rounded-xl border"
-                    >
-                      {image?.originFileObj ? (
-                        <img
-                          src={URL.createObjectURL(image?.originFileObj)}
-                          alt={`preview-${index}`}
-                          className="h-full w-full object-cover"
-                        />
-                      ) : null}
-                      <Button
-                        danger
-                        size="small"
-                        className="absolute right-2 top-2"
-                        onClick={() => removeHandler(index)}
-                      >
-                        Удалить
-                      </Button>
-                    </div>
-                  ))}
-                  <Upload.Dragger
-                    className="flex size-[214.6px] flex-col items-center gap-2"
-                    accept="image/*"
-                    // multiple
-                    maxCount={1}
-                    showUploadList={false}
-                    customRequest={({ onSuccess }) => {
-                      setTimeout(() => onSuccess?.('ok'), 0)
-                    }}
-                    beforeUpload={beforeUploadHandler}
-                    // beforeUpload={handleUpload}
+              <div className="mb-[5px] text-[14px]">
+                {t('fields.images.label')}
+              </div>
+              {imageField ? (
+                <div className="relative flex aspect-square h-[212px] overflow-hidden rounded-xl border">
+                  {imageField ? (
+                    <Image
+                      src={
+                        imageField?.url
+                          ? imageField?.url
+                          : URL.createObjectURL(imageField)
+                      }
+                      preview={{ toolbarRender: () => null }}
+                      wrapperClassName="h-full w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:object-cover"
+                    />
+                  ) : null}
+                  <Button
+                    danger
+                    size="small"
+                    className="absolute right-2 top-2"
+                    onClick={removeHandler}
                   >
-                    <ImageUploadIcon className="text-[70px]" />
-                    <Typography.Title className="m-0 text-base font-medium">
-                      {t('common.select_or_drag')}
-                    </Typography.Title>
-                    <Typography.Paragraph className="m-0 text-sm text-secondary">
-                      {t('common.images_limit')}
-                    </Typography.Paragraph>
-                  </Upload.Dragger>
+                    {t('common.delete')}
+                  </Button>
                 </div>
               ) : (
                 <Upload.Dragger
                   className="flex flex-col items-center gap-2 [&_.ant-upload-btn]:py-12"
                   accept="image/*"
-                  // multiple
                   maxCount={1}
                   showUploadList={false}
                   customRequest={({ onSuccess }) => {
                     setTimeout(() => onSuccess?.('ok'), 0)
                   }}
                   beforeUpload={beforeUploadHandler}
-
-                  // beforeUpload={handleUpload}
                 >
                   <ImageUploadIcon className="text-[70px]" />
                   <Typography.Title className="m-0 text-base font-medium">
@@ -259,7 +239,7 @@ export default function CreateEvent() {
                 </Upload.Dragger>
               )}
               <Form.Item
-                name="images"
+                name="image"
                 className="m-0 [&_.ant-form-item-control-input]:min-h-0"
                 rules={uploadImagesRules}
               />
@@ -267,17 +247,27 @@ export default function CreateEvent() {
           </div>
           <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
             <Typography.Title level={5} className="text-xl font-medium">
-              Дополнительная информация
+              {t('content.additional-information')}
             </Typography.Title>
             <Divider className="m-0" />
-            <Form.Item name="organizer" label="Организатор">
-              <Input placeholder="Написать название" size="large" />
+            <Form.Item name="organizer" label={t('fields.organizer.label')}>
+              <Input
+                placeholder={t('fields.organizer.placeholder')}
+                size="large"
+              />
             </Form.Item>
-            <Form.Item label="Дата" name="date">
-              <DatePicker placeholder="Дата" size="large" className="w-full" />
+            <Form.Item label={t('fields.date.label')} name="date">
+              <DatePicker
+                placeholder={t('fields.date.placeholder')}
+                size="large"
+                className="w-full"
+              />
             </Form.Item>
-            <Form.Item label="Адрес" name="location">
-              <Input placeholder="Введите адрес вашего отеля" size="large" />
+            <Form.Item label={t('fields.address.label')} name="location">
+              <Input
+                placeholder={t('fields.address.placeholder2')}
+                size="large"
+              />
             </Form.Item>
             <Form.Item className="overflow-hidden rounded-xl border">
               <YandexMapPicker />
@@ -286,9 +276,18 @@ export default function CreateEvent() {
         </div>
       </Form>
       <div className="flex justify-end gap-4">
-        <Button disabled={create.isPending}>Ortga</Button>
-        <Button type="primary" onClick={form.submit} loading={create.isPending}>
-          Yaratish
+        <Button
+          disabled={createOrUpdate.isPending}
+          onClick={() => navigate('/content/events')}
+        >
+          {t('common.cancel')}
+        </Button>
+        <Button
+          type="primary"
+          onClick={form.submit}
+          loading={createOrUpdate.isPending}
+        >
+          {isEditing ? t('common.edit') : t('common.save')}
         </Button>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 import { Button, notification } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -13,6 +14,7 @@ import type { FC } from 'react'
 import type { IInstagramContent } from '../../types'
 
 const InstagramAction: FC<IInstagramContent> = props => {
+  const navigate = useNavigate()
   const { t } = useTranslation()
   const queryClient = useQueryClient()
   const [deleteOpen, setDeleteOpen] = useState(false)
@@ -25,7 +27,9 @@ const InstagramAction: FC<IInstagramContent> = props => {
       // }
 
       setDeleteOpen(false)
-      notification.success({ message: 'Контент успешно удалён' })
+      notification.success({
+        message: t('content.instagram-content.status-deleted'),
+      })
       queryClient.invalidateQueries({ queryKey: ['instagram-contents'] })
     },
   })
@@ -37,11 +41,11 @@ const InstagramAction: FC<IInstagramContent> = props => {
   return (
     <>
       <div className="flex items-center text-base font-medium">
-        <Button type="link">
-          <EditIcon className="text-xl" /> {t('Редактировать')}
+        <Button type="link" onClick={() => navigate(`edit/${props?.id}`)}>
+          <EditIcon className="text-xl" /> {t('common.edit')}
         </Button>
         <Button type="link" danger onClick={handleDelete}>
-          <DeleteIcon className="text-xl" /> {t('Удалить')}
+          <DeleteIcon className="text-xl" /> {t('common.delete')}
         </Button>
       </div>
 
@@ -50,10 +54,8 @@ const InstagramAction: FC<IInstagramContent> = props => {
         onClose={() => setDeleteOpen(false)}
         onDelete={() => deleteMutate.mutate()}
         isLoading={deleteMutate?.isPending}
-        title={t('Удалить контент?')}
-        description={t(
-          'Вы уверены, что хотите удалить этот Instagram контент?',
-        )}
+        title={t('content.instagram-content.delete-modal-title')}
+        description={t('content.instagram-content.delete-modal-description')}
       />
     </>
   )

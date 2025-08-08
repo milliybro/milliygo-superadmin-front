@@ -1,8 +1,13 @@
-import { ListResponse, ListResponseShort } from '@/types'
-import {
+import requestSuper from '@/utils/superRequest'
+
+import type { ListResponse, ListResponseShort } from '@/types'
+import type {
   IEvent,
+  IEventDetailed,
   IExpertAdvice,
+  IExpertAdviceDetailed,
   IInstagramContent,
+  IInstagramDetailed,
   IPatchEventData,
   IPatchExpertAdviceData,
   IPatchInstagramContentData,
@@ -10,7 +15,6 @@ import {
   IRegionMapPoint,
   ITopDestination,
 } from '../types'
-import requestSuper from '@/utils/superRequest'
 
 export async function getRegions(
   params?: any,
@@ -101,6 +105,15 @@ export async function getExpertAdvices(params?: {
   })
 }
 
+export async function getExpertAdvice(
+  slug?: string,
+): Promise<IExpertAdviceDetailed> {
+  return await requestSuper({
+    url: `/site-content/expert_advice/${slug}/`,
+    method: 'get',
+  })
+}
+
 export async function deleteExpertAdvice(slug: string) {
   return await requestSuper({
     url: `/site-content/expert_advice/${slug}/`,
@@ -119,9 +132,17 @@ export async function createExpertAdvice(data: FormData) {
   })
 }
 
+export async function deleteExpertAdviceImage(params: { image_id: number }) {
+  return await requestSuper({
+    url: `/site-content/expert_advice/delete/image/`,
+    method: 'delete',
+    params,
+  })
+}
+
 export async function patchExpertAdvice(
   slug: string,
-  data: IPatchExpertAdviceData,
+  data: IPatchExpertAdviceData | FormData,
 ) {
   return await requestSuper({
     url: `/site-content/expert_advice/${slug}/`,
@@ -139,6 +160,13 @@ export async function getEvents(params?: {
     url: '/site-content/events/',
     method: 'get',
     params,
+  })
+}
+
+export async function getEvent(slug?: string): Promise<IEventDetailed> {
+  return await requestSuper({
+    url: `/site-content/events/${slug}/`,
+    method: 'get',
   })
 }
 
@@ -160,11 +188,25 @@ export async function createEvent(data: FormData) {
   })
 }
 
-export async function patchEvent(slug: string, data: IPatchEventData) {
+export async function patchEvent(
+  slug: string,
+  data: IPatchEventData | FormData,
+) {
   return await requestSuper({
     url: `/site-content/events/${slug}/`,
     method: 'patch',
     data,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+}
+
+export async function deleteEventImage(params: { image_id: number }) {
+  return await requestSuper({
+    url: `/site-content/events/delete/image/`,
+    method: 'delete',
+    params,
   })
 }
 
@@ -177,6 +219,15 @@ export async function getInstagramContents(params?: {
     url: '/site-content/instagram_contents/',
     method: 'get',
     params,
+  })
+}
+
+export async function getInstagramContent(
+  slug?: string,
+): Promise<IInstagramDetailed> {
+  return await requestSuper({
+    url: `/site-content/instagram_contents/${slug}/`,
+    method: 'get',
   })
 }
 
@@ -199,12 +250,15 @@ export async function createInstagramContent(data: IPatchExpertAdviceData) {
 }
 
 export async function patchInstagramContent(
-  id: number,
-  data: IPatchInstagramContentData,
+  id: number | string,
+  data: IPatchInstagramContentData | IPatchExpertAdviceData,
 ) {
   return await requestSuper({
     url: `/site-content/instagram_contents/${id}/`,
     method: 'patch',
     data,
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
   })
 }

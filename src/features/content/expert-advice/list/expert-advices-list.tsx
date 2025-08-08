@@ -62,33 +62,33 @@ function ExpertAdvicesList() {
 
   const columns: TableColumnsType<IExpertAdvice> = [
     {
-      title: t('Название'),
+      title: t('fields.name.label'),
       dataIndex: 'title',
-      width: 500,
+      width: 1000,
       render: (_, record) => <ExpertAdviceTitle {...record} />,
       sorter: true,
       sortOrder: getTableSortOrder(orderingFields, 'title'),
     },
     {
-      title: t('Описание'),
+      title: t('fields.description.label'),
       dataIndex: 'description',
-      width: 500,
+      width: 1000,
       render: (_, record) => <ExpertAdviceDescription {...record} />,
       sorter: true,
       sortOrder: getTableSortOrder(orderingFields, 'description'),
     },
     {
-      title: t('Статус'),
+      title: t('fields.status.label'),
       dataIndex: 'status',
-      width: 95,
+      width: 0,
       render: (_, record) => <ExpertAdviceStatus {...record} />,
       sorter: true,
       sortOrder: getTableSortOrder(orderingFields, 'status'),
     },
     {
-      title: t('Действие'),
+      title: t('common.action'),
       dataIndex: 'action',
-      width: 318.3,
+      width: 0,
       render: (_, record) => <ExpertAdviceAction {...record} />,
     },
   ]

@@ -1,10 +1,24 @@
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useNavigate, useParams } from 'react-router'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { Button, Divider, Form, Input, message, Typography, Upload } from 'antd'
+import { useLocation, useNavigate, useParams } from 'react-router'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import {
+  Button,
+  Divider,
+  Form,
+  Image,
+  Input,
+  message,
+  notification,
+  Typography,
+  Upload,
+} from 'antd'
 
-import { createExpertAdvice } from '../../api'
+import {
+  createExpertAdvice,
+  getExpertAdvice,
+  patchExpertAdvice,
+} from '../../api'
 
 import ImageUploadIcon from '@/components/icons/image-upload'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
@@ -12,75 +26,61 @@ import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import QuillEditor from '../../components/quill-editor'
 
 import type { Rule } from 'antd/es/form'
-import type { UploadFile } from 'antd/lib'
 import type { RcFile } from 'antd/es/upload'
 
 type CreateExpertAdviceValues = {
   title: string
   description: string
   content: string
-  uploaded_images: {
-    fileList: UploadFile<RcFile>[]
-  }
+  image: RcFile
 }
 
 export default function CreateExpertAdvice() {
-  const { t } = useTranslation()
+  const params = useParams()
   const navigate = useNavigate()
+  const { pathname } = useLocation()
+
+  const { t } = useTranslation()
   const queryClient = useQueryClient()
-  const asd = useParams()
-  console.log(asd)
 
   const { setBreadCrumbs } = useBreadCrumbsStore()
+
   const [form] = Form.useForm()
-  const images = Form.useWatch('uploaded_images', form)
+  const imageField = Form.useWatch('image', form)
+  const isEditing = pathname.includes('/edit')
 
-  const create = useMutation({
-    mutationFn: (values: CreateExpertAdviceValues) => {
-      const formData = new FormData()
-
-      formData.append('title', values.title)
-      formData.append('description', values.description)
-      formData.append('content', values.content)
-      formData.append('type', '1')
-
-      values.uploaded_images?.fileList?.forEach(file => {
-        if (file.originFileObj) {
-          formData.append('uploaded_images', file.originFileObj)
-        }
-      })
-
-      return createExpertAdvice(formData)
-    },
-    onSuccess: () => {
-      // setChecked(prev => !prev)
-      queryClient.invalidateQueries({ queryKey: ['expert-advices'] })
-      navigate('/content/expert-advice')
-      message.success('Expert advice created!')
-    },
+  const expertAdviceItem = useQuery({
+    queryKey: ['expert-advices-item', params.slug],
+    queryFn: () => getExpertAdvice(params.slug),
+    enabled: Boolean(params.slug),
+    gcTime: 0,
+    staleTime: 0,
   })
 
   useEffect(() => {
     setBreadCrumbs([
-      { title: 'Главная', href: '/' },
-      { title: 'Контент', href: '/content/expert-advice' },
-      { title: 'Советы экспертов' },
+      { title: t('common.main'), href: '/' },
+      { title: t('routes.content'), href: '/content/expert-advice' },
+      { title: t('routes.expert-advices') },
     ])
   }, [])
+
+  useEffect(() => {
+    if (expertAdviceItem?.data) {
+      form.setFieldsValue({
+        ...expertAdviceItem.data,
+        image: {
+          url: expertAdviceItem.data?.image || [],
+        },
+      })
+    }
+  }, [expertAdviceItem.data])
 
   const uploadImagesRules: Rule[] = [
     {
       validator: (_, value) => {
-        const list = value?.fileList || []
-
-        if (list.length === 0) {
-          return Promise.reject(new Error('Загрузите хотя бы одно изображение'))
-        }
-
-        if (list.length > 6) {
-          return Promise.reject(
-            new Error('Вы можете загрузить не более 6 изображений.'),
-          )
+        if (!value) {
+          return Promise.reject(new Error(t('fields.images.required')))
         }
 
         return Promise.resolve()
@@ -88,20 +88,39 @@ export default function CreateExpertAdvice() {
     },
   ]
 
-  const beforeUploadHandler = (file: RcFile, fileList: RcFile[]) => {
+  const createOrUpdate = useMutation({
+    mutationFn: (values: CreateExpertAdviceValues) => {
+      const formData = new FormData()
+
+      formData.append('title', values.title)
+      formData.append('description', values.description)
+      formData.append('content', values.content)
+      formData.append('image', values.image)
+      formData.append('type', '1')
+
+      if (isEditing && params?.slug) {
+        return patchExpertAdvice(params.slug, formData)
+      }
+
+      return createExpertAdvice(formData)
+    },
+    onSuccess: () => {
+      // setChecked(prev => !prev)
+      queryClient.invalidateQueries({ queryKey: ['expert-advices'] })
+      navigate('/content/expert-advice')
+      notification.success({
+        message: t(
+          `content.expert-advice.status-${isEditing ? 'updated' : 'created'}`,
+        ),
+      })
+    },
+  })
+
+  const beforeUploadHandler = (file: RcFile) => {
     const fileSizeInMB = file.size / 1024 / 1024
 
-    const newFiles = fileList
-      .filter(item => {
-        const fileSizeInMB = item?.size / 1024 / 1024
-        return fileSizeInMB < 6
-      })
-      .map(item => ({ ...file, originFileObj: item }))
-
-    const allFiles = [...(images?.fileList || []), ...(newFiles || [])]
-
     if (fileSizeInMB > 5) {
-      message.error(`Файл "${file.name}" превышает 5MB`)
+      message.error(t('fields.images.max-size-limit', { value: file?.name }))
       return false
     }
 
@@ -111,34 +130,29 @@ export default function CreateExpertAdvice() {
     //   return false
     // }
 
-    form.setFieldValue('uploaded_images', {
-      fileList: allFiles,
-    })
+    form.setFieldValue('image', file)
 
     return false
   }
 
-  const removeHandler = (index: number) => {
-    const newList = [...(images?.fileList || [])]
-    newList.splice(index, 1)
-
-    form.setFieldValue('uploaded_images', { fileList: newList })
+  const removeHandler = () => {
+    form.setFieldValue('image', undefined)
   }
 
   return (
     <div className="mb-[200px] flex flex-col gap-5">
       <Typography.Title level={3} className="text-2xl font-semibold">
-        Добавить cоветы экспертов
+        {t(`content.expert-advice.title-${isEditing ? 'edit' : 'add'}`)}
       </Typography.Title>
       <Form
         className="flex gap-6 [&_.ant-form-item-required]:before:hidden"
         form={form}
         layout="vertical"
-        onFinish={create.mutate}
+        onFinish={createOrUpdate.mutate}
       >
         <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border bg-white p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
-            Добавить контента
+            {t(isEditing ? 'content.edit-content' : 'content.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
           <Form.Item name="content">
@@ -148,89 +162,68 @@ export default function CreateExpertAdvice() {
         <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
           <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
             <Typography.Title level={5} className="text-xl font-medium">
-              Предпросмотр
+              {t('content.preview')}
             </Typography.Title>
             <Divider className="m-0" />
             <Form.Item
               name="title"
-              label="Название"
+              label={t('fields.name.label')}
               rules={[
                 {
                   required: true,
-                  message: "Maydonni to'ldiring",
+                  message: t('fields.name.required'),
                 },
               ]}
             >
-              <Input placeholder="Введите название" size="large" />
+              <Input placeholder={t('fields.name.placeholder')} size="large" />
             </Form.Item>
             <Form.Item
-              label="Опишите описание"
+              label={t('fields.description.label')}
               name="description"
               rules={[
                 {
                   required: true,
-                  message: "Maydonni to'ldiring",
+                  message: t('fields.description.required'),
                 },
               ]}
             >
               <Input.TextArea
-                placeholder="Причина"
+                placeholder={t('fields.description.placeholder')}
                 rows={6}
                 className="resize-none"
               />
             </Form.Item>
 
             <div className="flex flex-col">
-              <div className="mb-[5px] text-[14px]">Добавить фотографии</div>
-              {images?.fileList?.length > 0 ? (
-                <div className="grid grid-cols-3 gap-4">
-                  {images?.fileList?.map((image: any, index: number) => (
-                    <div
-                      key={index}
-                      className="relative aspect-square overflow-hidden rounded-xl border"
-                    >
-                      {image?.originFileObj ? (
-                        <img
-                          src={URL.createObjectURL(image?.originFileObj)}
-                          alt={`preview-${index}`}
-                          className="h-full w-full object-cover"
-                        />
-                      ) : null}
-                      <Button
-                        danger
-                        size="small"
-                        className="absolute right-2 top-2"
-                        onClick={() => removeHandler(index)}
-                      >
-                        Удалить
-                      </Button>
-                    </div>
-                  ))}
-                  <Upload.Dragger
-                    className="flex size-[214.6px] flex-col items-center gap-2"
-                    accept="image/*"
-                    multiple
-                    showUploadList={false}
-                    customRequest={({ onSuccess }) => {
-                      setTimeout(() => onSuccess?.('ok'), 0)
-                    }}
-                    beforeUpload={beforeUploadHandler}
-                    // beforeUpload={handleUpload}
+              <div className="mb-[5px] text-[14px]">
+                {t('fields.images.label')}
+              </div>
+              {imageField ? (
+                <div className="relative flex aspect-square h-[212px] overflow-hidden rounded-xl border">
+                  {imageField ? (
+                    <Image
+                      src={
+                        imageField?.url
+                          ? imageField?.url
+                          : URL.createObjectURL(imageField)
+                      }
+                      preview={{ toolbarRender: () => null }}
+                      wrapperClassName="h-full w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:object-cover"
+                    />
+                  ) : null}
+                  <Button
+                    danger
+                    size="small"
+                    className="absolute right-2 top-2"
+                    onClick={removeHandler}
                   >
-                    <ImageUploadIcon className="text-[70px]" />
-                    <Typography.Title className="m-0 text-base font-medium">
-                      {t('common.select_or_drag')}
-                    </Typography.Title>
-                    <Typography.Paragraph className="m-0 text-sm text-secondary">
-                      {t('common.images_limit')}
-                    </Typography.Paragraph>
-                  </Upload.Dragger>
+                    {t('common.delete')}
+                  </Button>
                 </div>
               ) : (
                 <Upload.Dragger
                   className="flex flex-col items-center gap-2 [&_.ant-upload-btn]:py-12"
                   accept="image/*"
-                  multiple
                   showUploadList={false}
                   customRequest={({ onSuccess }) => {
                     setTimeout(() => onSuccess?.('ok'), 0)
@@ -249,7 +242,7 @@ export default function CreateExpertAdvice() {
                 </Upload.Dragger>
               )}
               <Form.Item
-                name="uploaded_images"
+                name="image"
                 className="m-0 [&_.ant-form-item-control-input]:min-h-0"
                 rules={uploadImagesRules}
               />
@@ -258,15 +251,19 @@ export default function CreateExpertAdvice() {
         </div>
       </Form>
       <div className="flex justify-end gap-4">
-        <Button disabled={create.isPending}>Ortga</Button>
+        <Button
+          disabled={createOrUpdate.isPending}
+          onClick={() => navigate('/content/expert-advice')}
+        >
+          {t('common.cancel')}
+        </Button>
         <Button
           type="primary"
           onClick={form.submit}
-          loading={create.isPending}
+          loading={createOrUpdate.isPending}
           className="duration-150 active:scale-95"
-          // disabled={images?.fileList?.length === 0}
         >
-          Yaratish
+          {params?.slug ? t('common.edit') : t('common.save')}
         </Button>
       </div>
     </div>

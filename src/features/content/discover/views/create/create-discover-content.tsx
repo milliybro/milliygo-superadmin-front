@@ -65,7 +65,9 @@ export default function CreateDiscoverContent() {
         href: '/content/discover-uzbekistan',
       },
       {
-        title: pathname.includes('create') ? 'Создать' : 'Редактировать',
+        title: pathname.includes('create')
+          ? t('common.create')
+          : t('common.edit'),
       },
     ])
   }, [])
@@ -108,7 +110,7 @@ export default function CreateDiscoverContent() {
       >
         <div className="flex w-full grow-0 basis-1/2 flex-col gap-6 rounded-2xl border p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
-            Добавить контента
+            {t('content.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
           <Form.Item name="content">

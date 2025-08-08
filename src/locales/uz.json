@@ -10,7 +10,9 @@
     "billing": "Биллинг",
     "bi-service": "BI-сервис",
     "content": "Контент",
-    "roles": "Роллар"
+    "roles": "Роллар",
+    "expert-advices": "Мутахассис маслаҳатлари",
+    "events": "Тадбирлар"
   },
   "auth-page": {
     "welcome-title": "Хуш келибсиз!",
@@ -141,6 +143,9 @@
   },
 
   "fields": {
+    "url": {
+      "label": "Ҳавола"
+    },
     "fullname": {
       "label": "Ф.И.Ш.",
       "placeholder": "Ф.И.Ш. киритинг",
@@ -229,7 +234,8 @@
     "address": {
       "label": "Манзил",
       "validation-message-required": "Манзилни киритинг",
-      "placeholder": "Меҳмонхона манзилини киритинг"
+      "placeholder": "Меҳмонхона манзилини киритинг",
+      "placeholder2": "Манзилни киритинг"
     },
     "photos": {
       "label": "Меҳмонхона суратларини қўшиш",
@@ -332,11 +338,28 @@
       "icons": "Аввал юкланган иконкалар"
     },
     "name": {
+      "label": "Номи",
+      "placeholder": "Номини киритинг",
+      "required": "Илтимос, номини киритинг",
       "name-uz": "Номи Ўз",
       "name-ru": "Номи Ру",
       "name-en": "Номи En",
-      "placeholder": "Номини киритинг",
       "name-cry": "Номи Ўз"
+    },
+    "description": {
+      "label": "Тавсиф",
+      "placeholder": "Тавсифни ёзинг",
+      "required": "Илтимос, тавсиф киритинг"
+    },
+    "images": {
+      "label": "Расмларни юклаш",
+      "required": "Расм юкланг",
+      "max-size-limit": "Файл {{value}} ҳажми 5 МБ дан ошиб кетган",
+      "max-length-limit": "{{value}} тадан ортиқ расм юклай олмайсиз"
+    },
+    "organizer": {
+      "label": "Ташкилотчи",
+      "placeholder": "Номини ёзинг"
     },
     "services": {
       "add-success-notification": "Янги хизмат муваффақиятли қўшилди",
@@ -459,6 +482,7 @@
     "edit-tenant": "Ижарачини таҳрирлаш"
   },
   "common": {
+    "create": "Яратиш",
     "statistics": "Статистика",
     "users": "Фойдаланувчилар",
     "hotels": "Меҳмонхоналар",
@@ -696,6 +720,10 @@
     "not-found": "Саҳифа топилмади"
   },
   "content": {
+    "preview": "Олдиндан кўриш",
+    "add-content": "Контент қўшиш",
+    "edit-content": "Контентни таҳрирлаш",
+    "additional-information": "Қўшимча маълумот",
     "discover": {
       "title": "Ўзбекистонни кашф этинг"
     },
@@ -723,6 +751,33 @@
       "delete-success": "Нуқта муваффақиятли ўчирилди",
       "edit-point": "Нуқтани харитада таҳрирлаш",
       "create-point": "Харитада нуқта яратиш"
+    },
+    "expert-advice": {
+      "add-title": "Мутахассис маслаҳатини қўшиш",
+      "edit-title": "Мутахассис маслаҳатини таҳрирлаш",
+      "delete-modal-title": "Маслаҳат ўчирилсинми?",
+      "delete-modal-description": "Ушбу мутахассис маслаҳатини ўчирмоқчимисиз?",
+      "status-created": "Мутахассис маслаҳати муваффақиятли қўшилди",
+      "status-updated": "Мутахассис маслаҳати янгиланди",
+      "status-deleted": "Мутахассис маслаҳати ўчирилди"
+    },
+    "instagram-content": {
+      "title-add": "Instagram контентини қўшиш",
+      "title-edit": "Instagram контентини таҳрирлаш",
+      "delete-modal-title": "Контент ўчирилсинми?",
+      "delete-modal-description": "Ушбу Instagram контентини ўчирмоқчимисиз?",
+      "status-created": "Instagram контенти муваффақиятли қўшилди",
+      "status-updated": "Instagram контенти янгиланди",
+      "status-deleted": "Instagram контенти ўчирилди"
+    },
+    "events": {
+      "title-add": "Тадбир қўшиш",
+      "title-edit": "Тадбирни таҳрирлаш",
+      "delete-modal-title": "Тадбир ўчирилсинми?",
+      "delete-modal-description": "Ушбу тадбирни ўчирмоқчимисиз?",
+      "status-created": "Тадбир муваффақиятли қўшилди",
+      "status-updated": "Тадбир янгиланди",
+      "status-deleted": "Тадбир ўчирилди"
     }
   },
   "region": {

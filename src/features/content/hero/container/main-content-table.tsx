@@ -5,12 +5,15 @@ import { Button, Switch, Table, TableProps } from 'antd'
 import { Dispatch, SetStateAction } from 'react'
 import { getBackgrounds } from '../api'
 import VideoThumbnail from '@/components/shared/video-thumbnail'
+import { useTranslation } from 'react-i18next'
 
 interface IProps {
   setDeleteOpen: Dispatch<SetStateAction<boolean>>
 }
 
 function MainContentTable({ setDeleteOpen }: IProps) {
+  const { t } = useTranslation()
+
   const columns: TableProps['columns'] = [
     {
       title: 'Картина',
@@ -39,11 +42,11 @@ function MainContentTable({ setDeleteOpen }: IProps) {
         <div className="flex items-center gap-4 text-base font-medium">
           <Button type="link">
             <EditIcon className="text-xl" />
-            Редактировать
+            {t('common.edit')}
           </Button>
           <Button type="link" danger onClick={() => setDeleteOpen(true)}>
             <DeleteIcon className="text-xl" />
-            Удалить
+            {t('common.delete')}
           </Button>
         </div>
       ),
