@@ -161,7 +161,7 @@ export default function CreateInstagramContent() {
               {t('fields.images.label')}
             </div>
             {imageField ? (
-              <div className="relative aspect-square h-[212px] overflow-hidden rounded-xl border">
+              <div className="relative flex aspect-square h-[212px] overflow-hidden rounded-xl border">
                 {imageField ? (
                   <Image
                     src={
@@ -169,8 +169,8 @@ export default function CreateInstagramContent() {
                         ? imageField?.url
                         : URL.createObjectURL(imageField)
                     }
-                    alt={instagramContentItem.data?.title}
-                    className="h-full w-full object-cover"
+                    preview={{ toolbarRender: () => null }}
+                    wrapperClassName="h-full w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:object-cover"
                   />
                 ) : null}
                 <Button

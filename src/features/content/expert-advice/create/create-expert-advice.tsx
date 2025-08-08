@@ -6,6 +6,7 @@ import {
   Button,
   Divider,
   Form,
+  Image,
   Input,
   message,
   notification,
@@ -198,46 +199,26 @@ export default function CreateExpertAdvice() {
                 {t('fields.images.label')}
               </div>
               {imageField ? (
-                <div className="grid grid-cols-3 gap-4">
-                  <div className="relative aspect-square overflow-hidden rounded-xl border">
-                    {imageField ? (
-                      <img
-                        src={
-                          imageField?.url
-                            ? imageField?.url
-                            : URL.createObjectURL(imageField)
-                        }
-                        alt={expertAdviceItem.data?.title}
-                        className="h-full w-full object-cover"
-                      />
-                    ) : null}
-                    <Button
-                      danger
-                      size="small"
-                      className="absolute right-2 top-2"
-                      onClick={removeHandler}
-                    >
-                      {t('common.delete')}
-                    </Button>
-                  </div>
-                  <Upload.Dragger
-                    className="flex size-[214.6px] flex-col items-center gap-2"
-                    accept="image/*"
-                    showUploadList={false}
-                    customRequest={({ onSuccess }) => {
-                      setTimeout(() => onSuccess?.('ok'), 0)
-                    }}
-                    beforeUpload={beforeUploadHandler}
-                    // beforeUpload={handleUpload}
+                <div className="relative flex aspect-square h-[212px] overflow-hidden rounded-xl border">
+                  {imageField ? (
+                    <Image
+                      src={
+                        imageField?.url
+                          ? imageField?.url
+                          : URL.createObjectURL(imageField)
+                      }
+                      preview={{ toolbarRender: () => null }}
+                      wrapperClassName="h-full w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:object-cover"
+                    />
+                  ) : null}
+                  <Button
+                    danger
+                    size="small"
+                    className="absolute right-2 top-2"
+                    onClick={removeHandler}
                   >
-                    <ImageUploadIcon className="text-[70px]" />
-                    <Typography.Title className="m-0 text-base font-medium">
-                      {t('common.select_or_drag')}
-                    </Typography.Title>
-                    <Typography.Paragraph className="m-0 text-sm text-secondary">
-                      {t('common.images_limit')}
-                    </Typography.Paragraph>
-                  </Upload.Dragger>
+                    {t('common.delete')}
+                  </Button>
                 </div>
               ) : (
                 <Upload.Dragger
