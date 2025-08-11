@@ -421,6 +421,37 @@
     "destination": {
       "label": "Yo‘nalish",
       "placeholder": "Xaritadagi nuqtaga mos yo‘nalishni kiriting"
+    },
+    "add-photo": {
+      "label": "Rasmlar qo‘shish"
+    },
+    "youtube_url": {
+      "label": "Youtube video havolasi",
+      "placeholder": "Video havolasini kiriting",
+      "error": "Iltimos, to‘g‘ri URL kiriting"
+    },
+    "place_name": {
+      "label": "Joy nomi",
+      "placeholder": "Joy nomini kiriting",
+      "validation-message-required": "Iltimos, joy nomini kiriting"
+    },
+    "place_description": {
+      "label": "Joy tavsifi",
+      "placeholder": "Joy tavsifini kiriting",
+      "error": "Iltimos, joy tavsifini kiriting"
+    },
+    "image": {
+      "label": "Rasm",
+      "edit": "Rasmni o‘zgartirish"
+    },
+    "title": {
+      "label": "Sarlavha",
+      "placeholder": "Sarlavhani kiriting"
+    },
+    "region": {
+      "label": "Hudud",
+      "placeholder": "Hududni kiriting",
+      "error": "Iltimos, hududni kiriting"
     }
   },
   "tenant": {
@@ -561,6 +592,9 @@
     "save": "Saqlash",
     "manager": "Menejer",
     "add": "Qo'shish",
+    "preview": "Ko‘rib chiqish",
+    "description": "Tavsif",
+    "check": "Tekshirish",
     "refresh": "Sahifani yangilash"
   },
   "status": {
@@ -683,6 +717,22 @@
     "not-found": "Sahifa topilmadi"
   },
   "content": {
+    "discover": {
+      "title": "O‘zbekistonni kashf eting"
+    },
+    "top_destinations": {
+      "title": "Eng yaxshi yo‘nalishlar",
+      "add": "Eng yaxshi yo‘nalishlarni qo‘shish",
+      "edit": "Eng yaxshi yo‘nalishlarni tahrirlash",
+      "add-content": "Kontent qo‘shish",
+      "add_attractions": "Mashhur joylarni qo‘shish",
+      "add_place": "Joy qo‘shish",
+      "delete": "Yo‘nalishni o‘chirish",
+      "delete-desc": "Ushbu yo‘nalishni o‘chirib tashlamoqchi ekanligingizni tasdiqlang?",
+      "delete-success": "Yo‘nalish muvaffaqiyatli o‘chirildi",
+      "create-success": "Yo‘nalish muvaffaqiyatli yaratildi",
+      "edit-success": "Yo‘nalish muvaffaqiyatli yangilandi"
+    },
     "preview": "Oldindan ko‘rish",
     "add-content": "Kontent qo‘shish",
     "edit-content": "Kontentni tahrirlash",

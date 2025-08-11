@@ -1,4 +1,4 @@
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, App as AntdApp } from 'antd'
 import { useCookies } from 'react-cookie'
 
 import RouteProvider from './providers/router-provider'
@@ -21,17 +21,19 @@ export default function App() {
   }, [i18n.language])
 
   return (
-    <LanguageProvider>
-      <QueryProvider>
-        <AuthProvider>
-          <ConfigProvider
-            theme={cookies.darkTheme ? darkTheme : lightTheme}
-            locale={locale}
-          >
-            <RouteProvider />
-          </ConfigProvider>
-        </AuthProvider>
-      </QueryProvider>
-    </LanguageProvider>
+    <AntdApp>
+      <LanguageProvider>
+        <QueryProvider>
+          <AuthProvider>
+            <ConfigProvider
+              theme={cookies.darkTheme ? darkTheme : lightTheme}
+              locale={locale}
+            >
+              <RouteProvider />
+            </ConfigProvider>
+          </AuthProvider>
+        </QueryProvider>
+      </LanguageProvider>
+    </AntdApp>
   )
 }

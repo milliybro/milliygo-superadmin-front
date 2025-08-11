@@ -6,21 +6,47 @@ import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 import CreateDiscoverForm from '../../components/create-discover-form'
 import { useDiscoverContext } from '../../hooks/use-discover-context'
+import { useDiscoverImage } from '../../hooks/use-discover-image'
+import { ICreateDiscoverForm } from '../../types'
 
 export default function CreateDiscoverContent() {
   const { setBreadCrumbs } = useBreadCrumbsStore()
-  const [form] = Form.useForm()
-  const { singleDiscover, content, setContent } = useDiscoverContext()
+  const [form] = Form.useForm<ICreateDiscoverForm>()
+  const { singleDiscover, editDiscovery, createDiscovery } =
+    useDiscoverContext()
+
+  const { pathname } = useLocation()
+  const { image, setImage, removeImage } = useDiscoverImage()
 
   const { t } = useTranslation()
-  const { pathname } = useLocation()
+
+  useEffect(() => {
+    removeImage()
+
+    return () => {
+      removeImage()
+    }
+  }, [])
 
   useEffect(() => {
     if (singleDiscover?.data) {
-      setContent(singleDiscover.data.content || '')
       form.setFieldsValue({
-        title: singleDiscover.data.name,
+        name: singleDiscover.data.name || '',
+        content: singleDiscover.data.content || '',
+        description: singleDiscover.data.description || '',
+        status: singleDiscover.data.status,
+        social_links: singleDiscover.data.social_links.map(item => ({
+          platform: item.platform,
+          url: item.url,
+        })),
       })
+
+      if (singleDiscover.data.image) {
+        setImage({
+          file: null,
+          url: singleDiscover.data.image,
+        })
+      }
     }
   }, [singleDiscover])
 
@@ -46,27 +72,60 @@ export default function CreateDiscoverContent() {
     ])
   }, [])
 
+  const finishHandler = (values: ICreateDiscoverForm) => {
+    const formData = new FormData()
+
+    formData.append('name', values.name)
+    formData.append('description', values.description)
+    formData.append('content', values.content)
+    formData.append('status', String(values.status))
+
+    if (image?.file) {
+      formData.append('image', image.file)
+    }
+
+    values?.social_links?.map((item: any, i: number) => {
+      formData.append(`social_links[${i}]platform`, item.platform)
+      formData.append(`social_links[${i}]url`, item.url)
+    })
+
+    if (pathname.includes('edit')) {
+      editDiscovery.mutate(formData)
+    } else if (pathname.includes('create')) {
+      createDiscovery.mutate(formData)
+    }
+  }
+
   return (
     <div className="mb-[200px] flex flex-col gap-5">
       <Typography.Title level={3} className="text-2xl font-semibold">
         Добавить Узбекистан вместе с нами
       </Typography.Title>
-      <div className="flex gap-10">
+      <Form
+        className="flex gap-10"
+        form={form}
+        layout="vertical"
+        onFinish={finishHandler}
+        id="create-discover-form"
+      >
         <div className="flex w-full grow-0 basis-1/2 flex-col gap-6 rounded-2xl border p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
             {t('content.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
-          <QuillEditor value={content} onChange={setContent} />
+          <Form.Item name="content">
+            <QuillEditor />
+          </Form.Item>
         </div>
-        <CreateDiscoverForm form={form} />
-      </div>
+        <CreateDiscoverForm />
+      </Form>
       <Button
         type="primary"
         size="large"
         className="w-[200px]"
         form="create-discover-form"
         htmlType="submit"
+        loading={editDiscovery.isLoading || createDiscovery.isLoading}
       >
         {t('common.save')}
       </Button>

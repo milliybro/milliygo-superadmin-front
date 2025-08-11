@@ -21,24 +21,25 @@ export async function getDiscovery(
   })
 }
 
-export async function createDiscovery(data: object) {
+export async function createDiscovery(data: FormData) {
   return await request({
     url: '/site-content/discover',
     method: 'POST',
     data,
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
   })
 }
 
-export async function editDiscovery(slug: string, data: object) {
+export async function editDiscovery(slug: string, data: FormData) {
   return await request({
     url: `/site-content/discover/${slug}`,
-    method: 'PUT',
+    method: 'PATCH',
     data,
-    headers: {
-      'Content-Type': 'multipart/form-data',
-    },
+  })
+}
+
+export async function deleteDiscovery(slug: string) {
+  return await request({
+    url: `/site-content/discover/${slug}`,
+    method: 'DELETE',
   })
 }

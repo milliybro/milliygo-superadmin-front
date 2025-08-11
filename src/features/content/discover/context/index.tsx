@@ -1,5 +1,6 @@
 import { ListResponse } from '@/types'
 import { useMutation, useQuery } from '@tanstack/react-query'
+import { App } from 'antd'
 import {
   createContext,
   Dispatch,
@@ -7,17 +8,21 @@ import {
   useMemo,
   useState,
 } from 'react'
-import { useLocation, useParams, useSearchParams } from 'react-router'
+import { useLocation, useNavigate, useParams } from 'react-router'
 import {
   createDiscovery,
+  deleteDiscovery,
   editDiscovery,
   getDiscoveries,
   getDiscovery,
 } from '../api'
 import { IDiscover } from '../types'
-import { App } from 'antd'
+import queryString from 'query-string'
+import { truthyObject } from '@/helpers/truthy-object'
 
 export interface IDiscoverContext {
+  deleteOpen: string | null
+  setDeleteOpen: Dispatch<SetStateAction<string | null>>
   discover: {
     data?: ListResponse<IDiscover[]>
     isFetching: boolean
@@ -27,31 +32,39 @@ export interface IDiscoverContext {
     isFetching: boolean
   }
   createDiscovery: {
-    mutate: (data: object) => void
+    mutate: (data: FormData) => void
     isLoading: boolean
   }
   editDiscovery: {
-    mutate: (data: object) => void
+    mutate: (data: FormData) => void
+    isLoading: boolean
+    toggleStatusMutate: (params: { slug: string; data: FormData }) => void
+    togglePending: boolean
+  }
+  deleteDiscovery: {
+    mutate: (slug: string) => void
     isLoading: boolean
   }
-  content: string
-  setContent: Dispatch<SetStateAction<string>>
 }
 
 const DiscoverContext = createContext<IDiscoverContext | null>(null)
 
 function DiscoverProvider({ children }: { children: React.ReactNode }) {
+  const [deleteOpen, setDeleteOpen] = useState<string | null>(null)
+
   const params = useParams()
-  const { pathname } = useLocation()
+  const { pathname, search } = useLocation()
   const slug = params?.slug
   const { notification } = App.useApp()
-  const [content, setContent] = useState<string>('')
+  const queries = useMemo(() => queryString.parse(search), [search])
+  const navigate = useNavigate()
 
   const discoverQuery = useQuery({
-    queryKey: ['discoveries'],
-    queryFn: () => getDiscoveries(),
+    queryKey: ['discoveries', queries],
+    queryFn: () => getDiscoveries(truthyObject({ ...queries })),
     enabled: pathname === '/content/discover-uzbekistan',
     refetchOnWindowFocus: false,
+    placeholderData: data => data,
   })
 
   const singleDiscoverQuery = useQuery({
@@ -65,31 +78,53 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
   })
 
   const createDiscoveryMutation = useMutation({
-    mutationFn: (data: object) => createDiscovery(data),
+    mutationFn: (data: FormData) => createDiscovery(data),
     onSuccess: () => {
       discoverQuery.refetch()
-      singleDiscoverQuery.refetch()
       notification.success({
-        message: 'Успешно',
-        description: 'Открытие успешно создано',
+        message: 'Открытие успешно создано',
       })
+      navigate('/content/discover-uzbekistan')
     },
   })
 
   const editDiscoveryMutation = useMutation({
-    mutationFn: (data: object) => editDiscovery(slug as string, data),
+    mutationFn: (data: FormData) => editDiscovery(slug as string, data),
     onSuccess: () => {
       discoverQuery.refetch()
-      singleDiscoverQuery.refetch()
       notification.success({
-        message: 'Успешно',
-        description: 'Открытие успешно обновлено',
+        message: 'Открытие успешно обновлено',
       })
+      navigate('/content/discover-uzbekistan')
+    },
+  })
+
+  const toggleStatusMutation = useMutation({
+    mutationFn: ({ slug, data }: { slug: string; data: FormData }) =>
+      editDiscovery(slug, data),
+    onSuccess: () => {
+      notification.success({
+        message: 'Статус успешно обновлен',
+      })
+      discoverQuery.refetch()
+    },
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: (slug: string) => deleteDiscovery(slug),
+    onSuccess: () => {
+      discoverQuery.refetch()
+      notification.success({
+        message: 'Открытие успешно удалено',
+      })
+      setDeleteOpen(null)
     },
   })
 
   const discoverContextValue = useMemo<IDiscoverContext>(
     () => ({
+      deleteOpen,
+      setDeleteOpen,
       discover: {
         data: discoverQuery.data,
         isFetching: discoverQuery.isFetching,
@@ -105,17 +140,29 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
       editDiscovery: {
         mutate: editDiscoveryMutation.mutate,
         isLoading: editDiscoveryMutation.isPending,
+        toggleStatusMutate: toggleStatusMutation.mutate,
+        togglePending: toggleStatusMutation.isPending,
       },
-      content,
-      setContent,
+      deleteDiscovery: {
+        mutate: deleteMutation.mutate,
+        isLoading: deleteMutation.isPending,
+      },
     }),
     [
       discoverQuery.data,
       discoverQuery.isFetching,
       singleDiscoverQuery.data,
       singleDiscoverQuery.isFetching,
-      content,
-      setContent,
+      createDiscoveryMutation.mutate,
+      createDiscoveryMutation.isPending,
+      deleteMutation.mutate,
+      deleteMutation.isPending,
+      editDiscoveryMutation.mutate,
+      editDiscoveryMutation.isPending,
+      toggleStatusMutation.mutate,
+      toggleStatusMutation.isPending,
+      deleteOpen,
+      setDeleteOpen,
     ],
   )
 

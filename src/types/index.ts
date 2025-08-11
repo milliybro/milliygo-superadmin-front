@@ -28,13 +28,9 @@ interface IBreadCrumbsStore {
 
 interface ListResponse<T> {
   count: number
-  current_page: number
-  current_page_size: number
-  next_page: string | null
-  page_size: number
-  previous_page: string | null
+  next: string | null
+  previous: string | null
   results: T
-  email_receive?: string
 }
 
 interface ListResponseShort<T> {

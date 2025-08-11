@@ -27,17 +27,17 @@ function Content() {
       { title: t('common.main'), href: '/' },
       { title: t('routes.content') },
     ])
-  }, [])
+  }, [t])
 
   const tabItems: TabsProps['items'] = [
     {
       key: 'main',
-      label: 'Main page',
+      label: t('common.main-content'),
       children: <MainPageContent />,
     },
     {
       key: 'top-destinations',
-      label: 'Top Destinations',
+      label: t('home-content.destinations'),
       children: (
         <TopDestinationProvider>
           <TopDestinationsContent />
@@ -46,7 +46,7 @@ function Content() {
     },
     {
       key: 'discover-uzbekistan',
-      label: 'Discover Uzbekistan',
+      label: t('content.discover.title'),
       children: (
         <DiscoverProvider>
           <DiscoverContent />

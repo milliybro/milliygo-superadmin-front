@@ -1,9 +1,26 @@
 export interface IDiscover {
   id: number
   slug: string
+  name: string | null
+  description: string | null
+  image: string | null
+  content: string | null
+  status: boolean
+  social_links: {
+    platform: DiscoverSocials
+    url: string
+  }[]
+}
+
+export interface ICreateDiscoverForm {
+  content: string
   name: string
   description: string
-  image: string
+  status: boolean
+  social_links: {
+    platform: DiscoverSocials
+    url: string
+  }[]
 }
 
 export type DiscoverSocials =
@@ -15,28 +32,9 @@ export type DiscoverSocials =
   | 'website'
 
 export interface EditDiscoverParams {
-  translations: {
-    ru: {
-      name: string
-      description: string
-      content: string
-    }
-    en: {
-      name: string
-      description: string
-      content: string
-    }
-    'uz-latin': {
-      name: string
-      description: string
-      content: string
-    }
-    'uz-cyrillic': {
-      name: string
-      description: string
-      content: string
-    }
-  }
+  name: string
+  description: string
+  content: string
   image: File | null
   social_links: {
     platform: DiscoverSocials

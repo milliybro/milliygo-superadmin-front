@@ -1,24 +1,34 @@
-import { Form } from 'antd'
-import { useRef } from 'react'
 import { Map, Placemark, YMaps } from '@pbe/react-yandex-maps'
+import { Form } from 'antd'
+import { useEffect, useRef, useState } from 'react'
 
 import request from '@/utils/axios'
 
 import type { INominatimResponse } from '../../types'
 
 interface YandexMapPickerProps {
+  coordsValue?: [number, number]
   onCoordsChange?: (coords: [number, number]) => void
+  height?: string
 }
 
 export default function YandexMapPicker({
   onCoordsChange,
+  coordsValue,
+  height = '584px',
 }: YandexMapPickerProps) {
   const mapRef = useRef<any>(null)
   const form = Form.useFormInstance()
-  const lon = Form.useWatch('lon', form)
-  const lat = Form.useWatch('lat', form)
 
-  // const [coords, setCoords] = useState<[number, number]>([41.3111, 69.2797])
+  const [coords, setCoords] = useState<[number, number]>(
+    coordsValue || [41.3111, 69.2797],
+  )
+
+  useEffect(() => {
+    if (coordsValue) {
+      setCoords(coordsValue)
+    }
+  }, [coordsValue])
 
   const getNominalByCoords = async (
     latitude: number,
@@ -59,22 +69,25 @@ export default function YandexMapPicker({
 
   const handleMapClick = (e: any) => {
     const newCoords: [number, number] = e.get('coords')
-    // setCoords(newCoords)
     getNominalByCoords(newCoords[0], newCoords[1])
-    onCoordsChange?.(newCoords)
+    if (onCoordsChange) {
+      onCoordsChange(newCoords)
+    } else {
+      setCoords(newCoords)
+    }
   }
 
   return (
     <YMaps query={{ lang: 'ru_RU' }}>
       <Map
-        defaultState={{ center: [lat, lon], zoom: 12 }}
+        defaultState={{ center: coords, zoom: 12 }}
         width="100%"
-        height="584px"
+        height={height}
         onClick={handleMapClick}
         instanceRef={mapRef}
       >
         <Placemark
-          geometry={[lat, lon]}
+          geometry={coords}
           // onDragEnd={(e: any) => {
           //   const newCoords = e.get('target').geometry.getCoordinates()
           //   setCoords(newCoords)

@@ -1,5 +1,6 @@
 // YouTubeEmbed.tsx
 import React, { useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 
 interface YouTubeEmbedProps {
   url: string
@@ -12,6 +13,7 @@ const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
   width = '100%',
   height = '400px',
 }) => {
+  const { t } = useTranslation()
   const getEmbedUrl = useCallback((url: string) => {
     const match = url.match(
       /(?:https?:\/\/)?(?:www\.)?(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([\w-]{11})/,
@@ -22,7 +24,7 @@ const YouTubeEmbed: React.FC<YouTubeEmbedProps> = ({
   const embedUrl = getEmbedUrl(url)
 
   if (!embedUrl) {
-    return <p>Invalid YouTube URL</p>
+    return <p>{t('fields.youtube_url.error')}</p>
   }
 
   return (

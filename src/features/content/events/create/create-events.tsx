@@ -26,6 +26,7 @@ import ImageUploadIcon from '@/components/icons/image-upload'
 
 import type { Rule } from 'antd/es/form'
 import type { RcFile } from 'antd/es/upload'
+import { useMapCoordsStore } from '../../top-destinations/store/map-coords-store'
 
 type CreateExpertAdviceValues = {
   name: string
@@ -43,6 +44,7 @@ export default function CreateEvent() {
   const params = useParams()
   const navigate = useNavigate()
   const { pathname } = useLocation()
+  const { coords, setCoords, updatedCoords } = useMapCoordsStore()
 
   const { t } = useTranslation()
   const queryClient = useQueryClient()
@@ -78,6 +80,9 @@ export default function CreateEvent() {
           url: eventItem.data?.image || [],
         },
       })
+      setCoords([
+        [eventItem.data?.lat || 41.3111, eventItem.data?.lon || 69.2797],
+      ])
     }
   }, [eventItem.data])
 
@@ -270,7 +275,10 @@ export default function CreateEvent() {
               />
             </Form.Item>
             <Form.Item className="overflow-hidden rounded-xl border">
-              <YandexMapPicker />
+              <YandexMapPicker
+                coordsValue={coords?.[0]}
+                onCoordsChange={newCoords => updatedCoords(0, newCoords)}
+              />
             </Form.Item>
           </div>
         </div>
