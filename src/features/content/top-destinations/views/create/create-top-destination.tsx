@@ -60,6 +60,8 @@ export default function TopDestinationForm() {
             url: spot?.image,
             file: null,
           })
+        } else {
+          addPlaceImage(null)
         }
 
         if (spot?.longitude && spot?.latitude) {

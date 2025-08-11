@@ -1,5 +1,6 @@
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { Button, Form, Input, Select, Space } from 'antd'
+import { useTranslation } from 'react-i18next'
 
 const SOCIAL_PLATFORMS = [
   { label: 'Instagram', value: 'instagram' },
@@ -12,6 +13,7 @@ const SOCIAL_PLATFORMS = [
 
 export default function SocialsList() {
   const form = Form.useFormInstance()
+  const { t } = useTranslation()
   const socials = Form.useWatch('social_links', form)
   const selectedSocials: string[] = socials?.map((item: any) => item?.platform)
 
@@ -25,11 +27,14 @@ export default function SocialsList() {
                 {...restField}
                 name={[name, 'platform']}
                 rules={[
-                  { required: true, message: 'Пожалуйста, выберите платформу' },
+                  {
+                    required: true,
+                    message: t('fields.social_platform.error'),
+                  },
                 ]}
               >
                 <Select
-                  placeholder="Выберите платформу"
+                  placeholder={t('fields.social_platform.placeholder')}
                   options={SOCIAL_PLATFORMS?.filter(
                     v =>
                       !selectedSocials?.includes(v.value) ||
@@ -42,8 +47,8 @@ export default function SocialsList() {
                 {...restField}
                 name={[name, 'url']}
                 rules={[
-                  { required: true, message: 'URL является обязательным' },
-                  { type: 'url', message: 'Введите действительный URL' },
+                  { required: true, message: t('fields.social_url.error') },
+                  { type: 'url', message: t('fields.social_url.error-2') },
                 ]}
               >
                 <Input placeholder="https://example.com" />
@@ -62,7 +67,7 @@ export default function SocialsList() {
             icon={<PlusOutlined />}
             className="w-full"
           >
-            Добавить социальную ссылку
+            {t('content.discover.add-social')}
           </Button>
         </>
       )}

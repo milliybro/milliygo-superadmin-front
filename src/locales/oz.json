@@ -452,6 +452,14 @@
       "label": "Hudud",
       "placeholder": "Hududni kiriting",
       "error": "Iltimos, hududni kiriting"
+    },
+    "social_platform": {
+      "placeholder": "Platformani tanlang",
+      "error": "Iltimos, platformani tanlang"
+    },
+    "social_url": {
+      "error": "URL kiritish majburiy",
+      "error-2": "To‘g‘ri URL kiriting"
     }
   },
   "tenant": {
@@ -583,7 +591,7 @@
     "cost-per-day": "Kunlik narx",
     "map-title": "O'zbekiston xaritasi",
     "select_or_drag": "Rasmni tanlang yoki sudrab olib keling",
-    "images_limit": "Maksimal hajmi: 5 MB.",
+    "images_limit": "Maksimal hajmi: {{limit}}.",
     "avia": "Avia",
     "railway": "Temir yo‘l",
     "ticket-seller": "Bilet sotuvchilar",
@@ -594,6 +602,7 @@
     "add": "Qo'shish",
     "preview": "Ko‘rib chiqish",
     "description": "Tavsif",
+    "no-description": "Tavsif yo‘q",
     "check": "Tekshirish",
     "refresh": "Sahifani yangilash"
   },
@@ -718,7 +727,16 @@
   },
   "content": {
     "discover": {
-      "title": "O‘zbekistonni kashf eting"
+      "title": "O‘zbekistonni kashf eting",
+      "delete": "Kashfiyotni o‘chirish",
+      "delete-desc": "Ushbu kashfiyotni o‘chirishga ishonchingiz komilmi?",
+      "add": "Kashfiyot qo‘shish",
+      "create-success": "Kashfiyot muvaffaqiyatli yaratildi",
+      "edit-success": "Kashfiyot muvaffaqiyatli yangilandi",
+      "status-updated": "Holat muvaffaqiyatli yangilandi",
+      "delete-success": "Kashfiyot muvaffaqiyatli o‘chirildi",
+      "add-social": "Ijtimoiy havola qo‘shish",
+      "social-links": "Ijtimoiy havolalar"
     },
     "top_destinations": {
       "title": "Eng yaxshi yo‘nalishlar",

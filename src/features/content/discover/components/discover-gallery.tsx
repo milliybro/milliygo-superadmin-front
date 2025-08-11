@@ -10,7 +10,9 @@ export default function DiscoverGallery() {
 
   const handleUpload: UploadProps['beforeUpload'] = file => {
     if (file?.size && file?.size > 5 * 1024 * 1024) {
-      notification.error({ message: t('common.images_limit') })
+      notification.error({
+        message: t('common.images_limit', { limit: '5 MB' }),
+      })
       return
     }
 
@@ -20,7 +22,7 @@ export default function DiscoverGallery() {
   }
 
   return (
-    <Form.Item label="Добавить фотографии">
+    <Form.Item label={t('fields.images.label')}>
       {image === null ? (
         <Upload.Dragger
           className="mb-2 flex flex-col items-center gap-2 [&_.ant-upload-btn]:py-12"
@@ -34,7 +36,7 @@ export default function DiscoverGallery() {
             {t('common.select_or_drag')}
           </Typography.Title>
           <Typography.Paragraph className="m-0 text-sm text-secondary">
-            {t('common.images_limit')}
+            {t('common.images_limit', { limit: '5 MB' })}
           </Typography.Paragraph>
         </Upload.Dragger>
       ) : (

@@ -29,7 +29,7 @@ function DiscoverTable() {
 
   const columns: TableProps['columns'] = [
     {
-      title: 'Название',
+      title: t('common.name'),
       key: 'name',
       dataIndex: 'name',
       className: 'w-1/2',
@@ -61,18 +61,18 @@ function DiscoverTable() {
       ),
     },
     {
-      title: 'Описание',
+      title: t('common.description'),
       key: 'description',
       dataIndex: 'description',
       className: 'w-1/2',
       render: value => (
         <Typography.Text className="line-clamp-2 text-sm font-medium">
-          {value || 'Нет описания'}
+          {value || t('common.no-description')}
         </Typography.Text>
       ),
     },
     {
-      title: 'Статус',
+      title: t('fields.status.label'),
       key: 'status',
       dataIndex: 'status',
       width: 0,
@@ -88,7 +88,7 @@ function DiscoverTable() {
       },
     },
     {
-      title: 'Действие',
+      title: t('common.action'),
       key: 'action',
       dataIndex: 'action',
       width: 0,

@@ -53,15 +53,15 @@ export default function CreateDiscoverContent() {
   useEffect(() => {
     setBreadCrumbs([
       {
-        title: 'Главная',
+        title: t('common.main'),
         href: '/',
       },
       {
-        title: 'Контент',
+        title: t('routes.content'),
         href: '/content/discover-uzbekistan',
       },
       {
-        title: 'Откройте Узбекистан вместе с нами',
+        title: t('content.discover.title'),
         href: '/content/discover-uzbekistan',
       },
       {
@@ -99,7 +99,7 @@ export default function CreateDiscoverContent() {
   return (
     <div className="mb-[200px] flex flex-col gap-5">
       <Typography.Title level={3} className="text-2xl font-semibold">
-        Добавить Узбекистан вместе с нами
+        {t('content.discover.add')}
       </Typography.Title>
       <Form
         className="flex gap-10"

@@ -6,8 +6,18 @@ import TopDestinationProvider from '../top-destinations/context/top-destination-
 import TopDestinationForm from '../top-destinations/views/create/create-top-destination'
 import CreateDiscoverContent from '../discover/views/create/create-discover-content'
 import DiscoverProvider from '../discover/context'
+import HeroProvider from '../hero/context'
+import EditHero from '../hero/views/edit-hero'
 
 const createForms = [
+  {
+    key: 'main',
+    element: (
+      <HeroProvider>
+        <EditHero />
+      </HeroProvider>
+    ),
+  },
   {
     key: 'top-destinations',
     element: (
