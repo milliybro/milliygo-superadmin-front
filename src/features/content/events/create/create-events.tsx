@@ -239,7 +239,9 @@ export default function CreateEvent() {
                     {t('common.select_or_drag')}
                   </Typography.Title>
                   <Typography.Paragraph className="m-0 text-sm text-secondary">
-                    {t('common.images_limit')}
+                    {t('common.images_limit', {
+                      limit: '5 MB',
+                    })}
                   </Typography.Paragraph>
                 </Upload.Dragger>
               )}
