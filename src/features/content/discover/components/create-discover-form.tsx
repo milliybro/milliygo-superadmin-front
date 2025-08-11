@@ -12,16 +12,16 @@ export default function CreateDiscoverForm() {
     <div className="flex w-full flex-shrink-0 basis-1/2 flex-col gap-6">
       <div className="flex flex-col gap-4 rounded-2xl border p-6">
         <Typography.Title level={5} className="text-xl font-medium">
-          Предпросмотр
+          {t('common.preview')}
         </Typography.Title>
         <Divider className="m-0" />
-        <Form.Item name="name" label="Название">
-          <Input placeholder="Введите название" size="large" />
+        <Form.Item name="name" label={t('fields.name.label')}>
+          <Input placeholder={t('fields.name.placeholder')} size="large" />
         </Form.Item>
-        <Form.Item name="description" label="Описание">
+        <Form.Item name="description" label={t('fields.description.label')}>
           <Input.TextArea
             rows={6}
-            placeholder="Введите короткое описание"
+            placeholder={t('fields.description.placeholder')}
             size="large"
           />
         </Form.Item>
@@ -34,7 +34,7 @@ export default function CreateDiscoverForm() {
           </Tag>
         </div>
         <Typography.Text className="select-none text-sm">
-          Социальные ссылки
+          {t('content.discover.social-links')}
         </Typography.Text>
         <SocialsList />
         <DiscoverGallery />

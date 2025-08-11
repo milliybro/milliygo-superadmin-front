@@ -19,6 +19,7 @@ import {
 import { IDiscover } from '../types'
 import queryString from 'query-string'
 import { truthyObject } from '@/helpers/truthy-object'
+import { useTranslation } from 'react-i18next'
 
 export interface IDiscoverContext {
   deleteOpen: string | null
@@ -51,7 +52,7 @@ const DiscoverContext = createContext<IDiscoverContext | null>(null)
 
 function DiscoverProvider({ children }: { children: React.ReactNode }) {
   const [deleteOpen, setDeleteOpen] = useState<string | null>(null)
-
+  const { t } = useTranslation()
   const params = useParams()
   const { pathname, search } = useLocation()
   const slug = params?.slug
@@ -82,7 +83,7 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
     onSuccess: () => {
       discoverQuery.refetch()
       notification.success({
-        message: 'Открытие успешно создано',
+        message: t('content.discover.create-success'),
       })
       navigate('/content/discover-uzbekistan')
     },
@@ -93,7 +94,7 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
     onSuccess: () => {
       discoverQuery.refetch()
       notification.success({
-        message: 'Открытие успешно обновлено',
+        message: t('content.discover.edit-success'),
       })
       navigate('/content/discover-uzbekistan')
     },
@@ -104,7 +105,7 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
       editDiscovery(slug, data),
     onSuccess: () => {
       notification.success({
-        message: 'Статус успешно обновлен',
+        message: t('content.discover.status-updated'),
       })
       discoverQuery.refetch()
     },
@@ -115,7 +116,7 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
     onSuccess: () => {
       discoverQuery.refetch()
       notification.success({
-        message: 'Открытие успешно удалено',
+        message: t('content.discover.delete-success'),
       })
       setDeleteOpen(null)
     },

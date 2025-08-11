@@ -3,10 +3,12 @@ import ContentHeader from '../../components/content-header'
 import DeleteModal from '../../components/delete-modal'
 import DiscoverTable from '../components/discover-table'
 import { useDiscoverContext } from '../hooks/use-discover-context'
+import { useTranslation } from 'react-i18next'
 
 function DiscoverContent() {
   const navigate = useNavigate()
   const { tab } = useParams()
+  const { t } = useTranslation()
   const {
     deleteDiscovery: { mutate, isLoading },
     deleteOpen,
@@ -16,7 +18,7 @@ function DiscoverContent() {
   return (
     <div className="flex flex-col gap-4">
       <ContentHeader
-        title="Откройте Узбекистан вместе с нами"
+        title={t('content.discover.title')}
         onAddClick={() => {
           navigate(`/content/${tab}/create`)
         }}
@@ -33,8 +35,8 @@ function DiscoverContent() {
             mutate(deleteOpen)
           }
         }}
-        title="Удалить открытие?"
-        description="Подтвердите, что вы действительно хотите удалить данное открытие?"
+        title={t('content.discover.delete')}
+        description={t('content.discover.delete-desc')}
       />
     </div>
   )

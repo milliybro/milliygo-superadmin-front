@@ -20,7 +20,7 @@ export default function DiscoverGallery() {
   }
 
   return (
-    <Form.Item label="Добавить фотографии">
+    <Form.Item label={t('fields.images.label')}>
       {image === null ? (
         <Upload.Dragger
           className="mb-2 flex flex-col items-center gap-2 [&_.ant-upload-btn]:py-12"
