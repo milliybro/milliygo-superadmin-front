@@ -2,12 +2,11 @@ import ImageUploadIcon from '@/components/icons/image-upload'
 import ResetIcon from '@/components/icons/reset'
 import UserIcon from '@/components/icons/user'
 import { CloseOutlined } from '@ant-design/icons'
-import { useMutation } from '@tanstack/react-query'
 import { App, Button, Modal, Typography, Upload, UploadProps } from 'antd'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { createBackground } from '../api'
 import { getFirstFrameFromVideo } from '../helpers/get-first-frame-from-video'
+import { useHeroContext } from '../hooks/use-hero-context'
 import { useUploadedVideoStore } from '../store/uploaded-video-store'
 
 interface IProps {
@@ -20,6 +19,9 @@ export default function AddModal({ open, setShowModal }: IProps) {
   const { message } = App.useApp()
   const { uploadedVideo, setUploadedVideo, removeUploadedVideo } =
     useUploadedVideoStore()
+  const {
+    createBackground: { mutate, isPending, isSuccess },
+  } = useHeroContext()
 
   const handleUpload: UploadProps['beforeUpload'] = file => {
     if (file?.size && file?.size > 200 * 1024 * 1024) {
@@ -34,25 +36,12 @@ export default function AddModal({ open, setShowModal }: IProps) {
     return false
   }
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: () => {
-      if (!uploadedVideo?.video && !uploadedVideo?.preview) {
-        return Promise.reject('')
-      }
-
-      const formdata = new FormData()
-
-      formdata.append('video', uploadedVideo?.video)
-      formdata.append('preview_image', uploadedVideo?.preview)
-      formdata.append('is_active', 'false')
-
-      return createBackground(formdata)
-    },
-    onSuccess: () => {
-      message.success('Фон успешно создан')
+  useEffect(() => {
+    if (isSuccess) {
       setShowModal(false)
-    },
-  })
+      removeUploadedVideo()
+    }
+  }, [isSuccess])
 
   return (
     <Modal

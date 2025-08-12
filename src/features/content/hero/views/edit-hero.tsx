@@ -1,11 +1,11 @@
-import ImageUploadIcon from '@/components/icons/image-upload'
-import { App, Button, Form, Switch, Tag, Typography, Upload } from 'antd'
+import { Button, Form, Switch, Tag, Typography } from 'antd'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import VideoPlayer from 'react-player'
-import { getFirstFrameFromVideo } from '../helpers/get-first-frame-from-video'
+import UploadedVideoField from '../components/uploaded-video-field'
 import { useHeroContext } from '../hooks/use-hero-context'
 import { useUploadedVideoStore } from '../store/uploaded-video-store'
+import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
 export default function EditHero() {
   const {
@@ -13,14 +13,15 @@ export default function EditHero() {
     editBackground: { mutate, isPending },
   } = useHeroContext()
   const { t } = useTranslation()
-  const { notification } = App.useApp()
-  const { uploadedVideo, setUploadedVideo, removeUploadedVideo } =
-    useUploadedVideoStore()
+  const { uploadedVideo, removeUploadedVideo } = useUploadedVideoStore()
   const [form] = Form.useForm()
-  const status = Form.useWatch('status', form)
+  const status = Form.useWatch('is_active', form)
+  const { setBreadCrumbs } = useBreadCrumbsStore()
 
   useEffect(() => {
     removeUploadedVideo()
+
+    setBreadCrumbs([{ title: 'Главная' }])
 
     return () => {
       removeUploadedVideo()
@@ -28,32 +29,18 @@ export default function EditHero() {
   }, [])
 
   useEffect(() => {
+    setBreadCrumbs([
+      { title: t('common.main'), href: '/' },
+      { title: t('routes.content'), href: '/content/main' },
+      {
+        title: t('common.edit'),
+      },
+    ])
+  }, [t])
+
+  useEffect(() => {
     form.setFieldsValue({ is_active: data?.is_active || false })
   }, [data])
-
-  const handleUpload = (file: File) => {
-    if (file?.size && file?.size > 200 * 1024 * 1024) {
-      notification.error({
-        message: t('common.images_limit', { limit: '5 MB' }),
-      })
-      return
-    } else if (!file?.type?.includes('video/')) {
-      notification.error({
-        message: 'Неверный тип файла',
-      })
-      return
-    }
-
-    async function handleImage() {
-      const preview = await getFirstFrameFromVideo(file)
-
-      setUploadedVideo({ video: file, preview })
-    }
-
-    handleImage()
-
-    return false
-  }
 
   return (
     <div>
@@ -90,32 +77,7 @@ export default function EditHero() {
               </Button>
             )}
           </div>
-          {uploadedVideo ? (
-            <VideoPlayer
-              src={URL.createObjectURL(uploadedVideo?.video)}
-              height="auto"
-              width="100%"
-              controls
-            />
-          ) : (
-            <Upload.Dragger
-              className="mb-2 flex aspect-video flex-col items-center gap-2 [&_.ant-upload-btn]:py-12"
-              beforeUpload={newFile => {
-                handleUpload(newFile)
-                return false
-              }}
-              showUploadList={false}
-              accept="video/*"
-            >
-              <ImageUploadIcon className="text-[70px]" />
-              <Typography.Title className="m-0 text-base font-medium">
-                {t('common.select_or_drag')}
-              </Typography.Title>
-              <Typography.Paragraph className="m-0 text-sm text-secondary">
-                {t('common.images_limit', { limit: '200 MB' })}
-              </Typography.Paragraph>
-            </Upload.Dragger>
-          )}
+          <UploadedVideoField />
         </div>
         <div className="mt-5 flex basis-full items-end gap-5">
           <div className="flex items-end gap-5">
