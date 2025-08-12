@@ -15,6 +15,7 @@ import DiscoverProvider from '../discover/context'
 import ExpertAdviceContent from '../expert-advice/list'
 import InstagramContent from '../instagram/list'
 import EventsContent from '../events/list'
+import HeroProvider from '../hero/context'
 
 function Content() {
   const { t } = useTranslation()
@@ -33,7 +34,11 @@ function Content() {
     {
       key: 'main',
       label: t('common.main-content'),
-      children: <MainPageContent />,
+      children: (
+        <HeroProvider>
+          <MainPageContent />
+        </HeroProvider>
+      ),
     },
     {
       key: 'top-destinations',

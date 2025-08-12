@@ -1,19 +1,23 @@
-import { createContext } from 'react'
-import { IVideoBackground } from '../types'
+import { ListResponse } from '@/types'
 import { useMutation, useQuery } from '@tanstack/react-query'
+import { App } from 'antd'
+import { createContext, useState } from 'react'
+import { useLocation, useNavigate, useParams } from 'react-router'
 import {
   createBackground,
+  deleteBackground,
   editBackground,
   getBackground,
   getBackgrounds,
 } from '../api'
-import { ListResponse } from '@/types'
-import { App, notification } from 'antd'
 import { useUploadedVideoStore } from '../store/uploaded-video-store'
-import { useLocation, useParams } from 'react-router'
+import { IVideoBackground } from '../types'
+import { useTranslation } from 'react-i18next'
 
 interface IHeroContext {
   videoLists: { data?: ListResponse<IVideoBackground[]>; isLoading: boolean }
+  showDeleteModal: number | null
+  setShowDeleteModal: (value: number | null) => void
   video: {
     data?: IVideoBackground
     isLoading: boolean
@@ -21,9 +25,14 @@ interface IHeroContext {
   createBackground: {
     mutate: () => void
     isPending: boolean
+    isSuccess: boolean
   }
   editBackground: {
-    mutate: (params: { is_active: boolean }) => void
+    mutate: (params: { is_active: boolean; id?: number }) => void
+    isPending: boolean
+  }
+  deleteBackground: {
+    mutate: (id: number) => void
     isPending: boolean
   }
 }
@@ -31,10 +40,13 @@ interface IHeroContext {
 const HeroContext = createContext<IHeroContext | null>(null)
 
 function HeroProvider({ children }: { children: React.ReactNode }) {
-  const { message } = App.useApp()
+  const [showDeleteModal, setShowDeleteModal] = useState<number | null>(null)
+  const { notification } = App.useApp()
   const { uploadedVideo } = useUploadedVideoStore()
   const { slug } = useParams()
   const { pathname } = useLocation()
+  const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const videoQuery = useQuery({
     queryKey: ['hero-backgrounds'],
@@ -64,25 +76,45 @@ function HeroProvider({ children }: { children: React.ReactNode }) {
       return createBackground(formdata)
     },
     onSuccess: () => {
-      message.success('Фон успешно создан')
+      notification.success({ message: t('content.hero.create-success') })
+      videoQuery.refetch()
     },
   })
 
   const editMutation = useMutation({
-    mutationFn: (params: { is_active: boolean }) => {
-      if (!uploadedVideo?.video && !uploadedVideo?.preview) {
-        notification.error({
-          message: 'Пожалуйста выберите видео',
-        })
-        return Promise.reject('')
-      }
+    mutationFn: (params: { is_active: boolean; id?: number }) => {
+      // if (!uploadedVideo?.video && !uploadedVideo?.preview) {
+      //   notification.error({
+      //     message: 'Пожалуйста выберите видео',
+      //   })
+      //   return Promise.reject('')
+      // }
 
       const formData = new FormData()
-      formData.append('video', uploadedVideo?.video)
-      formData.append('preview_image', uploadedVideo?.preview)
+      if (uploadedVideo?.video) formData.append('video', uploadedVideo?.video)
+      if (uploadedVideo?.preview)
+        formData.append('preview_image', uploadedVideo?.preview)
       formData.append('is_active', String(params?.is_active))
 
-      return editBackground(slug as string, formData)
+      return editBackground(params?.id || (slug as string), formData)
+    },
+    onSuccess: () => {
+      videoQuery.refetch()
+      notification.success({
+        message: t('content.hero.edit-success'),
+      })
+      navigate('/content/main')
+    },
+  })
+
+  const deleteMutation = useMutation({
+    mutationFn: deleteBackground,
+    onSuccess: () => {
+      notification.success({
+        message: t('content.hero.delete-success'),
+      })
+      setShowDeleteModal(null)
+      videoQuery.refetch()
     },
   })
 
@@ -97,11 +129,18 @@ function HeroProvider({ children }: { children: React.ReactNode }) {
         createBackground: {
           mutate: createBackgroundMutation.mutate,
           isPending: createBackgroundMutation.isPending,
+          isSuccess: createBackgroundMutation.isSuccess,
         },
         editBackground: {
           mutate: editMutation.mutate,
           isPending: editMutation.isPending,
         },
+        deleteBackground: {
+          mutate: deleteMutation.mutate,
+          isPending: deleteMutation.isPending,
+        },
+        showDeleteModal,
+        setShowDeleteModal,
       }}
     >
       {children}
@@ -110,4 +149,4 @@ function HeroProvider({ children }: { children: React.ReactNode }) {
 }
 
 export default HeroProvider
-export { HeroProvider, HeroContext }
+export { HeroContext, HeroProvider }

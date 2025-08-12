@@ -480,7 +480,7 @@
     "clients": "Mijozlar",
     "access-role": "Kirish roli",
     "complaints": "Shikoyatlar",
-    "call-center": "Aloqa markaz",
+    "call-center": "Aloqa markazi",
     "active": "Faol",
     "un-active": "Nofaol",
     "request": "So‘rov bo‘yicha",
@@ -563,7 +563,7 @@
     "room": "Raqam",
     "payment-amount": "To'lov summasi",
     "date-and-time": "Sana va vaqt",
-    "login-success": "Mavaffiqatli kirildi",
+    "login-success": "Muvaffaqiyatli kirildi",
     "sort_descending": "Kamayish tartibida tartiblash uchun bosing",
     "sort_ascending": "O'sish tartibida tartiblash uchun bosing",
     "sort_cancel": "Tartiblashni rad etish uchun bosing",
@@ -604,7 +604,9 @@
     "description": "Tavsif",
     "no-description": "Tavsif yo‘q",
     "check": "Tekshirish",
-    "refresh": "Sahifani yangilash"
+    "refresh": "Sahifani yangilash",
+    "change": "O‘zgartirish",
+    "reload": "Qayta yuklash"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
@@ -755,6 +757,20 @@
     "add-content": "Kontent qo‘shish",
     "edit-content": "Kontentni tahrirlash",
     "additional-information": "Qo‘shimcha ma’lumot",
+    "hero": {
+      "delete": "Fonni o‘chirish",
+      "delete-desc": "Ushbu kontekstni o‘chirib tashlamoqchi ekanligingizni tasdiqlang",
+      "edit-bg": "Fonni o‘zgartirish",
+      "current-video": "Joriy video",
+      "new-video": "Yangi video",
+      "create-success": "Fon muvaffaqiyatli yaratildi",
+      "edit-success": "Fon muvaffaqiyatli yangilandi",
+      "delete-success": "Fon muvaffaqiyatli o‘chirildi",
+      "picture": "Rasm",
+      "bg-picture": "Fon rasmi",
+      "incorrect-file-type": "Noto‘g‘ri fayl turi",
+      "add-video": "Rasmlar yoki videolar qo‘shish"
+    },
     "country-map": {
       "title": "O‘zbekiston xaritasi",
       "point-destination": "Nuqta yo‘nalishi",

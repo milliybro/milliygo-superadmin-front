@@ -40,3 +40,12 @@ export async function editBackground(
     data,
   })
 }
+
+export async function deleteBackground(
+  id: number | string,
+): Promise<IVideoBackground> {
+  return await request({
+    url: `/site-content/background_video_main_page/${id}`,
+    method: 'DELETE',
+  })
+}
