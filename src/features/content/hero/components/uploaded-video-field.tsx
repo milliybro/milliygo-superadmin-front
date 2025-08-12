@@ -19,7 +19,7 @@ function UploadedVideoField() {
       return
     } else if (!file?.type?.includes('video/')) {
       notification.error({
-        message: 'Неверный тип файла',
+        message: t('content.hero.incorrect-file-type'),
       })
       return
     }

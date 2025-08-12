@@ -58,11 +58,11 @@ export default function AddModal({ open, setShowModal }: IProps) {
           <UserIcon className="text-2xl text-primary" />
         </div>
         <Typography.Title level={3} className="text-2xl">
-          Добавить
+          {t('common.add')}
         </Typography.Title>
         <div className="w-full text-left">
           <Typography.Text className="mb-2 block text-left text-base font-medium">
-            Добавить фотографии или видео
+            {t('content.hero.add-video')}
           </Typography.Text>
           {uploadedVideo ? (
             <div className="relative mb-2 h-52 w-full overflow-hidden rounded-2xl bg-black">
@@ -83,7 +83,7 @@ export default function AddModal({ open, setShowModal }: IProps) {
                 }}
               >
                 <ResetIcon className="text-lg" />
-                Перезагрузить
+                {t('common.reload')}
               </Button>
             </div>
           ) : (
@@ -105,7 +105,7 @@ export default function AddModal({ open, setShowModal }: IProps) {
           )}
           <div className="flex w-full items-center gap-4">
             <Button className="w-full" onClick={() => setShowModal(false)}>
-              Отменить
+              {t('common.cancel')}
             </Button>
             <Button
               type="primary"
@@ -113,7 +113,7 @@ export default function AddModal({ open, setShowModal }: IProps) {
               onClick={() => mutate()}
               loading={isPending}
             >
-              Сохранить
+              {t('common.save')}
             </Button>
           </div>
         </div>

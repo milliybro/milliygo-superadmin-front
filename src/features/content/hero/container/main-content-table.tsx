@@ -19,7 +19,7 @@ function MainContentTable() {
 
   const columns: TableProps['columns'] = [
     {
-      title: 'Картина',
+      title: t('content.hero.picture'),
       key: 'preview',
       dataIndex: 'preview',
       className: 'w-1/2',
@@ -36,7 +36,7 @@ function MainContentTable() {
               src={value}
               loading="lazy"
               className="h-full w-full object-cover"
-              alt="Фоновое изображение"
+              alt={t('content.hero.bg-picture')}
             />
           ) : (
             <VideoCameraFilled className="text-2xl text-secondary/50" />
@@ -45,7 +45,7 @@ function MainContentTable() {
       ),
     },
     {
-      title: 'Статус',
+      title: t('fields.status.label'),
       key: 'status',
       dataIndex: 'status',
       className: 'w-1/2',
@@ -57,7 +57,7 @@ function MainContentTable() {
       ),
     },
     {
-      title: 'Действие',
+      title: t('common.action'),
       key: 'action',
       dataIndex: 'action',
       width: 0,

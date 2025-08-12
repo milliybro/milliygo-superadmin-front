@@ -21,8 +21,6 @@ export default function EditHero() {
   useEffect(() => {
     removeUploadedVideo()
 
-    setBreadCrumbs([{ title: 'Главная' }])
-
     return () => {
       removeUploadedVideo()
     }
@@ -45,7 +43,7 @@ export default function EditHero() {
   return (
     <div>
       <Typography.Title level={3} className="text-2xl font-semibold">
-        Изменить фон
+        {t('content.hero.edit-bg')}
       </Typography.Title>
       <Form
         form={form}
@@ -57,14 +55,14 @@ export default function EditHero() {
       >
         <div className="flex basis-1/2 flex-col gap-5">
           <Typography.Text className="font-medium">
-            Текущее видео
+            {t('content.hero.current-video')}
           </Typography.Text>
           <VideoPlayer src={data?.video} height="auto" width="100%" controls />
         </div>
         <div className="flex basis-1/2 flex-col gap-5">
           <div className="relative w-full">
             <Typography.Text className="font-medium">
-              Новое видео
+              {t('content.hero.new-video')}
             </Typography.Text>
             {uploadedVideo && (
               <Button
@@ -73,7 +71,7 @@ export default function EditHero() {
                 onClick={removeUploadedVideo}
                 className="absolute right-0 top-0"
               >
-                Изменить
+                {t('common.change')}
               </Button>
             )}
           </div>
@@ -96,7 +94,7 @@ export default function EditHero() {
         loading={isPending}
         onClick={() => form.submit()}
       >
-        Сохранить
+        {t('common.save')}
       </Button>
     </div>
   )

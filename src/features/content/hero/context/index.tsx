@@ -12,6 +12,7 @@ import {
 } from '../api'
 import { useUploadedVideoStore } from '../store/uploaded-video-store'
 import { IVideoBackground } from '../types'
+import { useTranslation } from 'react-i18next'
 
 interface IHeroContext {
   videoLists: { data?: ListResponse<IVideoBackground[]>; isLoading: boolean }
@@ -45,6 +46,7 @@ function HeroProvider({ children }: { children: React.ReactNode }) {
   const { slug } = useParams()
   const { pathname } = useLocation()
   const navigate = useNavigate()
+  const { t } = useTranslation()
 
   const videoQuery = useQuery({
     queryKey: ['hero-backgrounds'],
@@ -74,7 +76,7 @@ function HeroProvider({ children }: { children: React.ReactNode }) {
       return createBackground(formdata)
     },
     onSuccess: () => {
-      notification.success({ message: 'Фон успешно создан' })
+      notification.success({ message: t('content.hero.create-success') })
       videoQuery.refetch()
     },
   })
@@ -99,7 +101,7 @@ function HeroProvider({ children }: { children: React.ReactNode }) {
     onSuccess: () => {
       videoQuery.refetch()
       notification.success({
-        message: 'Фон успешно обновлен',
+        message: t('content.hero.edit-success'),
       })
       navigate('/content/main')
     },
@@ -109,7 +111,7 @@ function HeroProvider({ children }: { children: React.ReactNode }) {
     mutationFn: deleteBackground,
     onSuccess: () => {
       notification.success({
-        message: 'Фон успешно удален',
+        message: t('content.hero.delete-success'),
       })
       setShowDeleteModal(null)
       videoQuery.refetch()
