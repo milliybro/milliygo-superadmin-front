@@ -15,7 +15,7 @@ export async function getBackground(
   id: number | string,
 ): Promise<IVideoBackground> {
   return await request({
-    url: `/site-content/background_video_main_page/${id}`,
+    url: `/site-content/background_video_main_page/${id}/`,
     method: 'GET',
   })
 }
@@ -35,7 +35,7 @@ export async function editBackground(
   data: FormData,
 ): Promise<IVideoBackground> {
   return await request({
-    url: `/site-content/background_video_main_page/${id}`,
+    url: `/site-content/background_video_main_page/${id}/`,
     method: 'PATCH',
     data,
   })
