@@ -10,7 +10,7 @@ export async function deleteTopDestination(id: number | string) {
 
 export async function createTopDestination(data: FormData) {
   return await request({
-    url: '/site-content/top_destinations',
+    url: '/site-content/top_destinations/',
     method: 'post',
     data,
   })
