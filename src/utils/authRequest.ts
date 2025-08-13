@@ -25,10 +25,6 @@ requestAuth.interceptors.request.use(config => {
 
   const locale = localStorage.getItem('i18nextLng')
 
-  if (config.url?.[config.url?.length - 1] !== '/') {
-    config.url += '/'
-  }
-
   config.headers['Accept-Language'] =
     locale === 'uz'
       ? 'uz-cyrillic'
