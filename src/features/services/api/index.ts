@@ -113,7 +113,7 @@ export async function getRoomFacilities(
     params?: any,
   ): Promise<ISevicesTable> {
     const res: ISevicesTable = await request({
-      url: `/placement_references/r_facility/${params.id}`,
+      url: `/placement_references/r_facility/${params.id}/`,
       method: 'get',
       params: params.queryParams,
     })
@@ -126,7 +126,7 @@ export async function getRoomFacilities(
     params?: any,
   ): Promise<ISevicesTable> {
     const res: ISevicesTable = await request({
-      url: `/placement_references/facility/${params.id}`,
+      url: `/placement_references/facility/${params.id}/`,
       method: 'get',
       params: params.queryParams,
     })
@@ -138,7 +138,7 @@ export async function getRoomFacilities(
     params?: any,
   ): Promise<ISevicesTable> {
     const res: ISevicesTable = await request({
-      url: `/placement_references/prohibitions/${params.id}`,
+      url: `/placement_references/prohibitions/${params.id}/`,
       method: 'get',
       params: params.queryParams,
     })

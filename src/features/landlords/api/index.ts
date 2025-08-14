@@ -8,7 +8,7 @@ export async function getApartmentsList(
   params?: any,
 ): Promise<ListResponse<IApartmentsTable[]>> {
   const res: ListResponse<IApartmentsTable[]> = await requestSuper({
-    url: '/placements/apartments',
+    url: '/placements/apartments/',
     method: 'get',
     params,
   })
@@ -20,7 +20,7 @@ export async function getApartmentItem(
   id?: number,
 ): Promise<ListResponse<IApartmentsTable[]>> {
   const res: ListResponse<IApartmentsTable[]> = await requestAuth({
-    url: `/placements/apartment/${id}`,
+    url: `/placements/apartment/${id}/`,
     method: 'get',
   })
 

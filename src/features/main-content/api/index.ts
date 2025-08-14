@@ -68,7 +68,7 @@ export async function updateRecreation(params: {
 
 export async function getUser(params?: any): Promise<IUsers> {
   const res: IUsers = await requestAuth({
-    url: `/account/super-admin/users/${params.id}`,
+    url: `/account/super-admin/users/${params.id}/`,
     method: 'get',
     params: params.queryParams,
   })
@@ -95,7 +95,7 @@ export async function updateUser(params: {
 
 export async function getRecreation(params?: any): Promise<IDestinations> {
   const res: IDestinations = await request({
-    url: `/site_settings/content_main_page/${params.id}`,
+    url: `/site_settings/content_main_page/${params.id}/`,
     method: 'get',
     params: params.queryParams,
   })
