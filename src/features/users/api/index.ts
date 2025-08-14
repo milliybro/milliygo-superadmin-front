@@ -28,7 +28,7 @@ export async function getUserRoles(
 
 export async function getUser(params?: any): Promise<IUsers> {
   const res: IUsers = await requestAuth({
-    url: `/account/super-admin/users/${params.id}`,
+    url: `/account/super-admin/users/${params.id}/`,
     method: 'get',
     params: params.queryParams,
   })

@@ -48,7 +48,7 @@ export async function updateTenant(params: {
 }
 export async function getTenant(params?: any): Promise<IHotelsTable> {
   const res: IHotelsTable = await request({
-    url: `/superadmin/placement-integrations/${params.id}`,
+    url: `/superadmin/placement-integrations/${params.id}/`,
     method: 'get',
     params: params.queryParams,
   })

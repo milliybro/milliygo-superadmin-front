@@ -6,7 +6,7 @@ export async function getBackgrounds(): Promise<
   ListResponse<IVideoBackground[]>
 > {
   return await request({
-    url: '/site-content/background_video_main_page',
+    url: '/site-content/background_video_main_page/',
     method: 'GET',
   })
 }
@@ -45,7 +45,7 @@ export async function deleteBackground(
   id: number | string,
 ): Promise<IVideoBackground> {
   return await request({
-    url: `/site-content/background_video_main_page/${id}`,
+    url: `/site-content/background_video_main_page/${id}/`,
     method: 'DELETE',
   })
 }

@@ -40,7 +40,7 @@ export async function updateRole(params: {
 
 export async function getRole(params?: any): Promise<IAccessRoleTable> {
   const res: IAccessRoleTable = await requestAuth({
-    url: `/account/user-roles/${params.id}`,
+    url: `/account/user-roles/${params.id}/`,
     method: 'get',
     params: params.queryParams,
   })
