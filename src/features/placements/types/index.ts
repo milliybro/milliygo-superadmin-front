@@ -1,3 +1,22 @@
+export interface IPlacement {
+  placement_id: number
+  lat: number
+  image: string
+  long: number
+  name: string
+  phone: string | null
+  address: string
+  slug: string
+  type_name: string
+  key: string
+  rating: number
+}
+
+export interface IPlacementType {
+  name: string
+  key: string
+}
+
 interface IHotelsItemTable {
   key: string
   id: number
@@ -44,7 +63,6 @@ interface IHotelsItemReview {
   rating: number
 }
 
-
 interface IHotelsRoom {
   key: any
   id: any
@@ -58,9 +76,9 @@ interface IHotelsRoom {
 interface IHotelsGuests {
   key: number
   id: number
-  citizenship: string,
-  passport_sn: string,
-  checkInOut: string,
+  citizenship: string
+  passport_sn: string
+  checkInOut: string
   first_name: string
   last_name: string
   nationality: string
@@ -94,4 +112,13 @@ interface IGuestsTransaction {
   checkInOut: string
   status: string
 }
-export type { IHotelDetail, IHotelsGuests, IHotelsItemReview, IHotelsItemTable, IHotelsTable, IHotelsRoom, IGuestsTable, IGuestsTransaction }
+export type {
+  IHotelDetail,
+  IHotelsGuests,
+  IHotelsItemReview,
+  IHotelsItemTable,
+  IHotelsTable,
+  IHotelsRoom,
+  IGuestsTable,
+  IGuestsTransaction,
+}

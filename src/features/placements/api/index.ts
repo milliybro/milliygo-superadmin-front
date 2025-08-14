@@ -6,6 +6,7 @@ import {
   IHotelsRoom,
   IHotelsTable,
   IPlacement,
+  IPlacementType,
 } from '../types'
 
 export async function getAllPlacements(
@@ -21,7 +22,7 @@ export async function getAllPlacements(
 }
 
 export async function getPlacementTypes(params?: any) {
-  const res: ListResponse<IPlacement[]> = await request({
+  const res: IPlacementType[] = await request({
     url: '/placements/types/',
     method: 'get',
     params,
