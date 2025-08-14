@@ -176,7 +176,11 @@ const PlacementsTable = () => {
       <Table<IPlacement>
         columns={columns}
         dataSource={
-          placementsData?.results?.map((item, i) => ({ ...item, idx: i })) || []
+          placementsData?.results?.map((item, i) => ({
+            ...item,
+            idx: i,
+            key: item?.key + i,
+          })) || []
         }
         className="h-full w-full"
         bordered
