@@ -62,7 +62,7 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
 
   const discoverQuery = useQuery({
     queryKey: ['discoveries', queries],
-    queryFn: () => getDiscoveries(truthyObject({ ...queries })),
+    queryFn: () => getDiscoveries(truthyObject({ ...queries, page_size: 10 })),
     enabled: pathname === '/content/discover-uzbekistan',
     refetchOnWindowFocus: false,
     placeholderData: data => data,
