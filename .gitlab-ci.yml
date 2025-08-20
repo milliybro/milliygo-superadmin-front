@@ -1,7 +1,7 @@
 variables:
   ADDRESS_PROD: harbor.emehmon.uz
   REPO_NAME: e-mehmon
-  IMAGE_NAME: ${CI_PROJECT_NAME}
+  IMAGE_NAME: superadmin-front
   SERVICE_NAME: service_name
   SSH_TARGET: "master1"
 
