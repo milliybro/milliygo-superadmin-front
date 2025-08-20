@@ -2,7 +2,7 @@ variables:
   ADDRESS_PROD: harbor.emehmon.uz
   REPO_NAME: e-mehmon
   IMAGE_NAME: superadmin-front
-  SERVICE_NAME: service_name
+  SERVICE_NAME: superadmin-front_superadmin-front
   SSH_TARGET: "master1"
 
 
@@ -57,17 +57,17 @@ push-harbor:
     - docker image prune -af
 
 #deploy
-# deploy-prod:
-#   stage: deploy
-#   only:
-#     - prod
-#   tags:
-#     - e_mehmon_prod
-#   script:
-#     - pwd
-#     - ssh "$SSH_TARGET" docker service update --update-order start-first --update-parallelism 1 --update-delay 10s --image "$ADDRESS_PROD/$REPO_NAME/$IMAGE_NAME:${CI_PIPELINE_IID}" "$SERVICE_NAME"
-#   retry: 2 
-#   timeout: 15m
+deploy-prod:
+  stage: deploy
+  only:
+    - prod
+  tags:
+    - e_mehmon_prod
+  script:
+    - pwd
+    - ssh "$SSH_TARGET" docker service update --update-order start-first --update-parallelism 1 --update-delay 10s --image "$ADDRESS_PROD/$REPO_NAME/$IMAGE_NAME:${CI_PIPELINE_IID}" "$SERVICE_NAME"
+  retry: 2 
+  timeout: 15m
 
 
 
