@@ -390,6 +390,14 @@
       "fullname": "Bolaning F.I.O.",
       "birth-date": "Bolaning tug‘ilgan kuni",
       "departure-date": "Ketish kuni"
+    },
+    "map-point": {
+      "label": "Xaritadagi nomi",
+      "placeholder": "Xaritada ko‘rsatiladigan nomni kiriting"
+    },
+    "destination": {
+      "label": "Yo‘nalish",
+      "placeholder": "Xaritadagi nuqtaga mos yo‘nalishni kiriting"
     }
   },
   "tenant": {
@@ -523,7 +531,12 @@
     "images_limit": "Maksimal hajmi: 5 MB.",
     "avia": "Avia",
     "railway": "Temir yo‘l",
-    "ticket-seller": "Bilet sotuvchilar"
+    "ticket-seller": "Bilet sotuvchilar",
+    "go-home": "Bosh sahifaga o'tish",
+    "view": "Ko'rish",
+    "save": "Saqlash",
+    "manager": "Menejer",
+    "refresh": "Sahifani yangilash"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
@@ -622,7 +635,7 @@
     "end-period": "Tugatish davri",
     "fund_number": "Raqamli fond",
     "number_beds": "Joylar soni",
-    "yulduzlar": "Yulduzlar",
+    "stars": "Yulduzlar",
     "guest-count": "Mehmonlar soni",
     "spent-day": "Yashalgan sutka",
     "bca": "Bazaviy hisobiy kattalik",
@@ -639,6 +652,24 @@
     "main-information": "Asosiy axborot",
     "visa-information": "Viza ma’lumotlari",
     "under-chilren": "Birga kelgan 16 yoshgacha bo‘lgan bolalar haqida ma’lumot"
+  },
+  "error": {
+    "unexpected": "Nimadir noto'g'ri ketdi",
+    "not-found": "Sahifa topilmadi"
+  },
+  "content": {
+    "country-map": {
+      "title": "O‘zbekiston xaritasi",
+      "point-destination": "Nuqta yo‘nalishi",
+      "save-point": "Nuqtani saqlash",
+      "delete-point": "Nuqtani xaritadan o‘chirish?",
+      "delete-point-desc": "Ushbu nuqtani xaritadan o‘chirib tashlamoqchi ekanligingizni tasdiqlang",
+      "edit-success": "Nuqta muvaffaqiyatli yangilandi",
+      "add-success": "Nuqta muvaffaqiyatli yaratildi",
+      "delete-success": "Nuqta muvaffaqiyatli o‘chirildi",
+      "edit-point": "Xaritada nuqta tahrirlash",
+      "create-point": "Xaritada nuqta yaratish"
+    }
   },
   "region": {
     "points-1": "Samarqand tumani_(Konigil qishlog'i)",

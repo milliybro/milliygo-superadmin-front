@@ -1,9 +1,11 @@
 import { CustomRoute } from '@/types'
 import Content from './views/content'
-import CreateContent from './views/create-content'
 import ContentLayout from './views/content-layout'
-import RegionSpots from './country-map/region-spots'
-import CreateRegionSpot from './country-map/create/create-region-spot'
+import CreateContent from './views/create-content'
+import CountryMapLayout from './country-map/layouts'
+import RegionSpots from './country-map/views/list/region-spots'
+import CreateRegionSpot from './country-map/views/create/create-region-spot'
+import EditRegionSpot from './country-map/views/edit/edit-region-spot'
 
 const contentRoutes: CustomRoute = {
   id: 'content',
@@ -27,14 +29,22 @@ const contentRoutes: CustomRoute = {
       element: <CreateContent />,
     },
     {
-      path: ':tab/:region',
-      title: 'Region Content',
-      element: <RegionSpots />,
-    },
-    {
-      path: ':tab/:region/create',
-      title: 'Create Region Content',
-      element: <CreateRegionSpot />,
+      path: 'country-map/:region',
+      element: <CountryMapLayout />,
+      children: [
+        {
+          path: '',
+          element: <RegionSpots />,
+        },
+        {
+          path: 'create',
+          element: <CreateRegionSpot />,
+        },
+        {
+          path: 'edit',
+          element: <EditRegionSpot />,
+        },
+      ],
     },
   ],
 }

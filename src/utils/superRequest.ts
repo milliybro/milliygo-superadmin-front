@@ -6,10 +6,8 @@ import { refreshToken } from '@/features/auth'
 import type { AxiosError } from 'axios'
 import type { IErrorMessage } from '@/types'
 
-export const baseURL = 'https://superapi.emehmon.xdevs.uz/api/v1'
-
 const requestSuper = axios.create({
-  baseURL: baseURL,
+  baseURL: settings.baseURL,
   timeout: settings.requestTimeout,
 })
 
@@ -22,6 +20,10 @@ requestSuper.interceptors.request.use(config => {
 
   if (token !== null) {
     config.headers.Authorization = `Bearer ${token}`
+  }
+
+  if (config.url?.[config.url?.length - 1] !== '/') {
+    config.url += '/'
   }
 
   const locale = localStorage.getItem('i18nextLng')
@@ -41,10 +43,7 @@ requestSuper.interceptors.request.use(config => {
   return config
 }, errorHandler)
 
-requestSuper.interceptors.response.use(
-  response => response.data,
-  errorHandler,
-)
+requestSuper.interceptors.response.use(response => response.data, errorHandler)
 
 export async function errorHandler(error: AxiosError): Promise<void> {
   const errorStatus = error.response?.status

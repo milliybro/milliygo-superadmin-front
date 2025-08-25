@@ -7,10 +7,8 @@ import { refreshToken } from '@/features/auth'
 import type { AxiosError } from 'axios'
 import type { IErrorMessage } from '@/types'
 
-export const baseURL = 'https://superapi.emehmon.xdevs.uz/api/v1'
-
 const requestAuth = axios.create({
-  baseURL: baseURL,
+  baseURL: settings.baseURL,
   timeout: settings.requestTimeout,
 })
 
@@ -24,7 +22,12 @@ requestAuth.interceptors.request.use(config => {
   if (token !== null) {
     config.headers.Authorization = `Bearer ${token}`
   }
+
   const locale = localStorage.getItem('i18nextLng')
+
+  if (config.url?.[config.url?.length - 1] !== '/') {
+    config.url += '/'
+  }
 
   config.headers['Accept-Language'] =
     locale === 'uz'

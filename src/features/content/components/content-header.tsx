@@ -1,5 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons'
 import { Button, Typography } from 'antd'
+import { useTranslation } from 'react-i18next'
 
 interface IProps {
   onAddClick?: () => void
@@ -7,15 +8,16 @@ interface IProps {
 }
 
 export default function ContentHeader({ onAddClick, title }: IProps) {
+  const { t } = useTranslation()
   return (
     <div className="flex items-center justify-between">
       <Typography.Title level={2} className="text-lg font-medium">
-        {title || 'Главная страница'}
+        {title || t('common.main-content')}
       </Typography.Title>
       {!!onAddClick && (
         <Button type="primary" onClick={onAddClick}>
           <PlusOutlined />
-          Добавить
+          {t('common.add')}
         </Button>
       )}
     </div>

@@ -7,10 +7,8 @@ import { refreshToken } from '@/features/auth'
 import type { AxiosError } from 'axios'
 import type { IErrorMessage } from '@/types'
 
-export const baseURL = 'https://chat.emehmon.xdevs.uz/api/v1'
-
 const requestChat = axios.create({
-  baseURL: baseURL,
+  baseURL: settings.baseChatURL,
   timeout: settings.requestTimeout,
 })
 
