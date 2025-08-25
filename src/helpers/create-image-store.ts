@@ -5,7 +5,7 @@ type ImageItem = {
   url: string
 }
 
-type ImageStore<T = ImageItem> = {
+type MultipleImageStore<T = ImageItem> = {
   images: T[]
   setImages: (images: T[]) => void
   addImage: (image: T) => void
@@ -13,7 +13,7 @@ type ImageStore<T = ImageItem> = {
   updateImage: (index: number, newImage: T) => void
 }
 
-type SignleImageStore<T = ImageItem> = {
+type SingleImageStore<T = ImageItem> = {
   image: T | null
   setImage: (image: T | null) => void
   removeImage: () => void
@@ -21,33 +21,32 @@ type SignleImageStore<T = ImageItem> = {
 
 export function createImageStore<T = ImageItem>(
   type: 'single',
-): UseBoundStore<StoreApi<SignleImageStore<T>>>
+): UseBoundStore<StoreApi<SingleImageStore<T>>>
 export function createImageStore<T = ImageItem>(
   type: 'multiple',
-): UseBoundStore<StoreApi<ImageStore<T>>>
-export function createImageStore<T = ImageItem>(): UseBoundStore<
-  StoreApi<ImageStore<T>>
->
-export function createImageStore<T = ImageItem>(type?: 'single' | 'multiple') {
+): UseBoundStore<StoreApi<MultipleImageStore<T>>>
+export function createImageStore<T = ImageItem>(
+  type: 'single' | 'multiple' = 'multiple',
+) {
   if (type === 'single') {
-    return create<SignleImageStore<T>>(set => ({
+    return create<SingleImageStore<T>>(set => ({
       image: null,
       setImage: image => set({ image }),
       removeImage: () => set({ image: null }),
     }))
-  } else {
-    return create<ImageStore<T>>(set => ({
-      images: [],
-      setImages: images => set({ images }),
-      addImage: image => set(state => ({ images: [...state.images, image] })),
-      removeImage: index =>
-        set(state => ({
-          images: state.images.filter((_, i) => i !== index),
-        })),
-      updateImage: (index, newImage) =>
-        set(state => ({
-          images: state.images.map((img, i) => (i === index ? newImage : img)),
-        })),
-    }))
   }
+
+  return create<MultipleImageStore<T>>(set => ({
+    images: [],
+    setImages: images => set({ images }),
+    addImage: image => set(state => ({ images: [...state.images, image] })),
+    removeImage: index =>
+      set(state => ({
+        images: state.images.filter((_, i) => i !== index),
+      })),
+    updateImage: (index, newImage) =>
+      set(state => ({
+        images: state.images.map((img, i) => (i === index ? newImage : img)),
+      })),
+  }))
 }
