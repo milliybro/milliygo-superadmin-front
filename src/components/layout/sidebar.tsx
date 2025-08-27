@@ -19,6 +19,7 @@ import TeachingIcon from '../icons/teaching-icon'
 import WalletIcon from '../icons/wallet-icon'
 // import AnalyticsIcon from '../icons/analytics-icon'
 import MegaPhoneIcon from '../icons/megaphone-icon'
+import TimeManagementIcon from '../icons/time-management'
 
 const adminItems = [
   {
@@ -88,12 +89,12 @@ const adminItems = [
     path: ROUTE_PATHS.TENANTS,
     status: 'in progress',
   },
-  // {
-  //   label: 'routes.roles',
-  //   icon: TimeManagementIcon,
-  //   path: ROUTE_PATHS.ACCESS_ROLE,
-  //   status: 'unstarted',
-  // },
+  {
+    label: 'routes.roles',
+    icon: TimeManagementIcon,
+    path: ROUTE_PATHS.ACCESS_ROLE,
+    status: 'unstarted',
+  },
   // { label: 'common.clients', icon: IdIcon, path: ROUTE_PATHS.CLIENTS },
   // { label: 'common.complaints', icon: AlertIcon, path: ROUTE_PATHS.COMPLAINTS },
   // {
