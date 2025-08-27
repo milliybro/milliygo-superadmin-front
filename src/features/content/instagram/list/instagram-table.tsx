@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query'
 import { getInstagramContents } from '../../api'
 import { getTableSortOrder } from '@/helpers/get-table-sort-order'
 
+import InstagramLink from './instagram-link'
 import InstagramTitle from './instagram-title'
 import InstagramAction from './instagram-action'
 import InstagramStatus from './instagram-status'
@@ -76,6 +77,14 @@ function InstagramTable() {
       sorter: true,
       sortOrder: getTableSortOrder(orderingFields, 'description'),
       render: (_, record) => <InstagramDescription {...record} />,
+    },
+    {
+      title: t('fields.url.label'),
+      key: 'url',
+      width: 1000,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'description'),
+      render: (_, record) => <InstagramLink {...record} />,
     },
     {
       title: t('fields.status.label'),

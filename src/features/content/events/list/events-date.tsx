@@ -7,7 +7,7 @@ import type { IEvent } from '@/features/content/types'
 const EventsDate: FC<IEvent> = props => {
   return (
     <Typography.Text className="line-clamp-2 text-sm font-medium">
-      {props?.date ? dayjs(props?.date).format('DD MMM, YYYY') : 'Нет дата'}
+      {props?.date ? dayjs(props?.date).format('DD MMM, YYYY') : ''}
     </Typography.Text>
   )
 }
