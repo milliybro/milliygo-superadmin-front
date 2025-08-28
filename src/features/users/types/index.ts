@@ -25,6 +25,7 @@ interface IUsers {
   first_name: string
   last_name: string
   middle_name: string
+  display_name?: string
   phone: string
   gender: string
   username: string

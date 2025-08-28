@@ -6,7 +6,7 @@ export async function getUsersList(
   params?: any,
 ): Promise<ListResponse<IUsers[]>> {
   const res: ListResponse<IUsers[]> = await requestAuth({
-    url: '/account/super-admin/users/',
+    url: '/account/users/',
     method: 'get',
     params,
   })

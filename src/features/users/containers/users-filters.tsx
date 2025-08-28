@@ -39,10 +39,7 @@ const UsersFilters = () => {
 
   const { data: roles } = useQuery({
     queryKey: ['users-roles'],
-    queryFn: async () => {
-      const res = await getUserRoles()
-      return res
-    },
+    queryFn: () => getUserRoles(),
     // keepPreviousData: true,
   })
 
@@ -71,7 +68,7 @@ const UsersFilters = () => {
       >
         <Input
           prefix={
-            <UserSquareIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <UserSquareIcon className="ml-2 mr-4 text-[16px] text-secondary" />
           }
           size="large"
           placeholder={t('fields.search-user.placeholder')}
@@ -89,7 +86,7 @@ const UsersFilters = () => {
             { label: t('common.women'), value: 'female' },
           ]}
           prefix={
-            <UserMultipleIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <UserMultipleIcon className="ml-2 mr-4 text-[16px] text-secondary" />
           }
           size="large"
           placeholder={t('fields.gender.placeholder')}
@@ -105,14 +102,14 @@ const UsersFilters = () => {
       >
         <CSelect
           options={roles?.results.map(role => ({
-            label: t(`common.${role.name}`),
-            value: role.name,
+            label: role.display_name,
+            value: role.id,
           }))}
-          className="w-full select-shadow h-[47px]"
+          className="select-shadow h-[47px] w-full"
           size="large"
           placeholder={t('fields.role.placeholder')}
           prefix={
-            <TimeManagementIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <TimeManagementIcon className="ml-2 mr-4 text-[16px] text-secondary" />
           }
           // value={role}
           allowClear={true}
@@ -125,15 +122,15 @@ const UsersFilters = () => {
       >
         <CSelect
           options={[
-            { label: t('common.active'), value: 'true' },
-            { label: t('common.inactive'), value: 'false' },
+            { label: t('common.active'), value: 'True' },
+            { label: t('common.inactive'), value: 'False' },
           ]}
           suffixIcon={null}
-          className="w-full select-shadow h-[47px]"
+          className="select-shadow h-[47px] w-full"
           size="large"
           placeholder={t('fields.status.placeholder')}
           prefix={
-            <UserStatusIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <UserStatusIcon className="ml-2 mr-4 text-[16px] text-secondary" />
           }
           allowClear={true}
         />
