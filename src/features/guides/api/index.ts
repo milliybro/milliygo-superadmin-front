@@ -57,7 +57,28 @@ export async function getHotelDetailRooms(
 
 export async function getGuides(params?: any): Promise<ListResponse<any[]>> {
   const res: ListResponse<any[]> = await requestSuper({
-    url: '/guides/guide/',
+    url: '/guides/list/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
+export async function updateGuide(id: number, data: any) {
+  return await requestSuper({
+    url: `/guides/${id}/confirm-or-reject-guide/`,
+    method: 'patch',
+    data,
+  })
+}
+
+export async function getGuide(
+  id: number,
+  params?: any,
+): Promise<ListResponse<IHotelDetail[]>> {
+  const res: ListResponse<IHotelDetail[]> = await request({
+    url: `/guides/${id}/`,
     method: 'get',
     params,
   })

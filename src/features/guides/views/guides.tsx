@@ -42,7 +42,8 @@ const Guides = () => {
       const res = await getGuides({
         page_size: pageSize,
         page: currentPage,
-        status: tab === '1' ? true : false,
+        guide_status:
+          tab === '2' ? 'in_progress' : tab === '3' ? 'rejected' : 'accepted',
       })
       return res
     },
@@ -50,9 +51,9 @@ const Guides = () => {
   })
 
   return (
-    <div className="p-6 flex flex-col gap-6 flex-1">
+    <div className="flex flex-1 flex-col gap-6 p-6">
       <div className="flex items-start justify-between">
-        <div className="text-[24px] text-primary-dark font-semibold">
+        <div className="text-[24px] font-semibold text-primary-dark">
           {t('guides.guides')}
         </div>
       </div>
