@@ -81,7 +81,7 @@ const adminItems = [
     label: 'routes.content',
     icon: MegaPhoneIcon,
     path: ROUTE_PATHS.CONTENT,
-    status: 'in progress',
+    status: 'finished',
   },
   {
     label: 'common.tenants',

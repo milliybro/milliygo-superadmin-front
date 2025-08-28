@@ -606,7 +606,8 @@
     "check": "Tekshirish",
     "refresh": "Sahifani yangilash",
     "change": "O‘zgartirish",
-    "reload": "Qayta yuklash"
+    "reload": "Qayta yuklash",
+    "login-error": "Tizimda kirishda xatolik yuz berdi"
   },
   "status": {
     "confirmed": "Tasdiqlangan",

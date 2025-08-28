@@ -45,7 +45,7 @@ export default function SignIn(): React.ReactElement {
   const { mutate: mutateLogin } = useMutation({
     mutationFn: login,
     onSuccess: res => {
-      if (res.user.pin) {
+      if (res.user.is_superuser === true) {
         localStorage.setItem('refresh', res.refresh)
         localStorage.setItem('access', res.access)
         localStorage.setItem('user', JSON.stringify(res.user))
@@ -56,7 +56,7 @@ export default function SignIn(): React.ReactElement {
 
         message.success(t('common.login-success'), 2)
       } else {
-        message.error(t('user.login-error'), 2)
+        message.error(t('common.login-error'), 2)
       }
     },
   })
@@ -66,13 +66,13 @@ export default function SignIn(): React.ReactElement {
   }
 
   return (
-    <div className="w-[100vw] h-[100vh]">
+    <div className="h-[100vh] w-[100vw]">
       <video
         autoPlay
         muted
         loop
         id="myVideo"
-        className="absolute top-0 left-0 w-full object-cover h-full opacity-10"
+        className="absolute left-0 top-0 h-full w-full object-cover opacity-10"
         poster="../main-banner.jpg"
       >
         <source
@@ -84,15 +84,15 @@ export default function SignIn(): React.ReactElement {
         />
         Your browser does not support HTML5 video.
       </video>
-      <div className="bg-[#0F172A] w-full h-full flex items-center justify-center">
-        <div className="w-[569px] border border-[#3F416B] rounded-2xl backdrop-blur-sm bg-[#1E293B99] p-[100px]">
+      <div className="flex h-full w-full items-center justify-center bg-[#0F172A]">
+        <div className="w-[569px] rounded-2xl border border-[#3F416B] bg-[#1E293B99] p-[100px] backdrop-blur-sm">
           <div className="flex flex-col items-center">
             <ProjectLogo className="mb-6" />
 
-            <Typography.Text className="text-[28px] text-white font-semibold mb-4">
+            <Typography.Text className="mb-4 text-[28px] font-semibold text-white">
               {t('auth-page.welcome-title')}
             </Typography.Text>
-            <Typography.Text className=" font-light text-white text-center text-base mb-6">
+            <Typography.Text className="mb-6 text-center text-base font-light text-white">
               {t('auth-page.welcome-description')}
             </Typography.Text>
 
@@ -100,7 +100,7 @@ export default function SignIn(): React.ReactElement {
               <Form
                 form={form}
                 layout="vertical"
-                className="w-full mb-6"
+                className="mb-6 w-full"
                 onFinish={mutateLogin}
               >
                 <div className="flex flex-col">
@@ -111,7 +111,7 @@ export default function SignIn(): React.ReactElement {
                   </div>
                   <Form.Item
                     name="username"
-                    className="[&_.ant-form-item-label_label]:text-white group mb-4 [&_.ant-form-item-explain-error]:text-sm [&_.ant-form-item-explain-error]:my-1 [&_.ant-form-item-required]:before:hidden"
+                    className="group mb-4 [&_.ant-form-item-explain-error]:my-1 [&_.ant-form-item-explain-error]:text-sm [&_.ant-form-item-label_label]:text-white [&_.ant-form-item-required]:before:hidden"
                     // rules={[
                     //   {
                     //     required: true,
@@ -126,13 +126,13 @@ export default function SignIn(): React.ReactElement {
                     <Input
                       placeholder={t('fields.email.placeholder')}
                       size="large"
-                      className="text-white focus:border-primary [&.ant-input-status-error]:shadow-[0px_0px_0px_4px_#EF444440] focus:shadow-[0px_0px_0px_4px_#3B82F640]"
+                      className="text-white focus:border-primary focus:shadow-[0px_0px_0px_4px_#3B82F640] [&.ant-input-status-error]:shadow-[0px_0px_0px_4px_#EF444440]"
                     />
                   </Form.Item>
                 </div>
 
                 <div className="flex flex-col">
-                  <div className="flex items-center mb-1 justify-between">
+                  <div className="mb-1 flex items-center justify-between">
                     <span className="text-[14px]">
                       {t('fields.password.label')}
                     </span>
@@ -152,7 +152,7 @@ export default function SignIn(): React.ReactElement {
                   </div>
                   <Form.Item
                     name="password"
-                    className="[&_.ant-form-item-label_label]:text-white [&_.ant-form-item-label label]:!w-full [&_.ant-form-item-explain-error]:text-sm [&_.ant-form-item-explain-error]:mt-1 [&_.ant-form-item-explain-error]:mb-4 mb-6 [&_.ant-form-item-required]:before:hidden"
+                    className="[&_.ant-form-item-label label]:!w-full mb-6 [&_.ant-form-item-explain-error]:mb-4 [&_.ant-form-item-explain-error]:mt-1 [&_.ant-form-item-explain-error]:text-sm [&_.ant-form-item-label_label]:text-white [&_.ant-form-item-required]:before:hidden"
                     rules={[
                       {
                         required: true,
@@ -171,7 +171,7 @@ export default function SignIn(): React.ReactElement {
                     <Input.Password
                       placeholder={t('fields.password.placeholder')}
                       size="large"
-                      className="text-white [&_.ant-input-password-icon]:text-white  [&_.ant-input-password-icon]:hover:text-primary focus:border-primary focus-within:border-primary focus:shadow-[0px_0px_0px_4px_#3B82F640] [&.ant-input-status-error]:shadow-[0px_0px_0px_4px_#EF444440] focus-within:shadow-[0px_0px_0px_4px_#3B82F640]"
+                      className="text-white focus-within:border-primary focus-within:shadow-[0px_0px_0px_4px_#3B82F640] focus:border-primary focus:shadow-[0px_0px_0px_4px_#3B82F640] [&.ant-input-status-error]:shadow-[0px_0px_0px_4px_#EF444440] [&_.ant-input-password-icon]:text-white [&_.ant-input-password-icon]:hover:text-primary"
                       classNames={{ suffix: 'text-white' }}
                       iconRender={visible =>
                         !visible ? (
@@ -187,7 +187,7 @@ export default function SignIn(): React.ReactElement {
                 <Form.Item>
                   <Button
                     size="large"
-                    className="w-full bg-primary hover:bg-primary/50 border-none disabled:bg-secondary disabled:text-white"
+                    className="w-full border-none bg-primary hover:bg-primary/50 disabled:bg-secondary disabled:text-white"
                     type="primary"
                     htmlType="submit"
                     // loading={isLoading}
@@ -214,8 +214,8 @@ export default function SignIn(): React.ReactElement {
           </div>
         </div>
       </div>
-      <div className="flex items-center gap-2 absolute bottom-[48px] left-[calc(50%-109px)]">
-        <Typography.Text className="text-white/50 font-light">
+      <div className="absolute bottom-[48px] left-[calc(50%-109px)] flex items-center gap-2">
+        <Typography.Text className="font-light text-white/50">
           Powered by
         </Typography.Text>
         <a href="/">
