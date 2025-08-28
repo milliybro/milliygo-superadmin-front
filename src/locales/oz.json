@@ -10,7 +10,9 @@
     "billing": "Billing",
     "bi-service": "BI-servis",
     "content": "Kontent",
-    "roles": "Rollar"
+    "roles": "Rollar",
+    "expert-advices": "Mutaxassis maslahatlari",
+    "events": "Tadbirlar"
   },
   "auth-page": {
     "welcome-title": "Xush kelibsiz!",
@@ -123,6 +125,9 @@
     }
   },
   "fields": {
+    "url": {
+      "label": "Havola"
+    },
     "fullname": {
       "label": "F.I.O",
       "placeholder": "Oybek Turonov O‘ktam o‘g‘li",
@@ -211,7 +216,8 @@
     "address": {
       "label": "Manzil",
       "validation-message-required": "Manzilni kiriting",
-      "placeholder": "Mehmonxonangiz manzilini kiriting"
+      "placeholder": "Mehmonxonangiz manzilini kiriting",
+      "placeholder2": "Manzilni kiriting"
     },
     "photos": {
       "label": "Mehmonxona suratlarini qo‘shish",
@@ -314,11 +320,28 @@
       "icons": "Avval yuklangan piktogrammalar"
     },
     "name": {
+      "label": "Nomi",
+      "placeholder": "Nomini kiriting",
+      "required": "Iltimos, nomini kiriting",
       "name-uz": "O'z nomi",
       "name-ru": "RU nomi",
       "name-en": "EN nomi",
-      "placeholder": "Ism kiriting",
       "name-cry": "Ўз nomi"
+    },
+    "description": {
+      "label": "Tavsif",
+      "placeholder": "Tavsifni yozing",
+      "required": "Iltimos, tavsif kiriting"
+    },
+    "images": {
+      "label": "Rasmlarni yuklash",
+      "required": "Rasm yuklang",
+      "max-size-limit": "Fayl {{value}} hajmi 5 MB dan oshib ketgan",
+      "max-length-limit": "{{value}} tadan ortiq rasm yuklay olmaysiz"
+    },
+    "organizer": {
+      "label": "Tashkilotchi",
+      "placeholder": "Nomini yozing"
     },
     "services": {
       "add-success-notification": "Yangi qulaylik qo'shildi",
@@ -398,6 +421,45 @@
     "destination": {
       "label": "Yo‘nalish",
       "placeholder": "Xaritadagi nuqtaga mos yo‘nalishni kiriting"
+    },
+    "add-photo": {
+      "label": "Rasmlar qo‘shish"
+    },
+    "youtube_url": {
+      "label": "Youtube video havolasi",
+      "placeholder": "Video havolasini kiriting",
+      "error": "Iltimos, to‘g‘ri URL kiriting"
+    },
+    "place_name": {
+      "label": "Joy nomi",
+      "placeholder": "Joy nomini kiriting",
+      "validation-message-required": "Iltimos, joy nomini kiriting"
+    },
+    "place_description": {
+      "label": "Joy tavsifi",
+      "placeholder": "Joy tavsifini kiriting",
+      "error": "Iltimos, joy tavsifini kiriting"
+    },
+    "image": {
+      "label": "Rasm",
+      "edit": "Rasmni o‘zgartirish"
+    },
+    "title": {
+      "label": "Sarlavha",
+      "placeholder": "Sarlavhani kiriting"
+    },
+    "region": {
+      "label": "Hudud",
+      "placeholder": "Hududni kiriting",
+      "error": "Iltimos, hududni kiriting"
+    },
+    "social_platform": {
+      "placeholder": "Platformani tanlang",
+      "error": "Iltimos, platformani tanlang"
+    },
+    "social_url": {
+      "error": "URL kiritish majburiy",
+      "error-2": "To‘g‘ri URL kiriting"
     }
   },
   "tenant": {
@@ -410,6 +472,7 @@
     "edit-tenant": "Tenantni tahrirlash"
   },
   "common": {
+    "create": "Yaratish",
     "name": "Nomi",
     "statistics": "Statistika",
     "users": "Foydalanuvchilar",
@@ -417,7 +480,7 @@
     "clients": "Mijozlar",
     "access-role": "Kirish roli",
     "complaints": "Shikoyatlar",
-    "call-center": "Aloqa markaz",
+    "call-center": "Aloqa markazi",
     "active": "Faol",
     "un-active": "Nofaol",
     "request": "So‘rov bo‘yicha",
@@ -500,7 +563,7 @@
     "room": "Raqam",
     "payment-amount": "To'lov summasi",
     "date-and-time": "Sana va vaqt",
-    "login-success": "Mavaffiqatli kirildi",
+    "login-success": "Muvaffaqiyatli kirildi",
     "sort_descending": "Kamayish tartibida tartiblash uchun bosing",
     "sort_ascending": "O'sish tartibida tartiblash uchun bosing",
     "sort_cancel": "Tartiblashni rad etish uchun bosing",
@@ -528,7 +591,7 @@
     "cost-per-day": "Kunlik narx",
     "map-title": "O'zbekiston xaritasi",
     "select_or_drag": "Rasmni tanlang yoki sudrab olib keling",
-    "images_limit": "Maksimal hajmi: 5 MB.",
+    "images_limit": "Maksimal hajmi: {{limit}}.",
     "avia": "Avia",
     "railway": "Temir yo‘l",
     "ticket-seller": "Bilet sotuvchilar",
@@ -536,7 +599,15 @@
     "view": "Ko'rish",
     "save": "Saqlash",
     "manager": "Menejer",
-    "refresh": "Sahifani yangilash"
+    "add": "Qo'shish",
+    "preview": "Ko‘rib chiqish",
+    "description": "Tavsif",
+    "no-description": "Tavsif yo‘q",
+    "check": "Tekshirish",
+    "refresh": "Sahifani yangilash",
+    "change": "O‘zgartirish",
+    "reload": "Qayta yuklash",
+    "login-error": "Tizimda kirishda xatolik yuz berdi"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
@@ -658,6 +729,49 @@
     "not-found": "Sahifa topilmadi"
   },
   "content": {
+    "discover": {
+      "title": "O‘zbekistonni kashf eting",
+      "delete": "Kashfiyotni o‘chirish",
+      "delete-desc": "Ushbu kashfiyotni o‘chirishga ishonchingiz komilmi?",
+      "add": "Kashfiyot qo‘shish",
+      "create-success": "Kashfiyot muvaffaqiyatli yaratildi",
+      "edit-success": "Kashfiyot muvaffaqiyatli yangilandi",
+      "status-updated": "Holat muvaffaqiyatli yangilandi",
+      "delete-success": "Kashfiyot muvaffaqiyatli o‘chirildi",
+      "add-social": "Ijtimoiy havola qo‘shish",
+      "social-links": "Ijtimoiy havolalar"
+    },
+    "top_destinations": {
+      "title": "Eng yaxshi yo‘nalishlar",
+      "add": "Eng yaxshi yo‘nalishlarni qo‘shish",
+      "edit": "Eng yaxshi yo‘nalishlarni tahrirlash",
+      "add-content": "Kontent qo‘shish",
+      "add_attractions": "Mashhur joylarni qo‘shish",
+      "add_place": "Joy qo‘shish",
+      "delete": "Yo‘nalishni o‘chirish",
+      "delete-desc": "Ushbu yo‘nalishni o‘chirib tashlamoqchi ekanligingizni tasdiqlang?",
+      "delete-success": "Yo‘nalish muvaffaqiyatli o‘chirildi",
+      "create-success": "Yo‘nalish muvaffaqiyatli yaratildi",
+      "edit-success": "Yo‘nalish muvaffaqiyatli yangilandi"
+    },
+    "preview": "Oldindan ko‘rish",
+    "add-content": "Kontent qo‘shish",
+    "edit-content": "Kontentni tahrirlash",
+    "additional-information": "Qo‘shimcha ma’lumot",
+    "hero": {
+      "delete": "Fonni o‘chirish",
+      "delete-desc": "Ushbu kontekstni o‘chirib tashlamoqchi ekanligingizni tasdiqlang",
+      "edit-bg": "Fonni o‘zgartirish",
+      "current-video": "Joriy video",
+      "new-video": "Yangi video",
+      "create-success": "Fon muvaffaqiyatli yaratildi",
+      "edit-success": "Fon muvaffaqiyatli yangilandi",
+      "delete-success": "Fon muvaffaqiyatli o‘chirildi",
+      "picture": "Rasm",
+      "bg-picture": "Fon rasmi",
+      "incorrect-file-type": "Noto‘g‘ri fayl turi",
+      "add-video": "Rasmlar yoki videolar qo‘shish"
+    },
     "country-map": {
       "title": "O‘zbekiston xaritasi",
       "point-destination": "Nuqta yo‘nalishi",
@@ -669,6 +783,33 @@
       "delete-success": "Nuqta muvaffaqiyatli o‘chirildi",
       "edit-point": "Xaritada nuqta tahrirlash",
       "create-point": "Xaritada nuqta yaratish"
+    },
+    "expert-advice": {
+      "title-add": "Mutaxassis maslahati qo‘shish",
+      "title-edit": "Mutaxassis maslahatini tahrirlash",
+      "delete-modal-title": "Maslahatni o‘chirilsinmi?",
+      "delete-modal-description": "Ushbu mutaxassis maslahatini o‘chirmoqchimisiz?",
+      "status-created": "Mutaxassis maslahati muvaffaqiyatli qo‘shildi",
+      "status-updated": "Mutaxassis maslahati yangilandi",
+      "status-deleted": "Mutaxassis maslahati o‘chirildi"
+    },
+    "instagram-content": {
+      "title-add": "Instagram kontentini qo‘shish",
+      "title-edit": "Instagram kontentini tahrirlash",
+      "delete-modal-title": "Kontent o‘chirilsinmi?",
+      "delete-modal-description": "Ushbu Instagram kontentini o‘chirmoqchimisiz?",
+      "status-created": "Instagram kontenti muvaffaqiyatli qo‘shildi",
+      "status-updated": "Instagram kontenti yangilandi",
+      "status-deleted": "Instagram kontenti o‘chirildi"
+    },
+    "events": {
+      "title-add": "Tadbir qo‘shish",
+      "title-edit": "Tadbirni tahrirlash",
+      "delete-modal-title": "Tadbir o‘chirilsinmi?",
+      "delete-modal-description": "Ushbu tadbirni o‘chirmoqchimisiz?",
+      "status-created": "Tadbir muvaffaqiyatli qo‘shildi",
+      "status-updated": "Tadbir yangilandi",
+      "status-deleted": "Tadbir o‘chirildi"
     }
   },
   "region": {

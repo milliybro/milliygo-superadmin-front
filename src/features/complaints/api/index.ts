@@ -19,7 +19,7 @@ export async function getComplaintsMessage(
   params?: any,
 ): Promise<ListResponse<ISupport[]>> {
   const res: ListResponse<ISupport[]> = await requestChat({
-    url: `/chats/conversation-detail/${params.id}`,
+    url: `/chats/conversation-detail/${params.id}/`,
     method: 'get',
     params,
   })

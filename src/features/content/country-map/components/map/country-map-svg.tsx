@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { IRegionMapPoint } from '@/features/content/types'
 import { motion } from 'motion/react'
-import { useParams, useSearchParams } from 'react-router'
+import { useParams } from 'react-router'
 import { regionPaths } from '../../assets/region-paths'
 import NewRegionPoint from './new-region-point'
 import RegionPointsSVG from './region-points-svg'
@@ -26,8 +26,8 @@ function CountryMapSVG({
 }: IProps) {
   const mapRef = useRef<SVGSVGElement>(null)
   const { region: selectedRegion } = useParams()
-  const [searchParams] = useSearchParams()
-  const pointId = Number(searchParams.get('id'))
+  const { slug } = useParams()
+  const pointId = Number(slug)
 
   const [viewBox, setViewBox] = useState<string>('0 0 906 563')
   const [scaleFactor, setScaleFactor] = useState<number>(1)
@@ -98,7 +98,10 @@ function CountryMapSVG({
         <g id="regions" className="*:cursor-pointer">
           {regionPaths?.map(reg => <RegionSVG reg={reg} key={reg?.id} />)}
           {selectedRegion !== null && (
-            <RegionPointsSVG scaleFactor={scaleFactor} exclude={pointId} />
+            <RegionPointsSVG
+              scaleFactor={scaleFactor}
+              exclude={isCreating ? -1 : pointId}
+            />
           )}
           {(isCreating || isEdit) && (
             <NewRegionPoint

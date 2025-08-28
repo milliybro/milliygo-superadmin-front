@@ -5,7 +5,31 @@ import {
   IHotelsItemReview,
   IHotelsRoom,
   IHotelsTable,
+  IPlacement,
+  IPlacementType,
 } from '../types'
+
+export async function getAllPlacements(
+  params?: any,
+): Promise<ListResponse<IPlacement[]>> {
+  const res: ListResponse<IPlacement[]> = await request({
+    url: '/placements/all/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
+export async function getPlacementTypes(params?: any) {
+  const res: IPlacementType[] = await request({
+    url: '/placements/types/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}
 
 export async function getHotelsList(
   params?: any,

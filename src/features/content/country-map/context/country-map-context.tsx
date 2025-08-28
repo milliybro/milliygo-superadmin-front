@@ -1,4 +1,3 @@
-import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { ListResponse } from '@/types'
 import {
   useMutation,
@@ -16,12 +15,8 @@ import {
   useEffect,
   useState,
 } from 'react'
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-  useSearchParams,
-} from 'react-router'
+import { useTranslation } from 'react-i18next'
+import { useLocation, useNavigate, useParams } from 'react-router'
 import {
   createMapPoint,
   deleteRegionMapPoint,
@@ -31,7 +26,6 @@ import {
   updateRegionMapPoint,
 } from '../../api'
 import { IRegion, IRegionMapPoint } from '../../types'
-import { useTranslation } from 'react-i18next'
 
 interface CountryMapContext {
   newCoords: { x: number; y: number }
@@ -83,12 +77,10 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
-  const { setBreadCrumbs } = useBreadCrumbsStore()
-
   const { region } = useParams()
 
-  const [searchParams] = useSearchParams()
-  const pointId = searchParams.get('id')
+  const { slug } = useParams()
+  const pointId = Number(slug)
 
   const { data: regionData } = useQuery({
     queryKey: ['region', region],
@@ -120,22 +112,6 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
       })
     }
   }, [pointsQuery.data])
-
-  useEffect(() => {
-    setBreadCrumbs([
-      { title: t('common.main'), href: '/' },
-      { title: t('routes.content'), href: '/content/country-map' },
-      {
-        title: regionData?.name || t('billing.region'),
-        href: `/content/country-map/${region}`,
-      },
-      {
-        title: pathname?.includes('create')
-          ? t('content.country-map.create-point')
-          : t('content.country-map.edit-point'),
-      },
-    ])
-  }, [regionData])
 
   const createMapPointMutation = useMutation({
     mutationFn: (values: {

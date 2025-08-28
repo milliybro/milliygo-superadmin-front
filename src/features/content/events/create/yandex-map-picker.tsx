@@ -1,16 +1,34 @@
-import { Form } from 'antd'
-import { useRef, useState } from 'react'
 import { Map, Placemark, YMaps } from '@pbe/react-yandex-maps'
+import { Form } from 'antd'
+import { useEffect, useRef, useState } from 'react'
 
 import request from '@/utils/axios'
 
 import type { INominatimResponse } from '../../types'
 
-export default function YandexMapPicker() {
+interface YandexMapPickerProps {
+  coordsValue?: [number, number]
+  onCoordsChange?: (coords: [number, number]) => void
+  height?: string
+}
+
+export default function YandexMapPicker({
+  onCoordsChange,
+  coordsValue,
+  height = '584px',
+}: YandexMapPickerProps) {
   const mapRef = useRef<any>(null)
   const form = Form.useFormInstance()
 
-  const [coords, setCoords] = useState<[number, number]>([41.3111, 69.2797])
+  const [coords, setCoords] = useState<[number, number]>(
+    coordsValue || [41.3111, 69.2797],
+  )
+
+  useEffect(() => {
+    if (coordsValue) {
+      setCoords(coordsValue)
+    }
+  }, [coordsValue])
 
   const getNominalByCoords = async (
     latitude: number,
@@ -26,7 +44,8 @@ export default function YandexMapPicker() {
 
       if (response?.display_name) {
         const formattedAddress = [
-          // response?.address?.county,
+          response?.address?.city,
+          response?.address?.county,
           response?.address?.suburb,
           response?.address?.road,
           response?.address?.neighbourhood,
@@ -36,7 +55,12 @@ export default function YandexMapPicker() {
         ]
           .filter(Boolean)
           .join(', ')
-        form.setFieldValue('address', formattedAddress)
+        form.setFieldValue('location', formattedAddress)
+
+        if (longitude && latitude) {
+          form.setFieldValue('lon', longitude)
+          form.setFieldValue('lat', latitude)
+        }
       }
     } catch (error) {
       console.error('Error during reverse geocoding:', error)
@@ -44,9 +68,13 @@ export default function YandexMapPicker() {
   }
 
   const handleMapClick = (e: any) => {
-    const coords: [number, number] = e.get('coords')
-    setCoords(coords)
-    getNominalByCoords(coords[0], coords[1])
+    const newCoords: [number, number] = e.get('coords')
+    getNominalByCoords(newCoords[0], newCoords[1])
+    if (onCoordsChange) {
+      onCoordsChange(newCoords)
+    } else {
+      setCoords(newCoords)
+    }
   }
 
   return (
@@ -54,16 +82,16 @@ export default function YandexMapPicker() {
       <Map
         defaultState={{ center: coords, zoom: 12 }}
         width="100%"
-        height="584px"
+        height={height}
         onClick={handleMapClick}
         instanceRef={mapRef}
       >
         <Placemark
           geometry={coords}
-          onDragEnd={(e: any) => {
-            const newCoords = e.get('target').geometry.getCoordinates()
-            setCoords(newCoords)
-          }}
+          // onDragEnd={(e: any) => {
+          //   const newCoords = e.get('target').geometry.getCoordinates()
+          //   setCoords(newCoords)
+          // }}
           options={{
             iconLayout: 'default#image',
             iconImageHref: '/location-icon.svg',

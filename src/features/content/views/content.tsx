@@ -5,15 +5,17 @@ import { useNavigate, useParams } from 'react-router'
 
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
-import MainPageContent from '../hero'
-import DiscoverContent from '../discover'
-import EventsContent from '../events/list'
-import InstagramContent from '../instagram/list'
-import CountryMap from '../country-map/views/list'
-import ExpertAdviceContent from '../expert-advice/list'
-import TopDestinationsContent from '../top-destinations'
-
 import type { TabsProps } from 'antd'
+import DiscoverContent from '../discover/views'
+import MainPageContent from '../hero/views'
+import TopDestinationsContent from '../top-destinations/views'
+import CountryMap from '../country-map/views/list'
+import TopDestinationProvider from '../top-destinations/context/top-destination-context'
+import DiscoverProvider from '../discover/context'
+import ExpertAdviceContent from '../expert-advice/list'
+import InstagramContent from '../instagram/list'
+import EventsContent from '../events/list'
+import HeroProvider from '../hero/context'
 
 function Content() {
   const { t } = useTranslation()
@@ -24,25 +26,37 @@ function Content() {
   useEffect(() => {
     setBreadCrumbs([
       { title: t('common.main'), href: '/' },
-      { title: 'Content' },
+      { title: t('routes.content') },
     ])
-  }, [])
+  }, [t])
 
   const tabItems: TabsProps['items'] = [
     {
       key: 'main',
-      label: 'Main page',
-      children: <MainPageContent />,
+      label: t('common.main-content'),
+      children: (
+        <HeroProvider>
+          <MainPageContent />
+        </HeroProvider>
+      ),
     },
     {
       key: 'top-destinations',
-      label: 'Top Destinations',
-      children: <TopDestinationsContent />,
+      label: t('home-content.destinations'),
+      children: (
+        <TopDestinationProvider>
+          <TopDestinationsContent />
+        </TopDestinationProvider>
+      ),
     },
     {
       key: 'discover-uzbekistan',
-      label: 'Discover Uzbekistan',
-      children: <DiscoverContent />,
+      label: t('content.discover.title'),
+      children: (
+        <DiscoverProvider>
+          <DiscoverContent />
+        </DiscoverProvider>
+      ),
     },
     {
       key: 'country-map',
@@ -51,7 +65,7 @@ function Content() {
     },
     {
       key: 'expert-advice',
-      label: 'Expert Advice',
+      label: t('routes.expert-advices'),
       children: <ExpertAdviceContent />,
     },
     {
@@ -61,7 +75,7 @@ function Content() {
     },
     {
       key: 'events',
-      label: 'Events',
+      label: t('routes.events'),
       children: <EventsContent />,
     },
   ]
@@ -69,10 +83,11 @@ function Content() {
   return (
     <div className="flex flex-1 flex-col gap-6">
       <Typography.Text className="text-2xl font-semibold text-primary-dark">
-        Content
+        {t('routes.content')}
       </Typography.Text>
       <div className="rounded-2xl border bg-white p-6">
         <Tabs
+          destroyOnHidden
           items={tabItems}
           activeKey={tab || 'main'}
           onChange={key => navigate(`/content/${key}`, { replace: true })}

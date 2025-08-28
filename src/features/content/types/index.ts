@@ -9,15 +9,27 @@ export interface ITopDestination {
   id: number
   title: string
   description: string
+  youtube_url: string
+  front_data: any
+  district: any
   region: IRegion
+  status: boolean
   images: {
     id: number
     is_main: boolean
     file_path: string
   }[]
-  video_url: string | null
   created_at: string
   updated_at: string
+  place_attractions: {
+    id: number
+    name: string
+    description: string
+    longitude: number
+    latitude: number
+    image: string | null
+    created_at: string
+  }[]
 }
 
 export interface INominatimResponse {
@@ -80,11 +92,52 @@ export interface IExpertAdvice {
   type: Type
   created_at: string
   updated_at: string
-  images: Image[]
+  image: string
   title: string
+  status: boolean
   description: string
   social_links: any[]
   content: string
+}
+
+export interface IExpertAdviceDetailed {
+  id: number
+  slug: string
+  type: {
+    id: number
+    name: string
+  }
+  created_at: string
+  updated_at: string
+  image: string
+  title: string
+  description: string
+  content: string
+  status: boolean
+}
+
+export interface IEventDetailed {
+  id: number
+  slug: string
+  name: string
+  description: string
+  date: string
+  location: string
+  image: string
+  organizer: string
+  status: boolean
+  content: string
+  lon: number
+  lat: number
+}
+
+export interface IInstagramDetailed {
+  id: number
+  title: string
+  description: string
+  url: string
+  image: string
+  is_active: boolean
 }
 
 export interface Type {
@@ -105,10 +158,8 @@ export interface IEvent {
   description: string
   date: string
   location: string
-  images: {
-    id: number
-    image: string
-  }[]
+  status: boolean
+  image: string
   organizer: string
 }
 
@@ -119,4 +170,27 @@ export interface IInstagramContent {
   url: string
   image: string
   is_active: boolean
+}
+
+export interface IPatchExpertAdviceData {
+  title?: string
+  description?: string
+  content?: string
+  uploaded_images?: string[]
+  status?: boolean
+  type?: number
+}
+
+export interface IPatchInstagramContentData {
+  url?: string
+  is_active?: boolean
+}
+
+export interface IPatchEventData {
+  name?: string
+  description?: string
+  date?: string
+  location?: string
+  status?: boolean
+  organizer?: string
 }

@@ -1,9 +1,9 @@
-import { useState } from 'react'
-import { TableColumnsType } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
 
 import { getExpertAdvices } from '../../api'
+import { getTableSortOrder } from '@/helpers/get-table-sort-order'
 
 import ExpertAdviceTitle from './expert-advice-title'
 import CustomTable from '@/components/ui/custom-table'
@@ -12,45 +12,81 @@ import ExpertAdviceAction from './expert-advice-action'
 import ExpertAdviceDescription from './expert-advice-description'
 
 import type { IExpertAdvice } from '../../types'
+import type { TableColumnsType, TablePaginationConfig } from 'antd'
+import type { FilterValue, SorterResult } from 'antd/es/table/interface'
 
 function ExpertAdvicesList() {
   const { t } = useTranslation()
-  const [currentPage, setCurrentPage] = useState(1)
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const currentPage = Number(searchParams.get('page') || '1')
+  const orderingParam = searchParams.get('ordering') || ''
+  const orderingFields = orderingParam.split(',').filter(Boolean)
 
   const { data, isPending } = useQuery({
-    queryKey: ['expert-advices', currentPage],
-    queryFn: () => getExpertAdvices({ page_size: 10, page: currentPage }),
+    queryKey: ['expert-advices', currentPage, orderingParam],
+    queryFn: () =>
+      getExpertAdvices({
+        page_size: 10,
+        page: currentPage,
+        ordering: orderingFields.join(',') || undefined,
+      }),
   })
 
-  const handlePaginationChange = (page: number) => {
-    setCurrentPage(page)
+  const handleTableChange = (
+    pagination: TablePaginationConfig,
+    _: Record<string, FilterValue | null>,
+    sorter: SorterResult<IExpertAdvice> | SorterResult<IExpertAdvice>[],
+  ) => {
+    const sorterArray = Array.isArray(sorter) ? sorter : [sorter]
+
+    const newOrdering = sorterArray
+      .filter(s => s.order)
+      .map(s => (s.order === 'ascend' ? s.field : `-${s.field}`))
+
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev)
+
+      const newPage = pagination.current ?? 1
+      newParams.set('page', newPage.toString())
+
+      if (newOrdering.length > 0) {
+        newParams.set('ordering', newOrdering.join(','))
+      } else {
+        newParams.delete('ordering')
+      }
+
+      return newParams
+    })
   }
 
   const columns: TableColumnsType<IExpertAdvice> = [
     {
-      title: t('Название'),
-      key: 'title',
+      title: t('fields.name.label'),
       dataIndex: 'title',
-      className: 'w-1/2',
+      width: 1000,
       render: (_, record) => <ExpertAdviceTitle {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'title'),
     },
     {
-      title: t('Описание'),
-      key: 'description',
+      title: t('fields.description.label'),
       dataIndex: 'description',
-      className: 'w-1/2',
+      width: 1000,
       render: (_, record) => <ExpertAdviceDescription {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'description'),
     },
     {
-      title: t('Статус'),
-      key: 'status',
+      title: t('fields.status.label'),
       dataIndex: 'status',
       width: 0,
       render: (_, record) => <ExpertAdviceStatus {...record} />,
+      sorter: true,
+      sortOrder: getTableSortOrder(orderingFields, 'status'),
     },
     {
-      title: t('Действие'),
-      key: 'action',
+      title: t('common.action'),
       dataIndex: 'action',
       width: 0,
       render: (_, record) => <ExpertAdviceAction {...record} />,
@@ -59,21 +95,15 @@ function ExpertAdvicesList() {
 
   return (
     <CustomTable
-      columns={columns}
-      dataSource={data?.results}
-      rowKey="id"
       bordered
-      loading={isPending}
+      rowKey="id"
       className="custom-table-2"
-      pagination={{
-        current: currentPage,
-        pageSize: 10,
-        total: data?.count || 0,
-        hideOnSinglePage: true,
-        showSizeChanger: false,
-        position: ['bottomCenter'],
-        onChange: handlePaginationChange,
-      }}
+      loading={isPending}
+      columns={columns}
+      currentPage={currentPage}
+      totalCount={data?.count}
+      dataSource={data?.results}
+      onChange={handleTableChange}
     />
   )
 }

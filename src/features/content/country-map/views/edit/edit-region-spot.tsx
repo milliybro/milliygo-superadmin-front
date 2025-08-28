@@ -1,10 +1,11 @@
 import ArrowDownIcon from '@/components/icons/arrow-down'
+import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { Button, Form, Input, Select, Switch, Tag, Typography } from 'antd'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useSearchParams } from 'react-router'
-import useCountryMapContext from '../../hooks/use-country-map'
+import { useParams } from 'react-router'
 import CountryMapSVG from '../../components/map/country-map-svg'
+import useCountryMapContext from '../../hooks/use-country-map'
 
 export default function EditRegionSpot() {
   const { t } = useTranslation()
@@ -15,16 +16,18 @@ export default function EditRegionSpot() {
   }>()
   const status = Form.useWatch('is_active', form)
   const pointTitle = Form.useWatch('point_title', form)
-  const [searchParams] = useSearchParams()
+  const { setBreadCrumbs } = useBreadCrumbsStore()
   const {
     updateMapPointMutation: { mutate, isPending },
     topDestinationOptions,
     pointsQuery: { data: points },
+    regionData,
   } = useCountryMapContext()
-  const pointId = +searchParams.get('id')!
+  const { slug: pointId } = useParams()
 
   useEffect(() => {
-    const editingPoint = points?.results?.find(point => point.id === pointId)
+    if (!pointId) return
+    const editingPoint = points?.results?.find(point => point.id === +pointId)
 
     if (points) {
       form.setFieldsValue({
@@ -35,7 +38,26 @@ export default function EditRegionSpot() {
     }
   }, [points])
 
-  const editingPoint = points?.results?.find(point => point.id === +pointId)
+  useEffect(() => {
+    setBreadCrumbs([
+      { title: t('common.main'), href: '/' },
+      { title: t('routes.content'), href: '/content/country-map' },
+      {
+        title: t('content.country-map.title'),
+        href: '/content/country-map/',
+      },
+      {
+        title: regionData?.name || ' ',
+      },
+      {
+        title: t('content.country-map.edit-point'),
+      },
+    ])
+  }, [regionData])
+
+  const editingPoint = points?.results?.find(
+    point => point.id === +(pointId as string),
+  )
 
   return (
     <div className="flex flex-col">

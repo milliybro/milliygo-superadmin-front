@@ -4,14 +4,12 @@ import type { FC } from 'react'
 import type { IEvent } from '@/features/content/types'
 
 const EventsTitle: FC<IEvent> = props => {
-  const image = props.images?.find(img => img?.image)
-
   return (
     <div className="flex items-center gap-4">
       <div className="size-[52px] shrink-0 overflow-hidden rounded-2xl bg-secondary-light">
-        {image && (
+        {props?.image && (
           <img
-            src={image?.image}
+            src={props?.image}
             alt={props?.name}
             className="h-full w-full object-cover"
           />

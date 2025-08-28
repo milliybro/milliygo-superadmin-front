@@ -10,14 +10,14 @@ import Hotel2Icon from '../icons/hotel-2'
 import ProjectLogo from '../icons/project-logo'
 import ChartRingIcon from '../icons/chart-ring'
 import SidebarLeftIcon from '../icons/sidebar-left'
-import TimeManagementIcon from '../icons/time-management'
+// import TimeManagementIcon from '../icons/time-management'
 import UsersGroupIcon from '../icons/user-group-icon'
 import HomeIcon from '../icons/home-icon'
 import TipsIcon from '../icons/tips-icon'
 import BeachIcon from '../icons/beach-icon'
 import TeachingIcon from '../icons/teaching-icon'
 import WalletIcon from '../icons/wallet-icon'
-import AnalyticsIcon from '../icons/analytics-icon'
+// import AnalyticsIcon from '../icons/analytics-icon'
 import MegaPhoneIcon from '../icons/megaphone-icon'
 
 const adminItems = [
@@ -69,25 +69,25 @@ const adminItems = [
     path: ROUTE_PATHS.BILLING,
     status: 'in progress',
   },
-  {
-    label: 'routes.bi-service',
-    icon: AnalyticsIcon,
-    path: ROUTE_PATHS.GUIDES,
-    status: 'unstarted',
-  },
+  // {
+  //   label: 'routes.bi-service',
+  //   icon: AnalyticsIcon,
+  //   path: ROUTE_PATHS.GUIDES,
+  //   status: 'unstarted',
+  // },
 
   {
     label: 'routes.content',
     icon: MegaPhoneIcon,
     path: ROUTE_PATHS.CONTENT,
-    status: 'in progress',
+    status: 'finished',
   },
-  {
-    label: 'routes.roles',
-    icon: TimeManagementIcon,
-    path: ROUTE_PATHS.ACCESS_ROLE,
-    status: 'unstarted',
-  },
+  // {
+  //   label: 'routes.roles',
+  //   icon: TimeManagementIcon,
+  //   path: ROUTE_PATHS.ACCESS_ROLE,
+  //   status: 'unstarted',
+  // },
   // { label: 'common.clients', icon: IdIcon, path: ROUTE_PATHS.CLIENTS },
   // { label: 'common.complaints', icon: AlertIcon, path: ROUTE_PATHS.COMPLAINTS },
   // {

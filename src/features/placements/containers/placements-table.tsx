@@ -1,80 +1,44 @@
 import { Image, Table, Tooltip } from 'antd'
-import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
 
 import RatingTag from '@/components/ui/rating-tag'
 import StatusTag from '@/components/ui/status-tag'
 import HotelsTableActionButton from '../components/hotels-table-action-button'
 
-import type { IHotelsTable } from '../types'
-import type { PaginationProps, TableColumnsType } from 'antd'
 import HotelIcon from '@/components/icons/hotel'
 import UsersNotFound from '@/features/users/components/users-not-found'
+import { truthyObject } from '@/helpers/truthy-object'
+import { useQuery } from '@tanstack/react-query'
+import type { TableColumnsType, TableProps } from 'antd'
+import queryString from 'query-string'
+import { useMemo } from 'react'
+import { useLocation, useNavigate } from 'react-router'
+import { getAllPlacements } from '../api'
+import type { IPlacement } from '../types'
 
-const staticHotelsData = {
-  count: 2,
-  results: [
-    {
-      id: 1,
-      placement_name: 'Hotel Grand Palace',
-      image: '',
-      placement_address: 'Tashkent, Amir Temur street 100',
-      location: 'Tashkent, Amir Temur street 100',
-      price: 120,
-      rating: 4,
-      status: true,
-      address: 'Tashkent',
-      min_price: 90,
-      star_rating: 4,
-      username: 'grand_palace_admin',
-      password: 'password123',
-      full_name: 'Ali Valiyev',
-      tenant_id: 'tenant-1',
-      type: 'hotel',
-      phone_number: '+998901234567',
-    },
-    {
-      id: 2,
-      placement_name: 'Silk Road Inn',
-      image: '',
-      placement_address: 'Samarkand, Navoi street 20',
-      location: 'Samarkand, Navoi street 20',
-      price: 80,
-      rating: 3,
-      status: false,
-      address: 'Samarkand',
-      min_price: 60,
-      star_rating: 3,
-      username: 'silkroad_admin',
-      password: 'securepass',
-      full_name: 'Dilnoza Karimova',
-      tenant_id: 'tenant-2',
-      type: 'hotel',
-      phone_number: '+998901234568',
-    },
-  ],
-}
-
-const PlacementsTable = ({
-  // hotelsData,
-  isLoading,
-  currentPage,
-  pageSize,
-  setCurrentPage,
-}: any) => {
+const PlacementsTable = () => {
   const { t } = useTranslation()
-  const hotelsData = staticHotelsData
-  const columns: TableColumnsType<IHotelsTable> = [
+  const navigate = useNavigate()
+  const { search, pathname } = useLocation()
+  const queries = useMemo(() => queryString.parse(search), [search])
+
+  const { data: placementsData, isFetching } = useQuery({
+    queryKey: ['placements-data', queries],
+    queryFn: () =>
+      getAllPlacements(truthyObject({ ...queries, page_size: 10 })),
+    placeholderData: data => data,
+  })
+
+  const columns: TableColumnsType<IPlacement> = [
     {
       title: 'ID',
-      dataIndex: 'id',
+      dataIndex: 'idx',
       className: 'text-center',
-      render: (_text, _record, index) =>
-        (currentPage - 1) * pageSize + index + 1,
       sorter: false,
+      render: i => (+(queries?.page || 1) - 1) * 10 + i + 1,
     },
     {
-      title: 'fields.hotel-name.label',
+      title: t('fields.hotel-name.label'),
       dataIndex: 'placement_name',
       sorter: true,
       render: (_, val) => (
@@ -83,31 +47,31 @@ const PlacementsTable = ({
             {val?.image ? (
               <Image
                 src={val?.image}
-                alt={val?.placement_name}
+                alt={val?.name}
                 width={48}
                 height={48}
                 className="rounded-[8px] object-cover"
               />
             ) : (
-              <HotelIcon fontSize={28} />
+              <HotelIcon fontSize={28} className="text-secondary/30" />
             )}
           </div>
           <span className="text-[14px] font-medium text-primary-dark">
-            {val?.placement_name ? val?.placement_name : '-'}
+            {val?.name ? val?.name : '-'}
           </span>
         </div>
       ),
     },
     {
-      title: 'fields.address.label',
-      width: 200,
-      dataIndex: 'placement_address',
+      title: t('fields.address.label'),
+      width: 100,
+      dataIndex: 'address',
       sorter: true,
     },
     {
-      title: 'fields.location.label',
+      title: t('fields.location.label'),
       width: 200,
-      dataIndex: 'location',
+      dataIndex: 'address',
       sorter: true,
       render: val => (
         <div>
@@ -149,14 +113,14 @@ const PlacementsTable = ({
     //   ),
     // },
     {
-      title: 'fields.rating.label',
+      title: t('fields.rating.label'),
       dataIndex: 'rating',
       sorter: true,
       render: val => <RatingTag value={val} />,
     },
     {
-      title: 'fields.login.label',
-      dataIndex: 'phone_number',
+      title: t('fields.login.label'),
+      dataIndex: 'phone',
       sorter: true,
       render: _ => (
         <div className="flex items-center gap-[10px] text-center">
@@ -165,14 +129,14 @@ const PlacementsTable = ({
       ),
     },
     {
-      title: 'fields.status.label',
+      title: t('fields.status.label'),
       dataIndex: 'status',
       sorter: true,
       render: status => <StatusTag active={status} />,
     },
     {
       width: 1,
-      title: 'common.action',
+      title: t('common.action'),
       render: (id, val: any) => (
         <HotelsTableActionButton
           key={id}
@@ -184,88 +148,50 @@ const PlacementsTable = ({
     },
   ]
 
-  const itemRender: PaginationProps['itemRender'] = (
-    n,
-    type,
-    originalElement,
+  const handleTableChange: TableProps<IPlacement>['onChange'] = (
+    pagination,
+    _,
+    sorter,
   ) => {
-    if (type === 'prev') {
-      return (
-        <span
-          className={twMerge(
-            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
-            n === 0 ? 'pointer-events-none opacity-0' : '',
-          )}
-        >
-          {t('common.prev')}
-        </span>
-      )
-    }
-    if (type === 'next') {
-      return (
-        <span
-          className={twMerge(
-            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
-            n === 10 ? 'pointer-events-none opacity-0' : '',
-          )}
-        >
-          {t('common.next')}
-        </span>
-      )
-    }
+    const sort = Array.isArray(sorter) ? sorter[0] : sorter
+    const ordering = sort?.field
+      ? (sort?.order === 'descend' ? '-' : '') + sort.field
+      : null
 
-    return originalElement
+    const newPage = pagination.current
+
+    const updatedQuery = queryString.stringify(
+      truthyObject({
+        ...queries,
+        page: newPage,
+        ordering,
+      }),
+    )
+
+    navigate({ pathname, search: updatedQuery })
   }
-
-  const handlePaginationChange = (page: number) => {
-    setCurrentPage(page)
-  }
-
-  const transformedHotelsData = hotelsData?.results.map(
-    (item: IHotelsTable | any, i: any) => ({
-      key: i,
-      id: item.id,
-      placement_name: item.placement_name,
-      image: item.image,
-      placement_address: item.placement_address,
-      price: item.price,
-      rating: item.star_rating,
-      status: item.status,
-      address: item.address,
-      min_price: item.min_price,
-      star_rating: item.star_rating,
-      login: item.username,
-      password: item.password,
-      full_name: item.full_name,
-      balance: item.balance,
-      tenant: item.tenant_id,
-      type: item.type,
-      location: item.location,
-      phone_number: item.phone_number,
-    }),
-  )
 
   return (
-    <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white">
-      <Table<IHotelsTable>
-        columns={columns?.map(val => ({
-          ...val,
-          title: t(val?.title as string),
-        }))}
-        loading={isLoading}
-        dataSource={transformedHotelsData}
-        onChange={pagination => handlePaginationChange(pagination.current!)}
+    <div className="flex h-full flex-col items-center justify-center overflow-x-auto rounded-[16px] border border-border bg-white">
+      <Table<IPlacement>
+        columns={columns}
+        dataSource={
+          placementsData?.results?.map((item, i) => ({
+            ...item,
+            idx: i,
+            key: item?.key + i,
+          })) || []
+        }
         className="h-full w-full"
         bordered
+        loading={isFetching}
         pagination={{
-          current: currentPage,
+          current: +(queries?.page || 1),
           pageSize: 10,
-          total: hotelsData?.count || 0,
+          total: placementsData?.count || 0,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],
-          itemRender: itemRender,
-          onChange: handlePaginationChange,
         }}
         locale={{
           emptyText: <UsersNotFound />,
@@ -273,6 +199,7 @@ const PlacementsTable = ({
           triggerAsc: t('common.sort_ascending') ?? '',
           cancelSort: t('common.sort_cancel') ?? '',
         }}
+        onChange={handleTableChange}
       />
     </div>
   )

@@ -4,14 +4,12 @@ import type { FC } from 'react'
 import type { IExpertAdvice } from '@/features/content/types'
 
 const ExpertAdviceTitle: FC<IExpertAdvice> = props => {
-  const image = props.images?.find(img => img.is_main || img.image_path)
-
   return (
     <div className="flex items-center gap-4">
       <div className="size-[52px] shrink-0 overflow-hidden rounded-2xl bg-secondary-light">
-        {image && (
+        {props?.image && (
           <img
-            src={image.image_path}
+            src={props?.image}
             alt={props?.title}
             className="h-full w-full object-cover"
           />

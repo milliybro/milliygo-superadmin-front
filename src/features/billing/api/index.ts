@@ -35,7 +35,7 @@ export async function getHotelDetailReview(
   id?: number,
 ): Promise<ListResponse<IHotelsItemReview[]>> {
   const res: ListResponse<IHotelsItemReview[]> = await request({
-    url: `/placement-reviews/placement_review/?placement=${id}`,
+    url: `/placement-reviews/placement_review/?placement=${id}/`,
     method: 'get',
     params,
   })
@@ -48,7 +48,7 @@ export async function getHotelDetailRooms(
   id?: number,
 ): Promise<ListResponse<IHotelsRoom[]>> {
   const res: ListResponse<IHotelsRoom[]> = await request({
-    url: `/placements/rooms/?placement__id=${id}`,
+    url: `/placements/rooms/?placement__id=${id}/`,
     method: 'get',
     params,
   })

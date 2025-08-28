@@ -1,15 +1,29 @@
 import { Switch } from 'antd'
+import { useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
+
+import { patchEvent } from '../../api'
 
 import type { FC } from 'react'
 import type { IEvent } from '@/features/content/types'
 
-const EventsStatus: FC<IEvent> = props => {
+const ExpertAdviceStatus: FC<IEvent> = ({ slug, status }) => {
+  const [checked, setChecked] = useState(status)
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (values: { status: boolean }) => patchEvent(slug, values),
+    onSuccess: () => {
+      setChecked(prev => !prev)
+    },
+  })
+
+  const handleChange = (checked: boolean) => {
+    mutate({ status: checked })
+  }
+
   return (
-    <Switch
-    // checked={record?.status === 'active'}
-    // onChange={value => handleStatusToggle(record.id, value)}
-    />
+    <Switch loading={isPending} checked={checked} onChange={handleChange} />
   )
 }
 
-export default EventsStatus
+export default ExpertAdviceStatus

@@ -27,7 +27,7 @@ export async function getClientBooking(params?: any): Promise<IUsers> {
 
 export async function getClientReview(params?: any): Promise<IUsers> {
   const res: IUsers = await request({
-    url: `/placement-reviews/placement_review/?user=${params.id}`,
+    url: `/placement-reviews/placement_review/?user=${params.id}/`,
     method: 'get',
     params: params.queryParams,
   })

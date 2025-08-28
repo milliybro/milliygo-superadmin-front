@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 import { Button, notification } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
@@ -14,6 +15,7 @@ import type { IEvent } from '../../types'
 
 const EventsAction: FC<IEvent> = props => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const queryClient = useQueryClient()
   const [deleteOpen, setDeleteOpen] = useState(false)
 
@@ -25,7 +27,9 @@ const EventsAction: FC<IEvent> = props => {
       // }
 
       setDeleteOpen(false)
-      notification.success({ message: 'Мероприятие успешно удалено' })
+      notification.success({
+        message: t('content.events.status-deleted'),
+      })
       queryClient.invalidateQueries({ queryKey: ['events'] })
     },
   })
@@ -37,11 +41,11 @@ const EventsAction: FC<IEvent> = props => {
   return (
     <>
       <div className="flex items-center text-base font-medium">
-        <Button type="link">
-          <EditIcon className="text-xl" /> {t('Редактировать')}
+        <Button type="link" onClick={() => navigate(`edit/${props.slug}`)}>
+          <EditIcon className="text-xl" /> {t('common.edit')}
         </Button>
         <Button type="link" danger onClick={handleDelete}>
-          <DeleteIcon className="text-xl" /> {t('Удалить')}
+          <DeleteIcon className="text-xl" /> {t('common.delete')}
         </Button>
       </div>
 
@@ -50,8 +54,8 @@ const EventsAction: FC<IEvent> = props => {
         onClose={() => setDeleteOpen(false)}
         onDelete={() => deleteMutate.mutate()}
         isLoading={deleteMutate?.isPending}
-        title={t('Удалить мероприятие?')}
-        description={t('Вы уверены, что хотите удалить это мероприятие?')}
+        title={t('content.events.delete-modal-title')}
+        description={t('content.events.delete-modal-description')}
       />
     </>
   )
