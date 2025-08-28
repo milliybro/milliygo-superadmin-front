@@ -45,48 +45,48 @@ export async function errorHandler(error: AxiosError): Promise<void> {
   const errorStatus = error.response?.status
   const errorData = error?.response?.data as IErrorMessage[]
 
-  if (error.response !== null) {
-    // server responded with a status code that falls out of the range of 2xx
-    if (error.response?.status === 403) {
-      const rToken = localStorage.getItem('refresh')
+  // if (error.response !== null) {
+  //   // server responded with a status code that falls out of the range of 2xx
+  //   if (error.response?.status === 403) {
+  //     const rToken = localStorage.getItem('refresh')
 
-      if (rToken !== null) {
-        try {
-          const res = await refreshToken({ refresh: rToken })
-          const { refresh, access } = res.data.auth_tokens
-          localStorage.setItem('refresh', refresh)
-          localStorage.setItem('access', access)
-        } catch (err) {
-          localStorage.setItem('refresh_token_error', JSON.stringify(err))
-          localStorage.removeItem('refresh')
-          localStorage.removeItem('access')
-        } finally {
-          window.location.reload()
-        }
-      }
-    }
+  //     if (rToken !== null) {
+  //       try {
+  //         const res = await refreshToken({ refresh: rToken })
+  //         const { refresh, access } = res.data.auth_tokens
+  //         localStorage.setItem('refresh', refresh)
+  //         localStorage.setItem('access', access)
+  //       } catch (err) {
+  //         localStorage.setItem('refresh_token_error', JSON.stringify(err))
+  //         localStorage.removeItem('refresh')
+  //         localStorage.removeItem('access')
+  //       } finally {
+  //         window.location.reload()
+  //       }
+  //     }
+  //   }
 
-    if (errorStatus === 500) {
-      notification.error({
-        message: 'Server error | 500',
-        description: 'Please try again later',
-      })
-    } else if (Array.isArray(errorData)) {
-      errorData.forEach((val: IErrorMessage) => {
-        notification.error({
-          message: val?.error_type,
-          description: val?.detail,
-        })
-      })
-    } else {
-      notification.error({
-        message: 'Unexpected error',
-        description: 'An error occurred. Please try again.',
-      })
-    }
+  //   if (errorStatus === 500) {
+  //     notification.error({
+  //       message: 'Server error | 500',
+  //       description: 'Please try again later',
+  //     })
+  //   } else if (Array.isArray(errorData)) {
+  //     errorData.forEach((val: IErrorMessage) => {
+  //       notification.error({
+  //         message: val?.error_type,
+  //         description: val?.detail,
+  //       })
+  //     })
+  //   } else {
+  //     notification.error({
+  //       message: 'Unexpected error',
+  //       description: 'An error occurred. Please try again.',
+  //     })
+  //   }
 
-    await Promise.reject(error.response)
-  }
+  //   await Promise.reject(error.response)
+  // }
   if (error.request !== null) {
     // no response received from server
     await Promise.reject(error.request)

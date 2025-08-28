@@ -659,7 +659,17 @@
   },
   "guides": {
     "guides": "Gidlar",
-    "service-location": "Xizmat ko‘rsatish joylari"
+    "service-location": "Xizmat ko‘rsatish joylari",
+    "info-guide": "Gid haqida ma’lumot",
+    "license": "Litsenziya",
+    "download": "Yuklab olish",
+    "cancel": "Rad etish",
+    "apply": "Qabul qilinsin",
+    "reject-text": "Arizani rad etmoqchimisiz?",
+    "reject-desc": "Quyidagi variantlardan rad etish sababini tanlang.",
+    "add-reason": "Boshqa sabab",
+    "write-reason": "Sababini bayon eting",
+    "reason": "Sabab"
   },
   "placements": {
     "hotels": "Mehmonxonalar",

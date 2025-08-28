@@ -73,12 +73,9 @@ export async function updateGuide(id: number, data: any) {
   })
 }
 
-export async function getGuide(
-  id: number,
-  params?: any,
-): Promise<ListResponse<IHotelDetail[]>> {
-  const res: ListResponse<IHotelDetail[]> = await request({
-    url: `/guides/${id}/`,
+export async function getGuide(id: number, params?: any): Promise<any> {
+  const res: any = await request({
+    url: `/guides/${id}/detail/`,
     method: 'get',
     params,
   })
