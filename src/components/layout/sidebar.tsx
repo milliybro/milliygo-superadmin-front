@@ -61,7 +61,7 @@ const adminItems = [
     label: 'routes.guides',
     icon: TeachingIcon,
     path: ROUTE_PATHS.GUIDES,
-    status: 'in progress',
+    status: 'finished',
   },
   {
     label: 'routes.billing',
