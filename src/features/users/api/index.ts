@@ -1,5 +1,5 @@
 import { ListResponse } from '@/types'
-import { IUsers } from '../types'
+import { ISubmittedUserResponse, IUsers } from '../types'
 import requestAuth from '@/utils/authRequest'
 
 export async function getUsersList(
@@ -28,7 +28,7 @@ export async function getUserRoles(
 
 export async function getUser(params?: any): Promise<IUsers> {
   const res: IUsers = await requestAuth({
-    url: `/account/super-admin/users/${params.id}/`,
+    url: `/account/users/${params.id}/`,
     method: 'get',
     params: params.queryParams,
   })
@@ -39,13 +39,13 @@ export async function getUser(params?: any): Promise<IUsers> {
 export async function updateUser(params: {
   id: string
   queryParams: any
-}): Promise<IUsers> {
+}): Promise<ISubmittedUserResponse> {
   const { id, queryParams } = params
   if (!id) {
     throw new Error('User ID is required for updating a user.')
   }
-  const res: IUsers = await requestAuth({
-    url: `/account/super-admin/users/${id}/`,
+  const res: ISubmittedUserResponse = await requestAuth({
+    url: `/account/users/${id}/`,
     method: 'patch',
     data: queryParams,
   })
@@ -53,9 +53,9 @@ export async function updateUser(params: {
   return res
 }
 
-export async function createUser(data?: any): Promise<IUsers> {
-  const res: IUsers = await requestAuth({
-    url: `/account/super-admin/users/`,
+export async function createUser(data?: any): Promise<ISubmittedUserResponse> {
+  const res: ISubmittedUserResponse = await requestAuth({
+    url: '/account/users/',
     method: 'post',
     data,
   })
@@ -65,7 +65,7 @@ export async function createUser(data?: any): Promise<IUsers> {
 
 export async function deleteUser(id: string | number): Promise<any> {
   const res: any = await requestAuth({
-    url: `/account/super-admin/users/${id}/`,
+    url: `/account/users/${id}/`,
     method: 'delete',
   })
 
