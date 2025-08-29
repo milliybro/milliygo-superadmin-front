@@ -101,6 +101,12 @@ const adminItems = [
     path: ROUTE_PATHS.USERS,
     status: 'finished',
   },
+  {
+    label: 'common.action-history',
+    icon: MegaPhoneIcon,
+    path: ROUTE_PATHS.ACTION_HISTORY,
+    status: 'finished',
+  },
   // { label: 'common.clients', icon: IdIcon, path: ROUTE_PATHS.CLIENTS },
   // { label: 'common.complaints', icon: AlertIcon, path: ROUTE_PATHS.COMPLAINTS },
   // {

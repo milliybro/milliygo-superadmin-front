@@ -32,6 +32,7 @@ const ROUTE_PATHS = {
   MYLICENSES: '/my-licenses',
   MYCONTRACTS: '/my-contracts',
   INVOICECONTROL: '/invoice-control',
+  ACTION_HISTORY: '/action-history',
 }
 
 export { TOKEN, ROUTE_PATHS }
