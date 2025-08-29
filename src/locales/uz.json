@@ -33,6 +33,7 @@
 
   "users-page": {
     "add-user": "Фойдаланувчи қўшиш",
+    "user-is-added": "Янги фойдаланувчи қўшилди",
     "edit-user": "Фойдаланувчини таҳрирлаш",
     "modal-description": "Янги фойдаланувчи қўшиш учун барча зарур майдонларни тўлдиринг",
     "delete-modal": "Фойдаланувчини ўчиришни истайсизми?",
@@ -150,6 +151,21 @@
       "label": "Ф.И.Ш.",
       "placeholder": "Ф.И.Ш. киритинг",
       "validation-message-required": "Ф.И.Ш. киритинг"
+    },
+    "first_name": {
+      "label": "Исм",
+      "placeholder": "Исмингизни киритинг",
+      "validation-message-required": "Исмингизни киритинг"
+    },
+    "last_name": {
+      "label": "Фамилия",
+      "placeholder": "Фамилиянгизни киритинг",
+      "validation-message-required": "Фамилиянгизни киритинг"
+    },
+    "middle_name": {
+      "label": "Отасининг исми",
+      "placeholder": "Отасининг исмини киритинг",
+      "validation-message-required": "Отасининг исмини киритинг"
     },
     "phone": {
       "label": "Телефон рақами",
@@ -490,6 +506,8 @@
     "edit-tenant": "Ижарачини таҳрирлаш"
   },
   "common": {
+    "copied": "Нусха олинди",
+    "close": "Ёпиш",
     "create": "Яратиш",
     "statistics": "Статистика",
     "users": "Фойдаланувчилар",

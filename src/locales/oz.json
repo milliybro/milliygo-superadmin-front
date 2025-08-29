@@ -33,6 +33,7 @@
 
   "users-page": {
     "add-user": "Foydalanuvchi qo‘shish",
+    "user-is-added": "Yangi foydalanuvchi qo‘shildi",
     "edit-user": "Foydalanuvchini tahrirlash",
     "modal-description": "Yangi foydalanuvchi qo‘shish uchun iltimos, barcha zarur maydonlarni to‘ldiring",
     "delete-modal": "Siz foydalanuvchini o'chiryapsizmi?",
@@ -132,6 +133,21 @@
       "label": "F.I.O",
       "placeholder": "Oybek Turonov O‘ktam o‘g‘li",
       "validation-message-required": "F.I.O kiriting"
+    },
+    "first_name": {
+      "label": "Ism",
+      "placeholder": "Ismingizni kiriting",
+      "validation-message-required": "Ismingizni kiriting"
+    },
+    "last_name": {
+      "label": "Familiya",
+      "placeholder": "Familiyangizni kiriting",
+      "validation-message-required": "Familiyangizni kiriting"
+    },
+    "middle_name": {
+      "label": "Otasining ismi",
+      "placeholder": "Otasining ismini kiriting",
+      "validation-message-required": "Otasining ismini kiriting"
     },
     "phone": {
       "label": "Telefon raqam",
@@ -472,6 +488,8 @@
     "edit-tenant": "Tenantni tahrirlash"
   },
   "common": {
+    "close": "Yopish",
+    "copied": "Nusxa olindi",
     "create": "Yaratish",
     "name": "Nomi",
     "statistics": "Statistika",
