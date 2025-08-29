@@ -488,6 +488,8 @@
     "edit-tenant": "Tenantni tahrirlash"
   },
   "common": {
+    "action-time": "Amallar vaqti",
+    "action-history": "Amallar tarixi",
     "close": "Yopish",
     "copied": "Nusxa olindi",
     "create": "Yaratish",

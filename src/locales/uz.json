@@ -506,6 +506,8 @@
     "edit-tenant": "Ижарачини таҳрирлаш"
   },
   "common": {
+    "action-time": "Амаллар вақти",
+    "action-history": "Амаллар тарихи",
     "copied": "Нусха олинди",
     "close": "Ёпиш",
     "create": "Яратиш",
