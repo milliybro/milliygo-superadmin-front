@@ -6,7 +6,6 @@ import { twMerge } from 'tailwind-merge'
 import UsersNotFound from '@/features/users/components/users-not-found'
 
 import type { IGuidesTable } from '../types'
-import GuideViewModal from '../components/guide-view-modal'
 
 const staticBillingData = {
   count: 2,
@@ -193,7 +192,6 @@ const BillingPaymentsTable = ({
           cancelSort: t('common.sort_cancel') ?? '',
         }}
       />
-      <GuideViewModal />
     </div>
   )
 }
