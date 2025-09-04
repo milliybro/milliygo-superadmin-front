@@ -19,8 +19,13 @@ import UserIcon from '@/components/icons/user'
 import DownloadIcon from '@/components/icons/download-icon'
 import CustomModal from './custom-madal'
 import { RadioChangeEvent } from 'antd/lib'
-import { useQuery } from '@tanstack/react-query'
-import { getGuide } from '../api'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { getGuide, updateGuide } from '../api'
+
+type GuideUpdatePayload = {
+  guide_status: 'accepted' | 'rejected'
+  rejected_reason?: string
+}
 
 const GuideViewModal = () => {
   const { t } = useTranslation()
@@ -34,7 +39,7 @@ const GuideViewModal = () => {
   const [reportModalOpen, setReportModalOpen] = useState(false)
   const [value, setValue] = useState(1)
   const guideId = searchParams.get('guideId')
-
+  const queryClient = useQueryClient()
   const editTenantId = searchParams.get('edit')
 
   const closeHandler = () => {
@@ -48,12 +53,35 @@ const GuideViewModal = () => {
 
   const reasons = [
     { id: 1, text: 'Content 1' },
-    { id: 4, text: 'Другая причина' },
+    { id: 4, text: t('guides.add-reason') },
   ]
 
   const onChange = (e: RadioChangeEvent) => setValue(e.target.value)
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: (values: GuideUpdatePayload) =>
+      updateGuide(guideId as any, values),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['guides-data'] })
+    },
+  })
   const handleComplain = () => {
+    let reason = ''
+
+    const selectedReason = reasons.find(r => r.id === value)
+
+    if (value === 4) {
+      reason = form.getFieldValue('cancel_reason') || ''
+    } else {
+      reason = selectedReason?.text || ''
+    }
+
+    if (!reason) {
+      form.validateFields()
+      return
+    }
+
+    mutate({ guide_status: 'rejected', rejected_reason: reason })
     setReportModalOpen(false)
     closeGuideModal()
   }
@@ -98,17 +126,20 @@ const GuideViewModal = () => {
             <UserIcon className="text-[24px] text-primary" />
           </div>
           <div className="mb-2 text-[24px] font-bold text-primary-dark">
-            Информация о гиде
+            {t('guides.info-guide')}
           </div>
         </div>
         <div className="flex flex-col gap-4">
           {[
-            { label: 'ФИО', value: 'Alisher Makhmudov' },
-            { label: 'Гражданство', value: 'Узбекистан' },
-            { label: 'Нации', value: 'Узбек' },
-            { label: 'День рождения', value: '21.05.1990' },
-            { label: 'Пол', value: 'Мужчина' },
-            { label: 'Номер телефон', value: '+998 97 456 123 78' },
+            { label: t('hotel-guest.lfm'), value: data?.full_name },
+            {
+              label: t('hotel-guest.citizenship'),
+              value: data?.citizenship_name,
+            },
+            { label: t('hotel-guest.nation'), value: data?.nationality_name },
+            { label: t('hotel-guest.birth'), value: '' },
+            { label: t('hotel-guest.gender'), value: '' },
+            { label: t('hotel-guest.phone'), value: data?.phone },
           ].map((item, i) => (
             <div key={i} className="flex justify-between">
               <Typography.Text className="text-[14px] font-[400]">
@@ -122,12 +153,25 @@ const GuideViewModal = () => {
 
           <div className="mt-1 flex items-center justify-between">
             <Typography.Text className="text-[14px] font-[400]">
-              Лицензия
+              {t('guides.license')}
             </Typography.Text>
-            <Button className="flex h-[28px] items-center bg-[#3276FF33] px-2 py-0">
+            <Button
+              className="flex h-[28px] items-center bg-[#3276FF33] px-2 py-0"
+              onClick={() => {
+                if (!data?.certificate_file) return
+                const link = document.createElement('a')
+                link.href = data.certificate_file
+                link.download =
+                  data.certificate_file.split('/').pop() || 'certificate.pdf'
+                link.target = '_blank'
+                document.body.appendChild(link)
+                link.click()
+                document.body.removeChild(link)
+              }}
+            >
               <DownloadIcon className="" />
               <Typography.Text className="ml-1 text-[14px] font-[500] text-[#2563EB]">
-                Скачать
+                {t('guides.download')}
               </Typography.Text>
             </Button>
           </div>
@@ -139,10 +183,14 @@ const GuideViewModal = () => {
               setReportModalOpen(true)
             }}
           >
-            Отклонить
+            {t('guides.cancel')}
           </Button>
-          <Button className="border border-[#4DD282] bg-[#4DD282] font-[600] text-white">
-            Принимать
+          <Button
+            className="border border-[#4DD282] bg-[#4DD282] font-[600] text-white"
+            loading={isPending}
+            onClick={() => mutate({ guide_status: 'accepted' })}
+          >
+            {t('guides.apply')}
           </Button>
         </div>
       </Modal>
@@ -157,11 +205,11 @@ const GuideViewModal = () => {
             <Flex vertical className="mb-6">
               <div className="flex h-20 w-20 items-center justify-center rounded-[24px] bg-[#F8F8FA]"></div>
               <Typography.Title level={2} className="">
-                Хотите отклонить заявку?
+                {t('guides.reject-text')}
               </Typography.Title>
             </Flex>
             <Typography.Text className="mb-6 text-[16px] font-[400] text-[#777E90]">
-              Выберите причину отклонения из нижеперечисленных вариантов.
+              {t('guides.reject-desc')}
             </Typography.Text>
           </div>
           <Radio.Group onChange={onChange} value={value} className="mb-8">
@@ -178,14 +226,14 @@ const GuideViewModal = () => {
             <Form form={form} layout="vertical" name="complainForm">
               <Form.Item
                 name="cancel_reason"
-                label="Опишите причину"
+                label={t('guides.write-reason')}
                 rules={[
                   { required: true, message: 'Пожалуйста, введите детали.' },
                 ]}
               >
                 <Input.TextArea
                   className="mb-6 h-[122px] resize-none p-4"
-                  placeholder="Принича"
+                  placeholder={t('guides.reason')}
                 />
               </Form.Item>
             </Form>
@@ -199,7 +247,7 @@ const GuideViewModal = () => {
               type="default"
               onClick={() => setReportModalOpen(false)}
             >
-              Отмена
+              {t('common.cancel')}
             </Button>
             <Button
               aria-label={t('complain.complain')}
@@ -209,7 +257,7 @@ const GuideViewModal = () => {
               className="flex-1 text-white"
               onClick={handleComplain}
             >
-              Отклонить
+              {t('guides.cancel')}
             </Button>
           </Flex>
         </Flex>

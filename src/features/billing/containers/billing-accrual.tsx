@@ -6,7 +6,7 @@ import { twMerge } from 'tailwind-merge'
 import UsersNotFound from '@/features/users/components/users-not-found'
 
 import type { IGuidesTable } from '../types'
-import GuideViewModal from '../components/guide-view-modal'
+import GuideViewModal from '@/features/guides/components/guide-view-modal'
 
 const staticBillingData = {
   count: 2,
@@ -103,8 +103,8 @@ const BillingAccrualTable = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 0 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
+            n === 0 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.prev')}
@@ -115,8 +115,8 @@ const BillingAccrualTable = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 10 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
+            n === 10 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.next')}
@@ -146,7 +146,7 @@ const BillingAccrualTable = ({
     })) || []
 
   return (
-    <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
+    <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white">
       <Table<any>
         columns={columns?.map(val => ({
           ...val,
@@ -154,7 +154,7 @@ const BillingAccrualTable = ({
         }))}
         loading={isLoading}
         dataSource={transformedTenantsData}
-        className="w-full h-full"
+        className="h-full w-full"
         bordered
         pagination={{
           current: currentPage,
