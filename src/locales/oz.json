@@ -39,7 +39,8 @@
     "delete-modal": "Siz foydalanuvchini o'chiryapsizmi?",
     "delete-modal-desc": "Siz foydalanuvchini o'chirib tashlamoqchimisiz?",
     "not-found": "Hech narsa topilmadi",
-    "not-found-desc": "Afsuski, so‘rovingiz bo‘yicha hech narsa topilmadi"
+    "not-found-desc": "Afsuski, so‘rovingiz bo‘yicha hech narsa topilmadi",
+    "user_count": "Foydalanuvchilar soni: {{count}}"
   },
 
   "complaints-page": {
