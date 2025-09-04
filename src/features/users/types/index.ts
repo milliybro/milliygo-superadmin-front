@@ -25,6 +25,7 @@ interface IUsers {
   first_name: string
   last_name: string
   middle_name: string
+  display_name?: string
   phone: string
   gender: string
   username: string
@@ -42,8 +43,28 @@ interface IUsers {
   nationality_name: string
   email: string
 }
-interface IType {
-  name: string
+
+interface ISubmittedUserResponse {
+  id: number
+  first_name: string
+  last_name: string
+  middle_name: string
+  passport_sn: any
+  phone: string
+  gender: string
+  birth_date: any
+  is_active: boolean
+  type: string
+  is_superuser: boolean
+  username: string
+  full_name: any
+  generated_password: string
 }
 
-export type { IUsersTable, IUsers }
+interface IType {
+  name: string
+  id: string
+  display_name: string
+}
+
+export type { IUsersTable, IUsers, ISubmittedUserResponse }

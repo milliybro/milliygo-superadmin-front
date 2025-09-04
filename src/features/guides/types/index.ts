@@ -16,6 +16,17 @@ interface IGuidesTable {
   status: string
 }
 
+interface IGuide {
+  id: number
+  certificate_file: string
+  publishing_status: string
+  guide_category: number
+  full_name: string
+  citizenship_name: string
+  nationality_name: string
+  phone: string
+}
+
 interface ITenantsTable {
   key?: string
   id?: number
@@ -101,4 +112,5 @@ export type {
   IHotelsRoom,
   IGuestsTable,
   IGuestsTransaction,
+  IGuide,
 }
