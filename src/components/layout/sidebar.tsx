@@ -20,6 +20,7 @@ import WalletIcon from '../icons/wallet-icon'
 // import AnalyticsIcon from '../icons/analytics-icon'
 import MegaPhoneIcon from '../icons/megaphone-icon'
 import TimeManagementIcon from '../icons/time-management'
+import UserIcon from '../icons/user'
 
 const adminItems = [
   {
@@ -97,7 +98,7 @@ const adminItems = [
   },
   {
     label: 'common.users',
-    icon: MegaPhoneIcon,
+    icon: UserIcon,
     path: ROUTE_PATHS.USERS,
     status: 'finished',
   },
