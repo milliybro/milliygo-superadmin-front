@@ -11,6 +11,7 @@ const GuidesTab = ({
   currentPage,
   pageSize,
   setCurrentPage,
+  refetch
 }: any) => {
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -32,20 +33,21 @@ const GuidesTab = ({
         />
       ),
     },
-    // {
-    //   key: '2',
-    //   label: 'common.request',
-    //   children: (
-    //     <GuidesTable
-    //       guidesData={guidesData}
-    //       isLoading={isLoading}
-    //       pageSize={pageSize}
-    //       currentPage={currentPage}
-    //       setCurrentPage={setCurrentPage}
-    //       type="request"
-    //     />
-    //   ),
-    // },
+    {
+      key: '2',
+      label: 'common.request',
+      children: (
+        <GuidesTable
+          guidesData={guidesData}
+          isLoading={isLoading}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          type="request"
+          refetch={refetch}
+        />
+      ),
+    },
     {
       key: '3',
       label: 'common.un-active',

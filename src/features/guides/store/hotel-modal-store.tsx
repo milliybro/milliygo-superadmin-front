@@ -1,15 +1,15 @@
 import { create } from 'zustand'
 
 interface ModalStore {
-  isModalOpen: boolean
-  openModal: () => void
-  closeModal: () => void
+  isGuideModalOpen: boolean
+  openGuideModal: () => void
+  closeGuideModal: () => void
 }
 
 const useGuideModalStore = create<ModalStore>(set => ({
-  isModalOpen: false,
-  openModal: () => set({ isModalOpen: true }),
-  closeModal: () => set({ isModalOpen: false }),
+  isGuideModalOpen: false,
+  openGuideModal: () => set({ isGuideModalOpen: true }),
+  closeGuideModal: () => set({ isGuideModalOpen: false }),
 }))
 
 export default useGuideModalStore

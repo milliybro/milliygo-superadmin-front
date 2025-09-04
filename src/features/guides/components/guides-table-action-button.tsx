@@ -8,19 +8,47 @@ import type { FC } from 'react'
 import CheckIcon from '@/components/icons/check-icon'
 import CancelIcon from '@/components/icons/cancel-icon'
 import useGuideModalStore from '../store/hotel-modal-store'
+import { useMutation } from '@tanstack/react-query'
+import { updateGuide } from '../api'
+import { useSearchParams } from 'react-router'
 
 interface IProps {
-  id?: number
+  id: number
   type?: string
+  refetch?: () => void
 }
 
-const GuidesTableActionButton: FC<IProps> = ({ id, type }) => {
-  //   const navigate = useNavigate()
-  const { t } = useTranslation()
-  //   const { pathname } = useLocation()
-  console.log(id)
+type GuideUpdatePayload = {
+  guide_status: 'accepted' | 'rejected'
+}
 
-  const { openModal } = useGuideModalStore(store => store)
+const GuidesTableActionButton: FC<IProps> = ({ id, type, refetch }) => {
+  const { t } = useTranslation()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const { openGuideModal, isGuideModalOpen, closeGuideModal } =
+    useGuideModalStore(store => store)
+
+  const handleClick = () => {
+    if (!isGuideModalOpen) {
+      openGuideModal()
+
+      const newParams = new URLSearchParams(searchParams)
+      newParams.set('guideId', String(id))
+      setSearchParams(newParams)
+    } else {
+      closeGuideModal()
+      const newParams = new URLSearchParams(searchParams)
+      newParams.delete('guideId')
+      setSearchParams(newParams)
+    }
+  }
+
+  const { mutate, isPending } = useMutation({
+    mutationFn: (values: GuideUpdatePayload) => updateGuide(id, values),
+    onSuccess: () => {
+      refetch?.()
+    },
+  })
 
   return (
     <div className="flex gap-2">
@@ -30,6 +58,8 @@ const GuidesTableActionButton: FC<IProps> = ({ id, type }) => {
           <Button
             className="inline-flex items-center bg-[#CCFBF1] px-[10px] py-1"
             type="text"
+            loading={isPending}
+            onClick={() => mutate({ guide_status: 'accepted' })}
           >
             <CheckIcon />
           </Button>
@@ -46,7 +76,7 @@ const GuidesTableActionButton: FC<IProps> = ({ id, type }) => {
       <Button
         className="inline-flex items-center gap-2 font-medium text-primary"
         type="text"
-        onClick={() => openModal()}
+        onClick={handleClick}
       >
         <EyeIcon className="text-[20px]" />
         {t('common.more-details')}
