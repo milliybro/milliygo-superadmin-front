@@ -1,28 +1,31 @@
 import { Button } from 'antd'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ROUTE_PATHS } from '@/config/constants'
 
-import useUserModalStore from '../store/user-modal-store'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
+import useUserModalStore from '../store/user-modal-store'
 
 import AddIcon from '@/components/icons/add'
-import UserModal from '../components/user-modal'
-import HotelsTable from '../containers/users-table'
-import UsersFilters from '../containers/users-filters'
+import { truthyObject } from '@/helpers/truthy-object'
 import { useQuery } from '@tanstack/react-query'
+import queryString from 'query-string'
+import { useLocation, useSearchParams } from 'react-router'
 import { getUsersList } from '../api'
-import { useSearchParams } from 'react-router'
+import UserModal from '../components/user-modal'
+import UsersFilters from '../containers/users-filters'
+import UsersTable from '../containers/users-table'
 
 const Users = () => {
   const { t } = useTranslation()
 
   const { openModal } = useUserModalStore(store => store)
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
-  const [currentPage, setCurrentPage] = useState(1)
 
   const [searchParams] = useSearchParams()
+  const { search: searchP } = useLocation()
+  const queries = useMemo(() => queryString.parse(searchP), [searchP])
 
   const search = searchParams.get('search') || ''
   const gender = searchParams.get('gender') || ''
@@ -43,23 +46,25 @@ const Users = () => {
   } = useQuery({
     queryKey: [
       'users-data',
-      currentPage,
       gender,
       role,
       searchParams,
       search,
       status,
+      queries,
     ],
     queryFn: async () => {
-      const res = await getUsersList({
-        page_size: 10,
-        client_or_employee: 'employee',
-        page: currentPage,
-        search: search || undefined,
-        gender: gender || undefined,
-        type__name: role || undefined,
-        is_active: status || undefined,
-      })
+      const res = await getUsersList(
+        truthyObject({
+          page_size: 10,
+          client_or_employee: 'employee',
+          search: search || undefined,
+          gender: gender || undefined,
+          type__name: role || undefined,
+          is_active: status || undefined,
+          ...queries,
+        }),
+      )
       return res
     },
     placeholderData: data => data,
@@ -89,12 +94,10 @@ const Users = () => {
       </div>
       <UsersFilters />
       <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white dark:bg-dark-bg">
-        <HotelsTable
+        <UsersTable
           refetch={refetch}
           UsersData={UsersData}
           isLoading={isFetching}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
         />
       </div>
     </div>
