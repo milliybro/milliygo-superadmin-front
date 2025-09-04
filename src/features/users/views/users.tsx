@@ -66,10 +66,17 @@ const Users = () => {
   })
 
   return (
-    <div className="p-6 flex flex-col gap-6 flex-1">
+    <div className="flex flex-1 flex-col gap-6 p-6">
       <div className="flex items-start justify-between">
-        <div className="text-[24px] text-primary-dark font-semibold">
-          {t('common.users')}
+        <div>
+          <div className="text-[24px] font-semibold text-primary-dark">
+            {t('common.users')}
+          </div>
+          {UsersData && (
+            <div className="text-sm text-secondary">
+              Umumiy foydalanuvchilar soni: {UsersData?.count}
+            </div>
+          )}
         </div>
         <Button
           className="inline-flex items-center gap-2"
@@ -81,7 +88,7 @@ const Users = () => {
         <UserModal refetch={refetch} />
       </div>
       <UsersFilters />
-      <div className="bg-white border flex-col overflow-hidden border-border dark:bg-dark-bg rounded-[16px] flex items-center justify-center h-full">
+      <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white dark:bg-dark-bg">
         <HotelsTable
           refetch={refetch}
           UsersData={UsersData}
