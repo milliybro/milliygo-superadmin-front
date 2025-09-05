@@ -22,9 +22,9 @@ build-job:
     - cd /home/emehmon_superadmin_front
     - pwd
     - whoami
-    - git checkout main || fail
-    - git reset --hard origin/main || fail
-    - git pull origin main || fail
+    - git checkout dev || fail
+    - git reset --hard origin/dev || fail
+    - git pull origin dev || fail
     - npm install
     - npm run build
 
