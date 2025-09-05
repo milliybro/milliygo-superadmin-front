@@ -17,6 +17,7 @@ const GuidesTable = ({
   isLoading,
   pageSize,
   type,
+  refetch
 }: any) => {
   const { t } = useTranslation()
   const columns: TableColumnsType<IGuidesTable> = [
@@ -91,7 +92,7 @@ const GuidesTable = ({
       width: 1,
       title: 'common.action',
       dataIndex: 'id',
-      render: val => <GuidesTableActionButton id={val} type={type} />,
+      render: val => <GuidesTableActionButton id={val} type={type} refetch={refetch} />,
     },
   ]
 
@@ -135,7 +136,7 @@ const GuidesTable = ({
   const transformedTenantsData =
     guidesData?.results.map((item: any) => ({
       key: item.id,
-      id: item.id,
+      id: item.user_id,
       fio: item.full_name,
       placements: item.regions,
       rating: item.rating,

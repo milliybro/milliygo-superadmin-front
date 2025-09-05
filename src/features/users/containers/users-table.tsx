@@ -1,15 +1,23 @@
 import { Table } from 'antd'
-import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
+import { twMerge } from 'tailwind-merge'
 
 import StatusTag from '@/components/ui/status-tag'
 import UserActionButton from '../components/user-action-button'
 
+import type {
+  PaginationProps,
+  TableColumnsType,
+  TablePaginationConfig,
+} from 'antd'
 import type { IUsers, IUsersTable } from '../types'
-import type { PaginationProps, TableColumnsType } from 'antd'
 // import { useQuery } from '@tanstack/react-query'
 // import { getUsersList } from '../api'
-import React from 'react'
+import { truthyObject } from '@/helpers/truthy-object'
+import { SorterResult } from 'antd/es/table/interface'
+import queryString from 'query-string'
+import React, { useMemo } from 'react'
+import { useLocation, useNavigate } from 'react-router'
 import UsersNotFound from '../components/users-not-found'
 
 // const onChange: TableProps<IUsersTable>['onChange'] = (
@@ -21,8 +29,6 @@ import UsersNotFound from '../components/users-not-found'
 // }
 
 interface UsersFiltersProps {
-  setCurrentPage: (value: number) => void
-  currentPage: number
   isLoading: any
   UsersData: any
   refetch: () => void
@@ -31,17 +37,19 @@ interface UsersFiltersProps {
 const UsersTable: React.FC<UsersFiltersProps> = ({
   UsersData,
   isLoading,
-  currentPage,
-  setCurrentPage,
   refetch,
 }) => {
   const { t } = useTranslation()
+  const { search, pathname } = useLocation()
+  const queries = useMemo(() => queryString.parse(search), [search])
+  const navigate = useNavigate()
 
   const columns: TableColumnsType<IUsersTable> = [
     {
       title: 'ID',
       dataIndex: 'id',
-      render: (_text, _record, index) => index + 1,
+      render: (_text, _record, index) =>
+        index + 1 + (queries.page ? +queries.page - 1 : 0) * 10,
       sorter: false,
     },
     {
@@ -127,8 +135,8 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 0 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
+            n === 0 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.prev')}
@@ -139,8 +147,8 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 10 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
+            n === 10 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.next')}
@@ -149,10 +157,6 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
     }
 
     return originalElement
-  }
-
-  const handlePaginationChange = (page: number) => {
-    setCurrentPage(page)
   }
 
   const transformedData =
@@ -174,6 +178,29 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
       status: user.is_active,
     })) || []
 
+  const handleTableChange = (
+    pagination: TablePaginationConfig,
+    _: any,
+    sorter: SorterResult<any> | SorterResult<any>[],
+  ) => {
+    const sort = Array.isArray(sorter) ? sorter[0] : sorter
+    const ordering = sort?.field
+      ? (sort?.order === 'descend' ? '-' : '') + sort.field
+      : null
+
+    const newPage = pagination.current
+
+    const updatedQuery = queryString.stringify(
+      truthyObject({
+        ...queries,
+        page: newPage,
+        ordering,
+      }),
+    )
+
+    navigate({ pathname, search: updatedQuery })
+  }
+
   return (
     <Table<IUsersTable>
       columns={columns.map(val => ({
@@ -182,17 +209,16 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
       }))}
       dataSource={transformedData}
       loading={isLoading}
-      onChange={pagination => handlePaginationChange(pagination.current!)}
-      className="w-full h-full"
+      onChange={handleTableChange}
+      className="h-full w-full"
       pagination={{
-        current: currentPage,
+        current: queries.page ? Number(queries.page) : 1,
         pageSize: 10,
         total: UsersData?.count || 0,
         hideOnSinglePage: true,
         showSizeChanger: false,
         position: ['bottomCenter'],
         itemRender: itemRender,
-        onChange: handlePaginationChange,
       }}
       locale={{
         emptyText: <UsersNotFound />,

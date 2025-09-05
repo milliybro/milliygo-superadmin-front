@@ -33,12 +33,14 @@
 
   "users-page": {
     "add-user": "Добавить пользователя",
+    "user-is-added": "Новый пользователь добавлен",
     "edit-user": "Редактирование пользователя",
     "modal-description": "Для добавления нового пользователя, пожалуйста заполните все необходимые поля",
     "delete-modal": "Вы удаляете пользователя?",
     "delete-modal-desc": "Вы уверены, что хотите удалить пользователя?",
     "not-found": "Ничего не найдено",
-    "not-found-desc": "К сожалению, по вашему запросу ничего не найдено."
+    "not-found-desc": "К сожалению, по вашему запросу ничего не найдено.",
+    "user_count": "Количество пользователей: {{count}}"
   },
 
   "services-page": {
@@ -150,6 +152,21 @@
       "label": "ФИО",
       "placeholder": "Введите ФИО",
       "validation-message-required": "Введите ФИО"
+    },
+    "first_name": {
+      "label": "Имя",
+      "placeholder": "Введите имя",
+      "validation-message-required": "Введите имя"
+    },
+    "last_name": {
+      "label": "Фамилия",
+      "placeholder": "Введите фамилию",
+      "validation-message-required": "Введите фамилию"
+    },
+    "middle_name": {
+      "label": "Отчество",
+      "placeholder": "Введите отчество",
+      "validation-message-required": "Введите отчество"
     },
     "phone": {
       "label": "Номер телефона",
@@ -490,6 +507,10 @@
     "edit-tenant": "Редактировать арендатора"
   },
   "common": {
+    "action-time": "Время действий",
+    "action-history": "История действий",
+    "close": "Закрыть",
+    "copied": "Скопировано",
     "create": "Создать",
     "statistics": "Статистика",
     "users": "Пользователи",
@@ -624,7 +645,8 @@
     "check": "Проверить",
     "refresh": "Обновить страницу",
     "change": "Изменить",
-    "reload": "Перезагрузить"
+    "reload": "Перезагрузить",
+    "login-error": "Ошибка входа в систему"
   },
   "status": {
     "confirmed": "Подтвержден",
@@ -661,7 +683,17 @@
   },
   "guides": {
     "guides": "Гиды",
-    "service-location": "Места обслуживания"
+    "service-location": "Места обслуживания",
+    "info-guide": "Информация о гиде",
+    "license": "Лицензия",
+    "download": "Скачать",
+    "cancel": "Отклонить",
+    "apply": "Принимать",
+    "reject-text": "Хотите отклонить заявку?",
+    "reject-desc": "Выберите причину отклонения из нижеперечисленных вариантов.",
+    "add-reason": "Другая причина",
+    "write-reason": "Опишите причину",
+    "reason": "Принича"
   },
   "placements": {
     "hotels": "Гостиницы",

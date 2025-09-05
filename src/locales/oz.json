@@ -33,12 +33,14 @@
 
   "users-page": {
     "add-user": "Foydalanuvchi qo‘shish",
+    "user-is-added": "Yangi foydalanuvchi qo‘shildi",
     "edit-user": "Foydalanuvchini tahrirlash",
     "modal-description": "Yangi foydalanuvchi qo‘shish uchun iltimos, barcha zarur maydonlarni to‘ldiring",
     "delete-modal": "Siz foydalanuvchini o'chiryapsizmi?",
     "delete-modal-desc": "Siz foydalanuvchini o'chirib tashlamoqchimisiz?",
     "not-found": "Hech narsa topilmadi",
-    "not-found-desc": "Afsuski, so‘rovingiz bo‘yicha hech narsa topilmadi"
+    "not-found-desc": "Afsuski, so‘rovingiz bo‘yicha hech narsa topilmadi",
+    "user_count": "Foydalanuvchilar soni: {{count}}"
   },
 
   "complaints-page": {
@@ -132,6 +134,21 @@
       "label": "F.I.O",
       "placeholder": "Oybek Turonov O‘ktam o‘g‘li",
       "validation-message-required": "F.I.O kiriting"
+    },
+    "first_name": {
+      "label": "Ism",
+      "placeholder": "Ismingizni kiriting",
+      "validation-message-required": "Ismingizni kiriting"
+    },
+    "last_name": {
+      "label": "Familiya",
+      "placeholder": "Familiyangizni kiriting",
+      "validation-message-required": "Familiyangizni kiriting"
+    },
+    "middle_name": {
+      "label": "Otasining ismi",
+      "placeholder": "Otasining ismini kiriting",
+      "validation-message-required": "Otasining ismini kiriting"
     },
     "phone": {
       "label": "Telefon raqam",
@@ -472,6 +489,10 @@
     "edit-tenant": "Tenantni tahrirlash"
   },
   "common": {
+    "action-time": "Amallar vaqti",
+    "action-history": "Amallar tarixi",
+    "close": "Yopish",
+    "copied": "Nusxa olindi",
     "create": "Yaratish",
     "name": "Nomi",
     "statistics": "Statistika",
@@ -606,7 +627,8 @@
     "check": "Tekshirish",
     "refresh": "Sahifani yangilash",
     "change": "O‘zgartirish",
-    "reload": "Qayta yuklash"
+    "reload": "Qayta yuklash",
+    "login-error": "Tizimda kirishda xatolik yuz berdi"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
@@ -658,7 +680,17 @@
   },
   "guides": {
     "guides": "Gidlar",
-    "service-location": "Xizmat ko‘rsatish joylari"
+    "service-location": "Xizmat ko‘rsatish joylari",
+    "info-guide": "Gid haqida ma’lumot",
+    "license": "Litsenziya",
+    "download": "Yuklab olish",
+    "cancel": "Rad etish",
+    "apply": "Qabul qilinsin",
+    "reject-text": "Arizani rad etmoqchimisiz?",
+    "reject-desc": "Quyidagi variantlardan rad etish sababini tanlang.",
+    "add-reason": "Boshqa sabab",
+    "write-reason": "Sababini bayon eting",
+    "reason": "Sabab"
   },
   "placements": {
     "hotels": "Mehmonxonalar",

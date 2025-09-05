@@ -19,6 +19,8 @@ import TeachingIcon from '../icons/teaching-icon'
 import WalletIcon from '../icons/wallet-icon'
 // import AnalyticsIcon from '../icons/analytics-icon'
 import MegaPhoneIcon from '../icons/megaphone-icon'
+import TimeManagementIcon from '../icons/time-management'
+import UserIcon from '../icons/user'
 
 const adminItems = [
   {
@@ -61,7 +63,7 @@ const adminItems = [
     label: 'routes.guides',
     icon: TeachingIcon,
     path: ROUTE_PATHS.GUIDES,
-    status: 'in progress',
+    status: 'finished',
   },
   {
     label: 'routes.billing',
@@ -82,12 +84,30 @@ const adminItems = [
     path: ROUTE_PATHS.CONTENT,
     status: 'finished',
   },
-  // {
-  //   label: 'routes.roles',
-  //   icon: TimeManagementIcon,
-  //   path: ROUTE_PATHS.ACCESS_ROLE,
-  //   status: 'unstarted',
-  // },
+  {
+    label: 'common.tenants',
+    icon: MegaPhoneIcon,
+    path: ROUTE_PATHS.TENANTS,
+    status: 'in progress',
+  },
+  {
+    label: 'routes.roles',
+    icon: TimeManagementIcon,
+    path: ROUTE_PATHS.ACCESS_ROLE,
+    status: 'unstarted',
+  },
+  {
+    label: 'common.users',
+    icon: UserIcon,
+    path: ROUTE_PATHS.USERS,
+    status: 'finished',
+  },
+  {
+    label: 'common.action-history',
+    icon: MegaPhoneIcon,
+    path: ROUTE_PATHS.ACTION_HISTORY,
+    status: 'finished',
+  },
   // { label: 'common.clients', icon: IdIcon, path: ROUTE_PATHS.CLIENTS },
   // { label: 'common.complaints', icon: AlertIcon, path: ROUTE_PATHS.COMPLAINTS },
   // {
@@ -162,9 +182,9 @@ const Sidebar = () => {
                       )}
                     >
                       {t(item.label)}{' '}
-                      <div
+                      {/* <div
                         className={`h-2 w-2 rounded-full ${item.status === 'unstarted' ? 'bg-danger' : item.status === 'in progress' ? 'bg-yellow-500' : 'bg-green-500'}`}
-                      />
+                      /> */}
                     </span>
                   )}
                 </Link>
