@@ -173,7 +173,6 @@ const BillingAccrualTable = ({
           cancelSort: t('common.sort_cancel') ?? '',
         }}
       />
-      <GuideViewModal />
     </div>
   )
 }

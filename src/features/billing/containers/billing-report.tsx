@@ -197,7 +197,6 @@ const BillingReportTable = ({
           cancelSort: t('common.sort_cancel') ?? '',
         }}
       />
-      <GuideViewModal />
     </div>
   )
 }
