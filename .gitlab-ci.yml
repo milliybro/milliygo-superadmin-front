@@ -14,7 +14,7 @@ stages:
 build-job:
   stage: build
   only:
-    - main
+    - dev
     #- merge_requests
   tags:
     - stage-server
