@@ -26,7 +26,7 @@ const columns: TableColumnsType<IActionHistory> = [
     width: 1000,
     title: 'common.action-time',
     dataIndex: 'timestamp',
-    render: value => dayjs(value.comment).format('HH:mm, DD.MM.YYYY'),
+    render: value => dayjs(value).format('HH:mm, DD.MM.YYYY'),
   },
 ]
 

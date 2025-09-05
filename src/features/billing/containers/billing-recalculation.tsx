@@ -166,7 +166,6 @@ const BillingRecalculateTable = ({
           cancelSort: t('common.sort_cancel') ?? '',
         }}
       />
-      <GuideViewModal />
     </div>
   )
 }

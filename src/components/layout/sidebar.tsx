@@ -182,9 +182,9 @@ const Sidebar = () => {
                       )}
                     >
                       {t(item.label)}{' '}
-                      <div
+                      {/* <div
                         className={`h-2 w-2 rounded-full ${item.status === 'unstarted' ? 'bg-danger' : item.status === 'in progress' ? 'bg-yellow-500' : 'bg-green-500'}`}
-                      />
+                      /> */}
                     </span>
                   )}
                 </Link>
