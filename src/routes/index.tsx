@@ -25,6 +25,7 @@ import travelAgenciesRoutes from '@/features/travel-agencies/routes'
 import Error from '@/views/error'
 import type { CustomRoute } from '@/types'
 import NotFound from '@/views/not-found'
+import actionHistoryRoutes from '@/features/action-history/routes'
 
 export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
   const commonAuthRoutes = [authRoutes]
@@ -45,7 +46,7 @@ export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
           travelAgenciesRoutes,
           guidesRoutes,
           billingRoutes,
-
+          actionHistoryRoutes,
           complaintsRoutes,
           clientsRoutes,
           callCenterRoutes,

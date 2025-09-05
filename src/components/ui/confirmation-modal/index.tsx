@@ -1,9 +1,9 @@
+import { useTranslation } from 'react-i18next'
 import { Avatar, Button, Flex, Modal, Space, Typography } from 'antd'
 
 // import DeleteIcon from '../icons/delete'
 
 import type { Dispatch, FC, SetStateAction } from 'react'
-import { useTranslation } from 'react-i18next'
 
 const { Text } = Typography
 
@@ -34,7 +34,7 @@ const ConfirmationModal: FC<IProps> = ({
 }) => {
   const { t } = useTranslation()
   const cancelHandler = () => {
-    if (setOpen) {
+    if (setOpen && !isLoading) {
       setOpen(false)
     }
   }
@@ -49,20 +49,21 @@ const ConfirmationModal: FC<IProps> = ({
       classNames={{
         content: 'p-[40px] [&>.ant-modal-close]:text-primary-dark',
       }}
+      closable={!isLoading}
       footer={null}
     >
       <Flex vertical align="center" className="text-center">
         <Avatar
           shape="circle"
           size={62}
-          className={`mb-5 border-[7px]  ${
+          className={`mb-5 border-[7px] ${
             danger
-              ? 'bg-[#FEE2E2] border-[#FEF2F2]'
-              : 'bg-[#DBEAFE] border-[#EFF6FF]'
+              ? 'border-[#FEF2F2] bg-[#FEE2E2]'
+              : 'border-[#EFF6FF] bg-[#DBEAFE]'
           } ${
             warn
-              ? 'bg-[#DBEAFE] border-[#EFF6FF]'
-              : 'bg-[#DBEAFE] border-[#EFF6FF]'
+              ? 'border-[#EFF6FF] bg-[#DBEAFE]'
+              : 'border-[#EFF6FF] bg-[#DBEAFE]'
           }`}
           icon={
             icon
@@ -78,18 +79,22 @@ const ConfirmationModal: FC<IProps> = ({
                 })
           }
         />
-        <Text className="text-[24px] font-bold dark:text-white text-primary-dark leading-[30.6px] mb-[10px]">
+        <Text className="mb-[10px] text-[24px] font-bold leading-[30.6px] text-primary-dark dark:text-white">
           {title}
         </Text>
-        <Text className="text-secondary leading-[25.6px] mb-[20px]">
+        <Text className="mb-[20px] leading-[25.6px] text-secondary">
           {subTitle}
         </Text>
         <Space>
-          <Button className="font-semibold" onClick={cancelHandler}>
+          <Button
+            className="font-semibold"
+            onClick={cancelHandler}
+            disabled={isLoading}
+          >
             {t('common.cancel')}
           </Button>
           <Button
-            className="bg-primary-dark text-white font-semibold"
+            className="bg-primary-dark font-semibold text-white"
             loading={isLoading ?? undefined}
             onClick={action ?? undefined}
           >

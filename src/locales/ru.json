@@ -33,6 +33,7 @@
 
   "users-page": {
     "add-user": "Добавить пользователя",
+    "user-is-added": "Новый пользователь добавлен",
     "edit-user": "Редактирование пользователя",
     "modal-description": "Для добавления нового пользователя, пожалуйста заполните все необходимые поля",
     "delete-modal": "Вы удаляете пользователя?",
@@ -150,6 +151,21 @@
       "label": "ФИО",
       "placeholder": "Введите ФИО",
       "validation-message-required": "Введите ФИО"
+    },
+    "first_name": {
+      "label": "Имя",
+      "placeholder": "Введите имя",
+      "validation-message-required": "Введите имя"
+    },
+    "last_name": {
+      "label": "Фамилия",
+      "placeholder": "Введите фамилию",
+      "validation-message-required": "Введите фамилию"
+    },
+    "middle_name": {
+      "label": "Отчество",
+      "placeholder": "Введите отчество",
+      "validation-message-required": "Введите отчество"
     },
     "phone": {
       "label": "Номер телефона",
@@ -490,6 +506,10 @@
     "edit-tenant": "Редактировать арендатора"
   },
   "common": {
+    "action-time": "Время действий",
+    "action-history": "История действий",
+    "close": "Закрыть",
+    "copied": "Скопировано",
     "create": "Создать",
     "statistics": "Статистика",
     "users": "Пользователи",

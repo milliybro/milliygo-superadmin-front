@@ -28,7 +28,7 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
     navigate(pathname + '?edit=' + id)
     openModal()
   }
-  const { mutate, isLoading: isDeleting }: any = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: () => deleteUser(id),
     onSuccess: () => {
       setDeleteModal(false)
@@ -40,7 +40,7 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
     <div className="flex items-center gap-6">
       <Button
         type="link"
-        className="text-[16px] font-medium px-0"
+        className="px-0 text-[16px] font-medium"
         onClick={editHandler}
       >
         <EditIcon className="text-[20px]" /> {t('common.edit')}
@@ -50,7 +50,7 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
         onClick={() => setDeleteModal(true)}
         type="link"
         danger
-        className="text-[16px] font-medium px-0"
+        className="px-0 text-[16px] font-medium"
       >
         <DeleteIcon className="text-[20px]" /> {t('common.delete')}
       </Button>
@@ -62,7 +62,7 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
         title={t('users-page.delete-modal')}
         subTitle={t('users-page.delete-modal-desc')}
         primaryBtnText={t('common.delete')}
-        isLoading={isDeleting}
+        isLoading={isPending}
         action={() => mutate(id as any)}
       />
     </div>
