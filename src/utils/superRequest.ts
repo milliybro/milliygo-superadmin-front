@@ -6,8 +6,15 @@ import { refreshToken } from '@/features/auth'
 import type { AxiosError } from 'axios'
 import type { IErrorMessage } from '@/types'
 
+const hostname = typeof window !== 'undefined' ? window.location.hostname : ''
+
+export const baseURL =
+  hostname === 'admin.sayohat.uz'
+    ? 'https://back.sayohat.uz/superadmin/api/v1'
+    : 'https://superapi.emehmon.xdevs.uz/api/v1'
+
 const requestSuper = axios.create({
-  baseURL: settings.baseURL,
+  baseURL: baseURL,
   timeout: settings.requestTimeout,
 })
 
