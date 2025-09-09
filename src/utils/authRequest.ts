@@ -12,7 +12,7 @@ const hostname = typeof window !== 'undefined' ? window.location.hostname : ''
 export const baseURL =
   hostname === 'admin.sayohat.uz'
     ? 'https://back.sayohat.uz/superadmin/api/v1'
-    : 'https://superapi.emehmon.xdevs.uz/api/v1'
+    : 'https://auth.emehmon.xdevs.uz/api/v1'
 
 const requestAuth = axios.create({
   baseURL: baseURL,

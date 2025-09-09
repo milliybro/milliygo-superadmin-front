@@ -26,9 +26,10 @@ import Error from '@/views/error'
 import type { CustomRoute } from '@/types'
 import NotFound from '@/views/not-found'
 import actionHistoryRoutes from '@/features/action-history/routes'
+import resetRoutes from '@/features/reset/routes'
 
 export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
-  const commonAuthRoutes = [authRoutes]
+  const commonAuthRoutes = [authRoutes, resetRoutes]
 
   if (role === 'admin') {
     return [

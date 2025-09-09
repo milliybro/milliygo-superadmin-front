@@ -3,7 +3,7 @@ import { Button, ConfigProvider, Form, Input, message, Typography } from 'antd'
 
 import { darkTheme } from '@/providers/theme-provider'
 
-import videoBanner from '@/assets/main-bg-video.mp4'
+import videoBanner from '@/assets/intro.mp4'
 import uzinfocomLogo from '@/assets/uzinfocom-logo.png'
 
 import SupportModal from '../components/support-modal'
@@ -85,7 +85,7 @@ export default function SignIn(): React.ReactElement {
         Your browser does not support HTML5 video.
       </video>
       <div className="flex h-full w-full items-center justify-center bg-[#0F172A]">
-        <div className="w-[569px] rounded-2xl border border-[#3F416B] bg-[#1E293B99] p-[100px] backdrop-blur-sm">
+        <div className="w-[569px] rounded-2xl border border-[#3F416B] bg-[#1E293B99] p-[80px] backdrop-blur-sm">
           <div className="flex flex-col items-center">
             <ProjectLogo className="mb-6" />
 
