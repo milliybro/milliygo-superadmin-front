@@ -15,12 +15,16 @@ import ArrowDownIcon from '../icons/arrow-down'
 import UserCircleIcon from '../icons/user-circle'
 import useUserData from '@/hooks/use-user-data'
 import LogoutIcon from '../icons/login-icon'
+import ResetPasswordIcon from '../icons/password-edit'
+import ExitIcon from '../icons/exit-icon'
+import { useNavigate } from 'react-router'
 
 const ProfilePopover = () => {
   const user = useUserData()
   const { t } = useTranslation()
   const [modalLogout, setModalLogout] = useState(false)
   const [cookies] = useCookies(['darkTheme'])
+  const navigate = useNavigate()
 
   // const changeThemeHandler = (val: boolean) => {
   //   setCookie('darkTheme', val)
@@ -58,16 +62,26 @@ const ProfilePopover = () => {
           },
         }}
         content={
-          <Button
-            size="large"
-            type="text"
-            danger
-            className="flex items-center justify-start font-medium hover:bg-danger/20"
-            onClick={() => setModalLogout(true)}
-          >
-            {/* <LogoutIcon className="text-[20px]" /> */}
-            {t('common.logout')}
-          </Button>
+          <>
+            <Button
+              size="large"
+              type="text"
+              className="flex w-full items-center justify-start font-medium hover:bg-[#F8F8FA]"
+              onClick={() => navigate('/reset')}
+            >
+              <ResetPasswordIcon className="text-[20px] text-[#115E59]" />
+              {t('common.edit-password')}
+            </Button>
+            <Button
+              size="large"
+              type="text"
+              className="flex items-center justify-start font-medium hover:bg-[#F8F8FA]"
+              onClick={() => setModalLogout(true)}
+            >
+              <ExitIcon className="text-[20px]" />
+              {t('common.logout')}
+            </Button>
+          </>
         }
       >
         <button

@@ -633,7 +633,17 @@
     "reset-password-desc": "Parol yarating va ushbu yangilangan kodni foydalanuvchiga yuboring",
     "reset": "Yaratish",
     "copy": "Nusxa olish",
-    "clearly": "Tushunarli"
+    "clearly": "Tushunarli",
+    "edit-password": "Parolni o‘zgartirish",
+    "edit-password-text": "Iltimos, email manzilingizni kiriting va tasdiqlang, keyin parolingizni o‘zgartirishingiz mumkin",
+    "receive-code": "Kodni olish",
+    "confirmation": "Tasdiqlash",
+    "code": "Kod",
+    "create-password": "Parol yarating",
+    "create-password-desc": "Siz yangi parol o‘ylab topishingiz kerak",
+    "new-password": "Parol o‘ylab toping",
+    "confirm-password": "Parolni tasdiqlang",
+    "save-password": "Parolni saqlash"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
