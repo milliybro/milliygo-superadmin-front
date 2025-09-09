@@ -628,7 +628,12 @@
     "refresh": "Sahifani yangilash",
     "change": "O‘zgartirish",
     "reload": "Qayta yuklash",
-    "login-error": "Tizimda kirishda xatolik yuz berdi"
+    "login-error": "Tizimda kirishda xatolik yuz berdi",
+    "reset-password": "Parolni o‘zgartirish",
+    "reset-password-desc": "Parol yarating va ushbu yangilangan kodni foydalanuvchiga yuboring",
+    "reset": "Yaratish",
+    "copy": "Nusxa olish",
+    "clearly": "Tushunarli"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
