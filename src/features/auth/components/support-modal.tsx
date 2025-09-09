@@ -17,7 +17,7 @@ const SupportModal: FC<ISupportModalProps> = props => {
   const handleClick = () => setOpen(true)
 
   return (
-    <>
+    <div className='widd'>
       {isValidElement(children)
         ? cloneElement(children, { onClick: handleClick })
         : children}
@@ -92,7 +92,7 @@ const SupportModal: FC<ISupportModalProps> = props => {
           </div>
         </div>
       </Modal>
-    </>
+    </div>
   )
 }
 

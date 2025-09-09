@@ -137,7 +137,7 @@ export default function SignIn(): React.ReactElement {
                       {t('fields.password.label')}
                     </span>
 
-                    <SupportModal
+                    {/* <SupportModal
                       icon={SquarePasswordIcon}
                       title={t('auth-page.recovery-modal.title')}
                       description={t('auth-page.recovery-modal.description')}
@@ -148,7 +148,14 @@ export default function SignIn(): React.ReactElement {
                       >
                         {t('auth-page.recovery-modal.title')}
                       </button>
-                    </SupportModal>
+                    </SupportModal> */}
+                    <button
+                      type="button"
+                      className="text-[14px] text-secondary"
+                      onClick={() => navigate('/reset')}
+                    >
+                      {t('auth-page.recovery-modal.title')}
+                    </button>
                   </div>
                   <Form.Item
                     name="password"

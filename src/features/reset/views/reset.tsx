@@ -189,7 +189,7 @@ export default function ResetPassword(): React.ReactElement {
                   className="mb-6 w-full"
                   onFinish={onCodeFinish}
                 >
-                  <div className="flex flex-col">
+                  <div className="flex flex-col  custom-otp">
                     <div className="mb-1">
                       <span className="text-[14px]">{t('common.code')}</span>
                     </div>
