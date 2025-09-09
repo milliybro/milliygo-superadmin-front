@@ -1,6 +1,7 @@
 import { ListResponse } from '@/types'
 import { ISubmittedUserResponse, IUsers } from '../types'
 import requestAuth from '@/utils/authRequest'
+import requestSuper from '@/utils/superRequest'
 
 export async function getUsersList(
   params?: any,
@@ -70,4 +71,11 @@ export async function deleteUser(id: string | number): Promise<any> {
   })
 
   return res
+}
+
+export async function updatePassword(id: number): Promise<{ new_password: string }> {
+  return await requestSuper({
+    url: `/account/users/${id}/password/update/`,
+    method: 'patch',
+  })
 }

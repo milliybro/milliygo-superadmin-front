@@ -1,4 +1,4 @@
-import { Button } from 'antd'
+import { Avatar, Button, Input, message, Modal, Space, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
 
@@ -9,18 +9,19 @@ import DeleteIcon from '@/components/icons/delete'
 
 import { useState } from 'react'
 import { useMutation } from '@tanstack/react-query'
-import { deleteUser } from '../api'
+import { deleteUser, updatePassword } from '../api'
 import ConfirmationModal from '@/components/ui/confirmation-modal'
-
-// interface IProps {
-//   id?: any
-// }
+import ResetPasswordIcon from '@/components/icons/password-edit'
+import { CopyOutlined, ReloadOutlined } from '@ant-design/icons'
 
 const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { pathname } = useLocation()
+
   const [deleteModal, setDeleteModal] = useState(false)
+  const [resetModal, setResetModal] = useState(false)
+  const [password, setPassword] = useState<string>('')
 
   const { openModal } = useUserModalStore(store => store)
 
@@ -28,6 +29,32 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
     navigate(pathname + '?edit=' + id)
     openModal()
   }
+  const { mutate: createPassword, isPending: isUpdating } = useMutation({
+    mutationFn: () => updatePassword(id),
+    onSuccess: (res: { new_password: string }) => {
+      console.log(res, 'ress') 
+      setPassword(res.new_password)
+    },
+  })
+
+  const reset = () => {
+    generatePassword()
+    const params = new URLSearchParams(location.search)
+    params.set('reset', String(id))
+    navigate(`${pathname}?${params.toString()}`)
+    setResetModal(true)
+  }
+
+  const generatePassword = () => {
+    createPassword()
+  }
+
+  const copyPassword = () => {
+    if (!password) return
+    navigator.clipboard.writeText(password)
+    message.success(t('common.copied'))
+  }
+
   const { mutate, isPending } = useMutation({
     mutationFn: () => deleteUser(id),
     onSuccess: () => {
@@ -40,10 +67,18 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
     <div className="flex items-center gap-6">
       <Button
         type="link"
+        className="px-0 text-[16px] font-medium text-[#232E40]"
+        onClick={reset}
+      >
+        <ResetPasswordIcon className="text-[20px]" />
+      </Button>
+
+      <Button
+        type="link"
         className="px-0 text-[16px] font-medium"
         onClick={editHandler}
       >
-        <EditIcon className="text-[20px]" /> {t('common.edit')}
+        <EditIcon className="text-[20px]" />
       </Button>
 
       <Button
@@ -52,7 +87,7 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
         danger
         className="px-0 text-[16px] font-medium"
       >
-        <DeleteIcon className="text-[20px]" /> {t('common.delete')}
+        <DeleteIcon className="text-[20px]" />
       </Button>
       <ConfirmationModal
         danger
@@ -65,6 +100,72 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
         isLoading={isPending}
         action={() => mutate(id as any)}
       />
+
+      <Modal
+        open={resetModal}
+        onCancel={() => setResetModal(false)}
+        footer={null}
+        centered
+        width={515}
+      >
+        <div className="flex w-full flex-col items-center p-5">
+          <Avatar
+            shape="circle"
+            size={62}
+            className="mb-4 border-[7px] border-[#EFF6FF] bg-[#DBEAFE]"
+            icon={<ResetPasswordIcon className="text-[#3276FF]" />}
+          />
+          <div className="mb-6 flex flex-col gap-[10px] text-center">
+            <Typography.Text className="text-[24px] font-[700]">
+              {t('common.reset-password')}
+            </Typography.Text>
+            <Typography.Text className="text-[16px] font-[500] text-secondary">
+              {t('common.reset-password-desc')}
+            </Typography.Text>
+          </div>
+          <div className="mb-5 w-full">
+            <div className="flex items-center justify-between">
+              <p className="text-[14px]">{t('hotels-page.password.title')}</p>
+              <Button
+                type="link"
+                icon={<ReloadOutlined />}
+                onClick={generatePassword}
+                loading={isUpdating}
+                className="m-0 p-0 text-[14px] font-[500]"
+              >
+                {t('common.reset')}
+              </Button>
+            </div>
+            <div className="flex items-center gap-2">
+              <Space.Compact style={{ width: '100%' }}>
+                <Input
+                  size="large"
+                  value={password}
+                  readOnly
+                  className="!rounded-r-none"
+                />
+                <Button
+                  size="large"
+                  type="default"
+                  className="w-[120px] !rounded-l-none bg-[#F8F8FA]"
+                  onClick={copyPassword}
+                  icon={<CopyOutlined />}
+                >
+                  {t('common.copy')}
+                </Button>
+              </Space.Compact>
+            </div>
+          </div>
+          <Button
+            size="large"
+            type="primary"
+            className="bg-[#3276FF]"
+            onClick={() => setResetModal(false)}
+          >
+            {t('common.close')}
+          </Button>
+        </div>
+      </Modal>
     </div>
   )
 }
