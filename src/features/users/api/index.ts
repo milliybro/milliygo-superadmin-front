@@ -1,12 +1,11 @@
 import { ListResponse } from '@/types'
 import { ISubmittedUserResponse, IUsers } from '../types'
-import requestAuth from '@/utils/authRequest'
 import requestSuper from '@/utils/superRequest'
 
 export async function getUsersList(
   params?: any,
 ): Promise<ListResponse<IUsers[]>> {
-  const res: ListResponse<IUsers[]> = await requestAuth({
+  const res: ListResponse<IUsers[]> = await requestSuper({
     url: '/account/users/',
     method: 'get',
     params,
@@ -18,7 +17,7 @@ export async function getUsersList(
 export async function getUserRoles(
   params?: any,
 ): Promise<ListResponse<IUsers[]>> {
-  const res: ListResponse<IUsers[]> = await requestAuth({
+  const res: ListResponse<IUsers[]> = await requestSuper({
     url: '/account/user-roles/',
     method: 'get',
     params,
@@ -28,7 +27,7 @@ export async function getUserRoles(
 }
 
 export async function getUser(params?: any): Promise<IUsers> {
-  const res: IUsers = await requestAuth({
+  const res: IUsers = await requestSuper({
     url: `/account/users/${params.id}/`,
     method: 'get',
     params: params.queryParams,
@@ -45,7 +44,7 @@ export async function updateUser(params: {
   if (!id) {
     throw new Error('User ID is required for updating a user.')
   }
-  const res: ISubmittedUserResponse = await requestAuth({
+  const res: ISubmittedUserResponse = await requestSuper({
     url: `/account/users/${id}/`,
     method: 'patch',
     data: queryParams,
@@ -55,7 +54,7 @@ export async function updateUser(params: {
 }
 
 export async function createUser(data?: any): Promise<ISubmittedUserResponse> {
-  const res: ISubmittedUserResponse = await requestAuth({
+  const res: ISubmittedUserResponse = await requestSuper({
     url: '/account/users/',
     method: 'post',
     data,
@@ -65,7 +64,7 @@ export async function createUser(data?: any): Promise<ISubmittedUserResponse> {
 }
 
 export async function deleteUser(id: string | number): Promise<any> {
-  const res: any = await requestAuth({
+  const res: any = await requestSuper({
     url: `/account/users/${id}/`,
     method: 'delete',
   })

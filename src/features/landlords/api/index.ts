@@ -1,6 +1,6 @@
 import { ListResponse } from '@/types'
 import { IApartmentsTable } from '../types'
-import requestAuth from '@/utils/authRequest'
+
 import axios from 'axios'
 import requestSuper from '@/utils/superRequest'
 
@@ -19,7 +19,7 @@ export async function getApartmentsList(
 export async function getApartmentItem(
   id?: number,
 ): Promise<ListResponse<IApartmentsTable[]>> {
-  const res: ListResponse<IApartmentsTable[]> = await requestAuth({
+  const res: ListResponse<IApartmentsTable[]> = await requestSuper({
     url: `/placements/apartment/${id}/`,
     method: 'get',
   })
