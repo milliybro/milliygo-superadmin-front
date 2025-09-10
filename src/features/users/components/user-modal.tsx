@@ -348,6 +348,9 @@ const UserModal = ({ refetch }: UserModalProps) => {
                 required: true,
                 message: t('fields.login.validation-message-required'),
               },
+              { type: 'email',
+                message: t('fields.email.validation-message-invalid'),
+              },
             ]}
           >
             <Input
