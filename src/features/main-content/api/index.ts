@@ -1,6 +1,6 @@
 import { ListResponse } from '@/types'
 import { IDestinations } from '../types'
-import requestAuth from '@/utils/authRequest'
+import requestSuper from '@/utils/authRequest'
 import request from '@/utils/axios'
 import { IUsers } from '@/features/accommodation-facilities/types'
 
@@ -19,7 +19,7 @@ export async function getRecreationList(
 export async function getUsersList(
   params?: any,
 ): Promise<ListResponse<IUsers[]>> {
-  const res: ListResponse<IUsers[]> = await requestAuth({
+  const res: ListResponse<IUsers[]> = await requestSuper({
     url: '/account/super-admin/users/',
     method: 'get',
     params,
@@ -40,7 +40,7 @@ export async function createRecreation(data?: any): Promise<IDestinations> {
 export async function getUserRoles(
   params?: any,
 ): Promise<ListResponse<IUsers[]>> {
-  const res: ListResponse<IUsers[]> = await requestAuth({
+  const res: ListResponse<IUsers[]> = await requestSuper({
     url: '/account/user-roles/',
     method: 'get',
     params,
@@ -67,7 +67,7 @@ export async function updateRecreation(params: {
 }
 
 export async function getUser(params?: any): Promise<IUsers> {
-  const res: IUsers = await requestAuth({
+  const res: IUsers = await requestSuper({
     url: `/account/super-admin/users/${params.id}/`,
     method: 'get',
     params: params.queryParams,
@@ -84,7 +84,7 @@ export async function updateUser(params: {
   if (!id) {
     throw new Error('User ID is required for updating a user.')
   }
-  const res: IUsers = await requestAuth({
+  const res: IUsers = await requestSuper({
     url: `/account/super-admin/users/${id}/`,
     method: 'patch',
     data: queryParams,
@@ -106,7 +106,7 @@ export async function getRecreation(params?: any): Promise<IDestinations> {
 // export async function getUserRoles(
 //   params?: any,
 // ): Promise<ListResponse<IDestinations[]>> {
-//   const res: ListResponse<IDestinations[]> = await requestAuth({
+//   const res: ListResponse<IDestinations[]> = await requestSuper({
 //     url: '/account/user-roles/',
 //     method: 'get',
 //     params,
@@ -116,7 +116,7 @@ export async function getRecreation(params?: any): Promise<IDestinations> {
 // }
 
 export async function createUser(data?: any): Promise<any> {
-  const res: IUsers = await requestAuth({
+  const res: IUsers = await requestSuper({
     url: `/account/super-admin/users/`,
     method: 'post',
     data,
@@ -125,7 +125,7 @@ export async function createUser(data?: any): Promise<any> {
 }
 
 export async function deleteUser(id: string | number): Promise<any> {
-  const res: any = await requestAuth({
+  const res: any = await requestSuper({
     url: `/account/users/${id}/`,
     method: 'delete',
   })
@@ -134,7 +134,7 @@ export async function deleteUser(id: string | number): Promise<any> {
 }
 
 // export async function deleteUser(id: string | number): Promise<any> {
-//   const res: any = await requestAuth({
+//   const res: any = await requestSuper({
 //     url: `/account/super-admin/users/${id}/`,
 //     method: 'delete',
 //   })
