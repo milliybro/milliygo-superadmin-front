@@ -15,6 +15,7 @@
     "@tanstack/react-query": "^5.61.5",
     "antd": "^5.22.2",
     "axios": "^1.7.8",
+    "browser-image-compression": "^2.0.2",
     "chart.js": "^4.5.0",
     "cookies-next": "^5.0.2",
     "dayjs": "^1.11.13",

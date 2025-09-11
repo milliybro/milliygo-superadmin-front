@@ -1,6 +1,3 @@
-import { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate, useParams } from 'react-router'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   Button,
@@ -8,11 +5,13 @@ import {
   Form,
   Image,
   Input,
-  message,
   notification,
   Typography,
   Upload,
 } from 'antd'
+import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useLocation, useNavigate, useParams } from 'react-router'
 
 import {
   createExpertAdvice,
@@ -25,6 +24,7 @@ import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
 import QuillEditor from '../../components/quill-editor'
 
+import { useImageCompression } from '@/hooks/use-image-compression'
 import type { Rule } from 'antd/es/form'
 import type { RcFile } from 'antd/es/upload'
 
@@ -39,7 +39,7 @@ export default function CreateExpertAdvice() {
   const params = useParams()
   const navigate = useNavigate()
   const { pathname } = useLocation()
-
+  const { compress, isCompressing } = useImageCompression()
   const { t } = useTranslation()
   const queryClient = useQueryClient()
 
@@ -116,12 +116,10 @@ export default function CreateExpertAdvice() {
     },
   })
 
-  const beforeUploadHandler = (file: RcFile) => {
-    const fileSizeInMB = file.size / 1024 / 1024
-
-    if (fileSizeInMB > 5) {
-      message.error(t('fields.images.max-size-limit', { value: file?.name }))
-      return false
+  const beforeUploadHandler = async (file: RcFile) => {
+    const compressed = await compress(file)
+    if (compressed) {
+      form.setFieldValue('image', compressed)
     }
 
     // if (allFiles?.length > 6) {
@@ -129,8 +127,6 @@ export default function CreateExpertAdvice() {
 
     //   return false
     // }
-
-    form.setFieldValue('image', file)
 
     return false
   }
@@ -229,6 +225,7 @@ export default function CreateExpertAdvice() {
                     setTimeout(() => onSuccess?.('ok'), 0)
                   }}
                   beforeUpload={beforeUploadHandler}
+                  disabled={isCompressing}
 
                   // beforeUpload={handleUpload}
                 >

@@ -1,9 +1,7 @@
-import dayjs from 'dayjs'
-import { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate, useParams } from 'react-router'
+import ImageUploadIcon from '@/components/icons/image-upload'
+import { useImageCompression } from '@/hooks/use-image-compression'
+import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-
 import {
   Button,
   DatePicker,
@@ -11,22 +9,20 @@ import {
   Form,
   Image,
   Input,
-  message,
   notification,
   Typography,
   Upload,
 } from 'antd'
-
-import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
-import { createEvent, getEvent, patchEvent } from '../../api'
-
-import YandexMapPicker from './yandex-map-picker'
-import QuillEditor from '../../components/quill-editor'
-import ImageUploadIcon from '@/components/icons/image-upload'
-
 import type { Rule } from 'antd/es/form'
 import type { RcFile } from 'antd/es/upload'
+import dayjs from 'dayjs'
+import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useLocation, useNavigate, useParams } from 'react-router'
+import { createEvent, getEvent, patchEvent } from '../../api'
+import QuillEditor from '../../components/quill-editor'
 import { useMapCoordsStore } from '../../top-destinations/store/map-coords-store'
+import YandexMapPicker from './yandex-map-picker'
 
 type CreateExpertAdviceValues = {
   name: string
@@ -45,6 +41,7 @@ export default function CreateEvent() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const { coords, setCoords, updatedCoords } = useMapCoordsStore()
+  const { compress, isCompressing } = useImageCompression()
 
   const { t } = useTranslation()
   const queryClient = useQueryClient()
@@ -132,15 +129,12 @@ export default function CreateEvent() {
     },
   })
 
-  const beforeUploadHandler = (file: RcFile) => {
-    const fileSizeInMB = file.size / 1024 / 1024
+  const beforeUploadHandler = async (file: RcFile) => {
+    const compressed = await compress(file)
 
-    if (fileSizeInMB > 5) {
-      message.error(t('fields.images.max-size-limit', { value: file?.name }))
-      return false
+    if (compressed) {
+      form.setFieldValue('image', compressed)
     }
-
-    form.setFieldValue('image', file)
 
     return false
   }
@@ -233,6 +227,7 @@ export default function CreateEvent() {
                     setTimeout(() => onSuccess?.('ok'), 0)
                   }}
                   beforeUpload={beforeUploadHandler}
+                  disabled={isCompressing}
                 >
                   <ImageUploadIcon className="text-[70px]" />
                   <Typography.Title className="m-0 text-base font-medium">

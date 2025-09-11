@@ -1,22 +1,27 @@
 import ImageUploadIcon from '@/components/icons/image-upload'
-import { App, Button, Form, Typography, Upload, UploadProps } from 'antd'
+import { useImageCompression } from '@/hooks/use-image-compression'
+import { Button, Form, Typography, Upload, UploadProps } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useDiscoverImage } from '../hooks/use-discover-image'
 
 export default function DiscoverGallery() {
   const { t } = useTranslation()
-  const { notification } = App.useApp()
   const { setImage, image, removeImage } = useDiscoverImage()
+  const { compress, isCompressing } = useImageCompression()
 
-  const handleUpload: UploadProps['beforeUpload'] = file => {
-    if (file?.size && file?.size > 5 * 1024 * 1024) {
-      notification.error({
-        message: t('common.images_limit', { limit: '5 MB' }),
-      })
-      return
+  const handleUpload: UploadProps['beforeUpload'] = async file => {
+    // if (file?.size && file?.size > 5 * 1024 * 1024) {
+    //   notification.error({
+    //     message: t('common.images_limit', { limit: '5 MB' }),
+    //   })
+    //   return
+    // }
+
+    const compressed = await compress(file)
+
+    if (compressed) {
+      setImage({ file: compressed, url: URL.createObjectURL(compressed) })
     }
-
-    setImage({ file, url: URL.createObjectURL(file) })
 
     return false
   }
@@ -30,6 +35,7 @@ export default function DiscoverGallery() {
           multiple={false}
           showUploadList={false}
           beforeUpload={handleUpload}
+          disabled={isCompressing}
         >
           <ImageUploadIcon className="text-[70px]" />
           <Typography.Title className="m-0 text-base font-medium">

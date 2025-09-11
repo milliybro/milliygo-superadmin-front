@@ -1,23 +1,27 @@
 import CloseIcon from '@/components/icons/close-icon'
 import ImageUploadIcon from '@/components/icons/image-upload'
-import { App, Form, Image, Typography, Upload, UploadProps } from 'antd'
+import { useImageCompression } from '@/hooks/use-image-compression'
+import { Form, Image, Typography, Upload, UploadProps } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useTopDestinationImage } from '../hooks/use-top-destination-image'
 
 export default function TopDestinationGallery() {
   const { t } = useTranslation()
   const { images, addImage, removeImage } = useTopDestinationImage()
-  const { notification } = App.useApp()
+  const { compress, isCompressing } = useImageCompression()
 
-  const handleUpload: UploadProps['beforeUpload'] = file => {
-    if (file?.size && file?.size > 5 * 1024 * 1024) {
-      notification.error({
-        message: t('common.images_limit', { limit: '5 MB' }),
-      })
-      return
+  const handleUpload: UploadProps['beforeUpload'] = async file => {
+    // if (file?.size && file?.size > 5 * 1024 * 1024) {
+    //   notification.error({
+    //     message: t('common.images_limit', { limit: '5 MB' }),
+    //   })
+    //   return
+    // }
+
+    const compressed = await compress(file)
+    if (compressed) {
+      addImage({ file: file, url: URL.createObjectURL(file) })
     }
-
-    addImage({ file: file, url: URL.createObjectURL(file) })
 
     return false
   }
@@ -31,6 +35,7 @@ export default function TopDestinationGallery() {
           multiple={true}
           showUploadList={false}
           beforeUpload={handleUpload}
+          disabled={isCompressing}
         >
           <ImageUploadIcon className="text-[70px]" />
           <Typography.Title className="m-0 text-base font-medium">
