@@ -78,7 +78,7 @@ const Tourists = () => {
   })
 
   return (
-    <div className="p-6 flex flex-col gap-6 flex-1">
+    <div className="px-6 py-4 flex flex-col gap-2 flex-1">
       <div className="flex items-start justify-between">
         <div className="text-[24px] text-primary-dark font-semibold">
           {t('routes.tourists')}
