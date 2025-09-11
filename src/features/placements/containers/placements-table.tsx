@@ -173,7 +173,7 @@ const PlacementsTable = () => {
   }
 
   return (
-    <div className="flex h-full p-2 overflow-hidden me-3 flex-col items-center justify-center rounded-[16px] bg-white">
+    <div className="flex h-full p-2 overflow-hidden me-3 flex-col items-center  rounded-[16px] bg-white">
       <div className='overflow-hidden -mr-4'>
         <PlacementsFilters />
         <Table<IPlacement>
