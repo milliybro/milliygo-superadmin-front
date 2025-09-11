@@ -85,7 +85,7 @@ export default function SignIn(): React.ReactElement {
         Your browser does not support HTML5 video.
       </video>
       <div className="flex h-full w-full items-center justify-center bg-[#0F172A]">
-        <div className="w-[569px] rounded-2xl border border-[#3F416B] bg-[#1E293B99] p-[80px] backdrop-blur-sm">
+        <div className="w-[569px] rounded-2xl border border-[#3F416B] bg-[#1E293B99] px-[70px] py-[70px] backdrop-blur-sm">
           <div className="flex flex-col items-center">
             <ProjectLogo className="mb-6" />
 
@@ -100,7 +100,7 @@ export default function SignIn(): React.ReactElement {
               <Form
                 form={form}
                 layout="vertical"
-                className="mb-6 w-full"
+                className="mb-2 w-full"
                 onFinish={mutateLogin}
               >
                 <div className="flex flex-col">
@@ -225,7 +225,7 @@ export default function SignIn(): React.ReactElement {
         <Typography.Text className="font-light text-white/50">
           Powered by
         </Typography.Text>
-        <a href="/">
+        <a href="https://uzinfocom.uz/" target="_blank" rel="noreferrer">
           <img src={uzinfocomLogo} alt="uzinfocom logo" className="w-[120px]" />
         </a>
       </div>

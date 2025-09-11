@@ -63,15 +63,15 @@ const LandlordsItem = () => {
   }, [data, t])
 
   return (
-    <div className="overflow-y-auto">
+    <div className="overflow-y-auto ">
       <div className="flex flex-1 flex-col gap-6 p-6">
         <div className="text-[24px] font-semibold text-primary-dark">
           {data?.apartment_name}
         </div>
 
         <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-9 flex flex-col overflow-hidden rounded-[16px] border border-border bg-white">
-            <LandlordsItemContent data={data} />,
+          <div className="col-span-9 p-6 flex flex-col overflow-hidden rounded-[16px] border border-border bg-white">
+            <LandlordsItemContent data={data} />
           </div>
           <div className="sticky top-6 col-span-3 flex h-fit flex-col gap-6 overflow-hidden rounded-[16px] border border-border bg-gradient-to-b from-[#14B8A61A] from-0% to-white to-35% p-6">
             <div className="flex flex-col items-center justify-center gap-[14px]">

@@ -6,16 +6,18 @@ import CSelect from '@/components/ui/select'
 import UserSquareIcon from '@/components/icons/user-square'
 import UserMultipleIcon from '@/components/icons/user-multiple'
 import { useQuery } from '@tanstack/react-query'
-import { getDistricts, getRegions } from '../api'
 import { useSearchParams } from 'react-router'
 import { useEffect } from 'react'
 import Location4Icon from '@/components/icons/location-4'
 import dayjs from 'dayjs'
-import UserIcon from '@/components/icons/user'
-import PassportIcon from '@/components/icons/passport-icon'
-import CalendarIcon from '@/components/icons/calendar'
+import { getRegions } from '@/features/content/api'
+import { getDistricts } from '@/features/tourists/api'
+import { PhoneOutlined, StarOutlined } from '@ant-design/icons'
+import StarIcon from '@/components/icons/star'
+import FileIcon from '@/components/icons/file-icon'
+import FileVerifiedIcon from '@/components/icons/file-verified-icon'
 
-const TouristsFilters = () => {
+const PlacementsFilters = () => {
   const { t } = useTranslation()
   const [form] = Form.useForm()
 
@@ -91,76 +93,27 @@ const TouristsFilters = () => {
   return (
     <Form
       layout="vertical"
-      className="grid w-full grid-cols-6 gap-4"
+      className="mb-6 grid w-full grid-cols-6 gap-4 px-2"
       onValuesChange={handleValuesChange}
       form={form}
     >
       <Form.Item
-        label={t('tourists.tourist-fullname')}
-        name="search"
+        label={t('hotels-page.name.title')}
+        name="name"
         validateDebounce={1000}
       >
         <Input
           prefix={
-            <UserIcon className="ml-2 mr-4 text-[16px] font-[600] text-[#115E59]" />
+            <UserSquareIcon className="ml-2 mr-4 text-[16px] text-secondary" />
           }
           size="large"
-          placeholder={t('tourists.search-tourists')}
+          placeholder={t('hotels-page.name.placeholder')}
           className="select-shadow"
         />
       </Form.Item>
       <Form.Item
-        label={t('fields.passport-data.label')}
-        name="passport"
         validateDebounce={1000}
-      >
-        <Input
-          prefix={
-            <PassportIcon className="ml-2 mr-4 text-[16px] text-[#115E59]" />
-          }
-          size="large"
-          placeholder={t('fields.icon.select')}
-          className="select-shadow"
-        />
-      </Form.Item>
-      <Form.Item
-        label={t('fields.birthyear.label')}
-        className="w-full"
-        name="birthyear"
-      >
-        <DatePicker
-          prefix={
-            <CalendarIcon className="mr-4 w-full text-[16px] text-[#115E59]" />
-          }
-          suffixIcon={null}
-          size="large"
-          // placeholder={t('fields.birthyear.label')}
-          className="select-shadow w-full"
-        />
-      </Form.Item>
-      <Form.Item
-        validateDebounce={1000}
-        label={t('fields.gender.label')}
-        name="gender"
-      >
-        <CSelect
-          options={[
-            { label: t('common.men'), value: 'male' },
-            { label: t('common.women'), value: 'female' },
-          ]}
-          prefix={
-            <UserMultipleIcon className="ml-1 mr-2 text-[16px] text-[#115E59]" />
-          }
-          size="large"
-          placeholder={t('fields.gender.placeholder')}
-          className="select-shadow"
-          // value={gender}
-          allowClear={true}
-        />
-      </Form.Item>
-      <Form.Item
-        validateDebounce={1000}
-        label={t('tourists.register-region')}
+        label={t('hotels-page.region')}
         name="region"
       >
         <CSelect
@@ -174,14 +127,14 @@ const TouristsFilters = () => {
           size="large"
           placeholder={t('fields.icon.select')}
           prefix={
-            <Location4Icon className="ml-1 mr-2 text-[16px] text-[#115E59]" />
+            <Location4Icon className="ml-2 mr-4 text-[16px] text-secondary" />
           }
           allowClear={true}
         />
       </Form.Item>
       <Form.Item
         validateDebounce={1000}
-        label={t('tourists.register-region')}
+        label={t('billing.city')}
         name="district"
       >
         <CSelect
@@ -193,8 +146,57 @@ const TouristsFilters = () => {
           size="large"
           placeholder={t('fields.icon.select')}
           prefix={
-            <Location4Icon className="ml-1 mr-2 text-[16px] text-[#115E59]" />
+            <Location4Icon className="ml-2 mr-4 text-[16px] text-secondary" />
           }
+          allowClear={true}
+        />
+      </Form.Item>
+      <Form.Item
+        label={t('fields.phone.label')}
+        name="phone"
+        validateDebounce={1000}
+      >
+        <Input
+          prefix={
+            <PhoneOutlined className="ml-2 mr-4 text-[16px] text-secondary" />
+          }
+          size="large"
+          placeholder={t('fields.phone.placeholder')}
+          className="select-shadow"
+        />
+      </Form.Item>
+      <Form.Item
+        label={t('fields.rating.label')}
+        name="rating"
+        validateDebounce={1000}
+      >
+        <Input
+          prefix={
+            <StarOutlined className="ml-2 mr-4 text-[16px] text-secondary" />
+          }
+          size="large"
+          placeholder={t('fields.icon.select')}
+          className="select-shadow"
+        />
+      </Form.Item>
+
+      <Form.Item
+        validateDebounce={1000}
+        label={t('fields.status.label')}
+        name="status"
+      >
+        <CSelect
+          options={[
+            { label: t('common.men'), value: 'male' },
+            { label: t('common.women'), value: 'female' },
+          ]}
+          prefix={
+            <FileVerifiedIcon className="ml-2 mr-4 text-[16px] text-secondary" />
+          }
+          size="large"
+          placeholder={t('fields.status.placeholder')}
+          className="select-shadow"
+          // value={gender}
           allowClear={true}
         />
       </Form.Item>
@@ -202,4 +204,4 @@ const TouristsFilters = () => {
   )
 }
 
-export default TouristsFilters
+export default PlacementsFilters
