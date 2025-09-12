@@ -661,7 +661,9 @@
     "create-password-desc": "Сиз янги пароль ўйлаб топишингиз керак",
     "new-password": "Пароль ўйлаб топинг",
     "confirm-password": "Паролни tasdiqlang",
-    "save-password": "Паролни сақлаш"
+    "save-password": "Паролни сақлаш",
+    "compressing-image": "Сурат сиғдирилмоқда...",
+    "error-compressing-image": "Суратни сиғдиришда хатолик, илтимос, қайта уриниб кўринг"
   },
   "status": {
     "confirmed": "Тасдиқланган",
