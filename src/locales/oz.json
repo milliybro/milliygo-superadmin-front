@@ -643,7 +643,9 @@
     "create-password-desc": "Siz yangi parol o‘ylab topishingiz kerak",
     "new-password": "Parol o‘ylab toping",
     "confirm-password": "Parolni tasdiqlang",
-    "save-password": "Parolni saqlash"
+    "save-password": "Parolni saqlash",
+    "compressing-image": "Rasm siqilmoqda...",
+    "error-compressing-image": "Rasmni siqishda xatolik, iltimos, qayta urinib ko'ring"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
