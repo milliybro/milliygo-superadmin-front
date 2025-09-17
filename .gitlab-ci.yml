@@ -27,7 +27,7 @@ build-job:
     - git reset --hard origin/dev
     - git pull origin dev
     - npm install
-    - npm audit fix
+    - npm audit fix --force
     - npm run build
 
 #Production
