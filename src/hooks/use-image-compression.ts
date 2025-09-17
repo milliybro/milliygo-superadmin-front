@@ -28,7 +28,7 @@ export function useImageCompression(
 
       const compressedBlob: Blob = await imageCompression(file, {
         alwaysKeepResolution: true,
-        maxSizeMB: 0.5,
+        maxSizeMB: 1,
         fileType: convertToWebP ? 'image/webp' : file.type,
         initialQuality: 0.6,
         useWebWorker: true,

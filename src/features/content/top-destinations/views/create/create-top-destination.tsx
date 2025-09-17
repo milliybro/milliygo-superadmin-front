@@ -130,7 +130,7 @@ export default function TopDestinationForm() {
         onFinish={finishHandler}
         requiredMark={false}
       >
-        <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border p-6">
+        <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border bg-white p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
             {t('content.top_destinations.add-content')}
           </Typography.Title>
