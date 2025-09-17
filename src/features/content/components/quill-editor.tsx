@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useMemo, useRef } from 'react'
 import ReactQuill from 'react-quill'
 
 import { uploadImage } from '../api'
 
-import 'react-quill/dist/quill.snow.css'
 import { useImageCompression } from '@/hooks/use-image-compression'
+import 'react-quill/dist/quill.snow.css'
 
 interface QuillEditorProps {
   value?: string
