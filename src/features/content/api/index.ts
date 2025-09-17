@@ -262,3 +262,13 @@ export async function patchInstagramContent(
     },
   })
 }
+
+export async function uploadImage(
+  data: FormData,
+): Promise<{ file_url: string }> {
+  return await requestSuper({
+    url: '/files/upload/',
+    method: 'post',
+    data,
+  })
+}

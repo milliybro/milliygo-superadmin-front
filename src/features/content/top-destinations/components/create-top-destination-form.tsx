@@ -19,7 +19,7 @@ export default function CreateTopDestinationForm() {
 
   return (
     <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
-      <div className="flex flex-col gap-4 rounded-2xl border p-6">
+      <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
         <Typography.Title level={5} className="text-xl font-medium">
           {t('common.preview')}
         </Typography.Title>
@@ -61,7 +61,7 @@ export default function CreateTopDestinationForm() {
         </Form.Item>
         {checkingEmbed && <YouTubeEmbed url={youtubeUrl} />}
       </div>
-      <div className="flex flex-col gap-4 rounded-2xl border p-6">
+      <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
         <Typography.Title level={5} className="text-xl font-medium">
           {t('content.top_destinations.add_attractions')}
         </Typography.Title>
