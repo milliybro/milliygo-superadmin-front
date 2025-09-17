@@ -4,11 +4,13 @@ import type { AxiosResponse } from 'axios'
 import type { AuthResponse } from '../types'
 // import requestChat from '@/utils/authRequest'
 
+import requestSuper from '@/utils/superRequest'
+
 export async function login(data: {
   username: string
   password: string
 }): Promise<AuthResponse> {
-  const res: AuthResponse = await request({
+  const res: AuthResponse = await requestSuper({
     url: '/account/me/',
     method: 'post',
     data,

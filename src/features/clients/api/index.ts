@@ -1,12 +1,13 @@
 import { IUsers } from '@/features/users/types'
 import { ListResponse } from '@/types'
 // import { ListResponse } from "@/types"
-import requestAuth from '@/utils/authRequest'
+
 import request from '@/utils/axios'
 import { ICountry } from '../types'
+import requestSuper from '@/utils/superRequest'
 
 export async function getUser(params?: any): Promise<IUsers> {
-  const res: IUsers = await requestAuth({
+  const res: IUsers = await requestSuper({
     url: `/account/super-admin/users/${params.id}`,
     method: 'get',
     params: params.queryParams,
@@ -38,7 +39,7 @@ export async function getClientReview(params?: any): Promise<IUsers> {
 export async function getCountries(
   params?: any,
 ): Promise<ListResponse<ICountry[]>> {
-  const res: ListResponse<ICountry[]> = await requestAuth({
+  const res: ListResponse<ICountry[]> = await requestSuper({
     url: '/regions/countries/',
     method: 'get',
     params,

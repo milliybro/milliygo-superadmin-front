@@ -15,6 +15,7 @@ import { useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import { getAllPlacements } from '../api'
 import type { IPlacement } from '../types'
+import PlacementsFilters from './placements-filter'
 
 const PlacementsTable = () => {
   const { t } = useTranslation()
@@ -172,35 +173,38 @@ const PlacementsTable = () => {
   }
 
   return (
-    <div className="flex h-full flex-col items-center justify-center overflow-x-auto rounded-[16px] border border-border bg-white">
-      <Table<IPlacement>
-        columns={columns}
-        dataSource={
-          placementsData?.results?.map((item, i) => ({
-            ...item,
-            idx: i,
-            key: item?.key + i,
-          })) || []
-        }
-        className="h-full w-full"
-        bordered
-        loading={isFetching}
-        pagination={{
-          current: +(queries?.page || 1),
-          pageSize: 10,
-          total: placementsData?.count || 0,
-          hideOnSinglePage: true,
-          showSizeChanger: false,
-          position: ['bottomCenter'],
-        }}
-        locale={{
-          emptyText: <UsersNotFound />,
-          triggerDesc: t('common.sort_descending') ?? '',
-          triggerAsc: t('common.sort_ascending') ?? '',
-          cancelSort: t('common.sort_cancel') ?? '',
-        }}
-        onChange={handleTableChange}
-      />
+    <div className="flex h-full p-2 overflow-hidden me-3 flex-col items-center  rounded-[16px] bg-white">
+      <div className='overflow-hidden -mr-4'>
+        <PlacementsFilters />
+        <Table<IPlacement>
+          columns={columns}
+          dataSource={
+            placementsData?.results?.map((item, i) => ({
+              ...item,
+              idx: i,
+              key: item?.key + i,
+            })) || []
+          }
+          className="h-full w-full"
+          bordered
+          loading={isFetching}
+          pagination={{
+            current: +(queries?.page || 1),
+            pageSize: 10,
+            total: placementsData?.count || 0,
+            hideOnSinglePage: true,
+            showSizeChanger: false,
+            position: ['bottomCenter'],
+          }}
+          locale={{
+            emptyText: <UsersNotFound />,
+            triggerDesc: t('common.sort_descending') ?? '',
+            triggerAsc: t('common.sort_ascending') ?? '',
+            cancelSort: t('common.sort_cancel') ?? '',
+          }}
+          onChange={handleTableChange}
+        />
+      </div>
     </div>
   )
 }

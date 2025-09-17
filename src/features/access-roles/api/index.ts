@@ -1,8 +1,8 @@
-import requestAuth from '@/utils/authRequest'
+import requestSuper from '@/utils/authRequest'
 import { IAccessRoleTable } from '../types'
 
 export async function getAccessRoles(params?: any): Promise<IAccessRoleTable> {
-  const res: IAccessRoleTable = await requestAuth({
+  const res: IAccessRoleTable = await requestSuper({
     url: `/account/user-roles/`,
     method: 'get',
     params: { ...params },
@@ -12,7 +12,7 @@ export async function getAccessRoles(params?: any): Promise<IAccessRoleTable> {
 }
 
 export async function createRole(data?: any): Promise<IAccessRoleTable> {
-  const res: IAccessRoleTable = await requestAuth({
+  const res: IAccessRoleTable = await requestSuper({
     url: `/account/user-roles/`,
     method: 'post',
     data,
@@ -29,7 +29,7 @@ export async function updateRole(params: {
   if (!id) {
     throw new Error('User ID is required for updating a user.')
   }
-  const res: IAccessRoleTable = await requestAuth({
+  const res: IAccessRoleTable = await requestSuper({
     url: `/account/user-roles/${id}/`,
     method: 'patch',
     data: queryParams,
@@ -39,7 +39,7 @@ export async function updateRole(params: {
 }
 
 export async function getRole(params?: any): Promise<IAccessRoleTable> {
-  const res: IAccessRoleTable = await requestAuth({
+  const res: IAccessRoleTable = await requestSuper({
     url: `/account/user-roles/${params.id}/`,
     method: 'get',
     params: params.queryParams,

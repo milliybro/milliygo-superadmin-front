@@ -2,7 +2,7 @@ import type { FC, SVGProps } from 'react'
 
 const ProjectLogo: FC<SVGProps<SVGSVGElement>> = ({ className, ...props }) => (
   <svg
-    width="113"
+    width="153"
     height="40"
     {...props}
     viewBox="0 0 113 40"

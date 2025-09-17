@@ -99,11 +99,17 @@
   width: 100% !important;
 }
 
-
 .ant-otp-input-wrapper {
   flex: 1; /* har bir input teng kengayadi */
   height: 60px;
 }
 .ant-otp-input-wrapper input {
   height: 60px;
+}
+
+.ant-table-container {
+  border-left: none !important;
+  border-right: none !important;
+  border-right-width: 0px !important;
+  border-right-color: #ffffff !important;
 }

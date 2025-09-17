@@ -4,6 +4,7 @@ variables:
   IMAGE_NAME: superadmin-front
   SERVICE_NAME: superadmin-front_superadmin-front
   SSH_TARGET: "master1"
+  BRANCH: ${CI_COMMIT_REF_NAME}
 
 
 stages:
@@ -41,7 +42,7 @@ build-prod:
     - git checkout prod || fail 
     - git reset --hard origin/prod || fail
     - git pull origin prod || fail
-    - docker build -t $ADDRESS_PROD/$REPO_NAME/$IMAGE_NAME:${CI_PIPELINE_IID} .
+    - docker build --build-arg BRANCH=$BRANCH --build-arg VAULT_TOKEN=$PROD_VAULT_TOKEN -t $ADDRESS_PROD/$REPO_NAME/$IMAGE_NAME:${CI_PIPELINE_IID} .
 # Push stage
 push-harbor:
   stage: push

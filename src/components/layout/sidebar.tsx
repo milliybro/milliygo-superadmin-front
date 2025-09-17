@@ -142,7 +142,7 @@ const Sidebar = () => {
     <aside
       className={twMerge(
         'border-r border-border bg-white transition-all duration-300 dark:bg-dark-bg',
-        isSidebarOpen ? 'w-[300px]' : 'w-14',
+        isSidebarOpen ? 'w-[230px]' : 'w-14',
       )}
     >
       <div className="flex items-center justify-between p-4">

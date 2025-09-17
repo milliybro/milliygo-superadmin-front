@@ -12,14 +12,14 @@ const ArrowUpRightIcon: FC<SVGProps<SVGSVGElement>> = props => (
     <path
       d="M13.125 4.875L4.5 13.5"
       stroke="currentColor"
-      strokeWidth="1.2"
+      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M6 4.5H13.5V12"
       stroke="currentColor"
-      strokeWidth="1.2"
+      strokeWidth="1.8"
       strokeLinecap="round"
       strokeLinejoin="round"
     />

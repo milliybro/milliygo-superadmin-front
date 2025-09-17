@@ -141,7 +141,7 @@ const BookingCancelationsTable: FC<IProps> = props => {
           Количество и причины отмены бронирования
         </div>
         <div className="flex items-center gap-1 text-primary font-medium">
-          Посмотреть все <ArrowUpRightIcon />
+          Посмотреть все <ArrowUpRightIcon className='font-[600]' />
         </div>
       </div>
       <Table
