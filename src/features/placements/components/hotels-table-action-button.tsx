@@ -31,7 +31,7 @@ const HotelsTableActionButton: FC<IProps> = () => {
       //   )
       // }
     >
-      <EyeIcon className="text-[20px]" />
+      <EyeIcon className="text-xl" />
       {t('common.more-details')}
     </Button>
   )

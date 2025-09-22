@@ -5,7 +5,7 @@ const LandlordsHeader = () => {
 
   return (
     <div className="flex items-start justify-between">
-      <div className="text-[24px] text-primary-dark font-semibold">
+      <div className="text-2xl font-semibold text-primary-dark">
         {t('routes.landlords')}
       </div>
     </div>

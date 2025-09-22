@@ -192,9 +192,7 @@ export default function CreateEvent() {
             <Form.Item name="lat" hidden noStyle />
 
             <div className="flex flex-col">
-              <div className="mb-[5px] text-[14px]">
-                {t('fields.images.label')}
-              </div>
+              <div className="mb-[5px] text-sm">{t('fields.images.label')}</div>
               {imageField ? (
                 <div className="relative flex aspect-square h-[212px] overflow-hidden rounded-xl border">
                   {imageField ? (
@@ -229,7 +227,7 @@ export default function CreateEvent() {
                   beforeUpload={beforeUploadHandler}
                   disabled={isCompressing}
                 >
-                  <ImageUploadIcon className="text-[70px]" />
+                  <ImageUploadIcon className="text-xl" />
                   <Typography.Title className="m-0 text-base font-medium">
                     {t('common.select_or_drag')}
                   </Typography.Title>

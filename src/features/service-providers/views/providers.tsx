@@ -60,13 +60,13 @@ const Accommodations = () => {
   const data: any = []
 
   return (
-    <div className="p-6 flex flex-col gap-6 flex-1">
+    <div className="flex flex-1 flex-col gap-6 p-6">
       <div className="flex items-start justify-between">
-        <div className="text-[24px] text-primary-dark font-semibold">
+        <div className="text-2xl font-semibold text-primary-dark">
           {t('routes.service-providers')}
         </div>
       </div>
-      <div className="bg-white border w-full flex-col overflow-hidden border-border dark:bg-dark-bg rounded-[16px] flex items-center justify-center h-full">
+      <div className="flex h-full w-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white dark:bg-dark-bg">
         <ProvidersTab
           hotelsData={data}
           pageSize={pageSize}

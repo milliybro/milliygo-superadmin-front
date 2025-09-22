@@ -5,11 +5,11 @@ const GuestsNotFound = () => {
   const { t } = useTranslation()
 
   return (
-    <div className="w-full flex text-center flex-col justify-center items-center">
-      <div className="flex w-full flex-col justify-center gap-3 items-center">
+    <div className="flex w-full flex-col items-center justify-center text-center">
+      <div className="flex w-full flex-col items-center justify-center gap-3">
         <NotFoundIcon />
       </div>
-      <span className="text-[26px] font-semibold text-primary-dark">
+      <span className="text-2xl font-semibold text-primary-dark">
         {t('common.not-guests')}
       </span>
       <span className="text-secondary">{t('users-page.not-found-desc')}</span>

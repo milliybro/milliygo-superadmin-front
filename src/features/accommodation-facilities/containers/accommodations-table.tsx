@@ -54,13 +54,13 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
           <div className="flex items-center gap-2">
             {record?.image ? (
               <img
-                className="w-[48px] h-[48px] shrink-0 object-cover rounded-[8px]"
+                className="h-[48px] w-[48px] shrink-0 rounded-[8px] object-cover"
                 src={record?.image}
                 alt=""
               />
             ) : null}
 
-            <div className="w-full line-clamp-2">{value}</div>
+            <div className="line-clamp-2 w-full">{value}</div>
           </div>
         )
       },
@@ -71,7 +71,7 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
       sorter: false,
       width: 500,
       render: text => (
-        <div className="text-[#3276FF] underline line-clamp-1 w-[450px]">
+        <div className="line-clamp-1 w-[450px] text-[#3276FF] underline">
           {text}
         </div>
       ),
@@ -94,7 +94,7 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
       sorter: false,
       render: data => {
         return (
-          <div className="bg-[#FEF9C3] flex justify-center py-[6px] rounded-[8px] w-[38px]">
+          <div className="flex w-[38px] justify-center rounded-[8px] bg-[#FEF9C3] py-[6px]">
             {data}
           </div>
         )
@@ -143,8 +143,8 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 0 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
+            n === 0 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.prev')}
@@ -155,8 +155,8 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 10 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
+            n === 10 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.next')}
@@ -172,7 +172,7 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
   }
 
   const transformedData =
-    hotelsData?.results.map((user: IUsers, i: number) => ({
+    hotelsData?.results?.map((user: IUsers, i: number) => ({
       key: i,
       id: user.id,
       name: user.name,
@@ -190,16 +190,16 @@ const AccommodationsTable: React.FC<UsersFiltersProps> = ({
     })) || []
 
   return (
-    <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
+    <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white">
       <Table<IUsersTable>
-        columns={columns.map(val => ({
+        columns={columns?.map(val => ({
           ...val,
           title: t(`${val?.title}`),
         }))}
         dataSource={transformedData}
         loading={isLoading}
         onChange={pagination => handlePaginationChange(pagination.current!)}
-        className="w-full h-full"
+        className="h-full w-full"
         pagination={{
           current: currentPage,
           pageSize: 10,

@@ -38,34 +38,32 @@ const SupportModal: FC<ISupportModalProps> = props => {
       >
         <Button
           type="text"
-          className="absolute top-[10px] right-[10px]"
-          icon={<CloseIcon className="text-[16px] text-white" />}
+          className="absolute right-[10px] top-[10px]"
+          icon={<CloseIcon className="text-base text-white" />}
           onClick={() => setOpen(false)}
         />
-        <div className="text-white items-center gap-6 flex flex-col">
-          <div className="size-[64px] shrink-0 border-[7px] border-border/10 flex items-center justify-center rounded-full">
-            <props.icon className="text-white text-[26px]" />
+        <div className="flex flex-col items-center gap-6 text-white">
+          <div className="flex size-[64px] shrink-0 items-center justify-center rounded-full border-[7px] border-border/10">
+            <props.icon className="text-2xl text-white" />
           </div>
 
-          <div className="flex flex-col text-center gap-4">
-            <span className="text-[26px] text-white font-semibold">
-              {title}
-            </span>
-            <span className="text-[16px] text-white font-light">
+          <div className="flex flex-col gap-4 text-center">
+            <span className="text-2xl font-semibold text-white">{title}</span>
+            <span className="text-base font-light text-white">
               {description}
             </span>
           </div>
 
-          <div className="flex flex-col gap-4 w-full">
+          <div className="flex w-full flex-col gap-4">
             <a
               href="tel:+998 71 298 74 84"
-              className="border border-[#3F416B] rounded-[16px] gap-[10px] p-6 bg-[#232E40] flex items-center"
+              className="flex items-center gap-[10px] rounded-[16px] border border-[#3F416B] bg-[#232E40] p-6"
             >
-              <div className="size-[48px] shrink-0 bg-[#1E293B] flex items-center justify-center rounded-[8px]">
+              <div className="flex size-[48px] shrink-0 items-center justify-center rounded-[8px] bg-[#1E293B]">
                 <CallRingingIcon />
               </div>
               <div className="flex flex-col gap-2">
-                <span className="text-[24px] leading-[28px] font-semibold">
+                <span className="text-2xl font-semibold leading-[28px]">
                   +998 71 298 74 84
                 </span>
                 <span className="text-success">
@@ -75,13 +73,13 @@ const SupportModal: FC<ISupportModalProps> = props => {
             </a>
             <a
               href="tel:+998 71 298 74 84"
-              className="border border-[#3F416B] rounded-[16px] gap-[10px] p-6 bg-[#232E40] flex items-center"
+              className="flex items-center gap-[10px] rounded-[16px] border border-[#3F416B] bg-[#232E40] p-6"
             >
-              <div className="size-[48px] shrink-0 bg-[#1E293B] flex items-center justify-center rounded-[8px]">
+              <div className="flex size-[48px] shrink-0 items-center justify-center rounded-[8px] bg-[#1E293B]">
                 <CallRingingIcon />
               </div>
               <div className="flex flex-col gap-2">
-                <span className="text-[24px] leading-[28px] font-semibold">
+                <span className="text-2xl font-semibold leading-[28px]">
                   +998 71 298 74 84
                 </span>
                 <span className="text-success">

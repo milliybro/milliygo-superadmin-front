@@ -16,16 +16,16 @@ const GuidesStatusTag: FC<IProps> = ({ active, colorless, type }) => {
   return (
     <span
       className={twMerge(
-        'shrink-0 whitespace-nowrap text-[12px] font-medium px-[10px] py-[6px] rounded-[6px]',
+        'shrink-0 whitespace-nowrap rounded-[6px] px-[10px] py-[6px] text-xs font-medium',
         colorless
           ? type === 'active'
-            ? 'text-primary-dark bg-white border py-[5px] border-border shadow-[0px_1px_2px_0px_rgba(0,_0,_0,_0.05)]'
-            : 'text-white bg-primary-dark'
+            ? 'border border-border bg-white py-[5px] text-primary-dark shadow-[0px_1px_2px_0px_rgba(0,_0,_0,_0.05)]'
+            : 'bg-primary-dark text-white'
           : type === 'active'
-            ? 'text-primary bg-primary-light'
+            ? 'bg-primary-light text-primary'
             : type === 'request'
-              ? 'text-[#854D0E] bg-[#FEF9C3]'
-              : 'text-danger-dark bg-danger-light/80',
+              ? 'bg-[#FEF9C3] text-[#854D0E]'
+              : 'bg-danger-light/80 text-danger-dark',
       )}
     >
       {type === 'active'

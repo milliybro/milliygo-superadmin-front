@@ -148,7 +148,7 @@ const Sidebar = () => {
       <div className="flex items-center justify-between p-4">
         {isSidebarOpen && <ProjectLogo />}
         <button onClick={toggleSidebar} aria-label="Toggle Sidebar">
-          <SidebarLeftIcon className="text-[24px] text-[#B7BFD5]" />
+          <SidebarLeftIcon className="text-2xl text-[#B7BFD5]" />
         </button>
       </div>
 
@@ -170,7 +170,7 @@ const Sidebar = () => {
                 >
                   <item.icon
                     className={twMerge(
-                      'text-[24px]',
+                      'text-2xl',
                       isActive ? 'text-primary-dark' : 'text-[#69757A]',
                     )}
                   />

@@ -7,7 +7,7 @@ const NoComplaintsFound = () => {
   return (
     <div className="flex flex-col justify-center gap-3 items-center">
       <NotFoundIcon />
-      <span className="text-[26px] font-semibold text-primary-dark">
+      <span className="text-2xl font-semibold text-primary-dark">
         {t('complaints-page.not-found-title')}
       </span>
       <span className="text-secondary">

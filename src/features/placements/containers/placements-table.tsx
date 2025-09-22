@@ -57,7 +57,7 @@ const PlacementsTable = () => {
               <HotelIcon fontSize={28} className="text-secondary/30" />
             )}
           </div>
-          <span className="text-[14px] font-medium text-primary-dark">
+          <span className="text-sm font-medium text-primary-dark">
             {val?.name ? val?.name : '-'}
           </span>
         </div>
@@ -173,8 +173,8 @@ const PlacementsTable = () => {
   }
 
   return (
-    <div className="flex h-full p-2 overflow-hidden me-3 flex-col items-center  rounded-[16px] bg-white">
-      <div className='overflow-hidden -mr-4'>
+    <div className="me-3 flex h-full flex-col items-center overflow-hidden rounded-[16px] bg-white p-2">
+      <div className="-mr-4 overflow-hidden">
         <PlacementsFilters />
         <Table<IPlacement>
           columns={columns}

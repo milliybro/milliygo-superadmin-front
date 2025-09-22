@@ -9,8 +9,8 @@ interface IProps {
 
 const RatingTag: FC<IProps> = ({ value, icon }) => {
   return (
-    <span className="shrink-0 text-[12px] inline-flex items-center gap-1 font-medium px-[8px] py-[6px] rounded-[6px] text-primary-dark bg-[#FEF9C3]">
-      {icon ? <StarIcon className="text-[16px]" /> : null}
+    <span className="inline-flex shrink-0 items-center gap-1 rounded-[6px] bg-[#FEF9C3] px-[8px] py-[6px] text-xs font-medium text-primary-dark">
+      {icon ? <StarIcon className="text-base" /> : null}
       {value}
     </span>
   )

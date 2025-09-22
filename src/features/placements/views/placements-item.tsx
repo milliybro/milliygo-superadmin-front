@@ -104,13 +104,13 @@ const PlacementsItem = () => {
 
   return (
     <div className="overflow-y-auto">
-      <div className="p-6 flex flex-col gap-6 flex-1">
-        <div className="text-[24px] text-primary-dark font-semibold">
+      <div className="flex flex-1 flex-col gap-6 p-6">
+        <div className="text-2xl font-semibold text-primary-dark">
           {data?.placement_detail?.name}
         </div>
 
         <div className="grid grid-cols-12 gap-4">
-          <div className="bg-white col-span-9 border flex flex-col overflow-hidden border-border rounded-[16px]">
+          <div className="col-span-9 flex flex-col overflow-hidden rounded-[16px] border border-border bg-white">
             <Tabs
               className="p-6"
               defaultActiveKey="1"
@@ -120,22 +120,22 @@ const PlacementsItem = () => {
               }))}
             />
           </div>
-          <div className="bg-gradient-to-b from-[#14B8A61A] h-fit sticky top-6 from-0% to-white to-35% gap-6 flex col-span-3 border flex-col p-6 overflow-hidden border-border rounded-[16px]">
-            <div className="flex flex-col justify-center items-center gap-[14px]">
-              <div className="overflow-hidden size-[108px] rounded-[8px] border border-border bg-secondary-light">
+          <div className="sticky top-6 col-span-3 flex h-fit flex-col gap-6 overflow-hidden rounded-[16px] border border-border bg-gradient-to-b from-[#14B8A61A] from-0% to-white to-35% p-6">
+            <div className="flex flex-col items-center justify-center gap-[14px]">
+              <div className="size-[108px] overflow-hidden rounded-[8px] border border-border bg-secondary-light">
                 {data?.placement_images[0]?.image ? (
                   <img
                     src={data?.placement_images[0]?.image}
                     alt={data?.placement_detail?.name}
-                    className="w-[108px] h-[108px] object-cover"
+                    className="h-[108px] w-[108px] object-cover"
                   />
                 ) : (
-                  <div className="flex flex-col justify-center items-center h-full">
+                  <div className="flex h-full flex-col items-center justify-center">
                     <HotelIcon fontSize={48} />
                   </div>
                 )}
               </div>
-              <span className="text-[18px] text-primary-dark font-semibold">
+              <span className="text-lg font-semibold text-primary-dark">
                 {data?.placement_detail?.name}
               </span>
               <div className="flex items-center gap-2">
@@ -148,7 +148,7 @@ const PlacementsItem = () => {
             </div>
             <div className="flex flex-col">
               {/* <section>
-                <h2 className="text-[14px] text-primary-dark font-semibold mb-4">
+                <h2 className="text-sm text-primary-dark font-semibold mb-4">
                   {t('common.general-information')}
                 </h2>
                 <div className="space-y-3">
@@ -166,7 +166,7 @@ const PlacementsItem = () => {
               </section>
               <Divider className="border-border" /> */}
               <section>
-                <h2 className="text-[14px] text-primary-dark font-semibold mb-4">
+                <h2 className="mb-4 text-sm font-semibold text-primary-dark">
                   {t('fields.balance.label')}
                 </h2>
                 <div className="space-y-3">
@@ -177,13 +177,13 @@ const PlacementsItem = () => {
                   <InfoRow
                     label={t('fields.balance.label')}
                     value=""
-                    valueClass="text-[16px] font-semibold"
+                    valueClass="text-base font-semibold"
                   />
                 </div>
               </section>
               <Divider className="border-border" />
               <section>
-                <h2 className="text-[14px] text-primary-dark font-semibold mb-4">
+                <h2 className="mb-4 text-sm font-semibold text-primary-dark">
                   {t('common.additional')}
                 </h2>
                 <div className="space-y-3">
@@ -197,7 +197,7 @@ const PlacementsItem = () => {
                     //     target="_blank"
                     //     rel="noopener noreferrer"
                     //   >
-                    //     <ArrowUpRightIcon className="text-[18px]" />
+                    //     <ArrowUpRightIcon className="text-lg" />
                     //   </a>
                     // }
                   />

@@ -30,7 +30,7 @@ const StatusRoomsTag: FC<IProps> = ({ status }) => {
   return (
     <span
       className={twMerge(
-        'shrink-0 text-[12px] font-medium px-[10px] py-[6px] rounded-[6px]',
+        'shrink-0 rounded-[6px] px-[10px] py-[6px] text-xs font-medium',
         currentStatus.styles,
       )}
     >

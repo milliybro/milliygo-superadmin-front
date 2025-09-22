@@ -101,7 +101,7 @@ const ClientsFilters = () => {
         <Input
           defaultValue={search || ''}
           prefix={
-            <UserSquareIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <UserSquareIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           size="large"
           placeholder={t('fields.client-search.placeholder')}
@@ -119,11 +119,11 @@ const ClientsFilters = () => {
             { label: t('common.women'), value: 'female' },
           ]}
           suffixIcon={null}
-          className="w-full select-shadow h-[47px]"
+          className="select-shadow h-[47px] w-full"
           size="large"
           placeholder={t('fields.gender.placeholder')}
           prefix={
-            <UserMultipleIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <UserMultipleIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           allowClear={true}
         />
@@ -137,11 +137,11 @@ const ClientsFilters = () => {
           allowClear
           options={countryOptions}
           suffixIcon={null}
-          className="w-full select-shadow h-[47px]"
+          className="select-shadow h-[47px] w-full"
           size="large"
           placeholder={t('fields.citizenship.placeholder')}
           prefix={
-            <Location4Icon className="text-[16px] text-secondary ml-2 mr-4" />
+            <Location4Icon className="ml-2 mr-4 text-base text-secondary" />
           }
           // onChange={value => {
           //   setSelectedCountry(value)
@@ -162,11 +162,11 @@ const ClientsFilters = () => {
             { label: t('common.inactive'), value: 'false' },
           ]}
           suffixIcon={null}
-          className="w-full select-shadow h-[47px]"
+          className="select-shadow h-[47px] w-full"
           size="large"
           placeholder={t('fields.status.placeholder')}
           prefix={
-            <UserStatusIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <UserStatusIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           allowClear={true}
         />

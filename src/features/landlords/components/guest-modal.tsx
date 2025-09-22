@@ -24,9 +24,9 @@ const GuestInfoSection = ({ info }: { info: any }) => {
   const { t } = useTranslation()
 
   return (
-    <div className="flex flex-col w-full gap-4">
+    <div className="flex w-full flex-col gap-4">
       {info.map((item: any, index: number) => (
-        <div key={index} className="flex justify-between items-center">
+        <div key={index} className="flex items-center justify-between">
           <Typography.Text className="text-sm font-normal text-[#0A0D2C]">
             {t(item.label)}
           </Typography.Text>
@@ -110,17 +110,14 @@ const GuestModal = () => {
       <Button
         className="absolute right-[10px] top-[10px]"
         type="text"
-        icon={<CloseIcon className="text-[16px]" />}
+        icon={<CloseIcon className="text-base" />}
         onClick={closeHandler}
       />
-      <div className="flex items-center mb-6 flex-col text-center justify-center">
-        <div
-          className="bg-[#DBEAFE] border-[8px] mb-4 border-[#EFF6FF] shrink-0 flex items-center justify-center
-           size-[62px] rounded-full"
-        >
-          <UserIcon className="text-[24px] text-primary" />
+      <div className="mb-6 flex flex-col items-center justify-center text-center">
+        <div className="mb-4 flex size-[62px] shrink-0 items-center justify-center rounded-full border-[8px] border-[#EFF6FF] bg-[#DBEAFE]">
+          <UserIcon className="text-2xl text-primary" />
         </div>
-        <div className="text-[24px] mb-2 text-primary-dark font-bold">
+        <div className="mb-2 text-2xl font-bold text-primary-dark">
           {t('hotel-guest.title')}
         </div>
         <GuestInfoSection info={guestInfo} />

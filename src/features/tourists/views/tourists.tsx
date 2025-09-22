@@ -78,14 +78,14 @@ const Tourists = () => {
   })
 
   return (
-    <div className="px-6 py-4 flex flex-col gap-2 flex-1">
+    <div className="flex flex-1 flex-col gap-2 px-6 py-4">
       <div className="flex items-start justify-between">
-        <div className="text-[24px] text-primary-dark font-semibold">
+        <div className="text-2xl font-semibold text-primary-dark">
           {t('routes.tourists')}
         </div>
       </div>
-      <div className="p-6 gap-6 bg-white border flex-col overflow-hidden border-border dark:bg-dark-bg rounded-[16px] flex items-center justify-center h-full">
-      <TouristsFilters />
+      <div className="flex h-full flex-col items-center justify-center gap-6 overflow-hidden rounded-[16px] border border-border bg-white p-6 dark:bg-dark-bg">
+        <TouristsFilters />
         <TouristsTable
           refetch={refetch}
           TouristsData={TouristsData}

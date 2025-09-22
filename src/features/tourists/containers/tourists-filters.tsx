@@ -102,7 +102,7 @@ const TouristsFilters = () => {
       >
         <Input
           prefix={
-            <UserIcon className="ml-2 mr-4 text-[16px] font-[600] text-[#115E59]" />
+            <UserIcon className="ml-2 mr-4 text-base font-[600] text-[#115E59]" />
           }
           size="large"
           placeholder={t('tourists.search-tourists')}
@@ -116,7 +116,7 @@ const TouristsFilters = () => {
       >
         <Input
           prefix={
-            <PassportIcon className="ml-2 mr-4 text-[16px] text-[#115E59]" />
+            <PassportIcon className="ml-2 mr-4 text-base text-[#115E59]" />
           }
           size="large"
           placeholder={t('fields.icon.select')}
@@ -130,7 +130,7 @@ const TouristsFilters = () => {
       >
         <DatePicker
           prefix={
-            <CalendarIcon className="mr-4 w-full text-[16px] text-[#115E59]" />
+            <CalendarIcon className="mr-4 w-full text-base text-[#115E59]" />
           }
           suffixIcon={null}
           size="large"
@@ -149,7 +149,7 @@ const TouristsFilters = () => {
             { label: t('common.women'), value: 'female' },
           ]}
           prefix={
-            <UserMultipleIcon className="ml-1 mr-2 text-[16px] text-[#115E59]" />
+            <UserMultipleIcon className="ml-1 mr-2 text-base text-[#115E59]" />
           }
           size="large"
           placeholder={t('fields.gender.placeholder')}
@@ -174,7 +174,7 @@ const TouristsFilters = () => {
           size="large"
           placeholder={t('fields.icon.select')}
           prefix={
-            <Location4Icon className="ml-1 mr-2 text-[16px] text-[#115E59]" />
+            <Location4Icon className="ml-1 mr-2 text-base text-[#115E59]" />
           }
           allowClear={true}
         />
@@ -193,7 +193,7 @@ const TouristsFilters = () => {
           size="large"
           placeholder={t('fields.icon.select')}
           prefix={
-            <Location4Icon className="ml-1 mr-2 text-[16px] text-[#115E59]" />
+            <Location4Icon className="ml-1 mr-2 text-base text-[#115E59]" />
           }
           allowClear={true}
         />

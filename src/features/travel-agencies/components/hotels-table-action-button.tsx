@@ -26,7 +26,7 @@ const HotelsTableActionButton: FC<IProps> = ({ id, slug }) => {
         navigate(pathname + '/' + id + '?' + (slug ? 'slug=' + slug : ''))
       }
     >
-      <EyeIcon className="text-[20px]" />
+      <EyeIcon className="text-xl" />
       {t('common.more-details')}
     </Button>
   )

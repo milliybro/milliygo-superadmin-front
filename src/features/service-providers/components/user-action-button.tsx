@@ -25,10 +25,10 @@ const UserActionButton = ({
     <div className="flex items-center gap-6">
       <Button
         type="link"
-        className="text-[16px] font-medium px-0"
+        className="px-0 text-base font-medium"
         onClick={editHandler}
       >
-        <EyeIcon className="text-[20px]" /> {t('common.more-details')}
+        <EyeIcon className="text-xl" /> {t('common.more-details')}
       </Button>
     </div>
   )

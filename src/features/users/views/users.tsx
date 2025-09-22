@@ -74,7 +74,7 @@ const Users = () => {
     <div className="flex flex-1 flex-col gap-6 p-6">
       <div className="flex items-start justify-between">
         <div>
-          <div className="text-[24px] font-semibold text-primary-dark">
+          <div className="text-2xl font-semibold text-primary-dark">
             {t('common.users')}
           </div>
           {UsersData && (

@@ -14,6 +14,7 @@ import ViewOffIcon from '@/components/icons/view-off'
 import ViewIcon from '@/components/icons/view'
 
 export default function ResetPassword(): React.ReactElement {
+  const [step, setStep] = useState<1 | 2 | 3>(1)
   const [form] = Form.useForm()
   const authContext = useContext(AuthContext)
   const authStore = authContext?.authStore || {
@@ -71,10 +72,7 @@ export default function ResetPassword(): React.ReactElement {
     onInput,
   }
 
-  const [step, setStep] = useState<1 | 2 | 3>(1)
-
-  const nextStep = () =>
-    setStep(prev => (prev < 3 ? ((prev + 1) as 1 | 2 | 3) : prev))
+  const nextStep = () => setStep(prev => Math.min(prev + 1, 3) as 1 | 2 | 3)
 
   const [email, setEmail] = useState<string>('')
 
@@ -102,16 +100,16 @@ export default function ResetPassword(): React.ReactElement {
         <source src={videoBanner} type="video/mp4" />
       </video>
 
-      <div className="flex h-full w-full items-center justify-center bg-[#0F172A]/80">
+      <div className="flex h-full w-full items-center justify-center bg-[#0F172A]">
         <div className="w-[569px] rounded-2xl border border-[#3F416B] bg-[#1E293B99] p-[70px] backdrop-blur-sm">
           {step === 1 && (
             <div className="flex flex-col items-center">
               <ProjectLogo className="mb-6" />
 
-              <Typography.Text className="mb-4 text-[28px] font-semibold text-white">
+              <Typography.Text className="mb-4 text-[1.75rem] font-semibold text-white">
                 {t('common.reset-password')}
               </Typography.Text>
-              <Typography.Text className="mb-6 w-[400px] text-center text-base font-light text-white">
+              <Typography.Text className="mb-6 w-[400px] text-center text-base font-light text-[#B7BFD5]">
                 {t('common.edit-password-text')}
               </Typography.Text>
 
@@ -123,14 +121,10 @@ export default function ResetPassword(): React.ReactElement {
                   onFinish={onEmailFinish}
                 >
                   <div className="flex flex-col">
-                    <div className="mb-1">
-                      <span className="text-[14px]">
-                        {t('fields.email.label')}
-                      </span>
-                    </div>
                     <Form.Item
                       name="email"
                       className="group mb-4 [&_.ant-form-item-explain-error]:my-1 [&_.ant-form-item-explain-error]:text-sm [&_.ant-form-item-label_label]:text-white [&_.ant-form-item-required]:before:hidden"
+                      label={t('fields.email.label')}
                       rules={[
                         {
                           required: true,
@@ -175,10 +169,10 @@ export default function ResetPassword(): React.ReactElement {
             <div className="flex flex-col items-center">
               <ProjectLogo className="mb-6" />
 
-              <Typography.Text className="mb-4 text-[28px] font-semibold text-white">
+              <Typography.Text className="mb-4 text-[1.75rem] font-semibold text-white">
                 {t('common.confirmation')}
               </Typography.Text>
-              <Typography.Text className="mb-6 w-[400px] text-center text-base font-light text-white">
+              <Typography.Text className="mb-6 w-[400px] text-center text-base font-light text-[#B7BFD5]">
                 {t('common.edit-password-text')}
               </Typography.Text>
 
@@ -189,11 +183,14 @@ export default function ResetPassword(): React.ReactElement {
                   className="mb-6 w-full"
                   onFinish={onCodeFinish}
                 >
-                  <div className="flex flex-col  custom-otp">
+                  <div className="custom-otp flex flex-col">
                     <div className="mb-1">
-                      <span className="text-[14px]">{t('common.code')}</span>
+                      <span className="text-sm">{t('common.code')}</span>
                     </div>
-                    <Form.Item name="code" className="group mb-4 w-full">
+                    <Form.Item
+                      name="code"
+                      className="group mb-4 w-full [&_.ant-otp]:w-full"
+                    >
                       <Input.OTP
                         length={4}
                         {...sharedProps}
@@ -225,10 +222,10 @@ export default function ResetPassword(): React.ReactElement {
             <div className="flex flex-col items-center">
               <ProjectLogo className="mb-6" />
 
-              <Typography.Text className="mb-4 text-[28px] font-semibold text-white">
+              <Typography.Text className="mb-4 text-[1.75rem] font-semibold text-white">
                 {t('common.create-password')}
               </Typography.Text>
-              <Typography.Text className="mb-6 w-[400px] text-center text-base font-light text-white">
+              <Typography.Text className="mb-6 w-[400px] text-center text-base font-light text-[#B7BFD5]">
                 {t('common.create-password-desc')}
               </Typography.Text>
 
@@ -241,7 +238,7 @@ export default function ResetPassword(): React.ReactElement {
                 >
                   <div className="flex flex-col">
                     <div className="mb-1">
-                      <span className="text-[14px]">
+                      <span className="text-sm">
                         {t('common.new-password')}
                       </span>
                     </div>
@@ -280,7 +277,7 @@ export default function ResetPassword(): React.ReactElement {
                   </div>
                   <div className="flex flex-col">
                     <div className="mb-1">
-                      <span className="text-[14px]">
+                      <span className="text-sm">
                         {t('common.confirm-password')}
                       </span>
                     </div>
