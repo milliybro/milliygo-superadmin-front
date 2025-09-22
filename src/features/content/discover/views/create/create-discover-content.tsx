@@ -108,7 +108,7 @@ export default function CreateDiscoverContent() {
         onFinish={finishHandler}
         id="create-discover-form"
       >
-        <div className="flex w-full grow-0 basis-1/2 flex-col gap-6 rounded-2xl border p-6">
+        <div className="flex w-full grow-0 basis-1/2 flex-col gap-6 rounded-2xl border bg-white p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
             {t('content.add-content')}
           </Typography.Title>
