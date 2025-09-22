@@ -128,7 +128,7 @@ const GuidesTableActionButton: FC<IProps> = ({ id, type, refetch }) => {
                 {t('guides.reject-text')}
               </Typography.Title>
             </Flex>
-            <Typography.Text className="mb-6 text-base font-[400] text-[#777E90]">
+            <Typography.Text className="mb-6 text-base font-normal text-[#777E90]">
               {t('guides.reject-desc')}
             </Typography.Text>
           </div>

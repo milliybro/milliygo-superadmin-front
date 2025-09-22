@@ -30,11 +30,11 @@ const InvoiceControlPage = () => {
             <Typography.Text className="text-2xl font-semibold text-primary-dark">
               Контроль счетов-фактур
             </Typography.Text>
-            <Typography.Text className="flex items-center gap-1 text-base font-[500] text-[#2563EB]">
+            <Typography.Text className="flex items-center gap-1 text-base font-medium text-[#2563EB]">
               Иструкция <VideoReplayIcon />
             </Typography.Text>
           </div>
-          <Typography.Text className="text-sm font-[400] text-secondary">
+          <Typography.Text className="text-sm font-normal text-secondary">
             Здесь вы можете создать и настроить свою услугу.
           </Typography.Text>
         </div>

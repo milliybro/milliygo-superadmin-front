@@ -102,7 +102,7 @@ const TouristsFilters = () => {
       >
         <Input
           prefix={
-            <UserIcon className="ml-2 mr-4 text-base font-[600] text-[#115E59]" />
+            <UserIcon className="ml-2 mr-4 text-base font-semibold text-[#115E59]" />
           }
           size="large"
           placeholder={t('tourists.search-tourists')}

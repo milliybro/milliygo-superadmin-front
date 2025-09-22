@@ -152,7 +152,7 @@ const TouristDrawer = ({ open, onClose }: IProps) => {
         bodyStyle={{ padding: 0 }}
         width={500}
         title={
-          <Typography.Text className="text-lg font-[500]">
+          <Typography.Text className="text-lg font-medium">
             {t('tourists.tourist-information')}
           </Typography.Text>
         }
@@ -168,7 +168,7 @@ const TouristDrawer = ({ open, onClose }: IProps) => {
         }
       >
         <div className="mt-6 px-4">
-          <Typography.Text className="text-base font-[700]">
+          <Typography.Text className="text-base font-bold">
             {t('tourists.main-information')}
           </Typography.Text>
           <div className="mt-4 flex flex-col gap-4">
@@ -177,10 +177,10 @@ const TouristDrawer = ({ open, onClose }: IProps) => {
                 key={index}
                 className="flex w-full items-center justify-between"
               >
-                <Typography.Text className="text-sm font-[400]">
+                <Typography.Text className="text-sm font-normal">
                   {field.label}:
                 </Typography.Text>
-                <Typography.Text className="text-sm font-[500]">
+                <Typography.Text className="text-sm font-medium">
                   {field.value}
                 </Typography.Text>
               </div>
@@ -189,7 +189,7 @@ const TouristDrawer = ({ open, onClose }: IProps) => {
         </div>
         <Divider />
         <div className="mt-6 px-4">
-          <Typography.Text className="text-base font-[700]">
+          <Typography.Text className="text-base font-bold">
             {t('tourists.visa-information')}
           </Typography.Text>
           <div className="mt-4 flex flex-col gap-4">
@@ -198,10 +198,10 @@ const TouristDrawer = ({ open, onClose }: IProps) => {
                 key={index}
                 className="flex w-full items-center justify-between"
               >
-                <Typography.Text className="text-sm font-[400]">
+                <Typography.Text className="text-sm font-normal">
                   {field.label}:
                 </Typography.Text>
-                <Typography.Text className="text-sm font-[500]">
+                <Typography.Text className="text-sm font-medium">
                   {field.value}
                 </Typography.Text>
               </div>
@@ -210,7 +210,7 @@ const TouristDrawer = ({ open, onClose }: IProps) => {
         </div>
         <Divider />
         <div className="mb-6 mt-6 px-4">
-          <Typography.Text className="text-base font-[700]">
+          <Typography.Text className="text-base font-bold">
             {t('tourists.under-chilren')}
           </Typography.Text>
           <div className="mt-4 flex flex-col gap-4">
@@ -219,10 +219,10 @@ const TouristDrawer = ({ open, onClose }: IProps) => {
                 key={index}
                 className="flex w-full items-center justify-between"
               >
-                <Typography.Text className="text-sm font-[400]">
+                <Typography.Text className="text-sm font-normal">
                   {field.label}:
                 </Typography.Text>
-                <Typography.Text className="text-sm font-[500]">
+                <Typography.Text className="text-sm font-medium">
                   {field.value}
                 </Typography.Text>
               </div>

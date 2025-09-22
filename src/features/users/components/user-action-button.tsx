@@ -118,10 +118,10 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
             icon={<ResetPasswordIcon className="text-[#3276FF]" />}
           />
           <div className="mb-6 flex flex-col gap-[10px] text-center">
-            <Typography.Text className="text-2xl font-[700]">
+            <Typography.Text className="text-2xl font-bold">
               {t('common.reset-password')}
             </Typography.Text>
-            <Typography.Text className="text-base font-[500] text-secondary">
+            <Typography.Text className="text-base font-medium text-secondary">
               {t('common.reset-password-desc')}
             </Typography.Text>
           </div>
@@ -133,7 +133,7 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
                 icon={<ReloadOutlined />}
                 onClick={generatePassword}
                 loading={isUpdating}
-                className="m-0 p-0 text-sm font-[500]"
+                className="m-0 p-0 text-sm font-medium"
               >
                 {t('common.reset')}
               </Button>
