@@ -69,17 +69,17 @@ const ConfirmationModal: FC<IProps> = ({
             icon
               ? icon({
                   className: danger
-                    ? 'text-danger text-[26px]'
-                    : 'text-primary text-[26px]',
+                    ? 'text-danger text-2xl'
+                    : 'text-primary text-2xl',
                 })
               : icon({
                   className: warn
-                    ? 'text-warn text-[26px]'
-                    : 'text-primary text-[26px]',
+                    ? 'text-warn text-2xl'
+                    : 'text-primary text-2xl',
                 })
           }
         />
-        <Text className="mb-[10px] text-[24px] font-bold leading-[30.6px] text-primary-dark dark:text-white">
+        <Text className="mb-[10px] text-2xl font-bold leading-[30.6px] text-primary-dark dark:text-white">
           {title}
         </Text>
         <Text className="mb-[20px] leading-[25.6px] text-secondary">

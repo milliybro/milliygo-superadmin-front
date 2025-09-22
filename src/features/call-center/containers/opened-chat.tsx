@@ -220,9 +220,9 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
       closeIcon: null,
       className:
         'w-[406px] border-t-[5px] border-primary rounded-[12px] [&_.ant-notification-notice-message]:mb-0',
-      icon: <CheckmarkCircleIcon className="text-[24px] text-primary" />,
+      icon: <CheckmarkCircleIcon className="text-2xl text-primary" />,
       message: (
-        <Typography.Text className="text-[18px] font-semibold leading-[22.95px]">
+        <Typography.Text className="text-lg font-semibold leading-[22.95px]">
           So'rov yuborildi
         </Typography.Text>
       ),
@@ -232,11 +232,11 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
           <Button
             size="small"
             type="text"
-            className="grid place-items-center rounded-lg absolute right-[10px] top-[10px]"
+            className="absolute right-[10px] top-[10px] grid place-items-center rounded-lg"
             icon={<CloseIcon className="text-base" />}
             onClick={() => notification.destroy()}
           />
-          <Typography.Text className="text-secondary text-base">
+          <Typography.Text className="text-base text-secondary">
             Foydalanuvchi ma'lumotlarini olish uchun so'rov yuborildi
           </Typography.Text>
         </div>
@@ -244,11 +244,11 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
     })
   }
   return (
-    <main className="!col-span-4 flex-1  bg-white border flex flex-col overflow-hidden border-border rounded-[16px]">
-      <header className="p-4 border-b flex items-center justify-between text-center">
+    <main className="!col-span-4 flex flex-1 flex-col overflow-hidden rounded-[16px] border border-border bg-white">
+      <header className="flex items-center justify-between border-b p-4 text-center">
         <Button
           type="text"
-          icon={<ArrowLeftIcon className="text-[24px] text-primary-dark" />}
+          icon={<ArrowLeftIcon className="text-2xl text-primary-dark" />}
           onClick={() => setSelectedChat(null)}
         />
         <div>
@@ -262,7 +262,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
       </header>
 
       <div
-        className="relative flex-1 flex flex-col overflow-y-auto p-4 space-y-2"
+        className="relative flex flex-1 flex-col space-y-2 overflow-y-auto p-4"
         style={{ maxHeight: '580px', overflowY: 'auto', position: 'relative' }}
       >
         {[...(messages || [])]
@@ -277,28 +277,28 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
               }`}
             >
               {message?.admin?.type !== 'superuser' && (
-                <div className="size-[32px] border-border border mr-3 bg-secondary-light rounded-full overflow-hidden">
+                <div className="mr-3 size-[32px] overflow-hidden rounded-full border border-border bg-secondary-light">
                   <img
                     src={defaultUser}
                     alt="Avatar"
-                    className="w-full h-full object-cover"
+                    className="h-full w-full object-cover"
                   />
                 </div>
               )}
               <div
-                className={`rounded-lg p-3 w-fit max-w-[790px] min-w-[250px]  ${
+                className={`w-fit min-w-[250px] max-w-[790px] rounded-lg p-3 ${
                   message?.admin?.type === 'superuser'
-                    ? 'bg-blue-500 text-white rounded-tr-none'
-                    : 'bg-[#F8F8FA] rounded-tl-none text-primary-dark'
+                    ? 'rounded-tr-none bg-blue-500 text-white'
+                    : 'rounded-tl-none bg-[#F8F8FA] text-primary-dark'
                 }`}
               >
                 {message?.admin?.type !== 'superuser' ? (
-                  <h4 className="text-[14px] font-bold break-words">
+                  <h4 className="break-words text-sm font-bold">
                     {message?.admin?.username}
                   </h4>
                 ) : null}
 
-                <p className="text-[14px] break-words">{message?.content}</p>
+                <p className="break-words text-sm">{message?.content}</p>
                 {message?.file && (
                   <>
                     {message.file.endsWith('.jpg') ||
@@ -308,16 +308,16 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
                       <img
                         src={message.file}
                         alt="Uploaded"
-                        className="rounded-lg mt-2 w-40"
+                        className="mt-2 w-40 rounded-lg"
                       />
                     ) : (
                       <a
                         href={message.file}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-white underline-none mt-2 flex items-center gap-2"
+                        className="underline-none mt-2 flex items-center gap-2 text-white"
                       >
-                        <div className="bg-blue-500 rounded-full flex justify-center items-center border-[#ffffff] p-2 border w-10 h-10">
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#ffffff] bg-blue-500 p-2">
                           <FileIcon />
                         </div>
                         {message.file.substring(
@@ -329,7 +329,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
                 )}
 
                 <div
-                  className={`flex items-center justify-end gap-1 mt-1 text-xs ${
+                  className={`mt-1 flex items-center justify-end gap-1 text-xs ${
                     message?.admin?.type === 'superuser'
                       ? 'text-white'
                       : 'text-secondary'
@@ -342,7 +342,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
                     })}
                   </span>
                   {message?.admin?.type === 'superuser' ? (
-                    <TickDoubleIcon className="text-[16px] text-[#4DD282]" />
+                    <TickDoubleIcon className="text-base text-[#4DD282]" />
                   ) : null}
                 </div>
               </div>
@@ -357,10 +357,10 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
           </Button>
         </div>
       ) : null}
-      <footer className="p-4 border-t">
+      <footer className="border-t p-4">
         {selectedFile && (
           <div
-            className={`flex w-[150px] h-[100px] rounded-md ${
+            className={`flex h-[100px] w-[150px] rounded-md ${
               selectedFile ? '-mt-[100px] bg-slate-200' : 'bg-slate-200'
             }`}
           >
@@ -371,7 +371,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
               src={URL.createObjectURL(selectedFile)}
               width={100}
               height={100}
-              className="w-full h-full object-cover bg-slate-200 p-2 rounded-tr-md rounded-br-md"
+              className="h-full w-full rounded-br-md rounded-tr-md bg-slate-200 object-cover p-2"
               alt="file"
             />
           </div>
@@ -386,7 +386,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
             <Button
             onClick={handleButtonClick}
             type="text"
-            icon={<AttachmentIcon className="text-[24px] text-[#B7BFD5]" />}
+            icon={<AttachmentIcon className="text-2xl text-[#B7BFD5]" />}
             />
             </Upload> */}
           <Button
@@ -423,7 +423,7 @@ const OpenedChat: FC<IProps> = ({ selectedChat, setSelectedChat }) => {
           <Button
             loading={isSendingMessage}
             type="text"
-            icon={<SendIcon className="text-[24px] text-[#B7BFD5]" />}
+            icon={<SendIcon className="text-2xl text-[#B7BFD5]" />}
             // onClick={create}
             onClick={() => {
               if (messageText || selectedFile) {

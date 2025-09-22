@@ -89,7 +89,7 @@ export default function SignIn(): React.ReactElement {
           <div className="flex flex-col items-center">
             <ProjectLogo className="mb-6" />
 
-            <Typography.Text className="mb-4 text-[28px] font-semibold text-white">
+            <Typography.Text className="mb-4 text-[1.75rem] font-semibold text-white">
               {t('auth-page.welcome-title')}
             </Typography.Text>
             <Typography.Text className="mb-6 text-center text-base font-light text-white">
@@ -105,9 +105,7 @@ export default function SignIn(): React.ReactElement {
               >
                 <div className="flex flex-col">
                   <div className="mb-1">
-                    <span className="text-[14px]">
-                      {t('fields.email.label')}
-                    </span>
+                    <span className="text-sm">{t('fields.email.label')}</span>
                   </div>
                   <Form.Item
                     name="username"
@@ -133,7 +131,7 @@ export default function SignIn(): React.ReactElement {
 
                 <div className="flex flex-col">
                   <div className="mb-1 flex items-center justify-between">
-                    <span className="text-[14px]">
+                    <span className="text-sm">
                       {t('fields.password.label')}
                     </span>
 
@@ -144,14 +142,14 @@ export default function SignIn(): React.ReactElement {
                     >
                       <button
                         type="button"
-                        className="text-[14px] text-secondary"
+                        className="text-sm text-secondary"
                       >
                         {t('auth-page.recovery-modal.title')}
                       </button>
                     </SupportModal> */}
                     <button
                       type="button"
-                      className="text-[14px] text-secondary"
+                      className="text-sm text-secondary"
                       onClick={() => navigate('/reset')}
                     >
                       {t('auth-page.recovery-modal.title')}

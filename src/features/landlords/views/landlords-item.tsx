@@ -63,14 +63,14 @@ const LandlordsItem = () => {
   }, [data, t])
 
   return (
-    <div className="overflow-y-auto ">
+    <div className="overflow-y-auto">
       <div className="flex flex-1 flex-col gap-6 p-6">
-        <div className="text-[24px] font-semibold text-primary-dark">
+        <div className="text-2xl font-semibold text-primary-dark">
           {data?.apartment_name}
         </div>
 
         <div className="grid grid-cols-12 gap-4">
-          <div className="col-span-9 p-6 flex flex-col overflow-hidden rounded-[16px] border border-border bg-white">
+          <div className="col-span-9 flex flex-col overflow-hidden rounded-[16px] border border-border bg-white p-6">
             <LandlordsItemContent data={data} />
           </div>
           <div className="sticky top-6 col-span-3 flex h-fit flex-col gap-6 overflow-hidden rounded-[16px] border border-border bg-gradient-to-b from-[#14B8A61A] from-0% to-white to-35% p-6">
@@ -88,7 +88,7 @@ const LandlordsItem = () => {
                   </div>
                 )}
               </div>
-              <span className="text-[18px] font-semibold text-primary-dark">
+              <span className="text-lg font-semibold text-primary-dark">
                 {data?.apartment_name}
               </span>
               <div className="flex items-center gap-2">
@@ -98,7 +98,7 @@ const LandlordsItem = () => {
             </div>
             <div className="flex flex-col">
               <section>
-                <h2 className="mb-4 text-[14px] font-semibold text-primary-dark">
+                <h2 className="mb-4 text-sm font-semibold text-primary-dark">
                   {t('fields.balance.label')}
                 </h2>
                 <div className="space-y-3">
@@ -109,13 +109,13 @@ const LandlordsItem = () => {
                   <InfoRow
                     label={t('fields.balance.label')}
                     value=""
-                    valueClass="text-[16px] font-semibold"
+                    valueClass="text-base font-semibold"
                   />
                 </div>
               </section>
               <Divider className="border-border" />
               <section>
-                <h2 className="mb-4 text-[14px] font-semibold text-primary-dark">
+                <h2 className="mb-4 text-sm font-semibold text-primary-dark">
                   {t('common.additional')}
                 </h2>
                 <div className="space-y-3">

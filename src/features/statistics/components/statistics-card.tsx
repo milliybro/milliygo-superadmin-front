@@ -34,19 +34,19 @@ const StatisticsCard: FC<IProps> = props => {
             size={48}
             shape="square"
             className="shrink-0 rounded-lg bg-[#F8FAFC] text-primary-dark dark:bg-white/5 dark:text-white"
-            icon={<TrendingUpIcon className="text-[24px]" />}
+            icon={<TrendingUpIcon className="text-2xl" />}
           />
         </div>
         <div className="flex-1"></div>
         <div className="flex flex-col">
           <div className="flex items-center gap-1">
-            <Text className="text-[32px] font-bold text-primary-dark dark:text-white">
+            <Text className="text-[2rem] font-bold text-primary-dark dark:text-white">
               {value}
             </Text>
             {out_of || out_of === 0 ? (
               <Text className="text-success">/</Text>
             ) : null}
-            <Text className="text-[32px] font-bold text-primary-dark">
+            <Text className="text-[2rem] font-bold text-primary-dark">
               {unit || out_of}
             </Text>
           </div>
@@ -61,7 +61,7 @@ const StatisticsCard: FC<IProps> = props => {
               >
                 <TrendingUpIcon
                   className={twMerge(
-                    'text-[20px]',
+                    'text-xl',
                     props?.direction === 'down' ? 'rotate-180' : '',
                   )}
                 />

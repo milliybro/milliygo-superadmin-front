@@ -54,9 +54,9 @@ const RecreationModal = () => {
       closeIcon: null,
       className:
         'w-[406px] border-t-[5px] border-primary rounded-[12px] [&_.ant-notification-notice-message]:mb-0',
-      icon: <CheckmarkCircleIcon className="text-[24px] text-primary" />,
+      icon: <CheckmarkCircleIcon className="text-2xl text-primary" />,
       message: (
-        <Typography.Text className="text-[18px] font-semibold leading-[22.95px]">
+        <Typography.Text className="text-lg font-semibold leading-[22.95px]">
           {editUserId
             ? t('fields.user-notification.edit.message')
             : t('fields.user-notification.add.message')}
@@ -68,11 +68,11 @@ const RecreationModal = () => {
           <Button
             size="small"
             type="text"
-            className="grid place-items-center rounded-lg absolute right-[10px] top-[10px]"
+            className="absolute right-[10px] top-[10px] grid place-items-center rounded-lg"
             icon={<CloseIcon className="text-base" />}
             onClick={() => notification.destroy()}
           />
-          <Typography.Text className="text-secondary text-base">
+          <Typography.Text className="text-base text-secondary">
             {editUserId
               ? t('fields.user-notification.add.message')
               : t('fields.user-notification.edit.message')}
@@ -171,16 +171,16 @@ const RecreationModal = () => {
       <Button
         className="absolute right-[10px] top-[10px]"
         type="text"
-        icon={<CloseIcon className="text-[16px]" />}
+        icon={<CloseIcon className="text-base" />}
         onClick={closeHandler}
       />
-      <div className="flex items-center mb-6 flex-col text-center justify-center">
-        <div className="text-[24px] mb-2 text-primary-dark font-bold">
+      <div className="mb-6 flex flex-col items-center justify-center text-center">
+        <div className="mb-2 text-2xl font-bold text-primary-dark">
           {editUserId
             ? t('home-content.edit-recreation')
             : t('home-content.add-recreation')}
         </div>
-        <p className="text-secondary font-medium">
+        <p className="font-medium text-secondary">
           {t('home-content.desc-recreation')}
         </p>
       </div>
@@ -241,10 +241,10 @@ const RecreationModal = () => {
               <p className="ant-upload-drag-icon flex justify-center">
                 <AddCreateIcon />
               </p>
-              <p className="ant-upload-text text-[#232E40] text-base font-medium">
+              <p className="ant-upload-text text-base font-medium text-[#232E40]">
                 <a
                   style={{ textDecoration: 'underline' }}
-                  className="text-[#3276FF] me-1"
+                  className="me-1 text-[#3276FF]"
                 >
                   {t('fields.icon.select')}
                 </a>

@@ -54,7 +54,7 @@ function UploadedVideoField() {
           showUploadList={false}
           accept="video/*"
         >
-          <ImageUploadIcon className="text-[70px]" />
+          <ImageUploadIcon className="text-xl" />
           <Typography.Title className="m-0 text-base font-medium">
             {t('common.select_or_drag')}
           </Typography.Title>

@@ -24,9 +24,9 @@ const MainContent = () => {
   }, [])
 
   return (
-    <div className="p-6 flex flex-col gap-6 flex-1">
+    <div className="flex flex-1 flex-col gap-6 p-6">
       <div className="flex items-start justify-between">
-        <div className="text-[24px] text-primary-dark font-semibold">
+        <div className="text-2xl font-semibold text-primary-dark">
           {t('home-content.title')}
         </div>
       </div>

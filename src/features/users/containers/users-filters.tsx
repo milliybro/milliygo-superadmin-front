@@ -68,7 +68,7 @@ const UsersFilters = () => {
       >
         <Input
           prefix={
-            <UserSquareIcon className="ml-2 mr-4 text-[16px] text-secondary" />
+            <UserSquareIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           size="large"
           placeholder={t('fields.search-user.placeholder')}
@@ -86,7 +86,7 @@ const UsersFilters = () => {
             { label: t('common.women'), value: 'female' },
           ]}
           prefix={
-            <UserMultipleIcon className="ml-2 mr-4 text-[16px] text-secondary" />
+            <UserMultipleIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           size="large"
           placeholder={t('fields.gender.placeholder')}
@@ -109,7 +109,7 @@ const UsersFilters = () => {
           size="large"
           placeholder={t('fields.role.placeholder')}
           prefix={
-            <TimeManagementIcon className="ml-2 mr-4 text-[16px] text-secondary" />
+            <TimeManagementIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           // value={role}
           allowClear={true}
@@ -130,7 +130,7 @@ const UsersFilters = () => {
           size="large"
           placeholder={t('fields.status.placeholder')}
           prefix={
-            <UserStatusIcon className="ml-2 mr-4 text-[16px] text-secondary" />
+            <UserStatusIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           allowClear={true}
         />

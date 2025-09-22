@@ -10,9 +10,11 @@ interface IProps {
 
 const InfoRow: FC<IProps> = ({ label, value, valueClass }) => {
   return (
-    <div className="flex justify-between text-[14px]">
+    <div className="flex justify-between text-sm">
       <span className="text-primary-dark">{label}</span>
-      <span className={twMerge('text-primary-dark text-end', valueClass)}>{value}</span>
+      <span className={twMerge('text-end text-primary-dark', valueClass)}>
+        {value}
+      </span>
     </div>
   )
 }

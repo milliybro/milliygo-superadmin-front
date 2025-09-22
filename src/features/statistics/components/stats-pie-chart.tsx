@@ -68,13 +68,11 @@ const StatsPieChart: FC<IProps> = props => {
     <Card className={props.className} classNames={{ body: '!p-0' }}>
       <div
         className={twMerge(
-          'flex items-center justify-between px-6 border-b',
+          'flex items-center justify-between border-b px-6',
           props?.form ? 'py-3' : 'py-6',
         )}
       >
-        <h3 className="font-medium leading-[20px] text-[18px]">
-          {props?.title}
-        </h3>
+        <h3 className="text-lg font-medium leading-[20px]">{props?.title}</h3>
         {props.form ? (
           <Form form={props?.form}>
             <Form.Item name="date">
@@ -82,7 +80,7 @@ const StatsPieChart: FC<IProps> = props => {
                 picker="year"
                 size="large"
                 suffixIcon={
-                  <CalendarIcon className="text-[18px] text-success-dark" />
+                  <CalendarIcon className="text-lg text-success-dark" />
                 }
               />
             </Form.Item>
@@ -91,7 +89,7 @@ const StatsPieChart: FC<IProps> = props => {
       </div>
 
       <div className="grid grid-cols-2">
-        <div className="p-6 h-[295px] mx-auto">
+        <div className="mx-auto h-[295px] p-6">
           <Doughnut
             data={donutData}
             options={{
@@ -114,8 +112,8 @@ const StatsPieChart: FC<IProps> = props => {
           />
         </div>
 
-        <div className="border-l px-6 py-6 flex flex-col">
-          <div className="text-[30px] font-semibold mb-6">
+        <div className="flex flex-col border-l px-6 py-6">
+          <div className="mb-6 text-3xl font-semibold">
             {formatAmount(total)} {props?.unit}
           </div>
 
@@ -129,7 +127,7 @@ const StatsPieChart: FC<IProps> = props => {
                   key={item.label}
                   onClick={() => toggleVisibility(idx)}
                   className={twMerge(
-                    'flex items-center justify-between cursor-pointer group',
+                    'group flex cursor-pointer items-center justify-between',
                   )}
                 >
                   <div className="flex items-center gap-2">
@@ -142,8 +140,8 @@ const StatsPieChart: FC<IProps> = props => {
                     />
                     <span
                       className={twMerge(
-                        'text-sm font-medium transition text-[#9CA3AF]',
-                        isVisible ? '' : 'opacity-50 line-through',
+                        'text-sm font-medium text-[#9CA3AF] transition',
+                        isVisible ? '' : 'line-through opacity-50',
                       )}
                     >
                       {item?.label}
@@ -152,7 +150,7 @@ const StatsPieChart: FC<IProps> = props => {
 
                   <span
                     className={`text-sm font-medium text-primary-dark transition ${
-                      isVisible ? '' : ' opacity-50 line-through'
+                      isVisible ? '' : 'line-through opacity-50'
                     }`}
                   >
                     {formatAmount(value)} {props?.unitShort}

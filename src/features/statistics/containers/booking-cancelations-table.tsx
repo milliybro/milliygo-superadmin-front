@@ -136,12 +136,12 @@ const data: BookingData[] = [
 const BookingCancelationsTable: FC<IProps> = props => {
   return (
     <Card classNames={{ body: '!p-0' }} className={twMerge(props.className)}>
-      <div className="flex items-center border-b justify-between py-[18px] px-6">
-        <div className="text-[18px] font-medium">
+      <div className="flex items-center justify-between border-b px-6 py-[18px]">
+        <div className="text-lg font-medium">
           Количество и причины отмены бронирования
         </div>
-        <div className="flex items-center gap-1 text-primary font-medium">
-          Посмотреть все <ArrowUpRightIcon className='font-[600]' />
+        <div className="flex items-center gap-1 font-medium text-primary">
+          Посмотреть все <ArrowUpRightIcon className="font-semibold" />
         </div>
       </div>
       <Table
@@ -149,7 +149,7 @@ const BookingCancelationsTable: FC<IProps> = props => {
         dataSource={data}
         pagination={false}
         bordered
-        className="p-6 custom-table-2"
+        className="custom-table-2 p-6"
         rootClassName=""
       />
     </Card>

@@ -131,9 +131,9 @@ const AccessRoleAction = () => {
   })
 
   return (
-    <div className="p-6 flex flex-col gap-6 flex-1">
-      <div className="text-[24px] text-primary-dark font-semibold">
-        <div className="text-[24px] text-primary-dark font-semibold">
+    <div className="flex flex-1 flex-col gap-6 p-6">
+      <div className="text-2xl font-semibold text-primary-dark">
+        <div className="text-2xl font-semibold text-primary-dark">
           {isEditMode
             ? t('access-role-page.edit-role')
             : t('access-role-page.create-role')}
@@ -144,12 +144,12 @@ const AccessRoleAction = () => {
         form={form}
         name="access-role-action"
         layout="vertical"
-        className="w-full h-full"
+        className="h-full w-full"
         onFinish={values => handleRoleSave(values)}
       >
-        <div className="grid grid-cols-2 gap-6 h-full">
-          <div className="bg-white border flex-col p-6 overflow-hidden border-border rounded-[16px]">
-            <div className="flex items-center gap-6 mb-6">
+        <div className="grid h-full grid-cols-2 gap-6">
+          <div className="flex-col overflow-hidden rounded-[16px] border border-border bg-white p-6">
+            <div className="mb-6 flex items-center gap-6">
               <Form.Item
                 name="roleName"
                 label={t('fields.role-name.label')}
@@ -162,14 +162,14 @@ const AccessRoleAction = () => {
                 />
               </Form.Item>
               <div className="flex flex-col">
-                <div className="text-primary-dark mb-2 text-[14px]">
+                <div className="mb-2 text-sm text-primary-dark">
                   {t('fields.role-status.label')}
                 </div>
                 <div className="flex items-center gap-2">
                   <Form.Item name="status" valuePropName="checked">
                     <Switch />
                   </Form.Item>
-                  <span className="text-[14px] text-secondary">
+                  <span className="text-sm text-secondary">
                     {statusField ? t('common.active') : t('common.inactive')}
                   </span>
                 </div>
@@ -180,9 +180,9 @@ const AccessRoleAction = () => {
               label={t('fields.functionality.label')}
             >
               <Tree
-                switcherIcon={<AddCircleIcon className="!text-[24px]" />}
+                switcherIcon={<AddCircleIcon className="!text-2xl" />}
                 checkable
-                className="[&_.ant-tree-treenode]:!w-full select-none [&_.ant-tree-treenode]:!m-0 [&_.ant-tree-indent]:!hidden border [&_.ant-tree-switcher]:!aspect-square [&_.ant-tree-switcher]:!size-[28.5px] [&_.ant-tree-switcher]:!justify-center [&_.ant-tree-switcher]:!items-center [&_.ant-tree-switcher]:!flex [&_.ant-tree-checkbox]:!order-1 [&_.ant-tree-node-content-wrapper]:!flex-1 [&_.ant-tree-list-holder-inner]:!divide-y [&_.ant-tree-treenode]:!p-3"
+                className="select-none border [&_.ant-tree-checkbox]:!order-1 [&_.ant-tree-indent]:!hidden [&_.ant-tree-list-holder-inner]:!divide-y [&_.ant-tree-node-content-wrapper]:!flex-1 [&_.ant-tree-switcher]:!flex [&_.ant-tree-switcher]:!aspect-square [&_.ant-tree-switcher]:!size-[28.5px] [&_.ant-tree-switcher]:!items-center [&_.ant-tree-switcher]:!justify-center [&_.ant-tree-treenode]:!m-0 [&_.ant-tree-treenode]:!w-full [&_.ant-tree-treenode]:!p-3"
                 treeData={treeData}
                 onCheck={handleTreeSelect}
                 selectable={false}
@@ -191,12 +191,12 @@ const AccessRoleAction = () => {
             </Form.Item>
           </div>
 
-          <div className="flex flex-col justify-between bg-white border flex-col p-6 overflow-hidden border-border rounded-[16px]">
+          <div className="flex flex-col justify-between overflow-hidden rounded-[16px] border border-border bg-white p-6">
             <div className="flex flex-wrap gap-4">
               {selectedKeys.map((key: string) => (
                 <div
                   key={key}
-                  className="pl-3 flex items-center text-[14px] rounded-[5px] text-primary-dark bg-[#F4F5F7]"
+                  className="flex items-center rounded-[5px] bg-[#F4F5F7] pl-3 text-sm text-primary-dark"
                   onClick={() => {
                     setSelectedKeys(
                       selectedKeys.filter((item: string) => item !== key),
@@ -208,7 +208,7 @@ const AccessRoleAction = () => {
                     size="small"
                     type="text"
                     className="aspect-square"
-                    icon={<CloseIcon className="text-[16px] text-[#707D9F]" />}
+                    icon={<CloseIcon className="text-base text-[#707D9F]" />}
                   />
                 </div>
               ))}

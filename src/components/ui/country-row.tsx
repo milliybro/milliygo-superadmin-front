@@ -20,17 +20,17 @@ const CountryRow: FC<IProps> = ({ label, value, valueClass }: any) => {
     : null
 
   return (
-    <div className="flex justify-between text-[14px]">
+    <div className="flex justify-between text-sm">
       <span className="text-primary-dark">{label}</span>
       <span
         className={twMerge(
-          'text-primary-dark text-end flex items-center gap-2',
+          'flex items-center gap-2 text-end text-primary-dark',
           valueClass,
         )}
       >
         {value}
         {flagUrl && (
-          <img src={flagUrl} alt="flag" className="w-5 h-3 object-cover" />
+          <img src={flagUrl} alt="flag" className="h-3 w-5 object-cover" />
         )}
       </span>
     </div>

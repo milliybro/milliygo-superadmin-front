@@ -118,14 +118,14 @@ const GuideViewModal = () => {
         <Button
           className="absolute right-[10px] top-[10px]"
           type="text"
-          icon={<CloseIcon className="text-[16px]" />}
+          icon={<CloseIcon className="text-base" />}
           onClick={closeHandler}
         />
         <div className="mb-6 flex flex-col items-center justify-center text-center">
           <div className="mb-4 flex size-[62px] shrink-0 items-center justify-center rounded-full border-[8px] border-[#EFF6FF] bg-[#DBEAFE]">
-            <UserIcon className="text-[24px] text-primary" />
+            <UserIcon className="text-2xl text-primary" />
           </div>
-          <div className="mb-2 text-[24px] font-bold text-primary-dark">
+          <div className="mb-2 text-2xl font-bold text-primary-dark">
             {t('guides.info-guide')}
           </div>
         </div>
@@ -142,17 +142,17 @@ const GuideViewModal = () => {
             { label: t('hotel-guest.phone'), value: data?.phone },
           ].map((item, i) => (
             <div key={i} className="flex justify-between">
-              <Typography.Text className="text-[14px] font-[400]">
+              <Typography.Text className="text-sm font-normal">
                 {item.label}
               </Typography.Text>
-              <Typography.Text className="text-[14px] font-[500]">
+              <Typography.Text className="text-sm font-medium">
                 {item.value}
               </Typography.Text>
             </div>
           ))}
 
           <div className="mt-1 flex items-center justify-between">
-            <Typography.Text className="text-[14px] font-[400]">
+            <Typography.Text className="text-sm font-normal">
               {t('guides.license')}
             </Typography.Text>
             <Button
@@ -170,7 +170,7 @@ const GuideViewModal = () => {
               }}
             >
               <DownloadIcon className="" />
-              <Typography.Text className="ml-1 text-[14px] font-[500] text-[#2563EB]">
+              <Typography.Text className="ml-1 text-sm font-medium text-[#2563EB]">
                 {t('guides.download')}
               </Typography.Text>
             </Button>
@@ -178,7 +178,7 @@ const GuideViewModal = () => {
         </div>
         <div className="mt-9 flex justify-center gap-4">
           <Button
-            className="border border-[#991B1B] bg-[#FCA5A5] font-[600] text-[#991B1B]"
+            className="border border-[#991B1B] bg-[#FCA5A5] font-semibold text-[#991B1B]"
             onClick={() => {
               setReportModalOpen(true)
             }}
@@ -186,7 +186,7 @@ const GuideViewModal = () => {
             {t('guides.cancel')}
           </Button>
           <Button
-            className="border border-[#4DD282] bg-[#4DD282] font-[600] text-white"
+            className="border border-[#4DD282] bg-[#4DD282] font-semibold text-white"
             loading={isPending}
             onClick={() => mutate({ guide_status: 'accepted' })}
           >
@@ -208,7 +208,7 @@ const GuideViewModal = () => {
                 {t('guides.reject-text')}
               </Typography.Title>
             </Flex>
-            <Typography.Text className="mb-6 text-[16px] font-[400] text-[#777E90]">
+            <Typography.Text className="mb-6 text-base font-normal text-[#777E90]">
               {t('guides.reject-desc')}
             </Typography.Text>
           </div>

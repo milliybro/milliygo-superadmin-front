@@ -21,14 +21,10 @@ const TouristsByRegionChart: FC<{ className?: string }> = ({ className }) => {
       <div className="sticky top-0 flex flex-col border-b p-4">
         <div className="flex justify-between">
           <div>
-            <h2 className="text-[20px] font-bold">Туристы по стране</h2>
-            <span className="text-[14px] text-[#777E90]">
-              Последние 30 дней
-            </span>
+            <h2 className="text-xl font-bold">Туристы по стране</h2>
+            <span className="text-sm text-[#777E90]">Последние 30 дней</span>
           </div>
-          <span className="text-[20px] font-bold">
-            {touristStatistics.total}
-          </span>
+          <span className="text-xl font-bold">{touristStatistics.total}</span>
         </div>
       </div>
       <div className="flex max-h-[378px] flex-col space-y-3 overflow-auto p-4">
@@ -42,7 +38,7 @@ const TouristsByRegionChart: FC<{ className?: string }> = ({ className }) => {
                 className="h-[10px] rounded-[10px] bg-[#2CBE88]"
                 style={{ width: `${item.percent}%` }}
               ></div>
-              <span className="w-[40px] shrink-0 text-end text-[16px] font-medium text-primary-dark">
+              <span className="w-[40px] shrink-0 text-end text-base font-medium text-primary-dark">
                 {Math.round(item.percent)}%
               </span>
             </div>

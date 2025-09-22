@@ -139,9 +139,9 @@ const ChatsList: FC<IProps> = ({
   }, [user_id])
 
   return (
-    <aside className="!col-span-2 bg-white border flex-col overflow-hidden border-border rounded-[16px]">
+    <aside className="!col-span-2 flex-col overflow-hidden rounded-[16px] border border-border bg-white">
       <Spin spinning={isLoading}>
-        <ul className=" divide-y overflow-scroll h-[720px]">
+        <ul className="h-[720px] divide-y overflow-scroll">
           {chats?.length > 0 ? (
             chats
               ?.slice()
@@ -149,14 +149,14 @@ const ChatsList: FC<IProps> = ({
               ?.map((chat, i: number) => (
                 <li
                   key={chat.id}
-                  className={`select-none flex items-center gap-4 duration-200 py-4 px-6 hover:bg-gray-100 cursor-pointer ${
+                  className={`flex cursor-pointer select-none items-center gap-4 px-6 py-4 duration-200 hover:bg-gray-100 ${
                     selectedChat?.id === chat.id ? 'bg-primary-light/50' : ''
                   }`}
                   onClick={() => handleChatSelect(chat)}
                 >
-                  <span className="p-0 m-0">{i + 1}.</span>
-                  <div className="flex justify-between w-full p-0 m-0">
-                    <div className="ms-0 ps-0 flex items-center gap-4">
+                  <span className="m-0 p-0">{i + 1}.</span>
+                  <div className="m-0 flex w-full justify-between p-0">
+                    <div className="ms-0 flex items-center gap-4 ps-0">
                       {/* <div className="size-[48px] rounded-full border-border border bg-secondary-light" /> */}
                       <Avatar
                         size={48}
@@ -164,7 +164,7 @@ const ChatsList: FC<IProps> = ({
                         alt="user avatar image"
                       />
                       <div>
-                        <p className="text-[16px] font-bold text-primary-dark truncate w-[210px]">
+                        <p className="w-[210px] truncate text-base font-bold text-primary-dark">
                           {chat?.chat_detail?.first_name
                             ? chat?.chat_detail?.first_name +
                               ' ' +
@@ -172,7 +172,7 @@ const ChatsList: FC<IProps> = ({
                             : `ID: ` + chat?.chat_detail?.id}
                         </p>
                         <p
-                          className="text-sm text-gray-500 truncate w-[210px]"
+                          className="w-[210px] truncate text-sm text-gray-500"
                           title={chat?.last_message?.content ?? ''}
                         >
                           {chat?.last_message?.content}
@@ -180,13 +180,13 @@ const ChatsList: FC<IProps> = ({
                       </div>
                     </div>
                     <div className="inline-flex shrink-0 flex-col items-end gap-2">
-                      <span className="text-[12px] text-secondary">
+                      <span className="text-xs text-secondary">
                         {chat?.last_message?.created_at
                           ? formatDate(chat.last_message.created_at)
                           : '00:00'}
                       </span>
                       {chat?.unread_messages_count !== 0 ? (
-                        <span className="size-[20px] rounded-full bg-primary overflow-hidden flex items-center justify-center text-white text-[14px]">
+                        <span className="flex size-[20px] items-center justify-center overflow-hidden rounded-full bg-primary text-sm text-white">
                           {chat?.unread_messages_count}
                         </span>
                       ) : null}
@@ -195,7 +195,7 @@ const ChatsList: FC<IProps> = ({
                 </li>
               ))
           ) : (
-            <p className="h-full text-gray-500 flex flex-row justify-center items-center pt-8">
+            <p className="flex h-full flex-row items-center justify-center pt-8 text-gray-500">
               {t('common.no-chat')}
             </p>
           )}

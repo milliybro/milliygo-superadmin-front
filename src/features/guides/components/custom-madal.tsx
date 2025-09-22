@@ -26,7 +26,7 @@ export default function CustomModal(props: IProps): ReactElement {
     >
       <Button
         shape="circle"
-        className="rounded-2xl !border-[#B7BFD5]/20 text-[#777E90] absolute right-5 top-5 z-10 flex justify-center items-center"
+        className="absolute right-5 top-5 z-10 flex items-center justify-center rounded-2xl !border-[#B7BFD5]/20 text-[#777E90]"
         onClick={props.onCancel}
         aria-label="cancel"
       >
@@ -35,7 +35,7 @@ export default function CustomModal(props: IProps): ReactElement {
 
       <Flex vertical gap={32}>
         {modalIcon && (
-          <div className="h-[80px] rounded-3xl mx-auto w-[80px] text-secondary leading-[80px] bg-[#F8F8FA] flex items-center justify-center">
+          <div className="mx-auto flex h-[80px] w-[80px] items-center justify-center rounded-3xl bg-[#F8F8FA] leading-[80px] text-secondary">
             {modalIcon}
           </div>
         )}
@@ -45,14 +45,14 @@ export default function CustomModal(props: IProps): ReactElement {
             {modalTitle && (
               <Typography.Title
                 level={3}
-                className={twMerge('text-center mb-4', modalClassName || '')}
+                className={twMerge('mb-4 text-center', modalClassName || '')}
               >
                 {modalTitle}
               </Typography.Title>
             )}
 
             {modalDesc && (
-              <Typography.Text className="text-center text-[18px] text-secondary">
+              <Typography.Text className="text-center text-lg text-secondary">
                 {modalDesc}
               </Typography.Text>
             )}

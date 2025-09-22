@@ -17,7 +17,7 @@ const GuidesTable = ({
   isLoading,
   pageSize,
   type,
-  refetch
+  refetch,
 }: any) => {
   const { t } = useTranslation()
   const columns: TableColumnsType<IGuidesTable> = [
@@ -41,7 +41,7 @@ const GuidesTable = ({
             width={36}
             className="h-9 w-9 rounded-[8px] object-cover"
           />
-          <span className="text-[14px] font-medium text-primary-dark">{_}</span>
+          <span className="text-sm font-medium text-primary-dark">{_}</span>
         </div>
       ),
     },
@@ -92,7 +92,9 @@ const GuidesTable = ({
       width: 1,
       title: 'common.action',
       dataIndex: 'id',
-      render: val => <GuidesTableActionButton id={val} type={type} refetch={refetch} />,
+      render: val => (
+        <GuidesTableActionButton id={val} type={type} refetch={refetch} />
+      ),
     },
   ]
 

@@ -71,9 +71,9 @@ const UserModal = ({ refetch }: UserModalProps) => {
       closeIcon: null,
       className:
         'w-[406px] border-t-[5px] border-primary rounded-[12px] [&_.ant-notification-notice-message]:mb-0',
-      icon: <CheckmarkCircleIcon className="text-[24px] text-primary" />,
+      icon: <CheckmarkCircleIcon className="text-2xl text-primary" />,
       message: (
-        <Typography.Text className="text-[18px] font-semibold leading-[22.95px]">
+        <Typography.Text className="text-lg font-semibold leading-[22.95px]">
           {editUserId
             ? t('fields.user-notification.edit.message')
             : t('fields.user-notification.add.message')}
@@ -178,19 +178,19 @@ const UserModal = ({ refetch }: UserModalProps) => {
         <Button
           className="absolute right-[10px] top-[10px]"
           type="text"
-          icon={<CloseIcon className="text-[16px]" />}
+          icon={<CloseIcon className="text-base" />}
           onClick={closeHandler}
           disabled={handleUserSave.isPending}
         />
         <div className="mb-6 flex flex-col items-center justify-center text-center">
           <div className="mb-4 flex size-[62px] shrink-0 items-center justify-center rounded-full border-[8px] border-[#EFF6FF] bg-[#DBEAFE]">
             {editUserId ? (
-              <Edit2Icon className="text-[24px] text-primary" />
+              <Edit2Icon className="text-2xl text-primary" />
             ) : (
-              <UserIcon className="text-[24px] text-primary" />
+              <UserIcon className="text-2xl text-primary" />
             )}
           </div>
-          <div className="mb-2 text-[24px] font-bold text-primary-dark">
+          <div className="mb-2 text-2xl font-bold text-primary-dark">
             {editUserId ? t('users-page.edit-user') : t('users-page.add-user')}
           </div>
           <p className="font-medium text-secondary">
@@ -348,7 +348,8 @@ const UserModal = ({ refetch }: UserModalProps) => {
                 required: true,
                 message: t('fields.login.validation-message-required'),
               },
-              { type: 'email',
+              {
+                type: 'email',
                 message: t('fields.email.validation-message-invalid'),
               },
             ]}

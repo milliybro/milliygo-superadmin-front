@@ -57,9 +57,7 @@ const GuidesFilters = () => {
         name="schema_name__icontains"
       >
         <Input
-          prefix={
-            <HotelIcon className="text-[16px] text-secondary ml-2 mr-4" />
-          }
+          prefix={<HotelIcon className="ml-2 mr-4 text-base text-secondary" />}
           size="large"
           placeholder={t('fields.hotel-search.placeholder')}
           className="select-shadow"
@@ -69,7 +67,7 @@ const GuidesFilters = () => {
       <Form.Item label={t('fields.login.label')} name="username__icontains">
         <Input
           prefix={
-            <TimeManagementIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <TimeManagementIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           size="large"
           placeholder={t('fields.login.validation-message-required')}
@@ -83,7 +81,7 @@ const GuidesFilters = () => {
           size="large"
           placeholder={t('fields.contact-person.placeholder')}
           prefix={
-            <UserMultipleIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <UserMultipleIcon className="text-base text-secondary ml-2 mr-4" />
           }
         />
       </Form.Item> */}
@@ -94,11 +92,11 @@ const GuidesFilters = () => {
             { label: t('common.inactive'), value: '0' },
           ]}
           suffixIcon={null}
-          className="w-full select-shadow h-[47px]"
+          className="select-shadow h-[47px] w-full"
           size="large"
           placeholder={t('fields.status.placeholder')}
           prefix={
-            <UserStatusIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <UserStatusIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           allowClear
         />

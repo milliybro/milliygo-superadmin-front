@@ -88,7 +88,7 @@ const AgentsFilters = () => {
   return (
     <Form
       layout="vertical"
-      className="grid grid-cols-2 gap-4 w-full"
+      className="grid w-full grid-cols-2 gap-4"
       onValuesChange={handleValuesChange}
       form={form}
     >
@@ -99,7 +99,7 @@ const AgentsFilters = () => {
       >
         <Input
           prefix={
-            <UserSquareIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <UserSquareIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           size="large"
           placeholder={t('tourists.search-tourists')}
@@ -118,11 +118,11 @@ const AgentsFilters = () => {
               label: region.name,
               value: region.id,
             }))}
-          className="w-full select-shadow h-[47px]"
+          className="select-shadow h-[47px] w-full"
           size="large"
           placeholder={t('fields.icon.select')}
           prefix={
-            <Location4Icon className="text-[16px] text-secondary ml-2 mr-4" />
+            <Location4Icon className="ml-2 mr-4 text-base text-secondary" />
           }
           allowClear={true}
         />
@@ -141,7 +141,7 @@ const AgentsFilters = () => {
           size="large"
           placeholder={t('fields.icon.select')}
           prefix={
-            <Location4Icon className="text-[16px] text-secondary ml-2 mr-4" />
+            <Location4Icon className="text-base text-secondary ml-2 mr-4" />
           }
           allowClear={true}
         />
