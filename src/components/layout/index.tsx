@@ -8,7 +8,10 @@ const Layout: FC<{ children: ReactNode }> = ({ children }) => {
     <div className="flex h-screen bg-[#F8FAFC]">
       <Sidebar />
 
-      <div className="relative flex-1 flex flex-col overflow-y-auto">
+      <div
+        className="relative flex flex-1 flex-col overflow-y-auto"
+        id="main-content"
+      >
         <Header />
         {children}
       </div>

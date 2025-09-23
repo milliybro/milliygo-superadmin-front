@@ -27,6 +27,7 @@ import QuillEditor from '../../components/quill-editor'
 import { useImageCompression } from '@/hooks/use-image-compression'
 import type { Rule } from 'antd/es/form'
 import type { RcFile } from 'antd/es/upload'
+import { useExpertAdviceImage } from '../store/expert-advice-image'
 
 type CreateExpertAdviceValues = {
   title: string
@@ -40,13 +41,13 @@ export default function CreateExpertAdvice() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const { compress, isCompressing } = useImageCompression()
+  const { setImage, image, removeImage } = useExpertAdviceImage()
   const { t } = useTranslation()
   const queryClient = useQueryClient()
 
   const { setBreadCrumbs } = useBreadCrumbsStore()
 
   const [form] = Form.useForm()
-  const imageField = Form.useWatch('image', form)
   const isEditing = pathname.includes('/edit')
 
   const expertAdviceItem = useQuery({
@@ -63,15 +64,23 @@ export default function CreateExpertAdvice() {
       { title: t('routes.content'), href: '/content/expert-advice' },
       { title: t('routes.expert-advices') },
     ])
+
+    return () => {
+      setImage(null)
+    }
   }, [])
 
   useEffect(() => {
     if (expertAdviceItem?.data) {
       form.setFieldsValue({
         ...expertAdviceItem.data,
-        image: {
-          url: expertAdviceItem.data?.image || [],
-        },
+        image: { url: expertAdviceItem.data?.image || [] },
+        file: null,
+      })
+
+      setImage({
+        url: expertAdviceItem.data?.image,
+        file: null,
       })
     }
   }, [expertAdviceItem.data])
@@ -79,7 +88,8 @@ export default function CreateExpertAdvice() {
   const uploadImagesRules: Rule[] = [
     {
       validator: (_, value) => {
-        if (!value) {
+        console.log(value, image)
+        if (!value || (!image?.file && !image?.url)) {
           return Promise.reject(new Error(t('fields.images.required')))
         }
 
@@ -95,7 +105,10 @@ export default function CreateExpertAdvice() {
       formData.append('title', values.title)
       formData.append('description', values.description)
       formData.append('content', values.content)
-      formData.append('image', values.image)
+      if (image?.file && image?.resized) {
+        formData.append('image', image?.file)
+        formData.append('resized_image', image?.resized)
+      }
       formData.append('type', '1')
 
       if (isEditing && params?.slug) {
@@ -117,8 +130,13 @@ export default function CreateExpertAdvice() {
   })
 
   const beforeUploadHandler = async (file: RcFile) => {
-    const compressed = await compress(file)
-    if (compressed?.compressedFile) {
+    const compressed = await compress(file, { width: 588, height: 320 })
+    if (compressed) {
+      setImage({
+        file: compressed?.compressedFile,
+        url: URL.createObjectURL(compressed?.compressedFile),
+        resized: compressed?.resizedFile,
+      })
       form.setFieldValue('image', compressed?.compressedFile)
     }
 
@@ -131,10 +149,6 @@ export default function CreateExpertAdvice() {
     return false
   }
 
-  const removeHandler = () => {
-    form.setFieldValue('image', undefined)
-  }
-
   return (
     <div className="mb-[200px] flex flex-col gap-5">
       <Typography.Title level={3} className="text-2xl font-semibold">
@@ -145,6 +159,13 @@ export default function CreateExpertAdvice() {
         form={form}
         layout="vertical"
         onFinish={createOrUpdate.mutate}
+        onFinishFailed={info => {
+          console.log(info)
+          const contentDiv = document.getElementById('main-content')
+          if (contentDiv) {
+            contentDiv.scroll({ top: 300, behavior: 'smooth' })
+          }
+        }}
       >
         <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border bg-white p-6">
           <Typography.Title level={5} className="mb-0 text-xl font-medium">
@@ -189,27 +210,32 @@ export default function CreateExpertAdvice() {
                 className="resize-none"
               />
             </Form.Item>
+            <div>
+              <Form.Item name="image" hidden rules={uploadImagesRules}>
+                <Input hidden />
+              </Form.Item>
+            </div>
 
             <div className="flex flex-col">
               <div className="mb-[5px] text-sm">{t('fields.images.label')}</div>
-              {imageField ? (
+              {image?.file || image?.url ? (
                 <div className="relative flex aspect-square h-[212px] overflow-hidden rounded-xl border">
-                  {imageField ? (
-                    <Image
-                      src={
-                        imageField?.url
-                          ? imageField?.url
-                          : URL.createObjectURL(imageField)
-                      }
-                      preview={{ toolbarRender: () => null }}
-                      wrapperClassName="h-full w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:object-cover"
-                    />
-                  ) : null}
+                  <Image
+                    src={
+                      image?.url
+                        ? image?.url
+                        : image?.file
+                          ? URL.createObjectURL(image?.file)
+                          : ''
+                    }
+                    preview={{ toolbarRender: () => null }}
+                    wrapperClassName="h-full w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:object-cover"
+                  />
                   <Button
                     danger
                     size="small"
                     className="absolute right-2 top-2"
-                    onClick={removeHandler}
+                    onClick={removeImage}
                   >
                     {t('common.delete')}
                   </Button>
@@ -236,11 +262,6 @@ export default function CreateExpertAdvice() {
                   </Typography.Paragraph>
                 </Upload.Dragger>
               )}
-              <Form.Item
-                name="image"
-                className="m-0 [&_.ant-form-item-control-input]:min-h-0"
-                rules={uploadImagesRules}
-              />
             </div>
           </div>
         </div>
