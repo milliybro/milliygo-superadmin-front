@@ -105,7 +105,7 @@ export default function CreateInstagramContent() {
   const uploadImagesRules: Rule[] = [
     {
       validator: (_, value) => {
-        if (!value) {
+        if (!value || (!image?.file && !image?.url)) {
           return Promise.reject(new Error(t('fields.images.required')))
         }
 
