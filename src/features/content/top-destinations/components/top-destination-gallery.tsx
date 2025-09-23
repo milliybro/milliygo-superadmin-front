@@ -8,7 +8,7 @@ import { useTopDestinationImage } from '../hooks/use-top-destination-image'
 export default function TopDestinationGallery() {
   const { t } = useTranslation()
   const { images, addImage, removeImage } = useTopDestinationImage()
-  const { compress, isCompressing } = useImageCompression()
+  const { compress, isCompressing } = useImageCompression(true)
 
   const handleUpload: UploadProps['beforeUpload'] = async file => {
     // if (file?.size && file?.size > 5 * 1024 * 1024) {
@@ -18,9 +18,17 @@ export default function TopDestinationGallery() {
     //   return
     // }
 
-    const compressed = await compress(file)
-    if (compressed) {
-      addImage({ file: file, url: URL.createObjectURL(file) })
+    const resizeOptions =
+      images?.length === 0 ? { width: 292, height: 292 } : undefined
+
+    const compressionRes = await compress(file, resizeOptions)
+
+    if (compressionRes) {
+      addImage({
+        file: compressionRes.compressedFile,
+        url: URL.createObjectURL(compressionRes.compressedFile),
+        resized: compressionRes?.resizedFile,
+      })
     }
 
     return false
@@ -37,7 +45,7 @@ export default function TopDestinationGallery() {
           beforeUpload={handleUpload}
           disabled={isCompressing}
         >
-          <ImageUploadIcon className="text-xl" />
+          <ImageUploadIcon className="text-[4.375rem]" />
           <Typography.Title className="m-0 text-base font-medium">
             {t('common.select_or_drag')}
           </Typography.Title>
@@ -47,7 +55,7 @@ export default function TopDestinationGallery() {
         </Upload.Dragger>
       </Form.Item>
       {images.length > 0 && (
-        <div className="max-w-full overflow-x-auto overflow-y-hidden">
+        <div className="max-w-full overflow-x-auto text- overflow-y-hidden">
           <Image.PreviewGroup preview>
             <div className="flex items-center gap-3">
               {images.map((img, i) => (

@@ -17,10 +17,14 @@ export default function DiscoverGallery() {
     //   return
     // }
 
-    const compressed = await compress(file)
+    const compressionRes = await compress(file, { height: 600, width: 600 })
 
-    if (compressed) {
-      setImage({ file: compressed, url: URL.createObjectURL(compressed) })
+    if (compressionRes) {
+      setImage({
+        file: compressionRes.compressedFile,
+        url: URL.createObjectURL(compressionRes.compressedFile),
+        resized: compressionRes.resizedFile,
+      })
     }
 
     return false
@@ -37,7 +41,7 @@ export default function DiscoverGallery() {
           beforeUpload={handleUpload}
           disabled={isCompressing}
         >
-          <ImageUploadIcon className="text-7xl" />
+          <ImageUploadIcon className="text-[4.375rem]" />
           <Typography.Title className="m-0 text-base font-medium">
             {t('common.select_or_drag')}
           </Typography.Title>

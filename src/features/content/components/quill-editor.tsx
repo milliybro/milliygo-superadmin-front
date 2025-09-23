@@ -37,7 +37,7 @@ export default function QuillEditor({ value, onChange }: QuillEditorProps) {
 
         if (!compressed) return
 
-        const url = await uploadHandler(compressed)
+        const url = await uploadHandler(compressed.compressedFile)
 
         const editor = quillRef.current?.getEditor()
         const range = editor?.getSelection()

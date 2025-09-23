@@ -1,9 +1,10 @@
 import { createImageStore } from '@/helpers/create-image-store'
 
-interface DiscoverImage {
+interface ExpertAdviceImage {
   file: File | null
   resized?: File
   url: string
 }
 
-export const useDiscoverImage = createImageStore<DiscoverImage>('single')
+export const useExpertAdviceImage =
+  createImageStore<ExpertAdviceImage>('single')

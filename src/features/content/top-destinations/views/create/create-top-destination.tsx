@@ -88,7 +88,11 @@ export default function TopDestinationForm() {
     formData.append('youtube_url', toSubmit.youtube_url)
     images.forEach((img, i) => {
       if (img?.file) {
-        formData.append(`uploaded_images[${i}]`, img?.file)
+        formData.append(`uploaded_images[${i}]image`, img?.file)
+
+        if (img?.resized) {
+          formData.append(`uploaded_images[${i}]resized_image`, img?.resized)
+        }
       }
     })
 

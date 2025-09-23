@@ -23,6 +23,7 @@ import { createEvent, getEvent, patchEvent } from '../../api'
 import QuillEditor from '../../components/quill-editor'
 import { useMapCoordsStore } from '../../top-destinations/store/map-coords-store'
 import YandexMapPicker from './yandex-map-picker'
+import { useEventImage } from '../store/event-image'
 
 type CreateExpertAdviceValues = {
   name: string
@@ -42,6 +43,7 @@ export default function CreateEvent() {
   const { pathname } = useLocation()
   const { coords, setCoords, updatedCoords } = useMapCoordsStore()
   const { compress, isCompressing } = useImageCompression()
+  const { image, removeImage, setImage } = useEventImage()
 
   const { t } = useTranslation()
   const queryClient = useQueryClient()
@@ -49,7 +51,6 @@ export default function CreateEvent() {
   const { setBreadCrumbs } = useBreadCrumbsStore()
 
   const [form] = Form.useForm()
-  const imageField = Form.useWatch('image', form)
   const isEditing = pathname.includes('/edit')
 
   const eventItem = useQuery({
@@ -66,6 +67,10 @@ export default function CreateEvent() {
       { title: t('routes.content'), href: '/content/events' },
       { title: t('routes.events') },
     ])
+
+    return () => {
+      setImage(null)
+    }
   }, [])
 
   useEffect(() => {
@@ -77,6 +82,11 @@ export default function CreateEvent() {
           url: eventItem.data?.image || [],
         },
       })
+      setImage({
+        url: eventItem.data?.image || null,
+        file: null,
+        resized: null,
+      })
       setCoords([
         [eventItem.data?.lat || 41.3111, eventItem.data?.lon || 69.2797],
       ])
@@ -86,7 +96,7 @@ export default function CreateEvent() {
   const uploadImagesRules: Rule[] = [
     {
       validator: (_, value) => {
-        if (!value) {
+        if (!value || (!image?.file && !image?.url)) {
           return Promise.reject(new Error(t('fields.images.required')))
         }
 
@@ -104,7 +114,10 @@ export default function CreateEvent() {
       formData.append('organizer', values.organizer)
       formData.append('content', values.content)
       formData.append('location', values.location)
-      formData.append('image', values.image)
+      if (image?.file && image?.resized) {
+        formData.append('image', image?.file)
+        formData.append('resized_image', image?.resized)
+      }
       formData.append('date', dayjs(values.date).toISOString())
 
       if (values?.lat && values?.lon) {
@@ -130,17 +143,18 @@ export default function CreateEvent() {
   })
 
   const beforeUploadHandler = async (file: RcFile) => {
-    const compressed = await compress(file)
+    const compressed = await compress(file, { height: 190, width: 278 })
 
-    if (compressed) {
-      form.setFieldValue('image', compressed)
+    if (compressed?.compressedFile) {
+      form.setFieldValue('image', compressed?.compressedFile)
+      setImage({
+        file: compressed?.compressedFile,
+        url: URL.createObjectURL(compressed?.compressedFile),
+        resized: compressed?.resizedFile || null,
+      })
     }
 
     return false
-  }
-
-  const removeHandler = () => {
-    form.setFieldValue('image', undefined)
   }
 
   return (
@@ -193,24 +207,24 @@ export default function CreateEvent() {
 
             <div className="flex flex-col">
               <div className="mb-[5px] text-sm">{t('fields.images.label')}</div>
-              {imageField ? (
+              {image?.file || image?.url ? (
                 <div className="relative flex aspect-square h-[212px] overflow-hidden rounded-xl border">
-                  {imageField ? (
-                    <Image
-                      src={
-                        imageField?.url
-                          ? imageField?.url
-                          : URL.createObjectURL(imageField)
-                      }
-                      preview={{ toolbarRender: () => null }}
-                      wrapperClassName="h-full w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:object-cover"
-                    />
-                  ) : null}
+                  <Image
+                    src={
+                      image?.url
+                        ? image?.url
+                        : image?.file
+                          ? URL.createObjectURL(image?.file)
+                          : ''
+                    }
+                    preview={{ toolbarRender: () => null }}
+                    wrapperClassName="h-full w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:object-cover"
+                  />
                   <Button
                     danger
                     size="small"
                     className="absolute right-2 top-2"
-                    onClick={removeHandler}
+                    onClick={removeImage}
                   >
                     {t('common.delete')}
                   </Button>
@@ -227,7 +241,7 @@ export default function CreateEvent() {
                   beforeUpload={beforeUploadHandler}
                   disabled={isCompressing}
                 >
-                  <ImageUploadIcon className="text-xl" />
+                  <ImageUploadIcon className="text-[4.375rem]" />
                   <Typography.Title className="m-0 text-base font-medium">
                     {t('common.select_or_drag')}
                   </Typography.Title>

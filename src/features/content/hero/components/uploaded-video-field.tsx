@@ -54,7 +54,7 @@ function UploadedVideoField() {
           showUploadList={false}
           accept="video/*"
         >
-          <ImageUploadIcon className="text-xl" />
+          <ImageUploadIcon className="text-[4.375rem]" />
           <Typography.Title className="m-0 text-base font-medium">
             {t('common.select_or_drag')}
           </Typography.Title>
@@ -66,5 +66,6 @@ function UploadedVideoField() {
     </>
   )
 }
-
+// 70 / 16 = 4.375rem
+// 200 / 16 = 12.5rem
 export default memo(UploadedVideoField)
