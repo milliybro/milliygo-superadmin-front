@@ -17,12 +17,14 @@ export default function DiscoverGallery() {
     //   return
     // }
 
-    const compressionRes = await compress(file)
+    const compressionRes = await compress(file, { height: 600, width: 600 })
 
-    const compressed = compressionRes?.compressedFile
-
-    if (compressed) {
-      setImage({ file: compressed, url: URL.createObjectURL(compressed) })
+    if (compressionRes) {
+      setImage({
+        file: compressionRes.compressedFile,
+        url: URL.createObjectURL(compressionRes.compressedFile),
+        resized: compressionRes.resizedFile,
+      })
     }
 
     return false
