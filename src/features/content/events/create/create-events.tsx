@@ -132,8 +132,8 @@ export default function CreateEvent() {
   const beforeUploadHandler = async (file: RcFile) => {
     const compressed = await compress(file)
 
-    if (compressed) {
-      form.setFieldValue('image', compressed)
+    if (compressed?.compressedFile) {
+      form.setFieldValue('image', compressed?.compressedFile)
     }
 
     return false

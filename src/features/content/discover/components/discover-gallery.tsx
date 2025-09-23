@@ -17,7 +17,9 @@ export default function DiscoverGallery() {
     //   return
     // }
 
-    const compressed = await compress(file)
+    const compressionRes = await compress(file)
+
+    const compressed = compressionRes?.compressedFile
 
     if (compressed) {
       setImage({ file: compressed, url: URL.createObjectURL(compressed) })

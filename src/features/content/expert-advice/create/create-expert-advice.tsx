@@ -118,8 +118,8 @@ export default function CreateExpertAdvice() {
 
   const beforeUploadHandler = async (file: RcFile) => {
     const compressed = await compress(file)
-    if (compressed) {
-      form.setFieldValue('image', compressed)
+    if (compressed?.compressedFile) {
+      form.setFieldValue('image', compressed?.compressedFile)
     }
 
     // if (allFiles?.length > 6) {
