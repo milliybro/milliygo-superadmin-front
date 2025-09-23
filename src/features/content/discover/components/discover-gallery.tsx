@@ -37,7 +37,7 @@ export default function DiscoverGallery() {
           beforeUpload={handleUpload}
           disabled={isCompressing}
         >
-          <ImageUploadIcon className="text-7xl" />
+          <ImageUploadIcon className="text-[4.375rem]" />
           <Typography.Title className="m-0 text-base font-medium">
             {t('common.select_or_drag')}
           </Typography.Title>

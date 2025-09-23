@@ -191,7 +191,7 @@ export default function CreateInstagramContent() {
                 }}
                 beforeUpload={beforeUploadHandler}
               >
-                <ImageUploadIcon className="text-5xl" />
+                <ImageUploadIcon className="text-[4.375rem]" />
                 <Typography.Title className="m-0 text-base font-medium">
                   {t('common.select_or_drag')}
                 </Typography.Title>

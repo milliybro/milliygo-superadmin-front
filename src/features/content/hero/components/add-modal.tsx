@@ -94,7 +94,7 @@ export default function AddModal({ open, setShowModal }: IProps) {
               showUploadList={false}
               beforeUpload={handleUpload}
             >
-              <ImageUploadIcon className="text-xl" />
+              <ImageUploadIcon className="text-[4.375rem]" />
               <Typography.Title className="m-0 text-base font-medium">
                 {t('common.select_or_drag')}
               </Typography.Title>
