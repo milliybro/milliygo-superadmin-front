@@ -145,17 +145,14 @@ export function useImageCompression(
 
         ctx.drawImage(img, x, y, scaledWidth, scaledHeight)
 
-        canvas.toBlob(
-          resizedBlob => {
-            if (resizedBlob) {
-              const file = new File([resizedBlob], fileName, { type: mimeType })
-              resolve(file)
-            } else {
-              reject(new Error('Failed to create resized blob'))
-            }
-          },
-          mimeType,
-        )
+        canvas.toBlob(resizedBlob => {
+          if (resizedBlob) {
+            const file = new File([resizedBlob], fileName, { type: mimeType })
+            resolve(file)
+          } else {
+            reject(new Error('Failed to create resized blob'))
+          }
+        }, mimeType)
       }
 
       img.onerror = () => {
