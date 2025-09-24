@@ -71,16 +71,27 @@ export default function CreateInstagramContent() {
     if (instagramContentItem?.data) {
       form.setFieldsValue({
         ...instagramContentItem.data,
-        image: {
+      })
+
+      if (instagramContentItem.data?.image) {
+        form.setFieldsValue({
+          image: {
+            url: instagramContentItem.data?.image,
+          },
+        })
+        setImage({
           url: instagramContentItem.data?.image,
-        },
-      })
-      setImage({
-        url: instagramContentItem.data?.image,
-        file: null,
-      })
+          file: null,
+        })
+      }
     }
   }, [instagramContentItem.data])
+
+  useEffect(() => {
+    return () => {
+      setImage(null)
+    }
+  }, [])
 
   const createOrUpdate = useMutation({
     mutationFn: (values: CreateInstagramContentValues) => {
@@ -116,20 +127,20 @@ export default function CreateInstagramContent() {
 
   const beforeUploadHandler = async (file: RcFile) => {
     // const fileSizeInMB = file.size / 1024 / 1024
-    const compressed = await compress(file)
+    const compressed = await compress(file, { height: 660, width: 1200 })
     // if (fileSizeInMB > 5) {
     //   message.error(t('fields.images.max-size-limit', { value: file?.name }))
     //   return false
     // }
 
-    if (!compressed?.compressedFile) {
+    if (!compressed?.resizedFile) {
       return false
     }
 
-    form.setFieldValue('image', compressed?.compressedFile)
+    form.setFieldValue('image', compressed?.resizedFile)
     setImage({
-      url: URL.createObjectURL(compressed?.compressedFile),
-      file: compressed?.compressedFile,
+      url: URL.createObjectURL(compressed?.resizedFile),
+      file: compressed?.resizedFile,
     })
 
     return false
@@ -151,13 +162,27 @@ export default function CreateInstagramContent() {
             {t(isEditing ? 'content.edit-content' : 'content.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
-          <Form.Item label={t('fields.name.label')} name="title">
+          <Form.Item
+            label={t('fields.name.label')}
+            name="title"
+            rules={[{ required: true, message: t('fields.name.required') }]}
+          >
             <Input placeholder={t('fields.name.placeholder')} size="large" />
           </Form.Item>
-          <Form.Item label={t('fields.url.label')} name="url">
+          <Form.Item
+            label={t('fields.url.label')}
+            name="url"
+            rules={[{ required: true, message: t('fields.url.error') }]}
+          >
             <Input placeholder="https://" size="large" />
           </Form.Item>
-          <Form.Item label={t('fields.description.label')} name="description">
+          <Form.Item
+            label={t('fields.description.label')}
+            name="description"
+            rules={[
+              { required: true, message: t('fields.description.required') },
+            ]}
+          >
             <Input.TextArea
               placeholder={t('fields.description.placeholder')}
               rows={6}

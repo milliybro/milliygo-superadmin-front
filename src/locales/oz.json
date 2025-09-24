@@ -128,7 +128,8 @@
   },
   "fields": {
     "url": {
-      "label": "Havola"
+      "label": "Havola",
+      "error": "Iltimos, to‘g‘ri URL kiriting"
     },
     "fullname": {
       "label": "F.I.O",
