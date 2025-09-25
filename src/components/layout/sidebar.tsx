@@ -84,18 +84,18 @@ const adminItems = [
     path: ROUTE_PATHS.CONTENT,
     status: 'finished',
   },
-  {
-    label: 'common.tenants',
-    icon: MegaPhoneIcon,
-    path: ROUTE_PATHS.TENANTS,
-    status: 'in progress',
-  },
-  {
-    label: 'routes.roles',
-    icon: TimeManagementIcon,
-    path: ROUTE_PATHS.ACCESS_ROLE,
-    status: 'unstarted',
-  },
+  // {
+  //   label: 'common.tenants',
+  //   icon: MegaPhoneIcon,
+  //   path: ROUTE_PATHS.TENANTS,
+  //   status: 'in progress',
+  // },
+  // {
+  //   label: 'routes.roles',
+  //   icon: TimeManagementIcon,
+  //   path: ROUTE_PATHS.ACCESS_ROLE,
+  //   status: 'unstarted',
+  // },
   {
     label: 'common.users',
     icon: UserIcon,
