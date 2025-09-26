@@ -25,6 +25,7 @@ export default function TopDestinationGallery() {
 
     if (compressionRes) {
       addImage({
+        id: null,
         file: compressionRes.compressedFile,
         url: URL.createObjectURL(compressionRes.compressedFile),
         resized: compressionRes?.resizedFile,

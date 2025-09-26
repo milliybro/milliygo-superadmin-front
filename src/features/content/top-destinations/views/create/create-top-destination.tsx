@@ -52,8 +52,15 @@ export default function TopDestinationForm() {
           name: spot?.name,
           description: spot?.description,
         })),
+        status: data?.status,
       })
-      setImages(data?.images?.map(img => ({ file: null, url: img.file_path })))
+      setImages(
+        data?.images?.map(img => ({
+          file: null,
+          url: img.file_path,
+          id: img?.id,
+        })),
+      )
       data?.place_attractions?.forEach(spot => {
         if (spot?.image) {
           addPlaceImage({
@@ -87,7 +94,9 @@ export default function TopDestinationForm() {
     formData.append('region', toSubmit.region.toString())
     formData.append('youtube_url', toSubmit.youtube_url)
     images.forEach((img, i) => {
-      if (img?.file) {
+      if (img?.id) {
+        formData.append(`uploaded_images[${i}]id`, img?.id.toString())
+      } else if (img?.file) {
         formData.append(`uploaded_images[${i}]image`, img?.file)
 
         if (img?.resized) {
