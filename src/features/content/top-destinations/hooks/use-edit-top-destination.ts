@@ -3,12 +3,14 @@ import { editTopDestination } from '../api'
 import { App } from 'antd'
 import { useNavigate, useParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
+import useTopDestinations from './use-top-destinations'
 
 export function useEditTopDestination() {
   const { notification } = App.useApp()
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { slug: destinationId } = useParams()
+  const { refetch } = useTopDestinations()
 
   return useMutation({
     mutationKey: ['editTopDestination'],
@@ -18,7 +20,7 @@ export function useEditTopDestination() {
       notification.success({
         message: t('content.top_destinations.edit-success'),
       })
-      // topDestinationsQuery.refetch()
+      refetch()
       navigate('/content/top-destinations')
     },
   })

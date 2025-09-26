@@ -95,6 +95,7 @@ export default function TopDestinationForm() {
     formData.append('description', toSubmit.description)
     formData.append('region', toSubmit.region.toString())
     formData.append('youtube_url', toSubmit.youtube_url)
+    formData.append('status', String(toSubmit?.status))
     images.forEach((img, i) => {
       // if (img?.id) {
       //   formData.append(`uploaded_images[${i}]id`, img?.id.toString())
