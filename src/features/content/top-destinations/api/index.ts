@@ -43,3 +43,13 @@ export async function getTopDestination(
     method: 'get',
   })
 }
+
+export async function deleteTopDestinationImage(
+  id: number,
+): Promise<ITopDestination> {
+  return await request({
+    url: '/site-content/top_destinations/top_destinations_image_delete/',
+    method: 'post',
+    data: { image_id: id },
+  })
+}

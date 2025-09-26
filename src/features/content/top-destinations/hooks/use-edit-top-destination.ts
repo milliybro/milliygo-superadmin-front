@@ -1,0 +1,25 @@
+import { useMutation } from '@tanstack/react-query'
+import { editTopDestination } from '../api'
+import { App } from 'antd'
+import { useNavigate, useParams } from 'react-router'
+import { useTranslation } from 'react-i18next'
+
+export function useEditTopDestination() {
+  const { notification } = App.useApp()
+  const navigate = useNavigate()
+  const { t } = useTranslation()
+  const { slug: destinationId } = useParams()
+
+  return useMutation({
+    mutationKey: ['editTopDestination'],
+    mutationFn: ({ data, id }: { id?: number | string; data: FormData }) =>
+      editTopDestination(destinationId! || id!, data),
+    onSuccess: () => {
+      notification.success({
+        message: t('content.top_destinations.edit-success'),
+      })
+      // topDestinationsQuery.refetch()
+      navigate('/content/top-destinations')
+    },
+  })
+}

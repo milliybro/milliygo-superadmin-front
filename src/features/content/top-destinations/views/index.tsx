@@ -2,18 +2,17 @@ import { useNavigate, useParams } from 'react-router'
 import ContentHeader from '../../components/content-header'
 import DeleteModal from '../../components/delete-modal'
 import TopDestinationsTable from '../components/top-destination-table'
-import useTopDestinationsContext from '../hooks/use-top-destinations'
+import useTopDestinationsContext from '../hooks/use-top-destinations-context'
 import { useTranslation } from 'react-i18next'
+import { useDeleteTopDestination } from '../hooks/use-delete-top-destination'
 
 function TopDestinationsContent() {
   const navigate = useNavigate()
   const { tab } = useParams()
   const { t } = useTranslation()
-  const {
-    deleteOpen,
-    setDeleteOpen,
-    deleteTopDestination: { mutate, isLoading },
-  } = useTopDestinationsContext()
+  const { deleteOpen, setDeleteOpen } = useTopDestinationsContext()
+
+  const { mutate, isPending } = useDeleteTopDestination()
 
   return (
     <div className="flex flex-col gap-4">
@@ -27,7 +26,7 @@ function TopDestinationsContent() {
       <DeleteModal
         open={deleteOpen !== null}
         onClose={() => setDeleteOpen(null)}
-        isLoading={isLoading}
+        isLoading={isPending}
         onDelete={() => {
           if (deleteOpen) {
             mutate(deleteOpen)

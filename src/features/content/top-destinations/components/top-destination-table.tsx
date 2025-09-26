@@ -9,7 +9,8 @@ import { memo, useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
 import { editTopDestinationPartial } from '../api'
-import useTopDestinationsContext from '../hooks/use-top-destinations'
+import useTopDestinationsContext from '../hooks/use-top-destinations-context'
+import useTopDestinations from '../hooks/use-top-destinations'
 
 function TopDestinationsTable() {
   const navigate = useNavigate()
@@ -17,10 +18,8 @@ function TopDestinationsTable() {
   const { search, pathname } = useLocation()
   const queries = useMemo(() => queryString.parse(search), [search])
 
-  const {
-    topDestinations: { isFetching, data, refetch },
-    setDeleteOpen,
-  } = useTopDestinationsContext()
+  const { setDeleteOpen } = useTopDestinationsContext()
+  const { data, isFetching, refetch } = useTopDestinations()
 
   const { mutate } = useMutation({
     mutationKey: ['editTopDestination'],

@@ -11,10 +11,10 @@ import {
 } from 'antd'
 import { useState } from 'react'
 import YouTubeEmbed from '../../components/youtube-embed'
-import useTopDestinationsContext from '../hooks/use-top-destinations'
 import PopularSpotsList from './popular-spots-list'
 import TopDestinationGallery from './top-destination-gallery'
 import { useTranslation } from 'react-i18next'
+import { useRegions } from '../hooks/use-regions'
 
 export default function CreateTopDestinationForm() {
   const form = Form.useFormInstance()
@@ -22,10 +22,7 @@ export default function CreateTopDestinationForm() {
   const youtubeUrl = Form.useWatch('youtube_url', form)
   const { t } = useTranslation()
   const activeStatus = Form.useWatch('status', form)
-
-  const {
-    regions: { data: regions },
-  } = useTopDestinationsContext()
+  const { data: regions } = useRegions()
 
   return (
     <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">

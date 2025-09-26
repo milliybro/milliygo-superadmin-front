@@ -56,7 +56,7 @@ export default function TopDestinationGallery() {
         </Upload.Dragger>
       </Form.Item>
       {images.length > 0 && (
-        <div className="max-w-full overflow-x-auto text- overflow-y-hidden">
+        <div className="text- max-w-full overflow-x-auto overflow-y-hidden">
           <Image.PreviewGroup preview>
             <div className="flex items-center gap-3">
               {images.map((img, i) => (
