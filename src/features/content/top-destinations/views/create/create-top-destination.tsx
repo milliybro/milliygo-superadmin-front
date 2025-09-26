@@ -4,28 +4,30 @@ import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import QuillEditor from '@/features/content/components/quill-editor'
+import { useLocation } from 'react-router'
 import CreateTopDestinationForm from '../../components/create-top-destination-form'
-import useTopDestinationsContext from '../../hooks/use-top-destinations'
-import { ITopDestinationForm } from '../../types'
+import { useCreateTopDestination } from '../../hooks/use-create-top-destinations'
+import { useEditTopDestination } from '../../hooks/use-edit-top-destination'
+import { usePopularSpotImages } from '../../hooks/use-popular-spot-image'
+import { useSingleTopDestination } from '../../hooks/use-single-top-destination'
 import { useTopDestinationImage } from '../../hooks/use-top-destination-image'
 import { useMapCoordsStore } from '../../store/map-coords-store'
-import { usePopularSpotImages } from '../../hooks/use-popular-spot-image'
-import { useLocation } from 'react-router'
+import { ITopDestinationForm } from '../../types'
 
 export default function TopDestinationForm() {
   const { setBreadCrumbs } = useBreadCrumbsStore()
   const [form] = Form.useForm<ITopDestinationForm>()
   const { t } = useTranslation()
   const { pathname } = useLocation()
-  const {
-    singleTopDestination: { data },
-    editTopDestination: { mutate: editMutate, isLoading: editLoading },
-    createTopDestination: { mutate: createMutate, isLoading: createLoading },
-  } = useTopDestinationsContext()
   const { setImages, images } = useTopDestinationImage()
   const { images: placeImages, addImage: addPlaceImage } =
     usePopularSpotImages()
   const { coords, addCoord } = useMapCoordsStore()
+
+  const { data } = useSingleTopDestination()
+  const { mutate: editMutate, isPending: editLoading } = useEditTopDestination()
+  const { mutate: createMutate, isPending: createLoading } =
+    useCreateTopDestination()
 
   useEffect(() => {
     setBreadCrumbs([
@@ -52,8 +54,15 @@ export default function TopDestinationForm() {
           name: spot?.name,
           description: spot?.description,
         })),
+        status: data?.status,
       })
-      setImages(data?.images?.map(img => ({ file: null, url: img.file_path })))
+      setImages(
+        data?.images?.map(img => ({
+          file: null,
+          url: img.file_path,
+          id: img?.id,
+        })),
+      )
       data?.place_attractions?.forEach(spot => {
         if (spot?.image) {
           addPlaceImage({
@@ -86,7 +95,11 @@ export default function TopDestinationForm() {
     formData.append('description', toSubmit.description)
     formData.append('region', toSubmit.region.toString())
     formData.append('youtube_url', toSubmit.youtube_url)
+    formData.append('status', String(toSubmit?.status))
     images.forEach((img, i) => {
+      // if (img?.id) {
+      //   formData.append(`uploaded_images[${i}]id`, img?.id.toString())
+      // } else
       if (img?.file) {
         formData.append(`uploaded_images[${i}]image`, img?.file)
 

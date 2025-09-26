@@ -1,21 +1,28 @@
 import ArrowDownIcon from '@/components/icons/arrow-down'
-import { Button, Divider, Form, Input, Select, Typography } from 'antd'
+import {
+  Button,
+  Divider,
+  Form,
+  Input,
+  Select,
+  Switch,
+  Tag,
+  Typography,
+} from 'antd'
 import { useState } from 'react'
 import YouTubeEmbed from '../../components/youtube-embed'
-import useTopDestinationsContext from '../hooks/use-top-destinations'
 import PopularSpotsList from './popular-spots-list'
 import TopDestinationGallery from './top-destination-gallery'
 import { useTranslation } from 'react-i18next'
+import { useRegions } from '../hooks/use-regions'
 
 export default function CreateTopDestinationForm() {
   const form = Form.useFormInstance()
   const [checkingEmbed, setCheckingEmbed] = useState<boolean>(false)
   const youtubeUrl = Form.useWatch('youtube_url', form)
   const { t } = useTranslation()
-
-  const {
-    regions: { data: regions },
-  } = useTopDestinationsContext()
+  const activeStatus = Form.useWatch('status', form)
+  const { data: regions } = useRegions()
 
   return (
     <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
@@ -60,6 +67,17 @@ export default function CreateTopDestinationForm() {
           />
         </Form.Item>
         {checkingEmbed && <YouTubeEmbed url={youtubeUrl} />}
+        <div className="flex items-end gap-5">
+          <Form.Item label={t('fields.status.label')} name="status">
+            <Switch />
+          </Form.Item>
+          <Tag
+            color={activeStatus ? 'green' : 'red'}
+            className="px-2 py-2 text-sm"
+          >
+            {activeStatus ? t('common.active') : t('common.inactive')}
+          </Tag>
+        </div>
       </div>
       <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
         <Typography.Title level={5} className="text-xl font-medium">

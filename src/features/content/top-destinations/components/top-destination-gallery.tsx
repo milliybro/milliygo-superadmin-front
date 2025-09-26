@@ -4,11 +4,21 @@ import { useImageCompression } from '@/hooks/use-image-compression'
 import { Form, Image, Typography, Upload, UploadProps } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useTopDestinationImage } from '../hooks/use-top-destination-image'
+import { useDeleteDestinationImage } from '../hooks/use-delete-image'
 
 export default function TopDestinationGallery() {
   const { t } = useTranslation()
   const { images, addImage, removeImage } = useTopDestinationImage()
   const { compress, isCompressing } = useImageCompression(true)
+  const { mutate: deleteImage } = useDeleteDestinationImage()
+
+  const deleteHandler = (index: number) => {
+    // deleteImage(index)
+    if (images?.[index]?.id) {
+      deleteImage(images[index]?.id)
+    }
+    removeImage(index)
+  }
 
   const handleUpload: UploadProps['beforeUpload'] = async file => {
     // if (file?.size && file?.size > 5 * 1024 * 1024) {
@@ -25,6 +35,7 @@ export default function TopDestinationGallery() {
 
     if (compressionRes) {
       addImage({
+        id: null,
         file: compressionRes.compressedFile,
         url: URL.createObjectURL(compressionRes.compressedFile),
         resized: compressionRes?.resizedFile,
@@ -55,7 +66,7 @@ export default function TopDestinationGallery() {
         </Upload.Dragger>
       </Form.Item>
       {images.length > 0 && (
-        <div className="max-w-full overflow-x-auto text- overflow-y-hidden">
+        <div className="text- max-w-full overflow-x-auto overflow-y-hidden">
           <Image.PreviewGroup preview>
             <div className="flex items-center gap-3">
               {images.map((img, i) => (
@@ -71,7 +82,7 @@ export default function TopDestinationGallery() {
                     loading="lazy"
                   />
                   <button
-                    onClick={() => removeImage(i)}
+                    onClick={() => deleteHandler(i)}
                     className="absolute right-0 top-0 flex size-[20px] -translate-x-[2px] translate-y-[2px] items-center justify-center rounded-sm bg-secondary-dark text-white transition-colors hover:bg-secondary-dark/80"
                   >
                     <CloseIcon />

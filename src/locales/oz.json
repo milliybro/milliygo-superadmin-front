@@ -801,7 +801,8 @@
       "delete-desc": "Ushbu yo‘nalishni o‘chirib tashlamoqchi ekanligingizni tasdiqlang?",
       "delete-success": "Yo‘nalish muvaffaqiyatli o‘chirildi",
       "create-success": "Yo‘nalish muvaffaqiyatli yaratildi",
-      "edit-success": "Yo‘nalish muvaffaqiyatli yangilandi"
+      "edit-success": "Yo‘nalish muvaffaqiyatli yangilandi",
+      "image-delete-success": "Rasm muvaffaqiyatli o‘chirildi"
     },
     "preview": "Oldindan ko‘rish",
     "add-content": "Kontent qo‘shish",
