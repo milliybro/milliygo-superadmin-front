@@ -81,9 +81,9 @@ export default function CreateDiscoverContent() {
     formData.append('status', String(values.status))
 
     if (image?.file) {
-      formData.append('image[image]', image.file)
+      formData.append('image', image.file)
 
-      if (image?.resized) formData.append('image[resized_image]', image.resized)
+      if (image?.resized) formData.append('resized_image', image.resized)
     }
 
     values?.social_links?.map((item: any, i: number) => {
