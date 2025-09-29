@@ -3,6 +3,7 @@ import { useImageCompression } from '@/hooks/use-image-compression'
 import { Button, Form, Typography, Upload, UploadProps } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useDiscoverImage } from '../hooks/use-discover-image'
+import { useEffect } from 'react'
 
 export default function DiscoverGallery() {
   const { t } = useTranslation()
@@ -17,7 +18,7 @@ export default function DiscoverGallery() {
     //   return
     // }
 
-    const compressionRes = await compress(file, { height: 600, width: 600 })
+    const compressionRes = await compress(file, { height: 500, width: 592 })
 
     if (compressionRes) {
       setImage({
@@ -29,6 +30,12 @@ export default function DiscoverGallery() {
 
     return false
   }
+
+  useEffect(() => {
+    return () => {
+      removeImage()
+    }
+  }, [])
 
   return (
     <Form.Item label={t('fields.images.label')}>

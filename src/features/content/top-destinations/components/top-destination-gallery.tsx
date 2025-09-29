@@ -5,10 +5,11 @@ import { Form, Image, Typography, Upload, UploadProps } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { useTopDestinationImage } from '../hooks/use-top-destination-image'
 import { useDeleteDestinationImage } from '../hooks/use-delete-image'
+import { useEffect } from 'react'
 
 export default function TopDestinationGallery() {
   const { t } = useTranslation()
-  const { images, addImage, removeImage } = useTopDestinationImage()
+  const { images, addImage, removeImage, setImages } = useTopDestinationImage()
   const { compress, isCompressing } = useImageCompression(true)
   const { mutate: deleteImage } = useDeleteDestinationImage()
 
@@ -44,6 +45,12 @@ export default function TopDestinationGallery() {
 
     return false
   }
+
+  useEffect(() => {
+    return () => {
+      setImages([])
+    }
+  }, [])
 
   return (
     <>
