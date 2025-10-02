@@ -127,20 +127,20 @@ export default function CreateInstagramContent() {
 
   const beforeUploadHandler = async (file: RcFile) => {
     // const fileSizeInMB = file.size / 1024 / 1024
-    const compressed = await compress(file)
+    const compressed = await compress(file, { height: 660, width: 1200 })
     // if (fileSizeInMB > 5) {
     //   message.error(t('fields.images.max-size-limit', { value: file?.name }))
     //   return false
     // }
 
-    if (!compressed?.compressedFile) {
+    if (!compressed?.resizedFile) {
       return false
     }
 
-    form.setFieldValue('image', compressed?.compressedFile)
+    form.setFieldValue('image', compressed?.resizedFile)
     setImage({
-      url: URL.createObjectURL(compressed?.compressedFile),
-      file: compressed?.compressedFile,
+      url: URL.createObjectURL(compressed?.resizedFile),
+      file: compressed?.resizedFile,
     })
 
     return false
