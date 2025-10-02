@@ -5,11 +5,13 @@ import { getFirstFrameFromVideo } from '../helpers/get-first-frame-from-video'
 import { useUploadedVideoStore } from '../store/uploaded-video-store'
 import ImageUploadIcon from '@/components/icons/image-upload'
 import { memo } from 'react'
+import { useImageCompression } from '@/hooks/use-image-compression'
 
 function UploadedVideoField() {
   const { notification } = App.useApp()
   const { t } = useTranslation()
   const { setUploadedVideo, uploadedVideo } = useUploadedVideoStore()
+  const { compress, isCompressing } = useImageCompression()
 
   const handleUpload = (file: File) => {
     if (file?.size && file?.size > 200 * 1024 * 1024) {
@@ -26,8 +28,12 @@ function UploadedVideoField() {
 
     async function handleImage() {
       const preview = await getFirstFrameFromVideo(file)
+      const compressed = await compress(preview)
+      if (!compressed?.compressedFile) {
+        return
+      }
 
-      setUploadedVideo({ video: file, preview })
+      setUploadedVideo({ video: file, preview: compressed?.compressedFile })
     }
 
     handleImage()
@@ -53,6 +59,7 @@ function UploadedVideoField() {
           }}
           showUploadList={false}
           accept="video/*"
+          disabled={isCompressing}
         >
           <ImageUploadIcon className="text-[4.375rem]" />
           <Typography.Title className="m-0 text-base font-medium">
