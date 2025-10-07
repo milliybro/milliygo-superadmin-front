@@ -29,8 +29,7 @@ export default function TopDestinationGallery() {
     //   return
     // }
 
-    const resizeOptions =
-      images?.length === 0 ? { width: 292, height: 292 } : undefined
+    const resizeOptions = { width: 292, height: 292 }
 
     const compressionRes = await compress(file, resizeOptions)
 
