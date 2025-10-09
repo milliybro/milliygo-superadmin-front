@@ -40,7 +40,6 @@ export default function ResetPassword(): React.ReactElement {
     mutationFn: confirmEmail,
     onSuccess: res => {
       nextStep()
-      console.log(res)
     },
   })
 
@@ -52,24 +51,11 @@ export default function ResetPassword(): React.ReactElement {
       localStorage.removeItem('refresh')
       navigate('/auth/sign-in')
       window.location.reload()
-      console.log(res)
     },
   })
 
   if (isAuthenticated) {
     navigate('/')
-  }
-  const onChange: OTPProps['onChange'] = text => {
-    console.log('onChange:', text)
-  }
-
-  const onInput: OTPProps['onInput'] = value => {
-    console.log('onInput:', value)
-  }
-
-  const sharedProps: OTPProps = {
-    onChange,
-    onInput,
   }
 
   const nextStep = () => setStep(prev => Math.min(prev + 1, 3) as 1 | 2 | 3)
@@ -85,7 +71,6 @@ export default function ResetPassword(): React.ReactElement {
   }
 
   const onPasswordFinish = (values: { password: string; confirm: string }) => {
-    console.log('new password:', values)
     passwordConfirm({ ...values, email })
   }
 
@@ -193,7 +178,6 @@ export default function ResetPassword(): React.ReactElement {
                     >
                       <Input.OTP
                         length={4}
-                        {...sharedProps}
                         className="w-full [&_.ant-input]:flex-1"
                       />
                     </Form.Item>

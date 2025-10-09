@@ -61,7 +61,6 @@ function TopDestinationsTable() {
       className: 'w-2/5',
       sorter: true,
       render: (value, record) => {
-        console.log(record)
         return (
           <div className="flex items-center gap-4">
             <div className="size-10 overflow-hidden rounded-xl">

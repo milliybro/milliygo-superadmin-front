@@ -86,8 +86,6 @@ const GuideViewModal = () => {
     closeGuideModal()
   }
 
-  console.log(guideId)
-
   const { data } = useQuery({
     queryKey: ['guide', guideId],
     queryFn: async () => {
@@ -97,7 +95,6 @@ const GuideViewModal = () => {
     },
     enabled: !!guideId,
   })
-  console.log(data)
 
   return (
     <>

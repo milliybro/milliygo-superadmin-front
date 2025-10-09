@@ -23,8 +23,6 @@ const Guides = () => {
 
   const tab = searchParams.get('tab') || ''
 
-  console.log(tab, 'TTTT')
-
   useEffect(() => {
     setBreadCrumbs([
       { title: t('common.main'), href: ROUTE_PATHS.MAIN },

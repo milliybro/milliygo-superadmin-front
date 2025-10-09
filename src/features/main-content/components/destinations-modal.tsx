@@ -46,8 +46,6 @@ const DestinationModal = () => {
     // keepPreviousData: true,
   })
 
-  console.log(roles)
-
   //   const { mutate: handleUserSave } = useMutation({
   //     mutationFn: (values: any) => {
   //       const formattedValues: IDestinations = {
@@ -67,7 +65,6 @@ const DestinationModal = () => {
   //       //     : t('fields.user-notification.add.message'),
   //       // })
   //       openNotification()
-  //       console.log('success')
   //       form.resetFields()
   //       fetching()
   //       closeHandler()
@@ -80,7 +77,6 @@ const DestinationModal = () => {
   //       })
   //       message.error(error?.data?.username)
   //       form.getFieldsError()
-  //       console.log('error', error)
   //     },
   //   })
 

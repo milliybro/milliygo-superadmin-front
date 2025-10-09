@@ -11,7 +11,6 @@ interface IProps {
 
 const GuidesStatusTag: FC<IProps> = ({ active, colorless, type }) => {
   const { t } = useTranslation()
-  console.log(active)
 
   return (
     <span

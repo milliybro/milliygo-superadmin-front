@@ -127,7 +127,6 @@ const RecreationModal = () => {
     onError: (error: any) => {
       openNotificationWithIcon('error')
       message.error(error?.data?.username)
-      console.log('error', error)
     },
   })
 
