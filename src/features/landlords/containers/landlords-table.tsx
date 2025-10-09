@@ -96,8 +96,6 @@ const LandlordsTable = ({
     },
   ]
 
-  console.log(ApartmentsData, 'AAAAA')
-
   const itemRender: PaginationProps['itemRender'] = (
     n,
     type,

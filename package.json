@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@ant-design/icons": "^5.6.1",
+    "@ffmpeg/ffmpeg": "^0.12.15",
+    "@ffmpeg/util": "^0.12.2",
     "@pbe/react-yandex-maps": "^1.2.5",
     "@tanstack/react-query": "^5.61.5",
     "antd": "^5.22.2",

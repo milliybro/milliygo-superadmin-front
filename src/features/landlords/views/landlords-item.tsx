@@ -34,8 +34,6 @@ const LandlordsItem = () => {
   const { id } = useParams<{ id: string }>()
   const [data, setData] = useState<any | null>(null)
 
-  console.log(id, 'ID')
-
   const { data: ApartmentDetail } = useQuery({
     queryKey: ['apartment-detail', id],
     queryFn: async () => {

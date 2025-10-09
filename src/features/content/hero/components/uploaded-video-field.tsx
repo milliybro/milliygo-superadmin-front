@@ -16,7 +16,7 @@ function UploadedVideoField() {
   const handleUpload = (file: File) => {
     if (file?.size && file?.size > 200 * 1024 * 1024) {
       notification.error({
-        message: t('common.images_limit', { limit: '5 MB' }),
+        message: t('common.images_limit', { limit: '200 MB' }),
       })
       return
     } else if (!file?.type?.includes('video/')) {

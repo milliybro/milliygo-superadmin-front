@@ -49,8 +49,6 @@ const AccessRole = () => {
     placeholderData: data => data,
   })
 
-  console.log(AccessRoles)
-
   return (
     <div className="flex flex-1 flex-col gap-6 p-6">
       <div className="flex items-start justify-between">

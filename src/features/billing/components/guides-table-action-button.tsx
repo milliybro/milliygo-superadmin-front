@@ -18,7 +18,6 @@ const GuidesTableActionButton: FC<IProps> = ({ id, type }) => {
   //   const navigate = useNavigate()
   const { t } = useTranslation()
   //   const { pathname } = useLocation()
-  console.log(id)
 
   const { openModal } = useGuideModalStore(store => store)
 

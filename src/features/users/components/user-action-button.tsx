@@ -33,7 +33,6 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
   const { mutate: createPassword, isPending: isUpdating } = useMutation({
     mutationFn: () => updatePassword(id),
     onSuccess: (res: { new_password: string }) => {
-      console.log(res, 'ress')
       setPassword(res.new_password)
     },
   })

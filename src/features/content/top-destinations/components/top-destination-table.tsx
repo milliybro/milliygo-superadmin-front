@@ -1,16 +1,23 @@
 import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
-import truncateHtml from '@/helpers/truncate-html'
 import { truthyObject } from '@/helpers/truthy-object'
 import { useMutation } from '@tanstack/react-query'
-import { Button, Switch, Table, TableProps, Tooltip, Typography } from 'antd'
+import {
+  Button,
+  Image,
+  Switch,
+  Table,
+  TableProps,
+  Tooltip,
+  Typography,
+} from 'antd'
 import queryString from 'query-string'
 import { memo, useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
 import { editTopDestinationPartial } from '../api'
-import useTopDestinationsContext from '../hooks/use-top-destinations-context'
 import useTopDestinations from '../hooks/use-top-destinations'
+import useTopDestinationsContext from '../hooks/use-top-destinations-context'
 
 function TopDestinationsTable() {
   const navigate = useNavigate()
@@ -36,6 +43,8 @@ function TopDestinationsTable() {
     status: des?.status,
     id: des?.id,
     key: des?.id,
+    image: (des?.images?.find(val => val?.is_main) || des?.images?.[0])
+      ?.file_path,
   }))
 
   const toggleStatusHandler = useCallback((id: number, status: boolean) => {
@@ -51,21 +60,22 @@ function TopDestinationsTable() {
       dataIndex: 'title',
       className: 'w-2/5',
       sorter: true,
-      render: value => (
-        <div className="flex items-center gap-4">
-          <Typography.Text className="text-sm font-medium">
-            {value}
-          </Typography.Text>
-        </div>
-      ),
-    },
-    {
-      title: t('common.description'),
-      key: 'description',
-      dataIndex: 'description',
-      className: 'h-[80px] overflow-hidden',
-      render: value => {
-        return <div className="max-w-[400px]">{truncateHtml(value, 100)}</div>
+      render: (value, record) => {
+        return (
+          <div className="flex items-center gap-4">
+            <div className="size-10 overflow-hidden rounded-xl">
+              <Image
+                src={record?.image}
+                alt="Top Destination"
+                className="h-full w-full object-cover"
+                rootClassName="w-full h-full"
+              />
+            </div>
+            <Typography.Text className="text-sm font-medium">
+              {value}
+            </Typography.Text>
+          </div>
+        )
       },
     },
     {

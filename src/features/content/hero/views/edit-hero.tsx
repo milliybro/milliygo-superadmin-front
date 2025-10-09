@@ -51,7 +51,7 @@ export default function EditHero() {
         onFinish={values => {
           mutate(values)
         }}
-        className="flex flex-wrap divide-x rounded-2xl border py-5 *:px-6"
+        className="flex flex-wrap divide-x rounded-2xl border bg-white py-5 *:px-6"
       >
         <div className="flex basis-1/2 flex-col gap-5">
           <Typography.Text className="font-medium">

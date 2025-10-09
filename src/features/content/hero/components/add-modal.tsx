@@ -28,6 +28,7 @@ export default function AddModal({ open, setShowModal }: IProps) {
       message.error(t('common.images_limit', { limit: '200 MB' }))
       return
     }
+
     async function handleImage() {
       const image = await getFirstFrameFromVideo(file)
       setUploadedVideo({ video: file, preview: image })

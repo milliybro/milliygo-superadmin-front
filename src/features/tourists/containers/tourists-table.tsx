@@ -62,8 +62,6 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       dataIndex: 'gender',
       sorter: true,
       render: data => {
-        console.log(data, 'dddd')
-
         return (
           <div>
             {data === 'male'

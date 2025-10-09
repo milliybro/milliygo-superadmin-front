@@ -8,7 +8,6 @@ function EmailStep({ nextStep }: { nextStep: () => void }) {
   const { t } = useTranslation()
 
   const onFinish = (values: any) => {
-    console.log('email sent:', values)
     nextStep()
   }
 
