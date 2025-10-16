@@ -82,7 +82,7 @@ function CountryMapSVG({
   }, [selectedRegion])
 
   return (
-    <div className="relative flex h-[563px] w-full overflow-hidden rounded-2xl border">
+    <div className="relative flex h-[563px] w-full overflow-hidden rounded-2xl border bg-white">
       <motion.svg
         xmlns="http://www.w3.org/2000/svg"
         width="100%"
@@ -96,7 +96,9 @@ function CountryMapSVG({
         className="mx-auto"
       >
         <g id="regions" className="*:cursor-pointer">
-          {regionPaths?.map(reg => <RegionSVG reg={reg} key={reg?.id} />)}
+          {regionPaths?.map(reg => (
+            <RegionSVG reg={reg} key={reg?.id} />
+          ))}
           {selectedRegion !== null && (
             <RegionPointsSVG
               scaleFactor={scaleFactor}
