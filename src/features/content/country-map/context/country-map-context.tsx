@@ -161,7 +161,7 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
 
   const { data: topDestinationOptions } = useQuery({
     queryKey: ['destinations', region],
-    queryFn: () => getTopDestinations({ region }),
+    queryFn: () => getTopDestinations({ region, page_size: 100 }),
     enabled: true,
     select: data =>
       data?.results?.map(item => ({ label: item?.title, value: item?.id })) ||
