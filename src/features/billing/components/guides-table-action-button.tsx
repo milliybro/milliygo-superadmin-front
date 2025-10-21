@@ -18,7 +18,6 @@ const GuidesTableActionButton: FC<IProps> = ({ id, type }) => {
   //   const navigate = useNavigate()
   const { t } = useTranslation()
   //   const { pathname } = useLocation()
-  console.log(id)
 
   const { openModal } = useGuideModalStore(store => store)
 
@@ -48,7 +47,7 @@ const GuidesTableActionButton: FC<IProps> = ({ id, type }) => {
         type="text"
         onClick={() => openModal()}
       >
-        <EyeIcon className="text-[20px]" />
+        <EyeIcon className="text-xl" />
         {t('common.more-details')}
       </Button>
     </div>

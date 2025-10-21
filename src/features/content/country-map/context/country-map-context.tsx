@@ -140,7 +140,6 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
       destination: number
       is_active?: boolean
     }) => {
-      console.log(values)
       return updateRegionMapPoint({
         region: +region!,
         id: +pointId!,
@@ -153,7 +152,6 @@ const CountryMapProvider = ({ children }: { children: ReactNode }) => {
       })
     },
     onSuccess: () => {
-      console.log('success')
       notification.success({
         message: t('content.country-map.edit-success'),
       })

@@ -34,7 +34,7 @@ const TenantsTable = ({
       sorter: false,
       render: _ => (
         <div className="flex items-center gap-[10px]">
-          <span className="text-[14px] text-primary-dark font-medium">{_}</span>
+          <span className="text-sm font-medium text-primary-dark">{_}</span>
         </div>
       ),
     },
@@ -84,7 +84,7 @@ const TenantsTable = ({
           href={`http://${_}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-[10px] cursor-pointer"
+          className="flex cursor-pointer items-center gap-[10px]"
         >
           {_ ? _ : '-'}
         </Button>
@@ -113,8 +113,8 @@ const TenantsTable = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 0 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
+            n === 0 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.prev')}
@@ -125,8 +125,8 @@ const TenantsTable = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 10 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
+            n === 10 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.next')}
@@ -155,7 +155,7 @@ const TenantsTable = ({
     })) || []
 
   return (
-    <div className="bg-white border flex-col overflow-x-auto border-border rounded-[16px] flex items-center justify-center h-full">
+    <div className="flex h-full flex-col items-center justify-center overflow-x-auto rounded-[16px] border border-border bg-white">
       <Table<IHotelsTable>
         columns={columns?.map(val => ({
           ...val,
@@ -163,7 +163,7 @@ const TenantsTable = ({
         }))}
         loading={isLoading}
         dataSource={transformedTenantsData}
-        className="w-full h-full"
+        className="h-full w-full"
         pagination={{
           current: currentPage,
           pageSize: 10,

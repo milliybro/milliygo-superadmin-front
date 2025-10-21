@@ -29,7 +29,7 @@ const columns: TableColumnsType<IHotelsItemReview> = [
     sorter: false,
     width: 250,
     render: (_, record) => (
-      <Link to={`/hotels/`} className="underline text-primary">
+      <Link to={`/hotels/`} className="text-primary underline">
         {record.name}
       </Link>
     ),
@@ -40,7 +40,7 @@ const columns: TableColumnsType<IHotelsItemReview> = [
     dataIndex: 'rating',
     sorter: false,
     render: (_, record) => (
-      <div className="flex items-center gap-1 text-[20px]">
+      <div className="flex items-center gap-1 text-xl">
         {Array.from({ length: record.rating }, (_, i) => (
           <StarIcon key={i} />
         ))}

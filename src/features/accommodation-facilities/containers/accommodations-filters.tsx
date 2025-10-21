@@ -61,7 +61,7 @@ const AccommodationsFilters = () => {
       <Form.Item label={t('hotels-page.name.title')} name="search">
         <Input
           prefix={
-            <UserSquareIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <UserSquareIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           size="large"
           placeholder={t('hotels-page.name.placeholder')}
@@ -75,7 +75,7 @@ const AccommodationsFilters = () => {
             { label: t('common.inactive'), value: 'false' },
           ]}
           prefix={
-            <UserMultipleIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <UserMultipleIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           size="large"
           placeholder={t('accommodations-page.filter.status-placeholder')}

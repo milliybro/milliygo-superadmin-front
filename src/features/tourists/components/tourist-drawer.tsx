@@ -152,7 +152,7 @@ const TouristDrawer = ({ open, onClose }: IProps) => {
         bodyStyle={{ padding: 0 }}
         width={500}
         title={
-          <Typography.Text className="text-[18px] font-[500]">
+          <Typography.Text className="text-lg font-medium">
             {t('tourists.tourist-information')}
           </Typography.Text>
         }
@@ -162,25 +162,25 @@ const TouristDrawer = ({ open, onClose }: IProps) => {
         extra={
           <>
             <Button onClick={onClose} className="border-none p-0">
-              <CloseIcon className="text-[20px]" />
+              <CloseIcon className="text-xl" />
             </Button>
           </>
         }
       >
-        <div className="px-4 mt-6">
-          <Typography.Text className="text-[16px] font-[700]">
+        <div className="mt-6 px-4">
+          <Typography.Text className="text-base font-bold">
             {t('tourists.main-information')}
           </Typography.Text>
-          <div className="flex flex-col gap-4 mt-4">
+          <div className="mt-4 flex flex-col gap-4">
             {fields.map((field, index) => (
               <div
                 key={index}
-                className="w-full flex justify-between items-center"
+                className="flex w-full items-center justify-between"
               >
-                <Typography.Text className="text-[14px] font-[400]">
+                <Typography.Text className="text-sm font-normal">
                   {field.label}:
                 </Typography.Text>
-                <Typography.Text className="text-[14px] font-[500]">
+                <Typography.Text className="text-sm font-medium">
                   {field.value}
                 </Typography.Text>
               </div>
@@ -188,20 +188,20 @@ const TouristDrawer = ({ open, onClose }: IProps) => {
           </div>
         </div>
         <Divider />
-        <div className="px-4 mt-6">
-          <Typography.Text className="text-[16px] font-[700]">
+        <div className="mt-6 px-4">
+          <Typography.Text className="text-base font-bold">
             {t('tourists.visa-information')}
           </Typography.Text>
-          <div className="flex flex-col gap-4 mt-4">
+          <div className="mt-4 flex flex-col gap-4">
             {visaInfo.map((field, index) => (
               <div
                 key={index}
-                className="w-full flex justify-between items-center"
+                className="flex w-full items-center justify-between"
               >
-                <Typography.Text className="text-[14px] font-[400]">
+                <Typography.Text className="text-sm font-normal">
                   {field.label}:
                 </Typography.Text>
-                <Typography.Text className="text-[14px] font-[500]">
+                <Typography.Text className="text-sm font-medium">
                   {field.value}
                 </Typography.Text>
               </div>
@@ -209,20 +209,20 @@ const TouristDrawer = ({ open, onClose }: IProps) => {
           </div>
         </div>
         <Divider />
-        <div className="px-4 mt-6 mb-6">
-          <Typography.Text className="text-[16px] font-[700]">
+        <div className="mb-6 mt-6 px-4">
+          <Typography.Text className="text-base font-bold">
             {t('tourists.under-chilren')}
           </Typography.Text>
-          <div className="flex flex-col gap-4 mt-4">
+          <div className="mt-4 flex flex-col gap-4">
             {childInfo.map((field, index) => (
               <div
                 key={index}
-                className="w-full flex justify-between items-center"
+                className="flex w-full items-center justify-between"
               >
-                <Typography.Text className="text-[14px] font-[400]">
+                <Typography.Text className="text-sm font-normal">
                   {field.label}:
                 </Typography.Text>
-                <Typography.Text className="text-[14px] font-[500]">
+                <Typography.Text className="text-sm font-medium">
                   {field.value}
                 </Typography.Text>
               </div>

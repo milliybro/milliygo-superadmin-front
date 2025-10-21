@@ -33,7 +33,6 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       dataIndex: 'id',
       render: (_: any, __: any, index: number) =>
         ((Number(currentPage) || 1) - 1) * 10 + index + 1,
-
     },
     {
       title: 'fields.fullname.label',
@@ -55,7 +54,7 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
     },
     {
       title: 'fields.passport-data.label',
-      dataIndex: 'passport_number',
+      dataIndex: 'passport_sn',
       sorter: true,
     },
     {
@@ -63,8 +62,6 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       dataIndex: 'gender',
       sorter: true,
       render: data => {
-        console.log(data, 'dddd')
-
         return (
           <div>
             {data === 'male'
@@ -103,8 +100,8 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 0 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
+            n === 0 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.prev')}
@@ -115,8 +112,8 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 10 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
+            n === 10 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.next')}
@@ -138,11 +135,9 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       id: user.id,
       gender: user.gender,
       birth_date: user.birth_date,
-      passport_number: user.passport_number,
-      type_name: user.type_document,
+      passport_sn: user.passport_sn,
       address: user.docgiveplace,
       type_document: user.document_type,
-      status: user.status,
     })) || []
 
   return (
@@ -155,7 +150,8 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       loading={isLoading}
       bordered
       onChange={pagination => handlePaginationChange(pagination.current!)}
-      className="w-full h-full"
+      className="h-full w-full"
+      scroll={{ x: 'max-content' }}
       pagination={{
         current: currentPage,
         pageSize: 10,

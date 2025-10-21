@@ -37,7 +37,7 @@ const ActionHistory = () => {
 
   return (
     <div className="flex flex-1 flex-col gap-6 p-6">
-      <div className="text-[24px] font-semibold text-primary-dark">
+      <div className="text-2xl font-semibold text-primary-dark">
         {t('common.action-history')}
       </div>
       <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white">

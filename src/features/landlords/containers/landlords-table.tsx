@@ -11,7 +11,6 @@ import UsersNotFound from '@/features/users/components/users-not-found'
 import { formatAmount } from '@/helpers/format-amount'
 import AddressCell from '../components/address-cell'
 
-
 const LandlordsTable = ({
   ApartmentsData,
   isLoading,
@@ -35,7 +34,7 @@ const LandlordsTable = ({
       sorter: true,
       render: (_, val) => (
         <div className="flex items-center gap-[10px]">
-          <span className="text-[14px] font-medium text-primary-dark">
+          <span className="text-sm font-medium text-primary-dark">
             {val?.placement_name ? val?.placement_name : '-'}
           </span>
         </div>
@@ -96,8 +95,6 @@ const LandlordsTable = ({
       ),
     },
   ]
-
-  console.log(ApartmentsData, 'AAAAA')
 
   const itemRender: PaginationProps['itemRender'] = (
     n,

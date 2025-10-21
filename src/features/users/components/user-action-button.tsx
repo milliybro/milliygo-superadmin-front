@@ -13,6 +13,7 @@ import { deleteUser, updatePassword } from '../api'
 import ConfirmationModal from '@/components/ui/confirmation-modal'
 import ResetPasswordIcon from '@/components/icons/password-edit'
 import { CopyOutlined, ReloadOutlined } from '@ant-design/icons'
+import CloseIcon from '@/components/icons/close-icon'
 
 const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
   const navigate = useNavigate()
@@ -32,7 +33,6 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
   const { mutate: createPassword, isPending: isUpdating } = useMutation({
     mutationFn: () => updatePassword(id),
     onSuccess: (res: { new_password: string }) => {
-      console.log(res, 'ress') 
       setPassword(res.new_password)
     },
   })
@@ -67,27 +67,27 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
     <div className="flex items-center gap-6">
       <Button
         type="link"
-        className="px-0 text-[16px] font-medium text-[#232E40]"
+        className="px-0 text-base font-medium text-[#232E40]"
         onClick={reset}
       >
-        <ResetPasswordIcon className="text-[20px]" />
+        <ResetPasswordIcon className="text-xl" />
       </Button>
 
       <Button
         type="link"
-        className="px-0 text-[16px] font-medium"
+        className="px-0 text-base font-medium"
         onClick={editHandler}
       >
-        <EditIcon className="text-[20px]" />
+        <EditIcon className="text-xl" />
       </Button>
 
       <Button
         onClick={() => setDeleteModal(true)}
         type="link"
         danger
-        className="px-0 text-[16px] font-medium"
+        className="px-0 text-base font-medium"
       >
-        <DeleteIcon className="text-[20px]" />
+        <DeleteIcon className="text-xl" />
       </Button>
       <ConfirmationModal
         danger
@@ -102,6 +102,7 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
       />
 
       <Modal
+        closeIcon={<CloseIcon className="text-xl text-black" />}
         open={resetModal}
         onCancel={() => setResetModal(false)}
         footer={null}
@@ -116,22 +117,22 @@ const UserActionButton = ({ id, refetch }: { id: number; refetch: any }) => {
             icon={<ResetPasswordIcon className="text-[#3276FF]" />}
           />
           <div className="mb-6 flex flex-col gap-[10px] text-center">
-            <Typography.Text className="text-[24px] font-[700]">
+            <Typography.Text className="text-2xl font-bold">
               {t('common.reset-password')}
             </Typography.Text>
-            <Typography.Text className="text-[16px] font-[500] text-secondary">
+            <Typography.Text className="text-base font-medium text-secondary">
               {t('common.reset-password-desc')}
             </Typography.Text>
           </div>
           <div className="mb-5 w-full">
             <div className="flex items-center justify-between">
-              <p className="text-[14px]">{t('hotels-page.password.title')}</p>
+              <p className="text-sm">{t('hotels-page.password.title')}</p>
               <Button
                 type="link"
                 icon={<ReloadOutlined />}
                 onClick={generatePassword}
                 loading={isUpdating}
-                className="m-0 p-0 text-[14px] font-[500]"
+                className="m-0 p-0 text-sm font-medium"
               >
                 {t('common.reset')}
               </Button>

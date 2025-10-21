@@ -136,7 +136,7 @@ export interface IInstagramDetailed {
   title: string
   description: string
   url: string
-  image: string
+  image: string | null
   is_active: boolean
 }
 

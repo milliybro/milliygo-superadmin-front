@@ -12,9 +12,7 @@ const ComplaintsFilters = () => {
     <Form layout="vertical" className="grid grid-cols-3 gap-4">
       <Form.Item label={t('fields.hotel-search.label')}>
         <Input
-          prefix={
-            <HotelIcon className="text-[16px] text-secondary ml-2 mr-4" />
-          }
+          prefix={<HotelIcon className="ml-2 mr-4 text-base text-secondary" />}
           size="large"
           placeholder={t('fields.hotel-search.placeholder')}
           className="select-shadow"
@@ -23,7 +21,7 @@ const ComplaintsFilters = () => {
       <Form.Item label={t('fields.user-fullname.label')}>
         <Input
           prefix={
-            <UserMultipleIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <UserMultipleIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           size="large"
           placeholder={t('fields.user-fullname.placeholder')}
@@ -33,11 +31,11 @@ const ComplaintsFilters = () => {
       <Form.Item label={t('fields.date.label')}>
         <DatePicker
           suffixIcon={null}
-          className="w-full select-shadow h-[47px]"
+          className="select-shadow h-[47px] w-full"
           size="large"
           placeholder={t('fields.date.placeholder')}
           prefix={
-            <Calendar3Icon className="text-[16px] text-secondary ml-2 mr-4" />
+            <Calendar3Icon className="ml-2 mr-4 text-base text-secondary" />
           }
         />
       </Form.Item>

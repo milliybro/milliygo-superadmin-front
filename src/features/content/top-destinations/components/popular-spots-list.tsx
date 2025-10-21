@@ -1,22 +1,16 @@
 import ImageUploadIcon from '@/components/icons/image-upload'
-import {
-  Button,
-  Divider,
-  Form,
-  Input,
-  notification,
-  Typography,
-  Upload,
-} from 'antd'
+import { Button, Divider, Form, Input, Typography, Upload } from 'antd'
 import { useTranslation } from 'react-i18next'
 import YandexMapPicker from '../../events/create/yandex-map-picker'
 import { usePopularSpotImages } from '../hooks/use-popular-spot-image'
 import { useMapCoordsStore } from '../store/map-coords-store'
+import { useImageCompression } from '@/hooks/use-image-compression'
 
 export default function PopularSpotsList() {
   const { t } = useTranslation()
   const { removeCoord, updatedCoords, coords, addCoord } = useMapCoordsStore()
   const { addImage, updateImage, images, removeImage } = usePopularSpotImages()
+  const { compress, isCompressing } = useImageCompression()
 
   const addHandler = () => {
     addCoord()
@@ -28,16 +22,22 @@ export default function PopularSpotsList() {
     removeImage(index)
   }
 
-  const handleImageUpload = (file: File, index: number) => {
-    console.log(file, index)
-    if (file?.size && file?.size > 5 * 1024 * 1024) {
-      notification.error({
-        message: t('common.images_limit', { limit: '5 MB' }),
-      })
-      return
-    }
+  const handleImageUpload = async (file: File, index: number) => {
+    // if (file?.size && file?.size > 5 * 1024 * 1024) {
+    //   notification.error({
+    //     message: t('common.images_limit', { limit: '5 MB' }),
+    //   })
+    //   return
+    // }
 
-    updateImage(index, { file, url: URL.createObjectURL(file) })
+    const compressed = await compress(file)
+
+    if (!compressed) return
+
+    updateImage(index, {
+      file: compressed?.compressedFile,
+      url: URL.createObjectURL(compressed?.compressedFile),
+    })
   }
 
   return (
@@ -112,8 +112,9 @@ export default function PopularSpotsList() {
                     className="h-[250px]"
                     showUploadList={false}
                     accept="image/*"
+                    disabled={isCompressing}
                   >
-                    <ImageUploadIcon className="text-[70px]" />
+                    <ImageUploadIcon className="text-[4.375rem]" />
                     <Typography.Title className="m-0 text-base font-medium">
                       {t('common.select_or_drag')}
                     </Typography.Title>

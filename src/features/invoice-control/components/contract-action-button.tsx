@@ -9,7 +9,7 @@ const ContractActionButton = () => {
     <div className="flex items-center gap-6">
       <Button
         type="link"
-        className="text-[16px] text-white font-medium px-0 bg-primary py-[10] px-3"
+        className="bg-primary px-0 px-3 py-[10] text-base font-medium text-white"
       >
         Расторгнут договор
       </Button>

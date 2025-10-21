@@ -12,15 +12,12 @@ interface ITouristsTable {
 
 interface ITourists {
   id: number
-  status: boolean
   full_name: string
   birth_date: string
-  passport_number: string
   gender: string
-  address: string
-  type_document: string
   docgiveplace: string
-  document_type: string
+  document_type: string | null
+  passport_sn: string | null
 }
 
 interface IRegions {

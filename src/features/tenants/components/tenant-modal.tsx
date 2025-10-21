@@ -56,12 +56,12 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
       } rounded-[12px] [&_.ant-notification-notice-message]:mb-0`,
       icon:
         type === 'error' ? (
-          <CloseIcon className="text-[24px] text-red-500" />
+          <CloseIcon className="text-2xl text-red-500" />
         ) : (
-          <CheckmarkCircleIcon className="text-[24px] text-primary" />
+          <CheckmarkCircleIcon className="text-2xl text-primary" />
         ),
       message: (
-        <Typography.Text className="text-[18px] font-semibold leading-[22.95px]">
+        <Typography.Text className="text-lg font-semibold leading-[22.95px]">
           {t(messageKey)}
         </Typography.Text>
       ),
@@ -71,11 +71,11 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
           <Button
             size="small"
             type="text"
-            className="grid place-items-center rounded-lg absolute right-[10px] top-[10px]"
+            className="absolute right-[10px] top-[10px] grid place-items-center rounded-lg"
             icon={<CloseIcon className="text-base" />}
             onClick={() => notification.destroy()}
           />
-          <Typography.Text className="text-secondary text-base">
+          <Typography.Text className="text-base text-secondary">
             {t(messageDesc)}
           </Typography.Text>
         </div>
@@ -171,20 +171,17 @@ const TernantsModal = ({ refetch }: { refetch: any }) => {
       <Button
         className="absolute right-[10px] top-[10px]"
         type="text"
-        icon={<CloseIcon className="text-[16px]" />}
+        icon={<CloseIcon className="text-base" />}
         onClick={closeHandler}
       />
-      <div className="flex items-center mb-6 flex-col text-center justify-center">
-        <div
-          className="bg-[#DBEAFE] border-[8px] mb-4 border-[#EFF6FF] shrink-0 flex items-center justify-center
-           size-[62px] rounded-full"
-        >
-          <HotelIcon className="text-[24px] text-primary" />
+      <div className="mb-6 flex flex-col items-center justify-center text-center">
+        <div className="mb-4 flex size-[62px] shrink-0 items-center justify-center rounded-full border-[8px] border-[#EFF6FF] bg-[#DBEAFE]">
+          <HotelIcon className="text-2xl text-primary" />
         </div>
-        <div className="text-[24px] mb-2 text-primary-dark font-bold">
+        <div className="mb-2 text-2xl font-bold text-primary-dark">
           {editTenantId ? t('tenant.edit-tenant') : t('tenant.add-tenant')}
         </div>
-        <p className="text-secondary font-medium">
+        <p className="font-medium text-secondary">
           {t('hotels-page.add-hotel-desc')}
         </p>
       </div>

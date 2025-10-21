@@ -35,7 +35,7 @@ const AccessRoleFilters = () => {
         <Input
           defaultValue={search || ''}
           prefix={
-            <UserSquareIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <UserSquareIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           size="large"
           placeholder={t('fields.role-search.placeholder')}
@@ -51,7 +51,7 @@ const AccessRoleFilters = () => {
           size="large"
           placeholder={t('fields.status.placeholder')}
           prefix={
-            <UserStatusIcon className="text-[16px] text-secondary ml-2 mr-4" />
+            <UserStatusIcon className="text-base text-secondary ml-2 mr-4" />
           }
         />
       </Form.Item> */}

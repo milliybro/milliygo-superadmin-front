@@ -86,27 +86,27 @@ const ClientsItem = () => {
   ]
 
   return (
-    <div className="overflow-y-auto flex-1">
-      <div className="p-6 flex flex-col gap-6 h-full">
-        <div className="text-[24px] text-primary-dark font-semibold">
+    <div className="flex-1 overflow-y-auto">
+      <div className="flex h-full flex-col gap-6 p-6">
+        <div className="text-2xl font-semibold text-primary-dark">
           {data?.first_name} {data?.last_name}
         </div>
 
-        <div className="grid grid-cols-12 gap-4 flex-1">
-          <div className="bg-white col-span-9 border flex flex-col overflow-hidden border-border rounded-[16px]">
+        <div className="grid flex-1 grid-cols-12 gap-4">
+          <div className="col-span-9 flex flex-col overflow-hidden rounded-[16px] border border-border bg-white">
             <Tabs className="p-6" defaultActiveKey="1" items={items} />
           </div>
-          <div className="bg-gradient-to-b from-[#14B8A61A] h-fit sticky top-6 from-0% to-white to-35% gap-6 flex col-span-3 border flex-col p-6 overflow-hidden border-border rounded-[16px]">
-            <div className="flex flex-col justify-center items-center gap-[14px]">
+          <div className="sticky top-6 col-span-3 flex h-fit flex-col gap-6 overflow-hidden rounded-[16px] border border-border bg-gradient-to-b from-[#14B8A61A] from-0% to-white to-35% p-6">
+            <div className="flex flex-col items-center justify-center gap-[14px]">
               {/* <div className="size-[108px] rounded-full border border-border bg-secondary-light" /> */}
               <Avatar size={108} src={defaultUser} alt="user avatar image" />
 
-              <span className="text-[18px] text-primary-dark font-semibold">
+              <span className="text-lg font-semibold text-primary-dark">
                 {data?.first_name} {data?.last_name}
               </span>
               {data?.passport_sn ? (
                 <div className="flex items-center gap-2">
-                  <span className="shrink-0 text-[12px] font-medium px-[10px] py-[6px] rounded-[6px] text-primary bg-primary-light">
+                  <span className="shrink-0 rounded-[6px] bg-primary-light px-[10px] py-[6px] text-xs font-medium text-primary">
                     {data?.passport_sn}
                   </span>
                 </div>
@@ -114,7 +114,7 @@ const ClientsItem = () => {
             </div>
             <div className="flex flex-col">
               <section>
-                <h2 className="text-[14px] text-primary-dark font-semibold mb-4">
+                <h2 className="mb-4 text-sm font-semibold text-primary-dark">
                   {t('common.general-information')}
                 </h2>
                 <div className="space-y-3">
@@ -145,7 +145,7 @@ const ClientsItem = () => {
               </section>
               {/* <Divider className="border-border" />
               <section>
-                <h2 className="text-[14px] text-primary-dark font-semibold mb-4">
+                <h2 className="text-sm text-primary-dark font-semibold mb-4">
                   {t('common.additional')}
                 </h2>
                 <div className="space-y-3">

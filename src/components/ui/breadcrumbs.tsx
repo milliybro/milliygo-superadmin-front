@@ -13,7 +13,7 @@ interface IProps {
 const Breadcrumbs: FC<IProps> = ({ items, className }) => {
   return (
     <nav
-      className={twMerge('container dlg:hidden', className)}
+      className={twMerge('dlg:hidden container', className)}
       itemScope
       itemType="https://schema.org/BreadcrumbList"
     >
@@ -21,7 +21,7 @@ const Breadcrumbs: FC<IProps> = ({ items, className }) => {
         {items?.map((item, index) => (
           <li
             key={index}
-            className="flex items-center text-[16px]"
+            className="flex items-center text-base"
             itemProp="itemListElement"
             itemScope
             itemType="https://schema.org/ListItem"

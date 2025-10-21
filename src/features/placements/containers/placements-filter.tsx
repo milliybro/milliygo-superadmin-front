@@ -104,7 +104,7 @@ const PlacementsFilters = () => {
       >
         <Input
           prefix={
-            <UserSquareIcon className="ml-2 mr-4 text-[16px] text-secondary" />
+            <UserSquareIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           size="large"
           placeholder={t('hotels-page.name.placeholder')}
@@ -127,7 +127,7 @@ const PlacementsFilters = () => {
           size="large"
           placeholder={t('fields.icon.select')}
           prefix={
-            <Location4Icon className="ml-2 mr-4 text-[16px] text-secondary" />
+            <Location4Icon className="ml-2 mr-4 text-base text-secondary" />
           }
           allowClear={true}
         />
@@ -146,7 +146,7 @@ const PlacementsFilters = () => {
           size="large"
           placeholder={t('fields.icon.select')}
           prefix={
-            <Location4Icon className="ml-2 mr-4 text-[16px] text-secondary" />
+            <Location4Icon className="ml-2 mr-4 text-base text-secondary" />
           }
           allowClear={true}
         />
@@ -158,7 +158,7 @@ const PlacementsFilters = () => {
       >
         <Input
           prefix={
-            <PhoneOutlined className="ml-2 mr-4 text-[16px] text-secondary" />
+            <PhoneOutlined className="ml-2 mr-4 text-base text-secondary" />
           }
           size="large"
           placeholder={t('fields.phone.placeholder')}
@@ -172,7 +172,7 @@ const PlacementsFilters = () => {
       >
         <Input
           prefix={
-            <StarOutlined className="ml-2 mr-4 text-[16px] text-secondary" />
+            <StarOutlined className="ml-2 mr-4 text-base text-secondary" />
           }
           size="large"
           placeholder={t('fields.icon.select')}
@@ -191,7 +191,7 @@ const PlacementsFilters = () => {
             { label: t('common.women'), value: 'female' },
           ]}
           prefix={
-            <FileVerifiedIcon className="ml-2 mr-4 text-[16px] text-secondary" />
+            <FileVerifiedIcon className="ml-2 mr-4 text-base text-secondary" />
           }
           size="large"
           placeholder={t('fields.status.placeholder')}

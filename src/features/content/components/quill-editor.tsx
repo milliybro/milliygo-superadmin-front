@@ -1,4 +1,9 @@
+import { useMemo, useRef } from 'react'
 import ReactQuill from 'react-quill'
+
+import { uploadImage } from '../api'
+
+import { useImageCompression } from '@/hooks/use-image-compression'
 import imageCompression from 'browser-image-compression'
 import 'react-quill/dist/quill.snow.css'
 import { useMemo, useRef } from 'react'
@@ -10,6 +15,68 @@ interface QuillEditorProps {
   maxWidthOrHeight?: number // Max width or height in pixels (default: 1920)
 }
 
+export default function QuillEditor({ value, onChange }: QuillEditorProps) {
+  const quillRef = useRef<ReactQuill | null>(null)
+  const { compress } = useImageCompression(true)
+
+  const uploadHandler = async (img: File) => {
+    const formData = new FormData()
+    formData.append('file', img)
+
+    const res = await uploadImage(formData)
+    return res?.file_url
+  }
+
+  const imageHandler = () => {
+    const input = document.createElement('input')
+    input.setAttribute('type', 'file')
+    input.setAttribute('accept', 'image/*')
+
+    input.onchange = async () => {
+      const file = input.files?.[0]
+      if (!file) return
+
+      try {
+        const compressed = await compress(file)
+
+        if (!compressed) return
+
+        const url = await uploadHandler(compressed.compressedFile)
+
+        const editor = quillRef.current?.getEditor()
+        const range = editor?.getSelection()
+
+        if (range) {
+          editor?.insertEmbed(range.index, 'image', url)
+        }
+      } catch (error) {
+        console.log('Error uploading image: ', error)
+      }
+    }
+
+    input.click()
+  }
+
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [
+          [{ header: [1, 2, 3, 4, 5, 6, false] }],
+          ['bold', 'italic', 'underline', 'strike'],
+          ['blockquote', 'code-block'],
+          [{ list: 'ordered' }, { list: 'bullet' }, { list: 'check' }],
+          [{ indent: '+1' }, { indent: '-1' }],
+          [{ align: [] }],
+          ['link', 'image'],
+          ['clean'],
+        ],
+        handlers: {
+          image: imageHandler,
+        },
+      },
+    }),
+    [],
+  )
 export default function QuillEditor({ 
   value, 
   onChange,
@@ -107,10 +174,11 @@ export default function QuillEditor({
   return (
     <ReactQuill
       ref={quillRef}
+      ref={quillRef}
       theme="snow"
       modules={modules}
       formats={formats}
-      value={value}
+      value={value ?? ''}
       onChange={onChange}
       className="mb-[50px] font-[Onest,_sans-serif]"
     />

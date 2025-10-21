@@ -41,11 +41,11 @@ const CallCenter = () => {
   })
 
   return (
-    <div className="p-6 flex flex-col gap-6 flex-1">
-      <div className="text-[24px] text-primary-dark font-semibold">
+    <div className="flex flex-1 flex-col gap-6 p-6">
+      <div className="text-2xl font-semibold text-primary-dark">
         {t('common.call-center')}
       </div>
-      <div className="h-full grid grid-cols-6 gap-4">
+      <div className="grid h-full grid-cols-6 gap-4">
         <ChatsList
           selectedChat={selectedChat}
           setSelectedChat={setSelectedChat}

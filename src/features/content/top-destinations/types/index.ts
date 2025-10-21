@@ -7,4 +7,5 @@ export interface ITopDestinationForm {
     name: string
     description: string
   }[]
+  status: boolean
 }

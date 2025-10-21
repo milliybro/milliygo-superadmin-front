@@ -122,12 +122,12 @@ const ServicesAction = () => {
       } rounded-[12px] [&_.ant-notification-notice-message]:mb-0`,
       icon:
         type === 'error' ? (
-          <CloseIcon className="text-[24px] text-red-500" />
+          <CloseIcon className="text-2xl text-red-500" />
         ) : (
-          <CheckmarkCircleIcon className="text-[24px] text-primary" />
+          <CheckmarkCircleIcon className="text-2xl text-primary" />
         ),
       message: (
-        <Typography.Text className="text-[18px] font-semibold leading-[22.95px]">
+        <Typography.Text className="text-lg font-semibold leading-[22.95px]">
           {t(messageKey)}
         </Typography.Text>
       ),
@@ -137,11 +137,11 @@ const ServicesAction = () => {
           <Button
             size="small"
             type="text"
-            className="grid place-items-center rounded-lg absolute right-[10px] top-[10px]"
+            className="absolute right-[10px] top-[10px] grid place-items-center rounded-lg"
             icon={<CloseIcon className="text-base" />}
             onClick={() => notification.destroy()}
           />
-          <Typography.Text className="text-secondary text-base">
+          <Typography.Text className="text-base text-secondary">
             {t(messageDesc)}
           </Typography.Text>
         </div>
@@ -357,8 +357,8 @@ const ServicesAction = () => {
   })
 
   return (
-    <div className="p-6 flex flex-col gap-6 flex-1">
-      <div className="text-[24px] text-primary-dark font-semibold h-full">
+    <div className="flex flex-1 flex-col gap-6 p-6">
+      <div className="h-full text-2xl font-semibold text-primary-dark">
         {editServiceId
           ? t('services-page.edit-services')
           : t('services-page.add-services')}
@@ -371,10 +371,10 @@ const ServicesAction = () => {
         className="w-full"
         onFinish={handleUserSave}
       >
-        <div className="grid grid-cols-2 gap-6 h-screen overflow-y-scroll">
+        <div className="grid h-screen grid-cols-2 gap-6 overflow-y-scroll">
           <div className="flex flex-col gap-6">
-            <div className="bg-white border flex-col p-6 overflow-hidden border-border rounded-[16px]">
-              <div className="flex flex-col mb-6 gap-6">
+            <div className="flex-col overflow-hidden rounded-[16px] border border-border bg-white p-6">
+              <div className="mb-6 flex flex-col gap-6">
                 <Form.Item
                   name="type"
                   label={t('common.type')}
@@ -493,8 +493,8 @@ const ServicesAction = () => {
               </div>
             </div>
 
-            <div className="bg-white border flex-col p-6 overflow-hidden border-border rounded-[16px]">
-              <div className="flex items-center gap-6 mb-6">
+            <div className="flex-col overflow-hidden rounded-[16px] border border-border bg-white p-6">
+              <div className="mb-6 flex items-center gap-6">
                 <Form.Item
                   name="icon"
                   label={t('fields.icon.add-icon')}
@@ -557,10 +557,10 @@ const ServicesAction = () => {
                       <p className="ant-upload-drag-icon flex justify-center">
                         <AddCreateIcon />
                       </p>
-                      <p className="ant-upload-text text-[#232E40] text-base font-medium">
+                      <p className="ant-upload-text text-base font-medium text-[#232E40]">
                         <a
                           style={{ textDecoration: 'underline' }}
-                          className="text-[#3276FF] me-1"
+                          className="me-1 text-[#3276FF]"
                         >
                           {t('fields.icon.select')}
                         </a>
@@ -590,13 +590,13 @@ const ServicesAction = () => {
             </div>
           </div>
 
-          <div className="flex flex-col bg-white border p-6 overflow-y-auto  border-border rounded-[16px]">
+          <div className="flex flex-col overflow-y-auto rounded-[16px] border border-border bg-white p-6">
             <Text className="text-base font-medium">
               {t('fields.icon.icons')}
             </Text>
             <div className="py-2">
               <Radio.Group onChange={onChange} value={selectedValue}>
-                <div className="grid grid-cols-8 gap-4 p-2 overflow-y-auto overflow-x-hidden ">
+                <div className="grid grid-cols-8 gap-4 overflow-y-auto overflow-x-hidden p-2">
                   {icons?.results.map((option: any) => (
                     <Card
                       key={option.id}

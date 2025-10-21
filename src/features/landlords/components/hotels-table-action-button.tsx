@@ -32,7 +32,7 @@ const HotelsTableActionButton: FC<IProps> = ({ id, tenant_id, type }) => {
         )
       }
     >
-      <EyeIcon className="text-[20px]" />
+      <EyeIcon className="text-xl" />
       {t('common.more-details')}
     </Button>
   )

@@ -10,7 +10,7 @@ import formatDate from './format-date'
 
 const ClientsItemHotelCard = ({ items }: { items: any }) => {
   const { t } = useTranslation()
- 
+
   const calculateDaysDifference = (
     startDate: string,
     endDate: string,
@@ -28,35 +28,35 @@ const ClientsItemHotelCard = ({ items }: { items: any }) => {
   const daysCount = calculateDaysDifference(items?.start_date, items?.end_date)
 
   return (
-    <div className="border border-b-border gap-4 flex p-4 rounded-[12px]">
+    <div className="flex gap-4 rounded-[12px] border border-b-border p-4">
       <Image
         width={120}
         height={120}
         src={items?.image}
-        className="object-cover size-[120px] border-border border bg-secondary-light rounded-[12px] shrink-0"
+        className="size-[120px] shrink-0 rounded-[12px] border border-border bg-secondary-light object-cover"
         // style={{
         //   boxShadow:
         //     '0px 20px 13px 0px rgba(0, 0, 0, 0.03), 0px 8px 5px 0px rgba(0, 0, 0, 0.08)',
         // }}
       />
 
-      <div className="flex flex-col gap-4 flex-1">
+      <div className="flex flex-1 flex-col gap-4">
         <div className="flex justify-between">
           <div className="flex items-center gap-[10px]">
-            <span className="text-[24px] font-semibold text-primary-dark">
+            <span className="text-2xl font-semibold text-primary-dark">
               {items?.name}
             </span>
             <RatingTag value={items?.avg_rating} icon />
           </div>
           <Link
             to={'/'}
-            className="underline text-primary flex items-center gap-1 text-end"
+            className="flex items-center gap-1 text-end text-primary underline"
           >
             {items?.address}
-            <ArrowUpRightIcon className="text-[18px]" />
+            <ArrowUpRightIcon className="text-lg" />
           </Link>
         </div>
-        <div className="flex items-center text-[14px] text-secondary">
+        <div className="flex items-center text-sm text-secondary">
           <span>
             {t('fields.check-in-time.label')} {formatDate(items?.start_date)}
           </span>
@@ -67,18 +67,18 @@ const ClientsItemHotelCard = ({ items }: { items: any }) => {
         </div>
         <div className="flex items-center justify-between">
           <div className="inline-flex items-center gap-3">
-            <span className="text-[18px] text-primary-dark font-semibold">
+            <span className="text-lg font-semibold text-primary-dark">
               {items?.room_type}
             </span>
-            <span className="px-2 py-0.5 border-secondary text-[12px] text-secondary border rounded-[6px]">
+            <span className="rounded-[6px] border border-secondary px-2 py-0.5 text-xs text-secondary">
               {items?.room_number}
             </span>
-            <span className="text-secondary text-[14px]">
+            <span className="text-sm text-secondary">
               {formatAmount(items?.total_price) || 0} UZS
             </span>
           </div>
-          <span className="inline-flex items-center gap-1 text-secondary text-[14px]">
-            <CloseIcon className="text-[16px]" />
+          <span className="inline-flex items-center gap-1 text-sm text-secondary">
+            <CloseIcon className="text-base" />
             {t('common.nights-count', { count: daysCount })}
           </span>
         </div>

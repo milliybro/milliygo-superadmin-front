@@ -108,7 +108,7 @@ const FinanceStatsChart: FC<{ className?: string }> = props => {
       classNames={{ body: '!p-0' }}
     >
       <div className="flex flex-col border-b p-4">
-        <h2 className="mb-2 text-[20px] font-bold">
+        <h2 className="mb-2 text-xl font-bold">
           Статистика финансов и доходов (млн сум)
         </h2>
         <Form className="flex items-center justify-between">
@@ -127,7 +127,7 @@ const FinanceStatsChart: FC<{ className?: string }> = props => {
               picker="year"
               size="large"
               suffixIcon={
-                <Calendar3Icon className="text-[18px] text-success-dark" />
+                <Calendar3Icon className="text-lg text-success-dark" />
               }
             />
           </Form.Item>

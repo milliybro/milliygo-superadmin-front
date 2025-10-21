@@ -27,7 +27,7 @@ const PlacementsHeader = () => {
   }
   return (
     <div className="flex items-start justify-between">
-      <div className="text-[24px] font-semibold text-primary-dark">
+      <div className="text-2xl font-semibold text-primary-dark">
         {t('routes.placement-funds')}
       </div>
       <Form layout="vertical" className="" onValuesChange={handleValuesChange}>
@@ -42,7 +42,7 @@ const PlacementsHeader = () => {
             size="large"
             placeholder={t('placements.all-status')}
             prefix={
-              <FileVerifiedIcon className="ml-2 mr-6 text-[16px] text-secondary" />
+              <FileVerifiedIcon className="ml-2 mr-6 text-base text-secondary" />
             }
             allowClear={true}
           />

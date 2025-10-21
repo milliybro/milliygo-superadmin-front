@@ -6,7 +6,6 @@ import { useLocation, useNavigate } from 'react-router'
 import EditIcon from '@/components/icons/edit'
 import useHotelModalStore from '../store/hotel-modal-store'
 
-
 interface IProps {
   id?: number
 }
@@ -16,7 +15,6 @@ const HotelsTableActionButton: FC<IProps> = ({ id }) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const { openModal } = useHotelModalStore(store => store)
-
 
   const editHandler = () => {
     navigate(pathname + '?edit=' + id)
@@ -28,7 +26,7 @@ const HotelsTableActionButton: FC<IProps> = ({ id }) => {
       type="text"
       onClick={editHandler}
     >
-      <EditIcon className="text-[20px]" />
+      <EditIcon className="text-xl" />
       {t('common.edit')}
     </Button>
   )

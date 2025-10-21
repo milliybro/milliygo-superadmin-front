@@ -102,8 +102,8 @@ const PlacementsItemTransactions = () => {
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 0 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
+            n === 0 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.prev')}
@@ -114,8 +114,8 @@ const PlacementsItemTransactions = () => {
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 10 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
+            n === 10 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.next')}
@@ -127,7 +127,7 @@ const PlacementsItemTransactions = () => {
   }
   return (
     <div>
-      <div className="p-6 border-[1px] rounded-[12px]">
+      <div className="rounded-[12px] border-[1px] p-6">
         <div>
           <p className="text-base font-normal text-[#777E90]">
             {t('fields.balance.label')}
@@ -138,21 +138,21 @@ const PlacementsItemTransactions = () => {
         </div>
         <Divider className="" />
         <div className="flex gap-4">
-          <div className="w-full p-3 rounded-xl border bg-[#F8F8FA] flex justify-between">
+          <div className="flex w-full justify-between rounded-xl border bg-[#F8F8FA] p-3">
             <div className="flex items-center gap-4 text-sm font-normal text-[#777E90]">
               <CheckMarkIcon />
               {t('common.approved')}
             </div>
-            <p className="text-[#0A0D2C] text-[15px] font-medium">
+            <p className="text-sm font-medium text-[#0A0D2C]">
               {formatAmount(365984365)} UZS
             </p>
           </div>
-          <div className=" w-full p-3 rounded-xl border bg-[#F8F8FA] flex justify-between">
+          <div className="flex w-full justify-between rounded-xl border bg-[#F8F8FA] p-3">
             <div className="flex items-center gap-4 text-sm font-normal text-[#777E90]">
               <PaymentSuccessIcon />
               {t('common.accrued')}
             </div>
-            <p className="text-[#0A0D2C] text-[15px] font-medium">
+            <p className="text-sm font-medium text-[#0A0D2C]">
               {formatAmount(148365635)} UZS
             </p>
           </div>
@@ -164,7 +164,7 @@ const PlacementsItemTransactions = () => {
           title: t(`${val?.title}`),
         }))}
         dataSource={data}
-        className="w-full h-full"
+        className="h-full w-full"
         pagination={{
           pageSize: 10,
           total: 100,

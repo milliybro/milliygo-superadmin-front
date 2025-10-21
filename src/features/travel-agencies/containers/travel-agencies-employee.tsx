@@ -61,12 +61,12 @@ const TravelAgenciesEmployees = () => {
               src={val?.avatar}
             />
           ) : (
-            <span className="w-12 h-12 rounded-lg bg-slate-100 flex justify-center items-center">
+            <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-slate-100">
               <BedSingleIcon />
             </span>
           )}
 
-          <span className="text-[14px] text-primary-dark font-medium">{_}</span>
+          <span className="text-sm font-medium text-primary-dark">{_}</span>
         </div>
       ),
     },
@@ -86,8 +86,8 @@ const TravelAgenciesEmployees = () => {
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 0 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
+            n === 0 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.prev')}
@@ -98,8 +98,8 @@ const TravelAgenciesEmployees = () => {
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 10 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
+            n === 10 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.next')}
@@ -133,7 +133,7 @@ const TravelAgenciesEmployees = () => {
         dataSource={
           data?.results ? transformHotelDetailsToTableData(data?.results) : []
         }
-        className="w-full h-full"
+        className="h-full w-full"
         pagination={{
           current: currentPage,
           pageSize: 10,

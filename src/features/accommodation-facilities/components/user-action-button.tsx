@@ -78,25 +78,25 @@ const UserActionButton = ({
     <div className="flex items-center gap-6">
       <Button
         type="link"
-        className="text-[16px] font-medium px-0"
+        className="px-0 text-base font-medium"
         onClick={editHandler}
       >
-        <EyeIcon className="text-[20px]" /> {t('common.more-details')}
+        <EyeIcon className="text-xl" /> {t('common.more-details')}
       </Button>
 
       {/* <Button
         onClick={() => setDeleteModal(true)}
         type="link"
         danger
-        className="text-[16px] font-medium px-0"
+        className="text-base font-medium px-0"
       >
-        <DeleteIcon className="text-[20px]" /> {t('common.delete')}
+        <DeleteIcon className="text-xl" /> {t('common.delete')}
       </Button> */}
       {activeTab === '2' ? (
         <>
           <Button
             type="link"
-            className="text-[16px] font-medium px-0"
+            className="px-0 text-base font-medium"
             onClick={() => confirm.mutate()}
             loading={confirm.isPending}
           >
@@ -105,7 +105,7 @@ const UserActionButton = ({
           <Button
             type="link"
             danger
-            className="text-[16px] font-medium px-0"
+            className="px-0 text-base font-medium"
             onClick={() => reject.mutate()}
             loading={reject.isPending}
           >

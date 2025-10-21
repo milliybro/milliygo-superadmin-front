@@ -84,18 +84,18 @@ const adminItems = [
     path: ROUTE_PATHS.CONTENT,
     status: 'finished',
   },
-  {
-    label: 'common.tenants',
-    icon: MegaPhoneIcon,
-    path: ROUTE_PATHS.TENANTS,
-    status: 'in progress',
-  },
-  {
-    label: 'routes.roles',
-    icon: TimeManagementIcon,
-    path: ROUTE_PATHS.ACCESS_ROLE,
-    status: 'unstarted',
-  },
+  // {
+  //   label: 'common.tenants',
+  //   icon: MegaPhoneIcon,
+  //   path: ROUTE_PATHS.TENANTS,
+  //   status: 'in progress',
+  // },
+  // {
+  //   label: 'routes.roles',
+  //   icon: TimeManagementIcon,
+  //   path: ROUTE_PATHS.ACCESS_ROLE,
+  //   status: 'unstarted',
+  // },
   {
     label: 'common.users',
     icon: UserIcon,
@@ -148,7 +148,7 @@ const Sidebar = () => {
       <div className="flex items-center justify-between p-4">
         {isSidebarOpen && <ProjectLogo />}
         <button onClick={toggleSidebar} aria-label="Toggle Sidebar">
-          <SidebarLeftIcon className="text-[24px] text-[#B7BFD5]" />
+          <SidebarLeftIcon className="text-2xl text-[#B7BFD5]" />
         </button>
       </div>
 
@@ -170,7 +170,7 @@ const Sidebar = () => {
                 >
                   <item.icon
                     className={twMerge(
-                      'text-[24px]',
+                      'text-2xl',
                       isActive ? 'text-primary-dark' : 'text-[#69757A]',
                     )}
                   />

@@ -80,7 +80,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
       width: 282,
 
       render: (text, vals) => (
-        <Flex align="center" gap={10} className=" font-semibold">
+        <Flex align="center" gap={10} className="font-semibold">
           {vals.icon} {text}
         </Flex>
       ),
@@ -95,7 +95,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
     {
       key: '1',
       price: t('hotels-page.check-in.title'),
-      icon: <LoginIcon className=" w-[18px]" />,
+      icon: <LoginIcon className="w-[18px]" />,
       conditions: (
         <Flex vertical gap={8}>
           {t('common.time-from', {
@@ -110,7 +110,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
     {
       key: '2',
       price: t('hotels-page.check-out.title'),
-      icon: <LogoutIcon className=" w-[18px]" />,
+      icon: <LogoutIcon className="w-[18px]" />,
       conditions: (
         <Flex vertical gap={8}>
           {t('common.time-to', {
@@ -125,7 +125,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
       icon: <BedSingleIcon className="w-[18px]" />,
       conditions: (
         <Flex vertical gap={8}>
-          <Typography.Text className=" font-medium">
+          <Typography.Text className="font-medium">
             {t('hotels-page.bed-for-child.desc')}
           </Typography.Text>
 
@@ -146,7 +146,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
       price: t('hotels-page.no-age.title'),
       icon: <UserOutlinedIcon className="w-[18px]" />,
       conditions: (
-        <Typography.Text className="text-secondary text-sm">
+        <Typography.Text className="text-sm text-secondary">
           {t('hotels-page.no-age.desc')}
         </Typography.Text>
       ),
@@ -156,7 +156,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
       price: t('hotels-page.pets.title'),
       icon: <PawPrintIcon className="w-[18px]" />,
       conditions: (
-        <Typography.Text className="text-secondary text-sm">
+        <Typography.Text className="text-sm text-secondary">
           {t('hotels-page.pets.desc')}
         </Typography.Text>
       ),
@@ -203,12 +203,12 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
       name="hotelContentForm"
       className="flex flex-col gap-6"
     >
-      <div className="p-6 border border-border rounded-[12px]">
-        <h2 className="text-[24px] font-medium text-primary-dark">
+      <div className="rounded-[12px] border border-border p-6">
+        <h2 className="text-2xl font-medium text-primary-dark">
           {t('common.main-information')}
         </h2>
         <Divider />
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             {/* <div className="size-[80px] rounded-[8px] border border-border bg-secondary-light" /> */}
             {data?.placement_images[0]?.image ? (
@@ -219,7 +219,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
                 src={data?.placement_images[0]?.image}
               />
             ) : (
-              <div className="size-[80px] rounded-[8px] border border-border bg-secondary-light flex flex-col justify-center items-center">
+              <div className="flex size-[80px] flex-col items-center justify-center rounded-[8px] border border-border bg-secondary-light">
                 <HotelIcon fontSize={48} />
               </div>
             )}
@@ -234,7 +234,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
               </div>
               <a
                 style={{ textDecoration: 'underline' }}
-                className="text-[#2563EB] text-sm font-normal"
+                className="text-sm font-normal text-[#2563EB]"
               >
                 {data?.placement_detail?.address}
               </a>
@@ -252,8 +252,8 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
           {data?.placement_detail?.description}
         </p>
       </div>
-      <div className="p-6 border border-border rounded-[12px]">
-        <h2 className="text-[24px] font-medium text-primary-dark">
+      <div className="rounded-[12px] border border-border p-6">
+        <h2 className="text-2xl font-medium text-primary-dark">
           {t('common.facilities-and-services')}
         </h2>
         <Divider />
@@ -262,7 +262,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
             return (
               <div
                 key={item?.id}
-                className="flex items-center gap-2 text-base font-normal text-[#232E40] "
+                className="flex items-center gap-2 text-base font-normal text-[#232E40]"
               >
                 <img className="w-6" src={item?.icon} alt={item?.name} />
                 <Tooltip
@@ -279,8 +279,8 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
         </div>
       </div>
 
-      <div className="p-6 border rounded-[12px]">
-        <h2 className="text-[24px] font-medium text-primary-dark">
+      <div className="rounded-[12px] border p-6">
+        <h2 className="text-2xl font-medium text-primary-dark">
           {t('common.accommodation-terms')}
         </h2>
         <Divider />

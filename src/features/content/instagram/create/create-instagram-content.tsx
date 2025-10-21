@@ -1,6 +1,3 @@
-import { useEffect } from 'react'
-import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate, useParams } from 'react-router'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import {
   Button,
@@ -8,23 +5,27 @@ import {
   Form,
   Image,
   Input,
-  message,
   notification,
   Typography,
   Upload,
 } from 'antd'
+import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
+import { useLocation, useNavigate, useParams } from 'react-router'
 
+import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import {
   createInstagramContent,
   getInstagramContent,
   patchInstagramContent,
 } from '../../api'
-import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
 import ImageUploadIcon from '@/components/icons/image-upload'
 
+import { useImageCompression } from '@/hooks/use-image-compression'
 import type { Rule } from 'antd/es/form'
 import type { RcFile } from 'antd/es/upload'
+import { useInstagramImage } from '../store/instagram-image'
 
 type CreateInstagramContentValues = {
   name: string
@@ -44,12 +45,11 @@ export default function CreateInstagramContent() {
   const { t } = useTranslation()
   const { pathname } = useLocation()
   const queryClient = useQueryClient()
-
+  const { setImage, image, removeImage } = useInstagramImage()
   const { setBreadCrumbs } = useBreadCrumbsStore()
-
   const [form] = Form.useForm()
-  const imageField = Form.useWatch('image', form)
   const isEditing = pathname.includes('/edit')
+  const { compress, isCompressing } = useImageCompression()
 
   const instagramContentItem = useQuery({
     queryKey: ['instagram-contents-item', params.slug],
@@ -71,12 +71,27 @@ export default function CreateInstagramContent() {
     if (instagramContentItem?.data) {
       form.setFieldsValue({
         ...instagramContentItem.data,
-        image: {
-          url: instagramContentItem.data?.image,
-        },
       })
+
+      if (instagramContentItem.data?.image) {
+        form.setFieldsValue({
+          image: {
+            url: instagramContentItem.data?.image,
+          },
+        })
+        setImage({
+          url: instagramContentItem.data?.image,
+          file: null,
+        })
+      }
     }
   }, [instagramContentItem.data])
+
+  useEffect(() => {
+    return () => {
+      setImage(null)
+    }
+  }, [])
 
   const createOrUpdate = useMutation({
     mutationFn: (values: CreateInstagramContentValues) => {
@@ -101,7 +116,7 @@ export default function CreateInstagramContent() {
   const uploadImagesRules: Rule[] = [
     {
       validator: (_, value) => {
-        if (!value) {
+        if (!value || (!image?.file && !image?.url)) {
           return Promise.reject(new Error(t('fields.images.required')))
         }
 
@@ -110,21 +125,25 @@ export default function CreateInstagramContent() {
     },
   ]
 
-  const beforeUploadHandler = (file: RcFile) => {
-    const fileSizeInMB = file.size / 1024 / 1024
+  const beforeUploadHandler = async (file: RcFile) => {
+    // const fileSizeInMB = file.size / 1024 / 1024
+    const compressed = await compress(file, { height: 660, width: 1200 })
+    // if (fileSizeInMB > 5) {
+    //   message.error(t('fields.images.max-size-limit', { value: file?.name }))
+    //   return false
+    // }
 
-    if (fileSizeInMB > 5) {
-      message.error(t('fields.images.max-size-limit', { value: file?.name }))
+    if (!compressed?.resizedFile) {
       return false
     }
 
-    form.setFieldValue('image', file)
+    form.setFieldValue('image', compressed?.resizedFile)
+    setImage({
+      url: URL.createObjectURL(compressed?.resizedFile),
+      file: compressed?.resizedFile,
+    })
 
     return false
-  }
-
-  const removeHandler = () => {
-    form.setFieldValue('image', undefined)
   }
 
   return (
@@ -143,13 +162,27 @@ export default function CreateInstagramContent() {
             {t(isEditing ? 'content.edit-content' : 'content.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
-          <Form.Item label={t('fields.name.label')} name="title">
+          <Form.Item
+            label={t('fields.name.label')}
+            name="title"
+            rules={[{ required: true, message: t('fields.name.required') }]}
+          >
             <Input placeholder={t('fields.name.placeholder')} size="large" />
           </Form.Item>
-          <Form.Item label={t('fields.url.label')} name="url">
+          <Form.Item
+            label={t('fields.url.label')}
+            name="url"
+            rules={[{ required: true, message: t('fields.url.error') }]}
+          >
             <Input placeholder="https://" size="large" />
           </Form.Item>
-          <Form.Item label={t('fields.description.label')} name="description">
+          <Form.Item
+            label={t('fields.description.label')}
+            name="description"
+            rules={[
+              { required: true, message: t('fields.description.required') },
+            ]}
+          >
             <Input.TextArea
               placeholder={t('fields.description.placeholder')}
               rows={6}
@@ -157,27 +190,25 @@ export default function CreateInstagramContent() {
             />
           </Form.Item>
           <div className="flex flex-col">
-            <div className="mb-[5px] text-[14px]">
-              {t('fields.images.label')}
-            </div>
-            {imageField ? (
+            <div className="mb-[5px] text-sm">{t('fields.images.label')}</div>
+            {image?.file || image?.url ? (
               <div className="relative flex aspect-square h-[212px] overflow-hidden rounded-xl border">
-                {imageField ? (
-                  <Image
-                    src={
-                      imageField?.url
-                        ? imageField?.url
-                        : URL.createObjectURL(imageField)
-                    }
-                    preview={{ toolbarRender: () => null }}
-                    wrapperClassName="h-full w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:object-cover"
-                  />
-                ) : null}
+                <Image
+                  src={
+                    image?.url
+                      ? image?.url
+                      : image?.file
+                        ? URL.createObjectURL(image?.file)
+                        : ''
+                  }
+                  preview={{ toolbarRender: () => null }}
+                  wrapperClassName="h-full w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:object-cover"
+                />
                 <Button
                   danger
                   size="small"
                   className="absolute right-2 top-2"
-                  onClick={removeHandler}
+                  onClick={removeImage}
                 >
                   {t('common.delete')}
                 </Button>
@@ -192,8 +223,9 @@ export default function CreateInstagramContent() {
                   setTimeout(() => onSuccess?.('ok'), 0)
                 }}
                 beforeUpload={beforeUploadHandler}
+                disabled={isCompressing}
               >
-                <ImageUploadIcon className="text-[70px]" />
+                <ImageUploadIcon className="text-[4.375rem]" />
                 <Typography.Title className="m-0 text-base font-medium">
                   {t('common.select_or_drag')}
                 </Typography.Title>

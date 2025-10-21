@@ -46,7 +46,7 @@ const TravelAgenciesTable = ({
               <BeachIcon fontSize={28} />
             )}
           </div>
-          <span className="text-[14px] font-medium text-primary-dark">
+          <span className="text-sm font-medium text-primary-dark">
             {val?.name ? val?.name : '-'}
           </span>
         </div>

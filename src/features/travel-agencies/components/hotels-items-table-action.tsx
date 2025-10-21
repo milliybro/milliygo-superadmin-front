@@ -21,7 +21,7 @@ const HotelsItemTableActionButton: FC<IProps> = () => {
         type="text"
         onClick={openModal}
       >
-        <EyeIcon className="text-[20px]" />
+        <EyeIcon className="text-xl" />
         {t('common.more-details')}
       </Button>
     </>

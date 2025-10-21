@@ -24,18 +24,18 @@ const ContractsPage = () => {
   }, [])
 
   return (
-    <div className="p-6 flex flex-col gap-6 flex-1">
+    <div className="flex flex-1 flex-col gap-6 p-6">
       <div className="flex items-start justify-between">
         <div>
-          <div className="flex gap-3 items-center">
-            <Typography.Text className="text-[24px] text-primary-dark font-semibold">
+          <div className="flex items-center gap-3">
+            <Typography.Text className="text-2xl font-semibold text-primary-dark">
               Мои контракты
             </Typography.Text>
-            <Typography.Text className="text-[16px] font-[500] text-[#2563EB] flex items-center gap-1">
+            <Typography.Text className="flex items-center gap-1 text-base font-medium text-[#2563EB]">
               Иструкция <VideoReplayIcon />
             </Typography.Text>
           </div>
-          <Typography.Text className="text-[14px] font-[400] text-secondary">
+          <Typography.Text className="text-sm font-normal text-secondary">
             Здесь вы можете создать и настроить свою услугу.
           </Typography.Text>
         </div>
@@ -49,7 +49,7 @@ const ContractsPage = () => {
         {/* <UserModal refetch={refetch} /> */}
       </div>
       {/* <UsersFilters /> */}
-      <div className="bg-white border flex-col overflow-hidden border-border dark:bg-dark-bg rounded-[16px] flex items-center justify-center h-full">
+      <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white dark:bg-dark-bg">
         <ContactsTable />
       </div>
     </div>

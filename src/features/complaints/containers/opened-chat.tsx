@@ -236,9 +236,9 @@ const OpenedChatComplaints: FC<IProps> = ({
   //     closeIcon: null,
   //     className:
   //       'w-[406px] border-t-[5px] border-primary rounded-[12px] [&_.ant-notification-notice-message]:mb-0',
-  //     icon: <CheckmarkCircleIcon className="text-[24px] text-primary" />,
+  //     icon: <CheckmarkCircleIcon className="text-2xl text-primary" />,
   //     message: (
-  //       <Typography.Text className="text-[18px] font-semibold leading-[22.95px]">
+  //       <Typography.Text className="text-lg font-semibold leading-[22.95px]">
   //         So'rov yuborildi
   //       </Typography.Text>
   //     ),
@@ -260,11 +260,11 @@ const OpenedChatComplaints: FC<IProps> = ({
   //   })
   // }
   return (
-    <main className="!col-span-4 flex-1  bg-white border flex flex-col overflow-hidden border-border rounded-[16px]">
-      <header className="p-4 border-b flex items-center justify-between text-center">
+    <main className="!col-span-4 flex flex-1 flex-col overflow-hidden rounded-[16px] border border-border bg-white">
+      <header className="flex items-center justify-between border-b p-4 text-center">
         <Button
           type="text"
-          icon={<ArrowLeftIcon className="text-[24px] text-primary-dark" />}
+          icon={<ArrowLeftIcon className="text-2xl text-primary-dark" />}
           onClick={() => setSelectedChat(null)}
         />
         <div>
@@ -277,7 +277,7 @@ const OpenedChatComplaints: FC<IProps> = ({
       </header>
 
       <div
-        className="relative flex-1 flex flex-col overflow-y-auto p-4 space-y-2"
+        className="relative flex flex-1 flex-col space-y-2 overflow-y-auto p-4"
         style={{ maxHeight: '620px', overflowY: 'auto', position: 'relative' }}
       >
         {[...(messages || [])]
@@ -301,7 +301,7 @@ const OpenedChatComplaints: FC<IProps> = ({
               return (
                 <div
                   key={`date-${index}`}
-                  className="text-center my-4 text-sm text-gray-500 font-medium"
+                  className="my-4 text-center text-sm font-medium text-gray-500"
                 >
                   {dayjs(item.date).format('D MMMM')}
                 </div>
@@ -318,25 +318,25 @@ const OpenedChatComplaints: FC<IProps> = ({
                 }`}
               >
                 {message?.user?.type !== 'superuser' && (
-                  <div className="size-[32px] border-border border mr-3 bg-secondary-light rounded-full overflow-hidden">
+                  <div className="mr-3 size-[32px] overflow-hidden rounded-full border border-border bg-secondary-light">
                     <img
                       src={defaultUser}
                       alt="Avatar"
-                      className="w-full h-full object-cover"
+                      className="h-full w-full object-cover"
                     />
                   </div>
                 )}
                 <div
-                  className={`rounded-lg p-3 w-fit max-w-[790px] min-w-[250px]  ${
+                  className={`w-fit min-w-[250px] max-w-[790px] rounded-lg p-3 ${
                     message?.user?.id === user_id
-                      ? 'bg-blue-500 text-white rounded-tr-none'
-                      : 'bg-[#F8F8FA] rounded-tl-none text-primary-dark'
+                      ? 'rounded-tr-none bg-blue-500 text-white'
+                      : 'rounded-tl-none bg-[#F8F8FA] text-primary-dark'
                   }`}
                 >
                   <p className="text-lg font-semibold text-[#232E40]">
                     {message?.user?.first_name} {message?.user?.last_name}
                   </p>
-                  <p className="text-[14px] font-normal break-words">
+                  <p className="break-words text-sm font-normal">
                     {message?.content}
                   </p>
                   {message?.file && (
@@ -347,16 +347,16 @@ const OpenedChatComplaints: FC<IProps> = ({
                         <Image
                           src={message.file}
                           alt="Uploaded"
-                          className="rounded-lg mt-2 w-40"
+                          className="mt-2 w-40 rounded-lg"
                         />
                       ) : (
                         <a
                           href={message.file}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-white underline-none mt-2 flex items-center gap-2"
+                          className="underline-none mt-2 flex items-center gap-2 text-white"
                         >
-                          <div className="bg-blue-500 rounded-full flex justify-center items-center border-[#ffffff] p-2 border w-10 h-10">
+                          <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[#ffffff] bg-blue-500 p-2">
                             <FileIcon />
                           </div>
                           {message.file.substring(
@@ -367,7 +367,7 @@ const OpenedChatComplaints: FC<IProps> = ({
                     </>
                   )}
                   <div
-                    className={`flex items-center justify-end gap-1 mt-1 text-xs ${
+                    className={`mt-1 flex items-center justify-end gap-1 text-xs ${
                       message?.user?.id === user_id
                         ? 'text-white'
                         : 'text-secondary'
@@ -380,7 +380,7 @@ const OpenedChatComplaints: FC<IProps> = ({
                       })}
                     </span>
                     {message?.admin?.type === 'superuser' ? (
-                      <TickDoubleIcon className="text-[16px] text-[#4DD282]" />
+                      <TickDoubleIcon className="text-base text-[#4DD282]" />
                     ) : null}
                   </div>
                 </div>
@@ -390,10 +390,10 @@ const OpenedChatComplaints: FC<IProps> = ({
 
         <div ref={chatEndRef}></div>
       </div>
-      <footer className="p-4 border-t">
+      <footer className="border-t p-4">
         {selectedFile && (
           <div
-            className={`flex w-[150px] h-[100px] rounded-md ${
+            className={`flex h-[100px] w-[150px] rounded-md ${
               selectedFile ? '-mt-[100px] bg-slate-200' : 'bg-slate-200'
             }`}
           >
@@ -404,7 +404,7 @@ const OpenedChatComplaints: FC<IProps> = ({
               src={URL.createObjectURL(selectedFile)}
               width={100}
               height={100}
-              className="w-full h-full object-cover bg-slate-200 p-2 rounded-tr-md rounded-br-md"
+              className="h-full w-full rounded-br-md rounded-tr-md bg-slate-200 object-cover p-2"
               alt="file"
             />
           </div>
@@ -438,7 +438,7 @@ const OpenedChatComplaints: FC<IProps> = ({
           <Button
             loading={isSendingMessage}
             type="text"
-            icon={<SendIcon className="text-[24px] text-[#B7BFD5]" />}
+            icon={<SendIcon className="text-2xl text-[#B7BFD5]" />}
             onClick={() => {
               if (messageText || selectedFile) {
                 create()

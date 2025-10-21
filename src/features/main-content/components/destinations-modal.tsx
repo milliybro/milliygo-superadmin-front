@@ -46,8 +46,6 @@ const DestinationModal = () => {
     // keepPreviousData: true,
   })
 
-  console.log(roles)
-
   //   const { mutate: handleUserSave } = useMutation({
   //     mutationFn: (values: any) => {
   //       const formattedValues: IDestinations = {
@@ -67,7 +65,6 @@ const DestinationModal = () => {
   //       //     : t('fields.user-notification.add.message'),
   //       // })
   //       openNotification()
-  //       console.log('success')
   //       form.resetFields()
   //       fetching()
   //       closeHandler()
@@ -80,7 +77,6 @@ const DestinationModal = () => {
   //       })
   //       message.error(error?.data?.username)
   //       form.getFieldsError()
-  //       console.log('error', error)
   //     },
   //   })
 
@@ -116,16 +112,16 @@ const DestinationModal = () => {
       <Button
         className="absolute right-[10px] top-[10px]"
         type="text"
-        icon={<CloseIcon className="text-[16px]" />}
+        icon={<CloseIcon className="text-base" />}
         onClick={closeHandler}
       />
-      <div className="flex items-center mb-6 flex-col text-center justify-center">
-        <div className="text-[24px] mb-2 text-primary-dark font-bold">
+      <div className="mb-6 flex flex-col items-center justify-center text-center">
+        <div className="mb-2 text-2xl font-bold text-primary-dark">
           {editUserId
             ? t('home-content.edit-destination')
             : t('home-content.add-destination')}
         </div>
-        <p className="text-secondary font-medium">
+        <p className="font-medium text-secondary">
           {t('home-content.destination-desc')}
         </p>
       </div>
@@ -167,10 +163,10 @@ const DestinationModal = () => {
               <p className="ant-upload-drag-icon flex justify-center">
                 <AddCreateIcon />
               </p>
-              <p className="ant-upload-text text-[#232E40] text-base font-medium">
+              <p className="ant-upload-text text-base font-medium text-[#232E40]">
                 <a
                   style={{ textDecoration: 'underline' }}
-                  className="text-[#3276FF] me-1"
+                  className="me-1 text-[#3276FF]"
                 >
                   {t('fields.icon.select')}
                 </a>

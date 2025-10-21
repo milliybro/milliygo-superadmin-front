@@ -206,7 +206,7 @@ const LandlordsItemContent = ({ data }: HotelContent) => {
       className="flex flex-col gap-6"
     >
       <div className="rounded-[12px] border border-border p-6">
-        <h2 className="text-[24px] font-medium text-primary-dark">
+        <h2 className="text-2xl font-medium text-primary-dark">
           {t('common.main-information')}
         </h2>
         <Divider />
@@ -252,7 +252,7 @@ const LandlordsItemContent = ({ data }: HotelContent) => {
         <p className="text-base font-normal">{data?.description}</p>
       </div>
       <div className="rounded-[12px] border border-border p-6">
-        <h2 className="text-[24px] font-medium text-primary-dark">
+        <h2 className="text-2xl font-medium text-primary-dark">
           {t('common.facilities-and-services')}
         </h2>
         <Divider />
@@ -283,7 +283,7 @@ const LandlordsItemContent = ({ data }: HotelContent) => {
       </div>
 
       <div className="rounded-[12px] border p-6">
-        <h2 className="text-[24px] font-medium text-primary-dark">
+        <h2 className="text-2xl font-medium text-primary-dark">
           {t('common.accommodation-terms')}
         </h2>
         <Divider />

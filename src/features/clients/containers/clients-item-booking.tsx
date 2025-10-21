@@ -5,13 +5,13 @@ import { useTranslation } from 'react-i18next'
 const ClientsItemBooking = ({ bookings }: { bookings: any }) => {
   const { t } = useTranslation()
   return (
-    <div className="h-full flex flex-col gap-4">
+    <div className="flex h-full flex-col gap-4">
       {bookings?.count === 0 ? (
-        <div className="w-full h-full flex text-center flex-col justify-center items-center">
-          <div className="flex w-full flex-col justify-center gap-3 items-center">
+        <div className="flex h-full w-full flex-col items-center justify-center text-center">
+          <div className="flex w-full flex-col items-center justify-center gap-3">
             <NotFoundIcon />
           </div>
-          <span className="text-[26px] font-semibold text-primary-dark">
+          <span className="text-2xl font-semibold text-primary-dark">
             {t('users-page.not-found')}
           </span>
           <span className="text-secondary">

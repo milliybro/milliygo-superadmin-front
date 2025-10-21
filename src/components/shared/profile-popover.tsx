@@ -69,7 +69,7 @@ const ProfilePopover = () => {
               className="flex w-full items-center justify-start font-medium hover:bg-[#F8F8FA]"
               onClick={() => navigate('/reset')}
             >
-              <ResetPasswordIcon className="text-[20px] text-[#115E59]" />
+              <ResetPasswordIcon className="text-xl text-[#115E59]" />
               {t('common.edit-password')}
             </Button>
             <Button
@@ -78,7 +78,7 @@ const ProfilePopover = () => {
               className="flex items-center justify-start font-medium hover:bg-[#F8F8FA]"
               onClick={() => setModalLogout(true)}
             >
-              <ExitIcon className="text-[20px]" />
+              <ExitIcon className="text-xl" />
               {t('common.logout')}
             </Button>
           </>
@@ -86,12 +86,12 @@ const ProfilePopover = () => {
       >
         <button
           type="button"
-          className="group flex select-none items-center text-[15px] font-semibold leading-[19.12px] text-primary-dark hover:bg-transparent dark:text-white"
+          className="group flex select-none items-center text-sm font-semibold leading-[19.12px] text-primary-dark hover:bg-transparent dark:text-white"
         >
           <Avatar
             shape="square"
             size={38}
-            icon={<UserCircleIcon className="text-[24px]" />}
+            icon={<UserCircleIcon className="text-2xl" />}
             src={user?.avatar}
             className="mr-4 bg-secondary-light font-normal text-primary-dark dark:bg-white/5 dark:text-white"
           />
@@ -118,7 +118,7 @@ const ProfilePopover = () => {
             className="mb-5 border-[7px] border-danger/5 bg-danger/20"
             src={<LogoutIcon className="text-[#ff0000]" color="#ff0000" />}
           />
-          <Typography.Text className="mb-[10px] text-[24px] font-bold leading-[30.6px]">
+          <Typography.Text className="mb-[10px] text-2xl font-bold leading-[30.6px]">
             {t('profile-popover.label')}
           </Typography.Text>
           <Typography.Text className="mb-[20px] leading-[25.6px] text-secondary">

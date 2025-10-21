@@ -49,12 +49,10 @@ const AccessRole = () => {
     placeholderData: data => data,
   })
 
-  console.log(AccessRoles)
-
   return (
-    <div className="p-6 flex flex-col gap-6 flex-1">
+    <div className="flex flex-1 flex-col gap-6 p-6">
       <div className="flex items-start justify-between">
-        <div className="text-[24px] text-primary-dark font-semibold">
+        <div className="text-2xl font-semibold text-primary-dark">
           {t('common.access-role')}
         </div>
         <Button
@@ -66,7 +64,7 @@ const AccessRole = () => {
         </Button>
       </div>
       <AccessRoleFilters />
-      <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
+      <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white">
         <AccessRoleTable
           data={AccessRoles}
           currentPage={currentPage}

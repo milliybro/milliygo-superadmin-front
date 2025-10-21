@@ -9,7 +9,7 @@ const NoChatSelected = () => {
       <div className="flex flex-col justify-center gap-3 items-center">
         <NotFoundIcon />
       </div>
-      <span className="text-[26px] font-semibold text-primary-dark">
+      <span className="text-2xl font-semibold text-primary-dark">
         {t('call-center-page.no-chat-selected-title')}
       </span>
       <span className="text-secondary">
