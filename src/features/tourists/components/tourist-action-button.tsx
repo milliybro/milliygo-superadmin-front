@@ -14,7 +14,7 @@ const TouristActionButton = ({ id, showDrawer }: IProps) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
   const { pathname } = useLocation()
-  const [isCompact, setIsCompact] = useState(window.innerWidth < 1600)
+  const [isCompact, setIsCompact] = useState(window.innerWidth < 1300)
 
   const handleClick = () => {
     navigate(`${pathname}?id=${id}`)
@@ -22,7 +22,7 @@ const TouristActionButton = ({ id, showDrawer }: IProps) => {
   }
 
   useEffect(() => {
-    const handleResize = () => setIsCompact(window.innerWidth < 1600)
+    const handleResize = () => setIsCompact(window.innerWidth < 1300)
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [])
@@ -32,7 +32,7 @@ const TouristActionButton = ({ id, showDrawer }: IProps) => {
       type="text"
       onClick={handleClick}
       className={`inline-flex items-center gap-2 font-medium ${
-        isCompact ? 'text-black' : 'text-primary'
+        isCompact ? 'text-black text-center flex justify-center items-center' : 'text-primary'
       }`}
     >
       <EyeIcon className="text-xl" />

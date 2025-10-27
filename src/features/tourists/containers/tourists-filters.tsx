@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next'
 
 import CSelect from '@/components/ui/select'
 
-import UserSquareIcon from '@/components/icons/user-square'
 import UserMultipleIcon from '@/components/icons/user-multiple'
 import { useQuery } from '@tanstack/react-query'
 import { getDistricts, getRegions } from '../api'
@@ -91,7 +90,7 @@ const TouristsFilters = () => {
   return (
     <Form
       layout="vertical"
-      className="grid w-full grid-cols-6 gap-4"
+      className="grid w-full grid-cols-6 items-end gap-4"
       onValuesChange={handleValuesChange}
       form={form}
     >
@@ -135,7 +134,7 @@ const TouristsFilters = () => {
           suffixIcon={null}
           size="large"
           // placeholder={t('fields.birthyear.label')}
-          className="select-shadow w-full"
+          className="select-shadow h-[47.3px] w-full"
         />
       </Form.Item>
       <Form.Item

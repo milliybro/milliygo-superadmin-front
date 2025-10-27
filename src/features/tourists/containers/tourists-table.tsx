@@ -40,7 +40,7 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       title: 'fields.fullname.label',
       dataIndex: 'full_name',
       sorter: true,
-      responsive: ['xs', 'sm', 'md', 'lg'],
+      responsive: ['lg'],
       render: (_, record) => (
         <div className="flex items-center gap-2">{record?.full_name}</div>
       ),
@@ -87,6 +87,7 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       sorter: true,
       width: 153,
       responsive: ['md', 'lg'],
+      render: data => <div>{data}</div>,
     },
     {
       width: 156,
@@ -157,7 +158,7 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
         loading={isLoading}
         bordered
         onChange={pagination => handlePaginationChange(pagination.current!)}
-        className="w-full min-w-[700px] sm:min-w-[1000px]"
+        className="tourists-table w-full min-w-[700px] sm:min-w-[1000px]"
         pagination={{
           current: currentPage,
           pageSize: 10,

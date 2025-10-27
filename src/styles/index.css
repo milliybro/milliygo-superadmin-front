@@ -144,3 +144,13 @@ html {
   font-size: 12px !important;
   font-weight: 500 !important;
 }
+
+.tourists-table .ant-table-tbody > tr > td {
+  font-size: 14px; 
+}
+
+@media (max-width: 1300px) {
+  .tourists-table .ant-table-tbody > tr > td {
+    font-size: 13px !important;
+  }
+}
