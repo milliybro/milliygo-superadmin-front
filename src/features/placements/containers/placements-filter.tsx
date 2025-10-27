@@ -1,21 +1,19 @@
-import { DatePicker, Form, Input } from 'antd'
+import { Form, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 import CSelect from '@/components/ui/select'
 
-import UserSquareIcon from '@/components/icons/user-square'
-import UserMultipleIcon from '@/components/icons/user-multiple'
-import { useQuery } from '@tanstack/react-query'
-import { useSearchParams } from 'react-router'
-import { useEffect } from 'react'
-import Location4Icon from '@/components/icons/location-4'
-import dayjs from 'dayjs'
+import FileVerifiedIcon from '@/components/icons/file-verified-icon'
+import HotelIcon from '@/components/icons/hotel'
+import LocationIcon from '@/components/icons/location'
+import PhoneIcon from '@/components/icons/phone-icon'
+import StarIcon2 from '@/components/icons/star-icon-2'
 import { getRegions } from '@/features/content/api'
 import { getDistricts } from '@/features/tourists/api'
-import { PhoneOutlined, StarOutlined } from '@ant-design/icons'
-import StarIcon from '@/components/icons/star'
-import FileIcon from '@/components/icons/file-icon'
-import FileVerifiedIcon from '@/components/icons/file-verified-icon'
+import { useQuery } from '@tanstack/react-query'
+import dayjs from 'dayjs'
+import { useEffect } from 'react'
+import { useSearchParams } from 'react-router'
 
 const PlacementsFilters = () => {
   const { t } = useTranslation()
@@ -93,7 +91,7 @@ const PlacementsFilters = () => {
   return (
     <Form
       layout="vertical"
-      className="mb-6 grid w-full grid-cols-6 gap-4 px-2"
+      className="mb-6 grid w-full grid-cols-6 items-end gap-4 [&_.ant-form-item-label]:text-sm [&_.ant-form-item-label]:font-medium"
       onValuesChange={handleValuesChange}
       form={form}
     >
@@ -103,9 +101,7 @@ const PlacementsFilters = () => {
         validateDebounce={1000}
       >
         <Input
-          prefix={
-            <UserSquareIcon className="ml-2 mr-4 text-base text-secondary" />
-          }
+          prefix={<HotelIcon className="mr-4 text-base text-[#115E59]" />}
           size="large"
           placeholder={t('hotels-page.name.placeholder')}
           className="select-shadow"
@@ -123,18 +119,16 @@ const PlacementsFilters = () => {
               label: region.name,
               value: region.id,
             }))}
-          className="select-shadow h-[47px] w-full"
+          className="h-[47px] w-full [&_.ant-select-selector]:shadow-sm"
           size="large"
           placeholder={t('fields.icon.select')}
-          prefix={
-            <Location4Icon className="ml-2 mr-4 text-base text-secondary" />
-          }
+          prefix={<LocationIcon className="mr-4 text-base text-[#115E59]" />}
           allowClear={true}
         />
       </Form.Item>
       <Form.Item
         validateDebounce={1000}
-        label={t('billing.city')}
+        label={t('billing.district')}
         name="district"
       >
         <CSelect
@@ -142,12 +136,10 @@ const PlacementsFilters = () => {
             label: district.name,
             value: district.id,
           }))}
-          className="select-shadow h-[47px] w-full"
+          className="h-[47px] w-full [&_.ant-select-selector]:shadow-sm"
           size="large"
           placeholder={t('fields.icon.select')}
-          prefix={
-            <Location4Icon className="ml-2 mr-4 text-base text-secondary" />
-          }
+          prefix={<LocationIcon className="mr-4 text-base text-[#115E59]" />}
           allowClear={true}
         />
       </Form.Item>
@@ -157,9 +149,7 @@ const PlacementsFilters = () => {
         validateDebounce={1000}
       >
         <Input
-          prefix={
-            <PhoneOutlined className="ml-2 mr-4 text-base text-secondary" />
-          }
+          prefix={<PhoneIcon className="mr-4 text-base text-[#115E59]" />}
           size="large"
           placeholder={t('fields.phone.placeholder')}
           className="select-shadow"
@@ -171,9 +161,7 @@ const PlacementsFilters = () => {
         validateDebounce={1000}
       >
         <Input
-          prefix={
-            <StarOutlined className="ml-2 mr-4 text-base text-secondary" />
-          }
+          prefix={<StarIcon2 className="mr-4 text-base text-[#115E59]" />}
           size="large"
           placeholder={t('fields.icon.select')}
           className="select-shadow"
@@ -187,16 +175,15 @@ const PlacementsFilters = () => {
       >
         <CSelect
           options={[
-            { label: t('common.men'), value: 'male' },
-            { label: t('common.women'), value: 'female' },
+            { label: t('common.active'), value: 'true' },
+            { label: t('common.inactive'), value: 'false' },
           ]}
           prefix={
-            <FileVerifiedIcon className="ml-2 mr-4 text-base text-secondary" />
+            <FileVerifiedIcon className="mr-4 text-base text-[#115E59]" />
           }
           size="large"
           placeholder={t('fields.status.placeholder')}
-          className="select-shadow"
-          // value={gender}
+          className="[&_.ant-select-selector]:shadow-sm [&_.ant-select-selector]:shadow-black/5"
           allowClear={true}
         />
       </Form.Item>
