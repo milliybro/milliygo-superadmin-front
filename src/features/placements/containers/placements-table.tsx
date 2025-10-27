@@ -85,10 +85,8 @@ const PlacementsTable = () => {
           title={val}
           key={val}
           className="line-clamp-1 text-sm font-medium"
-          styles={{
-            body: {
-              fontSize: '0.875rem',
-            },
+          overlayInnerStyle={{
+            fontSize: '0.875rem',
           }}
           placement="topLeft"
         >
@@ -106,13 +104,11 @@ const PlacementsTable = () => {
           {val ? (
             <Tooltip
               color="white"
-              styles={{
-                body: {
-                  color: '#3276FF',
-                  textAlign: 'center',
-                  textDecoration: 'underline',
-                  fontSize: '0.875rem',
-                },
+              overlayInnerStyle={{
+                color: '#3276FF',
+                textAlign: 'center',
+                textDecoration: 'underline',
+                fontSize: '0.875rem',
               }}
               placement="topLeft"
               title={val}
