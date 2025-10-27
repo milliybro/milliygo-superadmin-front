@@ -117,3 +117,30 @@ html {
   border-right-width: 0px !important;
   border-right-color: #ffffff !important;
 }
+
+.ant-table-wrapper
+  .ant-table.ant-table-bordered
+  > .ant-table-container
+  > .ant-table-content
+  > table
+  > tbody
+  > tr
+  > td:last-child {
+  border-inline-end: none !important;
+}
+.ant-table-wrapper
+  .ant-table.ant-table-bordered
+  > .ant-table-container
+  > .ant-table-content
+  > table
+  > thead
+  > tr
+  > th:last-child {
+  border-inline-end: none !important;
+}
+
+.custom-thead .ant-table-wrapper .ant-table-thead > tr > th {
+  color: #6b7280 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}

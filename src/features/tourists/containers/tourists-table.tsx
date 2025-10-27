@@ -31,6 +31,8 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
     {
       title: 'ID',
       dataIndex: 'id',
+      width: 55,
+      responsive: ['sm', 'md', 'lg'],
       render: (_: any, __: any, index: number) =>
         ((Number(currentPage) || 1) - 1) * 10 + index + 1,
     },
@@ -38,55 +40,59 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       title: 'fields.fullname.label',
       dataIndex: 'full_name',
       sorter: true,
-      render: (_, record) => {
-        return (
-          <div className="flex items-center gap-2">{record?.full_name}</div>
-        )
-      },
+      responsive: ['xs', 'sm', 'md', 'lg'],
+      render: (_, record) => (
+        <div className="flex items-center gap-2">{record?.full_name}</div>
+      ),
     },
     {
       title: 'fields.birthdate.label',
       dataIndex: 'birth_date',
       sorter: true,
-      render: date => {
-        return <div>{date && dayjs(date).format('DD MMM, YYYY')}</div>
-      },
+      width: 166,
+      responsive: ['xs', 'sm', 'md', 'lg'],
+      render: date => date && <div>{dayjs(date).format('DD MMM, YYYY')}</div>,
     },
     {
       title: 'fields.passport-data.label',
       dataIndex: 'passport_sn',
       sorter: true,
+      width: 169,
+      responsive: ['sm', 'md', 'lg'],
     },
     {
       title: 'fields.gender.label',
       dataIndex: 'gender',
       sorter: true,
-      render: data => {
-        return (
-          <div>
-            {data === 'male'
-              ? t('common.men-small')
-              : data === 'man'
-                ? t('common.men-small')
-                : t('common.women-small')}
-          </div>
-        )
-      },
+      width: 102,
+      responsive: ['xs', 'sm', 'md', 'lg'],
+      render: data => (
+        <div>
+          {data === 'male' || data === 'man'
+            ? t('common.men-small')
+            : t('common.women-small')}
+        </div>
+      ),
     },
     {
       title: 'fields.register-address.label',
       dataIndex: 'address',
       sorter: true,
+      width: 236,
+      responsive: ['md', 'lg'],
     },
     {
       title: 'fields.type-document.label',
       dataIndex: 'type_document',
       sorter: true,
+      width: 153,
+      responsive: ['md', 'lg'],
     },
     {
-      width: 150,
+      width: 156,
       title: 'common.action',
       dataIndex: 'id',
+      responsive: ['xs', 'sm', 'md', 'lg'],
       render: id => <TouristActionButton id={id} showDrawer={showDrawer} />,
     },
   ]
@@ -141,34 +147,35 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
     })) || []
 
   return (
-    <Table<ITouristsTable>
-      columns={columns.map(val => ({
-        ...val,
-        title: t(`${val?.title}`),
-      }))}
-      dataSource={transformedData}
-      loading={isLoading}
-      bordered
-      onChange={pagination => handlePaginationChange(pagination.current!)}
-      className="h-full w-full"
-      scroll={{ x: 'max-content' }}
-      pagination={{
-        current: currentPage,
-        pageSize: 10,
-        total: TouristsData?.count || 0,
-        hideOnSinglePage: true,
-        showSizeChanger: false,
-        position: ['bottomCenter'],
-        itemRender: itemRender,
-        onChange: handlePaginationChange,
-      }}
-      locale={{
-        emptyText: <UsersNotFound />,
-        triggerDesc: t('common.sort_descending') ?? '',
-        triggerAsc: t('common.sort_ascending') ?? '',
-        cancelSort: t('common.sort_cancel') ?? '',
-      }}
-    />
+    <div className="overflow-x-auto">
+      <Table<ITouristsTable>
+        columns={columns.map(val => ({
+          ...val,
+          title: t(`${val?.title}`),
+        }))}
+        dataSource={transformedData}
+        loading={isLoading}
+        bordered
+        onChange={pagination => handlePaginationChange(pagination.current!)}
+        className="w-full min-w-[700px] sm:min-w-[1000px]"
+        pagination={{
+          current: currentPage,
+          pageSize: 10,
+          total: TouristsData?.count || 0,
+          hideOnSinglePage: true,
+          showSizeChanger: false,
+          position: ['bottomCenter'],
+          itemRender: itemRender,
+          onChange: handlePaginationChange,
+        }}
+        locale={{
+          emptyText: <UsersNotFound />,
+          triggerDesc: t('common.sort_descending') ?? '',
+          triggerAsc: t('common.sort_ascending') ?? '',
+          cancelSort: t('common.sort_cancel') ?? '',
+        }}
+      />
+    </div>
   )
 }
 
