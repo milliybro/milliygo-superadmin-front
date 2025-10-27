@@ -86,14 +86,16 @@ const Tourists = () => {
       </div>
       <div className="flex h-full flex-col items-center justify-center gap-6 overflow-hidden rounded-[16px] border border-border bg-white p-6 dark:bg-dark-bg">
         <TouristsFilters />
-        <TouristsTable
-          refetch={refetch}
-          TouristsData={TouristsData}
-          isLoading={isFetching}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          showDrawer={showDrawer}
-        />
+        <div className='custom-thead p-0 m-0 w-full'>
+          <TouristsTable
+            refetch={refetch}
+            TouristsData={TouristsData}
+            isLoading={isFetching}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            showDrawer={showDrawer}
+          />
+        </div>
       </div>
       <TouristDrawer open={open} onClose={onClose} />
     </div>
