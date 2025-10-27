@@ -17,12 +17,15 @@ import { getAllPlacements } from '../api'
 import type { IPlacement } from '../types'
 import PlacementsFilters from './placements-filter'
 import formatPhoneNumber from '@/helpers/format-phone-number'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
+import { twMerge } from 'tailwind-merge'
 
 const PlacementsTable = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { search, pathname } = useLocation()
   const queries = useMemo(() => queryString.parse(search), [search])
+  const isCompact = useCompactScreen()
 
   const { data: placementsData, isFetching } = useQuery({
     queryKey: ['placements-data', queries],
@@ -46,7 +49,13 @@ const PlacementsTable = () => {
       sorter: true,
       width: 0,
       render: (_, val) => (
-        <div className="flex w-max items-center gap-[10px]">
+        <div
+          className={twMerge(
+            'flex w-max items-center gap-[10px]',
+            isCompact ? 'max-w-[264px]' : 'max-w-[440px]',
+          )}
+          title={val?.name}
+        >
           <div className="flex size-[48px] items-center justify-center rounded-[8px] border border-border bg-secondary-light">
             {val?.image ? (
               <Image
@@ -76,6 +85,12 @@ const PlacementsTable = () => {
           title={val}
           key={val}
           className="line-clamp-1 text-sm font-medium"
+          styles={{
+            body: {
+              fontSize: '0.875rem',
+            },
+          }}
+          placement="topLeft"
         >
           {val}
         </Tooltip>
@@ -91,11 +106,15 @@ const PlacementsTable = () => {
           {val ? (
             <Tooltip
               color="white"
-              overlayInnerStyle={{
-                color: '#3276FF',
-                textAlign: 'center',
-                textDecoration: 'underline',
+              styles={{
+                body: {
+                  color: '#3276FF',
+                  textAlign: 'center',
+                  textDecoration: 'underline',
+                  fontSize: '0.875rem',
+                },
               }}
+              placement="topLeft"
               title={val}
               key={val}
             >
@@ -148,7 +167,7 @@ const PlacementsTable = () => {
     },
     {
       width: 1,
-      title: t('common.action'),
+      title: isCompact ? '' : t('common.action'),
       render: (id, val: any) => (
         <HotelsTableActionButton
           key={id}
