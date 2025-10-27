@@ -16,12 +16,16 @@ import { useLocation, useNavigate } from 'react-router'
 import { getAllPlacements } from '../api'
 import type { IPlacement } from '../types'
 import PlacementsFilters from './placements-filter'
+import formatPhoneNumber from '@/helpers/format-phone-number'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
+import { twMerge } from 'tailwind-merge'
 
 const PlacementsTable = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { search, pathname } = useLocation()
   const queries = useMemo(() => queryString.parse(search), [search])
+  const isCompact = useCompactScreen()
 
   const { data: placementsData, isFetching } = useQuery({
     queryKey: ['placements-data', queries],
@@ -37,13 +41,21 @@ const PlacementsTable = () => {
       className: 'text-center',
       sorter: false,
       render: i => (+(queries?.page || 1) - 1) * 10 + i + 1,
+      width: 0,
     },
     {
       title: t('fields.hotel-name.label'),
       dataIndex: 'placement_name',
       sorter: true,
+      width: 0,
       render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
+        <div
+          className={twMerge(
+            'flex w-max items-center gap-[10px]',
+            isCompact ? 'max-w-[264px]' : 'max-w-[440px]',
+          )}
+          title={val?.name}
+        >
           <div className="flex size-[48px] items-center justify-center rounded-[8px] border border-border bg-secondary-light">
             {val?.image ? (
               <Image
@@ -65,13 +77,28 @@ const PlacementsTable = () => {
     },
     {
       title: t('fields.address.label'),
-      width: 100,
+      width: 276,
       dataIndex: 'address',
       sorter: true,
+      render: val => (
+        <Tooltip
+          title={val}
+          key={val}
+          className="line-clamp-1 text-sm font-medium"
+          styles={{
+            body: {
+              fontSize: '0.875rem',
+            },
+          }}
+          placement="topLeft"
+        >
+          {val}
+        </Tooltip>
+      ),
     },
     {
       title: t('fields.location.label'),
-      width: 200,
+      width: 276,
       dataIndex: 'address',
       sorter: true,
       render: val => (
@@ -79,11 +106,15 @@ const PlacementsTable = () => {
           {val ? (
             <Tooltip
               color="white"
-              overlayInnerStyle={{
-                color: '#3276FF',
-                textAlign: 'center',
-                textDecoration: 'underline',
+              styles={{
+                body: {
+                  color: '#3276FF',
+                  textAlign: 'center',
+                  textDecoration: 'underline',
+                  fontSize: '0.875rem',
+                },
               }}
+              placement="topLeft"
               title={val}
               key={val}
             >
@@ -117,16 +148,15 @@ const PlacementsTable = () => {
       title: t('fields.rating.label'),
       dataIndex: 'rating',
       sorter: true,
+      width: 0,
       render: val => <RatingTag value={val} />,
     },
     {
-      title: t('fields.login.label'),
+      title: t('fields.phone.label'),
       dataIndex: 'phone',
       sorter: true,
-      render: _ => (
-        <div className="flex items-center gap-[10px] text-center">
-          {_ ? _ : <div className="text-center">-</div>}
-        </div>
+      render: value => (
+        <div className="text-sm font-medium">{formatPhoneNumber(value)}</div>
       ),
     },
     {
@@ -137,7 +167,7 @@ const PlacementsTable = () => {
     },
     {
       width: 1,
-      title: t('common.action'),
+      title: isCompact ? '' : t('common.action'),
       render: (id, val: any) => (
         <HotelsTableActionButton
           key={id}
@@ -173,38 +203,36 @@ const PlacementsTable = () => {
   }
 
   return (
-    <div className="me-3 flex h-full flex-col items-center overflow-hidden rounded-[16px] bg-white p-2">
-      <div className="-mr-4 overflow-hidden">
-        <PlacementsFilters />
-        <Table<IPlacement>
-          columns={columns}
-          dataSource={
-            placementsData?.results?.map((item, i) => ({
-              ...item,
-              idx: i,
-              key: item?.key + i,
-            })) || []
-          }
-          className="h-full w-full"
-          bordered
-          loading={isFetching}
-          pagination={{
-            current: +(queries?.page || 1),
-            pageSize: 10,
-            total: placementsData?.count || 0,
-            hideOnSinglePage: true,
-            showSizeChanger: false,
-            position: ['bottomCenter'],
-          }}
-          locale={{
-            emptyText: <UsersNotFound />,
-            triggerDesc: t('common.sort_descending') ?? '',
-            triggerAsc: t('common.sort_ascending') ?? '',
-            cancelSort: t('common.sort_cancel') ?? '',
-          }}
-          onChange={handleTableChange}
-        />
-      </div>
+    <div className="p-4">
+      <PlacementsFilters />
+      <Table<IPlacement>
+        columns={columns}
+        dataSource={
+          placementsData?.results?.map((item, i) => ({
+            ...item,
+            idx: i,
+            key: item?.key + i,
+          })) || []
+        }
+        className="side-borderless-table responsive-table pb-5"
+        scroll={{ x: 'max-content' }}
+        loading={isFetching}
+        pagination={{
+          current: +(queries?.page || 1),
+          pageSize: 10,
+          total: placementsData?.count || 0,
+          hideOnSinglePage: true,
+          showSizeChanger: false,
+          position: ['bottomCenter'],
+        }}
+        locale={{
+          emptyText: <UsersNotFound />,
+          triggerDesc: t('common.sort_descending') ?? '',
+          triggerAsc: t('common.sort_ascending') ?? '',
+          cancelSort: t('common.sort_cancel') ?? '',
+        }}
+        onChange={handleTableChange}
+      />
     </div>
   )
 }

@@ -1,9 +1,9 @@
-import { Button } from 'antd'
-import { useTranslation } from 'react-i18next'
-
 import EyeIcon from '@/components/icons/eye'
-
+import { useCompactScreen } from '@/hooks/use-compact-screen'
+import { Button } from 'antd'
 import type { FC } from 'react'
+import { useTranslation } from 'react-i18next'
+import { twMerge } from 'tailwind-merge'
 
 interface IProps {
   id?: number
@@ -13,12 +13,16 @@ interface IProps {
 
 const HotelsTableActionButton: FC<IProps> = () => {
   const { t } = useTranslation()
+  const isCompact = useCompactScreen()
   // const navigate = useNavigate()
   // const { pathname } = useLocation()
 
   return (
     <Button
-      className="inline-flex items-center gap-2 font-medium text-primary"
+      className={twMerge(
+        'inline-flex items-center gap-2 font-medium',
+        isCompact ? 'text-black' : 'text-primary',
+      )}
       type="text"
       // onClick={() =>
       //   navigate(
@@ -32,7 +36,7 @@ const HotelsTableActionButton: FC<IProps> = () => {
       // }
     >
       <EyeIcon className="text-xl" />
-      {t('common.more-details')}
+      {!isCompact && t('common.more-details')}
     </Button>
   )
 }

@@ -15,7 +15,6 @@ const ROUTE_PATHS = {
   BI_SERVICE: '/bi-service',
   CONTENT: '/content',
   ROLES: '/roles',
-
   USERS: '/users',
   HOTELS: '/hotels',
   CLIENTS: '/clients',
@@ -35,4 +34,6 @@ const ROUTE_PATHS = {
   ACTION_HISTORY: '/action-history',
 }
 
-export { TOKEN, ROUTE_PATHS }
+const COMPACT_SCREEN_WIDTH = 1280
+
+export { TOKEN, ROUTE_PATHS, COMPACT_SCREEN_WIDTH }
