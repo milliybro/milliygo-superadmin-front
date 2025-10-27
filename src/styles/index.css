@@ -151,6 +151,16 @@ html {
   font-weight: 500 !important;
 }
 
+.tourists-table .ant-table-tbody > tr > td {
+  font-size: 14px;
+}
+
+@media (max-width: 1300px) {
+  .tourists-table .ant-table-tbody > tr > td {
+    font-size: 13px !important;
+  }
+}
+
 .side-borderless-table {
   border-top: 1px solid #e5e7eb !important;
 }
