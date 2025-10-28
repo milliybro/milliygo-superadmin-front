@@ -665,7 +665,9 @@
     "confirm-password": "Паролни tasdiqlang",
     "save-password": "Паролни сақлаш",
     "compressing-image": "Сурат сиғдирилмоқда...",
-    "error-compressing-image": "Суратни сиғдиришда хатолик, илтимос, қайта уриниб кўринг"
+    "error-compressing-image": "Суратни сиғдиришда хатолик, илтимос, қайта уриниб кўринг",
+    "or": "ёки",
+    "one-id": "OneID орқали кириш"
   },
   "status": {
     "confirmed": "Тасдиқланган",

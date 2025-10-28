@@ -79,6 +79,23 @@ function TopDestinationsTable() {
       },
     },
     {
+      title: t('fields.description.label'),
+      key: 'title',
+      dataIndex: 'title',
+      className: 'w-2/5',
+      width: 589,
+      sorter: true,
+      render: (value, record) => {
+        return (
+          <div className="flex items-center gap-4">
+            <Typography.Text className="text-sm font-medium">
+              {value}
+            </Typography.Text>
+          </div>
+        )
+      },
+    },
+    {
       title: t('fields.status.label'),
       key: 'status',
       dataIndex: 'status',

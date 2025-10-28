@@ -647,7 +647,9 @@
     "confirm-password": "Parolni tasdiqlang",
     "save-password": "Parolni saqlash",
     "compressing-image": "Rasm siqilmoqda...",
-    "error-compressing-image": "Rasmni siqishda xatolik, iltimos, qayta urinib ko'ring"
+    "error-compressing-image": "Rasmni siqishda xatolik, iltimos, qayta urinib ko'ring",
+    "or": "yoki",
+    "one-id": "OneID orqali kirish"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
