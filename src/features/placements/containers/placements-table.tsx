@@ -158,7 +158,11 @@ const PlacementsTable = () => {
       title: t('fields.status.label'),
       dataIndex: 'status',
       sorter: true,
-      render: status => <StatusTag active={status} />,
+      render: status => (
+        <div className="mr-[5px]">
+          <StatusTag active={status} />
+        </div>
+      ),
     },
     {
       width: 1,
