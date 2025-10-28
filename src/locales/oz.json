@@ -94,7 +94,8 @@
     "card": {
       "title": "To'lov usullari",
       "desc": " ushbu kartalarni qabul qiladi va kelishidan oldin kartangizdagi mablag'larni vaqtincha ushlab turish huquqini o'zida saqlab qoladi."
-    }
+    },
+    "region": "Viloyat"
   },
 
   "access-role-page": {
