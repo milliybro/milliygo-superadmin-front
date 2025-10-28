@@ -40,6 +40,7 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       title: 'fields.fullname.label',
       dataIndex: 'full_name',
       sorter: true,
+      width: 557,
       responsive: ['lg'],
       render: (_, record) => (
         <div className="flex items-center gap-2">{record?.full_name}</div>
@@ -87,7 +88,13 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       sorter: true,
       width: 153,
       responsive: ['md', 'lg'],
-      render: data => <div>{data}</div>,
+      render: data => (
+        <div title={data}>
+          {typeof data === 'string' && data.length > 15
+            ? `${data.slice(0, 15)}...`
+            : data || '-'}
+        </div>
+      ),
     },
     {
       width: 156,
