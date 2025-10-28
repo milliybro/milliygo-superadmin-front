@@ -21,7 +21,7 @@ const HotelsTableActionButton: FC<IProps> = () => {
     <Button
       className={twMerge(
         'inline-flex items-center gap-2 font-medium',
-        isCompact ? 'size-7 p-0 text-black' : 'text-primary',
+        isCompact ? 'mr-[5px] size-7 p-0 text-black' : 'text-primary',
       )}
       type="text"
       // onClick={() =>
