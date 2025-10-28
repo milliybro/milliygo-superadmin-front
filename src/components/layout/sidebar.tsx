@@ -1,25 +1,24 @@
 import { Divider } from 'antd'
 import { useState } from 'react'
-import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
 import { Link, useLocation } from 'react-router'
+import { twMerge } from 'tailwind-merge'
 
 import { ROUTE_PATHS } from '@/config/constants'
 
+import ChartRingIcon from '../icons/chart-ring'
 import Hotel2Icon from '../icons/hotel-2'
 import ProjectLogo from '../icons/project-logo'
-import ChartRingIcon from '../icons/chart-ring'
 import SidebarLeftIcon from '../icons/sidebar-left'
 // import TimeManagementIcon from '../icons/time-management'
-import UsersGroupIcon from '../icons/user-group-icon'
-import HomeIcon from '../icons/home-icon'
-import TipsIcon from '../icons/tips-icon'
 import BeachIcon from '../icons/beach-icon'
+import HomeIcon from '../icons/home-icon'
 import TeachingIcon from '../icons/teaching-icon'
+import TipsIcon from '../icons/tips-icon'
+import UsersGroupIcon from '../icons/user-group-icon'
 import WalletIcon from '../icons/wallet-icon'
 // import AnalyticsIcon from '../icons/analytics-icon'
 import MegaPhoneIcon from '../icons/megaphone-icon'
-import TimeManagementIcon from '../icons/time-management'
 import UserIcon from '../icons/user'
 
 const adminItems = [
@@ -142,7 +141,7 @@ const Sidebar = () => {
     <aside
       className={twMerge(
         'border-r border-border bg-white transition-all duration-300 dark:bg-dark-bg',
-        isSidebarOpen ? 'w-[230px]' : 'w-14',
+        isSidebarOpen ? 'w-[200px] 2xl:w-[230px]' : 'w-14',
       )}
     >
       <div className="flex items-center justify-between p-4">

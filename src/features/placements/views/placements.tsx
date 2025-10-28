@@ -50,7 +50,7 @@ const Placements = () => {
   // })
 
   return (
-    <div className="flex flex-1 flex-col gap-6 px-6 py-6">
+    <div className="flex flex-1 flex-col gap-3 px-3 py-3 2xl:gap-6 2xl:px-6 2xl:py-6">
       <HotelsModal />
       <PlacementsHeader />
       <PlacementTabs />
