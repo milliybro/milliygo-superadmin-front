@@ -22,7 +22,9 @@ function TopDestinationsContent() {
           navigate(`/content/${tab}/create`)
         }}
       />
-      <TopDestinationsTable />
+      <div className="custom-thead">
+        <TopDestinationsTable />
+      </div>
       <DeleteModal
         open={deleteOpen !== null}
         onClose={() => setDeleteOpen(null)}
