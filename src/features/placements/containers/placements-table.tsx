@@ -18,7 +18,6 @@ import type { IPlacement } from '../types'
 import PlacementsFilters from './placements-filter'
 import formatPhoneNumber from '@/helpers/format-phone-number'
 import { useCompactScreen } from '@/hooks/use-compact-screen'
-import { twMerge } from 'tailwind-merge'
 
 const PlacementsTable = () => {
   const { t } = useTranslation()
@@ -50,10 +49,7 @@ const PlacementsTable = () => {
       width: 0,
       render: (_, val) => (
         <div
-          className={twMerge(
-            'flex w-max items-center gap-[10px]',
-            isCompact ? 'max-w-[264px]' : 'max-w-[440px]',
-          )}
+          className="flex w-max max-w-[247px] items-center gap-[10px] 2xl:max-w-[440px]"
           title={val?.name}
         >
           <div className="flex size-[48px] items-center justify-center rounded-[8px] border border-border bg-secondary-light">
@@ -69,7 +65,7 @@ const PlacementsTable = () => {
               <HotelIcon fontSize={28} className="text-secondary/30" />
             )}
           </div>
-          <span className="text-sm font-medium text-primary-dark">
+          <span className="truncate font-medium text-primary-dark">
             {val?.name ? val?.name : '-'}
           </span>
         </div>
@@ -77,14 +73,13 @@ const PlacementsTable = () => {
     },
     {
       title: t('fields.address.label'),
-      width: 276,
       dataIndex: 'address',
       sorter: true,
       render: val => (
         <Tooltip
           title={val}
           key={val}
-          className="line-clamp-1 text-sm font-medium"
+          className="line-clamp-1 max-w-[185px] font-medium"
           overlayInnerStyle={{
             fontSize: '0.875rem',
           }}
@@ -96,7 +91,6 @@ const PlacementsTable = () => {
     },
     {
       title: t('fields.location.label'),
-      width: 276,
       dataIndex: 'address',
       sorter: true,
       render: val => (
@@ -113,10 +107,11 @@ const PlacementsTable = () => {
               placement="topLeft"
               title={val}
               key={val}
+              className="line-clamp-1 max-w-[220px]"
             >
               <a
                 style={{ textDecoration: 'underline' }}
-                className="line-clamp-2 text-[#3276FF]"
+                className="line-clamp-1 text-[#3276FF] 2xl:line-clamp-2"
               >
                 {val}
               </a>
@@ -145,14 +140,18 @@ const PlacementsTable = () => {
       dataIndex: 'rating',
       sorter: true,
       width: 0,
-      render: val => <RatingTag value={val} />,
+      render: val => (
+        <div className="max-w-[72px] 2xl:max-w-max">
+          <RatingTag value={val} />
+        </div>
+      ),
     },
     {
       title: t('fields.phone.label'),
       dataIndex: 'phone',
       sorter: true,
       render: value => (
-        <div className="text-sm font-medium">{formatPhoneNumber(value)}</div>
+        <div className="font-medium">{formatPhoneNumber(value)}</div>
       ),
     },
     {
@@ -199,7 +198,7 @@ const PlacementsTable = () => {
   }
 
   return (
-    <div className="p-4">
+    <div className="px-4 pb-4">
       <PlacementsFilters />
       <Table<IPlacement>
         columns={columns}
@@ -210,7 +209,7 @@ const PlacementsTable = () => {
             key: item?.key + i,
           })) || []
         }
-        className="side-borderless-table responsive-table pb-5"
+        className="side-borderless-table responsive-table"
         scroll={{ x: 'max-content' }}
         loading={isFetching}
         pagination={{

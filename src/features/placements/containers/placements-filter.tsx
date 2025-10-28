@@ -91,7 +91,7 @@ const PlacementsFilters = () => {
   return (
     <Form
       layout="vertical"
-      className="mb-6 grid w-full grid-cols-6 items-end gap-4 [&_.ant-form-item-label]:text-sm [&_.ant-form-item-label]:font-medium"
+      className="mb-6 grid w-full grid-cols-6 items-end gap-3 2xl:gap-8 [&_.ant-form-item-label]:text-sm [&_.ant-form-item-label]:font-medium"
       onValuesChange={handleValuesChange}
       form={form}
     >
