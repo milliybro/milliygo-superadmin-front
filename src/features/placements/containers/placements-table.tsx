@@ -107,7 +107,7 @@ const PlacementsTable = () => {
               placement="topLeft"
               title={val}
               key={val}
-              className="line-clamp-1 max-w-[220px] 2xl:max-w-[440px]"
+              className="line-clamp-1 max-w-[220px]"
             >
               <a
                 style={{ textDecoration: 'underline' }}
