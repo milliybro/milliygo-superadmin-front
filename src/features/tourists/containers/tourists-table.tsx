@@ -37,7 +37,7 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
         ((Number(currentPage) || 1) - 1) * 10 + index + 1,
     },
     {
-      title: 'fields.fullname.label',
+      title: 'tourists.tourist-fullname',
       dataIndex: 'full_name',
       sorter: true,
       width: 557,

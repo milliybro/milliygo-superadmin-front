@@ -115,7 +115,7 @@ const TouristsFilters = () => {
       >
         <Input
           prefix={
-            <PassportIcon className="ml-2 mr-4 text-base text-[#115E59]" />
+            <PassportIcon className="mx-2 w-full text-base text-[#115E59]" />
           }
           size="large"
           placeholder={t('fields.icon.select')}
@@ -133,7 +133,7 @@ const TouristsFilters = () => {
           }
           suffixIcon={null}
           size="large"
-          // placeholder={t('fields.birthyear.label')}
+          placeholder={t('common.specify-date')}
           className="select-shadow h-[47.3px] w-full"
         />
       </Form.Item>
@@ -151,7 +151,7 @@ const TouristsFilters = () => {
             <UserMultipleIcon className="ml-1 mr-2 text-base text-[#115E59]" />
           }
           size="large"
-          placeholder={t('fields.gender.placeholder')}
+          placeholder={t('fields.icon.select')}
           className="select-shadow"
           // value={gender}
           allowClear={true}
@@ -180,7 +180,7 @@ const TouristsFilters = () => {
       </Form.Item>
       <Form.Item
         validateDebounce={1000}
-        label={t('tourists.register-region')}
+        label={t('tourists.register-district')}
         name="district"
       >
         <CSelect

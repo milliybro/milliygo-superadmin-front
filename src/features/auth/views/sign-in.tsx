@@ -75,7 +75,7 @@ export default function SignIn(): React.ReactElement {
           : window.location.origin
         : ''
 
-    const redirectUri = `${origin}/auth/login`
+    const redirectUri = `${origin}/auth/sign-in`
 
     const params = queryString.stringify({
       redirect_uri: redirectUri,
