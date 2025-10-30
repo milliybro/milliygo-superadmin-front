@@ -84,7 +84,7 @@ const Tourists = () => {
           {t('routes.tourists')}
         </div>
       </div>
-      <div className="flex h-full flex-col items-center justify-center gap-6 overflow-hidden rounded-[16px] border border-border bg-white p-6 dark:bg-dark-bg">
+      <div className="flex h-full flex-col gap-6 overflow-hidden rounded-[16px] border border-border bg-white p-6 dark:bg-dark-bg">
         <TouristsFilters />
         <div className='custom-thead p-0 m-0 w-full'>
           <TouristsTable

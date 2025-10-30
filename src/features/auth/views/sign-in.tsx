@@ -6,12 +6,9 @@ import { darkTheme } from '@/providers/theme-provider'
 import videoBanner from '@/assets/intro.mp4'
 import uzinfocomLogo from '@/assets/uzinfocom-logo.png'
 
-import SupportModal from '../components/support-modal'
-
 import ViewIcon from '@/components/icons/view'
 import ViewOffIcon from '@/components/icons/view-off'
 import ProjectLogo from '@/components/icons/project-logo'
-import SquarePasswordIcon from '@/components/icons/square-password'
 import { login, withOneIdAuth } from '../api'
 import { useMutation } from '@tanstack/react-query'
 import { useContext, useEffect, useState } from 'react'
@@ -19,7 +16,6 @@ import { setCookie } from 'cookies-next'
 import { useNavigate, useSearchParams } from 'react-router'
 import { AuthContext } from '../context/authContext'
 import { useAuthContext } from '@/contexts/auth-context'
-import queryString from 'query-string'
 import OneIdIcon from '@/components/icons/one-id-icon'
 
 // interface AuthStore {

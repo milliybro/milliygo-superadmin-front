@@ -41,7 +41,7 @@ function TopDestinationsTable() {
 
   const destinationsData = data?.results?.map(des => ({
     title: des?.title,
-    description: des?.description,
+    region: des?.region,
     status: des?.status,
     id: des?.id,
     key: des?.id,
@@ -60,7 +60,7 @@ function TopDestinationsTable() {
       title: t('common.name'),
       key: 'title',
       dataIndex: 'title',
-      className: 'w-2/4 lg:w-3/4',
+      className: 'w-2/4',
       sorter: true,
       responsive: ['xs', 'sm', 'md', 'lg'],
       render: (value, record) => {
@@ -74,6 +74,23 @@ function TopDestinationsTable() {
                 rootClassName="w-full h-full"
               />
             </div>
+            <Typography.Text className="text-sm font-medium">
+              {value}
+            </Typography.Text>
+          </div>
+        )
+      },
+    },
+    {
+      title: t('billing.region'),
+      key: 'region',
+      dataIndex: 'region',
+      className: 'w-2/4 ',
+      sorter: true,
+      responsive: ['xs', 'sm', 'md', 'lg'],
+      render: (value) => {
+        return (
+          <div className="flex items-center gap-4">
             <Typography.Text className="text-sm font-medium">
               {value}
             </Typography.Text>
