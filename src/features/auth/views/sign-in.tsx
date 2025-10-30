@@ -81,13 +81,23 @@ export default function SignIn(): React.ReactElement {
     withOneIdAuth({ code })
       .then(res => {
         if (!res?.user) {
-          setCookie('access', res.access)
-          setCookie('refresh', res.refresh)
+          localStorage.setItem('refresh', res.refresh)
+          localStorage.setItem('access', res.access)
+          localStorage.setItem('user', JSON.stringify(res.user))
+          loginAction(res.user)
+          setCookie('user', res.user)
+          setIsAuth(true)
+          navigate('/')
+
           setUserData(res.user)
         } else {
-          setCookie('access', res.access)
-          setCookie('refresh', res.refresh)
-          login(res.user as any)
+          localStorage.setItem('refresh', res.refresh)
+          localStorage.setItem('access', res.access)
+          localStorage.setItem('user', JSON.stringify(res.user))
+          loginAction(res.user)
+          setCookie('user', res.user)
+          setIsAuth(true)
+
           message.success(t('user.login-success'), 2)
           navigate('/')
         }
@@ -284,19 +294,19 @@ export default function SignIn(): React.ReactElement {
                   <span className="h-px flex-1 bg-[#FFFFFF33]" />
                 </div>
               </Form>
-                <Button
-                  aria-label={t('auth.continue-with-one-id')}
-                  size="large"
-                  type="primary"
-                  shape="default"
-                  className="mb-4 flex !h-[56px] w-full items-center justify-between bg-[#4825C2] text-[14px] font-[500] shadow-none"
-                  onClick={handleOneId}
-                >
-                  {t('common.one-id')}
-                  <div className="p-0">
-                    <OneIdIcon className="text-[80px]" />
-                  </div>
-                </Button>
+              <Button
+                aria-label={t('auth.continue-with-one-id')}
+                size="large"
+                type="primary"
+                shape="default"
+                className="mb-4 flex !h-[56px] w-full items-center justify-between bg-[#4825C2] text-[14px] font-[500] shadow-none"
+                onClick={handleOneId}
+              >
+                {t('common.one-id')}
+                <div className="p-0">
+                  <OneIdIcon className="text-[80px]" />
+                </div>
+              </Button>
             </ConfigProvider>
 
             {/* <SupportModal
