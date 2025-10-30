@@ -101,7 +101,7 @@ const TouristsFilters = () => {
       >
         <Input
           prefix={
-            <UserIcon className="ml-2 mr-4 text-base font-semibold text-[#115E59]" />
+            <UserIcon className="ml-1 mr-2 text-base font-semibold text-[#115E59]" />
           }
           size="large"
           placeholder={t('tourists.search-tourists')}
@@ -118,7 +118,7 @@ const TouristsFilters = () => {
             <PassportIcon className="mx-2 w-full text-base text-[#115E59]" />
           }
           size="large"
-          placeholder={t('fields.icon.select')}
+          placeholder={t('fields.passport-info.placeholder')}
           className="select-shadow"
         />
       </Form.Item>

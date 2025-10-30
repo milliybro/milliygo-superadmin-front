@@ -409,7 +409,8 @@
       "label": "Страна рождения"
     },
     "passport-info": {
-      "label": "Паспортные данные"
+      "label": "Паспортные данные",
+      "placeholder": "Введите"
     },
     "passport-issued-date": {
       "label": "Дата выдачи паспорта"

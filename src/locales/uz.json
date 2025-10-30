@@ -409,7 +409,8 @@
       "label": "Туғилган давлати"
     },
     "passport-info": {
-      "label": "Паспорт маълумотлари"
+      "label": "Паспорт маълумотлари",
+      "placeholder": "Киритинг"
     },
     "passport-issued-date": {
       "label": "Паспорт берилган сана"
