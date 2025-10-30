@@ -200,3 +200,7 @@ html {
     padding: 14px 12px !important;
   }
 }
+.ant-table-cell {
+  padding: 4px 13.5px !important;
+  margin: 0;
+}

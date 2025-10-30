@@ -25,13 +25,13 @@ const TouristActionButton = ({ id, showDrawer }: IProps) => {
     <Button
       type="text"
       onClick={handleClick}
-      className={`inline-flex items-center gap-2 font-medium ${
+      className={`inline-flex items-center gap-2 font-medium p-0 m-0 ${
         isCompact
-          ? 'flex items-center justify-center text-center text-black'
+          ? 'flex items-center justify-center text-center text-black text-[14px]'
           : 'text-primary'
       }`}
     >
-      <EyeIcon className="text-xl" />
+      <EyeIcon className="text-[16px]" />
       {!isCompact && t('common.more-details')}
     </Button>
   )

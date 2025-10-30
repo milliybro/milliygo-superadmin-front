@@ -391,7 +391,8 @@
       "label": "Tug‘ilgan mamlakat"
     },
     "passport-info": {
-      "label": "Pasport ma’lumotlari"
+      "label": "Pasport ma’lumotlari",
+      "placeholder": "Kiriting"
     },
     "passport-issued-date": {
       "label": "Pasport berilgan sana"

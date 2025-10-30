@@ -8,6 +8,7 @@ import React from 'react'
 import UsersNotFound from '../components/users-not-found'
 import TouristActionButton from '../components/tourist-action-button'
 import dayjs from 'dayjs'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
 
 interface TouristsFiltersProps {
   setCurrentPage: (value: number) => void
@@ -26,12 +27,13 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
   showDrawer,
 }) => {
   const { t } = useTranslation()
+  const isCompact = useCompactScreen()
 
   const columns: TableColumnsType<ITouristsTable> = [
     {
       title: 'ID',
       dataIndex: 'id',
-      width: 55,
+      width: 39,
       responsive: ['sm', 'md', 'lg'],
       render: (_: any, __: any, index: number) =>
         ((Number(currentPage) || 1) - 1) * 10 + index + 1,
@@ -50,22 +52,22 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       title: 'fields.birthdate.label',
       dataIndex: 'birth_date',
       sorter: true,
-      width: 166,
+      width: isCompact ? 190 : 300,
       responsive: ['xs', 'sm', 'md', 'lg'],
-      render: date => date && <div>{dayjs(date).format('DD MMM, YYYY')}</div>,
+      render: date => date && <div>{dayjs(date).format('DD.MM.YYYY')}</div>,
     },
     {
       title: 'fields.passport-data.label',
       dataIndex: 'passport_sn',
       sorter: true,
-      width: 169,
+      width: isCompact ? 230 : 300,
       responsive: ['sm', 'md', 'lg'],
     },
     {
       title: 'fields.gender.label',
       dataIndex: 'gender',
       sorter: true,
-      width: 102,
+      width: 70,
       responsive: ['xs', 'sm', 'md', 'lg'],
       render: data => (
         <div>
@@ -79,28 +81,28 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
       title: 'fields.register-address.label',
       dataIndex: 'address',
       sorter: true,
-      width: 236,
+      width: 300,
       responsive: ['md', 'lg'],
     },
     {
       title: 'fields.type-document.label',
       dataIndex: 'type_document',
       sorter: true,
-      width: 153,
+      width: isCompact ? 160 : 200,
       responsive: ['md', 'lg'],
       render: data => (
         <div title={data}>
-          {typeof data === 'string' && data.length > 15
-            ? `${data.slice(0, 15)}...`
+          {typeof data === 'string' && data.length > 10
+            ? `${data.slice(0, 10)}...`
             : data || '-'}
         </div>
       ),
     },
     {
-      width: 156,
-      title: 'common.action',
+      width: 30,
+      title: isCompact ? '' : 'common.action',
       dataIndex: 'id',
-      responsive: ['xs', 'sm', 'md', 'lg'],
+      responsive: ['xs', 'sm', 'md'],
       render: id => <TouristActionButton id={id} showDrawer={showDrawer} />,
     },
   ]
