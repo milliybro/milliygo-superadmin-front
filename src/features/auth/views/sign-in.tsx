@@ -283,6 +283,7 @@ export default function SignIn(): React.ReactElement {
                   </span>
                   <span className="h-px flex-1 bg-[#FFFFFF33]" />
                 </div>
+              </Form>
                 <Button
                   aria-label={t('auth.continue-with-one-id')}
                   size="large"
@@ -296,7 +297,6 @@ export default function SignIn(): React.ReactElement {
                     <OneIdIcon className="text-[80px]" />
                   </div>
                 </Button>
-              </Form>
             </ConfigProvider>
 
             {/* <SupportModal
