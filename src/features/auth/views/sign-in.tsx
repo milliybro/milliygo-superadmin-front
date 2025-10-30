@@ -12,11 +12,11 @@ import ViewIcon from '@/components/icons/view'
 import ViewOffIcon from '@/components/icons/view-off'
 import ProjectLogo from '@/components/icons/project-logo'
 import SquarePasswordIcon from '@/components/icons/square-password'
-import { login } from '../api'
+import { login, withOneIdAuth } from '../api'
 import { useMutation } from '@tanstack/react-query'
-import { useContext } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { setCookie } from 'cookies-next'
-import { useNavigate } from 'react-router'
+import { useNavigate, useSearchParams } from 'react-router'
 import { AuthContext } from '../context/authContext'
 import { useAuthContext } from '@/contexts/auth-context'
 import queryString from 'query-string'
@@ -33,6 +33,10 @@ export default function SignIn(): React.ReactElement {
   const [form] = Form.useForm()
   const { setIsAuth } = useAuthContext()
   const authContext = useContext(AuthContext)
+  const [userData, setUserData] = useState<any>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [openModal, setOpenModal] = useState(false)
+
   const authStore = authContext?.authStore || {
     isAuthenticated: false,
     login: () => {},
@@ -43,6 +47,7 @@ export default function SignIn(): React.ReactElement {
   const { isAuthenticated, login: loginAction }: any = authStore
   const { t } = useTranslation()
   const navigate = useNavigate()
+  const [searchParams] = useSearchParams()
 
   const { mutate: mutateLogin } = useMutation({
     mutationFn: login,
@@ -63,39 +68,86 @@ export default function SignIn(): React.ReactElement {
     },
   })
 
-  if (isAuthenticated) {
-    navigate('/')
+  useEffect(() => {
+    const code = searchParams.get('code')
+    if (code) oneIdLogin({ code })
+  }, [searchParams])
+
+  useEffect(() => {
+    if (isAuthenticated) navigate('/')
+  }, [isAuthenticated, navigate])
+
+  const oneIdLogin = ({ code }: { code: string }) => {
+    withOneIdAuth({ code })
+      .then(res => {
+        if (!res?.user) {
+          setCookie('access', res.access)
+          setCookie('refresh', res.refresh)
+          setUserData(res.user)
+        } else {
+          setCookie('access', res.access)
+          setCookie('refresh', res.refresh)
+          login(res.user as any)
+          message.success(t('user.login-success'), 2)
+          navigate('/')
+        }
+      })
+      .catch(error => {
+        console.log(error)
+        setOpenModal(true)
+      })
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
   const oneIdUrl = 'https://sso.egov.uz/sso/oauth/Authorization.do?'
+
+  const isProdDomain = window.location.hostname === 'admin.sayohat.uz'
+
+  const redirectUri = isProdDomain
+    ? 'https://admin.sayohat.uz/auth/sign-in'
+    : 'https://admin.emehmon.xdevs.uz/auth/sign-in'
+
+  const params = new URLSearchParams({
+    redirect_uri: redirectUri,
+    client_id: 'emehmon_platform',
+    scope: 'emehmon_platform',
+    response_type: 'one_code',
+    state: 'test',
+  }).toString()
+
   const handleOneId = () => {
-    const origin =
-      typeof window !== 'undefined'
-        ? window.location.origin === 'http://localhost:8090'
-          ? 'https://sayohat.uz'
-          : window.location.origin
-        : ''
-
-    const redirectUri = `${origin}/auth/sign-in`
-
-    const params = queryString.stringify({
-      redirect_uri: redirectUri,
-      client_id: 'emehmon_platform',
-      scope: 'emehmon_platform',
-      response_type: 'one_code',
-      state: 'test',
-    })
-
     window.location.href = oneIdUrl + params
   }
+  // const handleOneId = () => {
+  //   const origin =
+  //     typeof window !== 'undefined'
+  //       ? window.location.origin === 'http://localhost:8090'
+  //         ? 'https://sayohat.uz'
+  //         : window.location.origin
+  //       : ''
+
+  //   const redirectUri = `${origin}/auth/sign-in`
+
+  //   const params = queryString.stringify({
+  //     redirect_uri: redirectUri,
+  //     client_id: 'emehmon_platform',
+  //     scope: 'emehmon_platform',
+  //     response_type: 'one_code',
+  //     state: 'test',
+  //   })
+
+  //   window.location.href = oneIdUrl + params
+  // }
 
   return (
-    <div className="lg:h-[100vh] h-[110vh] w-[100vw]">
+    <div className="h-[110vh] w-[100vw] lg:h-[100vh]">
       <video
         autoPlay
         muted
         loop
         id="myVideo"
-        className="absolute left-0 top-0 lg:h-full h-[110vh] w-full object-cover opacity-10"
+        className="absolute left-0 top-0 h-[110vh] w-full object-cover opacity-10 lg:h-full"
         poster="../main-banner.jpg"
       >
         <source
@@ -236,7 +288,7 @@ export default function SignIn(): React.ReactElement {
                   size="large"
                   type="primary"
                   shape="default"
-                  className="mb-4 flex !h-[56px] w-full items-center justify-between bg-[#4825C2] shadow-none text-[14px] font-[500]"
+                  className="mb-4 flex !h-[56px] w-full items-center justify-between bg-[#4825C2] text-[14px] font-[500] shadow-none"
                   onClick={handleOneId}
                 >
                   {t('common.one-id')}
