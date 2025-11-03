@@ -3,7 +3,7 @@ import { ITopDestination } from '../../types'
 
 export async function deleteTopDestination(id: number | string) {
   return await request({
-    url: `/site-content/top_destinations/${id}`,
+    url: `/site-content/top_destinations/${id}/`,
     method: 'DELETE',
   })
 }
