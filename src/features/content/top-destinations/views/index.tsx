@@ -12,7 +12,9 @@ function TopDestinationsContent() {
   const { t } = useTranslation()
   const { deleteOpen, setDeleteOpen } = useTopDestinationsContext()
 
-  const { mutate, isPending } = useDeleteTopDestination()
+  const { mutate, isPending } = useDeleteTopDestination(() =>
+    setDeleteOpen(null),
+  )
 
   return (
     <div className="flex flex-col gap-4">
