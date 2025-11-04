@@ -10,6 +10,7 @@ export interface IPlacement {
   type_name: string
   key: string
   rating: number
+  image_url: string
   resized_image_url: string
 }
 

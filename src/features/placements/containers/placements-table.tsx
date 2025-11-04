@@ -18,6 +18,7 @@ import type { IPlacement } from '../types'
 import PlacementsFilters from './placements-filter'
 import formatPhoneNumber from '@/helpers/format-phone-number'
 import { useCompactScreen } from '@/hooks/use-compact-screen'
+import { EyeOutlined } from '@ant-design/icons'
 
 const PlacementsTable = () => {
   const { t } = useTranslation()
@@ -53,13 +54,27 @@ const PlacementsTable = () => {
           title={val?.name}
         >
           <div className="flex size-[48px] items-center justify-center rounded-[8px] border border-border bg-secondary-light">
-            {val?.resized_image_url ? (
+            {val?.resized_image_url || val?.image_url ? (
               <Image
-                src={val?.resized_image_url}
+                src={val?.resized_image_url || val?.image_url} 
                 alt={val?.name}
                 width={48}
                 height={48}
                 className="rounded-[8px] object-cover"
+                preview={{
+                  src: val?.image_url,
+                  mask: (
+                    <div className="flex items-center justify-center">
+                      <EyeOutlined className="text-lg text-white" />
+                    </div>
+                  ),
+                  imageRender: originalNode => (
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      {originalNode}
+                    </div>
+                  ),
+                  rootClassName: 'custom-image-preview',
+                }}
               />
             ) : (
               <HotelIcon fontSize={28} className="text-secondary/30" />

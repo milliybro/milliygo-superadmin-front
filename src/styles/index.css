@@ -204,3 +204,17 @@ html {
   padding: 4px 13.5px !important;
   margin: 0;
 }
+/* 
+.custom-image-preview .ant-image-preview-img-wrapper {
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+}
+
+*/
+.custom-image-preview .ant-image-preview-img {
+  object-fit: contain;
+  height: 60vh !important;
+  width:60vw !important;
+}
+
+
