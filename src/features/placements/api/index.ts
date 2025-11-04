@@ -13,7 +13,7 @@ export async function getAllPlacements(
   params?: any,
 ): Promise<ListResponse<IPlacement[]>> {
   const res: ListResponse<IPlacement[]> = await request({
-    url: '/placements/all/',
+    url: '/placements/',
     method: 'get',
     params,
   })
