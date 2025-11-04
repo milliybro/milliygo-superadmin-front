@@ -48,7 +48,6 @@ const PlacementsFilters = () => {
       }
     })
 
-    // 🔹 Har safar filter o‘zgarsa pagination 1-sahifadan boshlansin
     newParams.set('page', '1')
 
     setSearchParams(newParams)
