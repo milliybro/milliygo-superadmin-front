@@ -1,4 +1,4 @@
-import { Form, Input } from 'antd'
+import { Form, Input, Select } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 import CSelect from '@/components/ui/select'
@@ -14,10 +14,12 @@ import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router'
+import ArrowDownIcon from '@/components/icons/arrow-down'
 
 const PlacementsFilters = () => {
   const { t } = useTranslation()
   const [form] = Form.useForm()
+  const { Option } = Select
 
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -107,6 +109,7 @@ const PlacementsFilters = () => {
           size="large"
           placeholder={t('hotels-page.name.placeholder')}
           className="select-shadow"
+          allowClear
         />
       </Form.Item>
       <Form.Item
@@ -143,6 +146,7 @@ const PlacementsFilters = () => {
           placeholder={t('fields.icon.select')}
           prefix={<LocationIcon className="mr-4 text-base text-[#115E59]" />}
           allowClear={true}
+   
         />
       </Form.Item>
       <Form.Item
@@ -159,15 +163,23 @@ const PlacementsFilters = () => {
       </Form.Item>
       <Form.Item
         label={t('fields.rating.label')}
-        name="rating"
+        name="avg_rating"
         validateDebounce={1000}
       >
-        <Input
-          prefix={<StarIcon2 className="mr-4 text-base text-[#115E59]" />}
+        <Select
+          prefix={<LocationIcon className="mr-4 text-base text-[#115E59]" />}
           size="large"
           placeholder={t('fields.icon.select')}
-          className="select-shadow"
-        />
+          // className="select-shadow"
+          className="[&_.ant-select-selector]:shadow-sm [&_.ant-select-selector]:shadow-black/5"
+          allowClear
+        >
+          {[1, 2, 3, 4, 5].map(num => (
+            <Option key={num} value={num}>
+              {num}
+            </Option>
+          ))}
+        </Select>
       </Form.Item>
 
       <Form.Item
