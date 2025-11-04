@@ -53,9 +53,9 @@ const PlacementsTable = () => {
           title={val?.name}
         >
           <div className="flex size-[48px] items-center justify-center rounded-[8px] border border-border bg-secondary-light">
-            {val?.image ? (
+            {val?.resized_image_url ? (
               <Image
-                src={val?.image}
+                src={val?.resized_image_url}
                 alt={val?.name}
                 width={48}
                 height={48}

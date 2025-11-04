@@ -29,7 +29,7 @@ const PlacementsFilters = () => {
   const district = searchParams.get('district') || null
 
   const handleValuesChange = (_: any, allValues: any) => {
-    const newParams = new URLSearchParams(searchParams) 
+    const newParams = new URLSearchParams(searchParams)
 
     Object.keys(allValues).forEach(key => {
       const value = allValues[key]
@@ -47,6 +47,9 @@ const PlacementsFilters = () => {
         newParams.delete(key)
       }
     })
+
+    // 🔹 Har safar filter o‘zgarsa pagination 1-sahifadan boshlansin
+    newParams.set('page', '1')
 
     setSearchParams(newParams)
   }
