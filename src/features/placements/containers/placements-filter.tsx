@@ -29,7 +29,7 @@ const PlacementsFilters = () => {
   const district = searchParams.get('district') || null
 
   const handleValuesChange = (_: any, allValues: any) => {
-    const newParams = new URLSearchParams()
+    const newParams = new URLSearchParams(searchParams) 
 
     Object.keys(allValues).forEach(key => {
       const value = allValues[key]
@@ -97,7 +97,7 @@ const PlacementsFilters = () => {
     >
       <Form.Item
         label={t('hotels-page.name.title')}
-        name="name"
+        name="search"
         validateDebounce={1000}
       >
         <Input

@@ -44,7 +44,7 @@ const PlacementsTable = () => {
     },
     {
       title: t('fields.hotel-name.label'),
-      dataIndex: 'placement_name',
+      dataIndex: 'name',
       sorter: true,
       width: 0,
       render: (_, val) => (
@@ -72,8 +72,8 @@ const PlacementsTable = () => {
       ),
     },
     {
-      title: t('fields.address.label'),
-      dataIndex: 'address',
+      title: t('hotels-page.region'),
+      dataIndex: 'region',
       sorter: true,
       render: val => (
         <Tooltip
@@ -90,36 +90,21 @@ const PlacementsTable = () => {
       ),
     },
     {
-      title: t('fields.location.label'),
-      dataIndex: 'address',
+      title: t('billing.district'),
+      dataIndex: 'district',
       sorter: true,
       render: val => (
-        <div>
-          {val ? (
-            <Tooltip
-              color="white"
-              overlayInnerStyle={{
-                color: '#3276FF',
-                textAlign: 'center',
-                textDecoration: 'underline',
-                fontSize: '0.875rem',
-              }}
-              placement="topLeft"
-              title={val}
-              key={val}
-              className="line-clamp-1 max-w-[220px]"
-            >
-              <a
-                style={{ textDecoration: 'underline' }}
-                className="line-clamp-1 text-[#3276FF] 2xl:line-clamp-2"
-              >
-                {val}
-              </a>
-            </Tooltip>
-          ) : (
-            <div className="text-center">-</div>
-          )}
-        </div>
+        <Tooltip
+          title={val}
+          key={val}
+          className="line-clamp-1 max-w-[185px] font-medium"
+          overlayInnerStyle={{
+            fontSize: '0.875rem',
+          }}
+          placement="topLeft"
+        >
+          {val}
+        </Tooltip>
       ),
     },
     // {
@@ -137,7 +122,7 @@ const PlacementsTable = () => {
     // },
     {
       title: t('fields.rating.label'),
-      dataIndex: 'rating',
+      dataIndex: 'avg_rating',
       sorter: true,
       width: 0,
       render: val => (
