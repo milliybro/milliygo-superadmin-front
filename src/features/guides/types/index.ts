@@ -1,4 +1,6 @@
-interface IHotelsItemTable {
+import { ListResponse } from '@/types'
+
+export interface IHotelsItemTable {
   key: string
   id: number
   name: string
@@ -7,27 +9,17 @@ interface IHotelsItemTable {
   rating: number
 }
 
-interface IGuidesTable {
-  key: number
-  id: number
-  fio: string
-  placements: any
-  rating: number
-  status: string
-}
-
-interface IGuide {
-  id: number
-  certificate_file: string
-  publishing_status: string
-  guide_category: number
+export interface IGuide {
+  user_id: number
+  avatar: string
   full_name: string
-  citizenship_name: string
-  nationality_name: string
-  phone: string
+  status: boolean
+  rating: number
+  regions: string[]
+  guide_status: string
 }
 
-interface ITenantsTable {
+export interface ITenantsTable {
   key?: string
   id?: number
   schema_name: string
@@ -40,7 +32,7 @@ interface ITenantsTable {
   user_id?: number | null
 }
 
-interface IHotelDetail {
+export interface IHotelDetail {
   id: number
   name: string | undefined
   description: string
@@ -50,7 +42,7 @@ interface IHotelDetail {
   photos: string[]
 }
 
-interface IHotelsItemReview {
+export interface IHotelsItemReview {
   key: string
   id: number
   name: string
@@ -59,7 +51,7 @@ interface IHotelsItemReview {
   rating: number
 }
 
-interface IHotelsRoom {
+export interface IHotelsRoom {
   key: string
   id: number
   name: string
@@ -67,7 +59,7 @@ interface IHotelsRoom {
   price: number
   status: string
 }
-interface IHotelsGuests {
+export interface IHotelsGuests {
   key: number
   id: number
   citizenship: string
@@ -81,7 +73,7 @@ interface IHotelsGuests {
   check_out: string
 }
 
-interface IGuestsTable {
+export interface IGuestsTable {
   key: number
   id: string | number
   fullName: string
@@ -92,7 +84,7 @@ interface IGuestsTable {
   checkInOut: string
 }
 
-interface IGuestsTransaction {
+export interface IGuestsTransaction {
   key: string
   id: string
   fullName: string
@@ -102,15 +94,13 @@ interface IGuestsTransaction {
   checkInOut: string
   status: string
 }
-export type {
-  IHotelDetail,
-  ITenantsTable,
-  IHotelsGuests,
-  IHotelsItemReview,
-  IHotelsItemTable,
-  IGuidesTable,
-  IHotelsRoom,
-  IGuestsTable,
-  IGuestsTransaction,
-  IGuide,
+
+export interface IGuideContextType {
+  guides: {
+    data: ListResponse<IGuide[]> | undefined
+    isLoading: boolean
+    refetch: () => void
+  }
 }
+
+export type IGuideStatus = 'accepted' | 'rejected' | 'in_progress'

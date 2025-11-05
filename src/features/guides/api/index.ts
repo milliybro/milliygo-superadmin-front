@@ -1,6 +1,6 @@
 import { ListResponse } from '@/types'
 import request from '@/utils/axios'
-import { IHotelDetail, IHotelsItemReview, IHotelsRoom } from '../types'
+import { IGuide, IHotelDetail, IHotelsItemReview, IHotelsRoom } from '../types'
 import requestSuper from '@/utils/superRequest'
 
 export async function getHotelDetail(
@@ -55,7 +55,7 @@ export async function getHotelDetailRooms(
   return res
 }
 
-export async function getGuides(params?: any): Promise<ListResponse<any[]>> {
+export async function getGuides(params?: any): Promise<ListResponse<IGuide[]>> {
   const res: ListResponse<any[]> = await requestSuper({
     url: '/guides/list/',
     method: 'get',

@@ -1,45 +1,58 @@
-import type { PaginationProps, TableColumnsType } from 'antd'
-import { Image, Table } from 'antd'
+import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
+import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { twMerge } from 'tailwind-merge'
 
 import UsersNotFound from '@/features/users/components/users-not-found'
 
-import GuidesTableActionButton from '../components/guides-table-action-button'
-import type { IGuidesTable } from '../types'
-import GuidesStatusTag from '../components/guides-status-tag'
+import UserIcon from '@/components/icons/user'
+import BlurImage from '@/components/ui/blur-image'
+import { truthyObject } from '@/helpers/truthy-object'
+import queryString from 'query-string'
+import { memo, useMemo } from 'react'
+import { useLocation, useNavigate } from 'react-router'
 import GuideViewModal from '../components/guide-view-modal'
+import GuidesStatusTag from '../components/guides-status-tag'
+import GuidesTableActionButton from '../components/guides-table-action-button'
+import { useGuideContext } from '../hooks/use-guide-context'
 
-const GuidesTable = ({
-  guidesData,
-  currentPage,
-  setCurrentPage,
-  isLoading,
-  pageSize,
-  type,
-  refetch,
-}: any) => {
+const GuidesTable = memo(() => {
   const { t } = useTranslation()
-  const columns: TableColumnsType<IGuidesTable> = [
+  const { search, pathname } = useLocation()
+  const query = useMemo(() => queryString.parse(search), [search])
+  const navigate = useNavigate()
+
+  const currentPage = +(query?.page || 1)
+  const tab = query?.guide_status as 'accepted' | 'in_progress' | 'rejected'
+
+  const {
+    guides: { data: guidesData, isLoading, refetch },
+  } = useGuideContext()
+
+  const columns: TableColumnsType = [
     {
       title: 'ID',
       dataIndex: 'id',
       className: 'text-center',
       sorter: false,
-      render: (_text, _record, index) =>
-        (currentPage - 1) * pageSize + index + 1,
+      render: (_text, _record, index) => (currentPage - 1) * 10 + index + 1,
     },
     {
       title: 'hotel-guest.lfm',
-      dataIndex: 'fio',
+      dataIndex: 'full_name',
       sorter: true,
       render: (_, record: any) => (
         <div className="flex items-center gap-[10px]">
-          <Image
+          <BlurImage
             src={record?.image}
             height={36}
             width={36}
-            className="h-9 w-9 rounded-[8px] object-cover"
+            className="h-9 w-9 rounded-lg border object-cover"
+            fallbackEl={
+              <div className="flex size-9 items-center justify-center rounded-lg border bg-secondary/10">
+                <UserIcon className="text-2xl text-secondary" />
+              </div>
+            }
           />
           <span className="text-sm font-medium text-primary-dark">{_}</span>
         </div>
@@ -47,27 +60,29 @@ const GuidesTable = ({
     },
     {
       title: 'guides.service-location',
-      dataIndex: 'placements',
+      dataIndex: 'regions',
       sorter: true,
-      render: (placements: string[]) => (
+      render: (placements: (string | null)[]) => (
         <div className="flex flex-wrap items-center gap-[10px]">
           {placements && placements.length > 0 ? (
-            placements.map((place, idx) => (
-              <div
-                key={idx}
-                className="rounded-[8px] bg-[#6B728029] px-3 py-1 text-sm text-[#333]"
-              >
-                {place}
-              </div>
-            ))
+            placements.map(
+              (place, idx) =>
+                place && (
+                  <div
+                    key={idx}
+                    className="rounded-[8px] bg-[#6B728029] px-3 py-1 text-sm text-[#333]"
+                  >
+                    {place}
+                  </div>
+                ),
+            )
           ) : (
             <span>-</span>
           )}
         </div>
       ),
     },
-
-    ...(type !== 'request'
+    ...(tab !== 'in_progress'
       ? [
           {
             title: 'fields.rating.label',
@@ -81,19 +96,18 @@ const GuidesTable = ({
           },
         ]
       : []),
-
     {
       title: 'fields.status.label',
       dataIndex: 'status',
       sorter: true,
-      render: status => <GuidesStatusTag active={status} type={type} />,
+      render: () => <GuidesStatusTag type={tab} />,
     },
     {
       width: 1,
       title: 'common.action',
-      dataIndex: 'id',
+      dataIndex: 'user_id',
       render: val => (
-        <GuidesTableActionButton id={val} type={type} refetch={refetch} />
+        <GuidesTableActionButton id={val} type={tab} refetch={refetch} />
       ),
     },
   ]
@@ -131,32 +145,37 @@ const GuidesTable = ({
     return originalElement
   }
 
-  const handlePaginationChange = (page: number) => {
-    setCurrentPage(page)
-  }
+  const handleTableChange: TableProps['onChange'] = (pagination, _, sorter) => {
+    const sort = Array.isArray(sorter) ? sorter[0] : sorter
+    const ordering = sort?.field
+      ? (sort?.order === 'descend' ? '-' : '') + sort?.field
+      : null
 
-  const transformedTenantsData =
-    guidesData?.results.map((item: any) => ({
-      key: item.id,
-      id: item.user_id,
-      fio: item.full_name,
-      placements: item.regions,
-      rating: item.rating,
-      status: item.status,
-      image: item.avatar,
-    })) || []
+    const newPage = pagination?.current
+
+    const updatedQuery = queryString.stringify(
+      truthyObject({
+        ...query,
+        page: newPage,
+        ordering,
+      }),
+    )
+
+    navigate({ pathname, search: updatedQuery })
+  }
 
   return (
     <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] bg-white">
-      <Table<IGuidesTable>
+      <Table
         columns={columns?.map(val => ({
           ...val,
           title: t(val?.title as string),
         }))}
         loading={isLoading}
-        dataSource={transformedTenantsData}
-        className="h-full w-full"
-        bordered
+        dataSource={guidesData?.results?.map(item => ({
+          ...item,
+          key: item.user_id,
+        }))}
         pagination={{
           current: currentPage,
           pageSize: 10,
@@ -165,8 +184,9 @@ const GuidesTable = ({
           showSizeChanger: false,
           position: ['bottomCenter'],
           itemRender: itemRender,
-          onChange: handlePaginationChange,
         }}
+        onChange={handleTableChange}
+        className="side-borderless-table responsive-table h-full w-full"
         locale={{
           emptyText: <UsersNotFound />,
           triggerDesc: t('common.sort_descending') ?? '',
@@ -177,6 +197,6 @@ const GuidesTable = ({
       <GuideViewModal />
     </div>
   )
-}
+})
 
 export default GuidesTable
