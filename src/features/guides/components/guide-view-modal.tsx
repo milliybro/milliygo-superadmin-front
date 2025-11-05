@@ -33,14 +33,18 @@ const GuideViewModal = () => {
   const { pathname } = useLocation()
   const [form] = Form.useForm()
   const [searchParams] = useSearchParams()
-  const { isGuideModalOpen, closeGuideModal } = useGuideModalStore(
-    state => state,
-  )
+  const { isGuideModalOpen, closeGuideModal, openGuideModal } =
+    useGuideModalStore(state => state)
   const [reportModalOpen, setReportModalOpen] = useState(false)
   const [value, setValue] = useState(1)
   const guideId = searchParams.get('guideId')
   const queryClient = useQueryClient()
   const editTenantId = searchParams.get('edit')
+
+  const cancelReportHandler = () => {
+    setReportModalOpen(false)
+    openGuideModal()
+  }
 
   const closeHandler = () => {
     form.resetFields()
@@ -178,6 +182,7 @@ const GuideViewModal = () => {
             className="border border-[#991B1B] bg-[#FCA5A5] font-semibold text-[#991B1B]"
             onClick={() => {
               setReportModalOpen(true)
+              closeGuideModal()
             }}
           >
             {t('guides.cancel')}
@@ -194,8 +199,8 @@ const GuideViewModal = () => {
       <CustomModal
         width={641}
         open={reportModalOpen}
-        onOk={() => setReportModalOpen(false)}
-        onCancel={() => setReportModalOpen(false)}
+        onOk={cancelReportHandler}
+        onCancel={cancelReportHandler}
       >
         <Flex vertical className="">
           <div className="flex flex-col items-center">
@@ -242,7 +247,7 @@ const GuideViewModal = () => {
               className="flex-1 border-none bg-secondary-light font-medium"
               size="large"
               type="default"
-              onClick={() => setReportModalOpen(false)}
+              onClick={cancelReportHandler}
             >
               {t('common.cancel')}
             </Button>

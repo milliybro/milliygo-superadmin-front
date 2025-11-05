@@ -1,83 +1,47 @@
 import { Tabs } from 'antd'
-import { useTranslation } from 'react-i18next'
 import { TabsProps } from 'antd/lib'
+import { useTranslation } from 'react-i18next'
 
 import { useSearchParams } from 'react-router'
 import GuidesTable from './guides-table'
 
-const GuidesTab = ({
-  guidesData,
-  isLoading,
-  currentPage,
-  pageSize,
-  setCurrentPage,
-  refetch
-}: any) => {
+const GuidesTab = () => {
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const activeTab = searchParams.get('tab')
+  const activeTab = searchParams.get('guide_status') || 'accepted'
 
-  const items: TabsProps['items'] = [
+  const tabConfig = [
     {
-      key: '1',
+      key: 'accepted' as const,
       label: 'common.actived',
-      children: (
-        <GuidesTable
-          guidesData={guidesData}
-          isLoading={isLoading}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          type="active"
-        />
-      ),
     },
     {
-      key: '2',
+      key: 'in_progress' as const,
       label: 'common.request',
-      children: (
-        <GuidesTable
-          guidesData={guidesData}
-          isLoading={isLoading}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          type="request"
-          refetch={refetch}
-        />
-      ),
     },
     {
-      key: '3',
+      key: 'rejected' as const,
       label: 'common.un-active',
-      children: (
-        <GuidesTable
-          guidesData={guidesData}
-          isLoading={isLoading}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-          type="unActive"
-        />
-      ),
     },
   ]
+
+  const items: TabsProps['items'] = tabConfig.map(tab => ({
+    key: tab.key,
+    label: t(tab.label),
+    children: tab.key === activeTab ? <GuidesTable /> : null,
+  }))
+
   return (
-    <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
+    <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white">
       <Tabs
         className="p-2"
         activeKey={activeTab || '1'}
-        items={items.map(val => ({
-          ...val,
-          label: t(val.label as string),
-        }))}
-        // onChange={key => {
-        //   setSearchParams({ tab: key })
-        // }}
+        items={items}
+        destroyOnHidden={true}
         onChange={key => {
           const newParams = new URLSearchParams(searchParams)
-          newParams.set('tab', key)
+          newParams.set('guide_status', key)
           newParams.set('page', '1')
 
           setSearchParams(newParams)

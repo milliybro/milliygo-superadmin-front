@@ -6,7 +6,6 @@ import { twMerge } from 'tailwind-merge'
 import UsersNotFound from '@/features/users/components/users-not-found'
 
 import type { IGuidesTable } from '../types'
-import GuideViewModal from '@/features/guides/components/guide-view-modal'
 
 const staticBillingData = {
   count: 2,

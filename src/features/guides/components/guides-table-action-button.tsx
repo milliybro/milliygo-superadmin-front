@@ -1,26 +1,33 @@
-import { Button, Flex, Form, Input, Radio, Space, Typography } from 'antd'
-import { useTranslation } from 'react-i18next'
-
-import EyeIcon from '@/components/icons/eye'
-
-import { useState, type FC } from 'react'
-import CheckIcon from '@/components/icons/check-icon'
 import CancelIcon from '@/components/icons/cancel-icon'
-import useGuideModalStore from '../store/hotel-modal-store'
+import CheckIcon from '@/components/icons/check-icon'
+import EyeIcon from '@/components/icons/eye'
 import { useMutation } from '@tanstack/react-query'
-import { updateGuide } from '../api'
+import {
+  Button,
+  Flex,
+  Form,
+  Input,
+  Radio,
+  RadioChangeEvent,
+  Space,
+  Typography,
+} from 'antd'
+import { memo, useState, type FC } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
+import { updateGuide } from '../api'
+import useGuideModalStore from '../store/hotel-modal-store'
+import { IGuideStatus } from '../types'
 import CustomModal from './custom-madal'
-import { RadioChangeEvent } from 'antd/lib'
 
 interface IProps {
   id: number
-  type?: string
+  type?: IGuideStatus
   refetch?: () => void
 }
 
 type GuideUpdatePayload = {
-  guide_status: 'accepted' | 'rejected'
+  guide_status: IGuideStatus
   rejected_reason?: string
 }
 
@@ -82,7 +89,7 @@ const GuidesTableActionButton: FC<IProps> = ({ id, type, refetch }) => {
   }
   return (
     <div className="flex gap-2">
-      {type === 'request' ? (
+      {type === 'in_progress' ? (
         <div className="flex items-center gap-[10px]">
           {' '}
           <Button
@@ -186,4 +193,4 @@ const GuidesTableActionButton: FC<IProps> = ({ id, type, refetch }) => {
   )
 }
 
-export default GuidesTableActionButton
+export default memo(GuidesTableActionButton)

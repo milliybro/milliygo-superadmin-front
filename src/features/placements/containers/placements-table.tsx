@@ -159,7 +159,7 @@ const PlacementsTable = () => {
       dataIndex: 'status',
       sorter: true,
       render: status => (
-        <div className="mr-[5px]">
+        <div className="mr-[5px] 2xl:mr-0">
           <StatusTag active={status} />
         </div>
       ),
