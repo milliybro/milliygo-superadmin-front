@@ -12,7 +12,9 @@ function TopDestinationsContent() {
   const { t } = useTranslation()
   const { deleteOpen, setDeleteOpen } = useTopDestinationsContext()
 
-  const { mutate, isPending } = useDeleteTopDestination()
+  const { mutate, isPending } = useDeleteTopDestination(() =>
+    setDeleteOpen(null),
+  )
 
   return (
     <div className="flex flex-col gap-4">
@@ -22,7 +24,9 @@ function TopDestinationsContent() {
           navigate(`/content/${tab}/create`)
         }}
       />
-      <TopDestinationsTable />
+      <div className="custom-thead">
+        <TopDestinationsTable />
+      </div>
       <DeleteModal
         open={deleteOpen !== null}
         onClose={() => setDeleteOpen(null)}

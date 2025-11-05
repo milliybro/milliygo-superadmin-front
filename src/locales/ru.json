@@ -409,7 +409,8 @@
       "label": "Страна рождения"
     },
     "passport-info": {
-      "label": "Паспортные данные"
+      "label": "Паспортные данные",
+      "placeholder": "Введите"
     },
     "passport-issued-date": {
       "label": "Дата выдачи паспорта"
@@ -665,7 +666,10 @@
     "confirm-password": "Подтвердите пароль",
     "save-password": "Сохранить пароль",
     "compressing-image": "Изображение сжимается...",
-    "error-compressing-image": "Ошибка при сжатии изображения, пожалуйста, попробуйте снова"
+    "error-compressing-image": "Ошибка при сжатии изображения, пожалуйста, попробуйте снова",
+    "or": "или",
+    "one-id": "Авторизоваться через OneID",
+    "specify-date": "Укажите дату"
   },
   "status": {
     "confirmed": "Подтвержден",

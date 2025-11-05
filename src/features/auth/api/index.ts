@@ -30,3 +30,13 @@ export async function refreshToken(data: {
 
   return res
 }
+
+export async function withOneIdAuth(data: {
+  code: string
+}): Promise<AuthResponse> {
+  return await request({
+    url: '/account/one-id-core-auth/',
+    method: 'post',
+    data,
+  })
+}

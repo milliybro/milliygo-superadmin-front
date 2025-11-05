@@ -409,7 +409,8 @@
       "label": "Туғилган давлати"
     },
     "passport-info": {
-      "label": "Паспорт маълумотлари"
+      "label": "Паспорт маълумотлари",
+      "placeholder": "Киритинг"
     },
     "passport-issued-date": {
       "label": "Паспорт берилган сана"
@@ -665,7 +666,10 @@
     "confirm-password": "Паролни tasdiqlang",
     "save-password": "Паролни сақлаш",
     "compressing-image": "Сурат сиғдирилмоқда...",
-    "error-compressing-image": "Суратни сиғдиришда хатолик, илтимос, қайта уриниб кўринг"
+    "error-compressing-image": "Суратни сиғдиришда хатолик, илтимос, қайта уриниб кўринг",
+    "or": "ёки",
+    "one-id": "OneID орқали кириш",
+    "specify-date": "Сана кўрсатилсин"
   },
   "status": {
     "confirmed": "Тасдиқланган",

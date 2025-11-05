@@ -18,6 +18,7 @@ import { useLocation, useNavigate } from 'react-router'
 import { editTopDestinationPartial } from '../api'
 import useTopDestinations from '../hooks/use-top-destinations'
 import useTopDestinationsContext from '../hooks/use-top-destinations-context'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
 
 function TopDestinationsTable() {
   const navigate = useNavigate()
@@ -27,6 +28,7 @@ function TopDestinationsTable() {
 
   const { setDeleteOpen } = useTopDestinationsContext()
   const { data, isFetching, refetch } = useTopDestinations()
+  const isCompact = useCompactScreen()
 
   const { mutate } = useMutation({
     mutationKey: ['editTopDestination'],
@@ -39,7 +41,7 @@ function TopDestinationsTable() {
 
   const destinationsData = data?.results?.map(des => ({
     title: des?.title,
-    description: des?.description,
+    region: des?.region,
     status: des?.status,
     id: des?.id,
     key: des?.id,
@@ -58,8 +60,9 @@ function TopDestinationsTable() {
       title: t('common.name'),
       key: 'title',
       dataIndex: 'title',
-      className: 'w-2/5',
+      className: 'w-2/4',
       sorter: true,
+      responsive: ['xs', 'sm', 'md', 'lg'],
       render: (value, record) => {
         return (
           <div className="flex items-center gap-4">
@@ -79,10 +82,44 @@ function TopDestinationsTable() {
       },
     },
     {
+      title: t('billing.region'),
+      key: 'region',
+      dataIndex: 'region',
+      className: 'w-2/4 ',
+      sorter: true,
+      responsive: ['xs', 'sm', 'md', 'lg'],
+      render: (value) => {
+        return (
+          <div className="flex items-center gap-4">
+            <Typography.Text className="text-sm font-medium">
+              {value}
+            </Typography.Text>
+          </div>
+        )
+      },
+    },
+    // {
+    //   title: t('fields.description.label'),
+    //   key: 'description',
+    //   dataIndex: 'description',
+    //   className: 'w-2/5',
+    //   width: 589,
+    //   sorter: true,
+    //   render: (value, record) => {
+    //     return (
+    //       <div className="flex items-center gap-4">
+    //         <Typography.Text className="text-sm font-medium">
+    //           {value}
+    //         </Typography.Text>
+    //       </div>
+    //     )
+    //   },
+    // },
+    {
       title: t('fields.status.label'),
       key: 'status',
       dataIndex: 'status',
-      width: 0,
+      width: 107,
       sorter: true,
       render: (_, record) => (
         <Switch
@@ -95,7 +132,7 @@ function TopDestinationsTable() {
       title: t('common.action'),
       key: 'action',
       dataIndex: 'action',
-      width: 0,
+      width: 209,
       render: (_, record) => (
         <div className="flex items-center gap-4 text-base font-medium">
           <Tooltip title={t('common.edit')}>
@@ -104,7 +141,8 @@ function TopDestinationsTable() {
               className="p-0"
               onClick={() => navigate(`edit/${record.id}`)}
             >
-              <EditIcon className="text-xl" />
+              <EditIcon className="text-xl" />{' '}
+              {isCompact ? '' : t('common.edit')}
             </Button>
           </Tooltip>
           <Tooltip title={t('common.delete')}>
@@ -115,6 +153,7 @@ function TopDestinationsTable() {
               className="p-0"
             >
               <DeleteIcon className="text-xl" />
+              {isCompact ? '' : t('common.delete')}
             </Button>
           </Tooltip>
         </div>
@@ -156,6 +195,7 @@ function TopDestinationsTable() {
         total: data?.count,
         current: Number(queries?.page) || 1,
       }}
+      className="tourists-table"
     />
   )
 }

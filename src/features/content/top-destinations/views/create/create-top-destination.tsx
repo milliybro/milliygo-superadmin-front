@@ -83,6 +83,8 @@ export default function TopDestinationForm() {
   const finishHandler = (values: ITopDestinationForm) => {
     const toSubmit = {
       ...values,
+      youtube_url: values?.youtube_url || '',
+      status: values?.status || false,
       place_attractions: values?.place_attractions?.map((spot, i) => ({
         ...spot,
         longitude: coords?.[i]?.[1],

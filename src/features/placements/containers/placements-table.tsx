@@ -18,6 +18,7 @@ import type { IPlacement } from '../types'
 import PlacementsFilters from './placements-filter'
 import formatPhoneNumber from '@/helpers/format-phone-number'
 import { useCompactScreen } from '@/hooks/use-compact-screen'
+import { EyeOutlined } from '@ant-design/icons'
 
 const PlacementsTable = () => {
   const { t } = useTranslation()
@@ -44,7 +45,7 @@ const PlacementsTable = () => {
     },
     {
       title: t('fields.hotel-name.label'),
-      dataIndex: 'placement_name',
+      dataIndex: 'name',
       sorter: true,
       width: 0,
       render: (_, val) => (
@@ -53,13 +54,27 @@ const PlacementsTable = () => {
           title={val?.name}
         >
           <div className="flex size-[48px] items-center justify-center rounded-[8px] border border-border bg-secondary-light">
-            {val?.image ? (
+            {val?.resized_image_url || val?.image_url ? (
               <Image
-                src={val?.image}
+                src={val?.resized_image_url || val?.image_url} 
                 alt={val?.name}
                 width={48}
                 height={48}
                 className="rounded-[8px] object-cover"
+                preview={{
+                  src: val?.image_url,
+                  mask: (
+                    <div className="flex items-center justify-center">
+                      <EyeOutlined className="text-lg text-white" />
+                    </div>
+                  ),
+                  imageRender: originalNode => (
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                      {originalNode}
+                    </div>
+                  ),
+                  rootClassName: 'custom-image-preview',
+                }}
               />
             ) : (
               <HotelIcon fontSize={28} className="text-secondary/30" />
@@ -72,8 +87,8 @@ const PlacementsTable = () => {
       ),
     },
     {
-      title: t('fields.address.label'),
-      dataIndex: 'address',
+      title: t('hotels-page.region'),
+      dataIndex: 'region',
       sorter: true,
       render: val => (
         <Tooltip
@@ -90,36 +105,21 @@ const PlacementsTable = () => {
       ),
     },
     {
-      title: t('fields.location.label'),
-      dataIndex: 'address',
+      title: t('billing.district'),
+      dataIndex: 'district',
       sorter: true,
       render: val => (
-        <div>
-          {val ? (
-            <Tooltip
-              color="white"
-              overlayInnerStyle={{
-                color: '#3276FF',
-                textAlign: 'center',
-                textDecoration: 'underline',
-                fontSize: '0.875rem',
-              }}
-              placement="topLeft"
-              title={val}
-              key={val}
-              className="line-clamp-1 max-w-[220px]"
-            >
-              <a
-                style={{ textDecoration: 'underline' }}
-                className="line-clamp-1 text-[#3276FF] 2xl:line-clamp-2"
-              >
-                {val}
-              </a>
-            </Tooltip>
-          ) : (
-            <div className="text-center">-</div>
-          )}
-        </div>
+        <Tooltip
+          title={val}
+          key={val}
+          className="line-clamp-1 max-w-[185px] font-medium"
+          overlayInnerStyle={{
+            fontSize: '0.875rem',
+          }}
+          placement="topLeft"
+        >
+          {val}
+        </Tooltip>
       ),
     },
     // {
@@ -137,7 +137,7 @@ const PlacementsTable = () => {
     // },
     {
       title: t('fields.rating.label'),
-      dataIndex: 'rating',
+      dataIndex: 'avg_rating',
       sorter: true,
       width: 0,
       render: val => (

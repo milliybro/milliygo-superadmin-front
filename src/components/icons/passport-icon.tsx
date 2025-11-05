@@ -1,12 +1,13 @@
 import type { FC, SVGProps } from 'react'
 
-const PassportIcon: FC<SVGProps<SVGSVGElement>> = ({ className, ...props }) => (
+const PassportIcon: FC<SVGProps<SVGSVGElement>> = ({ ...props }) => (
   <svg
-    xmlns="http://www.w3.org/2000/svg"
+    {...props}
     width="1em"
     height="1em"
     viewBox="0 0 16 17"
     fill="none"
+    xmlns="http://www.w3.org/2000/svg"
   >
     <path
       d="M8.63354 15.1666C10.3967 15.1666 11.2782 15.1666 11.9111 14.6624C12.544 14.1582 12.7459 13.2951 13.1498 11.5688L14.428 6.10462C14.6515 5.14906 14.7633 4.67128 14.5603 4.32525C14.1918 3.69684 13.2526 3.83332 12.6395 3.83332"
