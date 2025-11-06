@@ -1,51 +1,35 @@
 import { Table } from 'antd'
-import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
 
 import StatusTag from '@/components/ui/status-tag'
 import UserActionButton from '../components/user-action-button'
 
-import type { IProviders, IProvidersTable } from '../types'
-import type { PaginationProps, TableColumnsType } from 'antd'
-import React from 'react'
+import type { TableColumnsType } from 'antd'
+import { useMemo } from 'react'
 import UsersNotFound from '../components/users-not-found'
+import { useLocation, useNavigate } from 'react-router'
+import queryString from 'query-string'
+import { useQuery } from '@tanstack/react-query'
+import { truthyObject } from '@/helpers/truthy-object'
+import { getOrganizationInfo } from '../api'
+import { TableProps } from 'antd/lib'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
 
-interface UsersFiltersProps {
-  hotelsData: any
-  pageSize: number
-  setCurrentPage: (value: number) => void
-  currentPage: number
-  isLoading: any
-}
-const staticHotelsData = {
-  count: 2,
-  results: [
-    {
-      id: 1,
-      name: 'UZBEKISTAN Airways',
-      image: '',
-      status: true,
-    },
-    {
-      id: 2,
-      name: 'Istanbul Airways',
-      image: '',
-      status: false,
-    },
-  ],
-}
-
-const ProvidersTable: React.FC<UsersFiltersProps> = ({
-  // hotelsData,
-  isLoading,
-  currentPage,
-  setCurrentPage,
-}) => {
+const ProvidersTable = () => {
   const { t } = useTranslation()
+  const navigate = useNavigate()
+  const { search, pathname } = useLocation()
+  const queries = useMemo(() => queryString.parse(search), [search])
+  const isCompact = useCompactScreen()
 
-  const hotelsData = staticHotelsData
+  const { data: organizationData, isFetching } = useQuery({
+    queryKey: ['organization-data', queries],
+    queryFn: () =>
+      getOrganizationInfo(truthyObject({ ...queries, page_size: 10 })),
+    placeholderData: data => data,
+  })
 
-  const columns: TableColumnsType<IProvidersTable> = [
+  const columns: TableColumnsType<any> = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -54,13 +38,14 @@ const ProvidersTable: React.FC<UsersFiltersProps> = ({
       width: 50,
     },
     {
-      title: 'common.name',
+      title: t('hotels-page.name.title'),
       dataIndex: 'name',
       sorter: true,
-      render: (value, record: any) => {
+      width: 691.5,
+      render: value => {
         return (
           <div className="flex items-center gap-2">
-            {record?.image ? (
+            {/* {record?.image ? (
               <img
                 className="h-[48px] w-[48px] shrink-0 rounded-[8px] object-cover"
                 src={record?.image}
@@ -68,7 +53,7 @@ const ProvidersTable: React.FC<UsersFiltersProps> = ({
               />
             ) : (
               <div className="flex size-[48px] items-center justify-center rounded-[8px] border border-border bg-secondary-light" />
-            )}
+            )} */}
 
             <div className="line-clamp-2 w-full">{value}</div>
           </div>
@@ -76,86 +61,62 @@ const ProvidersTable: React.FC<UsersFiltersProps> = ({
       },
     },
     {
-      title: 'fields.status.label',
+      title: t('fields.status.label'),
       dataIndex: 'status',
       sorter: true,
       render: status => <StatusTag active={status} />,
     },
     {
-      title: 'common.action',
+      title: isCompact ? '' : t('common.action'),
       width: 200,
       dataIndex: 'id',
-      render: id => <UserActionButton id={id} refetch={isLoading} />,
+      render: id => <UserActionButton id={id} refetch={isFetching} />,
     },
   ]
-
-  const itemRender: PaginationProps['itemRender'] = (
-    n,
-    type,
-    originalElement,
+  const handleTableChange: TableProps<any>['onChange'] = (
+    pagination,
+    _,
+    sorter,
   ) => {
-    if (type === 'prev') {
-      return (
-        <span
-          className={twMerge(
-            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
-            n === 0 ? 'pointer-events-none opacity-0' : '',
-          )}
-        >
-          {t('common.prev')}
-        </span>
-      )
-    }
-    if (type === 'next') {
-      return (
-        <span
-          className={twMerge(
-            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
-            n === 10 ? 'pointer-events-none opacity-0' : '',
-          )}
-        >
-          {t('common.next')}
-        </span>
-      )
-    }
+    const sort = Array.isArray(sorter) ? sorter[0] : sorter
+    const ordering = sort?.field
+      ? (sort?.order === 'descend' ? '-' : '') + sort.field
+      : null
 
-    return originalElement
+    const newPage = pagination.current
+
+    const updatedQuery = queryString.stringify(
+      truthyObject({
+        ...queries,
+        page: newPage,
+        ordering,
+      }),
+    )
+
+    navigate({ pathname, search: updatedQuery })
   }
-
-  const handlePaginationChange = (page: number) => {
-    setCurrentPage(page)
-  }
-
-  const transformedData =
-    hotelsData?.results.map((user: IProviders | any, i: number) => ({
-      key: i,
-      id: user.id,
-      name: user.name,
-      image: user.image,
-      status: user.status,
-    })) || []
 
   return (
-    <div className="p-6 flex h-full flex-col items-center justify-center overflow-hidden">
-      <Table<IProvidersTable>
-        columns={columns.map(val => ({
-          ...val,
-          title: t(`${val?.title}`),
-        }))}
-        dataSource={transformedData}
-        loading={isLoading}
-        onChange={pagination => handlePaginationChange(pagination.current!)}
-        className="h-full w-full"
-        bordered
+    <div className="px-4">
+      <Table<any>
+        columns={columns}
+        dataSource={
+          organizationData?.results?.map((item, i) => ({
+            ...item,
+            idx: i,
+            key: item?.key + i,
+          })) || []
+        }
+        className="side-borderless-table responsive-table"
+        scroll={{ x: 'max-content' }}
+        loading={isFetching}
         pagination={{
-          current: currentPage,
+          current: +(queries?.page || 1),
           pageSize: 10,
-          total: hotelsData?.count || 0,
+          total: organizationData?.count || 0,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],
-          itemRender: itemRender,
-          onChange: handlePaginationChange,
         }}
         locale={{
           emptyText: <UsersNotFound />,
@@ -163,6 +124,7 @@ const ProvidersTable: React.FC<UsersFiltersProps> = ({
           triggerAsc: t('common.sort_ascending') ?? '',
           cancelSort: t('common.sort_cancel') ?? '',
         }}
+        onChange={handleTableChange}
       />
     </div>
   )

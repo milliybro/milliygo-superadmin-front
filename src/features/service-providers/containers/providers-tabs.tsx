@@ -1,92 +1,48 @@
 import { Tabs } from 'antd'
-import { useTranslation } from 'react-i18next'
-import { TabsProps } from 'antd/lib'
 
-import ProvidersTable from './providers-table'
 import { useSearchParams } from 'react-router'
+import { useQuery } from '@tanstack/react-query'
+import { getOrganizationTypes } from '../api'
+import { useEffect } from 'react'
+import ProvidersTable from './providers-table'
 
-const ProvidersTab = ({
-  hotelsData,
-  isLoading,
-  currentPage,
-  pageSize,
-  setCurrentPage,
-}: any) => {
-  const { t } = useTranslation()
+const ProvidersTab = () => {
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const items: TabsProps['items'] = [
-    {
-      key: '1',
-      label: t('common.avia'),
-      children: (
-        <ProvidersTable
-          hotelsData={hotelsData}
-          isLoading={isLoading}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      ),
-    },
-    {
-      key: '2',
-      label: t('common.railway'),
-      children: (
-        <ProvidersTable
-          hotelsData={hotelsData}
-          isLoading={isLoading}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      ),
-    },
-    {
-      key: '3',
-      label: t('common.bus'),
-      children: (
-        <ProvidersTable
-          hotelsData={hotelsData}
-          isLoading={isLoading}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      ),
-    },
-    {
-      key: '4',
-      label: t('common.cultural'),
-      children: (
-        <ProvidersTable
-          hotelsData={hotelsData}
-          isLoading={isLoading}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          setCurrentPage={setCurrentPage}
-        />
-      ),
-    },
-  ]
-  const newParams = new URLSearchParams(searchParams)
+  const activeTab = searchParams.get('organization_type')
+
+  const { data } = useQuery({
+    queryKey: ['organization-types'],
+    queryFn: () => getOrganizationTypes(),
+    refetchOnWindowFocus: false,
+  })
+  const items = data?.map(item => ({
+    key: item?.organization_key,
+    label: item?.name,
+    children: <ProvidersTable />,
+  }))
+
+  useEffect(() => {
+    if (!activeTab) {
+      const newParams = new URLSearchParams(searchParams)
+      newParams.set('organization_type', 'autoticket')
+      newParams.set('page', '1')
+      setSearchParams(newParams)
+    }
+  }, [activeTab, searchParams, setSearchParams])
 
   return (
     <div className="h-full w-full flex-col overflow-hidden bg-white">
       <Tabs
         onChange={key => {
-          newParams.set('tab', key)
+          const newParams = new URLSearchParams(searchParams)
+          newParams.set('organization_type', key)
           newParams.set('page', '1')
-
           setSearchParams(newParams)
         }}
-        className="p-2"
-        defaultActiveKey="1"
-        activeKey={newParams.get('tab') || '1'}
-        items={items.map(val => ({
-          ...val,
-          label: t(val.label as string),
-        }))}
+        className="p-2 [&_.ant-tabs-tab]:font-medium"
+        activeKey={activeTab || 'house'}
+        items={items}
       />
     </div>
   )

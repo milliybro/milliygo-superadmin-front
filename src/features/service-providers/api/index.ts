@@ -2,6 +2,7 @@ import { ListResponse } from '@/types'
 import { IUsers } from '../types'
 import requestSuper from '@/utils/authRequest'
 import request from '@/utils/axios'
+import { IPlacement } from '@/features/placements/types'
 
 export async function getUsersList(
   params?: any,
@@ -81,6 +82,28 @@ export async function confirmAccommodation(
     url: `/placements/placements/${slug}/confirm/`,
     method: 'put',
     data,
+  })
+
+  return res
+}
+
+export async function getOrganizationTypes(params?: any) {
+  const res: any[] = await request({
+    url: '/organization/type/short/list/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
+export async function getOrganizationInfo(
+  params?: any,
+): Promise<ListResponse<IPlacement[]>> {
+  const res: ListResponse<IPlacement[]> = await request({
+    url: '/organization/short/info/',
+    method: 'get',
+    params,
   })
 
   return res
