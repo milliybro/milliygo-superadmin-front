@@ -44,7 +44,20 @@ const ProvidersTab = ({
     },
     {
       key: '3',
-      label: t('common.ticket-sellerPDF'),
+      label: t('common.bus'),
+      children: (
+        <ProvidersTable
+          hotelsData={hotelsData}
+          isLoading={isLoading}
+          pageSize={pageSize}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      ),
+    },
+    {
+      key: '4',
+      label: t('common.cultural'),
       children: (
         <ProvidersTable
           hotelsData={hotelsData}

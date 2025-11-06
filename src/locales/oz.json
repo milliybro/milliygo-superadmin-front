@@ -617,6 +617,8 @@
     "select_or_drag": "Rasmni tanlang yoki sudrab olib keling",
     "images_limit": "Maksimal hajmi: {{limit}}.",
     "avia": "Avia",
+    "bus": "Avtobus",
+    "cultural": "Madaniy meros",
     "railway": "Temir yo‘l",
     "ticket-seller": "Bilet sotuvchilar",
     "go-home": "Bosh sahifaga o'tish",
