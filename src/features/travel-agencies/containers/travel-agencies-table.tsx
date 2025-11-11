@@ -23,6 +23,7 @@ const TravelAgenciesTable = ({
       title: 'ID',
       dataIndex: 'id',
       className: 'text-center',
+      width: 39,
       render: (_text, _record, index) =>
         (currentPage - 1) * pageSize + index + 1,
       sorter: false,
