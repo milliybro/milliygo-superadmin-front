@@ -1,6 +1,6 @@
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { Button, Divider, Form, Typography } from 'antd'
-import { useEffect, useMemo } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import QuillEditor from '@/features/content/components/quill-editor'
@@ -20,11 +20,17 @@ export default function TopDestinationForm() {
   const { t } = useTranslation()
   const { pathname } = useLocation()
   const { setImages, images } = useTopDestinationImage()
+  const locale = localStorage.getItem('i18nextLng')
+  const [language, setLanguage] = useState(
+    locale === 'oz' ? 'uz-latin' : locale || 'en',
+  )
+  const { data } = useSingleTopDestination(language)
+  
+
   const { images: placeImages, addImage: addPlaceImage } =
     usePopularSpotImages()
   const { coords, addCoord } = useMapCoordsStore()
 
-  const { data } = useSingleTopDestination()
   const { mutate: editMutate, isPending: editLoading } = useEditTopDestination()
   const { mutate: createMutate, isPending: createLoading } =
     useCreateTopDestination()
@@ -158,7 +164,10 @@ export default function TopDestinationForm() {
             <QuillEditor />
           </Form.Item>
         </div>
-        <CreateTopDestinationForm />
+        <CreateTopDestinationForm
+          language={language}
+          setLanguage={setLanguage}
+        />
       </Form>
       <Button
         type="primary"

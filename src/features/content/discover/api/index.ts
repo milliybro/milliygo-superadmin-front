@@ -14,10 +14,14 @@ export async function getDiscoveries(
 
 export async function getDiscovery(
   slug: string,
+  lang: string = 'en',
 ): Promise<IDiscover & { content: string | null }> {
   return await request({
     url: `/site-content/discover/${slug}/`,
     method: 'GET',
+    headers: {
+      'Accept-Language': lang,
+    },
   })
 }
 

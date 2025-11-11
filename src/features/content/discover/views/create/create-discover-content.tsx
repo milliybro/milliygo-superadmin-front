@@ -1,7 +1,7 @@
 import QuillEditor from '@/features/content/components/quill-editor'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { Button, Divider, Form, Typography } from 'antd'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 import CreateDiscoverForm from '../../components/create-discover-form'
@@ -12,8 +12,14 @@ import { ICreateDiscoverForm } from '../../types'
 export default function CreateDiscoverContent() {
   const { setBreadCrumbs } = useBreadCrumbsStore()
   const [form] = Form.useForm<ICreateDiscoverForm>()
-  const { singleDiscover, editDiscovery, createDiscovery } =
-    useDiscoverContext()
+
+  const {
+    singleDiscover,
+    editDiscovery,
+    createDiscovery,
+    language,
+    setLanguage,
+  } = useDiscoverContext()
 
   const { pathname } = useLocation()
   const { image, setImage, removeImage } = useDiscoverImage()
@@ -119,7 +125,7 @@ export default function CreateDiscoverContent() {
             <QuillEditor />
           </Form.Item>
         </div>
-        <CreateDiscoverForm />
+        <CreateDiscoverForm language={language} setLanguage={setLanguage} />
       </Form>
       <Button
         type="primary"

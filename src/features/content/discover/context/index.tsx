@@ -46,6 +46,8 @@ export interface IDiscoverContext {
     mutate: (slug: string) => void
     isLoading: boolean
   }
+  language: string
+  setLanguage: any
 }
 
 const DiscoverContext = createContext<IDiscoverContext | null>(null)
@@ -59,6 +61,10 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
   const { notification } = App.useApp()
   const queries = useMemo(() => queryString.parse(search), [search])
   const navigate = useNavigate()
+  const locale = localStorage.getItem('i18nextLng')
+  const [language, setLanguage] = useState(
+    locale === 'oz' ? 'uz-latin' : locale || 'en',
+  )
 
   const discoverQuery = useQuery({
     queryKey: ['discoveries', queries],
@@ -69,8 +75,8 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
   })
 
   const singleDiscoverQuery = useQuery({
-    queryKey: ['single-discovery', slug],
-    queryFn: () => getDiscovery(slug as string),
+    queryKey: ['single-discovery', slug, language],
+    queryFn: () => getDiscovery(slug as string, language),
     enabled: !!slug,
     refetchOnWindowFocus: false,
     throwOnError: () => {
@@ -126,6 +132,8 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
     () => ({
       deleteOpen,
       setDeleteOpen,
+      language,
+      setLanguage,
       discover: {
         data: discoverQuery.data,
         isFetching: discoverQuery.isFetching,
@@ -164,6 +172,8 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
       toggleStatusMutation.isPending,
       deleteOpen,
       setDeleteOpen,
+      language,
+      setLanguage,
     ],
   )
 
