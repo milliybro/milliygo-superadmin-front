@@ -67,7 +67,7 @@ const Tourists = () => {
         full_name: search || undefined,
         passport_sn: passport || undefined,
         user_information__birth_date: birthdate || undefined,
-        user_information__gender: gender || undefined,
+        gender: gender || undefined,
         is_active: status || undefined,
         user_information__region: region || undefined,
         user_information__district: district || undefined,
