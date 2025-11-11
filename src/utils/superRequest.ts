@@ -29,13 +29,22 @@ requestSuper.interceptors.request.use(config => {
     config.headers.Authorization = `Bearer ${token}`
   }
 
-  const locale = localStorage.getItem('i18nextLng')
-  config.headers['Accept-Language'] =
-    locale === 'uz'
-      ? 'uz-cyrillic'
-      : locale === 'oz'
-        ? 'uz-latin'
-        : locale || 'ru'
+  // const locale = localStorage.getItem('i18nextLng')
+  // config.headers['Accept-Language'] =
+  //   locale === 'uz'
+  //     ? 'uz-cyrillic'
+  //     : locale === 'oz'
+  //       ? 'uz-latin'
+  //       : locale || 'ru'
+  if (!config.headers['Accept-Language']) {
+    const locale = localStorage.getItem('i18nextLng')
+    config.headers['Accept-Language'] =
+      locale === 'uz'
+        ? 'uz-cyrillic'
+        : locale === 'oz'
+          ? 'uz-latin'
+          : locale || 'ru'
+  }
 
   if (cookie !== null) {
     config.headers['X-CSRFToken'] = cookie

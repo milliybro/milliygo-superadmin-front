@@ -35,12 +35,24 @@ export async function editTopDestinationPartial(
   })
 }
 
+// export async function getTopDestination(
+//   id: string | number,
+// ): Promise<ITopDestination> {
+//   return await request({
+//     url: `/site-content/top_destinations/${id}/`,
+//     method: 'get',
+//   })
+// }
 export async function getTopDestination(
   id: string | number,
+  lang: string = 'en',
 ): Promise<ITopDestination> {
   return await request({
     url: `/site-content/top_destinations/${id}/`,
     method: 'get',
+    headers: {
+      'Accept-Language': lang,
+    },
   })
 }
 

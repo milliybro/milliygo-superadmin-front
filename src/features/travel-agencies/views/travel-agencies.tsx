@@ -50,7 +50,7 @@ const TravelAgencies = () => {
   return (
     <div className="flex flex-1 flex-col gap-6 p-6">
       <TravelAgenciesHeader />
-      <div className="flex gap-6 p-6 h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white">
+      <div className="flex h-full w-full flex-col gap-6 overflow-hidden rounded-[16px] border border-border bg-white p-6">
         <AgentsFilters />
         <TravelAgenciesTable
           AgentsData={data}

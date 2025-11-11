@@ -105,12 +105,26 @@ export async function getExpertAdvices(params?: {
   })
 }
 
+// export async function getExpertAdvice(
+//   slug?: string,
+//   lang: string = 'en',
+// ): Promise<IExpertAdviceDetailed> {
+//   return await requestSuper({
+//     url: `/site-content/expert_advice/${slug}/`,
+//     method: 'get',
+//     headers: {
+//       'Accept-Language': lang,
+//     },
+//   })
+// }
 export async function getExpertAdvice(
   slug?: string,
+  lang: string = 'en',
 ): Promise<IExpertAdviceDetailed> {
   return await requestSuper({
     url: `/site-content/expert_advice/${slug}/`,
     method: 'get',
+    headers: { 'Accept-Language': lang },
   })
 }
 
@@ -163,10 +177,16 @@ export async function getEvents(params?: {
   })
 }
 
-export async function getEvent(slug?: string): Promise<IEventDetailed> {
+export async function getEvent(
+  slug?: string,
+  language?: string,
+): Promise<IEventDetailed> {
   return await requestSuper({
     url: `/site-content/events/${slug}/`,
     method: 'get',
+    headers: {
+      'Accept-Language': language,
+    },
   })
 }
 

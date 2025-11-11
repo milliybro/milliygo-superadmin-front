@@ -10,13 +10,14 @@ import {
   Image,
   Input,
   notification,
+  Select,
   Typography,
   Upload,
 } from 'antd'
 import type { Rule } from 'antd/es/form'
 import type { RcFile } from 'antd/es/upload'
 import dayjs from 'dayjs'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 import { createEvent, getEvent, patchEvent } from '../../api'
@@ -49,13 +50,17 @@ export default function CreateEvent() {
   const queryClient = useQueryClient()
 
   const { setBreadCrumbs } = useBreadCrumbsStore()
+  const locale = localStorage.getItem('i18nextLng')
+  const [language, setLanguage] = useState(
+    locale === 'oz' ? 'uz-latin' : locale || 'en',
+  )
 
   const [form] = Form.useForm()
   const isEditing = pathname.includes('/edit')
 
   const eventItem = useQuery({
-    queryKey: ['events-item', params.slug],
-    queryFn: () => getEvent(params.slug),
+    queryKey: ['events-item', params.slug, language],
+    queryFn: () => getEvent(params.slug, language),
     enabled: Boolean(params.slug),
     gcTime: 0,
     staleTime: 0,
@@ -156,6 +161,33 @@ export default function CreateEvent() {
 
     return false
   }
+  const LANGUAGES = [
+    ['en', 'English'],
+    ['ru', 'Russian'],
+    ['uz-latin', 'Uzbek (Latin)'],
+    ['uz-cyrillic', 'Ўзбек (Кирил)'],
+    ['ko', 'Korean'],
+    ['tr', 'Turkish'],
+    ['de', 'Deutsch'],
+    ['fr', 'French'],
+    ['it', 'Italian'],
+    ['es', 'Espanol'],
+    ['pt', 'Portugal'],
+    ['ar', 'Arabic'],
+    ['zh-cn', 'Chinese'],
+    ['ja', 'Japanese'],
+    ['hi', 'Hindi'],
+    ['ur', 'Urdu'],
+    ['tg', 'Tajik'],
+    ['kk', 'Kazakh'],
+    ['ky', 'Kyrgyz'],
+    ['tk', 'Turkmen'],
+    ['az', 'Azerbaijan'],
+  ]
+  const options = LANGUAGES.map(([value, label]) => ({
+    label,
+    value,
+  }))
 
   return (
     <div className="mb-[200px] flex flex-col gap-5">
@@ -179,9 +211,22 @@ export default function CreateEvent() {
         </div>
         <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
           <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
-            <Typography.Title level={5} className="text-xl font-medium">
-              {t('content.preview')}
-            </Typography.Title>
+            <div className="flex items-center justify-between">
+              <Typography.Title level={5} className="text-xl font-medium">
+                {t('content.preview')}
+              </Typography.Title>
+              <Select
+                showSearch
+                placeholder="Select language"
+                optionFilterProp="label"
+                size="large"
+                style={{ width: 240 }}
+                options={options}
+                value={language}
+                onChange={val => setLanguage(val)}
+              />
+            </div>
+
             <Divider className="m-0" />
             <Form.Item name="name" label={t('fields.name.label')}>
               <Input placeholder={t('fields.name.placeholder')} size="large" />

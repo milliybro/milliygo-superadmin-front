@@ -1,18 +1,58 @@
-import { Divider, Form, Input, Switch, Tag, Typography } from 'antd'
+import { Divider, Form, Input, Select, Switch, Tag, Typography } from 'antd'
 import DiscoverGallery from './discover-gallery'
 import SocialsList from './socials-list'
 import { useTranslation } from 'react-i18next'
 
-export default function CreateDiscoverForm() {
+export default function CreateDiscoverForm({ language, setLanguage }: any) {
   const { t } = useTranslation()
   const form = Form.useFormInstance()
   const status = Form.useWatch('status', form)
 
+  const LANGUAGES = [
+    ['en', 'English'],
+    ['ru', 'Russian'],
+    ['uz-latin', 'Uzbek (Latin)'],
+    ['uz-cyrillic', 'Ўзбек (Кирил)'],
+    ['ko', 'Korean'],
+    ['tr', 'Turkish'],
+    ['de', 'Deutsch'],
+    ['fr', 'French'],
+    ['it', 'Italian'],
+    ['es', 'Espanol'],
+    ['pt', 'Portugal'],
+    ['ar', 'Arabic'],
+    ['zh-cn', 'Chinese'],
+    ['ja', 'Japanese'],
+    ['hi', 'Hindi'],
+    ['ur', 'Urdu'],
+    ['tg', 'Tajik'],
+    ['kk', 'Kazakh'],
+    ['ky', 'Kyrgyz'],
+    ['tk', 'Turkmen'],
+    ['az', 'Azerbaijan'],
+  ]
+  const options = LANGUAGES.map(([value, label]) => ({
+    label,
+    value,
+  }))
+
   return (
     <div className="flex w-full flex-grow-0 basis-1/2 flex-col gap-4 rounded-2xl border bg-white p-6">
-      <Typography.Title level={5} className="text-xl font-medium">
-        {t('common.preview')}
-      </Typography.Title>
+      <div className="flex items-center justify-between">
+        <Typography.Title level={5} className="text-xl font-medium">
+          {t('common.preview')}
+        </Typography.Title>
+        <Select
+          showSearch
+          placeholder="Select language"
+          optionFilterProp="label"
+          size="large"
+          style={{ width: 240 }}
+          options={options}
+          value={language}
+          onChange={val => setLanguage(val)}
+        />
+      </div>
       <Divider className="m-0" />
       <Form.Item name="name" label={t('fields.name.label')}>
         <Input placeholder={t('fields.name.placeholder')} size="large" />

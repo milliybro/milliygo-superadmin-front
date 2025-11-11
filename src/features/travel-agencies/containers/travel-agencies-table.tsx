@@ -31,6 +31,7 @@ const TravelAgenciesTable = ({
       title: 'travel-agencies.name-agencies',
       dataIndex: 'name',
       sorter: true,
+      width: 345,
       render: (_, val) => (
         <div className="flex items-center gap-[10px]">
           <div className="flex size-[48px] items-center justify-center rounded-[8px] border border-border bg-secondary-light">
@@ -56,12 +57,15 @@ const TravelAgenciesTable = ({
       title: 'travel-agencies.license_validity',
       dataIndex: 'license_validity',
       sorter: true,
+      width: 345,
       render: item => <div>{dayjs(item).format('DD MMM, YYYY')}</div>,
     },
     {
       title: t('fields.phone.label'),
       dataIndex: 'phone_number',
       sorter: true,
+      width: 345,
+
       render: (phones: string[]) => (
         <div className="flex flex-col gap-[4px]">
           {phones && phones.length > 0 ? (
@@ -76,10 +80,11 @@ const TravelAgenciesTable = ({
       title: 'fields.address.label',
       dataIndex: 'address',
       sorter: true,
+      width: 345,
     },
 
     {
-      width: 100,
+      width: 156,
       title: 'common.action',
       render: (id, val: any) => (
         <HotelsTableActionButton

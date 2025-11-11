@@ -16,7 +16,10 @@ import TopDestinationGallery from './top-destination-gallery'
 import { useTranslation } from 'react-i18next'
 import { useRegions } from '../hooks/use-regions'
 
-export default function CreateTopDestinationForm() {
+export default function CreateTopDestinationForm({
+  language,
+  setLanguage,
+}: any) {
   const form = Form.useFormInstance()
   const [checkingEmbed, setCheckingEmbed] = useState<boolean>(false)
   const youtubeUrl = Form.useWatch('youtube_url', form)
@@ -24,12 +27,52 @@ export default function CreateTopDestinationForm() {
   const activeStatus = Form.useWatch('status', form)
   const { data: regions } = useRegions()
 
+  const LANGUAGES = [
+    ['en', 'English'],
+    ['ru', 'Russian'],
+    ['uz-latin', 'Uzbek (Latin)'],
+    ['uz-cyrillic', 'Ўзбек (Кирил)'],
+    ['ko', 'Korean'],
+    ['tr', 'Turkish'],
+    ['de', 'Deutsch'],
+    ['fr', 'French'],
+    ['it', 'Italian'],
+    ['es', 'Espanol'],
+    ['pt', 'Portugal'],
+    ['ar', 'Arabic'],
+    ['zh-cn', 'Chinese'],
+    ['ja', 'Japanese'],
+    ['hi', 'Hindi'],
+    ['ur', 'Urdu'],
+    ['tg', 'Tajik'],
+    ['kk', 'Kazakh'],
+    ['ky', 'Kyrgyz'],
+    ['tk', 'Turkmen'],
+    ['az', 'Azerbaijan'],
+  ]
+  const options = LANGUAGES.map(([value, label]) => ({
+    label,
+    value,
+  }))
+
   return (
     <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
       <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
-        <Typography.Title level={5} className="text-xl font-medium">
-          {t('common.preview')}
-        </Typography.Title>
+        <div className="flex items-center justify-between">
+          <Typography.Title level={5} className="text-xl font-medium">
+            {t('common.preview')}
+          </Typography.Title>
+          <Select
+            showSearch
+            placeholder="Select language"
+            optionFilterProp="label"
+            size="large"
+            style={{ width: 240 }}
+            options={options}
+            value={language}
+            onChange={val => setLanguage(val)}
+          />
+        </div>
         <Divider className="m-0" />
         <Form.Item name="title" label={t('fields.title.label')}>
           <Input placeholder={t('fields.title.placeholder')} size="large" />
