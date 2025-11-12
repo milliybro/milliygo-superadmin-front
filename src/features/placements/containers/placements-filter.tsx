@@ -7,14 +7,12 @@ import FileVerifiedIcon from '@/components/icons/file-verified-icon'
 import HotelIcon from '@/components/icons/hotel'
 import LocationIcon from '@/components/icons/location'
 import PhoneIcon from '@/components/icons/phone-icon'
-import StarIcon2 from '@/components/icons/star-icon-2'
 import { getRegions } from '@/features/content/api'
 import { getDistricts } from '@/features/tourists/api'
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router'
-import ArrowDownIcon from '@/components/icons/arrow-down'
 
 const PlacementsFilters = () => {
   const { t } = useTranslation()
@@ -146,7 +144,6 @@ const PlacementsFilters = () => {
           placeholder={t('fields.icon.select')}
           prefix={<LocationIcon className="mr-4 text-base text-[#115E59]" />}
           allowClear={true}
-   
         />
       </Form.Item>
       <Form.Item
@@ -166,7 +163,7 @@ const PlacementsFilters = () => {
         name="avg_rating"
         validateDebounce={1000}
       >
-        <Select
+        <CSelect
           prefix={<LocationIcon className="mr-4 text-base text-[#115E59]" />}
           size="large"
           placeholder={t('fields.icon.select')}
@@ -179,7 +176,7 @@ const PlacementsFilters = () => {
               {num}
             </Option>
           ))}
-        </Select>
+        </CSelect>
       </Form.Item>
 
       <Form.Item
