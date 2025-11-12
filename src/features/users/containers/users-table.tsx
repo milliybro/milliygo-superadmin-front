@@ -98,18 +98,10 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
     // },
     {
       title: 'fields.role.label',
-      dataIndex: 'type_name',
+      dataIndex: 'type',
       sorter: false,
       render: data => {
-        return (
-          <div>
-            {data === 'support'
-              ? t('common.support')
-              : data === 'complaint'
-                ? t('common.complaint')
-                : t('common.manager')}
-          </div>
-        )
+        return <div>{data}</div>
       },
     },
     {
@@ -162,7 +154,7 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
   const transformedData =
     UsersData?.results.map((user: IUsers) => ({
       full_name: user.full_name,
-      type_name: user.type_name,
+      type: user.type?.display_name,
       key: user.id.toString(),
       id: user.id,
       fullName:

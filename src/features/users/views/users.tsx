@@ -29,7 +29,7 @@ const Users = () => {
 
   const search = searchParams.get('search') || ''
   const gender = searchParams.get('gender') || ''
-  const role = searchParams.get('role') || ''
+  const type = searchParams.get('type') || ''
   const status = searchParams.get('status') || ''
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const Users = () => {
     queryKey: [
       'users-data',
       gender,
-      role,
+      type,
       searchParams,
       search,
       status,
@@ -60,8 +60,9 @@ const Users = () => {
           client_or_employee: 'employee',
           search: search || undefined,
           gender: gender || undefined,
-          type__name: role || undefined,
+          type__name: type || undefined,
           is_active: status || undefined,
+          type: type || undefined,
           ...queries,
         }),
       )

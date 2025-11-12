@@ -20,7 +20,7 @@ const UsersFilters = () => {
 
   const search = searchParams.get('search') || null
   const gender = searchParams.get('gender') || null
-  const role = searchParams.get('role') || null
+  const type = searchParams.get('type') || null
   const status = searchParams.get('status') || null
 
   const handleValuesChange = (_: any, allValues: any) => {
@@ -47,7 +47,7 @@ const UsersFilters = () => {
     if (form) {
       form.setFieldsValue({
         search: search,
-        role: role,
+        type: type,
         gender: gender,
         status: status,
       })
@@ -98,7 +98,7 @@ const UsersFilters = () => {
       <Form.Item
         validateDebounce={1000}
         label={t('fields.role.label')}
-        name="role"
+        name="type"
       >
         <CSelect
           options={roles?.results.map(role => ({
