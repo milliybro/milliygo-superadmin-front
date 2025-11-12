@@ -55,34 +55,28 @@ const PlacementsTable = () => {
           title={val?.name}
         >
           <div className="flex size-[48px] items-center justify-center rounded-[8px] border border-border bg-secondary-light">
-            {val?.resized_image_url || val?.image_url ? (
-              <BlurImage
-                src={val?.resized_image_url || val?.image_url}
-                fallbackEl={
-                  <HotelIcon fontSize={28} className="text-secondary/30" />
-                }
-                alt={val?.name}
-                width={48}
-                height={48}
-                className="rounded-[8px] object-cover"
-                preview={{
-                  src: val?.image_url,
-                  mask: (
-                    <div className="flex items-center justify-center">
-                      <EyeOutlined className="text-lg text-white" />
-                    </div>
-                  ),
-                  imageRender: originalNode => (
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                      {originalNode}
-                    </div>
-                  ),
-                  rootClassName: 'custom-image-preview',
-                }}
-              />
-            ) : (
-              <HotelIcon fontSize={28} className="text-secondary/30" />
-            )}
+            <BlurImage
+              src={val?.resized_image_url || val?.image_url || ''}
+              fallbackEl={<HotelIcon fontSize={28} className="text-[#d9d9d9]" />}
+              alt={val?.name}
+              width={48}
+              height={48}
+              className="rounded-[8px] object-cover"
+              preview={{
+                src: val?.image_url,
+                mask: (
+                  <div className="flex items-center justify-center">
+                    <EyeOutlined className="text-lg text-white" />
+                  </div>
+                ),
+                imageRender: originalNode => (
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    {originalNode}
+                  </div>
+                ),
+                rootClassName: 'custom-image-preview',
+              }}
+            />
           </div>
           <span className="truncate font-medium text-primary-dark">
             {val?.name ? val?.name : '-'}
