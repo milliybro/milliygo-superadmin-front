@@ -193,7 +193,7 @@ const PlacementsFilters = () => {
             <FileVerifiedIcon className="mr-4 text-base text-[#115E59]" />
           }
           size="large"
-          placeholder={t('fields.status.placeholder')}
+          placeholder={t('placements.all-status')}
           className="[&_.ant-select-selector]:shadow-sm [&_.ant-select-selector]:shadow-black/5"
           allowClear={true}
         />
