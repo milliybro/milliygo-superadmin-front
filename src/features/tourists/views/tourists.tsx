@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { useQuery } from '@tanstack/react-query'
@@ -11,6 +11,8 @@ import { useSearchParams } from 'react-router'
 import TouristsFilters from '../containers/tourists-filters'
 import TouristsTable from '../containers/tourists-table'
 import TouristDrawer from '../components/tourist-drawer'
+import { Tabs } from 'antd'
+import { formatAmount } from '@/helpers/format-amount'
 
 const Tourists = () => {
   const { t } = useTranslation()
@@ -18,7 +20,7 @@ const Tourists = () => {
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [currentPage, setCurrentPage] = useState(1)
 
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const search = searchParams.get('search') || ''
   const gender = searchParams.get('gender') || ''
@@ -26,6 +28,7 @@ const Tourists = () => {
   const passport = searchParams.get('passport') || ''
   const region = searchParams.get('region') || ''
   const district = searchParams.get('district') || ''
+  const activeTab = searchParams.get('type__key')
 
   useEffect(() => {
     setBreadCrumbs([
@@ -33,6 +36,15 @@ const Tourists = () => {
       { title: t('routes.tourists'), href: ROUTE_PATHS.TOURISTS },
     ])
   }, [])
+
+  useEffect(() => {
+    if (!activeTab) {
+      const newParams = new URLSearchParams(searchParams)
+      newParams.set('type__key', 'all_tourists')
+      setCurrentPage(1)
+      setSearchParams(newParams)
+    }
+  }, [activeTab, searchParams, setSearchParams])
 
   const [open, setOpen] = useState(false)
 
@@ -77,6 +89,35 @@ const Tourists = () => {
     placeholderData: data => data,
   })
 
+  const tabOptions = useMemo(() => {
+    return [
+      { label: 'Все туристы', key: 'all_tourists' },
+      { label: 'Местные туристы', key: 'local_tourists' },
+      {
+        label: 'Иностранные туристы',
+        key: 'foreign_tourists',
+      },
+    ].map(item => ({
+      key: item.key,
+      label: `${item?.label} • ${formatAmount(94213)}`,
+      children: (
+        <div className="flex flex-col gap-6">
+          <TouristsFilters />
+          <div className="custom-thead m-0 w-full p-0">
+            <TouristsTable
+              refetch={refetch}
+              TouristsData={TouristsData}
+              isLoading={isFetching}
+              currentPage={currentPage}
+              setCurrentPage={setCurrentPage}
+              showDrawer={showDrawer}
+            />
+          </div>
+        </div>
+      ),
+    }))
+  }, [TouristsData, currentPage, isFetching, refetch])
+
   return (
     <div className="flex flex-1 flex-col gap-2 px-6 py-4">
       <div className="flex items-start justify-between">
@@ -84,18 +125,18 @@ const Tourists = () => {
           {t('routes.tourists')}
         </div>
       </div>
-      <div className="flex h-full flex-col gap-6 overflow-hidden rounded-[16px] border border-border bg-white p-6 dark:bg-dark-bg">
-        <TouristsFilters />
-        <div className='custom-thead p-0 m-0 w-full'>
-          <TouristsTable
-            refetch={refetch}
-            TouristsData={TouristsData}
-            isLoading={isFetching}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            showDrawer={showDrawer}
-          />
-        </div>
+      <div className="h-full overflow-hidden rounded-[16px] border border-border bg-white p-6 dark:bg-dark-bg">
+        <Tabs
+          className="[&_.ant-tabs-tab]:font-medium"
+          activeKey={activeTab || 'all_tourists'}
+          items={tabOptions}
+          onChange={key => {
+            const newParams = new URLSearchParams(searchParams)
+            newParams.set('type__key', key)
+            setCurrentPage(1)
+            setSearchParams(newParams)
+          }}
+        />
       </div>
       <TouristDrawer open={open} onClose={onClose} />
     </div>
