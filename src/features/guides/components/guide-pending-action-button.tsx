@@ -19,7 +19,7 @@ export default function GuidePendingActionButton({
     <div className="flex items-center gap-[10px]">
       {' '}
       <Button
-        className="inline-flex items-center bg-[#CCFBF1] px-[10px] py-1"
+        className="inline-flex items-center bg-[#CCFBF1] px-[10px] py-1 hover:bg-[#CCFBF1]/70"
         type="text"
         loading={isPending}
         onClick={() => mutate({ guide_status: 'accepted', id: guideId })}
@@ -27,7 +27,7 @@ export default function GuidePendingActionButton({
         <CheckIcon />
       </Button>
       <Button
-        className="inline-flex items-center bg-[#FEE2E2] px-[10px] py-1"
+        className="inline-flex items-center bg-[#FEE2E2] px-[10px] py-1 hover:bg-[#FEE2E2]/70"
         type="text"
         onClick={() => {
           onReject(guideId)
