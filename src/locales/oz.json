@@ -653,7 +653,8 @@
     "error-compressing-image": "Rasmni siqishda xatolik, iltimos, qayta urinib ko'ring",
     "or": "yoki",
     "one-id": "OneID orqali kirish",
-    "specify-date": "Sana ko‘rsatilsin"
+    "specify-date": "Sana ko‘rsatilsin",
+    "pending-confirmation": "Tasdiqlash kutilmoqda"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
