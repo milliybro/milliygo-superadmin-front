@@ -3,10 +3,10 @@ import { useTranslation } from 'react-i18next'
 
 import RatingTag from '@/components/ui/rating-tag'
 import StatusTag from '@/components/ui/status-tag'
-import HotelsTableActionButton from '../components/hotels-table-action-button'
 
 import HotelIcon from '@/components/icons/hotel'
 import BlurImage from '@/components/ui/blur-image'
+import CompactViewButton from '@/components/ui/compact-view-button'
 import UsersNotFound from '@/features/users/components/users-not-found'
 import formatPhoneNumber from '@/helpers/format-phone-number'
 import { truthyObject } from '@/helpers/truthy-object'
@@ -57,7 +57,9 @@ const PlacementsTable = () => {
           <div className="flex size-[48px] items-center justify-center rounded-[8px] border border-border bg-secondary-light">
             <BlurImage
               src={val?.resized_image_url || val?.image_url || ''}
-              fallbackEl={<HotelIcon fontSize={28} className="text-[#d9d9d9]" />}
+              fallbackEl={
+                <HotelIcon fontSize={28} className="text-[#d9d9d9]" />
+              }
               alt={val?.name}
               width={48}
               height={48}
@@ -157,7 +159,7 @@ const PlacementsTable = () => {
       dataIndex: 'status',
       sorter: true,
       render: status => (
-        <div className="mr-[5px] 2xl:mr-0">
+        <div className="2xl:mr-0">
           <StatusTag active={status} />
         </div>
       ),
@@ -165,14 +167,7 @@ const PlacementsTable = () => {
     {
       width: 1,
       title: isCompact ? '' : t('common.action'),
-      render: (id, val: any) => (
-        <HotelsTableActionButton
-          key={id}
-          id={val.id}
-          tenant_id={val.tenant ?? undefined}
-          type={val?.type}
-        />
-      ),
+      render: (id, val: any) => <CompactViewButton />,
     },
   ]
 

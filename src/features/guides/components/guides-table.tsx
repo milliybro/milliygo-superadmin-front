@@ -1,5 +1,5 @@
 import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
-import { Button, Table } from 'antd'
+import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { twMerge } from 'tailwind-merge'
 
@@ -7,14 +7,14 @@ import UsersNotFound from '@/features/users/components/users-not-found'
 
 import UserIcon from '@/components/icons/user'
 import BlurImage from '@/components/ui/blur-image'
+import CompactViewButton from '@/components/ui/compact-view-button'
 import { truthyObject } from '@/helpers/truthy-object'
 import queryString from 'query-string'
 import { memo, useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router'
-import GuidesStatusTag from './guides-status-tag'
 import { useGuideContext } from '../hooks/use-guide-context'
-import EyeIcon from '@/components/icons/eye'
 import GuidePendingActionButton from './guide-pending-action-button'
+import GuidesStatusTag from './guides-status-tag'
 
 interface GuidesTableProps {
   onViewGuide: (guideId: number) => void
@@ -123,16 +123,7 @@ const GuidesTable = memo(({ onViewGuide, onRejectGuide }: GuidesTableProps) => {
       width: 1,
       title: 'common.action',
       dataIndex: 'user_id',
-      render: val => (
-        <Button
-          className="inline-flex items-center gap-2 font-medium text-primary"
-          type="text"
-          onClick={() => onViewGuide(val)}
-        >
-          <EyeIcon className="text-xl" />
-          {t('common.more-details')}
-        </Button>
-      ),
+      render: val => <CompactViewButton onClick={() => onViewGuide(val)} />,
     },
   ]
 
