@@ -1,5 +1,5 @@
 import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
-import { Table } from 'antd'
+import { Button, Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { twMerge } from 'tailwind-merge'
 
@@ -11,12 +11,17 @@ import { truthyObject } from '@/helpers/truthy-object'
 import queryString from 'query-string'
 import { memo, useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router'
-import GuideViewModal from '../components/guide-view-modal'
-import GuidesStatusTag from '../components/guides-status-tag'
-import GuidesTableActionButton from '../components/guides-table-action-button'
+import GuidesStatusTag from './guides-status-tag'
 import { useGuideContext } from '../hooks/use-guide-context'
+import EyeIcon from '@/components/icons/eye'
+import GuidePendingActionButton from './guide-pending-action-button'
 
-const GuidesTable = memo(() => {
+interface GuidesTableProps {
+  onViewGuide: (guideId: number) => void
+  onRejectGuide: (guideId: number) => void
+}
+
+const GuidesTable = memo(({ onViewGuide, onRejectGuide }: GuidesTableProps) => {
   const { t } = useTranslation()
   const { search, pathname } = useLocation()
   const query = useMemo(() => queryString.parse(search), [search])
@@ -26,7 +31,7 @@ const GuidesTable = memo(() => {
   const tab = query?.guide_status as 'accepted' | 'in_progress' | 'rejected'
 
   const {
-    guides: { data: guidesData, isLoading, refetch },
+    guides: { data: guidesData, isLoading },
   } = useGuideContext()
 
   const columns: TableColumnsType = [
@@ -102,12 +107,31 @@ const GuidesTable = memo(() => {
       sorter: true,
       render: () => <GuidesStatusTag type={tab} />,
     },
+    ...(tab === 'in_progress'
+      ? [
+          {
+            width: 1,
+            title: 'common.action',
+            dataIndex: 'user_id',
+            render: (id: number) => (
+              <GuidePendingActionButton guideId={id} onReject={onRejectGuide} />
+            ),
+          },
+        ]
+      : []),
     {
       width: 1,
       title: 'common.action',
       dataIndex: 'user_id',
       render: val => (
-        <GuidesTableActionButton id={val} type={tab} refetch={refetch} />
+        <Button
+          className="inline-flex items-center gap-2 font-medium text-primary"
+          type="text"
+          onClick={() => onViewGuide(val)}
+        >
+          <EyeIcon className="text-xl" />
+          {t('common.more-details')}
+        </Button>
       ),
     },
   ]
@@ -165,37 +189,34 @@ const GuidesTable = memo(() => {
   }
 
   return (
-    <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] bg-white">
-      <Table
-        columns={columns?.map(val => ({
-          ...val,
-          title: t(val?.title as string),
-        }))}
-        loading={isLoading}
-        dataSource={guidesData?.results?.map(item => ({
-          ...item,
-          key: item.user_id,
-        }))}
-        pagination={{
-          current: currentPage,
-          pageSize: 10,
-          total: guidesData?.count || 0,
-          hideOnSinglePage: true,
-          showSizeChanger: false,
-          position: ['bottomCenter'],
-          itemRender: itemRender,
-        }}
-        onChange={handleTableChange}
-        className="side-borderless-table responsive-table h-full w-full"
-        locale={{
-          emptyText: <UsersNotFound />,
-          triggerDesc: t('common.sort_descending') ?? '',
-          triggerAsc: t('common.sort_ascending') ?? '',
-          cancelSort: t('common.sort_cancel') ?? '',
-        }}
-      />
-      <GuideViewModal />
-    </div>
+    <Table
+      columns={columns?.map(val => ({
+        ...val,
+        title: t(val?.title as string),
+      }))}
+      loading={isLoading}
+      dataSource={guidesData?.results?.map(item => ({
+        ...item,
+        key: item.user_id,
+      }))}
+      pagination={{
+        current: currentPage,
+        pageSize: 10,
+        total: guidesData?.count || 0,
+        hideOnSinglePage: true,
+        showSizeChanger: false,
+        position: ['bottomCenter'],
+        itemRender: itemRender,
+      }}
+      onChange={handleTableChange}
+      className="side-borderless-table responsive-table h-full w-full"
+      locale={{
+        emptyText: <UsersNotFound />,
+        triggerDesc: t('common.sort_descending') ?? '',
+        triggerAsc: t('common.sort_ascending') ?? '',
+        cancelSort: t('common.sort_cancel') ?? '',
+      }}
+    />
   )
 })
 

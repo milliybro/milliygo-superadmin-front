@@ -3,7 +3,7 @@ import { TabsProps } from 'antd/lib'
 import { useTranslation } from 'react-i18next'
 
 import { useSearchParams } from 'react-router'
-import GuidesTable from './guides-table'
+import GuidesList from './guides-list'
 
 const GuidesTab = () => {
   const { t } = useTranslation()
@@ -29,7 +29,7 @@ const GuidesTab = () => {
   const items: TabsProps['items'] = tabConfig.map(tab => ({
     key: tab.key,
     label: t(tab.label),
-    children: tab.key === activeTab ? <GuidesTable /> : null,
+    children: tab.key === activeTab ? <GuidesList /> : null,
   }))
 
   return (

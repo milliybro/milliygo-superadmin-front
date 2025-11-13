@@ -669,7 +669,8 @@
     "error-compressing-image": "Суратни сиғдиришда хатолик, илтимос, қайта уриниб кўринг",
     "or": "ёки",
     "one-id": "OneID орқали кириш",
-    "specify-date": "Сана кўрсатилсин"
+    "specify-date": "Сана кўрсатилсин",
+    "pending-confirmation": "Тасдиқлаш кутилмоқда"
   },
   "status": {
     "confirmed": "Тасдиқланган",
