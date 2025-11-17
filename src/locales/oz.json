@@ -652,7 +652,8 @@
     "or": "yoki",
     "one-id": "OneID orqali kirish",
     "specify-date": "Sana ko‘rsatilsin",
-    "pending-confirmation": "Tasdiqlash kutilmoqda"
+    "pending-confirmation": "Tasdiqlash kutilmoqda",
+    "enter": "Kirting"
   },
   "status": {
     "confirmed": "Tasdiqlangan",

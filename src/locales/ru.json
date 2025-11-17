@@ -670,7 +670,8 @@
     "or": "или",
     "one-id": "Авторизоваться через OneID",
     "specify-date": "Укажите дату",
-    "pending-confirmation": "Ожидающие подтверждения"
+    "pending-confirmation": "Ожидающие подтверждения",
+    "enter": "Введите"
   },
   "status": {
     "confirmed": "Подтвержден",

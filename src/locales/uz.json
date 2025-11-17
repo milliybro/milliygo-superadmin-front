@@ -670,7 +670,8 @@
     "or": "ёки",
     "one-id": "OneID орқали кириш",
     "specify-date": "Сана кўрсатилсин",
-    "pending-confirmation": "Тасдиқлаш кутилмоқда"
+    "pending-confirmation": "Тасдиқлаш кутилмоқда",
+    "enter": "Киритинг"
   },
   "status": {
     "confirmed": "Тасдиқланган",
