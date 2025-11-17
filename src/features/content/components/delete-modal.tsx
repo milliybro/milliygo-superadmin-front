@@ -44,7 +44,7 @@ export default function DeleteModal({
           {description ||
             'Подтвердите, что вы действительно хотите удалить данного контекста?'}
         </Typography.Text>
-        <div className="flex items-center justify-center gap-5">
+        <div className="flex items-center justify-center gap-4">
           <Button onClick={onClose}>{t('common.cancel')}</Button>
           <Button
             type="primary"
