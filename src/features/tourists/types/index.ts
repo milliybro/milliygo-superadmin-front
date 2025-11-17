@@ -10,6 +10,12 @@ interface ITouristsTable {
   type_document: string
 }
 
+interface ITouristCount {
+  resident_count: number
+  no_resident_count: number
+  total_count: number
+}
+
 interface ITourists {
   id: number
   full_name: string
@@ -64,4 +70,4 @@ interface ITourist {
   }
 }
 
-export type { IRegions, ITourist, ITouristsTable, ITourists }
+export type { IRegions, ITourist, ITouristsTable, ITourists, ITouristCount }

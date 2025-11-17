@@ -6,7 +6,7 @@ import { ROUTE_PATHS } from '@/config/constants'
 
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
-import { getTouristsList } from '../api'
+import { getTouristsCount, getTouristsList } from '../api'
 import { useSearchParams } from 'react-router'
 import TouristsFilters from '../containers/tourists-filters'
 import TouristsTable from '../containers/tourists-table'
@@ -40,7 +40,7 @@ const Tourists = () => {
   useEffect(() => {
     if (!activeTab) {
       const newParams = new URLSearchParams(searchParams)
-      newParams.set('type__key', 'all_tourists')
+      newParams.set('type__key', '')
       setCurrentPage(1)
       setSearchParams(newParams)
     }
@@ -71,6 +71,7 @@ const Tourists = () => {
       search,
       region,
       district,
+      activeTab,
     ],
     queryFn: async () => {
       const res = await getTouristsList({
@@ -83,23 +84,38 @@ const Tourists = () => {
         is_active: status || undefined,
         user_information__region: region || undefined,
         user_information__district: district || undefined,
+        resident_status: activeTab,
       })
       return res
     },
     placeholderData: data => data,
   })
 
+  const { data: touristsCount } = useQuery({
+    queryKey: ['tourists-count'],
+    queryFn: async () => {
+      const res = await getTouristsCount()
+      return res
+    },
+  })
+
   const tabOptions = useMemo(() => {
     return [
-      { label: 'Все туристы', key: 'all_tourists' },
-      { label: 'Местные туристы', key: 'local_tourists' },
       {
-        label: 'Иностранные туристы',
-        key: 'foreign_tourists',
+        label: `Все туристы • ${formatAmount(touristsCount?.total_count)}`,
+        key: '',
+      },
+      {
+        label: `Местные туристы • ${formatAmount(touristsCount?.resident_count)}`,
+        key: 'resident',
+      },
+      {
+        label: `Иностранные туристы • ${formatAmount(touristsCount?.no_resident_count)}`,
+        key: 'no_resident',
       },
     ].map(item => ({
       key: item.key,
-      label: `${item?.label} • ${formatAmount(94213)}`,
+      label: item?.label,
       children: (
         <div className="flex flex-col gap-6">
           <TouristsFilters />
@@ -116,7 +132,15 @@ const Tourists = () => {
         </div>
       ),
     }))
-  }, [TouristsData, currentPage, isFetching, refetch])
+  }, [
+    TouristsData,
+    currentPage,
+    isFetching,
+    refetch,
+    touristsCount?.no_resident_count,
+    touristsCount?.resident_count,
+    touristsCount?.total_count,
+  ])
 
   return (
     <div className="flex flex-1 flex-col gap-2 px-6 py-4">
@@ -128,7 +152,7 @@ const Tourists = () => {
       <div className="h-full overflow-hidden rounded-[16px] border border-border bg-white p-6 dark:bg-dark-bg">
         <Tabs
           className="[&_.ant-tabs-tab]:font-medium"
-          activeKey={activeTab || 'all_tourists'}
+          activeKey={activeTab || ''}
           items={tabOptions}
           onChange={key => {
             const newParams = new URLSearchParams(searchParams)

@@ -1,5 +1,5 @@
 import { ListResponse } from '@/types'
-import { IRegions, ITourist, ITouristsTable } from '../types'
+import { IRegions, ITourist, ITouristCount, ITouristsTable } from '../types'
 import requestSuper from '@/utils/superRequest'
 
 export async function getTouristsList(
@@ -9,6 +9,15 @@ export async function getTouristsList(
     url: '/account/users/tourists/',
     method: 'get',
     params,
+  })
+
+  return res
+}
+
+export async function getTouristsCount(): Promise<ITouristCount> {
+  const res: ITouristCount = await requestSuper({
+    url: '/account/users/tourists/count/',
+    method: 'get',
   })
 
   return res
