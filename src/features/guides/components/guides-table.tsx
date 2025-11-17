@@ -15,6 +15,7 @@ import { useLocation, useNavigate } from 'react-router'
 import { useGuideContext } from '../hooks/use-guide-context'
 import GuidePendingActionButton from './guide-pending-action-button'
 import GuidesStatusTag from './guides-status-tag'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
 
 interface GuidesTableProps {
   onViewGuide: (guideId: number) => void
@@ -29,6 +30,8 @@ const GuidesTable = memo(({ onViewGuide, onRejectGuide }: GuidesTableProps) => {
 
   const currentPage = +(query?.page || 1)
   const tab = query?.guide_status as 'accepted' | 'in_progress' | 'rejected'
+
+  const isCompact = useCompactScreen()
 
   const {
     guides: { data: guidesData, isLoading },
@@ -121,7 +124,7 @@ const GuidesTable = memo(({ onViewGuide, onRejectGuide }: GuidesTableProps) => {
       : []),
     {
       width: 1,
-      title: 'common.action',
+      title: isCompact ? '' : 'common.action',
       dataIndex: 'user_id',
       render: val => <CompactViewButton onClick={() => onViewGuide(val)} />,
     },
