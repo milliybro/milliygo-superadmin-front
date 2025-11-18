@@ -13,28 +13,30 @@ import dayjs from 'dayjs'
 import UserIcon from '@/components/icons/user'
 import PassportIcon from '@/components/icons/passport-icon'
 import CalendarIcon from '@/components/icons/calendar'
+import { useParsedQuery } from '@/hooks/use-parsed-query'
 
 const TouristsFilters = () => {
   const { t } = useTranslation()
   const [form] = Form.useForm()
 
   const [searchParams, setSearchParams] = useSearchParams()
+  const query = useParsedQuery()
 
-  const search = searchParams.get('search') || null
-  const passport = searchParams.get('passport') || null
-  const birthday = searchParams.get('birthyear') || null
-  const gender = searchParams.get('gender') || null
-  const region = searchParams.get('region') || null
-  const district = searchParams.get('district') || null
+  const search = (query?.full_name as string) || ''
+  const passport = (query?.passport_sn as string) || ''
+  const birthday = (query?.user_information__birth_date as string) || ''
+  const gender = (query?.gender as string) || ''
+  const region = (query?.user_information__region as string) || ''
+  const district = (query?.user_information__district as string) || ''
 
   const handleValuesChange = (_: any, allValues: any) => {
-    const newParams = new URLSearchParams()
+    const newParams = searchParams
 
     Object.keys(allValues).forEach(key => {
       const value = allValues[key]
 
       if (value) {
-        if (key === 'birthyear') {
+        if (key === 'user_information__birth_date') {
           const parsed = dayjs(value)
           if (parsed.isValid()) {
             newParams.set(key, parsed.format('YYYY-MM-DD'))
@@ -56,13 +58,12 @@ const TouristsFilters = () => {
       const res = await getRegions()
       return res
     },
-    // keepPreviousData: true,
   })
 
   const { data: districts } = useQuery({
     queryKey: ['districts', region],
     queryFn: async () => {
-      const res = await getDistricts({ region: region })
+      const res = await getDistricts({ region })
       return res
     },
     enabled: !!region,
@@ -77,11 +78,11 @@ const TouristsFilters = () => {
       const matchedDistrict = districts.results.find(d => d.id === districtId)
 
       form.setFieldsValue({
-        search,
+        full_name: search,
         passport,
-        birthyear: birthday ? dayjs(birthday) : null,
-        region: matchedRegion?.id || null,
-        district: matchedDistrict?.id || null,
+        user_information__birth_date: birthday ? dayjs(birthday) : null,
+        user_information__region: matchedRegion?.id || null,
+        user_information__district: matchedDistrict?.id || null,
         gender,
       })
     }
@@ -96,7 +97,7 @@ const TouristsFilters = () => {
     >
       <Form.Item
         label={t('tourists.tourist-fullname')}
-        name="search"
+        name="full_name"
         validateDebounce={1000}
       >
         <Input
@@ -110,7 +111,7 @@ const TouristsFilters = () => {
       </Form.Item>
       <Form.Item
         label={t('fields.passport-data.label')}
-        name="passport"
+        name="passport_sn"
         validateDebounce={1000}
       >
         <Input
@@ -125,7 +126,7 @@ const TouristsFilters = () => {
       <Form.Item
         label={t('fields.birthyear.label')}
         className="w-full"
-        name="birthyear"
+        name="user_information__birth_date"
       >
         <DatePicker
           prefix={
@@ -160,7 +161,7 @@ const TouristsFilters = () => {
       <Form.Item
         validateDebounce={1000}
         label={t('tourists.register-region')}
-        name="region"
+        name="user_information__region"
       >
         <CSelect
           options={regions?.results
@@ -181,7 +182,7 @@ const TouristsFilters = () => {
       <Form.Item
         validateDebounce={1000}
         label={t('tourists.register-district')}
-        name="district"
+        name="user_information__district"
       >
         <CSelect
           options={districts?.results.map(district => ({

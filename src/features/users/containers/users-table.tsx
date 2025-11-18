@@ -14,9 +14,10 @@ import type { IUsers, IUsersTable } from '../types'
 // import { useQuery } from '@tanstack/react-query'
 // import { getUsersList } from '../api'
 import { truthyObject } from '@/helpers/truthy-object'
+import { useParsedQuery } from '@/hooks/use-parsed-query'
 import { SorterResult } from 'antd/es/table/interface'
 import queryString from 'query-string'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import UsersNotFound from '../components/users-not-found'
 
@@ -40,8 +41,8 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
   refetch,
 }) => {
   const { t } = useTranslation()
-  const { search, pathname } = useLocation()
-  const queries = useMemo(() => queryString.parse(search), [search])
+  const { pathname } = useLocation()
+  const queries = useParsedQuery()
   const navigate = useNavigate()
 
   const columns: TableColumnsType<IUsersTable> = [

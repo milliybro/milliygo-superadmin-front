@@ -1,34 +1,30 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import { useQuery } from '@tanstack/react-query'
 import { ROUTE_PATHS } from '@/config/constants'
+import { useQuery } from '@tanstack/react-query'
 
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
-import { getTouristsCount, getTouristsList } from '../api'
+import { formatAmount } from '@/helpers/format-amount'
+import { truthyObject } from '@/helpers/truthy-object'
+import { useParsedQuery } from '@/hooks/use-parsed-query'
+import { Tabs } from 'antd'
 import { useSearchParams } from 'react-router'
+import { getTouristsCount, getTouristsList } from '../api'
+import TouristDrawer from '../components/tourist-drawer'
 import TouristsFilters from '../containers/tourists-filters'
 import TouristsTable from '../containers/tourists-table'
-import TouristDrawer from '../components/tourist-drawer'
-import { Tabs } from 'antd'
-import { formatAmount } from '@/helpers/format-amount'
 
 const Tourists = () => {
   const { t } = useTranslation()
+  const [open, setOpen] = useState(false)
 
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
   const [currentPage, setCurrentPage] = useState(1)
 
   const [searchParams, setSearchParams] = useSearchParams()
-
-  const search = searchParams.get('search') || ''
-  const gender = searchParams.get('gender') || ''
-  const birthdate = searchParams.get('birthyear') || ''
-  const passport = searchParams.get('passport') || ''
-  const region = searchParams.get('region') || ''
-  const district = searchParams.get('district') || ''
-  const activeTab = searchParams.get('type__key')
+  const query = useParsedQuery()
 
   useEffect(() => {
     setBreadCrumbs([
@@ -36,17 +32,6 @@ const Tourists = () => {
       { title: t('routes.tourists'), href: ROUTE_PATHS.TOURISTS },
     ])
   }, [])
-
-  useEffect(() => {
-    if (!activeTab) {
-      const newParams = new URLSearchParams(searchParams)
-      newParams.set('type__key', '')
-      setCurrentPage(1)
-      setSearchParams(newParams)
-    }
-  }, [activeTab, searchParams, setSearchParams])
-
-  const [open, setOpen] = useState(false)
 
   const showDrawer = () => {
     setOpen(true)
@@ -61,31 +46,15 @@ const Tourists = () => {
     isFetching,
     refetch,
   } = useQuery({
-    queryKey: [
-      'tourists-data',
-      currentPage,
-      gender,
-      passport,
-      birthdate,
-      searchParams,
-      search,
-      region,
-      district,
-      activeTab,
-    ],
+    queryKey: ['tourists-data', currentPage, query, searchParams],
     queryFn: async () => {
-      const res = await getTouristsList({
-        page_size: 10,
-        page: currentPage,
-        full_name: search || undefined,
-        passport_sn: passport || undefined,
-        user_information__birth_date: birthdate || undefined,
-        gender: gender || undefined,
-        is_active: status || undefined,
-        user_information__region: region || undefined,
-        user_information__district: district || undefined,
-        resident_status: activeTab,
-      })
+      const res = await getTouristsList(
+        truthyObject({
+          page_size: 10,
+          page: currentPage,
+          ...query,
+        }),
+      )
       return res
     },
     placeholderData: data => data,
@@ -125,7 +94,6 @@ const Tourists = () => {
               TouristsData={TouristsData}
               isLoading={isFetching}
               currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
               showDrawer={showDrawer}
             />
           </div>
@@ -152,11 +120,11 @@ const Tourists = () => {
       <div className="h-full overflow-hidden rounded-[16px] border border-border bg-white p-6 dark:bg-dark-bg">
         <Tabs
           className="[&_.ant-tabs-tab]:font-medium"
-          activeKey={activeTab || ''}
+          activeKey={(query?.resident_status as string) || ''}
           items={tabOptions}
           onChange={key => {
             const newParams = new URLSearchParams(searchParams)
-            newParams.set('type__key', key)
+            newParams.set('resident_status', key)
             setCurrentPage(1)
             setSearchParams(newParams)
           }}
