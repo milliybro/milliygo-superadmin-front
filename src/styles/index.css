@@ -17,6 +17,7 @@ html {
 * {
   font-family: 'Onest', sans-serif;
   scrollbar-width: thin;
+  font-weight: 500;
 }
 
 .select-shadow {

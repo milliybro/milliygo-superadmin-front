@@ -781,7 +781,10 @@
     "tourist-information": "Turistlar haqida ma’lumot",
     "main-information": "Asosiy axborot",
     "visa-information": "Viza ma’lumotlari",
-    "under-chilren": "Birga kelgan 16 yoshgacha bo‘lgan bolalar haqida ma’lumot"
+    "under-chilren": "Birga kelgan 16 yoshgacha bo‘lgan bolalar haqida ma’lumot",
+    "all-tourists": "Barcha sayyohlar",
+    "local-tourists": "Mahalliy sayyohlar",
+    "foreign-tourists": "Xorijiy sayyohlar"
   },
   "error": {
     "unexpected": "Nimadir noto'g'ri ketdi",
