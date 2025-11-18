@@ -784,7 +784,10 @@
     "tourist-information": "Сайёҳлар ҳақида маълумот",
     "main-information": "Асосий маълумот",
     "visa-information": "Виза маълумотлари",
-    "under-chilren": "Бирга келган 16 ёшгача болалар ҳақида маълумот"
+    "under-chilren": "Бирга келган 16 ёшгача болалар ҳақида маълумот",
+    "all-tourists": "Барча сайёҳлар",
+    "local-tourists": "Маҳаллий сайёҳлар",
+    "foreign-tourists": "Хорижий сайёҳлар"
   },
   "error": {
     "unexpected": "Нимадир нотўғри кетди",

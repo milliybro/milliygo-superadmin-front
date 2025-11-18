@@ -162,7 +162,7 @@ const Sidebar = () => {
                 <Link
                   to={item.path || '#'}
                   className={twMerge(
-                    'flex items-center gap-2 rounded p-2 hover:bg-[#F8F8FA]',
+                    'flex items-center gap-2 rounded p-2 font-medium hover:bg-[#F8F8FA]',
                     isSidebarOpen ? '' : 'justify-center',
                     isActive ? 'bg-[#F8F8FA]' : '',
                   )}

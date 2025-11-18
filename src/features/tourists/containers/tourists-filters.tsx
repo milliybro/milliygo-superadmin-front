@@ -22,12 +22,12 @@ const TouristsFilters = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const query = useParsedQuery()
 
-  const search = (query?.full_name as string) || ''
-  const passport = (query?.passport_sn as string) || ''
-  const birthday = (query?.user_information__birth_date as string) || ''
-  const gender = (query?.gender as string) || ''
-  const region = (query?.user_information__region as string) || ''
-  const district = (query?.user_information__district as string) || ''
+  const search = query?.full_name as string
+  const passport = query?.passport_sn as string
+  const birthday = query?.user_information__birth_date as string
+  const gender = query?.gender as string
+  const region = query?.user_information__region as string
+  const district = query?.user_information__district as string
 
   const handleValuesChange = (_: any, allValues: any) => {
     const newParams = searchParams
@@ -71,22 +71,16 @@ const TouristsFilters = () => {
 
   useEffect(() => {
     if (form && regions?.results?.length && districts?.results?.length) {
-      const regionId = region ? Number(region) : null
-      const districtId = district ? Number(district) : null
-
-      const matchedRegion = regions.results.find(r => r.id === regionId)
-      const matchedDistrict = districts.results.find(d => d.id === districtId)
-
       form.setFieldsValue({
         full_name: search,
-        passport,
+        passport_sn: passport,
         user_information__birth_date: birthday ? dayjs(birthday) : null,
-        user_information__region: matchedRegion?.id || null,
-        user_information__district: matchedDistrict?.id || null,
+        user_information__region: region,
+        user_information__district: district,
         gender,
       })
     }
-  }, [form, regions, districts])
+  }, [form, regions, districts, query])
 
   return (
     <Form
@@ -95,32 +89,26 @@ const TouristsFilters = () => {
       onValuesChange={handleValuesChange}
       form={form}
     >
-      <Form.Item
-        label={t('tourists.tourist-fullname')}
-        name="full_name"
-        validateDebounce={1000}
-      >
+      <Form.Item label={t('tourists.tourist-fullname')} name="full_name">
         <Input
           prefix={
             <UserIcon className="ml-1 mr-2 text-base font-semibold text-[#115E59]" />
           }
           size="large"
           placeholder={t('tourists.search-tourists')}
-          className="select-shadow"
+          className="select-shadow font-medium"
+          allowClear
         />
       </Form.Item>
-      <Form.Item
-        label={t('fields.passport-data.label')}
-        name="passport_sn"
-        validateDebounce={1000}
-      >
+      <Form.Item label={t('fields.passport-data.label')} name="passport_sn">
         <Input
           prefix={
             <PassportIcon className="mx-2 w-full text-base text-[#115E59]" />
           }
           size="large"
           placeholder={t('fields.passport-info.placeholder')}
-          className="select-shadow"
+          className="select-shadow font-medium"
+          allowClear
         />
       </Form.Item>
       <Form.Item
@@ -135,14 +123,10 @@ const TouristsFilters = () => {
           suffixIcon={null}
           size="large"
           placeholder={t('common.specify-date')}
-          className="select-shadow h-[47.3px] w-full"
+          className="select-shadow h-[47.3px] w-full font-medium"
         />
       </Form.Item>
-      <Form.Item
-        validateDebounce={1000}
-        label={t('fields.gender.label')}
-        name="gender"
-      >
+      <Form.Item label={t('fields.gender.label')} name="gender">
         <CSelect
           options={[
             { label: t('common.men'), value: 'male' },
@@ -153,13 +137,11 @@ const TouristsFilters = () => {
           }
           size="large"
           placeholder={t('fields.icon.select')}
-          className="select-shadow"
-          // value={gender}
+          className="select-shadow font-medium"
           allowClear={true}
         />
       </Form.Item>
       <Form.Item
-        validateDebounce={1000}
         label={t('tourists.register-region')}
         name="user_information__region"
       >
@@ -170,7 +152,7 @@ const TouristsFilters = () => {
               label: region.name,
               value: region.id,
             }))}
-          className="select-shadow h-[47px] w-full"
+          className="select-shadow h-[47px] w-full font-medium"
           size="large"
           placeholder={t('fields.icon.select')}
           prefix={
@@ -180,7 +162,6 @@ const TouristsFilters = () => {
         />
       </Form.Item>
       <Form.Item
-        validateDebounce={1000}
         label={t('tourists.register-district')}
         name="user_information__district"
       >
@@ -189,7 +170,7 @@ const TouristsFilters = () => {
             label: district.name,
             value: district.id,
           }))}
-          className="select-shadow h-[47px] w-full"
+          className="select-shadow h-[47px] w-full font-medium"
           size="large"
           placeholder={t('fields.icon.select')}
           prefix={

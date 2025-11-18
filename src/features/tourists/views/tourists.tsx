@@ -71,15 +71,15 @@ const Tourists = () => {
   const tabOptions = useMemo(() => {
     return [
       {
-        label: `Все туристы • ${formatAmount(touristsCount?.total_count)}`,
+        label: `${t('tourists.all-tourists')} • ${formatAmount(touristsCount?.total_count)}`,
         key: '',
       },
       {
-        label: `Местные туристы • ${formatAmount(touristsCount?.resident_count)}`,
+        label: `${t('tourists.local-tourists')} • ${formatAmount(touristsCount?.resident_count)}`,
         key: 'resident',
       },
       {
-        label: `Иностранные туристы • ${formatAmount(touristsCount?.no_resident_count)}`,
+        label: `${t('tourists.foreign-tourists')} • ${formatAmount(touristsCount?.no_resident_count)}`,
         key: 'no_resident',
       },
     ].map(item => ({
@@ -119,7 +119,7 @@ const Tourists = () => {
       </div>
       <div className="h-full overflow-hidden rounded-[16px] border border-border bg-white p-6 dark:bg-dark-bg">
         <Tabs
-          className="[&_.ant-tabs-tab]:font-medium"
+          className="[&_.ant-form-item-label]:font-medium [&_.ant-tabs-tab]:font-medium"
           activeKey={(query?.resident_status as string) || ''}
           items={tabOptions}
           onChange={key => {
