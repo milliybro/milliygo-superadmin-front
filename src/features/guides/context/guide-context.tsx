@@ -1,15 +1,13 @@
 import { truthyObject } from '@/helpers/truthy-object'
+import { useParsedQuery } from '@/hooks/use-parsed-query'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import queryString from 'query-string'
-import { ReactNode, useMemo } from 'react'
-import { useLocation } from 'react-router'
+import { ReactNode } from 'react'
 import { GuideContext } from '.'
 import { getGuides, updateGuide } from '../api'
 import { GuideUpdatePayload } from '../types'
 
 export default function GuideProvider({ children }: { children: ReactNode }) {
-  const { search } = useLocation()
-  const query = useMemo(() => queryString.parse(search), [search])
+  const query = useParsedQuery()
 
   const {
     data: guides,

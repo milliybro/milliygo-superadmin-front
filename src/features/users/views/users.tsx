@@ -1,5 +1,5 @@
 import { Button } from 'antd'
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 import { ROUTE_PATHS } from '@/config/constants'
@@ -9,9 +9,9 @@ import useUserModalStore from '../store/user-modal-store'
 
 import AddIcon from '@/components/icons/add'
 import { truthyObject } from '@/helpers/truthy-object'
+import { useParsedQuery } from '@/hooks/use-parsed-query'
 import { useQuery } from '@tanstack/react-query'
-import queryString from 'query-string'
-import { useLocation, useSearchParams } from 'react-router'
+import { useSearchParams } from 'react-router'
 import { getUsersList } from '../api'
 import UserModal from '../components/user-modal'
 import UsersFilters from '../containers/users-filters'
@@ -24,8 +24,7 @@ const Users = () => {
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
 
   const [searchParams] = useSearchParams()
-  const { search: searchP } = useLocation()
-  const queries = useMemo(() => queryString.parse(searchP), [searchP])
+  const queries = useParsedQuery()
 
   const search = searchParams.get('search') || ''
   const gender = searchParams.get('gender') || ''

@@ -1,4 +1,4 @@
-import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
+import type { PaginationProps, TableColumnsType } from 'antd'
 import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { twMerge } from 'tailwind-merge'
@@ -8,14 +8,13 @@ import UsersNotFound from '@/features/users/components/users-not-found'
 import UserIcon from '@/components/icons/user'
 import BlurImage from '@/components/ui/blur-image'
 import CompactViewButton from '@/components/ui/compact-view-button'
-import { truthyObject } from '@/helpers/truthy-object'
-import queryString from 'query-string'
-import { memo, useMemo } from 'react'
-import { useLocation, useNavigate } from 'react-router'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
+import { useParsedQuery } from '@/hooks/use-parsed-query'
+import { useTableChangeHandler } from '@/hooks/use-table-change-handler'
+import { memo } from 'react'
 import { useGuideContext } from '../hooks/use-guide-context'
 import GuidePendingActionButton from './guide-pending-action-button'
 import GuidesStatusTag from './guides-status-tag'
-import { useCompactScreen } from '@/hooks/use-compact-screen'
 
 interface GuidesTableProps {
   onViewGuide: (guideId: number) => void
@@ -24,9 +23,8 @@ interface GuidesTableProps {
 
 const GuidesTable = memo(({ onViewGuide, onRejectGuide }: GuidesTableProps) => {
   const { t } = useTranslation()
-  const { search, pathname } = useLocation()
-  const query = useMemo(() => queryString.parse(search), [search])
-  const navigate = useNavigate()
+  const query = useParsedQuery()
+  const tableChangeHandler = useTableChangeHandler()
 
   const currentPage = +(query?.page || 1)
   const tab = query?.guide_status as 'accepted' | 'in_progress' | 'rejected'
@@ -163,25 +161,6 @@ const GuidesTable = memo(({ onViewGuide, onRejectGuide }: GuidesTableProps) => {
     return originalElement
   }
 
-  const handleTableChange: TableProps['onChange'] = (pagination, _, sorter) => {
-    const sort = Array.isArray(sorter) ? sorter[0] : sorter
-    const ordering = sort?.field
-      ? (sort?.order === 'descend' ? '-' : '') + sort?.field
-      : null
-
-    const newPage = pagination?.current
-
-    const updatedQuery = queryString.stringify(
-      truthyObject({
-        ...query,
-        page: newPage,
-        ordering,
-      }),
-    )
-
-    navigate({ pathname, search: updatedQuery })
-  }
-
   return (
     <Table
       columns={columns?.map(val => ({
@@ -202,7 +181,7 @@ const GuidesTable = memo(({ onViewGuide, onRejectGuide }: GuidesTableProps) => {
         position: ['bottomCenter'],
         itemRender: itemRender,
       }}
-      onChange={handleTableChange}
+      onChange={tableChangeHandler}
       className="side-borderless-table responsive-table h-full w-full"
       locale={{
         emptyText: <UsersNotFound />,

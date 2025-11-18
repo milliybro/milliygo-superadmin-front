@@ -11,11 +11,11 @@ import UsersNotFound from '@/features/users/components/users-not-found'
 import formatPhoneNumber from '@/helpers/format-phone-number'
 import { truthyObject } from '@/helpers/truthy-object'
 import { useCompactScreen } from '@/hooks/use-compact-screen'
+import { useParsedQuery } from '@/hooks/use-parsed-query'
 import { EyeOutlined } from '@ant-design/icons'
 import { useQuery } from '@tanstack/react-query'
 import type { TableColumnsType, TableProps } from 'antd'
 import queryString from 'query-string'
-import { useMemo } from 'react'
 import { useLocation, useNavigate } from 'react-router'
 import { getAllPlacements } from '../api'
 import type { IPlacement } from '../types'
@@ -24,8 +24,8 @@ import PlacementsFilters from './placements-filter'
 const PlacementsTable = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { search, pathname } = useLocation()
-  const queries = useMemo(() => queryString.parse(search), [search])
+  const { pathname } = useLocation()
+  const queries = useParsedQuery()
   const isCompact = useCompactScreen()
 
   const { data: placementsData, isFetching } = useQuery({
@@ -167,7 +167,7 @@ const PlacementsTable = () => {
     {
       width: 1,
       title: isCompact ? '' : t('common.action'),
-      render: (id, val: any) => <CompactViewButton />,
+      render: () => <CompactViewButton />,
     },
   ]
 

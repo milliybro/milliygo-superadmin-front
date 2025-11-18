@@ -2,9 +2,9 @@ import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
 import MegaPhoneIcon from '@/components/icons/megaphone-icon'
 import { truthyObject } from '@/helpers/truthy-object'
+import { useParsedQuery } from '@/hooks/use-parsed-query'
 import { Button, Switch, Table, TableProps, Tooltip, Typography } from 'antd'
 import queryString from 'query-string'
-import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
 import { twMerge } from 'tailwind-merge'
@@ -18,8 +18,8 @@ function DiscoverTable() {
     editDiscovery: { toggleStatusMutate, togglePending },
     setDeleteOpen,
   } = useDiscoverContext()
-  const { search, pathname } = useLocation()
-  const queries = useMemo(() => queryString.parse(search), [search])
+  const { pathname } = useLocation()
+  const queries = useParsedQuery()
 
   const toggleStatusHandler = (slug: string, status: boolean) => {
     const formData = new FormData()
