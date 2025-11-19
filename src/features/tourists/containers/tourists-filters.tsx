@@ -75,8 +75,8 @@ const TouristsFilters = () => {
         full_name: search,
         passport_sn: passport,
         user_information__birth_date: birthday ? dayjs(birthday) : null,
-        user_information__region: region,
-        user_information__district: district,
+        user_information__region: +region,
+        user_information__district: +district,
         gender,
       })
     }
