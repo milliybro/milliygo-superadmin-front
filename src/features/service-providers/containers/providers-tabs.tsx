@@ -5,8 +5,10 @@ import { useQuery } from '@tanstack/react-query'
 import { getOrganizationTypes } from '../api'
 import { useEffect } from 'react'
 import ProvidersTable from './providers-table'
+import { useTranslation } from 'react-i18next'
 
 const ProvidersTab = () => {
+  const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
 
   const activeTab = searchParams.get('organization_type')
@@ -18,7 +20,7 @@ const ProvidersTab = () => {
   })
   const items = data?.map(item => ({
     key: item?.organization_key,
-    label: item?.name,
+    label: t(`providers.${item?.organization_key}`),
     children: <ProvidersTable />,
   }))
 
