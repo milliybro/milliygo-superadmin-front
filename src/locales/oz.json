@@ -917,5 +917,12 @@
     "places-12": "Sirdaryo viloyati",
     "places-13": "Surxondaryo viloyati",
     "places-14": "Toshkent viloyati"
+  },
+  "providers": {
+    "autoticket": "Avtobus",
+    "avia": "Aviachipta",
+    "hotel": "Mehmonxonalar",
+    "cultural_heritage": "Madaniy Meros",
+    "railway": "Temir yo'l"
   }
 }
