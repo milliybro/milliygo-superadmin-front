@@ -4,22 +4,22 @@ import { useTranslation } from 'react-i18next'
 import StatusTag from '@/components/ui/status-tag'
 import UserActionButton from '../components/user-action-button'
 
-import type { TableColumnsType } from 'antd'
-import { useMemo } from 'react'
-import UsersNotFound from '../components/users-not-found'
-import { useLocation, useNavigate } from 'react-router'
-import queryString from 'query-string'
-import { useQuery } from '@tanstack/react-query'
 import { truthyObject } from '@/helpers/truthy-object'
-import { getOrganizationInfo } from '../api'
-import { TableProps } from 'antd/lib'
 import { useCompactScreen } from '@/hooks/use-compact-screen'
+import { useParsedQuery } from '@/hooks/use-parsed-query'
+import { useQuery } from '@tanstack/react-query'
+import type { TableColumnsType } from 'antd'
+import { TableProps } from 'antd/lib'
+import queryString from 'query-string'
+import { useLocation, useNavigate } from 'react-router'
+import { getOrganizationInfo } from '../api'
+import UsersNotFound from '../components/users-not-found'
 
 const ProvidersTable = () => {
   const { t } = useTranslation()
   const navigate = useNavigate()
-  const { search, pathname } = useLocation()
-  const queries = useMemo(() => queryString.parse(search), [search])
+  const { pathname } = useLocation()
+  const queries = useParsedQuery()
   const isCompact = useCompactScreen()
 
   const { data: organizationData, isFetching } = useQuery({

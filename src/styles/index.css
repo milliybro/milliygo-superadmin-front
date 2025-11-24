@@ -17,6 +17,7 @@ html {
 * {
   font-family: 'Onest', sans-serif;
   scrollbar-width: thin;
+  font-weight: 500;
 }
 
 .select-shadow {
@@ -188,7 +189,7 @@ html {
 
 @media only screen and (max-width: 1536px) {
   .responsive-table .ant-table-cell {
-    padding: 6px 5px 6px 12px !important;
+    padding: 6px 12px !important;
     font-size: 0.75rem !important;
   }
 
@@ -214,7 +215,5 @@ html {
 .custom-image-preview .ant-image-preview-img {
   object-fit: contain;
   height: 60vh !important;
-  width:60vw !important;
+  width: 60vw !important;
 }
-
-

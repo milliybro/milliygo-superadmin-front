@@ -17,9 +17,9 @@ import {
   getDiscovery,
 } from '../api'
 import { IDiscover } from '../types'
-import queryString from 'query-string'
 import { truthyObject } from '@/helpers/truthy-object'
 import { useTranslation } from 'react-i18next'
+import { useParsedQuery } from '@/hooks/use-parsed-query'
 
 export interface IDiscoverContext {
   deleteOpen: string | null
@@ -61,10 +61,10 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
   const [deleteOpen, setDeleteOpen] = useState<string | null>(null)
   const { t } = useTranslation()
   const params = useParams()
-  const { pathname, search } = useLocation()
+  const { pathname } = useLocation()
   const slug = params?.slug
   const { notification } = App.useApp()
-  const queries = useMemo(() => queryString.parse(search), [search])
+  const queries = useParsedQuery()
   const navigate = useNavigate()
   const locale = localStorage.getItem('i18nextLng')
   const [language, setLanguage] = useState(

@@ -1,6 +1,8 @@
 import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
 import { truthyObject } from '@/helpers/truthy-object'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
+import { useParsedQuery } from '@/hooks/use-parsed-query'
 import { useMutation } from '@tanstack/react-query'
 import {
   Button,
@@ -12,19 +14,18 @@ import {
   Typography,
 } from 'antd'
 import queryString from 'query-string'
-import { memo, useCallback, useMemo } from 'react'
+import { memo, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
 import { editTopDestinationPartial } from '../api'
 import useTopDestinations from '../hooks/use-top-destinations'
 import useTopDestinationsContext from '../hooks/use-top-destinations-context'
-import { useCompactScreen } from '@/hooks/use-compact-screen'
 
 function TopDestinationsTable() {
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const { search, pathname } = useLocation()
-  const queries = useMemo(() => queryString.parse(search), [search])
+  const { pathname } = useLocation()
+  const queries = useParsedQuery()
 
   const { setDeleteOpen } = useTopDestinationsContext()
   const { data, isFetching, refetch } = useTopDestinations()
@@ -88,7 +89,7 @@ function TopDestinationsTable() {
       className: 'w-2/4 ',
       sorter: true,
       responsive: ['xs', 'sm', 'md', 'lg'],
-      render: (value) => {
+      render: value => {
         return (
           <div className="flex items-center gap-4">
             <Typography.Text className="text-sm font-medium">

@@ -9,9 +9,9 @@ import UsersNotFound from '../components/users-not-found'
 import TouristActionButton from '../components/tourist-action-button'
 import dayjs from 'dayjs'
 import { useCompactScreen } from '@/hooks/use-compact-screen'
+import { useTableChangeHandler } from '@/hooks/use-table-change-handler'
 
 interface TouristsFiltersProps {
-  setCurrentPage: (value: number) => void
   currentPage: number
   isLoading: any
   TouristsData: any
@@ -23,11 +23,11 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
   TouristsData,
   isLoading,
   currentPage,
-  setCurrentPage,
   showDrawer,
 }) => {
   const { t } = useTranslation()
   const isCompact = useCompactScreen()
+  const handleTableChange = useTableChangeHandler<ITouristsTable>()
 
   const columns: TableColumnsType<ITouristsTable> = [
     {
@@ -140,10 +140,6 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
     return originalElement
   }
 
-  const handlePaginationChange = (page: number) => {
-    setCurrentPage(page)
-  }
-
   const transformedData =
     TouristsData?.results.map((user: ITourists) => ({
       full_name: user.full_name,
@@ -166,7 +162,7 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
         dataSource={transformedData}
         loading={isLoading}
         bordered
-        onChange={pagination => handlePaginationChange(pagination.current!)}
+        onChange={handleTableChange}
         className="tourists-table w-full min-w-[700px] sm:min-w-[1000px]"
         pagination={{
           current: currentPage,
@@ -176,7 +172,6 @@ const TouristsTable: React.FC<TouristsFiltersProps> = ({
           showSizeChanger: false,
           position: ['bottomCenter'],
           itemRender: itemRender,
-          onChange: handlePaginationChange,
         }}
         locale={{
           emptyText: <UsersNotFound />,

@@ -7,14 +7,12 @@ import FileVerifiedIcon from '@/components/icons/file-verified-icon'
 import HotelIcon from '@/components/icons/hotel'
 import LocationIcon from '@/components/icons/location'
 import PhoneIcon from '@/components/icons/phone-icon'
-import StarIcon2 from '@/components/icons/star-icon-2'
 import { getRegions } from '@/features/content/api'
 import { getDistricts } from '@/features/tourists/api'
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router'
-import ArrowDownIcon from '@/components/icons/arrow-down'
 
 const PlacementsFilters = () => {
   const { t } = useTranslation()
@@ -108,7 +106,7 @@ const PlacementsFilters = () => {
           prefix={<HotelIcon className="mr-4 text-base text-[#115E59]" />}
           size="large"
           placeholder={t('hotels-page.name.placeholder')}
-          className="select-shadow"
+          className="select-shadow font-medium"
           allowClear
         />
       </Form.Item>
@@ -124,7 +122,7 @@ const PlacementsFilters = () => {
               label: region.name,
               value: region.id,
             }))}
-          className="h-[47px] w-full [&_.ant-select-selector]:shadow-sm"
+          className="h-[47px] w-full font-medium [&_.ant-select-selector]:shadow-sm"
           size="large"
           placeholder={t('fields.icon.select')}
           prefix={<LocationIcon className="mr-4 text-base text-[#115E59]" />}
@@ -141,12 +139,11 @@ const PlacementsFilters = () => {
             label: district.name,
             value: district.id,
           }))}
-          className="h-[47px] w-full [&_.ant-select-selector]:shadow-sm"
+          className="h-[47px] w-full font-medium [&_.ant-select-selector]:shadow-sm"
           size="large"
           placeholder={t('fields.icon.select')}
           prefix={<LocationIcon className="mr-4 text-base text-[#115E59]" />}
           allowClear={true}
-   
         />
       </Form.Item>
       <Form.Item
@@ -157,8 +154,8 @@ const PlacementsFilters = () => {
         <Input
           prefix={<PhoneIcon className="mr-4 text-base text-[#115E59]" />}
           size="large"
-          placeholder={t('fields.phone.placeholder')}
-          className="select-shadow"
+          placeholder={t('common.enter')}
+          className="select-shadow font-medium"
         />
       </Form.Item>
       <Form.Item
@@ -166,12 +163,12 @@ const PlacementsFilters = () => {
         name="avg_rating"
         validateDebounce={1000}
       >
-        <Select
+        <CSelect
           prefix={<LocationIcon className="mr-4 text-base text-[#115E59]" />}
           size="large"
           placeholder={t('fields.icon.select')}
           // className="select-shadow"
-          className="[&_.ant-select-selector]:shadow-sm [&_.ant-select-selector]:shadow-black/5"
+          className="font-medium [&_.ant-select-selector]:shadow-sm [&_.ant-select-selector]:shadow-black/5"
           allowClear
         >
           {[1, 2, 3, 4, 5].map(num => (
@@ -179,7 +176,7 @@ const PlacementsFilters = () => {
               {num}
             </Option>
           ))}
-        </Select>
+        </CSelect>
       </Form.Item>
 
       <Form.Item
@@ -196,8 +193,8 @@ const PlacementsFilters = () => {
             <FileVerifiedIcon className="mr-4 text-base text-[#115E59]" />
           }
           size="large"
-          placeholder={t('fields.status.placeholder')}
-          className="[&_.ant-select-selector]:shadow-sm [&_.ant-select-selector]:shadow-black/5"
+          placeholder={t('placements.all-status')}
+          className="font-medium [&_.ant-select-selector]:shadow-sm [&_.ant-select-selector]:shadow-black/5"
           allowClear={true}
         />
       </Form.Item>

@@ -1,4 +1,4 @@
-import type { PaginationProps, TableColumnsType, TableProps } from 'antd'
+import type { PaginationProps, TableColumnsType } from 'antd'
 import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { twMerge } from 'tailwind-merge'
@@ -7,26 +7,32 @@ import UsersNotFound from '@/features/users/components/users-not-found'
 
 import UserIcon from '@/components/icons/user'
 import BlurImage from '@/components/ui/blur-image'
-import { truthyObject } from '@/helpers/truthy-object'
-import queryString from 'query-string'
-import { memo, useMemo } from 'react'
-import { useLocation, useNavigate } from 'react-router'
-import GuideViewModal from '../components/guide-view-modal'
-import GuidesStatusTag from '../components/guides-status-tag'
-import GuidesTableActionButton from '../components/guides-table-action-button'
+import CompactViewButton from '@/components/ui/compact-view-button'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
+import { useParsedQuery } from '@/hooks/use-parsed-query'
+import { useTableChangeHandler } from '@/hooks/use-table-change-handler'
+import { memo } from 'react'
 import { useGuideContext } from '../hooks/use-guide-context'
+import GuidePendingActionButton from './guide-pending-action-button'
+import GuidesStatusTag from './guides-status-tag'
 
-const GuidesTable = memo(() => {
+interface GuidesTableProps {
+  onViewGuide: (guideId: number) => void
+  onRejectGuide: (guideId: number) => void
+}
+
+const GuidesTable = memo(({ onViewGuide, onRejectGuide }: GuidesTableProps) => {
   const { t } = useTranslation()
-  const { search, pathname } = useLocation()
-  const query = useMemo(() => queryString.parse(search), [search])
-  const navigate = useNavigate()
+  const query = useParsedQuery()
+  const tableChangeHandler = useTableChangeHandler()
 
   const currentPage = +(query?.page || 1)
   const tab = query?.guide_status as 'accepted' | 'in_progress' | 'rejected'
 
+  const isCompact = useCompactScreen()
+
   const {
-    guides: { data: guidesData, isLoading, refetch },
+    guides: { data: guidesData, isLoading },
   } = useGuideContext()
 
   const columns: TableColumnsType = [
@@ -102,13 +108,23 @@ const GuidesTable = memo(() => {
       sorter: true,
       render: () => <GuidesStatusTag type={tab} />,
     },
+    ...(tab === 'in_progress'
+      ? [
+          {
+            width: 1,
+            title: 'common.action',
+            dataIndex: 'user_id',
+            render: (id: number) => (
+              <GuidePendingActionButton guideId={id} onReject={onRejectGuide} />
+            ),
+          },
+        ]
+      : []),
     {
       width: 1,
-      title: 'common.action',
+      title: isCompact ? '' : 'common.action',
       dataIndex: 'user_id',
-      render: val => (
-        <GuidesTableActionButton id={val} type={tab} refetch={refetch} />
-      ),
+      render: val => <CompactViewButton onClick={() => onViewGuide(val)} />,
     },
   ]
 
@@ -145,57 +161,35 @@ const GuidesTable = memo(() => {
     return originalElement
   }
 
-  const handleTableChange: TableProps['onChange'] = (pagination, _, sorter) => {
-    const sort = Array.isArray(sorter) ? sorter[0] : sorter
-    const ordering = sort?.field
-      ? (sort?.order === 'descend' ? '-' : '') + sort?.field
-      : null
-
-    const newPage = pagination?.current
-
-    const updatedQuery = queryString.stringify(
-      truthyObject({
-        ...query,
-        page: newPage,
-        ordering,
-      }),
-    )
-
-    navigate({ pathname, search: updatedQuery })
-  }
-
   return (
-    <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] bg-white">
-      <Table
-        columns={columns?.map(val => ({
-          ...val,
-          title: t(val?.title as string),
-        }))}
-        loading={isLoading}
-        dataSource={guidesData?.results?.map(item => ({
-          ...item,
-          key: item.user_id,
-        }))}
-        pagination={{
-          current: currentPage,
-          pageSize: 10,
-          total: guidesData?.count || 0,
-          hideOnSinglePage: true,
-          showSizeChanger: false,
-          position: ['bottomCenter'],
-          itemRender: itemRender,
-        }}
-        onChange={handleTableChange}
-        className="side-borderless-table responsive-table h-full w-full"
-        locale={{
-          emptyText: <UsersNotFound />,
-          triggerDesc: t('common.sort_descending') ?? '',
-          triggerAsc: t('common.sort_ascending') ?? '',
-          cancelSort: t('common.sort_cancel') ?? '',
-        }}
-      />
-      <GuideViewModal />
-    </div>
+    <Table
+      columns={columns?.map(val => ({
+        ...val,
+        title: t(val?.title as string),
+      }))}
+      loading={isLoading}
+      dataSource={guidesData?.results?.map(item => ({
+        ...item,
+        key: item.user_id,
+      }))}
+      pagination={{
+        current: currentPage,
+        pageSize: 10,
+        total: guidesData?.count || 0,
+        hideOnSinglePage: true,
+        showSizeChanger: false,
+        position: ['bottomCenter'],
+        itemRender: itemRender,
+      }}
+      onChange={tableChangeHandler}
+      className="side-borderless-table responsive-table h-full w-full"
+      locale={{
+        emptyText: <UsersNotFound />,
+        triggerDesc: t('common.sort_descending') ?? '',
+        triggerAsc: t('common.sort_ascending') ?? '',
+        cancelSort: t('common.sort_cancel') ?? '',
+      }}
+    />
   )
 })
 

@@ -1,14 +1,13 @@
 import { truthyObject } from '@/helpers/truthy-object'
-import { useQuery } from '@tanstack/react-query'
-import queryString from 'query-string'
-import { ReactNode, useMemo } from 'react'
-import { useLocation } from 'react-router'
+import { useParsedQuery } from '@/hooks/use-parsed-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { ReactNode } from 'react'
 import { GuideContext } from '.'
-import { getGuides } from '../api'
+import { getGuides, updateGuide } from '../api'
+import { GuideUpdatePayload } from '../types'
 
 export default function GuideProvider({ children }: { children: ReactNode }) {
-  const { search } = useLocation()
-  const query = useMemo(() => queryString.parse(search), [search])
+  const query = useParsedQuery()
 
   const {
     data: guides,
@@ -27,9 +26,20 @@ export default function GuideProvider({ children }: { children: ReactNode }) {
     },
   })
 
+  const { mutate, isPending } = useMutation({
+    mutationFn: ({ id, ...values }: GuideUpdatePayload & { id: number }) =>
+      updateGuide(id, values),
+    onSuccess: () => {
+      refetch?.()
+    },
+  })
+
   return (
     <GuideContext.Provider
-      value={{ guides: { data: guides, isLoading, refetch } }}
+      value={{
+        guides: { data: guides, isLoading, refetch },
+        updateGuide: { mutate, isPending },
+      }}
     >
       {children}
     </GuideContext.Provider>

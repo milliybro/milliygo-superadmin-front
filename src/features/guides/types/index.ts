@@ -1,4 +1,6 @@
 import { ListResponse } from '@/types'
+import { UseMutateFunction } from '@tanstack/react-query'
+import { AxiosResponse } from 'axios'
 
 export interface IHotelsItemTable {
   key: string
@@ -101,6 +103,27 @@ export interface IGuideContextType {
     isLoading: boolean
     refetch: () => void
   }
+  updateGuide: {
+    mutate: UseMutateFunction<
+      AxiosResponse<any, any, object>,
+      Error,
+      GuideUpdatePayload & {
+        id: number
+      },
+      unknown
+    >
+    isPending: boolean
+  }
+}
+
+export interface GuideUpdatePayload {
+  guide_status: IGuideStatus
+  rejected_reason?: string
+}
+
+export interface ISelectedGuide {
+  id: number
+  status: 'view' | 'reject'
 }
 
 export type IGuideStatus = 'accepted' | 'rejected' | 'in_progress'

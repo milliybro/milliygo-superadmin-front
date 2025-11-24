@@ -29,7 +29,7 @@ const GuidesStatusTag: FC<IProps> = ({ colorless, type }) => {
       {type === 'accepted'
         ? t('common.active')
         : type === 'in_progress'
-          ? t('common.request')
+          ? t('status.pending')
           : t('common.inactive')}
     </span>
   )
