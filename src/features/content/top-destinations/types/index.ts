@@ -8,4 +8,5 @@ export interface ITopDestinationForm {
     description: string
   }[]
   status: boolean
+  translate_all: boolean
 }

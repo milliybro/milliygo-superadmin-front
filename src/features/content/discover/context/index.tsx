@@ -37,11 +37,16 @@ export interface IDiscoverContext {
     isLoading: boolean
   }
   editDiscovery: {
-    mutate: (data: FormData) => void
+    mutate: (params: { data: FormData; language: string }) => void
     isLoading: boolean
-    toggleStatusMutate: (params: { slug: string; data: FormData }) => void
+    toggleStatusMutate: (params: {
+      slug: string
+      data: FormData
+      language: string
+    }) => void
     togglePending: boolean
   }
+
   deleteDiscovery: {
     mutate: (slug: string) => void
     isLoading: boolean
@@ -79,9 +84,8 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
     queryFn: () => getDiscovery(slug as string, language),
     enabled: !!slug,
     refetchOnWindowFocus: false,
-    throwOnError: () => {
-      return true
-    },
+    staleTime: 0,
+    gcTime: 0,
   })
 
   const createDiscoveryMutation = useMutation({
@@ -96,19 +100,26 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
   })
 
   const editDiscoveryMutation = useMutation({
-    mutationFn: (data: FormData) => editDiscovery(slug as string, data),
+    mutationFn: ({ data, language }: { data: FormData; language: string }) =>
+      editDiscovery(slug as string, data, language),
     onSuccess: () => {
       discoverQuery.refetch()
-      notification.success({
-        message: t('content.discover.edit-success'),
-      })
+      notification.success({ message: t('content.discover.edit-success') })
       navigate('/content/discover-uzbekistan')
     },
   })
 
   const toggleStatusMutation = useMutation({
-    mutationFn: ({ slug, data }: { slug: string; data: FormData }) =>
-      editDiscovery(slug, data),
+    mutationFn: ({
+      slug,
+      data,
+      language,
+    }: {
+      slug: string
+      data: FormData
+      language: string
+    }) => editDiscovery(slug, data, language),
+
     onSuccess: () => {
       notification.success({
         message: t('content.discover.status-updated'),

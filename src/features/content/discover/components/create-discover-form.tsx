@@ -1,11 +1,25 @@
-import { Divider, Form, Input, Select, Switch, Tag, Typography } from 'antd'
+import {
+  Divider,
+  Form,
+  Input,
+  Select,
+  Switch,
+  Tag,
+  Tooltip,
+  Typography,
+} from 'antd'
 import DiscoverGallery from './discover-gallery'
 import SocialsList from './socials-list'
 import { useTranslation } from 'react-i18next'
+import TranslateIcon from '@/components/icons/translate-icon'
+import { useMemo } from 'react'
+import { useLocation } from 'react-router'
 
 export default function CreateDiscoverForm({ language, setLanguage }: any) {
   const { t } = useTranslation()
   const form = Form.useFormInstance()
+  const { pathname } = useLocation()
+  const isEdit = useMemo(() => pathname.includes('/edit'), [pathname])
   const status = Form.useWatch('status', form)
 
   const LANGUAGES = [
@@ -42,16 +56,56 @@ export default function CreateDiscoverForm({ language, setLanguage }: any) {
         <Typography.Title level={5} className="text-xl font-medium">
           {t('common.preview')}
         </Typography.Title>
-        <Select
-          showSearch
-          placeholder="Select language"
-          optionFilterProp="label"
-          size="large"
-          style={{ width: 240 }}
-          options={options}
-          value={language}
-          onChange={val => setLanguage(val)}
-        />
+        <div className="flex items-center gap-2">
+          {isEdit && (
+            <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
+              <Typography.Text>{t('common.auto-translate')}</Typography.Text>
+
+              <div className="flex items-center gap-3">
+                <Form.Item
+                  name="translate_all"
+                  valuePropName="checked"
+                  noStyle
+                  initialValue={false}
+                >
+                  <Switch />
+                </Form.Item>
+
+                <Tooltip
+                  title={
+                    <>
+                      <b className="pb-1">{t('common.auto-trans')}</b>
+                      <br />
+                      {t('common.auto-trans-desc')}
+                    </>
+                  }
+                  overlayInnerStyle={{
+                    padding: '12px',
+                    backgroundColor: '#232E40',
+                    color: '#fff',
+                    width: '320px',
+                  }}
+                >
+                  <div className="flex h-[20px] w-[20px] cursor-pointer items-center justify-center rounded-full border border-[#777E90] text-[12px] text-[#777E90]">
+                    ?
+                  </div>
+                </Tooltip>
+              </div>
+            </div>
+          )}
+
+          <Select
+            showSearch
+            placeholder="Select language"
+            optionFilterProp="label"
+            size="large"
+            style={{ width: 240 }}
+            options={options}
+            value={language}
+            onChange={val => setLanguage(val)}
+            prefix={<TranslateIcon />}
+          />
+        </div>
       </div>
       <Divider className="m-0" />
       <Form.Item name="name" label={t('fields.name.label')}>

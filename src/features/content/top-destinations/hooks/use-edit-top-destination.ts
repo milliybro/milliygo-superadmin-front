@@ -14,8 +14,15 @@ export function useEditTopDestination() {
 
   return useMutation({
     mutationKey: ['editTopDestination'],
-    mutationFn: ({ data, id }: { id?: number | string; data: FormData }) =>
-      editTopDestination(destinationId! || id!, data),
+    mutationFn: ({
+      data,
+      id,
+      language,
+    }: {
+      id?: number | string
+      data: FormData
+      language: string
+    }) => editTopDestination(destinationId! || id!, data, language),
     onSuccess: () => {
       notification.success({
         message: t('content.top_destinations.edit-success'),
