@@ -27,6 +27,12 @@ const Tourists = () => {
   const query = useParsedQuery()
 
   useEffect(() => {
+    if (query.page) {
+      setCurrentPage(+query.page || 1)
+    }
+  }, [query.page])
+
+  useEffect(() => {
     setBreadCrumbs([
       { title: t('common.main'), href: ROUTE_PATHS.MAIN },
       { title: t('routes.tourists'), href: ROUTE_PATHS.TOURISTS },
@@ -123,7 +129,7 @@ const Tourists = () => {
           activeKey={(query?.resident_status as string) || ''}
           items={tabOptions}
           onChange={key => {
-            const newParams = new URLSearchParams(searchParams)
+            const newParams = new URLSearchParams()
             newParams.set('resident_status', key)
             setCurrentPage(1)
             setSearchParams(newParams)
