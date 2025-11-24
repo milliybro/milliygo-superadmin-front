@@ -30,16 +30,27 @@ export async function createDiscovery(data: FormData) {
     url: '/site-content/discover/',
     method: 'POST',
     data,
+        headers: {
+      'Accept-Language': "en",
+    },
   })
 }
 
-export async function editDiscovery(slug: string, data: FormData) {
+export async function editDiscovery(
+  slug: string,
+  data: FormData,
+  language: string,
+) {
   return await request({
     url: `/site-content/discover/${slug}/`,
-    method: 'PATCH',
+    method: 'PUT',
     data,
+    headers: {
+      'Accept-Language': language,
+    },
   })
 }
+
 
 export async function deleteDiscovery(slug: string) {
   return await request({

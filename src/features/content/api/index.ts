@@ -142,6 +142,7 @@ export async function createExpertAdvice(data: FormData) {
     data,
     headers: {
       'Content-Type': 'multipart/form-data',
+      'Accept-Language': 'en',
     },
   })
 }
@@ -157,11 +158,15 @@ export async function deleteExpertAdviceImage(params: { image_id: number }) {
 export async function patchExpertAdvice(
   slug: string,
   data: IPatchExpertAdviceData | FormData,
+  language: any,
 ) {
   return await requestSuper({
     url: `/site-content/expert_advice/${slug}/`,
     method: 'patch',
     data,
+    headers: {
+      'Accept-Language': language,
+    },
   })
 }
 
@@ -204,6 +209,7 @@ export async function createEvent(data: FormData) {
     data,
     headers: {
       'Content-Type': 'multipart/form-data',
+      'Accept-Language': 'en',
     },
   })
 }
@@ -211,6 +217,7 @@ export async function createEvent(data: FormData) {
 export async function patchEvent(
   slug: string,
   data: IPatchEventData | FormData,
+  language: any,
 ) {
   return await requestSuper({
     url: `/site-content/events/${slug}/`,
@@ -218,6 +225,7 @@ export async function patchEvent(
     data,
     headers: {
       'Content-Type': 'multipart/form-data',
+      'Accept-Language': language,
     },
   })
 }

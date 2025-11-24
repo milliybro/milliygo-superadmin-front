@@ -13,14 +13,24 @@ export async function createTopDestination(data: FormData) {
     url: '/site-content/top_destinations/',
     method: 'post',
     data,
+    headers: {
+      'Accept-Language': 'en',
+    },
   })
 }
 
-export async function editTopDestination(id: number | string, data: FormData) {
+export async function editTopDestination(
+  id: number | string,
+  data: FormData,
+  language: string,
+) {
   return await request({
     url: `/site-content/top_destinations/${id}/`,
     method: 'put',
     data,
+    headers: {
+      'Accept-Language': language,
+    },
   })
 }
 

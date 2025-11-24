@@ -654,6 +654,9 @@
     "or": "yoki",
     "one-id": "OneID orqali kirish",
     "specify-date": "Sana ko‘rsatilsin",
+    "auto-translate": "Avtomatik tarjima",
+    "auto-trans": "Avtomatik tarjima",
+    "auto-trans-desc": "Siz kiritgan kontent avtomatik ravishda boshqa tillarga tarjima qilinadi. Istasangiz, uni sozlamalar orqali o‘chirib tashlashingiz mumkin.",
     "pending-confirmation": "Tasdiqlash kutilmoqda",
     "enter": "Kirting"
   },

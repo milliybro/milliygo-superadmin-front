@@ -1,7 +1,7 @@
 import QuillEditor from '@/features/content/components/quill-editor'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { Button, Divider, Form, Typography } from 'antd'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation } from 'react-router'
 import CreateDiscoverForm from '../../components/create-discover-form'
@@ -85,6 +85,8 @@ export default function CreateDiscoverContent() {
     formData.append('description', values.description)
     formData.append('content', values.content)
     formData.append('status', String(values.status))
+    values.translate_all != null &&
+      formData.append('translate_all', String(values.translate_all))
 
     if (image?.file) {
       formData.append('image', image.file)
@@ -98,7 +100,10 @@ export default function CreateDiscoverContent() {
     })
 
     if (pathname.includes('edit')) {
-      editDiscovery.mutate(formData)
+      editDiscovery.mutate({
+        data: formData,
+        language,
+      })
     } else if (pathname.includes('create')) {
       createDiscovery.mutate(formData)
     }
