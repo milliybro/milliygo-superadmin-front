@@ -47,6 +47,7 @@ const TouristsFilters = () => {
       } else {
         newParams.delete(key)
       }
+      newParams.set('page', '1')
     })
 
     setSearchParams(newParams)
@@ -70,17 +71,24 @@ const TouristsFilters = () => {
   })
 
   useEffect(() => {
-    if (form && regions?.results?.length && districts?.results?.length) {
+    const keys = [...searchParams.keys()]
+
+    if (keys.length === 1 && keys[0] === 'resident_status') {
+      form.resetFields()
+      return
+    }
+
+    if (regions?.results?.length && districts?.results?.length) {
       form.setFieldsValue({
         full_name: search,
         passport_sn: passport,
         user_information__birth_date: birthday ? dayjs(birthday) : null,
-        user_information__region: +region,
-        user_information__district: +district,
+        user_information__region: region ? +region : undefined,
+        user_information__district: district ? +district : undefined,
         gender,
       })
     }
-  }, [form, regions, districts, query])
+  }, [searchParams, regions, districts])
 
   return (
     <Form
