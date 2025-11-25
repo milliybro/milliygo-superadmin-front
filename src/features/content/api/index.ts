@@ -39,7 +39,7 @@ export async function getTopDestinations(
   params?: any,
 ): Promise<ListResponse<ITopDestination[]>> {
   const res: ListResponse<ITopDestination[]> = await requestSuper({
-    url: '/site-content/top_destinations/admin/list/',
+    url: '/site-content/top_destinations/',
     method: 'get',
     params,
   })
@@ -99,7 +99,7 @@ export async function getExpertAdvices(params?: {
   ordering?: string
 }): Promise<ListResponseShort<IExpertAdvice>> {
   return await requestSuper({
-    url: '/site-content/expert_advice/admin/list/',
+    url: '/site-content/expert_advice/',
     method: 'get',
     params,
   })
@@ -176,7 +176,7 @@ export async function getEvents(params?: {
   ordering?: string
 }): Promise<ListResponseShort<IEvent>> {
   return await requestSuper({
-    url: '/site-content/events/admin/list/',
+    url: '/site-content/events/',
     method: 'get',
     params,
   })
