@@ -105,7 +105,8 @@ export default function TopDestinationForm() {
     formData.append('status', String(toSubmit?.status))
     values.translate_all != null &&
       formData.append('translate_all', String(toSubmit.translate_all))
-
+    values.refresh_cache != null &&
+      formData.append('refresh_cache', String(toSubmit.refresh_cache))
     images.forEach((img, i) => {
       // if (img?.id) {
       //   formData.append(`uploaded_images[${i}]id`, img?.id.toString())

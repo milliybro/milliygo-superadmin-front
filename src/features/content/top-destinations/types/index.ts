@@ -9,4 +9,5 @@ export interface ITopDestinationForm {
   }[]
   status: boolean
   translate_all: boolean
+  refresh_cache: boolean
 }

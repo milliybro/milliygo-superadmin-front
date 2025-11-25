@@ -22,6 +22,7 @@ export interface ICreateDiscoverForm {
     url: string
   }[]
   translate_all: boolean
+  refresh_cache: boolean
 }
 
 export type DiscoverSocials =

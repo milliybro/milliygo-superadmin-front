@@ -87,6 +87,8 @@ export default function CreateDiscoverContent() {
     formData.append('status', String(values.status))
     values.translate_all != null &&
       formData.append('translate_all', String(values.translate_all))
+    values.refresh_cache != null &&
+      formData.append('refresh_cache', String(values.refresh_cache))
 
     if (image?.file) {
       formData.append('image', image.file)
