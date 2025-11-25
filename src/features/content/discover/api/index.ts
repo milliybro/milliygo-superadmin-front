@@ -6,7 +6,7 @@ export async function getDiscoveries(
   params?: any,
 ): Promise<ListResponse<IDiscover[]>> {
   return await request({
-    url: '/site-content/discover/',
+    url: '/site-content/discover/admin/list/',
     method: 'GET',
     params,
   })
