@@ -30,8 +30,7 @@ export default function TopDestinationForm() {
     usePopularSpotImages()
   const { coords, addCoord } = useMapCoordsStore()
 
-  const { mutate: editMutate, isPending: editLoading } =
-    useEditTopDestination()
+  const { mutate: editMutate, isPending: editLoading } = useEditTopDestination()
   const { mutate: createMutate, isPending: createLoading } =
     useCreateTopDestination()
 
@@ -104,7 +103,8 @@ export default function TopDestinationForm() {
     formData.append('region', toSubmit.region.toString())
     formData.append('youtube_url', toSubmit.youtube_url)
     formData.append('status', String(toSubmit?.status))
-    formData.append('translate_all', String(toSubmit?.translate_all))
+    values.translate_all != null &&
+      formData.append('translate_all', String(toSubmit.translate_all))
 
     images.forEach((img, i) => {
       // if (img?.id) {
