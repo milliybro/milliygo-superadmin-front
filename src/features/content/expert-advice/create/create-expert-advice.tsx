@@ -39,6 +39,7 @@ type CreateExpertAdviceValues = {
   content: string
   image: RcFile
   translate_all: boolean
+  refresh_cache: boolean
 }
 
 export default function CreateExpertAdvice() {
@@ -121,6 +122,8 @@ export default function CreateExpertAdvice() {
       formData.append('type', '1')
       values.translate_all != null &&
         formData.append('translate_all', String(values.translate_all))
+      values.refresh_cache != null &&
+        formData.append('refresh_cache', String(values.refresh_cache))
 
       if (isEditing && params?.slug) {
         return patchExpertAdvice(params.slug, formData, language)
@@ -216,11 +219,27 @@ export default function CreateExpertAdvice() {
         </div>
         <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
           <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
+            <Typography.Title level={5} className="text-xl font-medium">
+              {t('content.preview')}
+            </Typography.Title>
             <div className="flex items-center justify-between">
-              <Typography.Title level={5} className="text-xl font-medium">
-                {t('content.preview')}
-              </Typography.Title>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center justify-between gap-2">
+                {isEdit && (
+                  <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
+                    <Typography.Text>Keshni yangilash</Typography.Text>
+
+                    <div className="flex items-center gap-3">
+                      <Form.Item
+                        name="refresh_cache"
+                        valuePropName="checked"
+                        noStyle
+                        initialValue={false}
+                      >
+                        <Switch />
+                      </Form.Item>
+                    </div>
+                  </div>
+                )}
                 {isEdit && (
                   <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
                     <Typography.Text>

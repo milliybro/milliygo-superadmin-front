@@ -63,11 +63,28 @@ export default function CreateTopDestinationForm({
   return (
     <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
       <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
-        <div className="flex items-center justify-between">
           <Typography.Title level={5} className="text-xl font-medium">
             {t('common.preview')}
           </Typography.Title>
-          <div className="flex items-center gap-2">
+        <div className="flex items-center">
+          <div className="flex items-center justify-between gap-2">
+            {isEdit && (
+              <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
+                <Typography.Text>Keshni yangilash</Typography.Text>
+
+                <div className="flex items-center gap-3">
+                  <Form.Item
+                    name="refresh_cache"
+                    valuePropName="checked"
+                    noStyle
+                    initialValue={false}
+                  >
+                    <Switch />
+                  </Form.Item>
+                </div>
+              </div>
+            )}
+
             {isEdit && (
               <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
                 <Typography.Text>{t('common.auto-translate')}</Typography.Text>
@@ -85,7 +102,7 @@ export default function CreateTopDestinationForm({
                   <Tooltip
                     title={
                       <>
-                        <b className='pb-1'>{t('common.auto-trans')}</b>
+                        <b className="pb-1">{t('common.auto-trans')}</b>
                         <br />
                         {t('common.auto-trans-desc')}
                       </>
@@ -110,7 +127,7 @@ export default function CreateTopDestinationForm({
               placeholder="Select language"
               optionFilterProp="label"
               size="large"
-              style={{ width: 240 }}
+              style={{ width: 200 }}
               options={options}
               value={language}
               onChange={val => setLanguage(val)}
