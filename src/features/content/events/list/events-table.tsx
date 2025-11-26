@@ -45,15 +45,20 @@ function EventsTable() {
     const sorterArray = Array.isArray(sorter) ? sorter : [sorter]
 
     const newOrdering = sorterArray
-      .filter(s => s.order)
-      .map(s => (s.order === 'ascend' ? s.field : `-${s.field}`))
+      .filter(s => s.order && s.field) // field yo‘q bo‘lsa olib tashlaymiz
+      .map(s => {
+        const field = String(s.field)
+        return s.order === 'ascend' ? field : `-${field}`
+      })
 
     setSearchParams(prev => {
       const newParams = new URLSearchParams(prev)
 
+      // page
       const newPage = pagination.current ?? 1
       newParams.set('page', newPage.toString())
 
+      // ordering
       if (newOrdering.length > 0) {
         newParams.set('ordering', newOrdering.join(','))
       } else {
@@ -68,6 +73,7 @@ function EventsTable() {
     {
       title: t('fields.name.label'),
       key: 'name',
+      dataIndex: 'name',
       width: 350,
       render: (_, record) => <EventsTitle {...record} />,
       sorter: true,
@@ -76,6 +82,7 @@ function EventsTable() {
     {
       title: t('fields.description.label'),
       key: 'description',
+      dataIndex: 'description',
       width: 250,
       render: (_, record) => <EventsDescription {...record} />,
       sorter: true,
@@ -84,6 +91,7 @@ function EventsTable() {
     {
       title: t('fields.organizer.label'),
       key: 'organizer',
+      dataIndex: 'organizer',
       width: 180,
       render: (_, record) => <EventsOrganizer {...record} />,
       sorter: true,
@@ -92,6 +100,7 @@ function EventsTable() {
     {
       title: t('fields.date.label'),
       key: 'date',
+      dataIndex: 'date',
       width: 150,
       render: (_, record) => <EventsDate {...record} />,
       sorter: true,
@@ -100,6 +109,7 @@ function EventsTable() {
     {
       title: t('fields.address.label'),
       key: 'location',
+      dataIndex: 'location',
       width: 200,
       render: (_, record) => <EventsAddress {...record} />,
       sorter: true,

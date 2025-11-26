@@ -24,7 +24,7 @@ function DiscoverTable() {
   const toggleStatusHandler = (slug: string, status: boolean) => {
     const formData = new FormData()
     formData.append('status', status ? 'true' : 'false')
-    toggleStatusMutate({ slug, data: formData })
+    toggleStatusMutate({ slug, data: formData } as any)
   }
 
   const columns: TableProps['columns'] = [
