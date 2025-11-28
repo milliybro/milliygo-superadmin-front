@@ -12,7 +12,13 @@
     "content": "Kontent",
     "roles": "Rollar",
     "expert-advices": "Mutaxassis maslahatlari",
-    "events": "Tadbirlar"
+    "events": "Tadbirlar",
+    "reports": "Hisobotlar",
+    "directories": "Ma’lumotnomalar",
+    "transactions": "Tranzaksiyalar va hisob-kitoblar",
+    "integration": "Integratsiya",
+    "registers": "Reyestrlar",
+    "tourist-transactions": "Turist tranzaksiyalari"
   },
   "auth-page": {
     "welcome-title": "Xush kelibsiz!",
@@ -774,7 +780,16 @@
     "bca": "Bazaviy hisobiy kattalik",
     "tour-fee": "Turistik yig'im",
     "accrued-days": "Hisoblangan yig'im (Kunlar)",
-    "total-sum": "Jami yig'im (Summa) "
+    "total-sum": "Jami yig'im (Summa) ",
+    "reports": {
+      "providers": "Provayderlar",
+      "suppliers": "Yetkazib beruvchilar",
+      "tour-report": "Tursbor hisobot",
+      "user-payment": "Abonent to‘lovi",
+      "commission": "Komissiyalar",
+      "return": "Qaytarish",
+      "platform-report": "Platforma umumiy hisobot"
+    }
   },
   "tourists": {
     "tourist-fullname": "Turistning F.I.O.",
