@@ -1,13 +1,13 @@
-import type { PaginationProps, TableColumnsType } from 'antd'
-import { Table } from 'antd'
+import { Dispatch, SetStateAction, useState } from 'react'
+import { Table, TableColumnsType } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { IBillingReport } from '@/features/billing/types'
+import { PaginationProps } from 'antd/lib'
 import { twMerge } from 'tailwind-merge'
-
 import UsersNotFound from '@/features/users/components/users-not-found'
 
-import type { IGuidesTable } from '../types'
-
-const staticBillingData = {
+const PAGE_SIZE = 10
+const STATIC_BILLING_DATA = {
   count: 2,
   results: [
     {
@@ -35,22 +35,22 @@ const staticBillingData = {
   ],
 }
 
-const BillingAccrualTable = ({
-  guidesData,
-  currentPage,
-  setCurrentPage,
-  isLoading,
-  pageSize,
-}: any) => {
+type ReportsTableProps = {
+  currentPage: number
+  setCurrentPage: Dispatch<SetStateAction<number>>
+}
+
+const ReportsTable = ({ currentPage, setCurrentPage }: ReportsTableProps) => {
   const { t } = useTranslation()
-  const columns: TableColumnsType<IGuidesTable> = [
+
+  const columns: TableColumnsType<IBillingReport> = [
     {
       title: 'ID',
       dataIndex: 'id',
       className: 'text-center',
       sorter: false,
       render: (_text, _record, index) =>
-        (currentPage - 1) * pageSize + index + 1,
+        (currentPage - 1) * PAGE_SIZE + index + 1,
     },
     {
       title: 'billing.region',
@@ -94,6 +94,10 @@ const BillingAccrualTable = ({
     },
   ]
 
+  const handlePaginationChange = (page: number) => {
+    setCurrentPage(page)
+  }
+
   const itemRender: PaginationProps['itemRender'] = (
     n,
     type,
@@ -127,54 +131,34 @@ const BillingAccrualTable = ({
     return originalElement
   }
 
-  const handlePaginationChange = (page: number) => {
-    setCurrentPage(page)
-  }
-
-  const transformedTenantsData =
-    staticBillingData?.results.map((item: any) => ({
-      key: item.id,
-      id: item.id,
-      region: item.region,
-      city: item.city,
-      hotel_name: item.hotel_name,
-      month_year: item.month_year,
-      accrual_type: item.accrual_type,
-      count: item.count,
-      accrued: item.accrued,
-      date: item.date,
-    })) || []
-
   return (
-    <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white">
-      <Table<any>
-        columns={columns?.map(val => ({
-          ...val,
-          title: t(val?.title as string),
-        }))}
-        loading={isLoading}
-        dataSource={transformedTenantsData}
-        className="h-full w-full"
-        bordered
-        pagination={{
-          current: currentPage,
-          pageSize: 10,
-          total: guidesData?.count || 0,
-          hideOnSinglePage: true,
-          showSizeChanger: false,
-          position: ['bottomCenter'],
-          itemRender: itemRender,
-          onChange: handlePaginationChange,
-        }}
-        locale={{
-          emptyText: <UsersNotFound />,
-          triggerDesc: t('common.sort_descending') ?? '',
-          triggerAsc: t('common.sort_ascending') ?? '',
-          cancelSort: t('common.sort_cancel') ?? '',
-        }}
-      />
-    </div>
+    <Table<any>
+      bordered
+      loading={false}
+      dataSource={STATIC_BILLING_DATA?.results}
+      scroll={{ x: 'max-content' }}
+      columns={columns?.map(val => ({
+        ...val,
+        title: t(val?.title as string),
+      }))}
+      pagination={{
+        pageSize: PAGE_SIZE,
+        current: currentPage,
+        hideOnSinglePage: true,
+        showSizeChanger: false,
+        itemRender: itemRender,
+        position: ['bottomCenter'],
+        onChange: handlePaginationChange,
+        total: STATIC_BILLING_DATA?.count || 0,
+      }}
+      locale={{
+        emptyText: <UsersNotFound />,
+        triggerDesc: t('common.sort_descending') ?? '',
+        triggerAsc: t('common.sort_ascending') ?? '',
+        cancelSort: t('common.sort_cancel') ?? '',
+      }}
+    />
   )
 }
 
-export default BillingAccrualTable
+export default ReportsTable

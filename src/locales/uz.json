@@ -12,7 +12,13 @@
     "content": "Контент",
     "roles": "Роллар",
     "expert-advices": "Мутахассис маслаҳатлари",
-    "events": "Тадбирлар"
+    "events": "Тадбирлар",
+    "reports": "Ҳисоботлар",
+    "directories": "Маълумотномалар",
+    "transactions": "Транзакциялар ва ҳисоб-китоблар",
+    "integration": "Интеграция",
+    "registers": "Реестрлар",
+    "tourist-transactions": "Турист транзакциялари"
   },
   "auth-page": {
     "welcome-title": "Хуш келибсиз!",
@@ -777,7 +783,16 @@
     "bca": "БРВ",
     "tour-fee": "Турсбор",
     "accrued-days": "Ҳисобланган (кун)",
-    "total-sum": "Жами (сўм)"
+    "total-sum": "Жами (сўм)",
+    "reports": {
+      "providers": "Провайдерлар",
+      "suppliers": "Етказиб берувчилар",
+      "tour-report": "Турсбор ҳисобот",
+      "user-payment": "Абонент тўлови",
+      "commission": "Комиссиялар",
+      "return": "Қайтариш",
+      "platform-report": "Платформа умумий ҳисобот"
+    }
   },
   "tourists": {
     "tourist-fullname": "Сайёҳ Ф.И.Ш.",

@@ -91,6 +91,19 @@ interface IGuestsTransaction {
   checkInOut: string
   status: string
 }
+
+interface IBillingReport {
+  id: number
+  region: string
+  city: string
+  hotel: string
+  month_year: string
+  accrual_type: string
+  count: number
+  accrued: number
+  date: string
+}
+
 export type {
   IHotelDetail,
   ITenantsTable,
@@ -101,4 +114,5 @@ export type {
   IHotelsRoom,
   IGuestsTable,
   IGuestsTransaction,
+  IBillingReport,
 }

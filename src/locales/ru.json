@@ -12,7 +12,13 @@
     "content": "Контент",
     "roles": "Роли",
     "expert-advices": "Советы экспертов",
-    "events": "Мероприятия"
+    "events": "Мероприятия",
+    "reports": "Отчёты",
+    "directories": "Справочники",
+    "transactions": "Транзакции и расчёты",
+    "integration": "Интеграция",
+    "registers": "Реестры",
+    "tourist-transactions": "Транзакции туриста"
   },
   "auth-page": {
     "welcome-title": "Добро пожаловать!",
@@ -777,7 +783,20 @@
     "bca": "БРВ",
     "tour-fee": "Турсбор",
     "accrued-days": "Начислен.тс (Сутки)",
-    "total-sum": "Итого Тс (Сумма)"
+    "total-sum": "Итого Тс (Сумма)",
+    "reports": {
+      "providers": "Провайдери",
+      "suppliers": "Поставщики",
+      "tour-report": "Турсбор отчет",
+      "user-payment": "Абонентская плата",
+      "commission": "Комиссии",
+      "return": "Возврат",
+      "platform-report": "Сводный отчёт платформы",
+      "choose-year": "Выберите год",
+      "choose-month": "Выберите месяц",
+      "choose-region": "Выберите регион",
+      "choose-hotel": "Выберите гостиницу"
+    }
   },
   "tourists": {
     "tourist-fullname": "Ф.И.О. туриста",
