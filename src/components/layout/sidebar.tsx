@@ -20,150 +20,132 @@ import WalletIcon from '../icons/wallet-icon'
 // import AnalyticsIcon from '../icons/analytics-icon'
 import MegaPhoneIcon from '../icons/megaphone-icon'
 import UserIcon from '../icons/user'
+import useUserData from '@/hooks/use-user-data'
 import SidebarItem from './sidebar-item'
-
-const adminItems = [
-  {
-    label: 'routes.statistics',
-    icon: ChartRingIcon,
-    path: ROUTE_PATHS.MAIN,
-    status: 'in progress',
-  },
-  {
-    label: 'routes.placement-funds',
-    icon: Hotel2Icon,
-    path: ROUTE_PATHS.PLACEMENTS,
-    status: 'in progress',
-  },
-  {
-    label: 'routes.tourists',
-    icon: UsersGroupIcon,
-    path: ROUTE_PATHS.TOURISTS,
-    status: 'finished',
-  },
-  {
-    label: 'routes.landlords',
-    icon: HomeIcon,
-    path: ROUTE_PATHS.LANDLORDS,
-    status: 'in progress',
-  },
-  {
-    label: 'routes.service-providers',
-    icon: TipsIcon,
-    path: ROUTE_PATHS.SERVICE_PROVIDERS,
-    status: 'in progress',
-  },
-  {
-    label: 'routes.travel-agencies',
-    icon: BeachIcon,
-    path: ROUTE_PATHS.TRAVEL_AGENCIES,
-    status: 'finished',
-  },
-  {
-    label: 'routes.guides',
-    icon: TeachingIcon,
-    path: ROUTE_PATHS.GUIDES,
-    status: 'finished',
-  },
-  {
-    label: 'routes.billing',
-    icon: WalletIcon,
-    status: 'in progress',
-    children: [
-      {
-        label: 'routes.reports',
-        path: ROUTE_PATHS.BILLING_REPORTS,
-        status: 'in progress',
-      },
-      {
-        label: 'routes.directories',
-        path: ROUTE_PATHS.BILLING_DIRECTORIES,
-        status: 'in progress',
-      },
-      {
-        label: 'routes.transactions',
-        path: ROUTE_PATHS.BILLING_TRANSACTIONS,
-        status: 'in progress',
-      },
-      {
-        label: 'routes.integration',
-        path: ROUTE_PATHS.BILLING_INTEGRATION,
-        status: 'in progress',
-      },
-      {
-        label: 'routes.registers',
-        path: ROUTE_PATHS.BILLING_REGISTERS,
-        status: 'in progress',
-      },
-      {
-        label: 'routes.tourist-transactions',
-        path: ROUTE_PATHS.BILLING_TOURIST_TRANSACTIONS,
-        status: 'in progress',
-      },
-    ],
-  },
-  // {
-  //   label: 'routes.bi-service',
-  //   icon: AnalyticsIcon,
-  //   path: ROUTE_PATHS.GUIDES,
-  //   status: 'unstarted',
-  // },
-
-  {
-    label: 'routes.content',
-    icon: MegaPhoneIcon,
-    path: ROUTE_PATHS.CONTENT,
-    status: 'finished',
-  },
-  // {
-  //   label: 'common.tenants',
-  //   icon: MegaPhoneIcon,
-  //   path: ROUTE_PATHS.TENANTS,
-  //   status: 'in progress',
-  // },
-  // {
-  //   label: 'routes.roles',
-  //   icon: TimeManagementIcon,
-  //   path: ROUTE_PATHS.ACCESS_ROLE,
-  //   status: 'unstarted',
-  // },
-  {
-    label: 'common.users',
-    icon: UserIcon,
-    path: ROUTE_PATHS.USERS,
-    status: 'finished',
-  },
-  {
-    label: 'common.action-history',
-    icon: MegaPhoneIcon,
-    path: ROUTE_PATHS.ACTION_HISTORY,
-    status: 'finished',
-  },
-  // { label: 'common.clients', icon: IdIcon, path: ROUTE_PATHS.CLIENTS },
-  // { label: 'common.complaints', icon: AlertIcon, path: ROUTE_PATHS.COMPLAINTS },
-  // {
-  //   label: 'common.call-center',
-  //   icon: CustomerSupportIcon,
-  //   path: ROUTE_PATHS.CALL_CENTER,
-  // },
-  // {
-  //   label: 'common.facilities-and-services',
-  //   icon: ServicesIcon,
-  //   path: ROUTE_PATHS.SERVICES,
-  // },
-  // {
-  //   label: 'common.main-content',
-  //   icon: NodeEdit,
-  //   path: ROUTE_PATHS.MAIN_CONTENT,
-  // },
-]
 
 const Sidebar = () => {
   const { t } = useTranslation()
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   const { pathname } = useLocation()
+  const user = useUserData()
 
-  const sidebarItems = adminItems
+  const adminItems = [
+    {
+      label: 'routes.statistics',
+      icon: ChartRingIcon,
+      path: ROUTE_PATHS.MAIN,
+      status: 'in progress',
+    },
+    {
+      label: 'routes.placement-funds',
+      icon: Hotel2Icon,
+      path: ROUTE_PATHS.PLACEMENTS,
+      status: 'in progress',
+    },
+    {
+      label: 'routes.tourists',
+      icon: UsersGroupIcon,
+      path: ROUTE_PATHS.TOURISTS,
+      status: 'finished',
+    },
+    {
+      label: 'routes.landlords',
+      icon: HomeIcon,
+      path: ROUTE_PATHS.LANDLORDS,
+      status: 'in progress',
+    },
+    {
+      label: 'routes.service-providers',
+      icon: TipsIcon,
+      path: ROUTE_PATHS.SERVICE_PROVIDERS,
+      status: 'in progress',
+    },
+    {
+      label: 'routes.travel-agencies',
+      icon: BeachIcon,
+      path: ROUTE_PATHS.TRAVEL_AGENCIES,
+      status: 'finished',
+    },
+    {
+      label: 'routes.guides',
+      icon: TeachingIcon,
+      path: ROUTE_PATHS.GUIDES,
+      status: 'finished',
+    },
+    {
+      label: 'routes.billing',
+      icon: WalletIcon,
+      path: ROUTE_PATHS.BILLING,
+      status: 'in progress',
+    },
+    // {
+    //   label: 'routes.bi-service',
+    //   icon: AnalyticsIcon,
+    //   path: ROUTE_PATHS.GUIDES,
+    //   status: 'unstarted',
+    // },
+
+    {
+      label: 'routes.content',
+      icon: MegaPhoneIcon,
+      path: ROUTE_PATHS.CONTENT,
+      status: 'finished',
+    },
+    // {
+    //   label: 'common.tenants',
+    //   icon: MegaPhoneIcon,
+    //   path: ROUTE_PATHS.TENANTS,
+    //   status: 'in progress',
+    // },
+    // {
+    //   label: 'routes.roles',
+    //   icon: TimeManagementIcon,
+    //   path: ROUTE_PATHS.ACCESS_ROLE,
+    //   status: 'unstarted',
+    // },
+    {
+      label: 'common.users',
+      icon: UserIcon,
+      path: ROUTE_PATHS.USERS,
+      status: 'finished',
+    },
+    {
+      label: 'common.action-history',
+      icon: MegaPhoneIcon,
+      path: ROUTE_PATHS.ACTION_HISTORY,
+      status: 'finished',
+    },
+    // { label: 'common.clients', icon: IdIcon, path: ROUTE_PATHS.CLIENTS },
+    // { label: 'common.complaints', icon: AlertIcon, path: ROUTE_PATHS.COMPLAINTS },
+    // {
+    //   label: 'common.call-center',
+    //   icon: CustomerSupportIcon,
+    //   path: ROUTE_PATHS.CALL_CENTER,
+    // },
+    // {
+    //   label: 'common.facilities-and-services',
+    //   icon: ServicesIcon,
+    //   path: ROUTE_PATHS.SERVICES,
+    // },
+    // {
+    //   label: 'common.main-content',
+    //   icon: NodeEdit,
+    //   path: ROUTE_PATHS.MAIN_CONTENT,
+    // },
+  ]
+  const sidebarItems =
+    user?.username === 'statistics_admin'
+      ? [
+          {
+            label: 'routes.statistics',
+            icon: ChartRingIcon,
+            path: ROUTE_PATHS.MAIN,
+            status: 'in progress',
+          },
+        ]
+      : adminItems
+
+  // const sidebarItems = adminItems
 
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => !prev)

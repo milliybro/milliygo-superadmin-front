@@ -27,11 +27,27 @@ import type { CustomRoute } from '@/types'
 import NotFound from '@/views/not-found'
 import actionHistoryRoutes from '@/features/action-history/routes'
 import resetRoutes from '@/features/reset/routes'
+import useUserData from '@/hooks/use-user-data'
 
 export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
   const commonAuthRoutes = [authRoutes, resetRoutes]
+  const user = useUserData()
 
   if (role === 'admin') {
+    if (user?.username === 'statistics_admin') {
+      return [
+        {
+          id: 'root',
+          path: ROUTE_PATHS.MAIN,
+          element: <Root />,
+          errorElement: <Error />,
+          children: [statisticsRoutes],
+        },
+        { path: '/not-found', element: <NotFound /> },
+        ...commonAuthRoutes,
+      ]
+    }
+
     return [
       {
         id: 'root',

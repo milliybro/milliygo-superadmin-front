@@ -33,6 +33,8 @@ export default function SignIn(): React.ReactElement {
   const [isLoading, setIsLoading] = useState(false)
   const [openModal, setOpenModal] = useState(false)
 
+  console.log(userData, isLoading, openModal)
+
   const authStore = authContext?.authStore || {
     isAuthenticated: false,
     login: () => {},
@@ -145,6 +147,35 @@ export default function SignIn(): React.ReactElement {
 
   //   window.location.href = oneIdUrl + params
   // }
+  const handleSubmit = (values: any) => {
+    // if (
+    //   values.username === 'statistics_adminq' &&
+    //   values.password === 'admin123'
+    // ) {
+    //   const user = {
+    //     id: 9999,
+    //     username: 'statistics_admin@gmail.com',
+    //     first_name: 'Statistics Admin',
+    //     is_superuser: true,
+    //     permissions: ['statistics_read', 'statistics_write'],
+    //   }
+
+    //   localStorage.setItem('user', JSON.stringify(user))
+    //   localStorage.setItem('access', 'STATIC_ACCESS_TOKEN')
+    //   localStorage.setItem('refresh', 'STATIC_REFRESH_TOKEN')
+
+    //   loginAction(user)
+    //   setCookie('user', user)
+    //   setIsAuth(true)
+
+    //   message.success('Muvaffaqiyatli tizimga kirdingiz!', 2)
+
+    //   navigate('/')
+    //   return
+    // }
+
+    mutateLogin(values)
+  }
 
   return (
     <div className="h-[110vh] w-[100vw] lg:h-[100vh]">
@@ -182,7 +213,7 @@ export default function SignIn(): React.ReactElement {
                 form={form}
                 layout="vertical"
                 className="mb-2 w-full"
-                onFinish={mutateLogin}
+                onFinish={handleSubmit}
               >
                 <div className="flex flex-col">
                   <div className="mb-[10px]">
