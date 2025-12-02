@@ -166,8 +166,24 @@ const PlacementsTable = () => {
     },
     {
       width: 1,
+      dataIndex: 'id',
       title: isCompact ? '' : t('common.action'),
-      render: () => <CompactViewButton />,
+      render: id => (
+        <CompactViewButton
+          onClick={() =>
+            navigate(
+              pathname +
+                '/' +
+                id +
+                '?' +
+                (id !== undefined ? 'tenant_id=' + id + '&' : '') +
+                (queries?.type__key !== undefined
+                  ? 'type=' + queries?.type__key
+                  : ''),
+            )
+          }
+        />
+      ),
     },
   ]
 
