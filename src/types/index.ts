@@ -1,3 +1,4 @@
+import { FC, ReactNode, SVGProps } from 'react'
 import type {
   IndexRouteObject,
   NonIndexRouteObject,
@@ -110,6 +111,14 @@ interface IErrorMessage {
   status_code: number
 }
 
+type SidebarItemType = {
+  label: string
+  icon?: FC<SVGProps<SVGSVGElement>>
+  path?: string
+  status: string
+  children?: SidebarItemType[]
+}
+
 export type {
   IUser,
   User,
@@ -119,4 +128,5 @@ export type {
   ListResponse,
   IErrorMessage,
   ListResponseShort,
+  SidebarItemType,
 }

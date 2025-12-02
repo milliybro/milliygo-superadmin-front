@@ -21,6 +21,7 @@ import WalletIcon from '../icons/wallet-icon'
 import MegaPhoneIcon from '../icons/megaphone-icon'
 import UserIcon from '../icons/user'
 import useUserData from '@/hooks/use-user-data'
+import SidebarItem from './sidebar-item'
 
 const Sidebar = () => {
   const { t } = useTranslation()
@@ -149,7 +150,7 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => !prev)
   }
-
+  console.log({ pathname })
   return (
     <aside
       className={twMerge(
@@ -170,38 +171,13 @@ const Sidebar = () => {
         <ul className={twMerge('space-y-2', isSidebarOpen ? 'p-3' : 'p-2')}>
           {sidebarItems.map((item, i) => {
             const isActive = pathname === item.path
+            console.log({ isActive, pathname, p: item.path })
             return (
-              <li key={`routes-${i}`}>
-                <Link
-                  to={item.path || '#'}
-                  className={twMerge(
-                    'flex items-center gap-2 rounded p-2 font-medium hover:bg-[#F8F8FA]',
-                    isSidebarOpen ? '' : 'justify-center',
-                    isActive ? 'bg-[#F8F8FA]' : '',
-                  )}
-                >
-                  <item.icon
-                    className={twMerge(
-                      'text-2xl',
-                      isActive ? 'text-primary-dark' : 'text-[#69757A]',
-                    )}
-                  />
-                  {isSidebarOpen && (
-                    <span
-                      className={twMerge(
-                        'line-clamp-1 flex flex-1 items-center justify-between',
-                        isActive ? 'text-primary-dark' : 'text-[#69757A]',
-                      )}
-                    >
-                      {t(item.label)}{' '}
-                      {/* <div
-                        className={`h-2 w-2 rounded-full ${item.status === 'unstarted' ? 'bg-danger' : item.status === 'in progress' ? 'bg-yellow-500' : 'bg-green-500'}`}
-                      /> */}
-                      {/* status */}
-                    </span>
-                  )}
-                </Link>
-              </li>
+              <SidebarItem
+                key={`routes-${i}`}
+                item={item}
+                isSidebarOpen={isSidebarOpen}
+              />
             )
           })}
         </ul>
