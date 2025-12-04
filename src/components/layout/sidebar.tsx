@@ -72,12 +72,43 @@ const Sidebar = () => {
       path: ROUTE_PATHS.GUIDES,
       status: 'finished',
     },
-    {
-      label: 'routes.billing',
-      icon: WalletIcon,
-      path: ROUTE_PATHS.BILLING,
-      status: 'in progress',
-    },
+ {
+    label: 'routes.billing',
+    icon: WalletIcon,
+    status: 'in progress',
+    children: [
+      {
+        label: 'routes.reports',
+        path: ROUTE_PATHS.BILLING_REPORTS,
+        status: 'in progress',
+      },
+      {
+        label: 'routes.directories',
+        path: ROUTE_PATHS.BILLING_DIRECTORIES,
+        status: 'in progress',
+      },
+      {
+        label: 'routes.transactions',
+        path: ROUTE_PATHS.BILLING_TRANSACTIONS,
+        status: 'in progress',
+      },
+      {
+        label: 'routes.integration',
+        path: ROUTE_PATHS.BILLING_INTEGRATION,
+        status: 'in progress',
+      },
+      {
+        label: 'routes.registers',
+        path: ROUTE_PATHS.BILLING_REGISTERS,
+        status: 'in progress',
+      },
+      {
+        label: 'routes.tourist-transactions',
+        path: ROUTE_PATHS.BILLING_TOURIST_TRANSACTIONS,
+        status: 'in progress',
+      },
+    ],
+  },
     // {
     //   label: 'routes.bi-service',
     //   icon: AnalyticsIcon,
