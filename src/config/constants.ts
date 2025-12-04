@@ -13,7 +13,7 @@ const ROUTE_PATHS = {
   TRAVEL_AGENCIES: '/travel-agencies',
   BILLING: '/billing',
   BILLING_REPORTS: '/billing/reports',
-  BILLING_DIRECTORIES: '/billing/directories',
+  BILLING_DIRECTORIES: '/billing/directories/currencies',
   BILLING_TRANSACTIONS: '/billing/transactions',
   BILLING_INTEGRATION: '/billing/integration',
   BILLING_REGISTERS: '/billing/registers',
