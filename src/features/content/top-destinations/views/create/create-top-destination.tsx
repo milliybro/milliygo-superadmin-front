@@ -103,14 +103,16 @@ export default function TopDestinationForm() {
     formData.append('region', toSubmit.region.toString())
     formData.append('youtube_url', toSubmit.youtube_url)
     formData.append('status', String(toSubmit?.status))
-    values.translate_all != null &&
+
+    if (values.translate_all != null) {
       formData.append('translate_all', String(toSubmit.translate_all))
-    values.refresh_cache != null &&
+    }
+
+    if (values.refresh_cache != null) {
       formData.append('refresh_cache', String(toSubmit.refresh_cache))
+    }
+
     images.forEach((img, i) => {
-      // if (img?.id) {
-      //   formData.append(`uploaded_images[${i}]id`, img?.id.toString())
-      // } else
       if (img?.file) {
         formData.append(`uploaded_images[${i}]image`, img?.file)
 
