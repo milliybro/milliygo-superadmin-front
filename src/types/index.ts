@@ -1,4 +1,4 @@
-import { FC, ReactNode, SVGProps } from 'react'
+import { FC, SVGProps } from 'react'
 import type {
   IndexRouteObject,
   NonIndexRouteObject,
@@ -116,7 +116,11 @@ type SidebarItemType = {
   icon?: FC<SVGProps<SVGSVGElement>>
   path?: string
   status: string
-  children?: SidebarItemType[]
+  children?: Children[]
+}
+export interface Children {
+  label: string
+  path?: string
 }
 
 export type {
