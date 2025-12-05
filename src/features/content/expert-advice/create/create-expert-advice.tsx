@@ -10,7 +10,7 @@ import {
   Typography,
   Upload,
 } from 'antd'
-import { useEffect, useState, useRef } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 
@@ -55,8 +55,6 @@ export default function CreateExpertAdvice() {
     locale === 'oz' ? 'uz-latin' : locale || 'en',
   )
 
-  const isInitialLoad = useRef(true)
-
   const expertAdviceItem = useQuery({
     queryKey: ['expert-advices-item', params.slug, language],
     queryFn: () => getExpertAdvice(params.slug, language),
@@ -74,35 +72,13 @@ export default function CreateExpertAdvice() {
 
     return () => {
       setImage(null)
-      isInitialLoad.current = true
     }
   }, [])
 
   useEffect(() => {
     if (expertAdviceItem?.data) {
-      let cleanContent = expertAdviceItem.data.content
-
-      try {
-        if (
-          typeof cleanContent === 'string' &&
-          (cleanContent.startsWith('"') || cleanContent.startsWith('{"'))
-        ) {
-          cleanContent = JSON.parse(cleanContent)
-        }
-      } catch (e) {
-        //
-      }
-
-      if (typeof cleanContent === 'string') {
-        const textarea = document.createElement('textarea')
-        textarea.innerHTML = cleanContent
-        cleanContent = textarea.value
-      }
-
       form.setFieldsValue({
-        title: expertAdviceItem.data.title,
-        description: expertAdviceItem.data.description,
-        content: cleanContent,
+        ...expertAdviceItem.data,
         image: { url: expertAdviceItem.data?.image || [] },
         file: null,
       })
@@ -111,10 +87,8 @@ export default function CreateExpertAdvice() {
         url: expertAdviceItem.data?.image,
         file: null,
       })
-
-      isInitialLoad.current = false
     }
-  }, [expertAdviceItem.data, language])
+  }, [expertAdviceItem.data])
 
   const uploadImagesRules: Rule[] = [
     {
@@ -131,29 +105,9 @@ export default function CreateExpertAdvice() {
     mutationFn: (values: CreateExpertAdviceValues) => {
       const formData = new FormData()
 
-      let cleanContent = values.content
-
-      try {
-        while (
-          typeof cleanContent === 'string' &&
-          cleanContent.startsWith('"')
-        ) {
-          cleanContent = JSON.parse(cleanContent)
-        }
-      } catch (e) {
-        //
-      }
-
-      if (typeof cleanContent !== 'string') {
-        cleanContent = String(cleanContent)
-      }
-
-      console.log('Content length before submit:', cleanContent.length)
-      console.log('Content preview:', cleanContent.substring(0, 200))
-
       formData.append('title', values.title)
       formData.append('description', values.description)
-      formData.append('content', cleanContent)
+      formData.append('content', values.content)
 
       if (image?.file && image?.resized) {
         formData.append('image', image?.file)
@@ -255,7 +209,8 @@ export default function CreateExpertAdvice() {
           </Typography.Title>
           <Divider className="m-0" />
           <Form.Item name="content">
-            <QuillEditor key={`${params.slug}-${language}`} />
+            {/* ✅ No need for key prop - QuillEditor handles updates internally */}
+            <QuillEditor />
           </Form.Item>
         </div>
         <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
