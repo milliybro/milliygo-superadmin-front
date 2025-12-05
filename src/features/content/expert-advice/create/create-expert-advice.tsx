@@ -120,10 +120,13 @@ export default function CreateExpertAdvice() {
         formData.append('resized_image', image?.resized)
       }
       formData.append('type', '1')
-      values.translate_all != null &&
+      if (values.translate_all != null) {
         formData.append('translate_all', String(values.translate_all))
-      values.refresh_cache != null &&
+      }
+
+      if (values.refresh_cache != null) {
         formData.append('refresh_cache', String(values.refresh_cache))
+      }
 
       if (isEditing && params?.slug) {
         return patchExpertAdvice(params.slug, formData, language)
