@@ -21,7 +21,6 @@ import useUserData from '@/hooks/use-user-data'
 import SidebarItem from './sidebar-item'
 
 const Sidebar = () => {
-  // const { t } = useTranslation()
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   const { pathname } = useLocation()
   const user = useUserData()
@@ -160,7 +159,6 @@ const Sidebar = () => {
         ]
       : adminItems
 
-  // const sidebarItems = adminItems
 
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => !prev)
@@ -169,11 +167,11 @@ const Sidebar = () => {
   return (
     <aside
       className={twMerge(
-        'border-r border-border bg-[#232E40] transition-all duration-300 dark:bg-dark-bg',
+        'flex h-screen flex-col border-r border-border bg-[#232E40] transition-all duration-300 dark:bg-dark-bg',
         isSidebarOpen ? 'w-[200px] 2xl:w-[230px]' : 'w-14',
       )}
     >
-      <div className="flex items-center justify-between p-4">
+      <div className="sticky top-0 z-10 flex items-center justify-between bg-[#232E40] p-4">
         {isSidebarOpen && <ProjectLogo />}
         <button onClick={toggleSidebar} aria-label="Toggle Sidebar">
           <SidebarLeftIcon className="text-2xl text-[#B7BFD5]" />
@@ -182,11 +180,9 @@ const Sidebar = () => {
 
       {!isSidebarOpen && <Divider className="m-0" />}
 
-      <nav>
+      <nav className="flex-1 overflow-y-auto">
         <ul className={twMerge('space-y-2', isSidebarOpen ? 'p-3' : 'p-2')}>
           {sidebarItems.map((item, i) => {
-            const isActive = pathname === item.path
-            console.log({ isActive, pathname, p: item.path })
             return (
               <SidebarItem
                 key={`routes-${i}`}
