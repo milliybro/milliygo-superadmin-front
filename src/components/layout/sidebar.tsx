@@ -1,7 +1,7 @@
 import { Divider } from 'antd'
 import { useState } from 'react'
-import { useTranslation } from 'react-i18next'
-import { Link, useLocation } from 'react-router'
+// import { useTranslation } from 'react-i18next'
+// import { Link, useLocation } from 'react-router'
 import { twMerge } from 'tailwind-merge'
 
 import { ROUTE_PATHS } from '@/config/constants'
@@ -24,9 +24,9 @@ import useUserData from '@/hooks/use-user-data'
 import SidebarItem from './sidebar-item'
 
 const Sidebar = () => {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
-  const { pathname } = useLocation()
+  // const { pathname } = useLocation()
   const user = useUserData()
 
   const adminItems = [
@@ -181,7 +181,6 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => !prev)
   }
-  console.log({ pathname })
   return (
     <aside
       className={twMerge(
@@ -201,8 +200,8 @@ const Sidebar = () => {
       <nav>
         <ul className={twMerge('space-y-2', isSidebarOpen ? 'p-3' : 'p-2')}>
           {sidebarItems.map((item, i) => {
-            const isActive = pathname === item.path
-            console.log({ isActive, pathname, p: item.path })
+            // const isActive = pathname === item.path
+            // console.log({ isActive, pathname, p: item.path })
             return (
               <SidebarItem
                 key={`routes-${i}`}
