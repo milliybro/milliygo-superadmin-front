@@ -97,7 +97,7 @@ const SidebarItem = ({ item, isSidebarOpen }: SidebarItemProps) => {
             <span
               className={twMerge(
                 'line-clamp-1 flex flex-1 items-center',
-                isActive ? 'text-primary-dark text-white' : 'text-[#69757A]',
+                isActive ? 'text-white' : 'text-[#ffffff]',
               )}
             >
               {t(item.label)}
