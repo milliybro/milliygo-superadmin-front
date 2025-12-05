@@ -18,6 +18,12 @@ interface IProps {
 const columns: TableColumnsType<IActionHistory> = [
   {
     width: 1000,
+    title: 'common.service-name',
+    dataIndex: 'service',
+    render: value => `${value}`,
+  },
+  {
+    width: 1000,
     title: 'common.action',
     dataIndex: 'data',
     render: (value, all) => `${all?.action}: ${value?.comment || ''}`,
@@ -27,6 +33,12 @@ const columns: TableColumnsType<IActionHistory> = [
     title: 'common.action-time',
     dataIndex: 'timestamp',
     render: value => dayjs(value).format('HH:mm, DD.MM.YYYY'),
+  },
+  {
+    width: 1000,
+    title: 'common.employee-id',
+    dataIndex: 'user',
+    render: value => `${value}`,
   },
 ]
 

@@ -664,7 +664,9 @@
     "auto-trans": "Avtomatik tarjima",
     "auto-trans-desc": "Siz kiritgan kontent avtomatik ravishda boshqa tillarga tarjima qilinadi. Istasangiz, uni sozlamalar orqali o‘chirib tashlashingiz mumkin.",
     "pending-confirmation": "Tasdiqlash kutilmoqda",
-    "enter": "Kirting"
+    "enter": "Kirting",
+    "service-name": "Xizmat nomi",
+    "employee-id": "Foydalanuvchi ID"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
@@ -947,5 +949,27 @@
     "hotel": "Mehmonxonalar",
     "cultural_heritage": "Madaniy Meros",
     "railway": "Temir yo'l"
+  },
+  "statistics": {
+    "tourist_infracstructure": "Turizm infratuzilmasi",
+    "tourism_company": "Sayyohlik kompaniyalari",
+    "inbound_tourism": "Kirish turizmi",
+    "outbound_tourism": "Chiqish turizmi",
+    "umehmon-active": "U-Mehmon faolligi",
+    "tourist_infracstructure-desc": "Obyektlar, joylar va joylashtirish vositalari haqida ma’lumot",
+    "total_organizations": "Dam olish va turizm tashkilotlari jami",
+    "total_hotels": "Mehmonxonalar va ularga o‘xshash joylar jami",
+    "total_special_accommodation": "Ixtisoslashtirilgan joylashtirish vositalari jami",
+    "total_collective_accommodation": "Kollektiv joylashtirish vositalari jami",
+    "total_sanatoriums": "Sanatoriy-kurort muassasalari jami",
+    "than_last_year": "o‘tgan {{year}} yilga nisbatan",
+    "recreation-and-tourism": "Dam olish va sayyohlik tashkilotlari statistikasi",
+    "objects": "Obyektlar",
+    "places": "O‘rinlar",
+    "by-objects": "Obyektlar bo‘yicha",
+    "by-places": "O‘rinlar bo‘yicha",
+    "hotel-sector-stat": "Mehmonxona sektori statistikasi",
+    "collective-accommodation-facilities": "Jamoaviy joylashtirish obyektlari soni",
+    "sanatorium-number": "Sanatoriy-kurort obyektlari soni"
   }
 }
