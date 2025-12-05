@@ -42,7 +42,7 @@ export default function InfrastructureCollectiveStatistics({
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: '30px',
+          columnWidth: '70%',
           borderRadius: 4,
           dataLabels: {
             position: 'top',
@@ -149,16 +149,23 @@ export default function InfrastructureCollectiveStatistics({
     [],
   ) as any
 
+  const { t } = useTranslation()
   const series = useMemo(
     () => [
       {
-        name: 'Объекты',
-        data: financeData.map(item => item.objects),
+        name:
+          activeTab === 'object'
+            ? t('statistics.objects')
+            : t('statistics.places'),
+        type: 'column',
+        data:
+          activeTab === 'object'
+            ? financeData.map(item => item.objects)
+            : financeData.map(item => item.guests),
       },
     ],
-    [data],
+    [financeData, activeTab, t],
   ) as any
-  const { t } = useTranslation()
   return (
     <Card className="w-full" style={{ padding: '' }}>
       <div className="flex flex-row items-center justify-between">
@@ -197,7 +204,9 @@ export default function InfrastructureCollectiveStatistics({
           style={{ backgroundColor: '#FF9D4D' }}
         ></span>
         <span className="text-sm font-medium text-[#374151]">
-          {t('statistics.objects')}
+          {activeTab === 'object'
+            ? t('statistics.objects')
+            : t('statistics.places')}
         </span>
       </div>
     </Card>
