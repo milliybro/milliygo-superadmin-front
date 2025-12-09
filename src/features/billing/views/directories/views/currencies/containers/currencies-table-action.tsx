@@ -44,7 +44,7 @@ const CurrenciesTableAction: FC<IProps> = ({ id, refetch }) => {
             <EditIcon className="text-xl" />
           </Button>
         </Tooltip>
-        <Tooltip title={t('common.hierarchy')}>
+        <Tooltip title={t('common.more-details')}>
           <Button
             type="link"
             className="px-0 text-base font-medium text-[#232E40]"

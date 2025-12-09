@@ -36,7 +36,7 @@ function TaxRates() {
     <div className="flex flex-1 flex-col gap-3">
       <div className="flex items-center justify-between">
         <Typography.Title level={2} className="text-lg font-medium">
-          {t('Налоговые ставки')}
+          {t('billing.directories.tax-rates')}
         </Typography.Title>
 
         <Button type="primary" onClick={openModal}>

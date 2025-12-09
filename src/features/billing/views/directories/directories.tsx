@@ -20,27 +20,27 @@ function Directories() {
   const tabItems: TabsProps['items'] = [
     {
       key: 'currencies',
-      label: t('Валюты'),
+      label: t('billing.directories.currencies'),
     },
     {
       key: 'payment-providers',
-      label: t('Банки и платёжные провайдеры'),
+      label: t('billing.directories.payment-providers'),
     },
     {
       key: 'tax-rates',
-      label: t('Налоговые ставки'),
+      label: t('billing.directories.tax-rates'),
     },
     {
       key: 'tourist-taxes',
-      label: t('Туристические сборы'),
+      label: t('billing.directories.tourist-taxes'),
     },
     {
       key: 'subscriber-services',
-      label: t('Прейскурант абонентских услуг'),
+      label: t('billing.directories.subscriber-services'),
     },
     {
       key: 'payments-types',
-      label: 'Виды платежей',
+      label: t('billing.directories.payments-types'),
     },
   ]
 

@@ -1,6 +1,8 @@
 import { Divider } from 'antd'
 import { useState } from 'react'
-import { useLocation } from 'react-router'
+// import { useTranslation } from 'react-i18next'
+// import { Link, useLocation } from 'react-router'
+// import { useLocation } from 'react-router'
 import { twMerge } from 'tailwind-merge'
 
 import { ROUTE_PATHS } from '@/config/constants'
@@ -21,8 +23,10 @@ import useUserData from '@/hooks/use-user-data'
 import SidebarItem from './sidebar-item'
 
 const Sidebar = () => {
+  // const { t } = useTranslation()
+
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
-  const { pathname } = useLocation()
+  // const { pathname } = useLocation()
   const user = useUserData()
 
   const adminItems = [
@@ -93,32 +97,32 @@ const Sidebar = () => {
     children: [
       {
         label: 'routes.reports',
-        // path: ROUTE_PATHS.BILLING_REPORTS,
+        path: ROUTE_PATHS.BILLING_REPORTS,
         status: 'in progress',
       },
       {
         label: 'routes.directories',
-        // path: ROUTE_PATHS.BILLING_DIRECTORIES,
+        path: ROUTE_PATHS.BILLING_DIRECTORIES,
         status: 'in progress',
       },
       {
         label: 'routes.transactions',
-        // path: ROUTE_PATHS.BILLING_TRANSACTIONS,
+        path: ROUTE_PATHS.BILLING_TRANSACTIONS,
         status: 'in progress',
       },
       {
         label: 'routes.integration',
-        // path: ROUTE_PATHS.BILLING_INTEGRATION,
+        path: ROUTE_PATHS.BILLING_INTEGRATION,
         status: 'in progress',
       },
       {
         label: 'routes.registers',
-        // path: ROUTE_PATHS.BILLING_REGISTERS,
+        path: ROUTE_PATHS.BILLING_REGISTERS,
         status: 'in progress',
       },
       {
         label: 'routes.tourist-transactions',
-        // path: ROUTE_PATHS.BILLING_TOURIST_TRANSACTIONS,
+        path: ROUTE_PATHS.BILLING_TOURIST_TRANSACTIONS,
         status: 'in progress',
       },
     ],
@@ -194,7 +198,6 @@ const Sidebar = () => {
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => !prev)
   }
-  console.log({ pathname })
   return (
     <aside
       className={twMerge(
@@ -214,6 +217,9 @@ const Sidebar = () => {
       <nav className="flex-1 overflow-y-auto">
         <ul className={twMerge('space-y-2', isSidebarOpen ? 'p-3' : 'p-2')}>
           {sidebarItems.map((item, i) => {
+            // const isActive = pathname === item.path
+            // console.log({ isActive, pathname, p: item.path })
+
             return (
               <SidebarItem
                 key={`routes-${i}`}
