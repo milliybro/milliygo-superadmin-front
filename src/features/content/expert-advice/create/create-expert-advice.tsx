@@ -7,12 +7,10 @@ import {
   Input,
   notification,
   Select,
-  Switch,
-  Tooltip,
   Typography,
   Upload,
 } from 'antd'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate, useParams } from 'react-router'
 
@@ -31,15 +29,12 @@ import { useImageCompression } from '@/hooks/use-image-compression'
 import type { Rule } from 'antd/es/form'
 import type { RcFile } from 'antd/es/upload'
 import { useExpertAdviceImage } from '../store/expert-advice-image'
-import TranslateIcon from '@/components/icons/translate-icon'
 
 type CreateExpertAdviceValues = {
   title: string
   description: string
   content: string
   image: RcFile
-  translate_all: boolean
-  refresh_cache: boolean
 }
 
 export default function CreateExpertAdvice() {
@@ -50,7 +45,6 @@ export default function CreateExpertAdvice() {
   const { setImage, image, removeImage } = useExpertAdviceImage()
   const { t } = useTranslation()
   const queryClient = useQueryClient()
-  const isEdit = useMemo(() => pathname.includes('/edit'), [pathname])
 
   const { setBreadCrumbs } = useBreadCrumbsStore()
 
@@ -60,6 +54,7 @@ export default function CreateExpertAdvice() {
   const [language, setLanguage] = useState(
     locale === 'oz' ? 'uz-latin' : locale || 'en',
   )
+
   const expertAdviceItem = useQuery({
     queryKey: ['expert-advices-item', params.slug, language],
     queryFn: () => getExpertAdvice(params.slug, language),
@@ -98,11 +93,9 @@ export default function CreateExpertAdvice() {
   const uploadImagesRules: Rule[] = [
     {
       validator: (_, value) => {
-        console.log(value, image)
         if (!value || (!image?.file && !image?.url)) {
           return Promise.reject(new Error(t('fields.images.required')))
         }
-
         return Promise.resolve()
       },
     },
@@ -115,15 +108,13 @@ export default function CreateExpertAdvice() {
       formData.append('title', values.title)
       formData.append('description', values.description)
       formData.append('content', values.content)
+
       if (image?.file && image?.resized) {
         formData.append('image', image?.file)
         formData.append('resized_image', image?.resized)
       }
+
       formData.append('type', '1')
-      values.translate_all != null &&
-        formData.append('translate_all', String(values.translate_all))
-      values.refresh_cache != null &&
-        formData.append('refresh_cache', String(values.refresh_cache))
 
       if (isEditing && params?.slug) {
         return patchExpertAdvice(params.slug, formData, language)
@@ -132,13 +123,22 @@ export default function CreateExpertAdvice() {
       return createExpertAdvice(formData)
     },
     onSuccess: () => {
-      // setChecked(prev => !prev)
       queryClient.invalidateQueries({ queryKey: ['expert-advices'] })
       navigate('/content/expert-advice')
       notification.success({
         message: t(
           `content.expert-advice.status-${isEditing ? 'updated' : 'created'}`,
         ),
+      })
+    },
+    onError: (error: any) => {
+      console.error('Submission error:', error)
+      notification.error({
+        message: t('common.error'),
+        description:
+          error?.response?.data?.message ||
+          error?.message ||
+          'Failed to save. Please try again.',
       })
     },
   })
@@ -154,14 +154,9 @@ export default function CreateExpertAdvice() {
       form.setFieldValue('image', compressed?.compressedFile)
     }
 
-    // if (allFiles?.length > 6) {
-    //   message.error('Вы можете загрузить не более 6 изображений.')
-
-    //   return false
-    // }
-
     return false
   }
+
   const LANGUAGES = [
     ['en', 'English'],
     ['ru', 'Russian'],
@@ -214,83 +209,26 @@ export default function CreateExpertAdvice() {
           </Typography.Title>
           <Divider className="m-0" />
           <Form.Item name="content">
+            {/* ✅ No need for key prop - QuillEditor handles updates internally */}
             <QuillEditor />
           </Form.Item>
         </div>
         <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
           <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
-            <Typography.Title level={5} className="text-xl font-medium">
-              {t('content.preview')}
-            </Typography.Title>
             <div className="flex items-center justify-between">
-              <div className="flex items-center justify-between gap-2">
-                {isEdit && (
-                  <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
-                    <Typography.Text>Keshni yangilash</Typography.Text>
-
-                    <div className="flex items-center gap-3">
-                      <Form.Item
-                        name="refresh_cache"
-                        valuePropName="checked"
-                        noStyle
-                        initialValue={false}
-                      >
-                        <Switch />
-                      </Form.Item>
-                    </div>
-                  </div>
-                )}
-                {isEdit && (
-                  <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
-                    <Typography.Text>
-                      {t('common.auto-translate')}
-                    </Typography.Text>
-
-                    <div className="flex items-center gap-3">
-                      <Form.Item
-                        name="translate_all"
-                        valuePropName="checked"
-                        noStyle
-                        initialValue={false}
-                      >
-                        <Switch />
-                      </Form.Item>
-
-                      <Tooltip
-                        title={
-                          <>
-                            <b className="pb-1">{t('common.auto-trans')}</b>
-                            <br />
-                            {t('common.auto-trans-desc')}
-                          </>
-                        }
-                        overlayInnerStyle={{
-                          padding: '12px',
-                          backgroundColor: '#232E40',
-                          color: '#fff',
-                          width: '320px',
-                        }}
-                      >
-                        <div className="flex h-[20px] w-[20px] cursor-pointer items-center justify-center rounded-full border border-[#777E90] text-[12px] text-[#777E90]">
-                          ?
-                        </div>
-                      </Tooltip>
-                    </div>
-                  </div>
-                )}
-
-                <Select
-                  showSearch
-                  placeholder="Select language"
-                  optionFilterProp="label"
-                  size="large"
-                  style={{ width: 240 }}
-                  options={options}
-                  value={language}
-                  onChange={val => setLanguage(val)}
-                  prefix={<TranslateIcon />}
-                />
-              </div>
+              <Typography.Title level={5} className="text-xl font-medium">
+                {t('content.preview')}
+              </Typography.Title>
+              <Select
+                showSearch
+                placeholder="Select language"
+                optionFilterProp="label"
+                size="large"
+                style={{ width: 240 }}
+                options={options}
+                value={language}
+                onChange={val => setLanguage(val)}
+              />
             </div>
             <Divider className="m-0" />
             <Form.Item
@@ -361,8 +299,6 @@ export default function CreateExpertAdvice() {
                   }}
                   beforeUpload={beforeUploadHandler}
                   disabled={isCompressing}
-
-                  // beforeUpload={handleUpload}
                 >
                   <ImageUploadIcon className="text-[4.375rem]" />
                   <Typography.Title className="m-0 text-base font-medium">
