@@ -1,7 +1,6 @@
-import { Card, DatePicker, Form, Tabs } from 'antd'
+import { Card } from 'antd'
 import { Line } from 'react-chartjs-2'
 import { twMerge } from 'tailwind-merge'
-
 import {
   CategoryScale,
   Chart as ChartJS,
@@ -12,11 +11,9 @@ import {
   Tooltip,
 } from 'chart.js'
 
-// import CalendarIcon from '@/components/icons/calendar'
 import { formatAmount } from '@/helpers/format-amount'
-
-import Calendar3Icon from '@/components/icons/calendar-3'
 import type { FC } from 'react'
+import { useTranslation } from 'react-i18next'
 
 ChartJS.register(
   LineElement,
@@ -27,63 +24,71 @@ ChartJS.register(
   Filler,
 )
 
-const staticFinanceData = [
-  { date: '2025-01-01', total_amount: 120000000 },
-  { date: '2025-02-01', total_amount: 150000000 },
-  { date: '2025-03-01', total_amount: 180000000 },
-  { date: '2025-04-01', total_amount: 140000000 },
-  { date: '2025-05-01', total_amount: 200000000 },
-  { date: '2025-06-01', total_amount: 220000000 },
-  { date: '2025-07-01', total_amount: 190000000 },
-]
+const FinanceStatsChart: FC<{ className?: string; data: any }> = ({
+  className,
+  data,
+}) => {
+  const { t } = useTranslation()
 
-const chartOptions = {
-  responsive: true,
-  plugins: {
-    legend: { display: false },
-    tooltip: {
-      displayColors: false,
-      backgroundColor: '#ffffff',
-      bodyColor: '#111827',
-      mode: 'nearest' as const,
-      borderColor: '#E5E7EB',
-      borderWidth: 1,
-      intersect: false,
-      callbacks: {
-        title: () => [],
-        label: (context: any) => `${formatAmount(context.parsed.y)} млн сум`,
+  if (!data || typeof data !== 'object') {
+    return (
+      <Card className={twMerge('w-full', className)}>
+        <div className="p-6 text-center text-gray-500">
+          {t('no-data', 'Maʼlumot yo‘q')}
+        </div>
+      </Card>
+    )
+  }
+
+  const labels = Object.keys(data)
+  const values = Object.values(data)
+
+  const chartOptions = {
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        displayColors: false,
+        backgroundColor: '#111827',
+        bodyColor: '#fff',
+        mode: 'nearest' as const,
+        borderColor: '#E5E7EB',
+        borderWidth: 1,
+        intersect: false,
+        callbacks: {
+          title: () => [],
+          label: (context: any) => `${formatAmount(context.parsed.y)}`,
+        },
       },
     },
-  },
-  interaction: {
-    mode: 'nearest' as const,
-    intersect: false,
-  },
-  scales: {
-    y: {
-      beginAtZero: true,
-      grid: { display: false, color: '#E5E7EB' },
-      ticks: { color: '#6B7280' },
-      border: { display: false },
+    interaction: {
+      mode: 'nearest' as const,
+      intersect: false,
     },
-    x: {
-      grid: { color: '#E5E7EB' },
-      ticks: { color: '#6B7280' },
-      border: { display: false },
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: { display: false, color: '#E5E7EB' },
+        ticks: { color: '#6B7280' },
+        border: { display: false },
+      },
+      x: {
+        grid: { color: '#E5E7EB' },
+        ticks: { color: '#6B7280' },
+        border: { display: false },
+      },
     },
-  },
-}
+  }
 
-const FinanceStatsChart: FC<{ className?: string }> = props => {
   const chartData = {
-    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+    labels,
     datasets: [
       {
-        data: staticFinanceData.map(item => item.total_amount / 1000000),
+        data: values,
         fill: true,
-        backgroundColor: (context: any) => {
-          const ctx = context.chart.ctx
-          const gradient = ctx.createLinearGradient(0, 0, 0, 200)
+        backgroundColor: (ctx: any) => {
+          const context = ctx.chart.ctx
+          const gradient = context.createLinearGradient(0, 0, 0, 200)
           gradient.addColorStop(0, 'rgba(248, 113, 113, 0.25)')
           gradient.addColorStop(1, 'rgba(248, 113, 113, 0)')
           return gradient
@@ -104,37 +109,17 @@ const FinanceStatsChart: FC<{ className?: string }> = props => {
 
   return (
     <Card
-      className={twMerge('w-full', props?.className)}
+      className={twMerge('w-full', className)}
       classNames={{ body: '!p-0' }}
     >
-      <div className="flex flex-col border-b p-4">
-        <h2 className="mb-2 text-xl font-bold">
-          Статистика финансов и доходов (млн сум)
+      <div className="flex flex-col p-4 pb-0">
+        <h2 className="text-xl font-bold">
+          {t('statistics.dynamics-of-tourist')}
         </h2>
-        <Form className="flex items-center justify-between">
-          <Form.Item name="date_type">
-            <Tabs
-              defaultActiveKey="year"
-              className="[&_.ant-tabs-nav]:m-0"
-              items={[
-                { label: 'По годам', key: 'year' },
-                { label: 'По месяцам', key: 'month' },
-              ]}
-            />
-          </Form.Item>
-          <Form.Item name="date">
-            <DatePicker
-              picker="year"
-              size="large"
-              suffixIcon={
-                <Calendar3Icon className="text-lg text-success-dark" />
-              }
-            />
-          </Form.Item>
-        </Form>
       </div>
+
       <div className="p-6">
-        <Line data={chartData} options={chartOptions} height={90} />
+        <Line data={chartData} options={chartOptions} height={70} />
       </div>
     </Card>
   )

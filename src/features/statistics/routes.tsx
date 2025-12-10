@@ -1,8 +1,10 @@
 import Container from './containers/container'
+import StatisticsCompany from './views/company'
+import InboundTourism from './views/inbound'
 import StatisticsInfrastructure from './views/Infrastructure'
-import Statistics from './views/statistics'
 
 import type { CustomRoute } from '@/types'
+import OutboundTourism from './views/outbound'
 
 const statisticsRoutes: CustomRoute = {
   id: 'statistics',
@@ -18,10 +20,22 @@ const statisticsRoutes: CustomRoute = {
       element: <StatisticsInfrastructure />,
     },
     {
-      id: 'statistics-daily',
-      title: 'statistics.daily',
-      path: '/statistics/daily',
-      element: <Statistics />,
+      id: 'statistics-company',
+      title: 'statistics.company',
+      path: '/statistics/company',
+      element: <StatisticsCompany />,
+    },
+    {
+      id: 'statistics-inbound',
+      title: 'statistics.inbound_tourism',
+      path: '/statistics/inbound',
+      element: <InboundTourism />,
+    },
+    {
+      id: 'statistics-outbound',
+      title: 'statistics.outbound_tourism',
+      path: '/statistics/outbound',
+      element: <OutboundTourism />,
     },
   ],
 }

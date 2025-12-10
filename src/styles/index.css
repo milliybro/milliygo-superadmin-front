@@ -233,3 +233,22 @@ html {
   font-size: 16px !important;
   font-weight: 500 !important;
 }
+
+.ant-table-cell {
+  padding: 20px 16px !important;
+}
+.apexcharts-grid line[x1][x2]:not([y1='0']) {
+  /* faqat vertical lines */
+  stroke-dasharray: 4;
+}
+
+.apexcharts-grid-borders line {
+  stroke-dasharray: 4;
+}
+.apexcharts-grid line[y1='0'] {
+  stroke-dasharray: 0;
+}
+
+.apexcharts-legend-marker {
+  border-radius: 12px !important;
+}

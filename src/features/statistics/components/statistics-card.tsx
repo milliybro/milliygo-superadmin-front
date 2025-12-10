@@ -22,6 +22,7 @@ interface IProps {
   yesterday_date?: string
   last_month?: number
   last_year?: string
+  isSmall?: boolean
 }
 
 const StatisticsCard: FC<IProps> = props => {
@@ -33,7 +34,9 @@ const StatisticsCard: FC<IProps> = props => {
     <Card className={props?.className} classNames={{ body: 'flex h-full p-4' }}>
       <div className="flex w-full flex-col">
         <div className="mb-5 flex items-start justify-between gap-[10px]">
-          <Text className="text-medium max-w-[215px] text-[14px] text-[#2563EB]">
+          <Text
+            className={`text-medium text-[14px] text-[#2563EB] ${props?.isSmall ? 'w-full' : 'max-w-[215px]'}`}
+          >
             {title}
           </Text>
           {Icon ? (
@@ -49,7 +52,7 @@ const StatisticsCard: FC<IProps> = props => {
         <div className="flex flex-col">
           <div className="flex items-center gap-1">
             <Text className="pb-2 text-[2rem] font-bold text-primary-dark dark:text-white">
-              {formatAmount(value)}
+              {value ? formatAmount(value) : 0}
             </Text>
             {out_of || out_of === 0 ? (
               <Text className="text-success">/</Text>

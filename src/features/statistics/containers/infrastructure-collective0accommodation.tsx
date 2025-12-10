@@ -42,11 +42,8 @@ export default function InfrastructureCollectiveStatistics({
       plotOptions: {
         bar: {
           horizontal: false,
-          columnWidth: '70%',
+          columnWidth: '30px',
           borderRadius: 4,
-          dataLabels: {
-            position: 'top',
-          },
         },
       },
       colors: ['#77D093'],
@@ -57,25 +54,12 @@ export default function InfrastructureCollectiveStatistics({
         show: false,
       },
       xaxis: {
-        title: {
-          text: '',
-        },
-        categories: financeData.map(item => item.date),
-        axisBorder: {
-          show: false,
-        },
-        axisTicks: {
-          show: false,
-        },
+        categories: financeData.map(item => item.date), // 🎯 Shu joy
         labels: {
-          style: {
-            colors: '#6B7280',
-            fontSize: '12px',
-          },
+          style: { colors: '#6B7280', fontSize: '12px' },
         },
-        crosshairs: {
-          show: false,
-        },
+        axisBorder: { show: false },
+        axisTicks: { show: false },
       },
       yaxis: {
         title: {
@@ -125,12 +109,8 @@ export default function InfrastructureCollectiveStatistics({
       tooltip: {
         enabled: true,
         theme: 'dark',
-        style: {
-          fontSize: '12px',
-        },
-        custom: ({ series, seriesIndex, dataPointIndex }: any) => {
-          return `<div style="padding: 8px;">${series[seriesIndex][dataPointIndex]}</div>`
-        },
+        intersect: false,
+        shared: false,
       },
 
       legend: {
@@ -146,7 +126,7 @@ export default function InfrastructureCollectiveStatistics({
         },
       },
     }),
-    [],
+    [financeData],
   ) as any
 
   const { t } = useTranslation()
@@ -196,7 +176,12 @@ export default function InfrastructureCollectiveStatistics({
         </div>
       </div>
       <div style={{ position: 'relative', height: '375px' }}>
-        <Chart options={chartOptions} series={series} type="bar" height={375} />
+        <Chart
+          options={chartOptions}
+          series={series}
+          type="line"
+          height={375}
+        />
       </div>
       <div className="mb-2 flex items-center justify-center gap-2">
         <span
