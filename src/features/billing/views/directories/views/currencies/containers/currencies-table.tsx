@@ -29,7 +29,7 @@ const CurrenciesTable = ({
       sorter: false,
     },
     {
-      title: 'Валюта код',
+      title: 'fields.currency_code.table',
       dataIndex: 'name',
       sorter: true,
       width: 345,
@@ -42,14 +42,14 @@ const CurrenciesTable = ({
       ),
     },
     {
-      title: 'Валюта название',
+      title: 'fields.currency_name.table',
       dataIndex: 'license_validity',
       sorter: true,
       width: 345,
       render: item => <div>{dayjs(item).format('DD MMM, YYYY')}</div>,
     },
     {
-      title: t('Символ'),
+      title: t('fields.currency_symbol.label'),
       dataIndex: 'phone_number',
       sorter: true,
       width: 345,
@@ -62,7 +62,7 @@ const CurrenciesTable = ({
       ),
     },
     {
-      title: t('Курс'),
+      title: 'fields.course_uzs.table',
       dataIndex: 'phone_number',
       sorter: true,
       width: 345,
@@ -75,7 +75,7 @@ const CurrenciesTable = ({
       ),
     },
     {
-      title: t('Источник курса'),
+      title: t('fields.course_source.label'),
       dataIndex: 'phone_number',
       sorter: true,
       width: 345,
@@ -88,7 +88,7 @@ const CurrenciesTable = ({
       ),
     },
     {
-      title: t('Частота обновления'),
+      title: t('fields.refresh_rate.label'),
       dataIndex: 'phone_number',
       sorter: true,
       width: 345,
@@ -101,7 +101,7 @@ const CurrenciesTable = ({
       ),
     },
     {
-      title: t('Статус'),
+     title: t('fields.status.label'),
       dataIndex: 'id',
       sorter: true,
       width: 345,

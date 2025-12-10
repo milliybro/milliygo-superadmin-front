@@ -486,7 +486,45 @@
     "social_url": {
       "error": "URL kiritish majburiy",
       "error-2": "To‘g‘ri URL kiriting"
-    }
+    },
+    "currency_code": {
+    "label": "Valyuta kodi",
+    "placeholder": "Valyuta kodini kiriting",
+    "error": "Iltimos, valyuta kodini kiriting",
+    "table":"Valyuta kodi"
+  },
+  "currency_name": {
+    "label": "Valyuta nomi",
+    "placeholder": "Nomini kiriting",
+    "error": "Iltimos, valyuta nomini kiriting",
+    "table":"Valyuta nomi"
+  },
+  "currency_symbol": {
+    "label": "Simvol",
+    "placeholder": "Tanlang",
+    "error": "Iltimos, valyuta simvolini tanlang"
+  },
+  "course_uzs": {
+    "label": "UZS bo‘yicha kurs",
+    "placeholder": "Kiriting",
+    "error": "Iltimos, UZS bo‘yicha kursni kiriting",
+    "table":"Kurs"
+  },
+  "course_source": {
+    "label": "Kurs manbai",
+    "placeholder": "Tanlang",
+    "error": "Iltimos, kurs manbaini tanlang"
+  },
+  "refresh_rate": {
+    "label": "Yangilanish tezligi",
+    "placeholder": "Tanlang",
+    "error": "Iltimos, yangilanish tezligini tanlang"
+  },
+  "comment": {
+    "label": "Izoh",
+    "placeholder": "Izoh kiriting",
+    "error": "Iltimos, izoh kiriting"
+  }
   },
   "tenant": {
     "tenant": "Tenant",
@@ -665,6 +703,7 @@
     "auto-trans-desc": "Siz kiritgan kontent avtomatik ravishda boshqa tillarga tarjima qilinadi. Istasangiz, uni sozlamalar orqali o‘chirib tashlashingiz mumkin.",
     "pending-confirmation": "Tasdiqlash kutilmoqda",
     "enter": "Kirting",
+    "modal_description": "Yangi to‘lovni qo‘shish uchun, iltimos barcha kerakli maydonlarni to‘ldiring",
     "service-name": "Xizmat nomi",
     "employee-id": "Foydalanuvchi ID"
   },
@@ -791,7 +830,15 @@
       "commission": "Komissiyalar",
       "return": "Qaytarish",
       "platform-report": "Platforma umumiy hisobot"
-    }
+    },
+   "directories": {
+    "currencies": "Valyutalar",
+    "payment-providers": "Banklar va to‘lov provayderlari",
+    "tax-rates": "Soliq stavkalari",
+    "tourist-taxes": "Turistik yig‘imlar",
+    "subscriber-services": "Abonent xizmatlari narxlari",
+    "payments-types": "To‘lov turlari"
+  }
   },
   "tourists": {
     "tourist-fullname": "Turistning F.I.O.",

@@ -1,79 +1,50 @@
 import { useEffect } from 'react'
-import { useMutation, useQuery } from '@tanstack/react-query'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
-import { Modal, Form, Input, Button, Typography, notification, Switch, } from 'antd'
-import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
-import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
+import { Modal, Form, Input, Button, Switch } from 'antd'
 import CSelect from '@/components/ui/select'
+import { createCurrency, getCurrency, updateCurrency, } from '../../../api/getCurrencies'
+import { CheckOutlined, CloseOutlined } from '@ant-design/icons'
 import CloseIcon from '@/components/icons/close-icon'
 import MoneyIcon from '@/components/icons/money'
-import { createCurrency, getCurrency, updateCurrency, } from '../../../api/getCurrencies'
 import DirectoryModalHeader from '../../../components/DirectoryModalHeader'
 import useCurrenciesModalStore from '../../../store/currencies-modal-store'
+import useNotify from '@/hooks/useNotify'
 
-const { TextArea } = Input
-
-interface UserModalProps {
-  refetch: () => Promise<any>
+interface FormValues {
+  code: string
+  name: string
+  symbol: string
+  uzs_rate: string
+  rate: string
+  refresh_rate: string
+  status: boolean
+  comment: string
 }
-
-const CurrencyModal = ({ refetch }: UserModalProps) => {
+const CurrencyModal = () => {
   const { t } = useTranslation()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
+  const queryClient = useQueryClient()
   const { pathname } = useLocation()
   const { isModalOpen, closeModal } = useCurrenciesModalStore(state => state)
 
-  const [form] = Form.useForm()
+  const { openNotify, notificationPlace } = useNotify()
 
-  const editUserId = searchParams.get('edit')
+  const [form] = Form.useForm<FormValues>()
+  const statusValue = Form.useWatch('status', form)
+  const isEdit = searchParams.get('edit')
 
-  const closeHandler = () => {
-    closeModal()
-    if (editUserId) {
-      navigate(pathname)
-    }
-  }
-
-  const { data, refetch: fetching } = useQuery({
-    queryKey: ['currency', editUserId],
-    queryFn: () => getCurrency({ id: editUserId }),
-    enabled: !!editUserId,
+  const { data } = useQuery({
+    queryKey: ['currency', isEdit],
+    queryFn: () => getCurrency({ id: isEdit }),
+    enabled: !!isEdit,
     refetchOnMount: 'always',
   })
 
   const openNotification = () => {
-    notification.info({
-      closeIcon: null,
-      className:
-        'w-[406px] border-t-[5px] border-primary rounded-[12px] [&_.ant-notification-notice-message]:mb-0',
-      icon: <CheckmarkCircleIcon className="text-2xl text-primary" />,
-      message: (
-        <Typography.Text className="text-lg font-semibold leading-[22.95px]">
-          {editUserId
-            ? t('fields.user-notification.edit.message')
-            : t('fields.user-notification.add.message')}
-        </Typography.Text>
-      ),
-      placement: 'topRight',
-      description: (
-        <div>
-          <Button
-            size="small"
-            type="text"
-            className="absolute right-[10px] top-[10px] grid place-items-center rounded-lg"
-            icon={<CloseIcon className="text-base" />}
-            onClick={() => notification.destroy()}
-          />
-          <Typography.Text className="text-base text-secondary">
-            {editUserId
-              ? t('fields.user-notification.add.message')
-              : t('fields.user-notification.edit.message')}
-          </Typography.Text>
-        </div>
-      ),
-    })
+    openNotify({edit:isEdit})
   }
 
   const handleUserSave = useMutation({
@@ -82,40 +53,36 @@ const CurrencyModal = ({ refetch }: UserModalProps) => {
         ...values,
       }
 
-      if (editUserId) {
-        return updateCurrency({ id: editUserId, queryParams: formattedValues })
+      if (isEdit) {
+        return updateCurrency({ id: isEdit, queryParams: formattedValues })
       }
 
       return createCurrency(formattedValues)
     },
     onSuccess: res => {
-      // notification.success({
-      //   message: editUserId
-      //     ? t('fields.user-notification.edit.message')
-      //     : t('fields.user-notification.add.message'),
-      // })
-      openNotification()
-      form.resetFields()
-      refetch()
-      if (editUserId) {
-        fetching()
+      if (res) {
+        openNotification()
+        form.resetFields()
+        // queryClient.invalidateQueries({ queryKey: ['currency', isEdit] })
+        closeHandler()
+        queryClient.invalidateQueries({ queryKey: ['currencies'] })
       }
-
-      closeHandler()
     },
     onError: () => {
       form.getFieldsError()
     },
   })
 
-  // useEffect(() => {
-  //   if (editUserId) {
-  //     refetch()
-  //   }
-  // }, [editUserId, refetch])
+  const closeHandler = () => {
+    closeModal()
+    form?.resetFields()
+    if (isEdit) {
+      navigate(pathname)
+    }
+  }
 
   useEffect(() => {
-    if (data && editUserId) {
+    if (data && isEdit) {
       form.setFieldsValue({
         code: data?.code,
         name: data?.first_name,
@@ -124,16 +91,15 @@ const CurrencyModal = ({ refetch }: UserModalProps) => {
         rate: data?.rate,
         refresh_rate: data?.refresh_rate,
         // type: data?.type?.id,
-        status: data?.status ? 'True' : 'False',
+        status: data?.status ? true : false,
         comment: data?.comment,
       })
-    } else {
-      form.resetFields()
     }
   }, [data, form])
 
   return (
     <>
+      {notificationPlace}
       <Modal
         title={null}
         open={isModalOpen}
@@ -157,9 +123,9 @@ const CurrencyModal = ({ refetch }: UserModalProps) => {
           disabled={handleUserSave.isPending}
         />
         <DirectoryModalHeader
-          addText={'Добавить'}
-          textDesc={ 'Для добавления нового платежа, пожалуйста заполните все необходимые поля' }
-          id={editUserId}
+          addText={'common.add'}
+          textDesc={'common.modal_description'}
+          id={isEdit}
           Icon={MoneyIcon}
         />
 
@@ -167,22 +133,23 @@ const CurrencyModal = ({ refetch }: UserModalProps) => {
           layout="vertical"
           onFinish={values => handleUserSave.mutate(values)}
           form={form}
+          autoComplete="off"
           className="flex flex-col gap-2"
         >
           <div className="flex items-center gap-2">
             <Form.Item
-              label={t('Код валюты')}
+              label={t('fields.currency_code.label')}
               name="code"
               style={{ width: '50%' }}
               rules={[
                 {
                   required: false,
-                  message: t('fields.gender.validation-message-required'),
+                  message: t('fields.currency_code.error'),
                 },
               ]}
             >
               <CSelect
-                placeholder={t('Введите код валюты')}
+                placeholder={t('fields.currency_code.placeholder')}
                 className="select-shadow"
                 options={[
                   {
@@ -197,37 +164,37 @@ const CurrencyModal = ({ refetch }: UserModalProps) => {
               />
             </Form.Item>
             <Form.Item
-              label={t('Название валюты')}
+              label={t('fields.currency_name.label')}
               name="name"
               style={{ width: '50%' }}
               rules={[
                 {
                   required: false,
-                  message: t('fields.middle_name.validation-message-required'),
+                  message: t('fields.currency_name.error'),
                 },
               ]}
             >
               <Input
                 className="select-shadow"
-                placeholder={t('Введите название')}
+                placeholder={t('fields.currency_name.placeholder')}
               />
             </Form.Item>
           </div>
 
           <div className="flex items-center gap-2">
             <Form.Item
-              label={t('Символ')}
+              label={t('fields.currency_symbol.label')}
               name="symbol"
               style={{ width: '50%' }}
               rules={[
                 {
                   required: false,
-                  message: t('fields.gender.validation-message-required'),
+                  message: t('fields.currency_symbol.error'),
                 },
               ]}
             >
               <CSelect
-                placeholder={t('Выберите')}
+                placeholder={t('fields.currency_symbol.placeholder')}
                 className="select-shadow"
                 options={[
                   {
@@ -242,32 +209,35 @@ const CurrencyModal = ({ refetch }: UserModalProps) => {
               />
             </Form.Item>
             <Form.Item
-              label={t('Курс к UZS')}
+              label={t('fields.course_uzs.label')}
               name="uzs_rate"
               style={{ width: '50%' }}
               rules={[
                 {
                   required: false,
-                  message: t('fields.middle_name.validation-message-required'),
+                  message: t('fields.course_uzs.error'),
                 },
               ]}
             >
-              <Input className="select-shadow" placeholder={t('Введите')} />
+              <Input
+                className="select-shadow"
+                placeholder={t('fields.course_uzs.placeholder')}
+              />
             </Form.Item>
           </div>
           <Form.Item
-            label={t('Источник курса')}
+            label={t('fields.course_source.label')}
             name="rate"
             style={{ width: '100%' }}
             rules={[
               {
                 required: false,
-                message: t('fields.gender.validation-message-required'),
+                message: t('fields.course_source.error'),
               },
             ]}
           >
             <CSelect
-              placeholder={t('Выберите')}
+              placeholder={t('fields.course_source.placeholder')}
               className="select-shadow"
               options={[
                 {
@@ -283,18 +253,18 @@ const CurrencyModal = ({ refetch }: UserModalProps) => {
           </Form.Item>
           <div className="flex items-center gap-2">
             <Form.Item
-              label={t('Частота обновления')}
+              label={t('fields.refresh_rate.label')}
               name="refresh_rate"
               style={{ width: '50%' }}
               rules={[
                 {
                   required: false,
-                  message: t('fields.gender.validation-message-required'),
+                  message: t('fields.refresh_rate.error'),
                 },
               ]}
             >
               <CSelect
-                placeholder={t('Выберите')}
+                placeholder={t('fields.refresh_rate.placeholder')}
                 className="select-shadow"
                 options={[
                   {
@@ -308,54 +278,29 @@ const CurrencyModal = ({ refetch }: UserModalProps) => {
                 ]}
               />
             </Form.Item>
-            <Form.Item
-              label={t('Статус')}
-              name="status"
-              rules={
-                [
-                  // {
-                  //   required: true,
-                  //   message: t('fields.login.validation-message-required'),
-                  // },
-                  // {
-                  //   type: 'email',
-                  //   message: t('fields.email.validation-message-invalid'),
-                  // },
-                ]
-              }
-            >
+            <Form.Item label={t('fields.status.label')} name="status">
               <Switch
                 className="select-shadow"
                 checkedChildren={<CheckOutlined />}
                 unCheckedChildren={<CloseOutlined />}
-              />
+              ></Switch>
             </Form.Item>
+            <span className="mt-6">
+              {statusValue == true ? t('common.active') : t('common.inactive')}
+            </span>
           </div>
 
           <Form.Item
-            label={t('Комментарий')}
+            label={t('fields.comment.label')}
             name="comment"
-            rules={
-              [
-                // {
-                //   required: true,
-                //   message: t('fields.login.validation-message-required'),
-                // },
-                // {
-                //   type: 'email',
-                //   message: t('fields.email.validation-message-invalid'),
-                // },
-              ]
-            }
           >
-            <TextArea
+            <Input.TextArea
               className="select-shadow"
-              placeholder={t('Введите комментарий...')}
+              placeholder={t('fields.comment.placeholder')}
               rows={5}
               style={{ resize: 'none' }}
             />
           </Form.Item>
-
           <div className="col-span-full mt-2 flex justify-center gap-4">
             <Button onClick={closeHandler} disabled={handleUserSave.isPending}>
               {t('common.cancel')}
@@ -366,7 +311,7 @@ const CurrencyModal = ({ refetch }: UserModalProps) => {
               htmlType="submit"
               loading={handleUserSave.isPending}
             >
-              {editUserId ? t('Редактировать') : t('Добавить')}
+              {isEdit ? t('common.edit') : t('common.add')}
             </Button>
           </div>
         </Form>
