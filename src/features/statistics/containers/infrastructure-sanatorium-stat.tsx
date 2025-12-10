@@ -40,14 +40,14 @@ export default function InfrastructureSanatoriumStatistics({
       },
       plotOptions: {
         bar: {
-          columnWidth: '35%',
+          columnWidth: '30px',
           borderRadius: 4,
         },
       },
       markers: {
         size: [0, 5],
-        colors: ['#8C6FF1', '#ef4444'],
-        strokeColors: ['#8C6FF1', '#fff'],
+        colors: ['#8C6FF1', '#fff'],
+        strokeColors: ['#8C6FF1', '#ef4444'],
         strokeWidth: [0, 2],
         hover: { size: 7 },
         borderRadius: 4,
@@ -102,6 +102,14 @@ export default function InfrastructureSanatoriumStatistics({
         style: { fontSize: '12px' },
         shared: false,
         intersect: false,
+      },
+      legend: {
+        markers: {
+          width: 12,
+          height: 12,
+          radius: 12,
+          shape: 'rect',
+        },
       },
     }),
     [],

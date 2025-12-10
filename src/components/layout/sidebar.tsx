@@ -19,6 +19,7 @@ import MegaPhoneIcon from '../icons/megaphone-icon'
 import UserIcon from '../icons/user'
 import useUserData from '@/hooks/use-user-data'
 import SidebarItem from './sidebar-item'
+import path from 'path'
 
 const Sidebar = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
@@ -38,12 +39,15 @@ const Sidebar = () => {
         },
         {
           label: 'statistics.tourism_company',
+          path: '/statistics/company',
         },
         {
           label: 'statistics.inbound_tourism',
+          path: '/statistics/inbound',
         },
         {
           label: 'statistics.outbound_tourism',
+          path: '/statistics/outbound',
         },
         {
           label: 'statistics.umehmon-active',
@@ -86,43 +90,43 @@ const Sidebar = () => {
       path: ROUTE_PATHS.GUIDES,
       status: 'finished',
     },
- {
-    label: 'routes.billing',
-    icon: WalletIcon,
-    status: 'in progress',
-    children: [
-      {
-        label: 'routes.reports',
-        // path: ROUTE_PATHS.BILLING_REPORTS,
-        status: 'in progress',
-      },
-      {
-        label: 'routes.directories',
-        // path: ROUTE_PATHS.BILLING_DIRECTORIES,
-        status: 'in progress',
-      },
-      {
-        label: 'routes.transactions',
-        // path: ROUTE_PATHS.BILLING_TRANSACTIONS,
-        status: 'in progress',
-      },
-      {
-        label: 'routes.integration',
-        // path: ROUTE_PATHS.BILLING_INTEGRATION,
-        status: 'in progress',
-      },
-      {
-        label: 'routes.registers',
-        // path: ROUTE_PATHS.BILLING_REGISTERS,
-        status: 'in progress',
-      },
-      {
-        label: 'routes.tourist-transactions',
-        // path: ROUTE_PATHS.BILLING_TOURIST_TRANSACTIONS,
-        status: 'in progress',
-      },
-    ],
-  },
+    {
+      label: 'routes.billing',
+      icon: WalletIcon,
+      status: 'in progress',
+      children: [
+        {
+          label: 'routes.reports',
+          // path: ROUTE_PATHS.BILLING_REPORTS,
+          status: 'in progress',
+        },
+        {
+          label: 'routes.directories',
+          // path: ROUTE_PATHS.BILLING_DIRECTORIES,
+          status: 'in progress',
+        },
+        {
+          label: 'routes.transactions',
+          // path: ROUTE_PATHS.BILLING_TRANSACTIONS,
+          status: 'in progress',
+        },
+        {
+          label: 'routes.integration',
+          // path: ROUTE_PATHS.BILLING_INTEGRATION,
+          status: 'in progress',
+        },
+        {
+          label: 'routes.registers',
+          // path: ROUTE_PATHS.BILLING_REGISTERS,
+          status: 'in progress',
+        },
+        {
+          label: 'routes.tourist-transactions',
+          // path: ROUTE_PATHS.BILLING_TOURIST_TRANSACTIONS,
+          status: 'in progress',
+        },
+      ],
+    },
     // {
     //   label: 'routes.bi-service',
     //   icon: AnalyticsIcon,
@@ -189,7 +193,6 @@ const Sidebar = () => {
           },
         ]
       : adminItems
-
 
   const toggleSidebar = () => {
     setIsSidebarOpen(prev => !prev)
