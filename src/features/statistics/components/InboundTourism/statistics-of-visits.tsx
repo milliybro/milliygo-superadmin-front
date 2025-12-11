@@ -6,16 +6,24 @@ import dayjs from 'dayjs'
 import { useState, useMemo, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useSearchParams } from 'react-router'
+import 'dayjs/locale/ru'
+import 'dayjs/locale/uz-latn'
 import 'dayjs/locale/uz'
-dayjs.locale('uz')
+import { PickerLocale } from 'antd/es/date-picker/generatePicker'
+import { getSalesCountry } from '../../api'
+import { useQuery } from '@tanstack/react-query'
 
-function StatisticsOfVisits({ data }: any) {
-  const { t } = useTranslation()
+function StatisticsOfVisits({
+  data,
+  selectedCountries,
+  setSelectedCountries,
+  isLoading,
+}: any) {
+  const { t, i18n } = useTranslation()
   const [current, setCurrent] = useState(1)
-  const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
-  const [selectedPeriod, setSelectedPeriod] = useState<'month' | 'year'>('year')
+  // const [selectedPeriod, setSelectedPeriod] = useState<'month' | 'year'>('year')
+  const [locale, setLocale] = useState<PickerLocale>()
 
-  const { RangePicker } = DatePicker
   const [params, setParams] = useSearchParams()
 
   const defaultStart = params.get('start_date')
@@ -115,7 +123,7 @@ function StatisticsOfVisits({ data }: any) {
       },
     },
     {
-      title: t(`statistics.visit_date`),
+      title: t(`statistics.ration-percent`),
       dataIndex: 'percentage',
       key: 'percentage',
       sorter: (a: any, b: any) => a.percentage - b.percentage,
@@ -146,37 +154,75 @@ function StatisticsOfVisits({ data }: any) {
       },
     },
   ]
+  useEffect(() => {
+    if (i18n.language === 'ru') {
+      import('antd/es/date-picker/locale/ru_RU')
+        .then(module => {
+          setLocale(module.default)
+        })
+        .catch(console.error)
+    }
+
+    if (i18n.language === 'oz') {
+      import('@/components/shared/locale/uzLatn.json')
+        .then(module => {
+          setLocale(module.default as PickerLocale)
+        })
+        .catch(console.error)
+    }
+
+    if (i18n.language === 'uz') {
+      import('@/components/shared/locale/uzCyrill.json')
+        .then(module => {
+          setLocale(module.default as PickerLocale)
+        })
+        .catch(console.error)
+    }
+  }, [i18n.language])
+
+  const { data: salesCountry } = useQuery({
+    queryKey: ['country'],
+    queryFn: async () => {
+      const res = await getSalesCountry({})
+      return res
+    },
+    placeholderData: data => data,
+    gcTime: 0,
+  })
 
   return (
     <div className="z-10 space-y-4 rounded-2xl bg-white p-4">
-      <Typography.Title className="text-lg font-semibold">
-        {t(`statistics.visit-statistics`)}
-      </Typography.Title>
-
       <div className="flex items-center justify-between">
-        <div className="flex items-center gap-2 rounded-[8px] border px-4 py-[9px]">
-          <Typography.Text className="text-[16px] font-[400] text-[#2563EB]">
+        <div className="flex items-center gap-2 rounded-[8px] py-[9px]">
+          <Typography.Text className="text-[18px] font-[600]">
             {t(`statistics.total_visits`)}
           </Typography.Text>
-          <Typography.Text className="text-[18px] font-[600]">
-            {data?.total_tourists?.toLocaleString() || 0}
+          <Typography.Text className="text-[18px] font-[600] text-[#2563EB]">
+            {formatAmount(data?.total_tourists)}
           </Typography.Text>
         </div>
 
         <div className="flex gap-3">
           <Select
+            mode="multiple"
             size="large"
-            placeholder={t(`statistics.from_country`)}
-            className="w-[360px]"
-            value={selectedCountry}
-            onChange={value => setSelectedCountry(value)}
-            options={data?.data?.map((item: any) => ({
-              label: item.countryName,
-              value: item.countryName,
-            }))}
+            placeholder={t('statistics.from_country')}
+            className="w-[250px]"
+            value={selectedCountries || []}
+            onChange={setSelectedCountries}
+            options={
+              salesCountry && Array.isArray(salesCountry)
+                ? salesCountry.map((item: any) => ({
+                    label: item.name || item.label,
+                    value: item.id || item.value || item.name,
+                  }))
+                : []
+            }
+            maxTagCount="responsive"
+            allowClear
           />
 
-          <Select
+          {/* <Select
             size="large"
             value={selectedPeriod}
             className="w-[200px]"
@@ -185,11 +231,12 @@ function StatisticsOfVisits({ data }: any) {
               { label: t(`statistics.month`), value: 'month' },
               { label: t(`statistics.year`), value: 'year' },
             ]}
-          />
+          /> */}
 
-          <RangePicker
+          <DatePicker.RangePicker
             size="large"
             value={selectedRange}
+            locale={locale}
             onChange={handleRangeChange}
             disabledDate={disabledDate}
             format="DD MMM, YYYY"
@@ -197,6 +244,7 @@ function StatisticsOfVisits({ data }: any) {
               <CalendarIcon className="pointer-events-none text-[20px]" />
             }
             popupClassName="custom-range-picker-popup"
+            className="w-[260px]"
           />
         </div>
       </div>
@@ -206,6 +254,7 @@ function StatisticsOfVisits({ data }: any) {
         columns={columns}
         rowKey="id"
         bordered
+        loading={isLoading}
         pagination={{
           current,
           pageSize: 10,

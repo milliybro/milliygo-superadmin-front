@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-import { DatePicker, Typography, Skeleton } from 'antd'
+import { DatePicker, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import CalendarIcon from '@/components/icons/calendar'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
-
 import { ROUTE_PATHS } from '@/config/constants'
 import StatisticsInfrastructureStat from '../containers/statistics-infrastructure-stat'
 import InfrastructureOrganizationChart from '../containers/infrastructure-organization-chart'
@@ -13,6 +12,7 @@ import InfrastructureSanatoriumStatistics from '../containers/infrastructure-san
 import { getInfrastructureCard, getInfrastructureChart } from '../api'
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
+import InfrastructureLoader from '../components/InfrastructureLoader'
 
 const StatisticsInfrastructure = () => {
   const { t } = useTranslation()
@@ -32,7 +32,6 @@ const StatisticsInfrastructure = () => {
     ])
   }, [t])
 
-  // CARD
   const { data, isLoading: isLoadingCard } = useQuery({
     queryKey: ['infrastructure-card', year],
     queryFn: async () => await getInfrastructureCard({ year }),
@@ -40,7 +39,6 @@ const StatisticsInfrastructure = () => {
     gcTime: 0,
   })
 
-  // CHART 1
   const { data: InfrastructureStatchartData, isLoading: isLoadingChart1 } =
     useQuery({
       queryKey: ['infrastructure-stat-chart-data', activeTab],
@@ -53,7 +51,6 @@ const StatisticsInfrastructure = () => {
       gcTime: 0,
     })
 
-  // CHART 2
   const { data: hotelSectorchartData, isLoading: isLoadingChart2 } = useQuery({
     queryKey: ['hotel-sector-chart-data', activeTab2],
     queryFn: async () =>
@@ -66,7 +63,6 @@ const StatisticsInfrastructure = () => {
     gcTime: 0,
   })
 
-  // CHART 3
   const {
     data: InfrastructurePublicPlaceChartData,
     isLoading: isLoadingChart3,
@@ -79,9 +75,8 @@ const StatisticsInfrastructure = () => {
       }),
     placeholderData: data => data,
     gcTime: 0,
-  })
+    })
 
-  // CHART 4
   const { data: hotelSanatoriumChartData, isLoading: isLoadingChart4 } =
     useQuery({
       queryKey: ['hotel-sanatorium-chart-data', activeTab4],
@@ -95,7 +90,6 @@ const StatisticsInfrastructure = () => {
       gcTime: 0,
     })
 
-  // ⛔ UMUMIY LOADING HOLATI
   const isGlobalLoading =
     isLoadingCard ||
     isLoadingChart1 ||
@@ -103,23 +97,10 @@ const StatisticsInfrastructure = () => {
     isLoadingChart3 ||
     isLoadingChart4
 
-  // 💠 SKELETON KO‘RINISHI
   if (isGlobalLoading) {
     return (
-      <div className="p-6">
-        <Skeleton active paragraph={{ rows: 5 }} />
-
-        <div className="mt-4 grid grid-cols-5 gap-4">
-          {[...Array(5)].map((_, i) => (
-            <Skeleton.Button key={i} active block style={{ height: 140 }} />
-          ))}
-        </div>
-
-        <div className="mt-6 grid grid-cols-2 gap-4">
-          {[...Array(4)].map((_, i) => (
-            <Skeleton.Button key={i} active block style={{ height: 350 }} />
-          ))}
-        </div>
+      <div className="flex flex-1 flex-col items-center justify-center min-h-screen">
+        <InfrastructureLoader />
       </div>
     )
   }

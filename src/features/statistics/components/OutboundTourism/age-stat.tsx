@@ -50,7 +50,7 @@ function AgeGroupStats({ data = {} }: any) {
   return (
     <div className="z-10 space-y-4 rounded-2xl bg-white p-4">
       <Typography.Title className="text-lg font-semibold">
-        {t('statistics.distribution-of-foreign')}
+        {t('statistics.data-travel-goals')}
       </Typography.Title>
 
       <div>
@@ -59,7 +59,7 @@ function AgeGroupStats({ data = {} }: any) {
         </div>
 
         <Typography.Paragraph className="text-sm text-secondary">
-          {t('statistics.number-tourist')}
+          {t('statistics.number-citezen')}
         </Typography.Paragraph>
       </div>
 

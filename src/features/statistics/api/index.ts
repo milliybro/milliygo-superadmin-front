@@ -121,3 +121,51 @@ export async function getInboundChart(
 
   return res
 }
+
+export async function getSalesCountry(
+  params?: any,
+): Promise<ListResponse<InfrastructureCard[]>> {
+  const res: ListResponse<InfrastructureCard[]> = await request({
+    url: '/statistics/inbound/tourism/tourists/museum/sales/counties/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
+export async function getOutboundPurpose(
+  params?: any,
+): Promise<ListResponse<InfrastructureCard[]>> {
+  const res: ListResponse<InfrastructureCard[]> = await request({
+    url: '/statistics/outbound/tourism/local/citizen/any/purpose/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
+export async function getOutboundTopCountry(
+  params?: any,
+): Promise<ListResponse<InfrastructureCard[]>> {
+  const res: ListResponse<InfrastructureCard[]> = await request({
+    url: '/statistics/outbound/tourism/top/countries/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
+export async function getOutboundChart(
+  params?: any,
+): Promise<ListResponse<InfrastructureCard[]>> {
+  const res: ListResponse<InfrastructureCard[]> = await request({
+    url: '/statistics/outbound/tourism/chart/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}

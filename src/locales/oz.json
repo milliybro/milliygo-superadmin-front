@@ -488,43 +488,43 @@
       "error-2": "To‘g‘ri URL kiriting"
     },
     "currency_code": {
-    "label": "Valyuta kodi",
-    "placeholder": "Valyuta kodini kiriting",
-    "error": "Iltimos, valyuta kodini kiriting",
-    "table":"Valyuta kodi"
-  },
-  "currency_name": {
-    "label": "Valyuta nomi",
-    "placeholder": "Nomini kiriting",
-    "error": "Iltimos, valyuta nomini kiriting",
-    "table":"Valyuta nomi"
-  },
-  "currency_symbol": {
-    "label": "Simvol",
-    "placeholder": "Tanlang",
-    "error": "Iltimos, valyuta simvolini tanlang"
-  },
-  "course_uzs": {
-    "label": "UZS bo‘yicha kurs",
-    "placeholder": "Kiriting",
-    "error": "Iltimos, UZS bo‘yicha kursni kiriting",
-    "table":"Kurs"
-  },
-  "course_source": {
-    "label": "Kurs manbai",
-    "placeholder": "Tanlang",
-    "error": "Iltimos, kurs manbaini tanlang"
-  },
-  "refresh_rate": {
-    "label": "Yangilanish tezligi",
-    "placeholder": "Tanlang",
-    "error": "Iltimos, yangilanish tezligini tanlang"
-  },
-  "comment": {
-    "label": "Izoh",
-    "placeholder": "Izoh kiriting",
-    "error": "Iltimos, izoh kiriting"
-  }
+      "label": "Valyuta kodi",
+      "placeholder": "Valyuta kodini kiriting",
+      "error": "Iltimos, valyuta kodini kiriting",
+      "table": "Valyuta kodi"
+    },
+    "currency_name": {
+      "label": "Valyuta nomi",
+      "placeholder": "Nomini kiriting",
+      "error": "Iltimos, valyuta nomini kiriting",
+      "table": "Valyuta nomi"
+    },
+    "currency_symbol": {
+      "label": "Simvol",
+      "placeholder": "Tanlang",
+      "error": "Iltimos, valyuta simvolini tanlang"
+    },
+    "course_uzs": {
+      "label": "UZS bo‘yicha kurs",
+      "placeholder": "Kiriting",
+      "error": "Iltimos, UZS bo‘yicha kursni kiriting",
+      "table": "Kurs"
+    },
+    "course_source": {
+      "label": "Kurs manbai",
+      "placeholder": "Tanlang",
+      "error": "Iltimos, kurs manbaini tanlang"
+    },
+    "refresh_rate": {
+      "label": "Yangilanish tezligi",
+      "placeholder": "Tanlang",
+      "error": "Iltimos, yangilanish tezligini tanlang"
+    },
+    "comment": {
+      "label": "Izoh",
+      "placeholder": "Izoh kiriting",
+      "error": "Iltimos, izoh kiriting"
+    }
   },
   "tenant": {
     "tenant": "Tenant",
@@ -831,14 +831,14 @@
       "return": "Qaytarish",
       "platform-report": "Platforma umumiy hisobot"
     },
-   "directories": {
-    "currencies": "Valyutalar",
-    "payment-providers": "Banklar va to‘lov provayderlari",
-    "tax-rates": "Soliq stavkalari",
-    "tourist-taxes": "Turistik yig‘imlar",
-    "subscriber-services": "Abonent xizmatlari narxlari",
-    "payments-types": "To‘lov turlari"
-  }
+    "directories": {
+      "currencies": "Valyutalar",
+      "payment-providers": "Banklar va to‘lov provayderlari",
+      "tax-rates": "Soliq stavkalari",
+      "tourist-taxes": "Turistik yig‘imlar",
+      "subscriber-services": "Abonent xizmatlari narxlari",
+      "payments-types": "To‘lov turlari"
+    }
   },
   "tourists": {
     "tourist-fullname": "Turistning F.I.O.",
@@ -1057,6 +1057,15 @@
     "from_cis_countries": "MDH davlatlaridan",
     "other_countries": "Boshqa davlatlardan",
     "growth_dynamics": "Chet el turistlarining o‘sish va kamayish dinamikasi",
-    "number-tourists": "Sayyohlar soni"
+    "number-tourists": "Sayyohlar soni",
+    "outbound-desc": "Xorijga ketayotgan O‘zbekiston fuqarolari bo‘yicha statistika",
+    "data-travel-goals": "Sayohat maqsadlari bo‘yicha ma’lumotlarni taqsimlash",
+    "statistics-outbound-visiting": "O‘zbekiston fuqarolarining tashrif buyurgan mamlakatlar bo‘yicha chiqish turizmi statistikasi",
+    "citizen-abroad": "Xorijga ketayotgan O‘zbekiston fuqarolari dinamikasi",
+    "served-tourist": "Xizmat ko‘rsatilgan turistlar",
+    "traveling-abroad": "Xorijga chiqayotgan O‘zbekiston fuqarolari",
+    "number-citezen": "Chet elga safar qilgan umumiy fuqarolar soni",
+    "number-tourist": "Chet eldan tashrif buyurgan umumiy turistlar soni",
+    "ration-percent": "Foizlardagi nisbat"
   }
 }

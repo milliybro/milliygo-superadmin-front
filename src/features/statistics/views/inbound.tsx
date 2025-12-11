@@ -6,7 +6,6 @@ import FinanceStatsChart from '../containers/finance-stats-chart'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { ROUTE_PATHS } from '@/config/constants'
 import {
-  getCompanyChart,
   getGroupCountryTourists,
   getInboundChart,
   getInboundPurpose,
@@ -22,11 +21,13 @@ import CountryStats from '../components/InboundTourism/country-stat'
 import StatisticsOfVisits from '../components/InboundTourism/statistics-of-visits'
 import TouristChart from '../components/InboundTourism/tourist-chart'
 import { useSearchParams } from 'react-router'
+import InfrastructureLoader from '../components/InfrastructureLoader'
 
 const InboundTourism = () => {
   const { t } = useTranslation()
   const currentYear = dayjs().year() - 1
   const [year, setYear] = useState(currentYear)
+  const [selectedCountries, setSelectedCountries] = useState<string[]>([])
   const [params] = useSearchParams()
   const start_date = params.get('start_date')
   const end_date = params.get('end_date')
@@ -40,7 +41,7 @@ const InboundTourism = () => {
     ])
   }, [t])
 
-  const { data } = useQuery({
+  const { data, isLoading: isLoadingCard } = useQuery({
     queryKey: ['inbound-card', year],
     queryFn: async () => {
       const res = await getInboundTourismCard({ year })
@@ -50,7 +51,7 @@ const InboundTourism = () => {
     gcTime: 0,
   })
 
-  const { data: inboundPurposeData } = useQuery({
+  const { data: inboundPurposeData, isLoading: isLoadingChart1 } = useQuery({
     queryKey: ['inbound-purpose-data', year],
     queryFn: async () => {
       const res = await getInboundPurpose({
@@ -63,9 +64,7 @@ const InboundTourism = () => {
     gcTime: 0,
   })
 
-
-  // chart3
-  const { data: TopCountry } = useQuery({
+  const { data: TopCountry, isLoading: isLoadingChart2 } = useQuery({
     queryKey: ['top-country-chart-data', year],
     queryFn: async () => {
       const res = await getTopCountry({
@@ -77,24 +76,25 @@ const InboundTourism = () => {
     gcTime: 0,
   })
 
-  const { data: museumSalesCountry } = useQuery({
-    queryKey: ['museum-sales-country', start_date, end_date],
+  const countriesParam = selectedCountries.join(',')
+
+  const { data: museumSalesCountry, isLoading: isLoadingChart3 } = useQuery({
+    queryKey: ['museum-sales-country', start_date, end_date, countriesParam],
     queryFn: async () => {
       if (!start_date || !end_date) return null
 
       const res = await getMuseumSalesCountry({
         start_date,
         end_date,
+        countries: countriesParam,
       })
 
       return res
     },
     enabled: !!start_date && !!end_date,
-    placeholderData: data => data,
-    gcTime: 0,
   })
 
-  const { data: groupCountryTourists } = useQuery({
+  const { data: groupCountryTourists, isLoading: isLoadingChart4 } = useQuery({
     queryKey: ['group-country-tourists'],
     queryFn: async () => {
       const res = await getGroupCountryTourists()
@@ -105,17 +105,32 @@ const InboundTourism = () => {
     gcTime: 0,
   })
 
-  const { data: inboundChart } = useQuery({
+  const { data: inboundChart, isLoading: isLoadingChart5 } = useQuery({
     queryKey: ['inbound-chart'],
     queryFn: async () => {
-      const res = await getInboundChart({
-        // year,
-      })
+      const res = await getInboundChart({})
       return res
     },
     placeholderData: data => data,
     gcTime: 0,
   })
+
+  const isGlobalLoading =
+    isLoadingCard ||
+    isLoadingChart1 ||
+    isLoadingChart2 ||
+    isLoadingChart3 ||
+    isLoadingChart4 ||
+    isLoadingChart5
+
+  if (isGlobalLoading) {
+    return (
+      <div className="flex min-h-screen flex-1 flex-col items-center justify-center">
+        <InfrastructureLoader />
+      </div>
+    )
+  }
+
   return (
     <div className="flex flex-1 flex-col gap-4 p-6">
       <div className="flex flex-col gap-4">
@@ -153,12 +168,14 @@ const InboundTourism = () => {
         <AgeGroupStats data={inboundPurposeData} />
         <CountryStats data={TopCountry} />
       </div>
-      <StatisticsOfVisits data={museumSalesCountry} />
-      <TouristChart data={groupCountryTourists} />
-      <FinanceStatsChart
-        className="col-span-3"
-        data={inboundChart}
+      <StatisticsOfVisits
+        data={museumSalesCountry}
+        selectedCountries={selectedCountries}
+        setSelectedCountries={setSelectedCountries}
+        isLoading={isLoadingChart3}
       />
+      <TouristChart data={groupCountryTourists} />
+      <FinanceStatsChart className="col-span-3" data={inboundChart} />
     </div>
   )
 }

@@ -3,6 +3,7 @@ import { useMemo } from 'react'
 import StatisticsCard from '../components/statistics-card'
 import BuildingIcon from '@/components/icons/building-icon'
 import { useTranslation } from 'react-i18next'
+import UserMultipleIcon from '@/components/icons/user-multiple'
 
 const StatisticsCompanyStat = ({ data }: any) => {
   const { t } = useTranslation()
@@ -44,7 +45,7 @@ const StatisticsCompanyStat = ({ data }: any) => {
       },
       {
         // icon: BedDoubleIcon,
-        icon: BuildingIcon,
+        icon: UserMultipleIcon,
 
         title: t('statistics.total-served-tourists'),
         value:

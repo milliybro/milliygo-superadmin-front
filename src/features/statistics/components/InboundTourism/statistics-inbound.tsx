@@ -3,13 +3,17 @@ import { useMemo } from 'react'
 import BuildingIcon from '@/components/icons/building-icon'
 import { useTranslation } from 'react-i18next'
 import StatisticsCard from '../statistics-card'
+import UserMultipleIcon from '@/components/icons/user-multiple'
+
+import Money2Icon from '@/components/icons/money2-icon'
+import MapsIcon from '@/components/icons/maps-icon'
 
 const StatisticsInboundStat = ({ data }: any) => {
   const { t } = useTranslation()
   const formattedStats = useMemo(() => {
     return [
       {
-        icon: BuildingIcon,
+        icon: UserMultipleIcon,
         title: t('statistics.number-incoming tourists'),
         value:
           data?.foreign_tourists?.value === null
@@ -26,7 +30,7 @@ const StatisticsInboundStat = ({ data }: any) => {
       },
       {
         // icon: BedDoubleIcon,
-        icon: BuildingIcon,
+        icon: Money2Icon,
 
         title: t('statistics.number-of-citizens'),
         value:
@@ -44,7 +48,7 @@ const StatisticsInboundStat = ({ data }: any) => {
       },
       {
         // icon: BedDoubleIcon,
-        icon: BuildingIcon,
+        icon: MapsIcon,
 
         title: t('statistics.number-relatives'),
         value:

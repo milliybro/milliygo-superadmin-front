@@ -7,21 +7,18 @@ import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 
 import { ROUTE_PATHS } from '@/config/constants'
 
-import { getCompanyCard, getCompanyChart, getInfrastructureChart } from '../api'
+import { getCompanyCard, getCompanyChart } from '../api'
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import StatisticsCompanyStat from '../containers/statistics-company-stat'
 import NumberTravelCompanyChart from '../components/Company/number-travel-company'
 import NumberToursSoldChart from '../components/Company/number-tours-sold'
+import InfrastructureLoader from '../components/InfrastructureLoader'
 
 const StatisticsCompany = () => {
   const { t } = useTranslation()
   const currentYear = dayjs().year() - 1
   const [year, setYear] = useState(currentYear)
-  const [activeTab, setActiveTab] = useState<'object' | 'place'>('object')
-  const [activeTab2, setActiveTab2] = useState<'object' | 'place'>('object')
-  const [activeTab3, setActiveTab3] = useState<'object' | 'place'>('object')
-  const [activeTab4, setActiveTab4] = useState<'object' | 'place'>('object')
 
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
 
@@ -32,7 +29,7 @@ const StatisticsCompany = () => {
     ])
   }, [t])
 
-  const { data } = useQuery({
+  const { data, isLoading: isLoadingCard } = useQuery({
     queryKey: ['company-card', year],
     queryFn: async () => {
       const res = await getCompanyCard({ year })
@@ -42,11 +39,10 @@ const StatisticsCompany = () => {
     gcTime: 0,
   })
 
-  const { data: serviceChartData } = useQuery({
+  const { data: serviceChartData, isLoading: isLoadingChart1 } = useQuery({
     queryKey: ['company-chart-data'],
     queryFn: async () => {
       const res = await getCompanyChart({
-        // year,
         chart: 'tour_agencies_service',
       })
       return res
@@ -55,12 +51,10 @@ const StatisticsCompany = () => {
     gcTime: 0,
   })
 
-  // chart2
-  const { data: TourAgentChartData } = useQuery({
+  const { data: TourAgentChartData, isLoading: isLoadingChart2 } = useQuery({
     queryKey: ['tour-agent-chart-data'],
     queryFn: async () => {
       const res = await getCompanyChart({
-        // year,
         chart: 'tour_agencies_travel_guides',
       })
       return res
@@ -69,35 +63,29 @@ const StatisticsCompany = () => {
     gcTime: 0,
   })
 
-  // chart3
-  const { data: NumberAgenciesChartData } = useQuery({
-    queryKey: ['agency-number-chart-data'],
-    queryFn: async () => {
-      const res = await getCompanyChart({
-        // year,
-        chart: 'tour_agencies_number',
-      })
-      return res
-    },
-    placeholderData: data => data,
-    gcTime: 0,
-  })
+  const { data: NumberAgenciesChartData, isLoading: isLoadingChart3 } =
+    useQuery({
+      queryKey: ['agency-number-chart-data'],
+      queryFn: async () => {
+        const res = await getCompanyChart({
+          chart: 'tour_agencies_number',
+        })
+        return res
+      },
+      placeholderData: data => data,
+      gcTime: 0,
+    })
 
-  // chart4
-  const { data: hotelSanatoriumChartData } = useQuery({
-    queryKey: ['hotel-sanatorium-chart-data', activeTab4],
-    queryFn: async () => {
-      const res = await getInfrastructureChart({
-        // year,
-        chart: 'sanatorium',
-        chart_type: activeTab4 === 'object' ? 'object' : 'place',
-        guest: true,
-      })
-      return res
-    },
-    placeholderData: data => data,
-    gcTime: 0,
-  })
+  const isGlobalLoading =
+    isLoadingCard || isLoadingChart1 || isLoadingChart2 || isLoadingChart3
+
+  if (isGlobalLoading) {
+    return (
+      <div className="flex min-h-screen flex-1 flex-col items-center justify-center">
+        <InfrastructureLoader />
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-6">
@@ -137,24 +125,7 @@ const StatisticsCompany = () => {
         <NumberTravelCompanyChart data={TourAgentChartData} />
 
         <NumberToursSoldChart data={NumberAgenciesChartData} />
-
-        {/* <TouristsByRegionChart className="col-span-1" /> */}
       </div>
-      {/* <IncomeByPaymentType />
-        <MostBookedHotels />
-        <ActivityByRegion />
-        <RegionsWithMostBookings />
-        <MostPopularDestinations />
-        <MostTimeSpentPages />
-        <BookingCancelationsTable className="col-span-full" /> */}
-      {/* <div className="flex-1 col-span-9 flex items-center justify-center bg-white border flex-col overflow-hidden border-border rounded-[16px]">
-        <div className="flex flex-col justify-center gap-3 items-center">
-          <NotFoundIcon />
-        </div>
-        <span className="text-2xl font-semibold text-primary-dark">
-          {t('complaints-page.not-found-title')}
-        </span>
-      </div> */}
     </div>
   )
 }

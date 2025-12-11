@@ -114,7 +114,7 @@ const FinanceStatsChart: FC<{ className?: string; data: any }> = ({
     <Card className={twMerge('h-full w-full', className)}>
       <div className="mb-4">
         <h3 className="text-lg font-semibold">
-          {t('statistics.dynamics-of-tourist')}
+          {t('statistics.citizen-abroad')}
         </h3>
       </div>
 
@@ -130,7 +130,7 @@ const FinanceStatsChart: FC<{ className?: string; data: any }> = ({
       <div className="mt-2 flex items-center justify-center gap-2">
         <span className="inline-block h-3 w-3 rounded-sm bg-[#FF9D4D]"></span>
         <span className="text-sm font-medium text-[#374151]">
-          {t('statistics.served-tourist')}
+          {t('statistics.traveling-abroad')}
         </span>
       </div>
     </Card>

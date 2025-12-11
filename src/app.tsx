@@ -9,10 +9,6 @@ import QueryProvider from './providers/query-provider'
 import AuthProvider from './providers/auth-provider'
 import { darkTheme, lightTheme } from './providers/theme-provider'
 import { getAntdLocale } from './helpers/get-ant-locale'
-import dayjs from 'dayjs'
-import 'dayjs/locale/uz'
-import 'dayjs/locale/uz-latn'
-import 'dayjs/locale/ru'
 
 export default function App() {
   const [cookies] = useCookies(['darkTheme'])
@@ -21,7 +17,6 @@ export default function App() {
 
   useEffect(() => {
     const lang = i18n.language
-    dayjs.locale(lang === 'oz' ? 'uz-latn' : lang === 'uz' ? 'uz' : 'ru')
     setLocale(getAntdLocale(lang as 'uz' | 'oz' | 'ru'))
   }, [i18n.language])
 
