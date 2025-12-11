@@ -85,3 +85,39 @@ export async function getTopCountry(
 
   return res
 }
+
+export async function getMuseumSalesCountry(
+  params?: any,
+): Promise<ListResponse<InfrastructureCard[]>> {
+  const res: ListResponse<InfrastructureCard[]> = await request({
+    url: '/statistics/inbound/tourism/tourists/museum/sales/by/country/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
+export async function getGroupCountryTourists(
+  params?: any,
+): Promise<ListResponse<InfrastructureCard[]>> {
+  const res: ListResponse<InfrastructureCard[]> = await request({
+    url: '/statistics/inbound/tourism/tourists/country/group/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
+export async function getInboundChart(
+  params?: any,
+): Promise<ListResponse<InfrastructureCard[]>> {
+  const res: ListResponse<InfrastructureCard[]> = await request({
+    url: '/statistics/inbound/tourism/chart/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}
