@@ -2,15 +2,15 @@ import { Typography } from 'antd'
 import tiles from '@/assets/green-chart.jpg'
 
 interface CountryStatItemProps {
-  name?: string
+  country?: string
   percent?: any
 }
 
-function CountryStatItem({ name, percent }: CountryStatItemProps) {
+function CountryStatItem({ country, percent }: CountryStatItemProps) {
   return (
     <>
       <Typography.Text className="w-max capitalize">
-        {name?.toLowerCase()}
+        {country?.toLowerCase()}
       </Typography.Text>
       <div className="h-[15px] grow overflow-hidden rounded-full bg-secondary-light p-0.5">
         <div

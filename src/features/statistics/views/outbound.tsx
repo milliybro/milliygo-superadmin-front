@@ -2,22 +2,21 @@ import { useEffect, useState } from 'react'
 import { DatePicker, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import CalendarIcon from '@/components/icons/calendar'
-import FinanceStatsChart from '../containers/finance-stats-chart'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { ROUTE_PATHS } from '@/config/constants'
 import {
   getCompanyChart,
-  getInboundPurpose,
-  getInboundTourismCard,
+  getOutboundChart,
+  getOutboundPurpose,
+  getOutboundTopCountry,
   getTopCountry,
 } from '../api'
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
-import StatisticsInboundStat from '../components/InboundTourism/statistics-inbound'
-import AgeGroupStats from '../components/InboundTourism/age-stat'
-import CountryStats from '../components/InboundTourism/country-stat'
-import StatisticsOfVisits from '../components/InboundTourism/statistics-of-visits'
-import TouristChart from '../components/InboundTourism/tourist-chart'
+import AgeGroupStats from '../components/OutboundTourism/age-stat'
+import CountryStats from '../components/OutboundTourism/country-stat'
+import FinanceStatsChart from '../components/OutboundTourism/statistics-chart'
+import InfrastructureLoader from '../components/InfrastructureLoader'
 
 const OutboundTourism = () => {
   const { t } = useTranslation()
@@ -33,22 +32,21 @@ const OutboundTourism = () => {
     ])
   }, [t])
 
-  const { data } = useQuery({
-    queryKey: ['inbound-card', year],
+  const { data, isLoading: isLoadingChart1 } = useQuery({
+    queryKey: ['outbound-card', year],
     queryFn: async () => {
-      const res = await getInboundPurpose({ year })
+      const res = await getOutboundPurpose({ year })
       return res
     },
     placeholderData: data => data,
     gcTime: 0,
   })
 
-  const { data: inboundPurposeData } = useQuery({
-    queryKey: ['inbound-purpose-data', year],
+  const { data: outboundTopCountry, isLoading: isLoadingChart2 } = useQuery({
+    queryKey: ['outbound-top-country', year],
     queryFn: async () => {
-      const res = await getInboundPurpose({
+      const res = await getOutboundTopCountry({
         year,
-        chart: 'tour_agencies_service',
       })
       return res
     },
@@ -56,12 +54,10 @@ const OutboundTourism = () => {
     gcTime: 0,
   })
 
-  // chart2
-  const { data: serviceChartData } = useQuery({
+  const { data: serviceChartData, isLoading: isLoadingChart3 } = useQuery({
     queryKey: ['tour-agent-chart-data'],
     queryFn: async () => {
       const res = await getCompanyChart({
-        // year,
         chart: 'tour_agencies_travel_guides',
       })
       return res
@@ -70,11 +66,10 @@ const OutboundTourism = () => {
     gcTime: 0,
   })
 
-  // chart3
-  const { data: TopCountry } = useQuery({
-    queryKey: ['top-country-chart-data', year],
+  const { data: OutboundChart, isLoading: isLoadingChart4 } = useQuery({
+    queryKey: ['outbound-chart-data', year],
     queryFn: async () => {
-      const res = await getTopCountry({
+      const res = await getOutboundChart({
         year,
       })
       return res
@@ -82,6 +77,20 @@ const OutboundTourism = () => {
     placeholderData: data => data,
     gcTime: 0,
   })
+
+  const isGlobalLoading =
+    isLoadingChart1 ||
+    isLoadingChart2 ||
+    isLoadingChart3 ||
+    isLoadingChart4
+
+  if (isGlobalLoading) {
+    return (
+      <div className="flex flex-1 flex-col items-center justify-center min-h-screen">
+        <InfrastructureLoader />
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-6">
@@ -115,10 +124,10 @@ const OutboundTourism = () => {
       </div>
 
       <div className="grid grid-cols-2 gap-4">
-        <AgeGroupStats data={inboundPurposeData} />
-        <CountryStats data={TopCountry} />
+        <AgeGroupStats data={data} />
+        <CountryStats data={outboundTopCountry} />
       </div>
-      <FinanceStatsChart className="col-span-3" data={serviceChartData} />
+      <FinanceStatsChart className="col-span-3" data={OutboundChart} />
     </div>
   )
 }
