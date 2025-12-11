@@ -7,9 +7,11 @@ import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { ROUTE_PATHS } from '@/config/constants'
 import {
   getCompanyChart,
+  getGroupCountryTourists,
+  getInboundChart,
   getInboundPurpose,
   getInboundTourismCard,
-
+  getMuseumSalesCountry,
   getTopCountry,
 } from '../api'
 import { useQuery } from '@tanstack/react-query'
@@ -19,11 +21,15 @@ import AgeGroupStats from '../components/InboundTourism/age-stat'
 import CountryStats from '../components/InboundTourism/country-stat'
 import StatisticsOfVisits from '../components/InboundTourism/statistics-of-visits'
 import TouristChart from '../components/InboundTourism/tourist-chart'
+import { useSearchParams } from 'react-router'
 
 const InboundTourism = () => {
   const { t } = useTranslation()
   const currentYear = dayjs().year() - 1
   const [year, setYear] = useState(currentYear)
+  const [params] = useSearchParams()
+  const start_date = params.get('start_date')
+  const end_date = params.get('end_date')
 
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
 
@@ -57,19 +63,6 @@ const InboundTourism = () => {
     gcTime: 0,
   })
 
-  // chart2
-  const { data: serviceChartData } = useQuery({
-    queryKey: ['tour-agent-chart-data'],
-    queryFn: async () => {
-      const res = await getCompanyChart({
-        // year,
-        chart: 'tour_agencies_travel_guides',
-      })
-      return res
-    },
-    placeholderData: data => data,
-    gcTime: 0,
-  })
 
   // chart3
   const { data: TopCountry } = useQuery({
@@ -84,6 +77,45 @@ const InboundTourism = () => {
     gcTime: 0,
   })
 
+  const { data: museumSalesCountry } = useQuery({
+    queryKey: ['museum-sales-country', start_date, end_date],
+    queryFn: async () => {
+      if (!start_date || !end_date) return null
+
+      const res = await getMuseumSalesCountry({
+        start_date,
+        end_date,
+      })
+
+      return res
+    },
+    enabled: !!start_date && !!end_date,
+    placeholderData: data => data,
+    gcTime: 0,
+  })
+
+  const { data: groupCountryTourists } = useQuery({
+    queryKey: ['group-country-tourists'],
+    queryFn: async () => {
+      const res = await getGroupCountryTourists()
+
+      return res
+    },
+    placeholderData: data => data,
+    gcTime: 0,
+  })
+
+  const { data: inboundChart } = useQuery({
+    queryKey: ['inbound-chart'],
+    queryFn: async () => {
+      const res = await getInboundChart({
+        // year,
+      })
+      return res
+    },
+    placeholderData: data => data,
+    gcTime: 0,
+  })
   return (
     <div className="flex flex-1 flex-col gap-4 p-6">
       <div className="flex flex-col gap-4">
@@ -121,9 +153,12 @@ const InboundTourism = () => {
         <AgeGroupStats data={inboundPurposeData} />
         <CountryStats data={TopCountry} />
       </div>
-      <StatisticsOfVisits data={data} />
-      <TouristChart />
-      <FinanceStatsChart className="col-span-3" data={serviceChartData} />
+      <StatisticsOfVisits data={museumSalesCountry} />
+      <TouristChart data={groupCountryTourists} />
+      <FinanceStatsChart
+        className="col-span-3"
+        data={inboundChart}
+      />
     </div>
   )
 }

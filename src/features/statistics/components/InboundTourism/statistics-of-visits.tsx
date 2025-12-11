@@ -1,57 +1,152 @@
+import CalendarIcon from '@/components/icons/calendar'
+import LocationStarIcon from '@/components/icons/location-star-icon'
+import { formatAmount } from '@/helpers/format-amount'
 import { DatePicker, Select, Table, Typography } from 'antd'
-import { sortedIndex } from 'lodash'
-import { useState } from 'react'
+import dayjs from 'dayjs'
+import { useState, useMemo, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useSearchParams } from 'react-router'
+import 'dayjs/locale/uz'
+dayjs.locale('uz')
 
 function StatisticsOfVisits({ data }: any) {
   const { t } = useTranslation()
   const [current, setCurrent] = useState(1)
-  const dataSource = [
-    { id: 1, date: 'Январь, 2025', tourists: 10540, country: 'Франция' },
-    { id: 2, date: 'Февраль, 2025', tourists: 12300, country: 'Германия' },
-    { id: 3, date: 'Март, 2025', tourists: 11450, country: 'Испания' },
-    { id: 4, date: 'Апрель, 2025', tourists: 13500, country: 'Италия' },
-    { id: 5, date: 'Май, 2025', tourists: 14700, country: 'Нидерланды' },
-    { id: 6, date: 'Июнь, 2025', tourists: 13600, country: 'Швеция' },
-    { id: 7, date: 'Июль, 2025', tourists: 15200, country: 'Дания' },
-    { id: 8, date: 'Август, 2025', tourists: 16800, country: 'Португалия' },
-    { id: 9, date: 'Сентябрь, 2025', tourists: 17350, country: 'Финляндия' },
-    { id: 10, date: 'Октябрь, 2025', tourists: 17350, country: 'Финляндия' },
-    { id: 11, date: 'Ноябрь, 2025', tourists: 32938, country: 'Казахстан' },
-    { id: 12, date: 'Декабрь, 2025', tourists: 32938, country: 'Казахстан' },
-  ]
+  const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
+  const [selectedPeriod, setSelectedPeriod] = useState<'month' | 'year'>('year')
+
+  const { RangePicker } = DatePicker
+  const [params, setParams] = useSearchParams()
+
+  const defaultStart = params.get('start_date')
+  const defaultEnd = params.get('end_date')
+
+  const initialRange =
+    defaultStart && defaultEnd
+      ? [dayjs(defaultStart), dayjs(defaultEnd)]
+      : [dayjs().subtract(30, 'day'), dayjs()]
+
+  const [selectedRange, setSelectedRange] = useState<any | null>(initialRange)
+
+  useEffect(() => {
+    if (!defaultStart || !defaultEnd) {
+      const newParams = new URLSearchParams(params)
+      newParams.set('start_date', initialRange[0].format('YYYY-MM-DD'))
+      newParams.set('end_date', initialRange[1].format('YYYY-MM-DD'))
+      setParams(newParams)
+    }
+  }, [])
+
+  const handleRangeChange = (dates: any) => {
+    if (!dates) {
+      setSelectedRange(null)
+      const newParams = new URLSearchParams(params)
+      newParams.delete('start_date')
+      newParams.delete('end_date')
+      setParams(newParams)
+      return
+    }
+
+    const diff = dates[1].diff(dates[0], 'day') + 1
+    if (diff > 31) {
+      const newEnd = dates[0].add(30, 'day')
+      setSelectedRange([dates[0], newEnd])
+      const newParams = new URLSearchParams(params)
+      newParams.set('start_date', dates[0].format('YYYY-MM-DD'))
+      newParams.set('end_date', newEnd.format('YYYY-MM-DD'))
+      setParams(newParams)
+      return
+    }
+
+    setSelectedRange(dates)
+    const newParams = new URLSearchParams(params)
+    newParams.set('start_date', dates[0].format('YYYY-MM-DD'))
+    newParams.set('end_date', dates[1].format('YYYY-MM-DD'))
+    setParams(newParams)
+  }
+  const disabledDate = (current: any) => {
+    const start = selectedRange ? selectedRange[0] : null
+    if (!start) return false
+    const diff = current.diff(start, 'day') + 1
+    return diff < 1 || diff > 31
+  }
+  const dataSource = useMemo(() => {
+    if (!data?.data) return []
+    return data.data.map((item: any, index: number) => ({
+      id: index + 1,
+      countryName: item.countryName,
+      touristCount: item.touristCount,
+      percentage: item.percentage,
+    }))
+  }, [data])
+
   const columns = [
     {
-      title: 'ID',
+      title: '№',
       dataIndex: 'id',
       key: 'id',
       width: 55,
     },
     {
-      title: t(`statistics.visit_date`),
-      dataIndex: 'date',
-      key: 'date',
-      sorter: (a: any, b: any) => {
-        return sortedIndex(a.date, b.date)
-      },
-    },
-    {
-      title: t(`statistics.number-tourists`),
-      dataIndex: 'tourists',
-      key: 'tourists',
-      sorter: (a: any, b: any) => {
-        return sortedIndex(a.tourists, b.tourists)
+      title: '',
+      dataIndex: 'id',
+      key: 'id',
+      width: 55,
+      render: (a: any) => {
+        return (
+          <>
+            <LocationStarIcon />
+          </>
+        )
       },
     },
     {
       title: t(`statistics.from_country`),
-      dataIndex: 'country',
-      key: 'country',
-      sorter: (a: any, b: any) => {
-        return sortedIndex(a.country, b.country)
+      dataIndex: 'countryName',
+      key: 'countryName',
+    },
+    {
+      title: t(`statistics.number-tourists`),
+      dataIndex: 'touristCount',
+      key: 'touristCount',
+      sorter: (a: any, b: any) => a.touristCount - b.touristCount,
+      render: (value: any) => {
+        return <div>{formatAmount(value)}</div>
+      },
+    },
+    {
+      title: t(`statistics.visit_date`),
+      dataIndex: 'percentage',
+      key: 'percentage',
+      sorter: (a: any, b: any) => a.percentage - b.percentage,
+      render: (value: number) => {
+        const percent = Math.min(100, value)
+        return (
+          <div className="flex items-center gap-2">
+            <div className="flex h-[15px] grow overflow-hidden rounded-full bg-secondary-light p-0.5">
+              <div
+                className="relative h-full rounded-full bg-[#14B8A6]"
+                style={{ width: `${percent}%` }}
+              >
+                <div
+                  className="absolute inset-0 h-full w-full"
+                  style={{
+                    backgroundRepeat: 'repeat-x',
+                    backgroundSize: 'auto 100%',
+                    opacity: 0.15,
+                  }}
+                />
+              </div>
+            </div>
+            <Typography.Text className="block font-medium">
+              {percent}%
+            </Typography.Text>
+          </div>
+        )
       },
     },
   ]
+
   return (
     <div className="z-10 space-y-4 rounded-2xl bg-white p-4">
       <Typography.Title className="text-lg font-semibold">
@@ -64,27 +159,48 @@ function StatisticsOfVisits({ data }: any) {
             {t(`statistics.total_visits`)}
           </Typography.Text>
           <Typography.Text className="text-[18px] font-[600]">
-            3 894
+            {data?.total_tourists?.toLocaleString() || 0}
           </Typography.Text>
         </div>
+
         <div className="flex gap-3">
           <Select
             size="large"
             placeholder={t(`statistics.from_country`)}
             className="w-[360px]"
+            value={selectedCountry}
+            onChange={value => setSelectedCountry(value)}
+            options={data?.data?.map((item: any) => ({
+              label: item.countryName,
+              value: item.countryName,
+            }))}
           />
+
           <Select
             size="large"
-            value="year"
+            value={selectedPeriod}
             className="w-[200px]"
+            onChange={value => setSelectedPeriod(value)}
             options={[
               { label: t(`statistics.month`), value: 'month' },
               { label: t(`statistics.year`), value: 'year' },
             ]}
           />
-          <DatePicker picker="month" size="large" />
+
+          <RangePicker
+            size="large"
+            value={selectedRange}
+            onChange={handleRangeChange}
+            disabledDate={disabledDate}
+            format="DD MMM, YYYY"
+            suffixIcon={
+              <CalendarIcon className="pointer-events-none text-[20px]" />
+            }
+            popupClassName="custom-range-picker-popup"
+          />
         </div>
       </div>
+
       <Table
         dataSource={dataSource}
         columns={columns}
@@ -92,11 +208,11 @@ function StatisticsOfVisits({ data }: any) {
         bordered
         pagination={{
           current,
-          pageSize: 5,
+          pageSize: 10,
           onChange: page => setCurrent(page),
+          position: ['bottomCenter'],
         }}
       />
-      <div className="card-shadow" />
     </div>
   )
 }

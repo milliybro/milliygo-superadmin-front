@@ -252,3 +252,19 @@ html {
 .apexcharts-legend-marker {
   border-radius: 12px !important;
 }
+
+/* Popup background and border */
+.custom-range-picker-popup .ant-picker-panel {
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+/* Selected range styling */
+.custom-range-picker-popup .ant-picker-cell-in-range,
+.custom-range-picker-popup .ant-picker-cell-selected {
+}
+
+/* Hover effect */
+.custom-range-picker-popup .ant-picker-cell-in-range:hover {
+  background-color: rgba(37, 99, 235, 0.2) !important;
+}
