@@ -195,6 +195,28 @@ const Sidebar = () => {
             icon: ChartRingIcon,
             path: ROUTE_PATHS.MAIN,
             status: 'in progress',
+            children: [
+              {
+                label: 'statistics.tourist_infracstructure',
+                path: '/statistics/infrastructure',
+              },
+              {
+                label: 'statistics.tourism_company',
+                path: '/statistics/company',
+              },
+              {
+                label: 'statistics.inbound_tourism',
+                path: '/statistics/inbound',
+              },
+              {
+                label: 'statistics.outbound_tourism',
+                path: '/statistics/outbound',
+              },
+              {
+                label: 'statistics.umehmon-active',
+                // path: '/statistics/u-mehmon',
+              },
+            ],
           },
         ]
       : adminItems
