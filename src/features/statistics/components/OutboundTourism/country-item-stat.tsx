@@ -1,5 +1,5 @@
 import { Typography } from 'antd'
-import tiles from '@/assets/green-chart.jpg'
+import tiles from '@/assets/tiled-bg.png'
 
 interface CountryStatItemProps {
   country?: string
@@ -18,12 +18,13 @@ function CountryStatItem({ country, percent }: CountryStatItemProps) {
           style={{ width: `${percent}%` }}
         >
           <div
-            className="absolute inset-0 h-full w-full"
+            className="absolute inset-0 h-full"
             style={{
               backgroundImage: `url(${tiles})`,
               backgroundRepeat: 'repeat-x',
               backgroundSize: 'auto 100%',
-              opacity: 0.15,
+              opacity: 0.2,
+              borderRadius: '8px',
             }}
           ></div>
         </div>

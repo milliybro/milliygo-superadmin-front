@@ -1,7 +1,9 @@
 import Lottie from 'lottie-react'
 import animationData from '@/assets/lottie/infra-loader.json'
+import { useTranslation } from 'react-i18next'
 
 const InfrastructureLoader = () => {
+  const { t } = useTranslation()
   return (
     <div className="flex flex-col items-center justify-center gap-3 py-10">
       <Lottie
@@ -10,7 +12,7 @@ const InfrastructureLoader = () => {
         style={{ width: 60, height: 60 }}
       />
 
-      <span className="text-sm text-[#5E6D82]">Загрузка...</span>
+      <span className="text-sm text-[#5E6D82]">{t('statistics.loading')}</span>
     </div>
   )
 }

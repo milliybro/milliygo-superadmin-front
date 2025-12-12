@@ -1066,6 +1066,17 @@
     "traveling-abroad": "Xorijga chiqayotgan O‘zbekiston fuqarolari",
     "number-citezen": "Chet elga safar qilgan umumiy fuqarolar soni",
     "number-tourist": "Chet eldan tashrif buyurgan umumiy turistlar soni",
-    "ration-percent": "Foizlardagi nisbat"
+    "ration-percent": "Foizlardagi nisbat",
+    "umehmon-desc": "U-Mehmon tizimidagi faollik statistikasi",
+    "total-regis": "Ro‘yxatdan o‘tgan foydalanuvchilar jami",
+    "new-regis": "Yangi ro‘yxatdan o‘tgan foydalanuvchilar",
+    "total-local-regis": "Jami ro‘yxatdan o‘tgan mahalliy turistlar",
+    "regis-statistics": "Foydalanuvchilarni tizimda ro‘yxatdan o‘tkazish statistikasi",
+    "user-regis": "Foydalanuvchilar registratsiyalari",
+    "user-regis-system": "Tizimda ro‘yxatdan o‘tgan jami mehmonxonalar",
+    "total-bookings": "Jami bandlovlar",
+    "average-stay": "O‘rtacha qolish muddati",
+    "top-50": "Mehmonlar soni bo‘yicha Top-50 mehmonxona",
+    "loading": "Yuklanmoqda..."
   }
 }

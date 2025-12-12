@@ -12,6 +12,8 @@ import 'dayjs/locale/uz'
 import { PickerLocale } from 'antd/es/date-picker/generatePicker'
 import { getSalesCountry } from '../../api'
 import { useQuery } from '@tanstack/react-query'
+import tiles from '@/assets/tiled-bg.png'
+import ArrowRightIcon from '@/components/icons/arrow-right'
 
 function StatisticsOfVisits({
   data,
@@ -139,9 +141,11 @@ function StatisticsOfVisits({
                 <div
                   className="absolute inset-0 h-full w-full"
                   style={{
+                    backgroundImage: `url(${tiles})`,
                     backgroundRepeat: 'repeat-x',
                     backgroundSize: 'auto 100%',
-                    opacity: 0.15,
+                    opacity: 0.2,
+                    borderRadius: '8px',
                   }}
                 />
               </div>
@@ -245,6 +249,7 @@ function StatisticsOfVisits({
             }
             popupClassName="custom-range-picker-popup"
             className="w-[260px]"
+            separator={<ArrowRightIcon className="-mt-4 text-[12px]" />}
           />
         </div>
       </div>
@@ -260,6 +265,7 @@ function StatisticsOfVisits({
           pageSize: 10,
           onChange: page => setCurrent(page),
           position: ['bottomCenter'],
+          showSizeChanger: false,
         }}
       />
     </div>
