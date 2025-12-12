@@ -1,12 +1,13 @@
 import { ListResponse } from '@/types'
 import requestSuper from '@/utils/superRequest'
 import { IPaymentProviders } from '../types'
+import billingRequest from '@/features/billing/billingRequest'
 
 export async function getPaymentProvidersList(
   params?: any,
 ): Promise<ListResponse<IPaymentProviders[]>> {
-  const res: ListResponse<IPaymentProviders[]> = await requestSuper({
-    url: '/tour-agents/',
+  const res: ListResponse<IPaymentProviders[]> = await billingRequest({
+    url: '/payment-providers',
     method: 'get',
     params,
   })

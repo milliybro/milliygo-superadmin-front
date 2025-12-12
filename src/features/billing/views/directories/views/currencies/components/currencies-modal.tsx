@@ -11,17 +11,9 @@ import MoneyIcon from '@/components/icons/money'
 import DirectoryModalHeader from '../../../components/DirectoryModalHeader'
 import useCurrenciesModalStore from '../../../store/currencies-modal-store'
 import useNotify from '@/hooks/useNotify'
+import { ICurrencies } from '../../../types'
 
-interface FormValues {
-  code: string
-  name: string
-  symbol: string
-  uzs_rate: string
-  rate: string
-  refresh_rate: string
-  status: boolean
-  comment: string
-}
+type FormValues = Omit<ICurrencies, 'translates'>
 const CurrencyModal = () => {
   const { t } = useTranslation()
   const [searchParams] = useSearchParams()
@@ -36,7 +28,7 @@ const CurrencyModal = () => {
   const statusValue = Form.useWatch('status', form)
   const isEdit = searchParams.get('edit')
 
-  const { data } = useQuery({
+  const { data } = useQuery<ICurrencies>({
     queryKey: ['currency', isEdit],
     queryFn: () => getCurrency({ id: isEdit }),
     enabled: !!isEdit,
@@ -44,7 +36,7 @@ const CurrencyModal = () => {
   })
 
   const openNotification = () => {
-    openNotify({edit:isEdit})
+    openNotify({ edit: isEdit })
   }
 
   const handleUserSave = useMutation({
@@ -84,15 +76,13 @@ const CurrencyModal = () => {
   useEffect(() => {
     if (data && isEdit) {
       form.setFieldsValue({
+        id: data?.id,
         code: data?.code,
-        name: data?.first_name,
+        name: data?.name,
         symbol: data?.symbol,
-        uzs_rate: data?.uzs_rate,
-        rate: data?.rate,
-        refresh_rate: data?.refresh_rate,
-        // type: data?.type?.id,
-        status: data?.status ? true : false,
-        comment: data?.comment,
+        minorUnits: data?.minorUnits,
+        numericCode: data?.numericCode,
+        isActive: data?.isActive ? true : false,
       })
     }
   }, [data, form])
@@ -221,6 +211,7 @@ const CurrencyModal = () => {
             >
               <Input
                 className="select-shadow"
+                disabled={true}
                 placeholder={t('fields.course_uzs.placeholder')}
               />
             </Form.Item>
@@ -290,10 +281,7 @@ const CurrencyModal = () => {
             </span>
           </div>
 
-          <Form.Item
-            label={t('fields.comment.label')}
-            name="comment"
-          >
+          <Form.Item label={t('fields.comment.label')} name="comment">
             <Input.TextArea
               className="select-shadow"
               placeholder={t('fields.comment.placeholder')}

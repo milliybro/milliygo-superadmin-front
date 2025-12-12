@@ -20,7 +20,7 @@ function PaymentProviders() {
   const currentPage = Number(searchParams.get('page')) || 1
 
   const { data, isFetching, refetch } = useQuery({
-    queryKey: ['currencies', currentPage, search, region],
+    queryKey: ['payment-providers', currentPage, search, region],
     queryFn: async () => {
       const res = await getPaymentProvidersList({
         page_size: pageSize,

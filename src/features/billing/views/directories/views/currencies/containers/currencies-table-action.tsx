@@ -9,6 +9,7 @@ import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
 import { useLocation, useNavigate } from 'react-router'
 import useCurrenciesModalStore from '../../../store/currencies-modal-store'
+import CurrenciesEditHistory from '../components/currencies-edit-history'
 
 interface IProps {
   id: number
@@ -20,10 +21,18 @@ const CurrenciesTableAction: FC<IProps> = ({ id, refetch }) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const { openModal } = useCurrenciesModalStore(store => store)
-
+  const [isDrawer, setIsDrawer] = useState<boolean>(false)
   const editHandler = () => {
     navigate(pathname + '?edit=' + id)
     openModal()
+  }
+  const openDrawer = () => {
+    navigate(pathname + '?id=' + id)
+    setIsDrawer(true)
+  }
+  const closeDrawer = () => {
+    navigate(pathname)
+    setIsDrawer(false)
   }
 
   const [deleteModal, setDeleteModal] = useState(false)
@@ -48,6 +57,7 @@ const CurrenciesTableAction: FC<IProps> = ({ id, refetch }) => {
           <Button
             type="link"
             className="px-0 text-base font-medium text-[#232E40]"
+            onClick={openDrawer}
           >
             <HierarchyIcon className="text-xl" />
           </Button>
@@ -63,7 +73,7 @@ const CurrenciesTableAction: FC<IProps> = ({ id, refetch }) => {
           </Button>
         </Tooltip>
       </div>
-
+      <CurrenciesEditHistory open={isDrawer} onClose={closeDrawer} />
       <ConfirmationModal
         danger
         icon={DeleteIcon}

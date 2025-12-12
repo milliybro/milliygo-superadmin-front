@@ -28,7 +28,7 @@ const PaymentProvidersTable = ({
       sorter: false,
     },
     {
-      title: 'Название провайдера',
+      title: 'fields.payment-providers.label',
       dataIndex: 'name',
       sorter: true,
       width: 345,
@@ -41,7 +41,7 @@ const PaymentProvidersTable = ({
       ),
     },
     {
-      title: 'Тип провайдера',
+      title: 'fields.providers-type.label',
       dataIndex: 'name',
       sorter: true,
       width: 345,
@@ -54,7 +54,7 @@ const PaymentProvidersTable = ({
       ),
     },
     {
-      title: t('Поддерживаемые карты '),
+      title: t('fields.supported-cards.label'),
       dataIndex: 'phone_number',
       sorter: true,
       width: 345,
@@ -67,7 +67,7 @@ const PaymentProvidersTable = ({
       ),
     },
     {
-      title: t('Интеграция'),
+      title: t('fields.integration-type.table'),
       dataIndex: 'phone_number',
       sorter: true,
       width: 345,
@@ -80,7 +80,7 @@ const PaymentProvidersTable = ({
       ),
     },
     {
-      title: t('Документация'),
+      title: t('fields.documentation.label'),
       dataIndex: 'phone_number',
       sorter: true,
       width: 345,
@@ -93,7 +93,7 @@ const PaymentProvidersTable = ({
       ),
     },
     {
-      title: t('3DS поддержка'),
+      title: t('fields.3ds-support.label'),
       dataIndex: 'phone_number',
       sorter: true,
       width: 345,
@@ -106,7 +106,7 @@ const PaymentProvidersTable = ({
       ),
     },
     {
-      title: t('Время ответа'),
+      title: t('fields.response-time.label'),
       dataIndex: 'phone_number',
       sorter: true,
       width: 345,
@@ -119,7 +119,7 @@ const PaymentProvidersTable = ({
       ),
     },
     {
-      title: t('Статус'),
+      title: t('fields.status.label'),
       dataIndex: 'id',
       sorter: true,
       width: 345,
@@ -175,7 +175,7 @@ const PaymentProvidersTable = ({
     setCurrentPage(page)
   }
 
-  const transformedHotelsData = AgentsData?.results.map(
+  const transformedHotelsData = AgentsData?.results?.map(
     (item: IPaymentProviders | any, i: any) => ({
       key: i,
       id: item.id,
