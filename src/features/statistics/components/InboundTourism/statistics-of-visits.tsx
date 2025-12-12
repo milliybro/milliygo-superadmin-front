@@ -75,11 +75,21 @@ function StatisticsOfVisits({
     setParams(newParams)
   }
   const disabledDate = (current: any) => {
+    const today = dayjs().endOf('day')
+
+    // Bugundan keyingi kunlar disabled
+    if (current.isAfter(today, 'day')) return true
+
     const start = selectedRange ? selectedRange[0] : null
     if (!start) return false
-    const diff = current.diff(start, 'day') + 1
-    return diff < 1 || diff > 31
+
+    const maxEnd = start.add(30, 'day') // 31 kun interval
+    if (current.isBefore(start, 'day') || current.isAfter(maxEnd, 'day'))
+      return true
+
+    return false
   }
+
   const dataSource = useMemo(() => {
     if (!data?.data) return []
     return data.data.map((item: any, index: number) => ({
