@@ -22,8 +22,10 @@ import StatisticsOfVisits from '../components/InboundTourism/statistics-of-visit
 import TouristChart from '../components/InboundTourism/tourist-chart'
 import { useSearchParams } from 'react-router'
 import InfrastructureLoader from '../components/InfrastructureLoader'
+import StatisticsUMehmonStat from '../components/UMehmon/statistics-umehmon'
+import UMehmonChart from '../components/UMehmon/emehmon-chart'
 
-const InboundTourism = () => {
+const UMehmonActive = () => {
   const { t } = useTranslation()
   const currentYear = dayjs().year() - 1
   const [year, setYear] = useState(currentYear)
@@ -37,7 +39,7 @@ const InboundTourism = () => {
   useEffect(() => {
     setBreadCrumbs([
       { title: t('common.statistics'), href: ROUTE_PATHS.MAIN },
-      { title: t('statistics.inbound_tourism'), href: '' },
+      { title: t('statistics.umehmon-active'), href: '' },
     ])
   }, [t])
 
@@ -119,7 +121,7 @@ const InboundTourism = () => {
     isLoadingCard ||
     isLoadingChart1 ||
     isLoadingChart2 ||
-    // isLoadingChart3 ||
+    isLoadingChart3 ||
     isLoadingChart4 ||
     isLoadingChart5
 
@@ -137,10 +139,10 @@ const InboundTourism = () => {
         <div className="flex items-center justify-between">
           <div className="flex flex-col">
             <Typography.Text className="text-2xl font-semibold text-primary-dark">
-              {t('statistics.inbound_tourism')}
+              {t('statistics.umehmon-active')}
             </Typography.Text>
             <Typography.Text className="mt-2 text-[16px] font-[400] text-secondary">
-              {t('statistics.inbound-desc')}
+              {t('statistics.umehmon-desc')}
             </Typography.Text>
           </div>
           <div>
@@ -162,11 +164,16 @@ const InboundTourism = () => {
         </div>
       </div>
       <div className="grid grid-cols-3 gap-4">
-        <StatisticsInboundStat data={data} />
+        <StatisticsUMehmonStat data={data} />
       </div>
-      <div className="grid grid-cols-2 gap-4">
-        <AgeGroupStats data={inboundPurposeData} />
-        <CountryStats data={TopCountry} />
+      <UMehmonChart className="col-span-3" data={inboundChart} />
+      <div className='mt-1'>
+        <Typography.Text className="text-[24px] font-[600]">
+          {t('common.booking')}
+        </Typography.Text>
+        <div className="grid grid-cols-3 gap-4 pt-4">
+          <StatisticsInboundStat data={data} />
+        </div>
       </div>
       <StatisticsOfVisits
         data={museumSalesCountry}
@@ -174,10 +181,8 @@ const InboundTourism = () => {
         setSelectedCountries={setSelectedCountries}
         isLoading={isLoadingChart3}
       />
-      <TouristChart data={groupCountryTourists} />
-      <FinanceStatsChart className="col-span-3" data={inboundChart} />
     </div>
   )
 }
 
-export default InboundTourism
+export default UMehmonActive

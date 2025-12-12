@@ -55,6 +55,7 @@ const Sidebar = () => {
         },
         {
           label: 'statistics.umehmon-active',
+          // path: '/statistics/u-mehmon',
         },
       ],
     },

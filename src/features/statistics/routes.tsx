@@ -5,6 +5,7 @@ import StatisticsInfrastructure from './views/Infrastructure'
 
 import type { CustomRoute } from '@/types'
 import OutboundTourism from './views/outbound'
+import UMehmonActive from './views/u-mehmon'
 
 const statisticsRoutes: CustomRoute = {
   id: 'statistics',
@@ -36,6 +37,12 @@ const statisticsRoutes: CustomRoute = {
       title: 'statistics.outbound_tourism',
       path: '/statistics/outbound',
       element: <OutboundTourism />,
+    },
+    {
+      id: 'statistics-umehmon-active',
+      title: 'statistics.umehmon-active',
+      path: '/statistics/u-mehmon',
+      element: <UMehmonActive />,
     },
   ],
 }

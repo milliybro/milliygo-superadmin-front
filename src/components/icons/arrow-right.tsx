@@ -7,7 +7,7 @@ const arrowRight = () => {
   return (
     <svg
       width="1em"
-      height="auto"
+      height="1em"
       viewBox="0 0 18 13"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
