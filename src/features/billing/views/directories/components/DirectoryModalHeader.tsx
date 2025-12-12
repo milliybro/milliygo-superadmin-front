@@ -16,7 +16,7 @@ function DirectoryModalHeader({ id, Icon, addText, textDesc }: Props) {
         {id ? <Edit2Icon className="text-2xl text-primary" /> : <Icon></Icon>}
       </div>
       <div className="mb-2 text-2xl font-bold text-primary-dark">
-        {id ? t('users-page.edit-user') : t(`${addText}`)}
+        { t(`${addText}`)}
       </div>
       <p className="font-medium text-secondary">{t(`${textDesc}`)}</p>
     </div>

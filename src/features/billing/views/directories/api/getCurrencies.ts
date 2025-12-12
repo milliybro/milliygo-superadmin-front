@@ -1,12 +1,13 @@
 import { ListResponse } from '@/types'
 import requestSuper from '@/utils/superRequest'
 import { ICurrencies } from '../types'
+import billingRequest from '@/features/billing/billingRequest'
 
 export async function getCurrenciesList(
   params?: any,
 ): Promise<ListResponse<ICurrencies[]>> {
-  const res: ListResponse<ICurrencies[]> = await requestSuper({
-    url: '/tour-agents/',
+  const res: ListResponse<ICurrencies[]> = await billingRequest({
+    url: '/currencies',
     method: 'get',
     params,
   })

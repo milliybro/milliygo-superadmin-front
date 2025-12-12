@@ -524,6 +524,64 @@
     "label": "Izoh",
     "placeholder": "Izoh kiriting",
     "error": "Iltimos, izoh kiriting"
+  },
+  "payment-providers": {
+    "label": "Provayder nomi",
+    "placeholder": "Nomini kiriting",
+    "error": "Iltimos, provayder nomini kiriting"
+  },
+  "providers-type": {
+    "label": "Provayder turi",
+    "placeholder": "Kiriting",
+    "error": "Iltimos, provayder turini kiriting"
+  },
+  "supported-cards": {
+    "label": "Qo‘llab-quvvatlanadigan kartalar",
+    "placeholder": "Tanlang",
+    "error": "Iltimos, qo‘llab-quvvatlanadigan kartalarni tanlang"
+  },
+  "integration-type": {
+    "label": "Integratsiya turi",
+    "placeholder": "Tanlang",
+    "error": "Iltimos, integratsiya turini tanlang",
+    "table": "Integratsiyalar"
+  },
+  "documentation": {
+    "label": "Dokumentatsiya",
+    "placeholder": "Kiriting",
+    "error": "Iltimos, dokumentatsiyani kiriting"
+  },
+  "currency": {
+    "label": "Valyutalar",
+    "placeholder": "Tanlang",
+    "error": "Iltimos, valyutalarni tanlang"
+  },
+  "limits": {
+    "label": "Limitlar",
+    "placeholder": "Tanlang",
+    "error": "Iltimos, limitlarni tanlang"
+  },
+  "3ds-support": {
+    "label": "3DS qo‘llab-quvvatlash",
+    "placeholder": "Tanlang",
+    "error": "Iltimos, 3DS qo‘llab-quvvatlashni tanlang"
+  },
+  "response-time": {
+    "label": "Javob vaqti",
+    "placeholder": "Kiriting",
+    "error": "Iltimos, javob vaqtini kiriting"
+  },
+  "agreement": {
+    "label": "Shartnoma",
+    "placeholder": "Fayllarni tanlang",
+    "not-selected": "Hali tanlanmagan",
+    "error": "Iltimos, shartnomani tanlang"
+  },
+  "test-credentials": {
+    "label": "Test hisob ma'lumotlari",
+    "placeholder": "Fayllarni tanlang",
+    "not-selected": "Hali tanlanmagan",
+    "error": "Iltimos, test hisob ma'lumotlarini tanlang"
   }
   },
   "tenant": {
@@ -703,7 +761,8 @@
     "auto-trans-desc": "Siz kiritgan kontent avtomatik ravishda boshqa tillarga tarjima qilinadi. Istasangiz, uni sozlamalar orqali o‘chirib tashlashingiz mumkin.",
     "pending-confirmation": "Tasdiqlash kutilmoqda",
     "enter": "Kirting",
-    "modal_description": "Yangi to‘lovni qo‘shish uchun, iltimos barcha kerakli maydonlarni to‘ldiring",
+    "modal_description": "Yangi ma’lumot qo‘shish uchun, iltimos barcha kerakli maydonlarni to‘ldiring",
+    "modal_description_edit": "Ma’lumotni tahrirlash uchun, iltimos, kerakli maydonlarni to‘ldiring.",
     "service-name": "Xizmat nomi",
     "employee-id": "Foydalanuvchi ID"
   },

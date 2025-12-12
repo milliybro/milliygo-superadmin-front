@@ -8,11 +8,12 @@ import type { FC, ReactNode } from 'react'
 
 interface IProps extends SelectProps {
   prefixIcon?: ReactNode
-  containerClassName?: string
+  containerClassName?: string,
+  mode?:"multiple" | "tags" | undefined
 }
 
 const CSelect: FC<IProps> = props => {
-  const { suffixIcon, prefixIcon, className, containerClassName, ...rest } =
+  const { suffixIcon, prefixIcon, className, containerClassName,mode = undefined, ...rest } =
     props
 
   return (
@@ -21,6 +22,8 @@ const CSelect: FC<IProps> = props => {
         {...rest}
         notFoundContent={null}
         defaultActiveFirstOption={false}
+        mode={mode}
+        maxTagCount={1}
         suffixIcon={
           suffixIcon ? (
             suffixIcon

@@ -1,9 +1,30 @@
+interface Translate {
+  lang: string
+  name: string
+}
+
 export interface ICurrencies {
   id: number
+  code: string
+  numericCode: string
+  name: string
+  isActive: boolean
+  symbol: string
+  minorUnits: number
+  translates: Translate[]
 }
 
 export interface IPaymentProviders {
   id: number
+  name: string
+  type: string
+  supportedCurrencies: string[]
+  code: string
+  status: string
+  minAmount: number
+  maxAmount: number
+  commissionType: string
+  commissionRate: number
 }
 
 export interface ITaxRates {
