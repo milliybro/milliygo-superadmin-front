@@ -33,7 +33,6 @@ import BlurImage from '@/components/ui/blur-image'
 import AttachmentIcon from '@/components/icons/attachment'
 import SendIcon from '@/components/icons/send'
 import dayjs from 'dayjs'
-dayjs.locale('uz')
 
 interface IProps {
   selectedChat: any

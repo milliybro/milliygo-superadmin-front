@@ -54,8 +54,8 @@ export default function InfrastructureHotelSectorStatistics({
       },
       markers: {
         size: [0, 5],
-        colors: ['#3b82f6', '#ef4444'],
-        strokeColors: ['#3b82f6', '#fff'],
+        colors: ['#3b82f6', '#fff'],
+        strokeColors: ['#3b82f6', '#ef4444'],
         strokeWidth: [0, 2],
         hover: { size: 7 },
         borderRadius: 4,
@@ -81,7 +81,6 @@ export default function InfrastructureHotelSectorStatistics({
       ],
 
       grid: {
-        show: true,
         borderColor: '#E5E7EB',
         xaxis: { lines: { show: true } },
         yaxis: { lines: { show: true } },
@@ -92,6 +91,14 @@ export default function InfrastructureHotelSectorStatistics({
         style: { fontSize: '12px' },
         shared: false,
         intersect: false,
+      },
+      legend: {
+        markers: {
+          width: 12, 
+          height: 12, 
+          radius: 12, 
+          shape: 'rect', 
+        },
       },
     }),
     [years],
@@ -109,6 +116,15 @@ export default function InfrastructureHotelSectorStatistics({
         name: t('common.guests'),
         type: 'line',
         data: guestData,
+        marker: {
+          size: 6,
+          colors: '#ffffff', // markaz oq
+          strokeColors: '#ef4444', // qizil border
+          strokeWidth: 3,
+          hover: {
+            size: 8,
+          },
+        },
       },
     ],
     [objectsData, guestData, t],

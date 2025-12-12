@@ -2,17 +2,7 @@ import { useEffect, useState } from 'react'
 import { DatePicker, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import CalendarIcon from '@/components/icons/calendar'
-import FinanceStatsChart from '../containers/finance-stats-chart'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
-import TouristsByRegionChart from '../containers/tourists-by-region-chart'
-import StatisticsList from '../containers/statistics-list'
-import BookingCancelationsTable from '../containers/booking-cancelations-table'
-import IncomeByPaymentType from '../containers/income-by-payment-type'
-import MostBookedHotels from '../containers/most-booked-hotels'
-import ActivityByRegion from '../containers/activity-by-region'
-import RegionsWithMostBookings from '../containers/regions-with-most-bookings'
-import MostPopularDestinations from '../containers/most-popular-destinations'
-import MostTimeSpentPages from '../containers/most-time-spent-pages'
 import { ROUTE_PATHS } from '@/config/constants'
 import StatisticsInfrastructureStat from '../containers/statistics-infrastructure-stat'
 import InfrastructureOrganizationChart from '../containers/infrastructure-organization-chart'
@@ -22,6 +12,7 @@ import InfrastructureSanatoriumStatistics from '../containers/infrastructure-san
 import { getInfrastructureCard, getInfrastructureChart } from '../api'
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
+import InfrastructureLoader from '../components/InfrastructureLoader'
 
 const StatisticsInfrastructure = () => {
   const { t } = useTranslation()
@@ -41,76 +32,78 @@ const StatisticsInfrastructure = () => {
     ])
   }, [t])
 
-  const { data } = useQuery({
+  const { data, isLoading: isLoadingCard } = useQuery({
     queryKey: ['infrastructure-card', year],
-    queryFn: async () => {
-      const res = await getInfrastructureCard({ year })
-      return res
-    },
+    queryFn: async () => await getInfrastructureCard({ year }),
     placeholderData: data => data,
     gcTime: 0,
   })
 
-  const { data: InfrastructureStatchartData } = useQuery({
-    queryKey: ['infrastructure-stat-chart-data', activeTab],
-    queryFn: async () => {
-      const res = await getInfrastructureChart({
-        // year,
-        chart: 'recreation_tourist_facilities',
-        chart_type: activeTab === 'object' ? 'object' : 'place',
-      })
-      return res
-    },
-    placeholderData: data => data,
-    gcTime: 0,
-  })
+  const { data: InfrastructureStatchartData, isLoading: isLoadingChart1 } =
+    useQuery({
+      queryKey: ['infrastructure-stat-chart-data', activeTab],
+      queryFn: async () =>
+        await getInfrastructureChart({
+          chart: 'recreation_tourist_facilities',
+          chart_type: activeTab === 'object' ? 'object' : 'place',
+        }),
+      placeholderData: data => data,
+      gcTime: 0,
+    })
 
-  // chart2
-  const { data: hotelSectorchartData } = useQuery({
+  const { data: hotelSectorchartData, isLoading: isLoadingChart2 } = useQuery({
     queryKey: ['hotel-sector-chart-data', activeTab2],
-    queryFn: async () => {
-      const res = await getInfrastructureChart({
-        // year,
+    queryFn: async () =>
+      await getInfrastructureChart({
         chart: 'hotels_accommodation',
         chart_type: activeTab2 === 'object' ? 'object' : 'place',
         guest: true,
-      })
-      return res
-    },
+      }),
     placeholderData: data => data,
     gcTime: 0,
   })
 
-  // chart3
-  const { data: InfrastructurePublicPlaceChartData } = useQuery({
+  const {
+    data: InfrastructurePublicPlaceChartData,
+    isLoading: isLoadingChart3,
+  } = useQuery({
     queryKey: ['infrastructure-stat-public-chart-data', activeTab3],
-    queryFn: async () => {
-      const res = await getInfrastructureChart({
-        // year,
+    queryFn: async () =>
+      await getInfrastructureChart({
         chart: 'public_placement',
         chart_type: activeTab3 === 'object' ? 'object' : 'place',
-      })
-      return res
-    },
+      }),
     placeholderData: data => data,
     gcTime: 0,
-  })
+    })
 
-  // chart4
-  const { data: hotelSanatoriumChartData } = useQuery({
-    queryKey: ['hotel-sanatorium-chart-data', activeTab4],
-    queryFn: async () => {
-      const res = await getInfrastructureChart({
-        // year,
-        chart: 'sanatorium',
-        chart_type: activeTab4 === 'object' ? 'object' : 'place',
-        guest: true,
-      })
-      return res
-    },
-    placeholderData: data => data,
-    gcTime: 0,
-  })
+  const { data: hotelSanatoriumChartData, isLoading: isLoadingChart4 } =
+    useQuery({
+      queryKey: ['hotel-sanatorium-chart-data', activeTab4],
+      queryFn: async () =>
+        await getInfrastructureChart({
+          chart: 'sanatorium',
+          chart_type: activeTab4 === 'object' ? 'object' : 'place',
+          guest: true,
+        }),
+      placeholderData: data => data,
+      gcTime: 0,
+    })
+
+  const isGlobalLoading =
+    isLoadingCard ||
+    isLoadingChart1 ||
+    isLoadingChart2 ||
+    isLoadingChart3 ||
+    isLoadingChart4
+
+  if (isGlobalLoading) {
+    return (
+      <div className="flex flex-1 flex-col items-center justify-center min-h-screen">
+        <InfrastructureLoader />
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-6">
@@ -124,66 +117,46 @@ const StatisticsInfrastructure = () => {
               {t('statistics.tourist_infracstructure-desc')}
             </Typography.Text>
           </div>
-          <div>
-            <DatePicker
-              picker="year"
-              size="large"
-              value={dayjs().year(year)}
-              suffixIcon={
-                <CalendarIcon className="text-lg text-success-dark" />
-              }
-              disabledDate={current => current.year() > 2024}
-              onChange={value => {
-                if (value) {
-                  setYear(value.year())
-                }
-              }}
-            />
-          </div>
+
+          <DatePicker
+            picker="year"
+            size="large"
+            value={dayjs().year(year)}
+            suffixIcon={<CalendarIcon className="text-lg text-success-dark" />}
+            disabledDate={current => current.year() > 2024}
+            onChange={value => value && setYear(value.year())}
+          />
         </div>
       </div>
+
       <div className="grid grid-cols-5 gap-4">
         <StatisticsInfrastructureStat data={data} />
       </div>
+
       <div className="grid grid-cols-2 gap-4">
         <InfrastructureOrganizationChart
           data={InfrastructureStatchartData}
           activeTab={activeTab}
           onTabChange={setActiveTab}
         />
+
         <InfrastructureHotelSectorStatistics
           data={hotelSectorchartData}
           activeTab={activeTab2}
           onTabChange={setActiveTab2}
         />
+
         <InfrastructureCollectiveStatistics
           data={InfrastructurePublicPlaceChartData}
           activeTab={activeTab3}
           onTabChange={setActiveTab3}
         />
+
         <InfrastructureSanatoriumStatistics
           data={hotelSanatoriumChartData}
           activeTab={activeTab4}
           onTabChange={setActiveTab4}
         />
-        {/* <TouristsByRegionChart className="col-span-1" /> */}
-
-        {/* <FinanceStatsChart className="col-span-3" />
-        <IncomeByPaymentType />
-        <MostBookedHotels />
-        <ActivityByRegion />
-        <RegionsWithMostBookings />
-        <MostPopularDestinations />
-        <MostTimeSpentPages />
-        <BookingCancelationsTable className="col-span-full" /> */}
-        {/* <div className="flex-1 col-span-9 flex items-center justify-center bg-white border flex-col overflow-hidden border-border rounded-[16px]">
-        <div className="flex flex-col justify-center gap-3 items-center">
-          <NotFoundIcon />
-        </div>
-        <span className="text-2xl font-semibold text-primary-dark">
-          {t('complaints-page.not-found-title')}
-        </span>
-      </div> */}
       </div>
     </div>
   )
