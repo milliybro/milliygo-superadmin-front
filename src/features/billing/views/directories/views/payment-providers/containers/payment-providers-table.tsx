@@ -129,7 +129,6 @@ const PaymentProvidersTable = ({
         </div>
       ),
     },
-
     {
       width: 300,
       title: 'common.action',

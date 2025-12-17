@@ -42,7 +42,7 @@ function useNotify() {
     })
   }
 
-  return { openNotify, notificationPlace }
+  return { openNotify, notificationPlace ,notify}
 }
 
 export default useNotify

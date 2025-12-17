@@ -23,10 +23,10 @@ const Currencies = () => {
     queryKey: ['currencies', currentPage, search, region],
     queryFn: async () => {
       const res = await getCurrenciesList({
-        page_size: pageSize,
-        page: currentPage,
-        name: search ? search : null,
+        size: pageSize,
+        page: currentPage - 1 ,
       })
+      console.log(res)
       return res
     },
     placeholderData: data => data,
@@ -42,10 +42,10 @@ const Currencies = () => {
           <PlusOutlined />
           {t('common.add')}
         </Button>
-        <CurrencyModal />
+        <CurrencyModal  />
       </div>
       <CurrenciesTable
-        AgentsData={data}
+        data={data}
         isLoading={isFetching}
         refetch={refetch}
         pageSize={pageSize}

@@ -582,7 +582,17 @@
     "placeholder": "Fayllarni tanlang",
     "not-selected": "Hali tanlanmagan",
     "error": "Iltimos, test hisob ma'lumotlarini tanlang"
-  }
+  },
+"currency-type": {
+  "label": "Valyuta turi",
+  "placeholder": "Tanlang",
+  "error": "Iltimos, valyuta turini tanlang"
+},
+"rate": {
+  "label": "Kurs",
+  "placeholder": "Kiriting",
+  "error": "Iltimos, kursni kiriting"
+}
   },
   "tenant": {
     "tenant": "Tenant",

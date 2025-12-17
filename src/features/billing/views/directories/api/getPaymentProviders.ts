@@ -1,5 +1,4 @@
 import { ListResponse } from '@/types'
-import requestSuper from '@/utils/superRequest'
 import { IPaymentProviders } from '../types'
 import billingRequest from '@/features/billing/billingRequest'
 
@@ -16,8 +15,8 @@ export async function getPaymentProvidersList(
 }
 
 export async function getPaymentProvider(params?: any): Promise<any> {
-  const res: any = await requestSuper({
-    url: `/account/users/${params.id}/`,
+  const res: any = await billingRequest({
+    url: `/payment-providers/${params.id}/`,
     method: 'get',
     params: params.queryParams,
   })
@@ -33,8 +32,8 @@ export async function updatePaymentProvider(params: {
   if (!id) {
     throw new Error('User ID is required for updating a user.')
   }
-  const res: any = await requestSuper({
-    url: `/account/users/${id}/`,
+  const res: any = await billingRequest({
+    url: `/payment-providers/${id}`,
     method: 'patch',
     data: queryParams,
   })
@@ -43,8 +42,8 @@ export async function updatePaymentProvider(params: {
 }
 
 export async function createPaymentProvider(data?: any): Promise<any> {
-  const res: any = await requestSuper({
-    url: '/account/users/',
+  const res: any = await billingRequest({
+    url: '/payment-providers',
     method: 'post',
     data,
   })
@@ -53,8 +52,8 @@ export async function createPaymentProvider(data?: any): Promise<any> {
 }
 
 export async function deletePaymentProvider(id: string | number): Promise<any> {
-  const res: any = await requestSuper({
-    url: `/account/users/${id}/`,
+  const res: any = await billingRequest({
+    url: `/payment-providers/${id}/`,
     method: 'delete',
   })
 

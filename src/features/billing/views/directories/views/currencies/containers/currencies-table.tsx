@@ -1,15 +1,13 @@
 import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import type { PaginationProps, TableColumnsType } from 'antd'
-import dayjs from 'dayjs'
 import { twMerge } from 'tailwind-merge'
 import UsersNotFound from '@/features/users/components/users-not-found'
 import CurrenciesTableAction from './currencies-table-action'
-import StatusTag from '@/components/ui/status-tag'
 import { ICurrencies } from '../../../types'
 
 const CurrenciesTable = ({
-  AgentsData,
+  data,
   isLoading,
   currentPage,
   pageSize,
@@ -24,94 +22,53 @@ const CurrenciesTable = ({
       dataIndex: 'id',
       className: 'text-center',
       width: 39,
-      render: (_text, _record, index) =>
-        (currentPage - 1) * pageSize + index + 1,
-      sorter: false,
+      render: (_text, _record, index) => (currentPage - 1) * pageSize + index + 1, sorter: false,
     },
     {
       title: 'fields.currency_code.table',
-      dataIndex: 'name',
-      sorter: true,
+      dataIndex: 'currencyTypeCode',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
+      
     },
     {
       title: 'fields.currency_name.table',
-      dataIndex: 'license_validity',
-      sorter: true,
+      dataIndex: 'currencyTypeTranslateName',
+      sorter: false,
       width: 345,
-      render: item => <div>{dayjs(item).format('DD MMM, YYYY')}</div>,
+      // render: item => <div>{dayjs(item).format('DD MMM, YYYY')}</div>,
     },
     {
       title: t('fields.currency_symbol.label'),
-      dataIndex: 'phone_number',
-      sorter: true,
+      dataIndex: 'currencyTypeSymbol',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
+      align: 'center',
+      render: (value,) => {
+        return <span>{value ? value : '-'}</span>
+      },
     },
     {
       title: 'fields.course_uzs.table',
-      dataIndex: 'phone_number',
-      sorter: true,
+      dataIndex: 'rate',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
+      align: 'center',
+      render: (value) => {
+        return <span>{value ? value : '-'}</span>
+      },
     },
     {
       title: t('fields.course_source.label'),
-      dataIndex: 'phone_number',
-      sorter: true,
+      dataIndex: 'source',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
-    },
-    {
-      title: t('fields.refresh_rate.label'),
-      dataIndex: 'phone_number',
-      sorter: true,
-      width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
-    },
-    {
-     title: t('fields.status.label'),
-      dataIndex: 'id',
-      sorter: true,
-      width: 345,
-       render: (value:any) => (
-        <div className="2xl:mr-0">
-          <StatusTag active={value} />
-        </div>
-      ),
-    },
+      align: 'center',
+      render: (value) => {
+        return <span>{value ? value : '-'}</span>
+      },
 
+    },
     {
       width: 300,
       title: 'common.action',
@@ -157,25 +114,25 @@ const CurrenciesTable = ({
     setCurrentPage(page)
   }
 
-  const transformedHotelsData = AgentsData?.results?.map(
+  const transformedHotelsData = data?.content?.map(
     (item: ICurrencies | any, i: any) => ({
       key: i,
-      id: item.id,
-      name: item.name,
-      image: item.file,
-      address: item.address?.map((addr: any) => addr.address) ?? [],
-      license_validity: item.expire_license_date,
-      phone_number: item.phone_number?.map((p: any) => p.phone_number) ?? [],
+      id: item?.id,
+      currencyTypeId: item?.currencyTypeId,
+      currencyTypeCode: item?.currencyTypeCode,
+      currencyTypeSymbol: item?.currencyTypeSymbol,
+      currencyTypeTranslateName: item?.currencyTypeTranslateName,
+      rate: item?.rate,
+      rateDate: item?.rateDate,
+      source: item?.source,
+      date: item?.date,
     }),
   )
 
   return (
     <div className="flex h-full flex-col items-center justify-center overflow-hidden bg-white">
-      <Table<ICurrencies | any>
-        columns={columns?.map(val => ({
-          ...val,
-          title: t(val?.title as string),
-        }))}
+      <Table<ICurrencies>
+        columns={columns?.map(val => ({ ...val, title: t(val?.title as string), }))}
         loading={isLoading}
         dataSource={transformedHotelsData}
         onChange={pagination => handlePaginationChange(pagination.current!)}
@@ -184,7 +141,7 @@ const CurrenciesTable = ({
         pagination={{
           current: currentPage,
           pageSize: 10,
-          total: AgentsData?.count || 0,
+          total: data?.totalElements || 0,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],
@@ -197,6 +154,8 @@ const CurrenciesTable = ({
           triggerAsc: t('common.sort_ascending') ?? '',
           cancelSort: t('common.sort_cancel') ?? '',
         }}
+        showSorterTooltip={false}
+        
       />
     </div>
   )

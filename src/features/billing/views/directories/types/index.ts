@@ -1,17 +1,21 @@
-interface Translate {
-  lang: string
-  name: string
+export interface ICurrencies {
+  id: number
+  currencyTypeId: number
+  currencyTypeCode: string
+  currencyTypeSymbol: any
+  currencyTypeTranslateName: string
+  rate: number
+  rateDate: any
+  source: string
+  date: string
 }
 
-export interface ICurrencies {
+export interface ICurrencyTypes {
   id: number
   code: string
   numericCode: string
   name: string
   isActive: boolean
-  symbol: string
-  minorUnits: number
-  translates: Translate[]
 }
 
 export interface IPaymentProviders {
