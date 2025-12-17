@@ -1,12 +1,12 @@
-import { ICurrencies } from '../types'
+import {  ICurrencyTypes } from '../types'
 import billingRequest from '@/features/billing/billingRequest'
 import { ListResponseBilling } from '@/features/billing/types/response.billing'
 
-export async function getCurrenciesList(
+export async function getCurrencyTypesList(
   params?: any,
-): Promise<ListResponseBilling<ICurrencies[]>> {
-  const res: ListResponseBilling<ICurrencies[]> = await billingRequest({
-    url: '/currencies',
+): Promise<ListResponseBilling<ICurrencyTypes>> {
+  const res: ListResponseBilling<ICurrencyTypes> = await billingRequest({
+    url: '/currency-types',
     method: 'get',
     params,
   })
@@ -14,9 +14,9 @@ export async function getCurrenciesList(
   return res
 }
 
-export async function getCurrency(params?: any): Promise<any> {
+export async function getCurrencyType(params?: any): Promise<any> {
   const res: any = await billingRequest({
-    url: `/currencies/id?id=${params.id}`,
+    url: `/currency-types/${params.id}/`,
     method: 'get',
     params: params.queryParams,
   })
@@ -24,7 +24,7 @@ export async function getCurrency(params?: any): Promise<any> {
   return res
 }
 
-export async function updateCurrency(params: {
+export async function updateCurrencyType(params: {
   id: string
   queryParams: any
 }): Promise<any> {
@@ -33,7 +33,7 @@ export async function updateCurrency(params: {
     throw new Error('User ID is required for updating a user.')
   }
   const res: any = await billingRequest({
-    url: `/currencies/${id}/`,
+    url: `/currency-types/${id}/`,
     method: 'patch',
     data: queryParams,
   })
@@ -41,19 +41,19 @@ export async function updateCurrency(params: {
   return res
 }
 
-export async function createCurrency(data?: any): Promise<any> {
+export async function createCurrencyType(data?: any): Promise<any> {
   const res: any = await billingRequest({
-    url: '/currencies',
+    url: '/currency-types',
     method: 'post',
     data,
   })
-  console.log(res)
+
   return res
 }
 
-export async function deleteCurrency(id: string | number): Promise<any> {
+export async function deleteCurrencyType(id: string | number): Promise<any> {
   const res: any = await billingRequest({
-    url: `/currencies/${id}`,
+    url: `/currency-types/${id}`,
     method: 'delete',
   })
 
