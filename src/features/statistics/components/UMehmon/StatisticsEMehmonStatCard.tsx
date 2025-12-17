@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next'
 import StatisticsCard from '../statistics-card'
 import UserMultipleIcon from '@/components/icons/user-multiple'
 
-import Money2Icon from '@/components/icons/money2-icon'
-import MapsIcon from '@/components/icons/maps-icon'
+import AddTeamIcon from '@/components/icons/add-team-icon'
+import StudentCardIcon from '@/components/icons/student-card-icon'
 
 const StatisticsUMehmonStat = ({ data }: any) => {
   const { t } = useTranslation()
@@ -26,7 +26,7 @@ const StatisticsUMehmonStat = ({ data }: any) => {
       },
       {
         // icon: BedDoubleIcon,
-        icon: Money2Icon,
+        icon: AddTeamIcon,
 
         title: t('statistics.new-regis'),
         value: data?.recent_users_count === null ? 0 : data?.recent_users_count,
@@ -41,7 +41,7 @@ const StatisticsUMehmonStat = ({ data }: any) => {
       },
       {
         // icon: BedDoubleIcon,
-        icon: MapsIcon,
+        icon: StudentCardIcon,
 
         title: t('statistics.total-local-regis'),
         value: data?.uzb_users === null ? 0 : data?.uzb_users,

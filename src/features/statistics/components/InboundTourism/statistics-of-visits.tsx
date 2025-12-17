@@ -1,7 +1,7 @@
 import CalendarIcon from '@/components/icons/calendar'
 import LocationStarIcon from '@/components/icons/location-star-icon'
 import { formatAmount } from '@/helpers/format-amount'
-import { DatePicker, Select, Table, Typography } from 'antd'
+import { DatePicker, Table, Typography } from 'antd'
 import dayjs from 'dayjs'
 import { useState, useMemo, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
@@ -113,6 +113,8 @@ function StatisticsOfVisits({
       key: 'id',
       width: 55,
       render: (a: any) => {
+        console.log(a)
+
         return (
           <>
             <LocationStarIcon />

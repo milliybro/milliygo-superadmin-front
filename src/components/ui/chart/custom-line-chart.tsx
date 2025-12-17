@@ -1,12 +1,18 @@
 import { useState } from 'react'
 import { Popover } from 'antd'
+import { useTranslation } from 'react-i18next'
 
-const CustomLineChart = ({ data = {} as any, legend = '' }) => {
-  const [hoveredIndex, setHoveredIndex] = useState(null)
+const CustomLineChart = ({
+  data = {} as Record<string, number>,
+  legend = '',
+}) => {
+  const { t } = useTranslation()
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
 
   const labels = Object.keys(data)
-  const values = Object.values(data) as any
-  const actualMaxValue = Math.max(...values, 500)
+  const values = Object.values(data)
+
+  const actualMaxValue = Math.max(...values, 40)
   const maxValue = actualMaxValue * 1.15
 
   const padding = 60
@@ -15,26 +21,40 @@ const CustomLineChart = ({ data = {} as any, legend = '' }) => {
   const innerWidth = chartWidth - padding * 2
   const innerHeight = chartHeight - padding * 2
 
-  const points = values.map((value: any, index: number) => ({
+  /* =======================
+     Label formatter (i18n)
+  ======================= */
+  const formatLabel = (label: string) => {
+    const key = label.toLowerCase()
+
+    // Agar months.january kabi key bo‘lsa → tarjima
+    if (t(`months.${key}`, { defaultValue: '' })) {
+      return t(`months.${key}`)
+    }
+
+    // Aks holda (yil yoki boshqa)
+    return label
+  }
+
+  /* =======================
+     Points
+  ======================= */
+  const points = values.map((value, index) => ({
     x: padding + (index / (values.length - 1)) * innerWidth,
     y: chartHeight - padding - (value / maxValue) * innerHeight,
     value,
-    label: labels[index],
+    label: formatLabel(labels[index]),
     index,
   }))
 
   const svgPath = points
-    .map(
-      (point: any, i: number) => `${i === 0 ? 'M' : 'L'} ${point.x} ${point.y}`,
-    )
+    .map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`)
     .join(' ')
 
-  // Create shadow/gradient fill path
   const shadowPath =
     svgPath +
     ` L ${points[points.length - 1].x} ${chartHeight - padding}` +
-    ` L ${points[0].x} ${chartHeight - padding}` +
-    ' Z'
+    ` L ${points[0].x} ${chartHeight - padding} Z`
 
   const yAxisSteps = 5
   const yAxisValues = Array.from({ length: yAxisSteps + 1 }, (_, i) =>
@@ -66,11 +86,11 @@ const CustomLineChart = ({ data = {} as any, legend = '' }) => {
             </linearGradient>
           </defs>
 
-          {/* Grid */}
+          {/* Grid Y */}
           {yAxisValues.map((val, i) => {
             const y = chartHeight - padding - (val / maxValue) * innerHeight
             return (
-              <g key={`grid-${i}`}>
+              <g key={i}>
                 <line
                   x1={padding}
                   y1={y}
@@ -78,7 +98,6 @@ const CustomLineChart = ({ data = {} as any, legend = '' }) => {
                   y2={y}
                   stroke="#E5E7EB"
                   strokeDasharray="4"
-                  strokeWidth="1"
                 />
                 <text
                   x={padding - 10}
@@ -86,39 +105,36 @@ const CustomLineChart = ({ data = {} as any, legend = '' }) => {
                   textAnchor="end"
                   fontSize="12"
                   fill="#6B7280"
-                  fontFamily="system-ui"
                 >
-                  {Math.round(val)}
+                  {val}
                 </text>
               </g>
             )
           })}
 
-          {points.map((point:any, i:number) => (
-            <g key={`vgrid-${i}`}>
+          {/* Grid X + labels */}
+          {points.map((p, i) => (
+            <g key={i}>
               <line
-                x1={point.x}
+                x1={p.x}
                 y1={padding}
-                x2={point.x}
+                x2={p.x}
                 y2={chartHeight - padding}
                 stroke="#E5E7EB"
-                strokeDasharray="0"
-                strokeWidth="1"
               />
               <text
-                x={point.x}
+                x={p.x}
                 y={chartHeight - padding + 25}
                 textAnchor="middle"
                 fontSize="12"
                 fill="#6B7280"
-                fontFamily="system-ui"
               >
-                {point.label}
+                {p.label}
               </text>
             </g>
           ))}
 
-          {/* Y Axis */}
+          {/* Axis */}
           <line
             x1={padding}
             y1={padding}
@@ -127,8 +143,6 @@ const CustomLineChart = ({ data = {} as any, legend = '' }) => {
             stroke="#D1D5DB"
             strokeWidth="2"
           />
-
-          {/* X Axis */}
           <line
             x1={padding}
             y1={chartHeight - padding}
@@ -138,48 +152,34 @@ const CustomLineChart = ({ data = {} as any, legend = '' }) => {
             strokeWidth="2"
           />
 
-          {/* Shadow/Gradient Fill */}
+          {/* Shadow */}
           <path d={shadowPath} fill="url(#chartGradient)" />
 
           {/* Line */}
-          <path
-            d={svgPath}
-            stroke="#FF9D4D"
-            strokeWidth="2"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
+          <path d={svgPath} stroke="#FF9D4D" strokeWidth="2" fill="none" />
 
-          {/* Vertical line on hover */}
+          {/* Hover line */}
           {hoveredIndex !== null && (
             <line
               x1={points[hoveredIndex].x}
               y1={padding}
               x2={points[hoveredIndex].x}
               y2={chartHeight - padding}
-              stroke="#FF0000"
+              stroke="#EF4444"
               strokeWidth="2"
-              strokeDasharray="0"
-              opacity="0.8"
             />
           )}
 
           {/* Points */}
-          {points.map((point:any, i:any) => (
+          {points.map((p, i) => (
             <Popover
-              key={`point-${i}`}
-              color="#232E40"
-              content={
-                <div className="text-center">
-                  <p className="text-[14px] font-[400] text-[#FFFFFF]">
-                    {point.value}
-                  </p>
-                </div>
-              }
+              key={i}
               trigger="hover"
               placement="top"
-              overlayClassName="chart-popover"
+              color="#232E40"
+              content={
+                <div className="text-center text-sm text-white">{p.value}</div>
+              }
             >
               <g
                 onMouseEnter={() => setHoveredIndex(i)}
@@ -187,45 +187,23 @@ const CustomLineChart = ({ data = {} as any, legend = '' }) => {
                 style={{ cursor: 'pointer' }}
               >
                 <circle
-                  cx={point.x}
-                  cy={point.y}
+                  cx={p.x}
+                  cy={p.y}
                   r={5}
-                  fill="#ffffff"
-                  stroke={i === hoveredIndex ? '#EF4444' : '#FF9D4D'}
-                  strokeWidth={i === hoveredIndex ? 3 : 2}
+                  fill="#fff"
+                  stroke={hoveredIndex === i ? '#EF4444' : '#FF9D4D'}
+                  strokeWidth={hoveredIndex === i ? 3 : 2}
                 />
-                <circle
-                  cx={point.x}
-                  cy={point.y}
-                  r={10}
-                  fill="transparent"
-                  stroke="transparent"
-                  pointerEvents="auto"
-                />
+                <circle cx={p.x} cy={p.y} r={12} fill="transparent" />
               </g>
             </Popover>
-          ))}
-
-          {/* X Axis Labels */}
-          {points.map((point:any, i:number) => (
-            <text
-              key={`label-${i}`}
-              x={point.x}
-              y={chartHeight - padding + 25}
-              textAnchor="middle"
-              fontSize="12"
-              fill="#6B7280"
-              fontFamily="system-ui"
-            >
-              {point.label}
-            </text>
           ))}
         </svg>
       </div>
 
       {/* Legend */}
-      <div className="flex items-center justify-center gap-2">
-        <span className="inline-block h-3 w-3 rounded-sm bg-[#FF9D4D]"></span>
+      <div className="mt-2 flex items-center justify-center gap-2">
+        <span className="inline-block h-3 w-3 rounded-sm bg-[#FF9D4D]" />
         <span className="text-sm font-medium text-[#374151]">{legend}</span>
       </div>
     </div>

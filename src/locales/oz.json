@@ -1079,5 +1079,19 @@
     "top-50": "Mehmonlar soni bo‘yicha Top-50 mehmonxona",
     "loading": "Yuklanmoqda...",
     "all-country": "Barcha mamlakatlar"
+  },
+  "months": {
+    "january": "Yanvar",
+    "february": "Fevral",
+    "march": "Mart",
+    "april": "Aprel",
+    "may": "May",
+    "june": "Iyun",
+    "july": "Iyul",
+    "august": "Avgust",
+    "september": "Sentyabr",
+    "october": "Oktyabr",
+    "november": "Noyabr",
+    "december": "Dekabr"
   }
 }

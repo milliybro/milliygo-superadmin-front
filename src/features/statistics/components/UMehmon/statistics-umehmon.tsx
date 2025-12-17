@@ -1,17 +1,17 @@
 import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import StatisticsCard from '../statistics-card'
-import UserMultipleIcon from '@/components/icons/user-multiple'
 
-import Money2Icon from '@/components/icons/money2-icon'
-import MapsIcon from '@/components/icons/maps-icon'
+import BuildingIcon from '@/components/icons/building-icon'
+import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
+import LocationUserIcon from '@/components/icons/location-user'
 
 const StatisticsUMehmonStatistics = ({ data }: any) => {
   const { t } = useTranslation()
   const formattedStats = useMemo(() => {
     return [
       {
-        icon: UserMultipleIcon,
+        icon: BuildingIcon,
         title: t('statistics.user-regis-system'),
         value: data?.placement_count === null ? 0 : data?.placement_count,
         // direction:
@@ -25,7 +25,7 @@ const StatisticsUMehmonStatistics = ({ data }: any) => {
       },
       {
         // icon: BedDoubleIcon,
-        icon: Money2Icon,
+        icon: CheckmarkCircleIcon,
 
         title: t('statistics.total-bookings'),
         value: data?.booking_count === null ? 0 : data?.booking_count,
@@ -40,7 +40,7 @@ const StatisticsUMehmonStatistics = ({ data }: any) => {
       },
       {
         // icon: BedDoubleIcon,
-        icon: MapsIcon,
+        icon: LocationUserIcon,
 
         title: t('statistics.average-stay'),
         value: data?.average_stay_days === null ? 0 : data?.average_stay_days,
