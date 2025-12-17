@@ -274,8 +274,15 @@ html {
 }
 
 .apexcharts-marker:hover circle {
-  fill: #EF4444 !important; /* ichki rang qizil */
-  stroke: #EF4444 !important; /* border qizil */
+  fill: #ef4444 !important; /* ichki rang qizil */
+  stroke: #ef4444 !important; /* border qizil */
   r: 7 !important; /* kattalashuvi */
 }
 
+.chart-popover .ant-popover-inner {
+  padding: 4px 8px; /* yoki 0 agar umuman kerak bo‘lmasa */
+}
+
+.chart-popover .ant-popover-inner-content {
+  padding: 0;
+}

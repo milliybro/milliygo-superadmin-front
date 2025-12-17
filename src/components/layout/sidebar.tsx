@@ -21,7 +21,6 @@ import MegaPhoneIcon from '../icons/megaphone-icon'
 import UserIcon from '../icons/user'
 import useUserData from '@/hooks/use-user-data'
 import SidebarItem from './sidebar-item'
-import path from 'path'
 
 const Sidebar = () => {
   // const { t } = useTranslation()
@@ -55,7 +54,7 @@ const Sidebar = () => {
         },
         {
           label: 'statistics.umehmon-active',
-          // path: '/statistics/u-mehmon',
+          path: '/statistics/u-mehmon',
         },
       ],
     },
@@ -214,7 +213,7 @@ const Sidebar = () => {
               },
               {
                 label: 'statistics.umehmon-active',
-                // path: '/statistics/u-mehmon',
+                path: '/statistics/u-mehmon',
               },
             ],
           },

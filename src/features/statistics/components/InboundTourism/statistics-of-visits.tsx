@@ -77,13 +77,12 @@ function StatisticsOfVisits({
   const disabledDate = (current: any) => {
     const today = dayjs().endOf('day')
 
-    // Bugundan keyingi kunlar disabled
     if (current.isAfter(today, 'day')) return true
 
     const start = selectedRange ? selectedRange[0] : null
     if (!start) return false
 
-    const maxEnd = start.add(30, 'day') // 31 kun interval
+    const maxEnd = start.add(30, 'day')
     if (current.isBefore(start, 'day') || current.isAfter(maxEnd, 'day'))
       return true
 
