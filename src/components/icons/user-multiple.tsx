@@ -3,36 +3,36 @@ import type { FC, SVGProps } from 'react'
 const UserMultipleIcon: FC<SVGProps<SVGSVGElement>> = props => (
   <svg
     {...props}
-    width="1em"
-    height="1em"
-    viewBox="0 0 24 24"
-    fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    width="20"
+    height="20"
+    viewBox="0 0 20 20"
+    fill="none"
   >
     <path
-      d="M13 7C13 9.20914 11.2091 11 9 11C6.79086 11 5 9.20914 5 7C5 4.79086 6.79086 3 9 3C11.2091 3 13 4.79086 13 7Z"
-      stroke="currentColor"
-      strokeWidth="1.5"
+      d="M10.8333 5.83333C10.8333 7.67428 9.34088 9.16667 7.49996 9.16667C5.65901 9.16667 4.16663 7.67428 4.16663 5.83333C4.16663 3.99238 5.65901 2.5 7.49996 2.5C9.34088 2.5 10.8333 3.99238 10.8333 5.83333Z"
+      stroke="#232E40"
+      stroke-width="1.5"
     />
     <path
-      d="M15 11C17.2091 11 19 9.20914 19 7C19 4.79086 17.2091 3 15 3"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      d="M12.5 9.16667C14.3409 9.16667 15.8333 7.67428 15.8333 5.83333C15.8333 3.99238 14.3409 2.5 12.5 2.5"
+      stroke="#232E40"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
     />
     <path
-      d="M11 14H7C4.23858 14 2 16.2386 2 19C2 20.1046 2.89543 21 4 21H14C15.1046 21 16 20.1046 16 19C16 16.2386 13.7614 14 11 14Z"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinejoin="round"
+      d="M9.16663 11.667H5.83329C3.53211 11.667 1.66663 13.5325 1.66663 15.8337C1.66663 16.7542 2.41282 17.5003 3.33329 17.5003H11.6666C12.5871 17.5003 13.3333 16.7542 13.3333 15.8337C13.3333 13.5325 11.4678 11.667 9.16663 11.667Z"
+      stroke="#232E40"
+      stroke-width="1.5"
+      stroke-linejoin="round"
     />
     <path
-      d="M17 14C19.7614 14 22 16.2386 22 19C22 20.1046 21.1046 21 20 21H18.5"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      d="M14.1666 11.667C16.4678 11.667 18.3333 13.5325 18.3333 15.8337C18.3333 16.7542 17.5871 17.5003 16.6666 17.5003H15.4166"
+      stroke="#232E40"
+      stroke-width="1.5"
+      stroke-linecap="round"
+      stroke-linejoin="round"
     />
   </svg>
 )

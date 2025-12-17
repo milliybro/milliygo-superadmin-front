@@ -1,22 +1,22 @@
 import { useEffect, useState } from 'react'
-import { DatePicker, Typography } from 'antd'
+import { Card, DatePicker, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import CalendarIcon from '@/components/icons/calendar'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { ROUTE_PATHS } from '@/config/constants'
 import {
-  getCompanyChart,
+  // getCompanyChart,
   getOutboundChart,
   getOutboundPurpose,
   getOutboundTopCountry,
-  getTopCountry,
 } from '../api'
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
 import AgeGroupStats from '../components/OutboundTourism/age-stat'
 import CountryStats from '../components/OutboundTourism/country-stat'
-import FinanceStatsChart from '../components/OutboundTourism/statistics-chart'
 import InfrastructureLoader from '../components/InfrastructureLoader'
+import { twMerge } from 'tailwind-merge'
+import CustomLineChart from '@/components/ui/chart/custom-line-chart'
 
 const OutboundTourism = () => {
   const { t } = useTranslation()
@@ -54,17 +54,17 @@ const OutboundTourism = () => {
     gcTime: 0,
   })
 
-  const { data: serviceChartData, isLoading: isLoadingChart3 } = useQuery({
-    queryKey: ['tour-agent-chart-data'],
-    queryFn: async () => {
-      const res = await getCompanyChart({
-        chart: 'tour_agencies_travel_guides',
-      })
-      return res
-    },
-    placeholderData: data => data,
-    gcTime: 0,
-  })
+  // const { data: serviceChartData, isLoading: isLoadingChart3 } = useQuery({
+  //   queryKey: ['tour-agent-chart-data'],
+  //   queryFn: async () => {
+  //     const res = await getCompanyChart({
+  //       chart: 'tour_agencies_travel_guides',
+  //     })
+  //     return res
+  //   },
+  //   placeholderData: data => data,
+  //   gcTime: 0,
+  // })
 
   const { data: OutboundChart, isLoading: isLoadingChart4 } = useQuery({
     queryKey: ['outbound-chart-data', year],
@@ -78,15 +78,11 @@ const OutboundTourism = () => {
     gcTime: 0,
   })
 
-  const isGlobalLoading =
-    isLoadingChart1 ||
-    isLoadingChart2 ||
-    isLoadingChart3 ||
-    isLoadingChart4
+  const isGlobalLoading = isLoadingChart1 || isLoadingChart2 || isLoadingChart4
 
   if (isGlobalLoading) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center min-h-screen">
+      <div className="flex min-h-screen flex-1 flex-col items-center justify-center">
         <InfrastructureLoader />
       </div>
     )
@@ -127,7 +123,17 @@ const OutboundTourism = () => {
         <AgeGroupStats data={data} />
         <CountryStats data={outboundTopCountry} />
       </div>
-      <FinanceStatsChart className="col-span-3" data={OutboundChart} />
+      <Card className={twMerge('h-full w-full')}>
+        <div className="-mb-6">
+          <h3 className="text-lg font-semibold">
+            {t('statistics.citizen-abroad')}
+          </h3>
+        </div>
+        <CustomLineChart
+          data={OutboundChart}
+          legend={t('statistics.traveling-abroad')}
+        />
+      </Card>
     </div>
   )
 }

@@ -1,43 +1,24 @@
 import { useEffect, useState } from 'react'
-import { DatePicker, Typography } from 'antd'
+import { Card, DatePicker, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import CalendarIcon from '@/components/icons/calendar'
-import FinanceStatsChart from '../containers/finance-stats-chart'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { ROUTE_PATHS } from '@/config/constants'
-import {
-  getGroupCountryTourists,
-  getInboundChart,
-  getInboundPurpose,
-  getInboundTourismCard,
-  getMuseumSalesCountry,
-  getTopCountry,
-  getUMehmonCard,
-  getUMehmonChart,
-  getUMehmonTableRating,
-} from '../api'
+import { getUMehmonCard, getUMehmonChart, getUMehmonTableRating } from '../api'
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
-import StatisticsInboundStat from '../components/InboundTourism/statistics-inbound'
-import AgeGroupStats from '../components/InboundTourism/age-stat'
-import CountryStats from '../components/InboundTourism/country-stat'
-import StatisticsOfVisits from '../components/InboundTourism/statistics-of-visits'
-import TouristChart from '../components/InboundTourism/tourist-chart'
-import { useSearchParams } from 'react-router'
+
 import InfrastructureLoader from '../components/InfrastructureLoader'
-import UMehmonChart from '../components/UMehmon/emehmon-chart'
 import UMehmonTable from '../components/UMehmon/UMehmonTable'
 import StatisticsUMehmonStat from '../components/UMehmon/StatisticsEMehmonStatCard'
 import StatisticsUMehmonStatistics from '../components/UMehmon/statistics-umehmon'
+import { twMerge } from 'tailwind-merge'
+import CustomLineChart from '@/components/ui/chart/custom-line-chart'
 
 const UMehmonActive = () => {
   const { t } = useTranslation()
   const currentYear = dayjs().year()
   const [year, setYear] = useState(currentYear)
-  const [selectedCountries, setSelectedCountries] = useState<string[]>([])
-  const [params] = useSearchParams()
-  const start_date = params.get('start_date')
-  const end_date = params.get('end_date')
 
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
 
@@ -70,19 +51,7 @@ const UMehmonActive = () => {
     gcTime: 0,
   })
 
-  const { data: TopCountry, isLoading: isLoadingChart2 } = useQuery({
-    queryKey: ['umehmon-table-rating', year],
-    queryFn: async () => {
-      const res = await getUMehmonTableRating({
-        year,
-      })
-      return res
-    },
-    placeholderData: data => data,
-    gcTime: 0,
-  })
-
-  const isGlobalLoading = isLoadingCard || isLoadingChart1 || isLoadingChart2
+  const isGlobalLoading = isLoadingCard || isLoadingChart1
 
   if (isGlobalLoading) {
     return (
@@ -125,7 +94,14 @@ const UMehmonActive = () => {
       <div className="grid grid-cols-3 gap-4">
         <StatisticsUMehmonStat data={data} />
       </div>
-      <UMehmonChart className="col-span-3" data={chart} />
+      <Card className={twMerge('h-full w-full')}>
+        <div className="-mb-6">
+          <h3 className="text-lg font-semibold">
+            {t('statistics.regis-statistics')}
+          </h3>
+        </div>
+        <CustomLineChart data={chart} legend={t('statistics.user-regis')} />
+      </Card>
       <div className="mt-1">
         <Typography.Text className="text-[24px] font-[600]">
           {t('common.booking')}
@@ -134,7 +110,7 @@ const UMehmonActive = () => {
           <StatisticsUMehmonStatistics data={data} />
         </div>
       </div>
-      <UMehmonTable data={getUMehmonTableRating} isLoading={isLoadingChart2} />
+      <UMehmonTable data={getUMehmonTableRating} />
     </div>
   )
 }

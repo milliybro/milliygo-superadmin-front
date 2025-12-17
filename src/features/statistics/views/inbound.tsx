@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react'
-import { DatePicker, Typography } from 'antd'
+import { Card, DatePicker, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 import CalendarIcon from '@/components/icons/calendar'
-import FinanceStatsChart from '../containers/finance-stats-chart'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import { ROUTE_PATHS } from '@/config/constants'
 import {
@@ -22,6 +21,8 @@ import StatisticsOfVisits from '../components/InboundTourism/statistics-of-visit
 import TouristChart from '../components/InboundTourism/tourist-chart'
 import { useSearchParams } from 'react-router'
 import InfrastructureLoader from '../components/InfrastructureLoader'
+import { twMerge } from 'tailwind-merge'
+import CustomLineChart from '@/components/ui/chart/custom-line-chart'
 
 const InboundTourism = () => {
   const { t } = useTranslation()
@@ -175,7 +176,17 @@ const InboundTourism = () => {
         isLoading={isLoadingChart3}
       />
       <TouristChart data={groupCountryTourists} />
-      <FinanceStatsChart className="col-span-3" data={inboundChart} />
+      <Card className={twMerge('h-full w-full')}>
+        <div className="-mb-6">
+          <h3 className="text-lg font-semibold">
+            {t('statistics.growth_dynamics')}
+          </h3>
+        </div>
+        <CustomLineChart
+          data={inboundChart}
+          legend={t('statistics.foreign_tourists')}
+        />
+      </Card>
     </div>
   )
 }
