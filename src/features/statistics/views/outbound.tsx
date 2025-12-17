@@ -130,7 +130,7 @@ const OutboundTourism = () => {
           </h3>
         </div>
         <CustomLineChart
-          data={OutboundChart}
+          data={OutboundChart as any}
           legend={t('statistics.traveling-abroad')}
         />
       </Card>
