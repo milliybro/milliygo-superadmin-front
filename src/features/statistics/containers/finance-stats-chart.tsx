@@ -4,6 +4,7 @@ import { twMerge } from 'tailwind-merge'
 import type { FC } from 'react'
 import { useTranslation } from 'react-i18next'
 import { formatAmount } from '@/helpers/format-amount'
+import CustomLineChart from '@/components/ui/chart/custom-line-chart'
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false })
 
@@ -112,27 +113,12 @@ const FinanceStatsChart: FC<{ className?: string; data: any }> = ({
 
   return (
     <Card className={twMerge('h-full w-full', className)}>
-      <div className="mb-4">
+      <div className="-mb-6">
         <h3 className="text-lg font-semibold">
           {t('statistics.dynamics-of-tourist')}
         </h3>
       </div>
-
-      <div className="h-[300px] w-full">
-        <Chart
-          options={chartOptions}
-          series={chartSeries}
-          type="line"
-          height="100%"
-        />
-      </div>
-
-      <div className="mt-2 flex items-center justify-center gap-2">
-        <span className="inline-block h-3 w-3 rounded-sm bg-[#FF9D4D]"></span>
-        <span className="text-sm font-medium text-[#374151]">
-          {t('statistics.served-tourist')}
-        </span>
-      </div>
+      <CustomLineChart data={data} legend={t('statistics.served-tourist')} />
     </Card>
   )
 }
