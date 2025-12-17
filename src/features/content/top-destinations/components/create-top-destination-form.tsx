@@ -10,7 +10,7 @@ import {
   Tooltip,
   Typography,
 } from 'antd'
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import YouTubeEmbed from '../../components/youtube-embed'
 import PopularSpotsList from './popular-spots-list'
 import TopDestinationGallery from './top-destination-gallery'
@@ -30,6 +30,7 @@ export default function CreateTopDestinationForm({
   const activeStatus = Form.useWatch('status', form)
   const { data: regions } = useRegions()
   const { pathname } = useLocation()
+
   const isEdit = useMemo(() => pathname.includes('/edit'), [pathname])
 
   const LANGUAGES = [
@@ -55,33 +56,52 @@ export default function CreateTopDestinationForm({
     ['tk', 'Turkmen'],
     ['az', 'Azerbaijan'],
   ]
-  const options = LANGUAGES.map(([value, label]) => ({
+
+  const allOptions = LANGUAGES.map(([value, label]) => ({
     label,
     value,
   }))
 
+  // 👉 Edit bo‘lmasa faqat EN
+  const languageOptions = useMemo(() => {
+    if (!isEdit) {
+      return [
+        {
+          label: 'English',
+          value: 'en',
+        },
+      ]
+    }
+    return allOptions
+  }, [isEdit])
+
+  // 👉 Create holatda avtomatik EN
+  useEffect(() => {
+    if (!isEdit) {
+      setLanguage('en')
+    }
+  }, [isEdit])
+
   return (
     <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
       <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
-          <Typography.Title level={5} className="text-xl font-medium">
-            {t('common.preview')}
-          </Typography.Title>
+        <Typography.Title level={5} className="text-xl font-medium">
+          {t('common.preview')}
+        </Typography.Title>
+
         <div className="flex items-center">
           <div className="flex items-center justify-between gap-2">
             {isEdit && (
               <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
                 <Typography.Text>Keshni yangilash</Typography.Text>
-
-                <div className="flex items-center gap-3">
-                  <Form.Item
-                    name="refresh_cache"
-                    valuePropName="checked"
-                    noStyle
-                    initialValue={false}
-                  >
-                    <Switch />
-                  </Form.Item>
-                </div>
+                <Form.Item
+                  name="refresh_cache"
+                  valuePropName="checked"
+                  noStyle
+                  initialValue={false}
+                >
+                  <Switch />
+                </Form.Item>
               </div>
             )}
 
@@ -102,7 +122,7 @@ export default function CreateTopDestinationForm({
                   <Tooltip
                     title={
                       <>
-                        <b className="pb-1">{t('common.auto-trans')}</b>
+                        <b>{t('common.auto-trans')}</b>
                         <br />
                         {t('common.auto-trans-desc')}
                       </>
@@ -122,23 +142,28 @@ export default function CreateTopDestinationForm({
               </div>
             )}
 
+            {/* 🌍 Language Select */}
             <Select
-              showSearch
+              showSearch={isEdit}
               placeholder="Select language"
               optionFilterProp="label"
               size="large"
               style={{ width: 200 }}
-              options={options}
+              options={languageOptions}
               value={language}
               onChange={val => setLanguage(val)}
               prefix={<TranslateIcon />}
+              disabled={!isEdit}
             />
           </div>
         </div>
+
         <Divider className="m-0" />
+
         <Form.Item name="title" label={t('fields.title.label')}>
           <Input placeholder={t('fields.title.placeholder')} size="large" />
         </Form.Item>
+
         <Form.Item name="region" label={t('fields.region.label')}>
           <Select
             placeholder={t('fields.region.placeholder')}
@@ -166,16 +191,17 @@ export default function CreateTopDestinationForm({
                 {t('common.check')}
               </Button>
             }
-            onChange={() => {
-              setCheckingEmbed(false)
-            }}
+            onChange={() => setCheckingEmbed(false)}
           />
         </Form.Item>
+
         {checkingEmbed && <YouTubeEmbed url={youtubeUrl} />}
+
         <div className="flex items-end gap-5">
           <Form.Item label={t('fields.status.label')} name="status">
             <Switch />
           </Form.Item>
+
           <Tag
             color={activeStatus ? 'green' : 'red'}
             className="px-2 py-2 text-sm"
@@ -184,6 +210,7 @@ export default function CreateTopDestinationForm({
           </Tag>
         </div>
       </div>
+
       <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
         <Typography.Title level={5} className="text-xl font-medium">
           {t('content.top_destinations.add_attractions')}

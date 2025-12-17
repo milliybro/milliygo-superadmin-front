@@ -47,28 +47,36 @@ export default function CreateEvent() {
   const params = useParams()
   const navigate = useNavigate()
   const { pathname } = useLocation()
+  const isEditing = pathname.includes('/edit')
+
   const { coords, setCoords, updatedCoords } = useMapCoordsStore()
   const { compress, isCompressing } = useImageCompression()
   const { image, removeImage, setImage } = useEventImage()
 
   const { t } = useTranslation()
   const queryClient = useQueryClient()
-
   const { setBreadCrumbs } = useBreadCrumbsStore()
+
   const locale = localStorage.getItem('i18nextLng')
   const [language, setLanguage] = useState(
     locale === 'oz' ? 'uz-latin' : locale || 'en',
   )
 
+  // 👉 Create holatda faqat EN
+  useEffect(() => {
+    if (!isEditing) {
+      setLanguage('en')
+    }
+  }, [isEditing])
+
   const [form] = Form.useForm()
-  const isEditing = pathname.includes('/edit')
 
   const eventItem = useQuery({
     queryKey: ['events-item', params.slug, language],
     queryFn: () => getEvent(params.slug, language),
     enabled: Boolean(params.slug),
-    gcTime: 0,
     staleTime: 0,
+    gcTime: 0,
   })
 
   useEffect(() => {
@@ -87,16 +95,16 @@ export default function CreateEvent() {
     if (eventItem?.data) {
       form.setFieldsValue({
         ...eventItem.data,
-        date: eventItem.data?.date ? dayjs(eventItem.data?.date) : undefined,
-        image: {
-          url: eventItem.data?.image || [],
-        },
+        date: eventItem.data?.date ? dayjs(eventItem.data.date) : undefined,
+        image: { url: eventItem.data?.image || [] },
       })
+
       setImage({
         url: eventItem.data?.image || null,
         file: null,
         resized: null,
       })
+
       setCoords([
         [eventItem.data?.lat || 41.3111, eventItem.data?.lon || 69.2797],
       ])
@@ -105,18 +113,17 @@ export default function CreateEvent() {
 
   const uploadImagesRules: Rule[] = [
     {
-      validator: (_, value) => {
-        if (!value || (!image?.file && !image?.url)) {
+      validator: () => {
+        if (!image?.file && !image?.url) {
           return Promise.reject(new Error(t('fields.images.required')))
         }
-
         return Promise.resolve()
       },
     },
   ]
 
   const createOrUpdate = useMutation({
-    mutationFn: (values: CreateExpertAdviceValues) => {
+    mutationFn: (values: any) => {
       const formData = new FormData()
 
       formData.append('name', values.name)
@@ -124,15 +131,17 @@ export default function CreateEvent() {
       formData.append('organizer', values.organizer)
       formData.append('content', values.content)
       formData.append('location', values.location)
+      formData.append('date', dayjs(values.date).toISOString())
+
       values.translate_all != null &&
         formData.append('translate_all', String(values.translate_all))
       values.refresh_cache != null &&
         formData.append('refresh_cache', String(values.refresh_cache))
+
       if (image?.file && image?.resized) {
-        formData.append('image', image?.file)
-        formData.append('resized_image', image?.resized)
+        formData.append('image', image.file)
+        formData.append('resized_image', image.resized)
       }
-      formData.append('date', dayjs(values.date).toISOString())
 
       if (values?.lat && values?.lon) {
         formData.append('lon', values.lon)
@@ -158,19 +167,17 @@ export default function CreateEvent() {
 
   const beforeUploadHandler = async (file: RcFile) => {
     const compressed = await compress(file, { height: 190, width: 278 })
-
     if (compressed?.compressedFile) {
-      form.setFieldValue('image', compressed?.compressedFile)
+      form.setFieldValue('image', compressed.compressedFile)
       setImage({
-        file: compressed?.compressedFile,
-        url: URL.createObjectURL(compressed?.compressedFile),
-        resized: compressed?.resizedFile || null,
+        file: compressed.compressedFile,
+        url: URL.createObjectURL(compressed.compressedFile),
+        resized: compressed.resizedFile || null,
       })
     }
-
     return false
   }
-  const isEdit = useMemo(() => pathname.includes('/edit'), [pathname])
+
   const LANGUAGES = [
     ['en', 'English'],
     ['ru', 'Russian'],
@@ -194,11 +201,16 @@ export default function CreateEvent() {
     ['tk', 'Turkmen'],
     ['az', 'Azerbaijan'],
   ]
-  const options = LANGUAGES.map(([value, label]) => ({
-    label,
-    value,
-  }))
 
+  const allOptions = LANGUAGES.map(([value, label]) => ({ label, value }))
+
+  // 👉 Edit vs Create language options
+  const languageOptions = useMemo(() => {
+    if (!isEditing) {
+      return [{ label: 'English', value: 'en' }]
+    }
+    return allOptions
+  }, [isEditing])
   return (
     <div className="mb-[200px] flex flex-col gap-5">
       <Typography.Title level={3} className="text-2xl font-semibold">
@@ -226,7 +238,7 @@ export default function CreateEvent() {
             </Typography.Title>
             <div className="flex items-center justify-between">
               <div className="flex items-center justify-between gap-2">
-                {isEdit && (
+                {isEditing  && (
                   <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
                     <Typography.Text>Keshni yangilash</Typography.Text>
 
@@ -242,7 +254,7 @@ export default function CreateEvent() {
                     </div>
                   </div>
                 )}
-                {isEdit && (
+                {isEditing  && (
                   <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
                     <Typography.Text>
                       {t('common.auto-translate')}
@@ -282,15 +294,14 @@ export default function CreateEvent() {
                 )}
 
                 <Select
-                  showSearch
-                  placeholder="Select language"
-                  optionFilterProp="label"
+                  showSearch={isEditing}
                   size="large"
                   style={{ width: 240 }}
-                  options={options}
+                  options={languageOptions}
                   value={language}
-                  onChange={val => setLanguage(val)}
+                  onChange={setLanguage}
                   prefix={<TranslateIcon />}
+                  disabled={!isEditing}
                 />
               </div>
             </div>

@@ -183,7 +183,7 @@ const InboundTourism = () => {
           </h3>
         </div>
         <CustomLineChart
-          data={inboundChart}
+          data={inboundChart as any}
           legend={t('statistics.foreign_tourists')}
         />
       </Card>

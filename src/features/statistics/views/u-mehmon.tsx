@@ -100,7 +100,10 @@ const UMehmonActive = () => {
             {t('statistics.regis-statistics')}
           </h3>
         </div>
-        <CustomLineChart data={chart} legend={t('statistics.user-regis')} />
+        <CustomLineChart
+          data={chart as any}
+          legend={t('statistics.user-regis')}
+        />
       </Card>
       <div className="mt-1">
         <Typography.Text className="text-[24px] font-[600]">

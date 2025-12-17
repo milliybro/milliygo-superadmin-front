@@ -12,7 +12,7 @@ import DiscoverGallery from './discover-gallery'
 import SocialsList from './socials-list'
 import { useTranslation } from 'react-i18next'
 import TranslateIcon from '@/components/icons/translate-icon'
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router'
 
 export default function CreateDiscoverForm({ language, setLanguage }: any) {
@@ -45,32 +45,51 @@ export default function CreateDiscoverForm({ language, setLanguage }: any) {
     ['tk', 'Turkmen'],
     ['az', 'Azerbaijan'],
   ]
-  const options = LANGUAGES.map(([value, label]) => ({
+
+  const allOptions = LANGUAGES.map(([value, label]) => ({
     label,
     value,
   }))
 
+  // 👉 Edit bo‘lmasa faqat English
+  const languageOptions = useMemo(() => {
+    if (!isEdit) {
+      return [
+        {
+          label: 'English',
+          value: 'en',
+        },
+      ]
+    }
+    return allOptions
+  }, [isEdit])
+
+  // 👉 Create holatda avtomatik EN
+  useEffect(() => {
+    if (!isEdit) {
+      setLanguage('en')
+    }
+  }, [isEdit])
+
   return (
     <div className="flex w-full flex-grow-0 basis-1/2 flex-col gap-4 rounded-2xl border bg-white p-6">
-        <Typography.Title level={5} className="text-xl font-medium">
-          {t('common.preview')}
-        </Typography.Title>
+      <Typography.Title level={5} className="text-xl font-medium">
+        {t('common.preview')}
+      </Typography.Title>
+
       <div className="flex items-center justify-between">
-        <div className="flex items-center justify-between gap-2">
+        <div className="flex items-center gap-2">
           {isEdit && (
             <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
               <Typography.Text>Keshni yangilash</Typography.Text>
-
-              <div className="flex items-center gap-3">
-                <Form.Item
-                  name="refresh_cache"
-                  valuePropName="checked"
-                  noStyle
-                  initialValue={false}
-                >
-                  <Switch />
-                </Form.Item>
-              </div>
+              <Form.Item
+                name="refresh_cache"
+                valuePropName="checked"
+                noStyle
+                initialValue={false}
+              >
+                <Switch />
+              </Form.Item>
             </div>
           )}
 
@@ -91,7 +110,7 @@ export default function CreateDiscoverForm({ language, setLanguage }: any) {
                 <Tooltip
                   title={
                     <>
-                      <b className="pb-1">{t('common.auto-trans')}</b>
+                      <b>{t('common.auto-trans')}</b>
                       <br />
                       {t('common.auto-trans-desc')}
                     </>
@@ -111,23 +130,28 @@ export default function CreateDiscoverForm({ language, setLanguage }: any) {
             </div>
           )}
 
+          {/* 🌍 Language select */}
           <Select
-            showSearch
+            showSearch={isEdit}
             placeholder="Select language"
             optionFilterProp="label"
             size="large"
             style={{ width: 200 }}
-            options={options}
+            options={languageOptions}
             value={language}
             onChange={val => setLanguage(val)}
             prefix={<TranslateIcon />}
+            disabled={!isEdit}
           />
         </div>
       </div>
+
       <Divider className="m-0" />
+
       <Form.Item name="name" label={t('fields.name.label')}>
         <Input placeholder={t('fields.name.placeholder')} size="large" />
       </Form.Item>
+
       <Form.Item name="description" label={t('fields.description.label')}>
         <Input.TextArea
           rows={6}
@@ -135,17 +159,21 @@ export default function CreateDiscoverForm({ language, setLanguage }: any) {
           size="large"
         />
       </Form.Item>
+
       <div className="flex items-end gap-5">
         <Form.Item label={t('fields.status.label')} name="status">
           <Switch />
         </Form.Item>
+
         <Tag color={status ? 'green' : 'red'} className="px-2 py-2 text-sm">
           {status ? t('common.active') : t('common.inactive')}
         </Tag>
       </div>
+
       <Typography.Text className="select-none text-sm">
         {t('content.discover.social-links')}
       </Typography.Text>
+
       <SocialsList />
       <DiscoverGallery />
     </div>
