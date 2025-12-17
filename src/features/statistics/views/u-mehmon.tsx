@@ -12,6 +12,9 @@ import {
   getInboundTourismCard,
   getMuseumSalesCountry,
   getTopCountry,
+  getUMehmonCard,
+  getUMehmonChart,
+  getUMehmonTableRating,
 } from '../api'
 import { useQuery } from '@tanstack/react-query'
 import dayjs from 'dayjs'
@@ -22,12 +25,14 @@ import StatisticsOfVisits from '../components/InboundTourism/statistics-of-visit
 import TouristChart from '../components/InboundTourism/tourist-chart'
 import { useSearchParams } from 'react-router'
 import InfrastructureLoader from '../components/InfrastructureLoader'
-import StatisticsUMehmonStat from '../components/UMehmon/statistics-umehmon'
 import UMehmonChart from '../components/UMehmon/emehmon-chart'
+import UMehmonTable from '../components/UMehmon/UMehmonTable'
+import StatisticsUMehmonStat from '../components/UMehmon/StatisticsEMehmonStatCard'
+import StatisticsUMehmonStatistics from '../components/UMehmon/statistics-umehmon'
 
 const UMehmonActive = () => {
   const { t } = useTranslation()
-  const currentYear = dayjs().year() - 1
+  const currentYear = dayjs().year()
   const [year, setYear] = useState(currentYear)
   const [selectedCountries, setSelectedCountries] = useState<string[]>([])
   const [params] = useSearchParams()
@@ -44,21 +49,20 @@ const UMehmonActive = () => {
   }, [t])
 
   const { data, isLoading: isLoadingCard } = useQuery({
-    queryKey: ['inbound-card', year],
+    queryKey: ['umehmon-card', year],
     queryFn: async () => {
-      const res = await getInboundTourismCard({ year })
+      const res = await getUMehmonCard({ year })
       return res
     },
     placeholderData: data => data,
     gcTime: 0,
   })
 
-  const { data: inboundPurposeData, isLoading: isLoadingChart1 } = useQuery({
-    queryKey: ['inbound-purpose-data', year],
+  const { data: chart, isLoading: isLoadingChart1 } = useQuery({
+    queryKey: ['umehmon-chart', year],
     queryFn: async () => {
-      const res = await getInboundPurpose({
+      const res = await getUMehmonChart({
         year,
-        chart: 'tour_agencies_service',
       })
       return res
     },
@@ -67,9 +71,9 @@ const UMehmonActive = () => {
   })
 
   const { data: TopCountry, isLoading: isLoadingChart2 } = useQuery({
-    queryKey: ['top-country-chart-data', year],
+    queryKey: ['umehmon-table-rating', year],
     queryFn: async () => {
-      const res = await getTopCountry({
+      const res = await getUMehmonTableRating({
         year,
       })
       return res
@@ -78,52 +82,7 @@ const UMehmonActive = () => {
     gcTime: 0,
   })
 
-  const countriesParam = selectedCountries.join(',')
-
-  const { data: museumSalesCountry, isLoading: isLoadingChart3 } = useQuery({
-    queryKey: ['museum-sales-country', start_date, end_date, countriesParam],
-    queryFn: async () => {
-      if (!start_date || !end_date) return null
-
-      const res = await getMuseumSalesCountry({
-        start_date,
-        end_date,
-        countries: countriesParam,
-      })
-
-      return res
-    },
-    enabled: !!start_date && !!end_date,
-  })
-
-  const { data: groupCountryTourists, isLoading: isLoadingChart4 } = useQuery({
-    queryKey: ['group-country-tourists'],
-    queryFn: async () => {
-      const res = await getGroupCountryTourists()
-
-      return res
-    },
-    placeholderData: data => data,
-    gcTime: 0,
-  })
-
-  const { data: inboundChart, isLoading: isLoadingChart5 } = useQuery({
-    queryKey: ['inbound-chart'],
-    queryFn: async () => {
-      const res = await getInboundChart({})
-      return res
-    },
-    placeholderData: data => data,
-    gcTime: 0,
-  })
-
-  const isGlobalLoading =
-    isLoadingCard ||
-    isLoadingChart1 ||
-    isLoadingChart2 ||
-    isLoadingChart3 ||
-    isLoadingChart4 ||
-    isLoadingChart5
+  const isGlobalLoading = isLoadingCard || isLoadingChart1 || isLoadingChart2
 
   if (isGlobalLoading) {
     return (
@@ -153,7 +112,7 @@ const UMehmonActive = () => {
               suffixIcon={
                 <CalendarIcon className="text-lg text-success-dark" />
               }
-              disabledDate={current => current.year() > 2024}
+              disabledDate={current => current.year() > 2025}
               onChange={value => {
                 if (value) {
                   setYear(value.year())
@@ -166,21 +125,16 @@ const UMehmonActive = () => {
       <div className="grid grid-cols-3 gap-4">
         <StatisticsUMehmonStat data={data} />
       </div>
-      <UMehmonChart className="col-span-3" data={inboundChart} />
-      <div className='mt-1'>
+      <UMehmonChart className="col-span-3" data={chart} />
+      <div className="mt-1">
         <Typography.Text className="text-[24px] font-[600]">
           {t('common.booking')}
         </Typography.Text>
         <div className="grid grid-cols-3 gap-4 pt-4">
-          <StatisticsInboundStat data={data} />
+          <StatisticsUMehmonStatistics data={data} />
         </div>
       </div>
-      <StatisticsOfVisits
-        data={museumSalesCountry}
-        selectedCountries={selectedCountries}
-        setSelectedCountries={setSelectedCountries}
-        isLoading={isLoadingChart3}
-      />
+      <UMehmonTable data={getUMehmonTableRating} isLoading={isLoadingChart2} />
     </div>
   )
 }

@@ -169,3 +169,39 @@ export async function getOutboundChart(
 
   return res
 }
+
+export async function getUMehmonCard(
+  params?: any,
+): Promise<ListResponse<InfrastructureCard[]>> {
+  const res: ListResponse<InfrastructureCard[]> = await request({
+    url: '/statistics/uvisitor/card/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
+export async function getUMehmonChart(
+  params?: any,
+): Promise<ListResponse<InfrastructureCard[]>> {
+  const res: ListResponse<InfrastructureCard[]> = await request({
+    url: '/statistics/uvisitor/chart/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
+export async function getUMehmonTableRating(
+  params?: any,
+): Promise<ListResponse<InfrastructureCard[]>> {
+  const res: ListResponse<InfrastructureCard[]> = await request({
+    url: '/statistics/uvisitor/placement/rating/guest/',
+    method: 'get',
+    params,
+  })
+
+  return res
+}

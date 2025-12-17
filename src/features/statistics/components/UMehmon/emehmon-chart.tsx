@@ -130,7 +130,7 @@ const UMehmonChart: FC<{ className?: string; data: any }> = ({
       <div className="mt-2 flex items-center justify-center gap-2">
         <span className="inline-block h-3 w-3 rounded-sm bg-[#FF9D4D]"></span>
         <span className="text-sm font-medium text-[#374151]">
-          {t('statistics.served-tourist')}
+          {t('statistics.user-regis')}
         </span>
       </div>
     </Card>
