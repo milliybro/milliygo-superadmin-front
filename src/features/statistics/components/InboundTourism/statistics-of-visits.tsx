@@ -14,6 +14,7 @@ import { getSalesCountry } from '../../api'
 import { useQuery } from '@tanstack/react-query'
 import tiles from '@/assets/tiled-bg.png'
 import ArrowRightIcon from '@/components/icons/arrow-right'
+import { CustomCountrySelect } from '@/components/ui/chart/customCountrySelect'
 
 function StatisticsOfVisits({
   data,
@@ -216,13 +217,7 @@ function StatisticsOfVisits({
         </div>
 
         <div className="flex gap-3">
-          <Select
-            mode="multiple"
-            size="large"
-            placeholder={t('statistics.from_country')}
-            className="w-[250px]"
-            value={selectedCountries || []}
-            onChange={setSelectedCountries}
+          <CustomCountrySelect
             options={
               salesCountry && Array.isArray(salesCountry)
                 ? salesCountry.map((item: any) => ({
@@ -231,8 +226,10 @@ function StatisticsOfVisits({
                   }))
                 : []
             }
-            maxTagCount="responsive"
-            allowClear
+            value={selectedCountries || []}
+            onChange={setSelectedCountries}
+            placeholder={t('statistics.from_country')}
+            loading={isLoading}
           />
 
           {/* <Select
