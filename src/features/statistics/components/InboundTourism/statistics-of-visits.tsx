@@ -251,7 +251,9 @@ function StatisticsOfVisits({
             locale={locale}
             onChange={handleRangeChange}
             disabledDate={disabledDate}
-            format="DD MMM, YYYY"
+            format={date =>
+              dayjs(date).locale('ru').format('DD MMM YYYY').replace('.', ',')
+            }
             suffixIcon={
               <CalendarIcon className="pointer-events-none text-[20px]" />
             }
