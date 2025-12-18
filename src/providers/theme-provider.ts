@@ -4,7 +4,7 @@ import { colors } from '../config/colors'
 export const lightTheme: ThemeConfig = {
   algorithm: theme.defaultAlgorithm,
   token: {
-    fontFamily: 'Onest',
+    fontFamily: 'Onest, Arimo',
     fontSize: 16,
     colorText: colors.primary_dark,
     colorPrimary: colors.primary,
@@ -140,7 +140,7 @@ export const lightTheme: ThemeConfig = {
 export const darkTheme: ThemeConfig = {
   algorithm: theme.darkAlgorithm,
   token: {
-    fontFamily: 'Onest',
+    fontFamily: 'Onest, Arimo',
     fontSize: 16,
     colorText: 'white',
     colorPrimary: colors.primary,

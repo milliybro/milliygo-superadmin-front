@@ -51,7 +51,20 @@ const UMehmonActive = () => {
     gcTime: 0,
   })
 
-  const isGlobalLoading = isLoadingCard || isLoadingChart1
+  const { data: table, isLoading: isLoadingChart3 } = useQuery({
+    queryKey: ['umehmon-table', year],
+    queryFn: async () => {
+      const res = await getUMehmonTableRating({
+        year,
+        page_size: 50,
+      })
+      return res
+    },
+    placeholderData: data => data,
+    gcTime: 0,
+  })
+
+  const isGlobalLoading = isLoadingCard || isLoadingChart1 || isLoadingChart3
 
   if (isGlobalLoading) {
     return (
@@ -113,7 +126,7 @@ const UMehmonActive = () => {
           <StatisticsUMehmonStatistics data={data} />
         </div>
       </div>
-      <UMehmonTable data={getUMehmonTableRating} />
+      <UMehmonTable data={table} />
     </div>
   )
 }

@@ -1,4 +1,3 @@
-import LocationStarIcon from '@/components/icons/location-star-icon'
 import { formatAmount } from '@/helpers/format-amount'
 import { Table, Typography } from 'antd'
 import dayjs from 'dayjs'
@@ -26,7 +25,6 @@ function UMehmonTable({ data, isLoading }: any) {
       ? [dayjs(defaultStart), dayjs(defaultEnd)]
       : [dayjs().subtract(30, 'day'), dayjs()]
 
-  const [selectedRange, setSelectedRange] = useState<any | null>(initialRange)
 
   useEffect(() => {
     if (!defaultStart || !defaultEnd) {
@@ -38,12 +36,13 @@ function UMehmonTable({ data, isLoading }: any) {
   }, [])
 
   const dataSource = useMemo(() => {
-    if (!data?.data) return []
-    return data.data.map((item: any, index: number) => ({
+    if (!data?.results) return []
+
+    return data.results.map((item: any, index: number) => ({
       id: index + 1,
-      countryName: item.countryName,
-      touristCount: item.touristCount,
-      percentage: item.percentage,
+      placement_name: item.placement_name,
+      g_count: item.g_count,
+      region_name: item.region_name,
     }))
   }, [data])
 
@@ -56,22 +55,22 @@ function UMehmonTable({ data, isLoading }: any) {
     },
     {
       title: t(`hotels-page.name.title`),
-      dataIndex: 'countryName',
-      key: 'countryName',
+      dataIndex: 'placement_name',
+      key: 'placement_name',
     },
     {
       title: t(`billing.guest-count`),
-      dataIndex: 'touristCount',
-      key: 'touristCount',
-      sorter: (a: any, b: any) => a.touristCount - b.touristCount,
+      dataIndex: 'g_count',
+      key: 'g_count',
+      sorter: (a: any, b: any) => a.g_count - b.g_count,
       render: (value: any) => {
         return <div>{formatAmount(value)}</div>
       },
     },
     {
       title: t(`fields.region.label`),
-      dataIndex: 'countryName',
-      key: 'countryName',
+      dataIndex: 'region_name',
+      key: 'region_name',
     },
   ]
   useEffect(() => {
