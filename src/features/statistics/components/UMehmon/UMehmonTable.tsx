@@ -14,6 +14,7 @@ function UMehmonTable({ data, isLoading }: any) {
   const [current, setCurrent] = useState(1)
   // const [selectedPeriod, setSelectedPeriod] = useState<'month' | 'year'>('year')
   const [locale, setLocale] = useState<PickerLocale>()
+  console.log(locale, 'llll')
 
   const [params, setParams] = useSearchParams()
 
@@ -24,7 +25,6 @@ function UMehmonTable({ data, isLoading }: any) {
     defaultStart && defaultEnd
       ? [dayjs(defaultStart), dayjs(defaultEnd)]
       : [dayjs().subtract(30, 'day'), dayjs()]
-
 
   useEffect(() => {
     if (!defaultStart || !defaultEnd) {
