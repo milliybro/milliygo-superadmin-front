@@ -55,7 +55,7 @@ const UMehmonActive = () => {
     queryKey: ['umehmon-table', year],
     queryFn: async () => {
       const res = await getUMehmonTableRating({
-        year,
+        // year,
         page_size: 50,
       })
       return res
