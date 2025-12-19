@@ -13,11 +13,17 @@ interface IProps {
 const TouristActionButton = ({ id, showDrawer }: IProps) => {
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const { pathname } = useLocation()
+  const location = useLocation()
   const isCompact = useCompactScreen()
 
   const handleClick = () => {
-    navigate(`${pathname}?id=${id}`)
+    const params = new URLSearchParams(location.search)
+
+    if (id) {
+      params.set('id', id)
+    }
+
+    navigate(`${location.pathname}?${params.toString()}`)
     showDrawer()
   }
 
