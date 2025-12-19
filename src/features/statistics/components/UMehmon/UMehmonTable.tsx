@@ -64,7 +64,7 @@ function UMehmonTable({ data, isLoading }: any) {
       key: 'g_count',
       sorter: (a: any, b: any) => a.g_count - b.g_count,
       render: (value: any) => {
-        return <div>{formatAmount(value)}</div>
+        return <div>{value === 0 ? '0' : formatAmount(value)}</div>
       },
     },
     {
