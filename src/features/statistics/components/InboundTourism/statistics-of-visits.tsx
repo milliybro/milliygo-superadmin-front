@@ -221,11 +221,15 @@ function StatisticsOfVisits({
         <div className="flex gap-3">
           <CustomCountrySelect
             options={
-              salesCountry && Array.isArray(salesCountry)
-                ? salesCountry.map((item: any) => ({
-                    label: item.name || item.label,
-                    value: item.id || item.value || item.name,
-                  }))
+              Array.isArray(salesCountry)
+                ? salesCountry.map((item: Record<string, string>) => {
+                    const [label, value] = Object.entries(item)[0]
+
+                    return {
+                      label, // key
+                      value, // value
+                    }
+                  })
                 : []
             }
             value={selectedCountries || []}
