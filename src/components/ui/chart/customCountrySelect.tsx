@@ -31,7 +31,7 @@ export const CustomCountrySelect = ({
   const containerRef = useRef<HTMLDivElement>(null)
 
   const filteredOptions = options.filter(opt =>
-    opt.label.toLowerCase().includes(searchTerm.toLowerCase()),
+    (opt.label ?? '').toLowerCase().includes(searchTerm.toLowerCase()),
   )
 
   const allSelected = value.length === 0 || value.length === options.length
