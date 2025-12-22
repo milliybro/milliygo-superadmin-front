@@ -16,7 +16,7 @@ export async function getCurrenciesList(
 
 export async function getCurrency(params?: any): Promise<any> {
   const res: any = await billingRequest({
-    url: `/currencies/id?id=${params.id}`,
+    url: `/currencies/${params.id}`,
     method: 'get',
     params: params.queryParams,
   })
@@ -33,8 +33,8 @@ export async function updateCurrency(params: {
     throw new Error('User ID is required for updating a user.')
   }
   const res: any = await billingRequest({
-    url: `/currencies/${id}/`,
-    method: 'patch',
+    url: `/currencies/${id}`,
+    method: 'put',
     data: queryParams,
   })
 
@@ -47,7 +47,6 @@ export async function createCurrency(data?: any): Promise<any> {
     method: 'post',
     data,
   })
-  console.log(res)
   return res
 }
 

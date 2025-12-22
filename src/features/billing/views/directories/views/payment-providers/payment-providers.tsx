@@ -15,17 +15,14 @@ function PaymentProviders() {
 
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const search = searchParams.get('search') || ''
-  const region = searchParams.get('region') || ''
-  const currentPage = Number(searchParams.get('page')) || 0
+  const currentPage = Number(searchParams.get('page')) || 1
 
   const { data, isFetching, refetch } = useQuery({
-    queryKey: ['payment-providers', currentPage, search, region],
+    queryKey: ['payment-providers', currentPage, ],
     queryFn: async () => {
       const res = await getPaymentProvidersList({
         size: pageSize,
-        page: currentPage,
-        name: search ? search : null,
+        page: (currentPage - 1),
       })
       return res
     },
@@ -43,7 +40,7 @@ function PaymentProviders() {
           <PlusOutlined />
           {t('common.add')}
         </Button>
-        <PaymentProvidersModal refetch={refetch} />
+        <PaymentProvidersModal />
       </div>
       <PaymentProvidersTable
         AgentsData={data}

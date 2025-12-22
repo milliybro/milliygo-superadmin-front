@@ -73,6 +73,7 @@ const CurrenciesTable = ({
       width: 300,
       title: 'common.action',
       dataIndex: 'id',
+      className: 'text-center',
       render: id => <CurrenciesTableAction id={id} refetch={refetch} />,
     },
   ]

@@ -44,7 +44,7 @@ const CurrencyModal = () => {
   const { data } = useQuery<any>({
     queryKey: ['currency', isEdit],
     queryFn: () => getCurrency({ id: isEdit }),
-    enabled: isEdit ? true : false,
+    enabled: !!isEdit,
   })
 
   const openNotification = () => {
@@ -63,7 +63,7 @@ const CurrencyModal = () => {
 
       return createCurrency(formattedValues)
     },
-    onSuccess: res => {
+    onSuccess: () => {
       // if (res) {
         openNotification()
         form.resetFields()
