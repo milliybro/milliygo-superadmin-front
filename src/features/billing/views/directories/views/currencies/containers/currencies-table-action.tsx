@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useMutation } from '@tanstack/react-query'
 import { deleteCurrency } from '../../../api/getCurrencies'
 import ConfirmationModal from '@/components/ui/confirmation-modal'
-import HierarchyIcon from '@/components/icons/hierarchy'
+// import HierarchyIcon from '@/components/icons/hierarchy'
 import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
 import { useLocation, useNavigate } from 'react-router'
@@ -26,10 +26,10 @@ const CurrenciesTableAction: FC<IProps> = ({ id, refetch }) => {
     navigate(pathname + '?edit=' + id)
     openModal()
   }
-  const openDrawer = () => {
-    navigate(pathname + '?id=' + id)
-    setIsDrawer(true)
-  }
+  // const openDrawer = () => {
+  //   navigate(pathname + '?id=' + id)
+  //   setIsDrawer(true)
+  // }
   const closeDrawer = () => {
     navigate(pathname)
     setIsDrawer(false)
@@ -47,13 +47,13 @@ const CurrenciesTableAction: FC<IProps> = ({ id, refetch }) => {
 
   return (
     <>
-      <div className="flex items-center gap-4 text-base font-medium">
+      <div className="flex justify-center items-center gap-4 text-base font-medium">
         <Tooltip title={t('common.edit')}>
           <Button type="link" className="p-0" onClick={editHandler}>
             <EditIcon className="text-xl" />
           </Button>
         </Tooltip>
-        <Tooltip title={t('common.more-details')}>
+        {/* <Tooltip title={t('common.more-details')}>
           <Button
             type="link"
             className="px-0 text-base font-medium text-[#232E40]"
@@ -71,7 +71,7 @@ const CurrenciesTableAction: FC<IProps> = ({ id, refetch }) => {
           >
             <DeleteIcon className="text-xl" />
           </Button>
-        </Tooltip>
+        </Tooltip> */}
       </div>
       <CurrenciesEditHistory open={isDrawer} onClose={closeDrawer} />
       <ConfirmationModal

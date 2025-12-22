@@ -26,7 +26,6 @@ const Currencies = () => {
         size: pageSize,
         page: currentPage - 1 ,
       })
-      console.log(res)
       return res
     },
     placeholderData: data => data,
