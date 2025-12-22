@@ -59,15 +59,15 @@ function StatisticsOfVisits({
     }
 
     const diff = dates[1].diff(dates[0], 'day') + 1
-    if (diff > 31) {
-      const newEnd = dates[0].add(30, 'day')
-      setSelectedRange([dates[0], newEnd])
-      const newParams = new URLSearchParams(params)
-      newParams.set('start_date', dates[0].format('YYYY-MM-DD'))
-      newParams.set('end_date', newEnd.format('YYYY-MM-DD'))
-      setParams(newParams)
-      return
-    }
+    // if (diff > 31) {
+    //   const newEnd = dates[0].add(30, 'day')
+    //   setSelectedRange([dates[0], newEnd])
+    //   const newParams = new URLSearchParams(params)
+    //   newParams.set('start_date', dates[0].format('YYYY-MM-DD'))
+    //   newParams.set('end_date', newEnd.format('YYYY-MM-DD'))
+    //   setParams(newParams)
+    //   return
+    // }
 
     setSelectedRange(dates)
     const newParams = new URLSearchParams(params)
@@ -84,19 +84,19 @@ function StatisticsOfVisits({
     if (!start) return false
 
     const maxEnd = start.add(30, 'day')
-    if (current.isBefore(start, 'day') || current.isAfter(maxEnd, 'day'))
-      return true
+    // if (current.isBefore(start, 'day') || current.isAfter(maxEnd, 'day'))
+    //   return true
 
     return false
   }
 
   const dataSource = useMemo(() => {
-    if (!data?.data) return []
-    return data.data.map((item: any, index: number) => ({
+    if (!data) return []
+    return data.map((item: any, index: number) => ({
       id: index + 1,
-      countryName: item.countryName,
-      touristCount: item.touristCount,
-      percentage: item.percentage,
+      countryName: item.country,
+      touristCount: item.tourist_count,
+      percentage: item.percent,
     }))
   }, [data])
 
