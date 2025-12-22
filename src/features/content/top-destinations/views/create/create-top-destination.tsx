@@ -13,6 +13,7 @@ import { useSingleTopDestination } from '../../hooks/use-single-top-destination'
 import { useTopDestinationImage } from '../../hooks/use-top-destination-image'
 import { useMapCoordsStore } from '../../store/map-coords-store'
 import { ITopDestinationForm } from '../../types'
+import { transformImages } from '@/utils/transform-images'
 
 export default function TopDestinationForm() {
   const { setBreadCrumbs } = useBreadCrumbsStore()
@@ -97,9 +98,10 @@ export default function TopDestinationForm() {
         image: placeImages?.[i]?.file,
       })),
     }
+
     const formData = new FormData()
     formData.append('title', toSubmit.title)
-    formData.append('description', toSubmit.description)
+    formData.append('description', transformImages(toSubmit.description))
     formData.append('region', toSubmit.region.toString())
     formData.append('youtube_url', toSubmit.youtube_url)
     formData.append('status', String(toSubmit?.status))
