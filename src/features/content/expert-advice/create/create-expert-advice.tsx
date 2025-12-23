@@ -22,11 +22,14 @@ import {
 
 import ImageUploadIcon from '@/components/icons/image-upload'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
+
 import QuillEditor from '../../components/quill-editor'
+
 import { useImageCompression } from '@/hooks/use-image-compression'
 import type { Rule } from 'antd/es/form'
 import type { RcFile } from 'antd/es/upload'
 import { useExpertAdviceImage } from '../store/expert-advice-image'
+import { transformImages } from '@/utils/transform-images'
 
 type CreateExpertAdviceValues = {
   title: string
@@ -39,23 +42,19 @@ export default function CreateExpertAdvice() {
   const params = useParams()
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const isEditing = pathname.includes('/edit')
-
   const { compress, isCompressing } = useImageCompression()
   const { setImage, image, removeImage } = useExpertAdviceImage()
   const { t } = useTranslation()
   const queryClient = useQueryClient()
+
   const { setBreadCrumbs } = useBreadCrumbsStore()
 
   const [form] = Form.useForm()
-
-  // 🌍 Language state
+  const isEditing = pathname.includes('/edit')
   const locale = localStorage.getItem('i18nextLng')
   const [language, setLanguage] = useState(
     locale === 'oz' ? 'uz-latin' : locale || 'en',
   )
-
-  // 👉 Create holatda faqat EN
   useEffect(() => {
     if (!isEditing) {
       setLanguage('en')
@@ -99,8 +98,8 @@ export default function CreateExpertAdvice() {
 
   const uploadImagesRules: Rule[] = [
     {
-      validator: () => {
-        if (!image?.file && !image?.url) {
+      validator: (_, value) => {
+        if (!value || (!image?.file && !image?.url)) {
           return Promise.reject(new Error(t('fields.images.required')))
         }
         return Promise.resolve()
@@ -114,11 +113,11 @@ export default function CreateExpertAdvice() {
 
       formData.append('title', values.title)
       formData.append('description', values.description)
-      formData.append('content', values.content)
+      formData.append('content', transformImages(values.content))
 
       if (image?.file && image?.resized) {
-        formData.append('image', image.file)
-        formData.append('resized_image', image.resized)
+        formData.append('image', image?.file)
+        formData.append('resized_image', image?.resized)
       }
 
       formData.append('type', '1')
@@ -139,10 +138,13 @@ export default function CreateExpertAdvice() {
       })
     },
     onError: (error: any) => {
+      console.error('Submission error:', error)
       notification.error({
         message: t('common.error'),
         description:
-          error?.response?.data?.message || error?.message || 'Failed to save',
+          error?.response?.data?.message ||
+          error?.message ||
+          'Failed to save. Please try again.',
       })
     },
   })
@@ -151,12 +153,13 @@ export default function CreateExpertAdvice() {
     const compressed = await compress(file, { width: 588, height: 320 })
     if (compressed) {
       setImage({
-        file: compressed.compressedFile,
-        url: URL.createObjectURL(compressed.compressedFile),
-        resized: compressed.resizedFile,
+        file: compressed?.compressedFile,
+        url: URL.createObjectURL(compressed?.compressedFile),
+        resized: compressed?.resizedFile,
       })
-      form.setFieldValue('image', compressed.compressedFile)
+      form.setFieldValue('image', compressed?.compressedFile)
     }
+
     return false
   }
 
@@ -185,8 +188,6 @@ export default function CreateExpertAdvice() {
   ]
 
   const allOptions = LANGUAGES.map(([value, label]) => ({ label, value }))
-
-  // 👉 Language options (edit vs create)
   const languageOptions = useMemo(() => {
     if (!isEditing) {
       return [{ label: 'English', value: 'en' }]
@@ -199,84 +200,144 @@ export default function CreateExpertAdvice() {
       <Typography.Title level={3} className="text-2xl font-semibold">
         {t(`content.expert-advice.title-${isEditing ? 'edit' : 'add'}`)}
       </Typography.Title>
-
       <Form
-        className="flex gap-6"
+        className="flex gap-6 [&_.ant-form-item-required]:before:hidden"
         form={form}
         layout="vertical"
         onFinish={createOrUpdate.mutate}
+        onFinishFailed={info => {
+          console.log(info)
+          const contentDiv = document.getElementById('main-content')
+          if (contentDiv) {
+            contentDiv.scroll({ top: 300, behavior: 'smooth' })
+          }
+        }}
       >
-        <div className="flex w-1/2 flex-col gap-6 rounded-2xl border bg-white p-6">
-          <Typography.Title level={5}>
+        <div className="flex w-1/2 grow-0 basis-1/2 flex-col gap-6 rounded-2xl border bg-white p-6">
+          <Typography.Title level={5} className="mb-0 text-xl font-medium">
             {t(isEditing ? 'content.edit-content' : 'content.add-content')}
           </Typography.Title>
-          <Divider />
+          <Divider className="m-0" />
           <Form.Item name="content">
             <QuillEditor />
           </Form.Item>
         </div>
-
-        <div className="flex w-1/2 flex-col gap-6">
-          <div className="rounded-2xl border bg-white p-6">
+        <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
+          <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
             <div className="flex items-center justify-between">
-              <Typography.Title level={5}>
+              <Typography.Title level={5} className="text-xl font-medium">
                 {t('content.preview')}
               </Typography.Title>
-
-              {/* 🌍 Language Select */}
               <Select
-                showSearch={isEditing}
+                showSearch
+                placeholder="Select language"
+                optionFilterProp="label"
                 size="large"
                 style={{ width: 240 }}
                 options={languageOptions}
                 value={language}
-                onChange={setLanguage}
-                disabled={!isEditing}
+                onChange={val => setLanguage(val)}
               />
             </div>
-
-            <Divider />
-
+            <Divider className="m-0" />
             <Form.Item
               name="title"
               label={t('fields.name.label')}
-              rules={[{ required: true }]}
+              rules={[
+                {
+                  required: true,
+                  message: t('fields.name.required'),
+                },
+              ]}
             >
-              <Input size="large" />
+              <Input placeholder={t('fields.name.placeholder')} size="large" />
             </Form.Item>
-
             <Form.Item
-              name="description"
               label={t('fields.description.label')}
-              rules={[{ required: true }]}
+              name="description"
+              rules={[
+                {
+                  required: true,
+                  message: t('fields.description.required'),
+                },
+              ]}
             >
-              <Input.TextArea rows={6} />
+              <Input.TextArea
+                placeholder={t('fields.description.placeholder')}
+                rows={6}
+                className="resize-none"
+              />
             </Form.Item>
+            <div>
+              <Form.Item name="image" hidden rules={uploadImagesRules}>
+                <Input hidden />
+              </Form.Item>
+            </div>
 
-            <Form.Item name="image" hidden rules={uploadImagesRules}>
-              <Input hidden />
-            </Form.Item>
-
-            {image?.file || image?.url ? (
-              <div className="relative h-[212px] overflow-hidden rounded-xl border">
-                <Image src={image.url} preview={false} />
-                <Button danger size="small" onClick={removeImage}>
-                  {t('common.delete')}
-                </Button>
-              </div>
-            ) : (
-              <Upload.Dragger
-                showUploadList={false}
-                beforeUpload={beforeUploadHandler}
-                disabled={isCompressing}
-              >
-                <ImageUploadIcon />
-                <Typography.Text>{t('common.select_or_drag')}</Typography.Text>
-              </Upload.Dragger>
-            )}
+            <div className="flex flex-col">
+              <div className="mb-[5px] text-sm">{t('fields.images.label')}</div>
+              {image?.file || image?.url ? (
+                <div className="relative flex aspect-square h-[212px] overflow-hidden rounded-xl border">
+                  <Image
+                    src={
+                      image?.url
+                        ? image?.url
+                        : image?.file
+                          ? URL.createObjectURL(image?.file)
+                          : ''
+                    }
+                    preview={{ toolbarRender: () => null }}
+                    wrapperClassName="h-full w-full [&_.ant-image-img]:h-full [&_.ant-image-img]:w-full [&_.ant-image-img]:object-cover"
+                  />
+                  <Button
+                    danger
+                    size="small"
+                    className="absolute right-2 top-2"
+                    onClick={removeImage}
+                  >
+                    {t('common.delete')}
+                  </Button>
+                </div>
+              ) : (
+                <Upload.Dragger
+                  className="flex flex-col items-center gap-2 [&_.ant-upload-btn]:py-12"
+                  accept="image/*"
+                  showUploadList={false}
+                  customRequest={({ onSuccess }) => {
+                    setTimeout(() => onSuccess?.('ok'), 0)
+                  }}
+                  beforeUpload={beforeUploadHandler}
+                  disabled={isCompressing}
+                >
+                  <ImageUploadIcon className="text-[4.375rem]" />
+                  <Typography.Title className="m-0 text-base font-medium">
+                    {t('common.select_or_drag')}
+                  </Typography.Title>
+                  <Typography.Paragraph className="m-0 text-sm text-secondary">
+                    {t('common.images_limit', { limit: '5 MB' })}
+                  </Typography.Paragraph>
+                </Upload.Dragger>
+              )}
+            </div>
           </div>
         </div>
       </Form>
+      <div className="flex justify-end gap-4">
+        <Button
+          disabled={createOrUpdate.isPending}
+          onClick={() => navigate('/content/expert-advice')}
+        >
+          {t('common.cancel')}
+        </Button>
+        <Button
+          type="primary"
+          onClick={form.submit}
+          loading={createOrUpdate.isPending}
+          className="duration-150 active:scale-95"
+        >
+          {params?.slug ? t('common.edit') : t('common.save')}
+        </Button>
+      </div>
     </div>
   )
 }

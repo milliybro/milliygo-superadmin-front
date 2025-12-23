@@ -8,6 +8,7 @@ import CreateDiscoverForm from '../../components/create-discover-form'
 import { useDiscoverContext } from '../../hooks/use-discover-context'
 import { useDiscoverImage } from '../../hooks/use-discover-image'
 import { ICreateDiscoverForm } from '../../types'
+import { transformImages } from '@/utils/transform-images'
 
 export default function CreateDiscoverContent() {
   const { setBreadCrumbs } = useBreadCrumbsStore()
@@ -83,7 +84,7 @@ export default function CreateDiscoverContent() {
 
     formData.append('name', values.name)
     formData.append('description', values.description)
-    formData.append('content', values.content)
+    formData.append('content', transformImages(values.content))
     formData.append('status', String(values.status))
     values.translate_all != null &&
       formData.append('translate_all', String(values.translate_all))
