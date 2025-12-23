@@ -27,6 +27,7 @@ import { useImageCompression } from '@/hooks/use-image-compression'
 import type { Rule } from 'antd/es/form'
 import type { RcFile } from 'antd/es/upload'
 import { useExpertAdviceImage } from '../store/expert-advice-image'
+import { transformImages } from '@/utils/transform-images'
 
 type CreateExpertAdviceValues = {
   title: string
@@ -114,7 +115,7 @@ export default function CreateExpertAdvice() {
 
       formData.append('title', values.title)
       formData.append('description', values.description)
-      formData.append('content', values.content)
+      formData.append('content', transformImages(values.content))
 
       if (image?.file && image?.resized) {
         formData.append('image', image.file)
