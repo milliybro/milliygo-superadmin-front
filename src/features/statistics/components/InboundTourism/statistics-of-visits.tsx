@@ -226,8 +226,8 @@ function StatisticsOfVisits({
                     const [label, value] = Object.entries(item)[0]
 
                     return {
-                      label, // key
-                      value, // value
+                      label,
+                      value,
                     }
                   })
                 : []
