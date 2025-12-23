@@ -1,3 +1,3 @@
 export const transformImages = (html: string) => {
-  return html.replace('src', 'url')
+  return html.replace(/src=/g, 'url=')
 }
