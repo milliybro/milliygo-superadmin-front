@@ -196,7 +196,7 @@ const SubscriberServicesTable = ({
     setCurrentPage(page)
   }
 
-  const transformedHotelsData = AgentsData?.results.map(
+  const transformedHotelsData = AgentsData?.results?.map(
     (item: ICurrencies | any, i: any) => ({
       key: i,
       id: item.id,

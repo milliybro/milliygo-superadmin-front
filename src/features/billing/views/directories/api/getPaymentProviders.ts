@@ -1,11 +1,11 @@
-import { ListResponse } from '@/types'
+import { ListResponseBilling } from '@/features/billing/types/response.billing'
 import { IPaymentProviders } from '../types'
 import billingRequest from '@/features/billing/billingRequest'
 
 export async function getPaymentProvidersList(
   params?: any,
-): Promise<ListResponse<IPaymentProviders[]>> {
-  const res: ListResponse<IPaymentProviders[]> = await billingRequest({
+): Promise<ListResponseBilling<IPaymentProviders[]>> {
+  const res: ListResponseBilling<IPaymentProviders[]> = await billingRequest({
     url: '/payment-providers',
     method: 'get',
     params,
@@ -16,7 +16,7 @@ export async function getPaymentProvidersList(
 
 export async function getPaymentProvider(params?: any): Promise<any> {
   const res: any = await billingRequest({
-    url: `/payment-providers/${params.id}/`,
+    url: `/payment-providers/${params.id}`,
     method: 'get',
     params: params.queryParams,
   })
@@ -34,7 +34,7 @@ export async function updatePaymentProvider(params: {
   }
   const res: any = await billingRequest({
     url: `/payment-providers/${id}`,
-    method: 'patch',
+    method: 'put',
     data: queryParams,
   })
 
@@ -53,7 +53,7 @@ export async function createPaymentProvider(data?: any): Promise<any> {
 
 export async function deletePaymentProvider(id: string | number): Promise<any> {
   const res: any = await billingRequest({
-    url: `/payment-providers/${id}/`,
+    url: `/payment-providers/${id}`,
     method: 'delete',
   })
 

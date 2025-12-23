@@ -8,7 +8,7 @@ import { IPaymentProviders } from '../../../types'
 import PaymentProvidersTableAction from './payment-providers-table-action'
 
 const PaymentProvidersTable = ({
-  AgentsData,
+  data,
   isLoading,
   currentPage,
   pageSize,
@@ -30,104 +30,88 @@ const PaymentProvidersTable = ({
     {
       title: 'fields.payment-providers.label',
       dataIndex: 'name',
-      sorter: true,
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
+      className: 'text-center',
     },
     {
       title: 'fields.providers-type.label',
-      dataIndex: 'name',
-      sorter: true,
+      dataIndex: 'type',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
+      className: 'text-center',
+    },
+    {
+      title: t('code'),
+      dataIndex: 'code',
+      sorter: false,
+      width: 345,
+      className: 'text-center',
+    },
+    {
+      title: t('fields.supportedCurrencies.label'),
+      dataIndex: 'supportedCurrencies',
+      sorter: false,
+      width: 345,
+      className: 'text-center',
+      render: (value: string[]) => (
+        <div className="flex w-[200px] flex-wrap items-center justify-center gap-1">
+          {value?.map((currency, index) => (
+            <span key={index} className="rounded-md bg-slate-100 px-2 py-1">
+              {currency}
+            </span>
+          ))}
         </div>
       ),
     },
     {
-      title: t('fields.supported-cards.label'),
-      dataIndex: 'phone_number',
-      sorter: true,
+      title: 'fields.calculationType.label',
+      dataIndex: 'calculationType',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
+      className: 'text-center',
     },
     {
-      title: t('fields.integration-type.table'),
-      dataIndex: 'phone_number',
-      sorter: true,
+      title: 'fields.commissionRate.label',
+      dataIndex: 'commissionRate',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
+      className: 'text-center',
+      render: value => {
+        return <span>{value}%</span>
+      },
     },
     {
-      title: t('fields.documentation.label'),
-      dataIndex: 'phone_number',
-      sorter: true,
+      title: 'fields.minAmount.label',
+      dataIndex: 'minAmount',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
+      className: 'text-center',
+      render: value => {
+        return <span>{value?.toLocaleString('en-US')}</span>
+      },
     },
     {
-      title: t('fields.3ds-support.label'),
-      dataIndex: 'phone_number',
-      sorter: true,
+      title: 'fields.maxAmount.label',
+      dataIndex: 'maxAmount',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
-    },
-    {
-      title: t('fields.response-time.label'),
-      dataIndex: 'phone_number',
-      sorter: true,
-      width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
+      className: 'text-center',
+      render: value => {
+        return <span>{value?.toLocaleString('en-US')}</span>
+      },
     },
     {
       title: t('fields.status.label'),
-      dataIndex: 'id',
-      sorter: true,
+      dataIndex: 'status',
+      sorter: false,
       width: 345,
       render: (value: any) => (
         <div className="2xl:mr-0">
-          <StatusTag active={value} />
+          <StatusTag active={value === 'ACTIVE' ? true : false} />
         </div>
       ),
+      className: 'text-center',
     },
     {
       width: 300,
@@ -174,15 +158,19 @@ const PaymentProvidersTable = ({
     setCurrentPage(page)
   }
 
-  const transformedHotelsData = AgentsData?.results?.map(
+  const transformedHotelsData = data?.content?.map(
     (item: IPaymentProviders | any, i: any) => ({
       key: i,
-      id: item.id,
-      name: item.name,
-      image: item.file,
-      address: item.address?.map((addr: any) => addr.address) ?? [],
-      license_validity: item.expire_license_date,
-      phone_number: item.phone_number?.map((p: any) => p.phone_number) ?? [],
+      id: item?.id,
+      name: item?.name,
+      code: item?.code,
+      type: item?.type,
+      status: item?.status,
+      minAmount: item?.minAmount,
+      maxAmount: item?.maxAmount,
+      commissionRate: item?.commissionRate,
+      calculationType: item?.calculationType,
+      supportedCurrencies: item?.supportedCurrencies,
     }),
   )
 
@@ -201,7 +189,7 @@ const PaymentProvidersTable = ({
         pagination={{
           current: currentPage,
           pageSize: 10,
-          total: AgentsData?.count || 0,
+          total: data?.totalElements || 0,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],

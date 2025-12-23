@@ -592,7 +592,32 @@
   "label": "Kurs",
   "placeholder": "Kiriting",
   "error": "Iltimos, kursni kiriting"
-}
+},
+"commissionRate": {
+    "label": "Komissiya foizi",
+    "placeholder": "Komissiya foizini kiriting",
+    "validation-message-required": "Iltimos, komissiya foizini kiriting"
+  },
+  "minAmount": {
+    "label": "Minimal summa",
+    "placeholder": "Minimal summani kiriting",
+    "validation-message-required": "Iltimos, minimal summani kiriting"
+  },
+  "maxAmount": {
+    "label": "Maksimal summa",
+    "placeholder": "Maksimal summani kiriting",
+    "validation-message-required": "Iltimos, maksimal summani kiriting"
+  },
+  "calculationType": {
+    "label": "Hisoblash turi",
+    "placeholder": "Hisoblash turini tanlang",
+    "validation-message-required": "Iltimos, hisoblash turini tanlang"
+  },
+   "supportedCurrencies": {
+    "label": "Qo‘llab-quvvatlanadigan valyutalar",
+    "placeholder": "Qo‘llab-quvvatlanadigan valyutalarni tanlang",
+    "validation-message-required": "Iltimos, qo‘llab-quvvatlanadigan valyutalarni tanlang"
+  }
   },
   "tenant": {
     "tenant": "Tenant",

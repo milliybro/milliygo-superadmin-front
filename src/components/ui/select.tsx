@@ -23,7 +23,6 @@ const CSelect: FC<IProps> = props => {
         notFoundContent={null}
         defaultActiveFirstOption={false}
         mode={mode}
-        maxTagCount={1}
         suffixIcon={
           suffixIcon ? (
             suffixIcon

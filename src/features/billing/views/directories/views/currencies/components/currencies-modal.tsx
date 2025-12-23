@@ -45,6 +45,7 @@ const CurrencyModal = () => {
     queryKey: ['currency', isEdit],
     queryFn: () => getCurrency({ id: isEdit }),
     enabled: !!isEdit,
+    staleTime: 1000,
   })
 
   const openNotification = () => {
