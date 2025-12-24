@@ -82,8 +82,8 @@ export default function CreateDiscoverContent() {
   const finishHandler = (values: ICreateDiscoverForm) => {
     const formData = new FormData()
 
-    formData.append('name', values.name)
-    formData.append('description', values.description)
+    formData.append('name', transformImages(values.name))
+    formData.append('description', transformImages(values.description))
     formData.append('content', transformImages(values.content))
     formData.append('status', String(values.status))
     values.translate_all != null &&
