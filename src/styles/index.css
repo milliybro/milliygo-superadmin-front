@@ -286,3 +286,20 @@ html {
 .chart-popover .ant-popover-inner-content {
   padding: 0;
 }
+
+.quill-sticky .ql-toolbar {
+  position: sticky;
+  top: 58px;
+  z-index: 9;
+  background: white;
+}
+
+.quill-sticky .ql-container {
+  padding-top: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.quill-sticky .ql-editor {
+  padding-top: 0;
+  min-height: 300px;
+}

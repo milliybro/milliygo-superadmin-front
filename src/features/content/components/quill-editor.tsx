@@ -9,9 +9,14 @@ import 'react-quill/dist/quill.snow.css'
 interface QuillEditorProps {
   value?: string
   onChange?: (value: string) => void
+  placeholder?: string
 }
 
-export default function QuillEditor({ value, onChange }: QuillEditorProps) {
+export default function QuillEditor({
+  value,
+  onChange,
+  placeholder,
+}: QuillEditorProps) {
   const quillRef = useRef<ReactQuill | null>(null)
   const { compress } = useImageCompression(true)
   const [cleanValue, setCleanValue] = useState<string>('')
@@ -167,7 +172,8 @@ export default function QuillEditor({ value, onChange }: QuillEditorProps) {
       formats={formats}
       value={cleanValue}
       onChange={handleChange}
-      className="mb-[50px] font-[Onest,_sans-serif]"
+      placeholder={placeholder}
+      className="quill-sticky font-[Onest,_sans-serif]"
     />
   )
 }
