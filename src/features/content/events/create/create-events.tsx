@@ -127,8 +127,8 @@ export default function CreateEvent() {
     mutationFn: (values: any) => {
       const formData = new FormData()
 
-      formData.append('name', transformImages(values.name))
-      formData.append('description', transformImages(values.description))
+      formData.append('name', values.name)
+      formData.append('description', values.description)
       formData.append('organizer', values.organizer)
       formData.append('content', transformImages(values.content))
       formData.append('location', values.location)
@@ -309,7 +309,7 @@ export default function CreateEvent() {
 
             <Divider className="m-0" />
             <Form.Item name="name" label={t('fields.name.label')}>
-              <QuillEditor placeholder={t('fields.name.placeholder')} />
+              <Input placeholder={t('fields.name.placeholder')} size="large" />
             </Form.Item>
             <Form.Item
               label={t('fields.description.label')}
@@ -321,7 +321,11 @@ export default function CreateEvent() {
                 },
               ]}
             >
-              <QuillEditor placeholder={t('fields.description.placeholder')} />
+              <Input.TextArea
+                placeholder={t('fields.description.placeholder')}
+                rows={6}
+                className="resize-none"
+              />
             </Form.Item>
             <Form.Item name="lon" hidden noStyle />
             <Form.Item name="lat" hidden noStyle />

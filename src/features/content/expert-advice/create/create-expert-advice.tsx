@@ -111,8 +111,8 @@ export default function CreateExpertAdvice() {
     mutationFn: (values: CreateExpertAdviceValues) => {
       const formData = new FormData()
 
-      formData.append('title', transformImages(values.title))
-      formData.append('description', transformImages(values.description))
+      formData.append('title', values.title)
+      formData.append('description', values.description)
       formData.append('content', transformImages(values.content))
 
       if (image?.file && image?.resized) {
@@ -250,7 +250,7 @@ export default function CreateExpertAdvice() {
                 },
               ]}
             >
-              <QuillEditor placeholder={t('fields.name.placeholder')} />
+              <Input placeholder={t('fields.name.placeholder')} size="large" />
             </Form.Item>
             <Form.Item
               label={t('fields.description.label')}
@@ -262,7 +262,11 @@ export default function CreateExpertAdvice() {
                 },
               ]}
             >
-              <QuillEditor placeholder={t('fields.description.placeholder')} />
+              <Input.TextArea
+                placeholder={t('fields.description.placeholder')}
+                rows={6}
+                className="resize-none"
+              />
             </Form.Item>
             <div>
               <Form.Item name="image" hidden rules={uploadImagesRules}>

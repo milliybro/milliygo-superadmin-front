@@ -18,7 +18,6 @@ import { useTranslation } from 'react-i18next'
 import { useRegions } from '../hooks/use-regions'
 import { useLocation } from 'react-router'
 import TranslateIcon from '@/components/icons/translate-icon'
-import QuillEditor from '../../components/quill-editor'
 
 export default function CreateTopDestinationForm({
   language,
@@ -162,7 +161,7 @@ export default function CreateTopDestinationForm({
         <Divider className="m-0" />
 
         <Form.Item name="title" label={t('fields.title.label')}>
-          <QuillEditor placeholder={t('fields.title.placeholder')} />
+          <Input placeholder={t('fields.title.placeholder')} size="large" />
         </Form.Item>
 
         <Form.Item name="region" label={t('fields.region.label')}>

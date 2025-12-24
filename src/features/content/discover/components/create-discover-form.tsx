@@ -14,7 +14,6 @@ import { useTranslation } from 'react-i18next'
 import TranslateIcon from '@/components/icons/translate-icon'
 import { useEffect, useMemo } from 'react'
 import { useLocation } from 'react-router'
-import QuillEditor from '../../components/quill-editor'
 
 export default function CreateDiscoverForm({ language, setLanguage }: any) {
   const { t } = useTranslation()
@@ -150,11 +149,15 @@ export default function CreateDiscoverForm({ language, setLanguage }: any) {
       <Divider className="m-0" />
 
       <Form.Item name="name" label={t('fields.name.label')}>
-        <QuillEditor placeholder={t('fields.name.placeholder')} />
+        <Input placeholder={t('fields.name.placeholder')} size="large" />
       </Form.Item>
 
       <Form.Item name="description" label={t('fields.description.label')}>
-        <QuillEditor placeholder={t('fields.description.placeholder')} />
+        <Input.TextArea
+          rows={6}
+          placeholder={t('fields.description.placeholder')}
+          size="large"
+        />
       </Form.Item>
 
       <div className="flex items-end gap-5">

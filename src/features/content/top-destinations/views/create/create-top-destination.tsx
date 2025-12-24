@@ -100,7 +100,7 @@ export default function TopDestinationForm() {
     }
 
     const formData = new FormData()
-    formData.append('title', transformImages(toSubmit.title))
+    formData.append('title', toSubmit.title)
     formData.append('description', transformImages(toSubmit.description))
     formData.append('region', toSubmit.region.toString())
     formData.append('youtube_url', toSubmit.youtube_url)
