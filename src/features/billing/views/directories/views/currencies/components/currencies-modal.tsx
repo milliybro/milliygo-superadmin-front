@@ -13,6 +13,7 @@ import useNotify from '@/hooks/useNotify'
 import { getCurrencyTypesList } from '../../../api/getCurrencyTypes'
 import { mapToSelectOptions } from '@/features/billing/utils/mapToSelectOptions'
 import { ICurrencies } from '../../../types'
+import { BillingInputNumber } from '@/features/billing/components/billingInputNumber'
 
 type FormValues = Pick<ICurrencies, 'currencyTypeId' | 'rate'>
 const CurrencyModal = () => {
@@ -180,11 +181,7 @@ const CurrencyModal = () => {
               },
             ]}
           >
-            <Input
-              type="number"
-              className="select-shadow"
-              placeholder={t('fields.rate.placeholder')}
-            />
+               <BillingInputNumber placeholder={t('fields.rate.placeholder')} />
           </Form.Item>
         </Form>
 

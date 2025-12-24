@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import { Modal, Form, Input, Button, Space, InputNumber } from 'antd'
+import { Modal, Form, Input, Button, Space } from 'antd'
 import CSelect from '@/components/ui/select'
 import CloseIcon from '@/components/icons/close-icon'
 import DirectoryModalHeader from '../../../components/DirectoryModalHeader'
@@ -13,6 +13,7 @@ import useNotify from '@/hooks/useNotify'
 import { IPaymentProviders } from '../../../types'
 import { mapToSelectOptions } from '@/features/billing/utils/mapToSelectOptions'
 import { getCurrencyTypesList } from '../../../api/getCurrencyTypes'
+import { BillingInputNumber } from '@/features/billing/components/billingInputNumber'
 type FormValues = Omit<IPaymentProviders, 'id'>
 
 const PaymentProvidersModal = () => {
@@ -306,38 +307,7 @@ const PaymentProvidersModal = () => {
                   },
                 ]}
               >
-                <InputNumber
-                  className="select-shadow w-full"
-                  placeholder={t('fields.minAmount.placeholder')}
-                  controls={false}
-                  formatter={value => {
-                    if (!value) return ''
-                    const [int, dec] = value.toString().split('.')
-                    const formattedInt = Number(int).toLocaleString('en-US')
-                    return dec !== undefined ? `${formattedInt}.${dec}` : formattedInt
-                  }}
-                  parser={value => {
-                    if (!value) return ''
-                    return value.replace(/,/g, '')
-                  }}
-                  onKeyDown={e => {
-                    const allowedKeys = [ 'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', '.', ]
-
-                    if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
-                      e.preventDefault()
-                    }
-
-                    if (e.key === '.' && e.currentTarget.value.includes('.')) {
-                      e.preventDefault()
-                    }
-                  }}
-                  onPaste={e => {
-                    const pasted = e.clipboardData.getData('text')
-                    if (!/^\d*\.?\d*$/.test(pasted.replace(/,/g, ''))) {
-                      e.preventDefault()
-                    }
-                  }}
-                />
+                  <BillingInputNumber placeholder={t('fields.minAmount.placeholder')} />
               </Form.Item>
               <Form.Item
                 label={t('fields.maxAmount.label')}
@@ -350,38 +320,7 @@ const PaymentProvidersModal = () => {
                   },
                 ]}
               >
-                <InputNumber
-                  className="select-shadow w-full"
-                  placeholder={t('fields.maxAmount.placeholder')}
-                  controls={false}
-                  formatter={value => {
-                    if (!value) return ''
-                    const [int, dec] = value.toString().split('.')
-                    const formattedInt = Number(int).toLocaleString('en-US')
-                    return dec !== undefined ? `${formattedInt}.${dec}` : formattedInt
-                  }}
-                  parser={value => {
-                    if (!value) return ''
-                    return value.replace(/,/g, '')
-                  }}
-                  onKeyDown={e => {
-                    const allowedKeys = [ 'Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'Tab', '.', ]
-
-                    if (!/[0-9]/.test(e.key) && !allowedKeys.includes(e.key)) {
-                      e.preventDefault()
-                    }
-
-                    if (e.key === '.' && e.currentTarget.value.includes('.')) {
-                      e.preventDefault()
-                    }
-                  }}
-                  onPaste={e => {
-                    const pasted = e.clipboardData.getData('text')
-                    if (!/^\d*\.?\d*$/.test(pasted.replace(/,/g, ''))) {
-                      e.preventDefault()
-                    }
-                  }}
-                />
+                <BillingInputNumber  placeholder={t('fields.maxAmount.placeholder')} />
               </Form.Item>
             </div>
             <Form.Item
