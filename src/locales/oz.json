@@ -123,7 +123,9 @@
     "add-user": "Qo'shish",
     "add-services": "Qulaylik va xizmatlar qo'shish",
     "edit-services": "Qulaylik va xizmatlarni tahrirlash",
-    "modal-description": "Yangi foydalanuvchi qo'shish uchun barcha kerakli maydonlarni to'ldiring"
+    "modal-description": "Yangi foydalanuvchi qo'shish uchun barcha kerakli maydonlarni to'ldiring",
+    "providers-name": "Provider nomi (yoki analogi)",
+    "all-users": "Jami foydalanuvchilar"
   },
   "accommodations-page": {
     "filter": {

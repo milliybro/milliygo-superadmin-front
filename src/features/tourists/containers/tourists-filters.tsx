@@ -120,7 +120,7 @@ const TouristsFilters = () => {
         />
       </Form.Item>
       <Form.Item
-        label={t('fields.birthyear.label')}
+        label={t('fields.birthdate.label')}
         className="w-full"
         name="user_information__birth_date"
       >
