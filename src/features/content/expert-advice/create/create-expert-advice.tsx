@@ -29,6 +29,7 @@ import { useImageCompression } from '@/hooks/use-image-compression'
 import type { Rule } from 'antd/es/form'
 import type { RcFile } from 'antd/es/upload'
 import { useExpertAdviceImage } from '../store/expert-advice-image'
+import { transformImages } from '@/utils/transform-images'
 
 type CreateExpertAdviceValues = {
   title: string
@@ -110,9 +111,9 @@ export default function CreateExpertAdvice() {
     mutationFn: (values: CreateExpertAdviceValues) => {
       const formData = new FormData()
 
-      formData.append('title', values.title)
-      formData.append('description', values.description)
-      formData.append('content', values.content)
+      formData.append('title', transformImages(values.title))
+      formData.append('description', transformImages(values.description))
+      formData.append('content', transformImages(values.content))
 
       if (image?.file && image?.resized) {
         formData.append('image', image?.file)
@@ -249,7 +250,7 @@ export default function CreateExpertAdvice() {
                 },
               ]}
             >
-              <Input placeholder={t('fields.name.placeholder')} size="large" />
+              <QuillEditor placeholder={t('fields.name.placeholder')} />
             </Form.Item>
             <Form.Item
               label={t('fields.description.label')}
@@ -261,11 +262,7 @@ export default function CreateExpertAdvice() {
                 },
               ]}
             >
-              <Input.TextArea
-                placeholder={t('fields.description.placeholder')}
-                rows={6}
-                className="resize-none"
-              />
+              <QuillEditor placeholder={t('fields.description.placeholder')} />
             </Form.Item>
             <div>
               <Form.Item name="image" hidden rules={uploadImagesRules}>

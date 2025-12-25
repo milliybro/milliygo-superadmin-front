@@ -1,21 +1,21 @@
-import { useState, type FC } from 'react'
+import {  type FC } from 'react'
 import { Button, Tooltip } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { useMutation } from '@tanstack/react-query'
-import ConfirmationModal from '@/components/ui/confirmation-modal'
-import HierarchyIcon from '@/components/icons/hierarchy'
-import DeleteIcon from '@/components/icons/delete'
+// import { useMutation } from '@tanstack/react-query'
+// import ConfirmationModal from '@/components/ui/confirmation-modal'
+// import HierarchyIcon from '@/components/icons/hierarchy'
+// import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
 import { useLocation, useNavigate } from 'react-router'
 import useTouristTaxesStore from '../../../store/tourist-taxes-store'
-import { deleteTouristTax } from '../../../api/getTouristTaxes'
+// import { deleteTouristTax } from '../../../api/getTouristTaxes'
 
 interface IProps {
   id: number
   refetch: () => void
 }
 
-const TouristTaxesTableAction: FC<IProps> = ({ id, refetch }) => {
+const TouristTaxesTableAction: FC<IProps> = ({ id }) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { pathname } = useLocation()
@@ -26,25 +26,25 @@ const TouristTaxesTableAction: FC<IProps> = ({ id, refetch }) => {
     openModal()
   }
 
-  const [deleteModal, setDeleteModal] = useState(false)
+  // const [deleteModal, setDeleteModal] = useState(false)
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: () => deleteTouristTax(id),
-    onSuccess: () => {
-      setDeleteModal(false)
-      refetch()
-    },
-  })
+  // const { mutate, isPending } = useMutation({
+  //   mutationFn: () => deleteTouristTax(id),
+  //   onSuccess: () => {
+  //     setDeleteModal(false)
+  //     refetch()
+  //   },
+  // })
 
   return (
     <>
-      <div className="flex items-center gap-4 text-base font-medium">
+      <div className="flex items-center justify-center gap-4 text-base font-medium">
         <Tooltip title={t('common.edit')}>
           <Button type="link" className="p-0" onClick={editHandler}>
             <EditIcon className="text-xl" />
           </Button>
         </Tooltip>
-        <Tooltip title={t('common.hierarchy')}>
+        {/* <Tooltip title={t('common.hierarchy')}>
           <Button
             type="link"
             className="px-0 text-base font-medium text-[#232E40]"
@@ -61,10 +61,10 @@ const TouristTaxesTableAction: FC<IProps> = ({ id, refetch }) => {
           >
             <DeleteIcon className="text-xl" />
           </Button>
-        </Tooltip>
+        </Tooltip> */}
       </div>
 
-      <ConfirmationModal
+      {/* <ConfirmationModal
         danger
         icon={DeleteIcon}
         open={deleteModal}
@@ -74,7 +74,7 @@ const TouristTaxesTableAction: FC<IProps> = ({ id, refetch }) => {
         primaryBtnText={t('common.delete')}
         isLoading={isPending}
         action={() => mutate(id as any)}
-      />
+      /> */}
     </>
   )
 }

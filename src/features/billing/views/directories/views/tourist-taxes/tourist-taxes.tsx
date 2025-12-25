@@ -15,17 +15,15 @@ function TouristTaxes() {
 
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const search = searchParams.get('search') || ''
-  const region = searchParams.get('region') || ''
+
   const currentPage = Number(searchParams.get('page')) || 1
 
   const { data, isFetching, refetch } = useQuery({
-    queryKey: ['currencies', currentPage, search, region],
+    queryKey: ['tourist-taxes', currentPage ],
     queryFn: async () => {
       const res = await getTouristTaxesList({
         page_size: pageSize,
-        page: currentPage,
-        name: search ? search : null,
+        page: (currentPage - 1),
       })
       return res
     },
@@ -43,10 +41,10 @@ function TouristTaxes() {
           <PlusOutlined />
           {t('common.add')}
         </Button>
-        <TouristTaxesModal refetch={refetch} />
+        <TouristTaxesModal  />
       </div>
       <TouristTaxesTable
-        AgentsData={data}
+        data={data}
         isLoading={isFetching}
         refetch={refetch}
         pageSize={pageSize}

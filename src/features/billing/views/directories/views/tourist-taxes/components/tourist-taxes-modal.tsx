@@ -1,144 +1,99 @@
 import { useEffect } from 'react'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import { Modal, Form, Input, Button, Typography, notification, } from 'antd'
-import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
+import { Modal, Form, Input, Button, DatePicker } from 'antd'
 import CSelect from '@/components/ui/select'
 import CloseIcon from '@/components/icons/close-icon'
 import DirectoryModalHeader from '../../../components/DirectoryModalHeader'
 import useTouristTaxesStore from '../../../store/tourist-taxes-store'
-import {
-  createTouristTax,
-  getTouristTax,
-  updateTouristTax,
-} from '../../../api/getTouristTaxes'
+import { createTouristTax, getTouristTax, updateTouristTax, } from '../../../api/getTouristTaxes'
 import BuildingIcon from '@/components/icons/building'
+import { ITouristTaxes } from '../../../types'
+import useNotify from '@/hooks/useNotify'
+import dayjs from 'dayjs'
+type FormValues = Omit<ITouristTaxes, 'id'>
 
-const { TextArea } = Input
-interface UserModalProps {
-  refetch: () => Promise<any>
-}
-
-const TouristTaxesModal = ({ refetch }: UserModalProps) => {
+const TouristTaxesModal = () => {
   const { t } = useTranslation()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const { pathname } = useLocation()
   const { isModalOpen, closeModal } = useTouristTaxesStore(state => state)
+  const { openNotify, notificationPlace, notify } = useNotify()
+  const [form] = Form.useForm<FormValues>()
+  const queryClient = useQueryClient()
+  const isEdit = searchParams.get('edit')
 
-  const [form] = Form.useForm()
-
-  const editUserId = searchParams.get('edit')
-
-  const closeHandler = () => {
-    closeModal()
-    if (editUserId) {
-      navigate(pathname)
-    }
-  }
-
-  const { data, refetch: fetching } = useQuery({
-    queryKey: ['currency', editUserId],
-    queryFn: () => getTouristTax({ id: editUserId }),
-    enabled: !!editUserId,
-    refetchOnMount: 'always',
+  const { data } = useQuery({
+    queryKey: ['tourist-tax', isEdit],
+    queryFn: () => getTouristTax({ id: isEdit }),
+    enabled: !!isEdit,
+    staleTime: 1000,
   })
 
   const openNotification = () => {
-    notification.info({
-      closeIcon: null,
-      className:
-        'w-[406px] border-t-[5px] border-primary rounded-[12px] [&_.ant-notification-notice-message]:mb-0',
-      icon: <CheckmarkCircleIcon className="text-2xl text-primary" />,
-      message: (
-        <Typography.Text className="text-lg font-semibold leading-[22.95px]">
-          {editUserId
-            ? t('fields.user-notification.edit.message')
-            : t('fields.user-notification.add.message')}
-        </Typography.Text>
-      ),
-      placement: 'topRight',
-      description: (
-        <div>
-          <Button
-            size="small"
-            type="text"
-            className="absolute right-[10px] top-[10px] grid place-items-center rounded-lg"
-            icon={<CloseIcon className="text-base" />}
-            onClick={() => notification.destroy()}
-          />
-          <Typography.Text className="text-base text-secondary">
-            {editUserId
-              ? t('fields.user-notification.add.message')
-              : t('fields.user-notification.edit.message')}
-          </Typography.Text>
-        </div>
-      ),
-    })
+    openNotify({ edit: isEdit })
   }
 
   const handleUserSave = useMutation({
     mutationFn: (values: any) => {
       const formattedValues = {
         ...values,
+        rate: Number(values?.rate),
+        roomsFrom:  Number(values?.roomsFrom),
+        roomsTo:  Number(values?.roomsTo),
       }
 
-      if (editUserId) {
+      if (isEdit) {
         return updateTouristTax({
-          id: editUserId,
+          id: isEdit,
           queryParams: formattedValues,
         })
       }
 
       return createTouristTax(formattedValues)
     },
-    onSuccess: res => {
-      // notification.success({
-      //   message: editUserId
-      //     ? t('fields.user-notification.edit.message')
-      //     : t('fields.user-notification.add.message'),
-      // })
+    onSuccess: () => {
       openNotification()
-      form.resetFields()
-      refetch()
-      if (editUserId) {
-        fetching()
-      }
-
       closeHandler()
+      queryClient.invalidateQueries({ queryKey: ['tourist-taxes'] })
     },
     onError: () => {
       form.getFieldsError()
+      notify.error({ message: 'Error', description: 'Error' })
     },
   })
 
-  // useEffect(() => {
-  //   if (editUserId) {
-  //     refetch()
-  //   }
-  // }, [editUserId, refetch])
+  const closeHandler = () => {
+    closeModal()
+    form.resetFields()
+    if (isEdit) {
+      navigate(pathname)
+    }
+  }
 
   useEffect(() => {
-    if (data && editUserId) {
+    if (data && isEdit) {
       form.setFieldsValue({
-        code: data?.code,
-        name: data?.first_name,
-        symbol: data?.symbol,
-        uzs_rate: data?.uzs_rate,
+        name: data?.name,
+        placeType: data?.placeType,
+        citizenship: data?.citizenship,
+        roomsFrom: data?.roomsFrom,
+        roomsTo: data?.roomsTo,
         rate: data?.rate,
-        refresh_rate: data?.refresh_rate,
-        // type: data?.type?.id,
-        status: data?.status ? 'True' : 'False',
-        comment: data?.comment,
+        status: data?.status,
+        actualFrom: dayjs(data?.actualFrom),
+        actualTo: dayjs(data?.actualTo),
+        rateType: data?.rateType,
+        description: data?.description,
       })
-    } else {
-      form.resetFields()
     }
-  }, [data, form])
+  }, [data, form, isEdit])
 
   return (
     <>
+      {notificationPlace}
       <Modal
         title={null}
         open={isModalOpen}
@@ -148,11 +103,6 @@ const TouristTaxesModal = ({ refetch }: UserModalProps) => {
         closeIcon={null}
         maskClosable={false}
         footer={null}
-        // classNames={{
-        //   wrapper: 'backdrop-blur-sm',
-        //   content:
-        //     '!p-[40px] [&>.ant-modal-close]:text-primary-dark dark:[&>.ant-modal-close]:text-dark-bg',
-        // }}
       >
         <Button
           className="absolute right-[10px] top-[10px]"
@@ -162,11 +112,9 @@ const TouristTaxesModal = ({ refetch }: UserModalProps) => {
           disabled={handleUserSave.isPending}
         />
         <DirectoryModalHeader
-          addText={'Добавить'}
-          textDesc={
-            'Для добавления нового платежа, пожалуйста заполните все необходимые поля'
-          }
-          id={editUserId}
+          addText={isEdit ? 'common.edit' : 'common.add'}
+          textDesc={ isEdit ? 'common.modal_description_edit' : 'common.modal_description' }
+          id={isEdit}
           Icon={BuildingIcon}
         />
 
@@ -176,15 +124,94 @@ const TouristTaxesModal = ({ refetch }: UserModalProps) => {
           form={form}
           className="flex flex-col gap-2"
         >
-          <div className="flex items-center gap-2">
+          <div className="flex h-[530px] flex-col gap-2 overflow-y-auto px-2 mb-4">
             <Form.Item
-              label={t('Тип размещения')}
-              name="code"
-              style={{ width: '50%' }}
+              label={t('name')}
+              name="name"
+              style={{ width: '100%' }}
               rules={[
                 {
-                  required: false,
-                  message: t('fields.gender.validation-message-required'),
+                  required: true,
+                  message: t('name'),
+                },
+              ]}
+            >
+              <Input className="select-shadow" placeholder={t('name')} />
+            </Form.Item>
+
+              <Form.Item
+                label={t('Тип размещения')}
+                name="placeType"
+                style={{ width: '100%' }}
+                rules={[
+                  {
+                    required: true,
+                    message: t('fields.gender.validation-message-required'),
+                  },
+                ]}
+              >
+                <CSelect
+                  placeholder={t('Выберите')}
+                  className="select-shadow"
+                  options={[
+                    { label: t('HOTEL'), value: 'HOTEL' },
+                    { label: t('HOUSEHOLDER'), value: 'HOUSEHOLDER' },
+                    { label: t('HOSTEL'), value: 'HOSTEL' },
+                    { label: t('GUEST_HOUSE'), value: 'GUEST_HOUSE' },
+                    { label: t('APARTMENT'), value: 'APARTMENT' },
+                    { label: t('PRIVATE_HOUSE'), value: 'PRIVATE_HOUSE' },
+                    { label: t('RESORT'), value: 'RESORT' },
+                    { label: t('SANATORIUM'), value: 'SANATORIUM' },
+                    { label: t('CAMPING'), value: 'CAMPING' },
+                    { label: t('ALL'), value: 'ALL' },
+                  ]}
+                />
+              </Form.Item>
+
+            <div className="flex items-center gap-2">
+              <Form.Item
+                label={t('roomsFrom')}
+                name="roomsFrom"
+                style={{ width: '50%' }}
+                rules={[
+                  {
+                    required: true,
+                    message: t('fields.gender.validation-message-required'),
+                  },
+                ]}
+              >
+                <Input
+                  type="number"
+                  className="select-shadow"
+                  placeholder={t('Введите')}
+                />
+              </Form.Item>
+              <Form.Item
+                label={t('roomsTo')}
+                name="roomsTo"
+                style={{ width: '50%' }}
+                rules={[
+                  {
+                    required: false,
+                    message: t('fields.gender.validation-message-required'),
+                  },
+                ]}
+              >
+                <Input
+                  type="number"
+                  className="select-shadow"
+                  placeholder={t('Введите')}
+                />
+              </Form.Item>
+            </div>
+            <Form.Item
+              label={t('rateType')}
+              name="rateType"
+              style={{ width: '100%' }}
+              rules={[
+                {
+                  required: true,
+                  message: t('fields.middle_name.validation-message-required'),
                 },
               ]}
             >
@@ -193,23 +220,40 @@ const TouristTaxesModal = ({ refetch }: UserModalProps) => {
                 className="select-shadow"
                 options={[
                   {
-                    label: t('common.men'),
-                    value: 'male',
+                    label: t('PERCENTAGE'),
+                    value: 'PERCENTAGE',
                   },
                   {
-                    label: t('common.women'),
-                    value: 'female',
+                    label: t('FIXED'),
+                    value: 'FIXED',
                   },
                 ]}
               />
             </Form.Item>
             <Form.Item
-              label={t('Количество номеров')}
-              name="code"
-              style={{ width: '50%' }}
+              label={t('rate')}
+              name="rate"
+              style={{ width: '100%' }}
               rules={[
                 {
-                  required: false,
+                  required: true,
+                  message: t('fields.middle_name.validation-message-required'),
+                },
+              ]}
+            >
+              <Input
+                type="number"
+                className="select-shadow"
+                placeholder={t('Введите')}
+              />
+            </Form.Item>
+            <Form.Item
+              label={t('citizenship')}
+              name="citizenship"
+              style={{ width: '100%' }}
+              rules={[
+                {
+                  required: true,
                   message: t('fields.gender.validation-message-required'),
                 },
               ]}
@@ -219,74 +263,88 @@ const TouristTaxesModal = ({ refetch }: UserModalProps) => {
                 className="select-shadow"
                 options={[
                   {
-                    label: t('common.men'),
-                    value: 'male',
+                    label: t('LOCAL'),
+                    value: 'LOCAL',
                   },
                   {
-                    label: t('common.women'),
-                    value: 'female',
+                    label: t('FOREIGN'),
+                    value: 'FOREIGN',
                   },
                 ]}
+              />
+            </Form.Item>
+            <div className="flex items-center gap-2">
+              <Form.Item
+                label={t('actualFrom')}
+                name="actualFrom"
+                style={{ width: '50%' }}
+                rules={[
+                  {
+                    required: false,
+                    message: t('fields.gender.validation-message-required'),
+                  },
+                ]}
+              >
+                <DatePicker
+                  format={'DD-MM-YYYY'}
+                  style={{ width: '100%' }}
+                  placeholder="Выберите"
+                />
+              </Form.Item>
+              <Form.Item
+                label={t('actualTo')}
+                name="actualTo"
+                style={{ width: '50%' }}
+                rules={[
+                  {
+                    required: false,
+                    message: t('fields.gender.validation-message-required'),
+                  },
+                ]}
+              >
+                <DatePicker
+                  format={'DD-MM-YYYY'}
+                  style={{ width: '100%' }}
+                  placeholder="Выберите"
+                />
+              </Form.Item>
+            </div>
+     
+            <Form.Item
+              label={t('fields.status.label')}
+              name="status"
+              style={{ width: '100%' }}
+              rules={[
+                {
+                  required: true,
+                  message: t('fields.status.validation-message-required'),
+                },
+              ]}
+            >
+              <CSelect
+                placeholder={t('fields.status.placeholder')}
+                className="select-shadow"
+                options={[
+                  {
+                    label: t('common.active'),
+                    value: 'ACTIVE',
+                  },
+                  {
+                    label: t('common.inactive'),
+                    value: 'INACTIVE',
+                  },
+                ]}
+              />
+            </Form.Item>
+           <Form.Item label={t('fields.comment.label')} name="description">
+              <Input.TextArea
+                className="select-shadow"
+                placeholder={t('fields.comment.placeholder')}
+                rows={5}
+                style={{ resize: 'none' }}
               />
             </Form.Item>
           </div>
-          <Form.Item
-            label={t('Процент от БХМ')}
-            name="name"
-            style={{ width: '100%' }}
-            rules={[
-              {
-                required: false,
-                message: t('fields.middle_name.validation-message-required'),
-              },
-            ]}
-          >
-            <Input
-              addonAfter="%"
-              className="select-shadow"
-              placeholder={t('Введите Процент от БХМ')}
-            />
-          </Form.Item>
-          <Form.Item
-            label={t('Региональные особенности')}
-            name="symbol"
-            style={{ width: '100%' }}
-            rules={[
-              {
-                required: false,
-                message: t('fields.gender.validation-message-required'),
-              },
-            ]}
-          >
-            <CSelect
-              placeholder={t('Выберите')}
-              className="select-shadow"
-              options={[
-                {
-                  label: t('common.men'),
-                  value: 'male',
-                },
-                {
-                  label: t('common.women'),
-                  value: 'female',
-                },
-              ]}
-            />
-          </Form.Item>
-
-          <Form.Item
-            label={t('Комментарий')}
-            name="comment"
-        
-          >
-            <TextArea
-              className="select-shadow"
-              placeholder={t('Введите комментарий...')}
-              rows={5}
-              style={{ resize: 'none' }}
-            />
-          </Form.Item>
-
           <div className="col-span-full mt-2 flex justify-center gap-4">
             <Button onClick={closeHandler} disabled={handleUserSave.isPending}>
               {t('common.cancel')}
@@ -297,7 +355,7 @@ const TouristTaxesModal = ({ refetch }: UserModalProps) => {
               htmlType="submit"
               loading={handleUserSave.isPending}
             >
-              {editUserId ? t('Редактировать') : t('Добавить')}
+              {isEdit ? t('common.edit') : t('common.add')}
             </Button>
           </div>
         </Form>

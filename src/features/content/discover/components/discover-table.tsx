@@ -54,9 +54,12 @@ function DiscoverTable() {
               <MegaPhoneIcon className="text-lg text-secondary" />
             )}
           </div>
-          <Typography.Text className="text-sm font-medium">
-            {record?.name}
-          </Typography.Text>
+          <div
+            className="line-clamp-2 text-sm font-medium"
+            dangerouslySetInnerHTML={{
+              __html: record?.name,
+            }}
+          />
         </div>
       ),
     },

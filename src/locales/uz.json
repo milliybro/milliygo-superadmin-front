@@ -612,6 +612,31 @@
       "label": "Курс",
       "placeholder": "Киритинг",
       "error": "Илтимос, курсни киритинг"
+    },
+    "commissionRate": {
+      "label": "Комиссия фоизи",
+      "placeholder": "Комиссия фоизини киритинг",
+      "validation-message-required": "Илтимос, комиссия фоизини киритинг"
+    },
+    "minAmount": {
+      "label": "Минимал сумма",
+      "placeholder": "Минимал суммани киритинг",
+      "validation-message-required": "Илтимос, минимал суммани киритинг"
+    },
+    "maxAmount": {
+      "label": "Максимал сумма",
+      "placeholder": "Максимал суммани киритинг",
+      "validation-message-required": "Илтимос, максимал суммани киритинг"
+    },
+    "calculationType": {
+      "label": "Ҳисоблаш тури",
+      "placeholder": "Ҳисоблаш турини танланг",
+      "validation-message-required": "Илтимос, ҳисоблаш турини танланг"
+    },
+    "supportedCurrencies": {
+      "label": "Қўллаб-қувватланадиган валюталар",
+      "placeholder": "Қўллаб-қувватланадиган валюталарни танланг",
+      "validation-message-required": "Илтимос, қўллаб-қувватланадиган валюталарни танланг"
     }
   },
   "tenant": {

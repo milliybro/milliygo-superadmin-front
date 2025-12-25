@@ -612,6 +612,31 @@
       "label": "Курс",
       "placeholder": "Введите",
       "error": "Пожалуйста, введите курс"
+    },
+    "commissionRate": {
+      "label": "Комиссионная ставка",
+      "placeholder": "Введите комиссионную ставку",
+      "validation-message-required": "Пожалуйста, укажите комиссионную ставку"
+    },
+    "minAmount": {
+      "label": "Минимальная сумма",
+      "placeholder": "Введите минимальную сумму",
+      "validation-message-required": "Пожалуйста, укажите минимальную сумму"
+    },
+    "maxAmount": {
+      "label": "Максимальная сумма",
+      "placeholder": "Введите максимальную сумму",
+      "validation-message-required": "Пожалуйста, укажите максимальную сумму"
+    },
+    "calculationType": {
+      "label": "Тип расчёта",
+      "placeholder": "Выберите тип расчёта",
+      "validation-message-required": "Пожалуйста, выберите тип расчёта"
+    },
+    "supportedCurrencies": {
+      "label": "Поддерживаемые валюты",
+      "placeholder": "Выберите поддерживаемые валюты",
+      "validation-message-required": "Пожалуйста, выберите поддерживаемые валюты"
     }
   },
   "tenant": {

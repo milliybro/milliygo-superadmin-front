@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
 import { useMutation } from '@tanstack/react-query'
 import ConfirmationModal from '@/components/ui/confirmation-modal'
-import HierarchyIcon from '@/components/icons/hierarchy'
+// import HierarchyIcon from '@/components/icons/hierarchy'
 import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
 import usePaymentProvidersModalStore from '../../../store/payment-providers-store'
@@ -44,14 +44,14 @@ const PaymentProvidersTableAction: FC<IProps> = ({ id, refetch }) => {
             <EditIcon className="text-xl" />
           </Button>
         </Tooltip>
-        <Tooltip title={t('common.hierarchy')}>
+        {/* <Tooltip title={t('common.hierarchy')}>
           <Button
             type="link"
             className="px-0 text-base font-medium text-[#232E40]"
           >
             <HierarchyIcon className="text-xl" />
           </Button>
-        </Tooltip>
+        </Tooltip> */}
         <Tooltip title={t('common.delete')}>
           <Button
             type="link"

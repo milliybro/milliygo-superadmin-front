@@ -28,6 +28,7 @@ import { useMapCoordsStore } from '../../top-destinations/store/map-coords-store
 import YandexMapPicker from './yandex-map-picker'
 import { useEventImage } from '../store/event-image'
 import TranslateIcon from '@/components/icons/translate-icon'
+import { transformImages } from '@/utils/transform-images'
 
 type CreateExpertAdviceValues = {
   name: string
@@ -126,10 +127,10 @@ export default function CreateEvent() {
     mutationFn: (values: any) => {
       const formData = new FormData()
 
-      formData.append('name', values.name)
-      formData.append('description', values.description)
+      formData.append('name', transformImages(values.name))
+      formData.append('description', transformImages(values.description))
       formData.append('organizer', values.organizer)
-      formData.append('content', values.content)
+      formData.append('content', transformImages(values.content))
       formData.append('location', values.location)
       formData.append('date', dayjs(values.date).toISOString())
 
@@ -238,7 +239,7 @@ export default function CreateEvent() {
             </Typography.Title>
             <div className="flex items-center justify-between">
               <div className="flex items-center justify-between gap-2">
-                {isEditing  && (
+                {isEditing && (
                   <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
                     <Typography.Text>Keshni yangilash</Typography.Text>
 
@@ -254,7 +255,7 @@ export default function CreateEvent() {
                     </div>
                   </div>
                 )}
-                {isEditing  && (
+                {isEditing && (
                   <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
                     <Typography.Text>
                       {t('common.auto-translate')}
@@ -308,7 +309,7 @@ export default function CreateEvent() {
 
             <Divider className="m-0" />
             <Form.Item name="name" label={t('fields.name.label')}>
-              <Input placeholder={t('fields.name.placeholder')} size="large" />
+              <QuillEditor placeholder={t('fields.name.placeholder')} />
             </Form.Item>
             <Form.Item
               label={t('fields.description.label')}
@@ -320,11 +321,7 @@ export default function CreateEvent() {
                 },
               ]}
             >
-              <Input.TextArea
-                placeholder={t('fields.description.placeholder')}
-                rows={6}
-                className="resize-none"
-              />
+              <QuillEditor placeholder={t('fields.description.placeholder')} />
             </Form.Item>
             <Form.Item name="lon" hidden noStyle />
             <Form.Item name="lat" hidden noStyle />

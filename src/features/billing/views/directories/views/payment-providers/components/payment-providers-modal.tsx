@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import { Modal, Form, Input, Button } from 'antd'
+import { Modal, Form, Input, Button, Space } from 'antd'
 import CSelect from '@/components/ui/select'
 import CloseIcon from '@/components/icons/close-icon'
 import DirectoryModalHeader from '../../../components/DirectoryModalHeader'
@@ -11,7 +11,10 @@ import { createPaymentProvider, getPaymentProvider, updatePaymentProvider, } fro
 import BankIcon from '@/components/icons/bankIcon'
 import useNotify from '@/hooks/useNotify'
 import { IPaymentProviders } from '../../../types'
-type FormValues = Pick<IPaymentProviders, 'name'>
+import { mapToSelectOptions } from '@/features/billing/utils/mapToSelectOptions'
+import { getCurrencyTypesList } from '../../../api/getCurrencyTypes'
+import { BillingInputNumber } from '@/features/billing/components/billingInputNumber'
+type FormValues = Omit<IPaymentProviders, 'id'>
 
 const PaymentProvidersModal = () => {
   const { t } = useTranslation()
@@ -26,10 +29,23 @@ const PaymentProvidersModal = () => {
 
   const isEdit = searchParams.get('edit')
 
+  const { data: currencyTypes } = useQuery({
+    queryKey: ['currency-types'],
+    queryFn: async () => {
+      const res = await getCurrencyTypesList({
+        size: 150,
+        page: 0,
+      })
+      return res
+    },
+    enabled: isModalOpen,
+  })
+
   const { data } = useQuery({
     queryKey: ['payment-provider', isEdit],
     queryFn: () => getPaymentProvider({ id: isEdit }),
     enabled: !!isEdit,
+    staleTime: 1000, 
   })
 
   const openNotification = () => {
@@ -58,6 +74,7 @@ const PaymentProvidersModal = () => {
       openNotification()
       closeHandler()
       queryClient.invalidateQueries({ queryKey: ['payment-providers'] })
+      // queryClient.invalidateQueries({ queryKey: ['payment-provider'] })
     },
     onError: () => {
       form.getFieldsError()
@@ -77,6 +94,14 @@ const PaymentProvidersModal = () => {
     if (data && isEdit) {
       form.setFieldsValue({
         name: data?.name,
+        type: data?.type,
+        supportedCurrencies: data?.supportedCurrencies,
+        code: data?.code,
+        calculationType: data?.calculationType,
+        commissionRate: data?.commissionRate,
+        minAmount: data?.minAmount,
+        maxAmount: data?.maxAmount,
+        status: data?.status,
       })
     }
   }, [data, form, isEdit])
@@ -163,34 +188,7 @@ const PaymentProvidersModal = () => {
                 />
               </Form.Item>
             </div>
-            <Form.Item
-              label={t('supportedCurrencies')}
-              name="supportedCurrencies"
-              style={{ width: '100%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.supported-cards.error'),
-                },
-              ]}
-            >
-              <CSelect
-                placeholder={t('fields.supported-cards.placeholder')}
-                className="select-shadow"
-                mode="multiple"
-                maxTagCount={1}
-                options={[
-                  {
-                    label: t('string1'),
-                    value: 'string1',
-                  },
-                  {
-                    label: t('string2'),
-                    value: 'string2',
-                  },
-                ]}
-              />
-            </Form.Item>
+
             <Form.Item
               label={t('code')}
               name="code"
@@ -213,100 +211,58 @@ const PaymentProvidersModal = () => {
                 ]}
               />
             </Form.Item>
-
-            {/* <Form.Item
-              label={t('fields.documentation.label')}
-              name="rate"
-              style={{ width: '100%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.documentation.error'),
-                },
-              ]}
-            >
-              <Input
-                addonBefore="https://"
-                className="select-shadow"
-                placeholder={t('fields.documentation.placeholder')}
-              />
-            </Form.Item> */}
-
-            {/* <Form.Item
-              label={t('fields.currency.label')}
-              name="rate"
-              style={{ width: '100%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.currency.error'),
-                },
-              ]}
-            >
-              <CSelect
-                placeholder={t('fields.currency.placeholder')}
-                className="select-shadow"
-                options={[
-                  {
-                    label: t('common.men'),
-                    value: 'male',
-                  },
-                  {
-                    label: t('common.women'),
-                    value: 'female',
-                  },
-                ]}
-              />
-            </Form.Item> */}
-            <div className="flex items-center gap-2">
-              <Form.Item
-                label={t('minAmount')}
-                name="minAmount"
-                style={{ width: '100%' }}
-                rules={[
-                  {
-                    required: false,
-                    message: t('fields.response-time.error'),
-                  },
-                ]}
-              >
-                <Input
-                  type="number"
-                  className="select-shadow"
-                  placeholder={t('fields.response-time.placeholder')}
-                />
-              </Form.Item>
-              <Form.Item
-                label={t('maxAmount')}
-                name="maxAmount"
-                style={{ width: '100%' }}
-                rules={[
-                  {
-                    required: false,
-                    message: t('fields.response-time.error'),
-                  },
-                ]}
-              >
-                <Input
-                  type="number"
-                  className="select-shadow"
-                  placeholder={t('fields.response-time.placeholder')}
-                />
-              </Form.Item>
-            </div>
             <Form.Item
-              label={t('commissionType')}
-              name="commissionType"
+              label={t('fields.supportedCurrencies.label')}
+              name="supportedCurrencies"
               style={{ width: '100%' }}
               rules={[
                 {
                   required: false,
-                  message: t('fields.currency.error'),
+                  message: t('fields.supportedCurrencies.error'),
                 },
               ]}
             >
               <CSelect
-                placeholder={t('fields.currency.placeholder')}
+                placeholder={t('fields.supportedCurrencies.placeholder')}
+                showSearch
+                className="select-shadow"
+                options={mapToSelectOptions(
+                  currencyTypes?.content,
+                  'name',
+                  'code',
+                )}
+                optionFilterProp="label"
+                maxTagCount={3}
+                mode="multiple"
+                filterOption={(input, option) =>
+                  String(option?.label) .toLowerCase() .includes(input.toLowerCase()) ||
+                  String(option?.data?.code) .toLowerCase() .includes(input.toLowerCase())
+                }
+                optionRender={option => (
+                  <Space>
+                    {option.data.code} - {option.data.label}
+                  </Space>
+                )}
+                labelRender={({ value }) => {
+                  const option = currencyTypes?.content.find( o => o.code === value, )
+                  return <Space> {option?.code} </Space>
+                }}
+              />
+            </Form.Item>
+           
+            <Form.Item
+              label={t('fields.calculationType.label')}
+              name="calculationType"
+              style={{ width: '100%' }}
+              rules={[
+                {
+                  required: false,
+                  message: t('fields.calculationType.error'),
+                },
+              ]}
+            >
+              <CSelect
+                placeholder={t('fields.calculationType.placeholder')}
                 className="select-shadow"
                 options={[
                   {
@@ -321,39 +277,52 @@ const PaymentProvidersModal = () => {
               />
             </Form.Item>
             <Form.Item
-              label={t('commissionRate')}
+              label={t('fields.commissionRate.label')}
               name="commissionRate"
               style={{ width: '100%' }}
               rules={[
                 {
                   required: false,
-                  message: t('fields.response-time.error'),
+                  message: t('fields.commissionRate.error'),
                 },
               ]}
+              
             >
               <Input
+                addonAfter="%"
                 type="number"
                 className="select-shadow"
-                placeholder={t('fields.response-time.placeholder')}
+                placeholder={t('fields.commissionRate.placeholder')}
               />
             </Form.Item>
-            {/* <Form.Item
-              label={t('fields.response-time.label')}
-              name="rate"
-              style={{ width: '100%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.response-time.error'),
-                },
-              ]}
-            >
-              <Input
-                className="select-shadow"
-                placeholder={t('fields.response-time.placeholder')}
-              />
-            </Form.Item> */}
-
+            <div className="flex items-center gap-2">
+              <Form.Item
+                label={t('fields.minAmount.label')}
+                name="minAmount"
+                style={{ width: '100%' }}
+                rules={[
+                  {
+                    required: false,
+                    message: t('fields.minAmount.error'),
+                  },
+                ]}
+              >
+                  <BillingInputNumber placeholder={t('fields.minAmount.placeholder')} />
+              </Form.Item>
+              <Form.Item
+                label={t('fields.maxAmount.label')}
+                name="maxAmount"
+                style={{ width: '100%' }}
+                rules={[
+                  {
+                    required: false,
+                    message: t('fields.maxAmount.error'),
+                  },
+                ]}
+              >
+                <BillingInputNumber  placeholder={t('fields.maxAmount.placeholder')} />
+              </Form.Item>
+            </div>
             <Form.Item
               label={t('fields.status.label')}
               name="status"
@@ -377,10 +346,10 @@ const PaymentProvidersModal = () => {
                     label: t('common.inactive'),
                     value: 'INACTIVE',
                   },
-                  {
-                    label: t('DRAFT'),
-                    value: 'DRAFT ',
-                  },
+                  // {
+                  //   label: t('DRAFT'),
+                  //   value: 'DRAFT ',
+                  // },
                 ]}
               />
             </Form.Item>
