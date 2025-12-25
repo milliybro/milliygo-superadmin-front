@@ -1,5 +1,3 @@
-import { Typography } from 'antd'
-
 import type { FC } from 'react'
 import type { IEvent } from '@/features/content/types'
 
@@ -15,9 +13,12 @@ const EventsTitle: FC<IEvent> = props => {
           />
         )}
       </div>
-      <Typography.Text className="line-clamp-2 break-all text-sm font-medium">
-        {props?.name}
-      </Typography.Text>
+      <div
+        className="line-clamp-2 text-sm font-medium"
+        dangerouslySetInnerHTML={{
+          __html: props?.name,
+        }}
+      />
     </div>
   )
 }

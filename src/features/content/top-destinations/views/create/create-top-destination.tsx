@@ -100,7 +100,7 @@ export default function TopDestinationForm() {
     }
 
     const formData = new FormData()
-    formData.append('title', toSubmit.title)
+    formData.append('title', transformImages(toSubmit.title))
     formData.append('description', transformImages(toSubmit.description))
     formData.append('region', toSubmit.region.toString())
     formData.append('youtube_url', toSubmit.youtube_url)
@@ -167,7 +167,7 @@ export default function TopDestinationForm() {
             {t('content.top_destinations.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
-          <Form.Item name="description" className="mb-0">
+          <Form.Item name="description">
             <QuillEditor />
           </Form.Item>
         </div>
