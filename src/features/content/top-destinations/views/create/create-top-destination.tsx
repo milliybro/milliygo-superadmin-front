@@ -167,7 +167,7 @@ export default function TopDestinationForm() {
             {t('content.top_destinations.add-content')}
           </Typography.Title>
           <Divider className="m-0" />
-          <Form.Item name="description" className="mb-0">
+          <Form.Item name="description">
             <QuillEditor />
           </Form.Item>
         </div>
