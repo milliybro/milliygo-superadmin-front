@@ -38,6 +38,8 @@ type CreateExpertAdviceValues = {
   description: string
   content: string
   image: RcFile
+  translate_all: string
+  refresh_cache: boolean
 }
 
 export default function CreateExpertAdvice() {
@@ -123,6 +125,10 @@ export default function CreateExpertAdvice() {
       }
 
       formData.append('type', '1')
+      values.translate_all != null &&
+        formData.append('translate_all', String(values.translate_all))
+      values.refresh_cache != null &&
+        formData.append('refresh_cache', String(values.refresh_cache))
 
       if (isEditing && params?.slug) {
         return patchExpertAdvice(params.slug, formData, language)
@@ -230,7 +236,7 @@ export default function CreateExpertAdvice() {
               <Typography.Title level={5} className="text-xl font-medium">
                 {t('content.preview')}
               </Typography.Title>
-              <div className="flex justify-between items-center gap-2">
+              <div className="flex items-center justify-between gap-2">
                 {isEditing && (
                   <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
                     <Typography.Text>Keshni yangilash</Typography.Text>
