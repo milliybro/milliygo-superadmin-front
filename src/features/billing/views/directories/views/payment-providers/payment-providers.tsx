@@ -43,7 +43,7 @@ function PaymentProviders() {
         <PaymentProvidersModal />
       </div>
       <PaymentProvidersTable
-        AgentsData={data}
+        data={data}
         isLoading={isFetching}
         refetch={refetch}
         pageSize={pageSize}

@@ -171,7 +171,7 @@ const PaymentsTypesTable = ({
     setCurrentPage(page)
   }
 
-  const transformedHotelsData = AgentsData?.results.map(
+  const transformedHotelsData = AgentsData?.results?.map(
     (item: IPaymentsTypes | any, i: any) => ({
       key: i,
       id: item.id,

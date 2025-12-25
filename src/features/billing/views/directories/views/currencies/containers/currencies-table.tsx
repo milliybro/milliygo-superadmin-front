@@ -55,7 +55,7 @@ const CurrenciesTable = ({
       width: 345,
       align: 'center',
       render: (value) => {
-        return <span>{value ? value : '-'}</span>
+        return <span>{value ? value?.toLocaleString('en-US') : '-'}</span>
       },
     },
     {

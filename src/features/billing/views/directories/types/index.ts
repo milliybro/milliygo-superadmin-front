@@ -27,7 +27,7 @@ export interface IPaymentProviders {
   status: string
   minAmount: number
   maxAmount: number
-  commissionType: string
+  calculationType: string
   commissionRate: number
 }
 
