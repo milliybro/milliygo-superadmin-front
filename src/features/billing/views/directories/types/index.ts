@@ -37,6 +37,17 @@ export interface ITaxRates {
 
 export interface ITouristTaxes {
   id: number
+  name: string
+  placeType: string
+  citizenship: string
+  roomsFrom: number
+  roomsTo: number
+  rate: number
+  status: string
+  actualFrom: any
+  actualTo: any
+  rateType: string
+  description: string
 }
 
 export interface ISubscriberServices {
