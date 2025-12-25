@@ -123,7 +123,9 @@
     "add-user": "Qo'shish",
     "add-services": "Qulaylik va xizmatlar qo'shish",
     "edit-services": "Qulaylik va xizmatlarni tahrirlash",
-    "modal-description": "Yangi foydalanuvchi qo'shish uchun barcha kerakli maydonlarni to'ldiring"
+    "modal-description": "Yangi foydalanuvchi qo'shish uchun barcha kerakli maydonlarni to'ldiring",
+    "providers-name": "Provider nomi (yoki analogi)",
+    "all-users": "Jami foydalanuvchilar"
   },
   "accommodations-page": {
     "filter": {
@@ -488,111 +490,111 @@
       "error-2": "To‘g‘ri URL kiriting"
     },
     "currency_code": {
-    "label": "Valyuta kodi",
-    "placeholder": "Valyuta kodini kiriting",
-    "error": "Iltimos, valyuta kodini kiriting",
-    "table":"Valyuta kodi"
-  },
-  "currency_name": {
-    "label": "Valyuta nomi",
-    "placeholder": "Nomini kiriting",
-    "error": "Iltimos, valyuta nomini kiriting",
-    "table":"Valyuta nomi"
-  },
-  "currency_symbol": {
-    "label": "Simvol",
-    "placeholder": "Tanlang",
-    "error": "Iltimos, valyuta simvolini tanlang"
-  },
-  "course_uzs": {
-    "label": "UZS bo‘yicha kurs",
-    "placeholder": "Kiriting",
-    "error": "Iltimos, UZS bo‘yicha kursni kiriting",
-    "table":"Kurs"
-  },
-  "course_source": {
-    "label": "Kurs manbai",
-    "placeholder": "Tanlang",
-    "error": "Iltimos, kurs manbaini tanlang"
-  },
-  "refresh_rate": {
-    "label": "Yangilanish tezligi",
-    "placeholder": "Tanlang",
-    "error": "Iltimos, yangilanish tezligini tanlang"
-  },
-  "comment": {
-    "label": "Izoh",
-    "placeholder": "Izoh kiriting",
-    "error": "Iltimos, izoh kiriting"
-  },
-  "payment-providers": {
-    "label": "Provayder nomi",
-    "placeholder": "Nomini kiriting",
-    "error": "Iltimos, provayder nomini kiriting"
-  },
-  "providers-type": {
-    "label": "Provayder turi",
-    "placeholder": "Kiriting",
-    "error": "Iltimos, provayder turini kiriting"
-  },
-  "supported-cards": {
-    "label": "Qo‘llab-quvvatlanadigan kartalar",
-    "placeholder": "Tanlang",
-    "error": "Iltimos, qo‘llab-quvvatlanadigan kartalarni tanlang"
-  },
-  "integration-type": {
-    "label": "Integratsiya turi",
-    "placeholder": "Tanlang",
-    "error": "Iltimos, integratsiya turini tanlang",
-    "table": "Integratsiyalar"
-  },
-  "documentation": {
-    "label": "Dokumentatsiya",
-    "placeholder": "Kiriting",
-    "error": "Iltimos, dokumentatsiyani kiriting"
-  },
-  "currency": {
-    "label": "Valyutalar",
-    "placeholder": "Tanlang",
-    "error": "Iltimos, valyutalarni tanlang"
-  },
-  "limits": {
-    "label": "Limitlar",
-    "placeholder": "Tanlang",
-    "error": "Iltimos, limitlarni tanlang"
-  },
-  "3ds-support": {
-    "label": "3DS qo‘llab-quvvatlash",
-    "placeholder": "Tanlang",
-    "error": "Iltimos, 3DS qo‘llab-quvvatlashni tanlang"
-  },
-  "response-time": {
-    "label": "Javob vaqti",
-    "placeholder": "Kiriting",
-    "error": "Iltimos, javob vaqtini kiriting"
-  },
-  "agreement": {
-    "label": "Shartnoma",
-    "placeholder": "Fayllarni tanlang",
-    "not-selected": "Hali tanlanmagan",
-    "error": "Iltimos, shartnomani tanlang"
-  },
-  "test-credentials": {
-    "label": "Test hisob ma'lumotlari",
-    "placeholder": "Fayllarni tanlang",
-    "not-selected": "Hali tanlanmagan",
-    "error": "Iltimos, test hisob ma'lumotlarini tanlang"
-  },
-"currency-type": {
-  "label": "Valyuta turi",
-  "placeholder": "Tanlang",
-  "error": "Iltimos, valyuta turini tanlang"
-},
-"rate": {
-  "label": "Kurs",
-  "placeholder": "Kiriting",
-  "error": "Iltimos, kursni kiriting"
-}
+      "label": "Valyuta kodi",
+      "placeholder": "Valyuta kodini kiriting",
+      "error": "Iltimos, valyuta kodini kiriting",
+      "table": "Valyuta kodi"
+    },
+    "currency_name": {
+      "label": "Valyuta nomi",
+      "placeholder": "Nomini kiriting",
+      "error": "Iltimos, valyuta nomini kiriting",
+      "table": "Valyuta nomi"
+    },
+    "currency_symbol": {
+      "label": "Simvol",
+      "placeholder": "Tanlang",
+      "error": "Iltimos, valyuta simvolini tanlang"
+    },
+    "course_uzs": {
+      "label": "UZS bo‘yicha kurs",
+      "placeholder": "Kiriting",
+      "error": "Iltimos, UZS bo‘yicha kursni kiriting",
+      "table": "Kurs"
+    },
+    "course_source": {
+      "label": "Kurs manbai",
+      "placeholder": "Tanlang",
+      "error": "Iltimos, kurs manbaini tanlang"
+    },
+    "refresh_rate": {
+      "label": "Yangilanish tezligi",
+      "placeholder": "Tanlang",
+      "error": "Iltimos, yangilanish tezligini tanlang"
+    },
+    "comment": {
+      "label": "Izoh",
+      "placeholder": "Izoh kiriting",
+      "error": "Iltimos, izoh kiriting"
+    },
+    "payment-providers": {
+      "label": "Provayder nomi",
+      "placeholder": "Nomini kiriting",
+      "error": "Iltimos, provayder nomini kiriting"
+    },
+    "providers-type": {
+      "label": "Provayder turi",
+      "placeholder": "Kiriting",
+      "error": "Iltimos, provayder turini kiriting"
+    },
+    "supported-cards": {
+      "label": "Qo‘llab-quvvatlanadigan kartalar",
+      "placeholder": "Tanlang",
+      "error": "Iltimos, qo‘llab-quvvatlanadigan kartalarni tanlang"
+    },
+    "integration-type": {
+      "label": "Integratsiya turi",
+      "placeholder": "Tanlang",
+      "error": "Iltimos, integratsiya turini tanlang",
+      "table": "Integratsiyalar"
+    },
+    "documentation": {
+      "label": "Dokumentatsiya",
+      "placeholder": "Kiriting",
+      "error": "Iltimos, dokumentatsiyani kiriting"
+    },
+    "currency": {
+      "label": "Valyutalar",
+      "placeholder": "Tanlang",
+      "error": "Iltimos, valyutalarni tanlang"
+    },
+    "limits": {
+      "label": "Limitlar",
+      "placeholder": "Tanlang",
+      "error": "Iltimos, limitlarni tanlang"
+    },
+    "3ds-support": {
+      "label": "3DS qo‘llab-quvvatlash",
+      "placeholder": "Tanlang",
+      "error": "Iltimos, 3DS qo‘llab-quvvatlashni tanlang"
+    },
+    "response-time": {
+      "label": "Javob vaqti",
+      "placeholder": "Kiriting",
+      "error": "Iltimos, javob vaqtini kiriting"
+    },
+    "agreement": {
+      "label": "Shartnoma",
+      "placeholder": "Fayllarni tanlang",
+      "not-selected": "Hali tanlanmagan",
+      "error": "Iltimos, shartnomani tanlang"
+    },
+    "test-credentials": {
+      "label": "Test hisob ma'lumotlari",
+      "placeholder": "Fayllarni tanlang",
+      "not-selected": "Hali tanlanmagan",
+      "error": "Iltimos, test hisob ma'lumotlarini tanlang"
+    },
+    "currency-type": {
+      "label": "Valyuta turi",
+      "placeholder": "Tanlang",
+      "error": "Iltimos, valyuta turini tanlang"
+    },
+    "rate": {
+      "label": "Kurs",
+      "placeholder": "Kiriting",
+      "error": "Iltimos, kursni kiriting"
+    }
   },
   "tenant": {
     "tenant": "Tenant",

@@ -1,10 +1,10 @@
 {
   "routes": {
     "statistics": "Статистика",
-    "placement-funds": "Cредств размещения",
+    "placement-funds": "Средства размещения",
     "tourists": "Tуристы",
-    "landlords": "Aрендодателей",
-    "service-providers": "Поставщиков услуг",
+    "landlords": "Арендодатели",
+    "service-providers": "Поставщики услуг",
     "travel-agencies": "Tуристических агентств",
     "guides": "Гиды",
     "billing": "Биллинг",
@@ -53,7 +53,9 @@
     "add-user": "Добавить",
     "add-services": "Добавить удобства и услуги",
     "edit-services": "Редактировать удобства и услуги",
-    "modal-description": "Для добавления нового пользователя, пожалуйста заполните все необходимые поля"
+    "modal-description": "Для добавления нового пользователя, пожалуйста заполните все необходимые поля",
+    "providers-name": "Название поставщика (или аналог)",
+    "all-users": "Всего пользователей"
   },
 
   "complaints-page": {
@@ -312,7 +314,7 @@
     },
 
     "passport-data": {
-      "label": "Данные паспорта"
+      "label": "Номер документа"
     },
     "birthyear": {
       "label": "Год рождения"
@@ -543,74 +545,74 @@
       "placeholder": "Введите комментарий",
       "error": "Пожалуйста, введите комментарий"
     },
-    "payment-providers":{
+    "payment-providers": {
       "label": "Название провайдера",
       "placeholder": "Введите название",
       "error": "Пожалуйста, введите название"
     },
-    "providers-type":{
+    "providers-type": {
       "label": "Тип провайдера",
       "placeholder": "Введите",
       "error": "Пожалуйста, введите Тип провайдера"
     },
-    "supported-cards":{
+    "supported-cards": {
       "label": "Поддерживаемые карты",
       "placeholder": "Выберите",
       "error": "Пожалуйста, ввыберите Поддерживаемые карты"
     },
-    "integration-type":{
+    "integration-type": {
       "label": "Тип интеграции",
       "placeholder": "Выберите",
       "error": "Пожалуйста, ввыберите Тип интеграции",
-      "table":"Интеграции"
+      "table": "Интеграции"
     },
-    "documentation":{
+    "documentation": {
       "label": "Документация",
       "placeholder": "Введите",
       "error": "Пожалуйста, ввыберите Тип Документация"
     },
-    "currency":{
+    "currency": {
       "label": "Валюты",
       "placeholder": "Выберите",
       "error": "Пожалуйста, ввыберите Валюты"
     },
-    "limits":{
+    "limits": {
       "label": "Лимиты",
       "placeholder": "Выберите",
       "error": "Пожалуйста, ввыберите Лимиты"
     },
-    "3ds-support":{
+    "3ds-support": {
       "label": "3DS поддержка",
       "placeholder": "Выберите",
       "error": "Пожалуйста, ввыберите 3DS поддержка"
     },
-    "response-time":{
-     "label": "Время ответа",
+    "response-time": {
+      "label": "Время ответа",
       "placeholder": "Введите",
       "error": "Пожалуйста, Введите Время ответа"
     },
-    "agreement":{
+    "agreement": {
       "label": "Договор",
       "placeholder": "Выберите файлы",
-      "not-selected":"Еще не выбрано",
+      "not-selected": "Еще не выбрано",
       "error": "Пожалуйста, Выберите Договор"
     },
-    "test-credentials":{
+    "test-credentials": {
       "label": "Тестовые учетные данные",
       "placeholder": "Выберите файлы",
-      "not-selected":"Еще не выбрано",
+      "not-selected": "Еще не выбрано",
       "error": "Пожалуйста, Выберите Тестовые учетные данные"
     },
-   "currency-type": {
-   "label": "Тип валюты",
-  "placeholder": "Выберите",
-  "error": "Пожалуйста, выберите тип валюты"
-   },
-   "rate": {
-  "label": "Курс",
-  "placeholder": "Введите",
-  "error": "Пожалуйста, введите курс"
-   }
+    "currency-type": {
+      "label": "Тип валюты",
+      "placeholder": "Выберите",
+      "error": "Пожалуйста, выберите тип валюты"
+    },
+    "rate": {
+      "label": "Курс",
+      "placeholder": "Введите",
+      "error": "Пожалуйста, введите курс"
+    }
   },
   "tenant": {
     "tenant": "Тенант",
@@ -744,7 +746,7 @@
     "rule": "Введите информацию, пожалуйста",
     "not-guests": "Гостей ещё нет",
     "main-content": "Главная страница",
-    "cost-per-day": "Стоимость за день",
+    "cost-per-day": "Стоимость в день / за сутки",
     "map-title": "Карта Узбекистана",
     "select_or_drag": "Выберите или перетащите фото",
     "images_limit": "Максимальный размер: {{limit}}.",
@@ -919,8 +921,8 @@
   "tourists": {
     "tourist-fullname": "Ф.И.О. туриста",
     "search-tourists": "Поиск туриста",
-    "register-region": "Регистрационная область",
-    "register-district": "Регистрационный район",
+    "register-region": "Область регистрации",
+    "register-district": "Район регистрации",
     "tourist-information": "Информация о туристах",
     "main-information": "Основная информация",
     "visa-information": "Визовые данные",
@@ -1075,10 +1077,10 @@
   },
   "statistics": {
     "tourist_infracstructure": "Туристическая инфраструктура",
-    "tourism_company": "Тур. компании",
+    "tourism_company": "Туркомпании",
     "inbound_tourism": "Въездной туризм",
     "outbound_tourism": "Выездной туризм",
-    "umehmon-active": "U-Mehmon активность",
+    "umehmon-active": "Активность U-Mehmon",
     "tourist_infracstructure-desc": "Информация об объектах, местах и вариантах размещения",
     "total_organizations": "Всего организаций для отдыха и туризма",
     "total_hotels": "Всего гостиниц и аналогичных средств размещения",

@@ -38,7 +38,7 @@ const ProvidersTable = () => {
       width: 50,
     },
     {
-      title: t('hotels-page.name.title'),
+      title: t('services-page.providers-name'),
       dataIndex: 'name',
       sorter: true,
       width: 691.5,
