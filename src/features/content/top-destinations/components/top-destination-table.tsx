@@ -75,9 +75,12 @@ function TopDestinationsTable() {
                 rootClassName="w-full h-full"
               />
             </div>
-            <Typography.Text className="text-sm font-medium">
-              {value}
-            </Typography.Text>
+            <div
+              className="line-clamp-2 text-sm font-medium"
+              dangerouslySetInnerHTML={{
+                __html: value,
+              }}
+            />
           </div>
         )
       },
