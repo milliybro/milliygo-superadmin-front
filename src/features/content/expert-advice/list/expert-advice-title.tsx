@@ -1,5 +1,3 @@
-import { Typography } from 'antd'
-
 import type { FC } from 'react'
 import type { IExpertAdvice } from '@/features/content/types'
 
@@ -15,9 +13,12 @@ const ExpertAdviceTitle: FC<IExpertAdvice> = props => {
           />
         )}
       </div>
-      <Typography.Text className="line-clamp-2 break-all text-sm font-medium">
-        {props?.title}
-      </Typography.Text>
+      <div
+        className="line-clamp-2 text-sm font-medium"
+        dangerouslySetInnerHTML={{
+          __html: props?.title,
+        }}
+      />
     </div>
   )
 }
