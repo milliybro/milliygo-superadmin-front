@@ -7,6 +7,8 @@ import {
   Input,
   notification,
   Select,
+  Switch,
+  Tooltip,
   Typography,
   Upload,
 } from 'antd'
@@ -224,20 +226,78 @@ export default function CreateExpertAdvice() {
         </div>
         <div className="flex w-1/2 flex-shrink-0 basis-1/2 flex-col gap-6">
           <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col">
               <Typography.Title level={5} className="text-xl font-medium">
                 {t('content.preview')}
               </Typography.Title>
-              <Select
-                showSearch
-                placeholder="Select language"
-                optionFilterProp="label"
-                size="large"
-                style={{ width: 240 }}
-                options={languageOptions}
-                value={language}
-                onChange={val => setLanguage(val)}
-              />
+              <div className="flex justify-between items-center gap-2">
+                {isEditing && (
+                  <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
+                    <Typography.Text>Keshni yangilash</Typography.Text>
+
+                    <div className="flex items-center gap-3">
+                      <Form.Item
+                        name="refresh_cache"
+                        valuePropName="checked"
+                        noStyle
+                        initialValue={false}
+                      >
+                        <Switch />
+                      </Form.Item>
+                    </div>
+                  </div>
+                )}
+
+                {isEditing && (
+                  <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
+                    <Typography.Text>
+                      {t('common.auto-translate')}
+                    </Typography.Text>
+
+                    <div className="flex items-center gap-3">
+                      <Form.Item
+                        name="translate_all"
+                        valuePropName="checked"
+                        noStyle
+                        initialValue={false}
+                      >
+                        <Switch />
+                      </Form.Item>
+
+                      <Tooltip
+                        title={
+                          <>
+                            <b className="pb-1">{t('common.auto-trans')}</b>
+                            <br />
+                            {t('common.auto-trans-desc')}
+                          </>
+                        }
+                        overlayInnerStyle={{
+                          padding: '12px',
+                          backgroundColor: '#232E40',
+                          color: '#fff',
+                          width: '320px',
+                        }}
+                      >
+                        <div className="flex h-[20px] w-[20px] cursor-pointer items-center justify-center rounded-full border border-[#777E90] text-[12px] text-[#777E90]">
+                          ?
+                        </div>
+                      </Tooltip>
+                    </div>
+                  </div>
+                )}
+
+                <Select
+                  showSearch
+                  placeholder="Select language"
+                  optionFilterProp="label"
+                  size="large"
+                  style={{ width: 240 }}
+                  options={languageOptions}
+                  value={language}
+                  onChange={val => setLanguage(val)}
+                />
+              </div>
             </div>
             <Divider className="m-0" />
             <Form.Item
