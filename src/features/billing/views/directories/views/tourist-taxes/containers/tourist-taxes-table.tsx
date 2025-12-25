@@ -1,14 +1,14 @@
 import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import type { PaginationProps, TableColumnsType } from 'antd'
-import dayjs from 'dayjs'
 import { twMerge } from 'tailwind-merge'
 import UsersNotFound from '@/features/users/components/users-not-found'
-import { ICurrencies } from '../../../types'
+import { ITouristTaxes } from '../../../types'
 import TouristTaxesTableAction from './tourist-taxes-table-action'
+import StatusTag from '@/components/ui/status-tag'
 
 const TouristTaxesTable = ({
-  AgentsData,
+  data,
   isLoading,
   currentPage,
   pageSize,
@@ -17,7 +17,7 @@ const TouristTaxesTable = ({
 }: any) => {
   const { t } = useTranslation()
 
-  const columns: TableColumnsType<ICurrencies | any> = [
+  const columns: TableColumnsType<ITouristTaxes | any> = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -28,56 +28,56 @@ const TouristTaxesTable = ({
       sorter: false,
     },
     {
-      title: 'Тип размещения',
+      title: 'name',
       dataIndex: 'name',
-      sorter: true,
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
     },
     {
-      title: 'Количество номеров',
-      dataIndex: 'license_validity',
-      sorter: true,
+      title: 'placeType',
+      dataIndex: 'placeType',
+      sorter: false,
       width: 345,
-      render: item => <div>{dayjs(item).format('DD MMM, YYYY')}</div>,
+      className: 'text-center',
     },
     {
-      title: t('Размер сбора (в % от БХМ) '),
-      dataIndex: 'phone_number',
-      sorter: true,
+      title: t('rateType'),
+      dataIndex: 'rateType',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
+      className: 'text-center',
     },
     {
-      title: t('Региональные исключения'),
-      dataIndex: 'phone_number',
-      sorter: true,
+      title: t('rate'),
+      dataIndex: 'rate',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
+      className: 'text-center',
+    },
+    {
+      title: t('citizenship'),
+      dataIndex: 'citizenship',
+      sorter: false,
+      width: 345,
+      className: 'text-center',
+    },
+    {
+      title: t('fields.status.label'),
+      dataIndex: 'status',
+      sorter: false,
+      width: 345,
+      render: (value: any) => (
+        <div className="2xl:mr-0">
+          <StatusTag active={value === 'ACTIVE' ? true : false} />
         </div>
       ),
+      className: 'text-center',
     },
-
     {
       width: 300,
       title: 'common.action',
       dataIndex: 'id',
+      className: 'text-center',
       render: id => <TouristTaxesTableAction id={id} refetch={refetch} />,
     },
   ]
@@ -119,21 +119,27 @@ const TouristTaxesTable = ({
     setCurrentPage(page)
   }
 
-  const transformedHotelsData = AgentsData?.results?.map(
-    (item: ICurrencies | any, i: any) => ({
+  const transformedHotelsData = data?.content?.map(
+    (item: ITouristTaxes | any, i: any) => ({
       key: i,
-      id: item.id,
-      name: item.name,
-      image: item.file,
-      address: item.address?.map((addr: any) => addr.address) ?? [],
-      license_validity: item.expire_license_date,
-      phone_number: item.phone_number?.map((p: any) => p.phone_number) ?? [],
+      id: item?.id,
+      name: item?.name,
+      placeType: item?.placeType,
+      citizenship: item?.citizenship,
+      roomsFrom: item?.roomsFrom,
+      roomsTo: item?.roomsTo,
+      rate: item?.rate,
+      status: item?.status,
+      actualFrom: item?.actualFrom,
+      actualTo: item?.actualTo,
+      rateType: item?.rateType,
+      description: item?.description,
     }),
   )
 
   return (
     <div className="flex h-full flex-col items-center justify-center overflow-hidden bg-white">
-      <Table<ICurrencies | any>
+      <Table<ITouristTaxes | any>
         columns={columns?.map(val => ({
           ...val,
           title: t(val?.title as string),
@@ -146,7 +152,7 @@ const TouristTaxesTable = ({
         pagination={{
           current: currentPage,
           pageSize: 10,
-          total: AgentsData?.count || 0,
+          total: data?.totalElements || 0,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],
