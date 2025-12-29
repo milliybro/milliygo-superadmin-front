@@ -23,6 +23,10 @@ function Directories() {
       label: t('billing.directories.currencies'),
     },
     {
+      key: 'currency-types',
+      label: t('billing.directories.currency-types'),
+    },
+    {
       key: 'payment-providers',
       label: t('billing.directories.payment-providers'),
     },
@@ -41,6 +45,10 @@ function Directories() {
     {
       key: 'payments-types',
       label: t('billing.directories.payments-types'),
+    },
+    {
+      key: 'operator-commissions',
+      label: t('billing.directories.operator-commissions'),
     },
   ]
 
