@@ -1,15 +1,14 @@
 import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import type { PaginationProps, TableColumnsType } from 'antd'
-import dayjs from 'dayjs'
 import { twMerge } from 'tailwind-merge'
 import UsersNotFound from '@/features/users/components/users-not-found'
+import { ISubscriberServices } from '../../../types'
 import StatusTag from '@/components/ui/status-tag'
-import { ICurrencies } from '../../../types'
-import TaxRatesTableAction from './tax-rates-table-action'
+import SubscriberServicesTableAction from './subscriber-services-table-action'
 
-const TaxRatesTable = ({
-  AgentsData,
+const SubscriberServicesTable = ({
+  data,
   isLoading,
   currentPage,
   pageSize,
@@ -18,7 +17,7 @@ const TaxRatesTable = ({
 }: any) => {
   const { t } = useTranslation()
 
-  const columns: TableColumnsType<ICurrencies | any> = [
+  const columns: TableColumnsType<ISubscriberServices | any> = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -29,94 +28,52 @@ const TaxRatesTable = ({
       sorter: false,
     },
     {
-      title: 'Тип налога',
-      dataIndex: 'name',
-      sorter: true,
+      title: t('fields.calculationType.label'),
+      dataIndex: 'calculationType',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
+      className: 'text-center',
     },
     {
-      title: 'Ставка',
-      dataIndex: 'license_validity',
-      sorter: true,
+      title: t('amount'),
+      dataIndex: 'amount',
+      sorter: false,
       width: 345,
-      render: item => <div>{dayjs(item).format('DD MMM, YYYY')}</div>,
-    },
-    {
-      title: t('Тип расчёта'),
-      dataIndex: 'phone_number',
-      sorter: true,
-      width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
-    },
-    {
-      title: t('Объект применения'),
-      dataIndex: 'phone_number',
-      sorter: true,
-      width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
-    },
-    {
-      title: t('Период действия'),
-      dataIndex: 'phone_number',
-      sorter: true,
-      width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
-    },
-    {
-      title: t('Фискальный флаг '),
-      dataIndex: 'phone_number',
-      sorter: true,
-      width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
-    },
-    {
-      title: t('Статус'),
-      dataIndex: 'id',
-      sorter: true,
-      width: 345,
-       render: (value:any) => (
-        <div className="2xl:mr-0">
-          <StatusTag active={value} />
-        </div>
-      ),
+      className: 'text-center',
     },
 
+    {
+      title: t('checkoutFrom'),
+      dataIndex: 'checkoutFrom',
+      sorter: false,
+      width: 345,
+      className: 'text-center',
+    },
+    {
+      title: t('checkoutsTo'),
+      dataIndex: 'checkoutsTo',
+      sorter: false,
+      width: 345,
+      className: 'text-center',
+    },
+    {
+      title: t('fields.status.label'),
+      dataIndex: 'status',
+      sorter: false,
+      width: 345,
+      render: (value: any) => (
+        <div className="2xl:mr-0">
+          <StatusTag active={value === 'ACTIVE' ? true : false} />
+        </div>
+      ),
+      className: 'text-center',
+    },
     {
       width: 300,
       title: 'common.action',
       dataIndex: 'id',
-      render: id => <TaxRatesTableAction id={id} refetch={refetch} />,
+      className: 'text-center',
+      render: id => <SubscriberServicesTableAction id={id} refetch={refetch} />,
     },
   ]
 
@@ -157,19 +114,23 @@ const TaxRatesTable = ({
     setCurrentPage(page)
   }
 
-  const transformedHotelsData = AgentsData?.results?.map(
-    (item: ICurrencies | any, i: any) => ({
+  const transformedHotelsData = data?.map(
+    (item: ISubscriberServices | any, i: any) => ({
       key: i,
       id: item?.id,
-      name: item?.name,
-      image: item?.file,
-      license_validity: item?.expire_license_date,
+      activeFrom: item?.activeFrom,
+      activeTo: item?.activeTo,
+      amount: item?.amount,
+      calculationType: item?.calculationType,
+      status: item?.status,
+      checkoutFrom: item?.checkoutFrom,
+      checkoutsTo: item?.checkoutsTo,
     }),
   )
 
   return (
     <div className="flex h-full flex-col items-center justify-center overflow-hidden bg-white">
-      <Table<ICurrencies | any>
+      <Table<ISubscriberServices | any>
         columns={columns?.map(val => ({
           ...val,
           title: t(val?.title as string),
@@ -182,7 +143,7 @@ const TaxRatesTable = ({
         pagination={{
           current: currentPage,
           pageSize: 10,
-          total: AgentsData?.count || 0,
+          total: data?.totalElements || 0,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],
@@ -200,4 +161,4 @@ const TaxRatesTable = ({
   )
 }
 
-export default TaxRatesTable
+export default SubscriberServicesTable

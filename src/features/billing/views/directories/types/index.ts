@@ -52,6 +52,17 @@ export interface ITouristTaxes {
 
 export interface ISubscriberServices {
   id: number
+  calculationType: string
+  amount: number
+  status: string
+  checkoutFrom: number
+  checkoutsTo: number
+  activeFrom: string | any
+  activeTo: string | any
+  translates: {
+    lang: string
+    name: string
+  }[]
 }
 
 export interface IPaymentsTypes {
