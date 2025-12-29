@@ -79,7 +79,7 @@ const Users = () => {
           </div>
           {UsersData && (
             <div className="text-sm text-secondary">
-              Umumiy foydalanuvchilar soni: {UsersData?.count}
+              {t('services-page.all-users')}: {UsersData?.count}
             </div>
           )}
         </div>
