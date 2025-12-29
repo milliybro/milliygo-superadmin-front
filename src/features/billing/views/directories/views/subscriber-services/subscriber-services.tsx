@@ -6,7 +6,7 @@ import { useSearchParams } from 'react-router'
 import useSubscriberServicesModalStore from '../../store/subscriber-services-store'
 import { getSubscriberServicesList } from '../../api/getSubscriberServices'
 import SubscriberServicesModal from './components/subscriber-services-modal'
-import SubscriberServicesTable from './containers/subscriber-servicestable'
+import SubscriberServicesTable from './containers/subscriber-services-table'
 
 function SubscriberServices() {
   const { t } = useTranslation()
@@ -15,17 +15,15 @@ function SubscriberServices() {
 
   const [searchParams, setSearchParams] = useSearchParams()
 
-  const search = searchParams.get('search') || ''
-  const region = searchParams.get('region') || ''
+
   const currentPage = Number(searchParams.get('page')) || 1
 
   const { data, isFetching, refetch } = useQuery({
-    queryKey: ['currencies', currentPage, search, region],
+    queryKey: ['subscriber-services', currentPage],
     queryFn: async () => {
       const res = await getSubscriberServicesList({
-        page_size: pageSize,
-        page: currentPage,
-        name: search ? search : null,
+        size: pageSize,
+        page: (currentPage - 1),
       })
       return res
     },
@@ -43,10 +41,10 @@ function SubscriberServices() {
           <PlusOutlined />
           {t('common.add')}
         </Button>
-        <SubscriberServicesModal refetch={refetch} />
+        <SubscriberServicesModal  />
       </div>
       <SubscriberServicesTable
-        AgentsData={data}
+        data={data}
         isLoading={isFetching}
         refetch={refetch}
         pageSize={pageSize}

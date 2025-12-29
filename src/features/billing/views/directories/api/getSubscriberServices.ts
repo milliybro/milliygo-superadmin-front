@@ -1,12 +1,12 @@
-import { ListResponse } from '@/types'
-import requestSuper from '@/utils/superRequest'
 import { ISubscriberServices } from '../types'
+import { ListResponseBilling } from '@/features/billing/types/response.billing'
+import billingRequest from '@/features/billing/billingRequest'
 
 export async function getSubscriberServicesList(
   params?: any,
-): Promise<ListResponse<ISubscriberServices[]>> {
-  const res: ListResponse<ISubscriberServices[]> = await requestSuper({
-    url: '/tour-agents/',
+): Promise<ListResponseBilling<ISubscriberServices[]>> {
+  const res: ListResponseBilling<ISubscriberServices[]> = await billingRequest({
+    url: '/subscription-tariffs',
     method: 'get',
     params,
   })
@@ -15,8 +15,8 @@ export async function getSubscriberServicesList(
 }
 
 export async function getSubscriberService(params?: any): Promise<any> {
-  const res: any = await requestSuper({
-    url: `/account/users/${params.id}/`,
+  const res: any = await billingRequest({
+    url: `/subscription-tariffs/${params.id}`,
     method: 'get',
     params: params.queryParams,
   })
@@ -32,9 +32,9 @@ export async function updateSubscriberService(params: {
   if (!id) {
     throw new Error('User ID is required for updating a user.')
   }
-  const res: any = await requestSuper({
-    url: `/account/users/${id}/`,
-    method: 'patch',
+  const res: any = await billingRequest({
+    url: `/subscription-tariffs/${id}`,
+    method: 'put',
     data: queryParams,
   })
 
@@ -42,8 +42,8 @@ export async function updateSubscriberService(params: {
 }
 
 export async function createSubscriberService(data?: any): Promise<any> {
-  const res: any = await requestSuper({
-    url: '/account/users/',
+  const res: any = await billingRequest({
+    url: '/subscription-tariffs',
     method: 'post',
     data,
   })
@@ -52,8 +52,8 @@ export async function createSubscriberService(data?: any): Promise<any> {
 }
 
 export async function deleteSubscriberService(id: string | number): Promise<any> {
-  const res: any = await requestSuper({
-    url: `/account/users/${id}/`,
+  const res: any = await billingRequest({
+    url: `/subscription-tariffs/${id}`,
     method: 'delete',
   })
 

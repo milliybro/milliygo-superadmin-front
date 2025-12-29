@@ -1,156 +1,127 @@
 import { useEffect } from 'react'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import {
-  Modal,
-  Form,
-  Input,
-  Button,
-  Typography,
-  notification,
-  DatePicker,
-  Radio,
-} from 'antd'
-import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
+import { Modal, Form,  Button, DatePicker } from 'antd'
 import CSelect from '@/components/ui/select'
 import CloseIcon from '@/components/icons/close-icon'
 import DirectoryModalHeader from '../../../components/DirectoryModalHeader'
-import BuildingIcon from '@/components/icons/building'
 import useSubscriberServicesModalStore from '../../../store/subscriber-services-store'
-import {
-  createSubscriberService,
-  getSubscriberService,
-  updateSubscriberService,
-} from '../../../api/getSubscriberServices'
+import { createSubscriberService, getSubscriberService, updateSubscriberService, } from '../../../api/getSubscriberServices'
 import LetterIcon from '@/components/icons/letterIcon'
-
-const { TextArea } = Input
-interface UserModalProps {
-  refetch: () => Promise<any>
-}
-
-const SubscriberServicesModal = ({ refetch }: UserModalProps) => {
+import { BillingInputNumber } from '@/features/billing/components/billingInputNumber'
+import { ISubscriberServices } from '../../../types'
+import dayjs from 'dayjs'
+import useNotify from '@/hooks/useNotify'
+import { mapToSelectOptions } from '@/features/billing/utils/mapToSelectOptions'
+type FormValues = Omit<ISubscriberServices, 'id'>
+const SubscriberServicesModal = () => {
   const { t } = useTranslation()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const { isModalOpen, closeModal } = useSubscriberServicesModalStore(
-    state => state,
-  )
+  const { isModalOpen, closeModal } = useSubscriberServicesModalStore( state => state, )
+  const queryClient = useQueryClient()
+  const { openNotify, notificationPlace, notify } = useNotify()
 
-  const [form] = Form.useForm()
-
-  const editUserId = searchParams.get('edit')
+  const [form] = Form.useForm<FormValues>()
+  const isEdit = searchParams.get('edit')
 
   const closeHandler = () => {
     closeModal()
-    if (editUserId) {
+    form.resetFields()
+    if (isEdit) {
       navigate(pathname)
     }
   }
 
-  const { data, refetch: fetching } = useQuery({
-    queryKey: ['currency', editUserId],
-    queryFn: () => getSubscriberService({ id: editUserId }),
-    enabled: !!editUserId,
-    refetchOnMount: 'always',
+  const { data } = useQuery({
+    queryKey: ['subscriber-service', isEdit],
+    queryFn: () => getSubscriberService({ id: isEdit }),
+    enabled: !!isEdit,
+    staleTime: 1000,
   })
 
   const openNotification = () => {
-    notification.info({
-      closeIcon: null,
-      className:
-        'w-[406px] border-t-[5px] border-primary rounded-[12px] [&_.ant-notification-notice-message]:mb-0',
-      icon: <CheckmarkCircleIcon className="text-2xl text-primary" />,
-      message: (
-        <Typography.Text className="text-lg font-semibold leading-[22.95px]">
-          {editUserId
-            ? t('fields.user-notification.edit.message')
-            : t('fields.user-notification.add.message')}
-        </Typography.Text>
-      ),
-      placement: 'topRight',
-      description: (
-        <div>
-          <Button
-            size="small"
-            type="text"
-            className="absolute right-[10px] top-[10px] grid place-items-center rounded-lg"
-            icon={<CloseIcon className="text-base" />}
-            onClick={() => notification.destroy()}
-          />
-          <Typography.Text className="text-base text-secondary">
-            {editUserId
-              ? t('fields.user-notification.add.message')
-              : t('fields.user-notification.edit.message')}
-          </Typography.Text>
-        </div>
-      ),
-    })
+    openNotify({ edit: isEdit })
   }
+  const LANGUAGES = [
+    { lang: 'uz', name: 'Uzbek' },
+    { lang: 'en', name: 'English (UK)' },
+    { lang: 'ru', name: 'Russian' },
+    { lang: 'ko', name: 'Korean' },
+    { lang: 'tr', name: 'Turkish' },
+    { lang: 'de', name: 'German' },
+    { lang: 'fr', name: 'French' },
+    { lang: 'it', name: 'Italian' },
+    { lang: 'es', name: 'Spanish' },
+    { lang: 'pt', name: 'Portuguese' },
+    { lang: 'ar', name: 'Arabic' },
+    { lang: 'zh-CN', name: 'Chinese' },
+    { lang: 'ja', name: 'Japanese' },
+    { lang: 'hi', name: 'Hindi' },
+    { lang: 'ur', name: 'Urdu' },
+    { lang: 'tg', name: 'Tajik' },
+    { lang: 'kk', name: 'Kazakh' },
+    { lang: 'ky', name: 'Kyrgyz' },
+    { lang: 'tk', name: 'Turkmen' },
+    { lang: 'az', name: 'Azerbaijani' },
+  ]
 
-  const handleUserSave = useMutation({
+  const handleSave = useMutation({
     mutationFn: (values: any) => {
       const formattedValues = {
         ...values,
+        amount: Number(values?.amount),
+        checkoutFrom: Number(values?.checkoutFrom),
+        checkoutsTo: Number(values?.checkoutsTo),
+        translates: values?.translates?.map((lang: string) => {
+          const found = LANGUAGES.find(l => l.lang === lang)
+          return {
+            lang,
+            name: found?.name ?? '',
+          }
+        }),
       }
 
-      if (editUserId) {
+      if (isEdit) {
         return updateSubscriberService({
-          id: editUserId,
+          id: isEdit,
           queryParams: formattedValues,
         })
       }
 
       return createSubscriberService(formattedValues)
     },
-    onSuccess: res => {
-      // notification.success({
-      //   message: editUserId
-      //     ? t('fields.user-notification.edit.message')
-      //     : t('fields.user-notification.add.message'),
-      // })
+    onSuccess: () => {
       openNotification()
-      form.resetFields()
-      refetch()
-      if (editUserId) {
-        fetching()
-      }
-
+      queryClient.invalidateQueries({ queryKey: ['subscriber-services'] })
       closeHandler()
     },
     onError: () => {
       form.getFieldsError()
+      notify.error({ message: 'Error', description: 'Error' })
     },
   })
 
-  // useEffect(() => {
-  //   if (editUserId) {
-  //     refetch()
-  //   }
-  // }, [editUserId, refetch])
-
   useEffect(() => {
-    if (data && editUserId) {
+    if (data && isEdit) {
       form.setFieldsValue({
-        code: data?.code,
-        name: data?.first_name,
-        symbol: data?.symbol,
-        uzs_rate: data?.uzs_rate,
-        rate: data?.rate,
-        refresh_rate: data?.refresh_rate,
-        // type: data?.type?.id,
-        status: data?.status ? 'True' : 'False',
-        comment: data?.comment,
+        status: data?.status,
+        amount: data?.amount,
+        calculationType: data?.calculationType,
+        checkoutFrom: data?.checkoutFrom,
+        checkoutsTo: data?.checkoutsTo,
+        activeFrom: dayjs(data?.activeFrom),
+        activeTo: dayjs(data?.activeTo),
+        translates: data?.translates?.map((item: any) => item?.lang),
       })
-    } else {
-      form.resetFields()
     }
-  }, [data, form])
+  }, [data, form, isEdit])
 
   return (
     <>
+      {notificationPlace}
       <Modal
         title={null}
         open={isModalOpen}
@@ -160,60 +131,91 @@ const SubscriberServicesModal = ({ refetch }: UserModalProps) => {
         closeIcon={null}
         maskClosable={false}
         footer={null}
-        // classNames={{
-        //   wrapper: 'backdrop-blur-sm',
-        //   content:
-        //     '!p-[40px] [&>.ant-modal-close]:text-primary-dark dark:[&>.ant-modal-close]:text-dark-bg',
-        // }}
       >
         <Button
           className="absolute right-[10px] top-[10px]"
           type="text"
           icon={<CloseIcon className="text-base" />}
           onClick={closeHandler}
-          disabled={handleUserSave.isPending}
+          disabled={handleSave.isPending}
         />
         <DirectoryModalHeader
-          addText={'Добавить'}
-          textDesc={
-            'Для добавления нового платежа, пожалуйста заполните все необходимые поля'
-          }
-          id={editUserId}
+          addText={isEdit ? 'common.edit' : 'common.add'}
+          textDesc={ isEdit ? 'common.modal_description_edit' : 'common.modal_description' }
+          id={isEdit}
           Icon={LetterIcon}
         />
 
         <Form
           layout="vertical"
-          onFinish={values => handleUserSave.mutate(values)}
+          onFinish={values => handleSave.mutate(values)}
           form={form}
           className="flex flex-col gap-2"
         >
           <Form.Item
-            label={t('Название услуги')}
-            name="name"
+            label={t('translates')}
+            name="translates"
             style={{ width: '100%' }}
             rules={[
               {
                 required: false,
-                message: t('fields.middle_name.validation-message-required'),
+                message: t('translates'),
               },
             ]}
           >
-            <Input className="select-shadow" placeholder={t('Введите')} />
-          </Form.Item>
-          <Form.Item label={t('Описание')} name="comment">
-            <TextArea
+            <CSelect
+              placeholder={t('fields.calculationType.placeholder')}
               className="select-shadow"
-              placeholder={t('Введите Описание...')}
-              rows={5}
-              style={{ resize: 'none' }}
+              options={mapToSelectOptions(LANGUAGES, 'name', 'lang')}
+              mode="multiple"
+              maxTagCount={3}
             />
+          </Form.Item>
+
+          <Form.Item
+            label={t('fields.calculationType.label')}
+            name="calculationType"
+            style={{ width: '100%' }}
+            rules={[
+              {
+                required: false,
+                message: t('fields.calculationType.error'),
+              },
+            ]}
+          >
+            <CSelect
+              placeholder={t('fields.calculationType.placeholder')}
+              className="select-shadow"
+              options={[
+                {
+                  label: t('PERCENTAGE'),
+                  value: 'PERCENTAGE',
+                },
+                {
+                  label: t('FIXED'),
+                  value: 'FIXED',
+                },
+              ]}
+            />
+          </Form.Item>
+          <Form.Item
+            label={t('amount')}
+            name="amount"
+            style={{ width: '100%' }}
+            rules={[
+              {
+                required: false,
+                message: t('fields.amount.error'),
+              },
+            ]}
+          >
+            <BillingInputNumber placeholder="amount" />
           </Form.Item>
 
           <div className="flex items-center gap-2">
             <Form.Item
-              label={t('Тип средства размещения')}
-              name="code"
+              label={t('checkoutFrom')}
+              name="checkoutFrom"
               style={{ width: '50%' }}
               rules={[
                 {
@@ -222,24 +224,11 @@ const SubscriberServicesModal = ({ refetch }: UserModalProps) => {
                 },
               ]}
             >
-              <CSelect
-                placeholder={t('Выберите')}
-                className="select-shadow"
-                options={[
-                  {
-                    label: t('common.men'),
-                    value: 'male',
-                  },
-                  {
-                    label: t('common.women'),
-                    value: 'female',
-                  },
-                ]}
-              />
+              <BillingInputNumber placeholder="checkoutFrom" />
             </Form.Item>
             <Form.Item
-              label={t('Количество гостей в месяц')}
-              name="code"
+              label={t('checkoutsTo')}
+              name="checkoutsTo"
               style={{ width: '50%' }}
               rules={[
                 {
@@ -248,146 +237,84 @@ const SubscriberServicesModal = ({ refetch }: UserModalProps) => {
                 },
               ]}
             >
-              <CSelect
-                placeholder={t('Выберите')}
-                className="select-shadow"
-                options={[
-                  {
-                    label: t('common.men'),
-                    value: 'male',
-                  },
-                  {
-                    label: t('common.women'),
-                    value: 'female',
-                  },
-                ]}
-              />
+              <BillingInputNumber placeholder="checkoutsTo" />
             </Form.Item>
           </div>
 
           <Form.Item
-            label={t('Тип тарифа')}
-            name="radio"
+            label={t('fields.status.label')}
+            name="status"
             style={{ width: '100%' }}
             rules={[
               {
                 required: false,
-                message: t('fields.middle_name.validation-message-required'),
+                message: t('fields.gender.validation-message-required'),
               },
             ]}
           >
-            <Radio.Group
-              block
-              options={[
-                { label: 'Фиксированный (сум)', value: 'Apple' },
-                { label: 'Процентный (от выручки)', value: 'Pear' },
-              ]}
-              defaultValue="Apple"
-            />
-          </Form.Item>
-
-          <div className="flex items-center gap-2">
-            <Form.Item
-              label={t('Абонентская плата')}
-              name="code"
-              style={{ width: '50%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.gender.validation-message-required'),
-                },
-              ]}
-            >
-              <CSelect
-                placeholder={t('Выберите')}
-                className="select-shadow"
-                options={[
-                  {
-                    label: t('common.men'),
-                    value: 'male',
-                  },
-                  {
-                    label: t('common.women'),
-                    value: 'female',
-                  },
-                ]}
-              />
-            </Form.Item>
-            <Form.Item
-              label={t('Валюта')}
-              name="code"
-              style={{ width: '50%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.gender.validation-message-required'),
-                },
-              ]}
-            >
-              <CSelect
-                placeholder={t('Выберите')}
-                className="select-shadow"
-                options={[
-                  {
-                    label: t('common.men'),
-                    value: 'male',
-                  },
-                  {
-                    label: t('common.women'),
-                    value: 'female',
-                  },
-                ]}
-              />
-            </Form.Item>
-          </div>
-          <div className="flex items-center gap-2">
-            <Form.Item
-              label={t('Период действия (Начало)')}
-              name="code"
-              style={{ width: '50%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.gender.validation-message-required'),
-                },
-              ]}
-            >
-              <DatePicker style={{ width: '100%' }} placeholder="Выберите" />
-            </Form.Item>
-            <Form.Item
-              label={t('Период действия (Окончание)')}
-              name="code"
-              style={{ width: '50%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.gender.validation-message-required'),
-                },
-              ]}
-            >
-              <DatePicker style={{ width: '100%' }} placeholder="Выберите" />
-            </Form.Item>
-          </div>
-          <Form.Item label={t('Примечание')} name="comment">
-            <TextArea
+            <CSelect
+              placeholder={t('fields.status.placeholder')}
               className="select-shadow"
-              placeholder={t('Введите Примечание...')}
-              rows={5}
-              style={{ resize: 'none' }}
+              options={[
+                {
+                  label: t('common.active'),
+                  value: 'ACTIVE',
+                },
+                {
+                  label: t('common.inactive'),
+                  value: 'INACTIVE',
+                },
+              ]}
             />
           </Form.Item>
+          <div className="flex items-center gap-2">
+            <Form.Item
+              label={t('activeFrom')}
+              name="activeFrom"
+              style={{ width: '50%' }}
+              rules={[
+                {
+                  required: false,
+                  message: t('fields.gender.validation-message-required'),
+                },
+              ]}
+            >
+              <DatePicker
+                format={'DD-MM-YYYY'}
+                style={{ width: '100%' }}
+                placeholder="Выберите"
+              />
+            </Form.Item>
+            <Form.Item
+              label={t('activeTo')}
+              name="activeTo"
+              style={{ width: '50%' }}
+              rules={[
+                {
+                  required: false,
+                  message: t('fields.gender.validation-message-required'),
+                },
+              ]}
+            >
+              <DatePicker
+                format={'DD-MM-YYYY'}
+                style={{ width: '100%' }}
+                placeholder="Выберите"
+              />
+            </Form.Item>
+          </div>
 
           <div className="col-span-full mt-2 flex justify-center gap-4">
-            <Button onClick={closeHandler} disabled={handleUserSave.isPending}>
+            <Button onClick={closeHandler} disabled={handleSave.isPending}>
               {t('common.cancel')}
             </Button>
             <Button
               color="default"
               variant="solid"
               htmlType="submit"
-              loading={handleUserSave.isPending}
+              loading={handleSave.isPending}
             >
-              {editUserId ? t('Редактировать') : t('Добавить')}
+              {isEdit ? t('common.edit') : t('common.add')}
             </Button>
           </div>
         </Form>
