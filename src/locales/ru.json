@@ -616,28 +616,48 @@
     "commissionRate": {
       "label": "Комиссионная ставка",
       "placeholder": "Введите комиссионную ставку",
-      "validation-message-required": "Пожалуйста, укажите комиссионную ставку"
+      "error": "Пожалуйста, укажите комиссионную ставку"
     },
     "minAmount": {
       "label": "Минимальная сумма",
       "placeholder": "Введите минимальную сумму",
-      "validation-message-required": "Пожалуйста, укажите минимальную сумму"
+      "error": "Пожалуйста, укажите минимальную сумму"
     },
     "maxAmount": {
       "label": "Максимальная сумма",
       "placeholder": "Введите максимальную сумму",
-      "validation-message-required": "Пожалуйста, укажите максимальную сумму"
+      "error": "Пожалуйста, укажите максимальную сумму"
     },
     "calculationType": {
       "label": "Тип расчёта",
       "placeholder": "Выберите тип расчёта",
-      "validation-message-required": "Пожалуйста, выберите тип расчёта"
+      "error": "Пожалуйста, выберите тип расчёта"
     },
     "supportedCurrencies": {
       "label": "Поддерживаемые валюты",
       "placeholder": "Выберите поддерживаемые валюты",
       "validation-message-required": "Пожалуйста, выберите поддерживаемые валюты"
-    }
+    },
+   "serviceType": {
+    "label": "Тип услуги",
+    "placeholder": "Выберите тип услуги",
+    "error": "Пожалуйста, выберите тип услуги"
+  },
+   "amount": {
+    "label": "Сумма",
+    "placeholder": "Введите сумму",
+    "error": "Пожалуйста, введите сумму"
+   },
+    "translates": {
+    "label": "Переводы",
+    "placeholder": "Введите переводы",
+    "error": "Пожалуйста, заполните переводы"
+  },
+    "language": {
+    "label": "Язык",
+    "placeholder": "Выберите язык",
+    "error": "Пожалуйста, выберите язык"
+  }
   },
   "tenant": {
     "tenant": "Тенант",
@@ -819,7 +839,8 @@
     "modal_description": "Для добавления нового информация, пожалуйста заполните все необходимые поля",
     "modal_description_edit": "Для редактирования информации, пожалуйста, заполните все необходимые поля",
     "service-name": "Название услуги",
-    "employee-id": "ID пользователя"
+    "employee-id": "ID пользователя",
+     "add-field": "Добавить поле"
   },
   "status": {
     "confirmed": "Подтвержден",
@@ -936,11 +957,13 @@
     },
     "directories": {
       "currencies": "Валюты",
+      "currency-types": "Типы валют",
       "payment-providers": "Банки и платёжные провайдеры",
       "tax-rates": "Налоговые ставки",
       "tourist-taxes": "Туристические сборы",
       "subscriber-services": "Прейскурант абонентских услуг",
-      "payments-types": "Виды платежей"
+      "payments-types": "Виды платежей",
+      "operator-commissions": "Комиссии операторов"
     }
   },
   "tourists": {

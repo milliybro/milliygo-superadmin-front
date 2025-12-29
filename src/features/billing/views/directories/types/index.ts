@@ -68,3 +68,17 @@ export interface ISubscriberServices {
 export interface IPaymentsTypes {
   id: number
 }
+
+export interface IOperatorCommissions {
+  id: number
+  serviceType: string
+  calculationType: string
+  amount: number
+  translates: {
+    lang: string
+    name: string
+    description: string
+  }[]
+  name: string
+  description: string
+}

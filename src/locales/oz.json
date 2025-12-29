@@ -598,27 +598,47 @@
 "commissionRate": {
     "label": "Komissiya foizi",
     "placeholder": "Komissiya foizini kiriting",
-    "validation-message-required": "Iltimos, komissiya foizini kiriting"
+    "error": "Iltimos, komissiya foizini kiriting"
   },
   "minAmount": {
     "label": "Minimal summa",
     "placeholder": "Minimal summani kiriting",
-    "validation-message-required": "Iltimos, minimal summani kiriting"
+    "error": "Iltimos, minimal summani kiriting"
   },
   "maxAmount": {
     "label": "Maksimal summa",
     "placeholder": "Maksimal summani kiriting",
-    "validation-message-required": "Iltimos, maksimal summani kiriting"
+    "error": "Iltimos, maksimal summani kiriting"
   },
   "calculationType": {
     "label": "Hisoblash turi",
     "placeholder": "Hisoblash turini tanlang",
-    "validation-message-required": "Iltimos, hisoblash turini tanlang"
+    "error": "Iltimos, hisoblash turini tanlang"
   },
    "supportedCurrencies": {
     "label": "Qo‘llab-quvvatlanadigan valyutalar",
     "placeholder": "Qo‘llab-quvvatlanadigan valyutalarni tanlang",
-    "validation-message-required": "Iltimos, qo‘llab-quvvatlanadigan valyutalarni tanlang"
+    "error": "Iltimos, qo‘llab-quvvatlanadigan valyutalarni tanlang"
+  },
+  "serviceType": {
+    "label": "Xizmat turi",
+    "placeholder": "Xizmat turini tanlang",
+    "error": "Iltimos, xizmat turini tanlang"
+  },
+   "amount": {
+    "label": "Miqdor",
+    "placeholder": "Miqdorni kiriting",
+    "error": "Iltimos, miqdorni kiriting"
+  },
+   "translates": {
+    "label": "Tarjimalar",
+    "placeholder": "Tarjimalarni kiriting",
+    "error": "Iltimos, tarjimalarni kiriting"
+  },
+  "language": {
+    "label": "Til",
+    "placeholder": "Tilni tanlang",
+    "error": "Iltimos, tilni tanlang"
   }
   },
   "tenant": {
@@ -801,7 +821,8 @@
     "modal_description": "Yangi ma’lumot qo‘shish uchun, iltimos barcha kerakli maydonlarni to‘ldiring",
     "modal_description_edit": "Ma’lumotni tahrirlash uchun, iltimos, kerakli maydonlarni to‘ldiring.",
     "service-name": "Xizmat nomi",
-    "employee-id": "Foydalanuvchi ID"
+    "employee-id": "Foydalanuvchi ID",
+    "add-field": "Maydon qo‘shish"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
@@ -929,11 +950,13 @@
     },
     "directories": {
       "currencies": "Valyutalar",
+      "currency-types": "Valyuta turlari",
       "payment-providers": "Banklar va to‘lov provayderlari",
       "tax-rates": "Soliq stavkalari",
       "tourist-taxes": "Turistik yig‘imlar",
       "subscriber-services": "Abonent xizmatlari narxlari",
-      "payments-types": "To‘lov turlari"
+      "payments-types": "To‘lov turlari",
+      "operator-commissions": "Operator komissiyalari"
     }
   },
   "tourists": {
