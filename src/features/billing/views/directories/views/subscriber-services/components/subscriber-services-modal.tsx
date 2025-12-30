@@ -2,25 +2,32 @@ import { useEffect } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
-import { Modal, Form,  Button, DatePicker } from 'antd'
+import { Modal, Form, Button, DatePicker, Input, Flex, Typography } from 'antd'
 import CSelect from '@/components/ui/select'
 import CloseIcon from '@/components/icons/close-icon'
 import DirectoryModalHeader from '../../../components/DirectoryModalHeader'
 import useSubscriberServicesModalStore from '../../../store/subscriber-services-store'
-import { createSubscriberService, getSubscriberService, updateSubscriberService, } from '../../../api/getSubscriberServices'
+import {
+  createSubscriberService,
+  getSubscriberService,
+  updateSubscriberService,
+} from '../../../api/getSubscriberServices'
 import LetterIcon from '@/components/icons/letterIcon'
 import { BillingInputNumber } from '@/features/billing/components/billingInputNumber'
 import { ISubscriberServices } from '../../../types'
 import dayjs from 'dayjs'
 import useNotify from '@/hooks/useNotify'
 import { mapToSelectOptions } from '@/features/billing/utils/mapToSelectOptions'
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 type FormValues = Omit<ISubscriberServices, 'id'>
 const SubscriberServicesModal = () => {
   const { t } = useTranslation()
   const [searchParams] = useSearchParams()
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const { isModalOpen, closeModal } = useSubscriberServicesModalStore( state => state, )
+  const { isModalOpen, closeModal } = useSubscriberServicesModalStore(
+    state => state,
+  )
   const queryClient = useQueryClient()
   const { openNotify, notificationPlace, notify } = useNotify()
 
@@ -75,13 +82,6 @@ const SubscriberServicesModal = () => {
         amount: Number(values?.amount),
         checkoutFrom: Number(values?.checkoutFrom),
         checkoutsTo: Number(values?.checkoutsTo),
-        translates: values?.translates?.map((lang: string) => {
-          const found = LANGUAGES.find(l => l.lang === lang)
-          return {
-            lang,
-            name: found?.name ?? '',
-          }
-        }),
       }
 
       if (isEdit) {
@@ -114,7 +114,7 @@ const SubscriberServicesModal = () => {
         checkoutsTo: data?.checkoutsTo,
         activeFrom: dayjs(data?.activeFrom),
         activeTo: dayjs(data?.activeTo),
-        translates: data?.translates?.map((item: any) => item?.lang),
+        translates: data?.translates,
       })
     }
   }, [data, form, isEdit])
@@ -151,27 +151,15 @@ const SubscriberServicesModal = () => {
           onFinish={values => handleSave.mutate(values)}
           form={form}
           className="flex flex-col gap-2"
-        >
-          <Form.Item
-            label={t('translates')}
-            name="translates"
-            style={{ width: '100%' }}
-            rules={[
+          initialValues={{
+            translates: [
               {
-                required: false,
-                message: t('translates'),
+                lang: undefined,
+                name: undefined,
               },
-            ]}
-          >
-            <CSelect
-              placeholder={t('fields.calculationType.placeholder')}
-              className="select-shadow"
-              options={mapToSelectOptions(LANGUAGES, 'name', 'lang')}
-              mode="multiple"
-              maxTagCount={3}
-            />
-          </Form.Item>
-
+            ],
+          }}
+        >
           <Form.Item
             label={t('fields.calculationType.label')}
             name="calculationType"
@@ -199,7 +187,7 @@ const SubscriberServicesModal = () => {
             />
           </Form.Item>
           <Form.Item
-            label={t('amount')}
+            label={t('fields.amount.label')}
             name="amount"
             style={{ width: '100%' }}
             rules={[
@@ -209,7 +197,7 @@ const SubscriberServicesModal = () => {
               },
             ]}
           >
-            <BillingInputNumber placeholder="amount" />
+            <BillingInputNumber placeholder={t('fields.amount.placeholder')} />
           </Form.Item>
 
           <div className="flex items-center gap-2">
@@ -303,7 +291,66 @@ const SubscriberServicesModal = () => {
               />
             </Form.Item>
           </div>
+          <Typography.Title level={5} className="mb-0 mt-2 text-center">
+            {t('fields.translates.label')}
+          </Typography.Title>
+          <Form.List name="translates">
+            {(fields, { add, remove }) => (
+              <>
+                {fields.map(({ key, name, ...restField }) => (
+                  <Flex vertical key={key} gap={10} align="center">
+                    <Form.Item
+                      {...restField}
+                      label={t('fields.language.label')}
+                      name={[name, 'lang']}
+                      style={{ width: '100%' }}
+                      rules={[
+                        {
+                          required: true,
+                          message: t('fields.language.error'),
+                        },
+                      ]}
+                    >
+                      <CSelect
+                        placeholder={t('fields.language.placeholder')}
+                        className="select-shadow"
+                        options={mapToSelectOptions(LANGUAGES, 'name', 'lang')}
+                      />
+                    </Form.Item>
+                    <Form.Item
+                      {...restField}
+                      name={[name, 'name']}
+                      rules={[
+                        {
+                          required: true,
+                          message: t('fields.name.required'),
+                        },
+                      ]}
+                      style={{ width: '100%' }}
+                      label={t('fields.name.label')}
+                    >
+                      <Input placeholder={t('fields.name.placeholder')} />
+                    </Form.Item>
 
+                    <MinusCircleOutlined
+                      onClick={() => remove(name)}
+                      className="mx-auto text-lg text-red-500"
+                    />
+                  </Flex>
+                ))}
+                <Form.Item>
+                  <Button
+                    type="primary"
+                    onClick={() => add()}
+                    block
+                    icon={<PlusOutlined />}
+                  >
+                    {t('common.add-field')}
+                  </Button>
+                </Form.Item>
+              </>
+            )}
+          </Form.List>
           <div className="col-span-full mt-2 flex justify-center gap-4">
             <Button onClick={closeHandler} disabled={handleSave.isPending}>
               {t('common.cancel')}

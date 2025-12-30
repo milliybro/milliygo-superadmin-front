@@ -3,21 +3,20 @@ import { useTranslation } from 'react-i18next'
 import type { PaginationProps, TableColumnsType } from 'antd'
 import { twMerge } from 'tailwind-merge'
 import UsersNotFound from '@/features/users/components/users-not-found'
-import { ISubscriberServices } from '../../../types'
+import { ICurrencyTypes } from '../../../types'
+import CurrencyTypesTableAction from './currency-types-action'
 import StatusTag from '@/components/ui/status-tag'
-import SubscriberServicesTableAction from './subscriber-services-table-action'
 
-const SubscriberServicesTable = ({
+const CurrencyTypesTable = ({
   data,
   isLoading,
   currentPage,
   pageSize,
   setCurrentPage,
-  refetch,
 }: any) => {
   const { t } = useTranslation()
 
-  const columns: TableColumnsType<ISubscriberServices | any> = [
+  const columns: TableColumnsType<ICurrencyTypes | any> = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -28,42 +27,43 @@ const SubscriberServicesTable = ({
       sorter: false,
     },
     {
-      title: t('fields.calculationType.label'),
-      dataIndex: 'calculationType',
+      title: 'fields.name.label',
+      dataIndex: 'name',
+      sorter: false,
+      width: 345,
+    },
+    {
+      title: 'fields.shortCode.label',
+      dataIndex: 'code',
       sorter: false,
       width: 345,
       className: 'text-center',
     },
     {
-      title: t('fields.amount.label'),
-      dataIndex: 'amount',
+      title: t('fields.numericCode.label'),
+      dataIndex: 'numericCode',
       sorter: false,
       width: 345,
-      className: 'text-center',
-    },
-
-    {
-      title: t('checkoutFrom'),
-      dataIndex: 'checkoutFrom',
-      sorter: false,
-      width: 345,
-      className: 'text-center',
+      align: 'center',
     },
     {
-      title: t('checkoutsTo'),
-      dataIndex: 'checkoutsTo',
+      title: t('fields.symbol.label'),
+      dataIndex: 'symbol',
       sorter: false,
       width: 345,
-      className: 'text-center',
+      align: 'center',
+      render: value => {
+        return <span>{value ? value : '-'}</span>
+      },
     },
     {
       title: t('fields.status.label'),
-      dataIndex: 'status',
+      dataIndex: 'isActive',
       sorter: false,
       width: 345,
       render: (value: any) => (
         <div className="2xl:mr-0">
-          <StatusTag active={value === 'ACTIVE' ? true : false} />
+          <StatusTag active={value} />
         </div>
       ),
       className: 'text-center',
@@ -73,7 +73,7 @@ const SubscriberServicesTable = ({
       title: 'common.action',
       dataIndex: 'id',
       className: 'text-center',
-      render: id => <SubscriberServicesTableAction id={id} refetch={refetch} />,
+      render: id => <CurrencyTypesTableAction id={id} />,
     },
   ]
 
@@ -114,23 +114,22 @@ const SubscriberServicesTable = ({
     setCurrentPage(page)
   }
 
-  const transformedHotelsData = data?.map(
-    (item: ISubscriberServices | any, i: any) => ({
+  const transformedHotelsData = data?.content?.map(
+    (item: ICurrencyTypes | any, i: any) => ({
       key: i,
       id: item?.id,
-      activeFrom: item?.activeFrom,
-      activeTo: item?.activeTo,
-      amount: item?.amount,
-      calculationType: item?.calculationType,
-      status: item?.status,
-      checkoutFrom: item?.checkoutFrom,
-      checkoutsTo: item?.checkoutsTo,
+      name: item?.name,
+      code: item?.code,
+      numericCode: item?.numericCode,
+      isActive: item?.isActive,
+      symbol: item?.symbol,
+      minorUnits: item?.minorUnits,
     }),
   )
 
   return (
     <div className="flex h-full flex-col items-center justify-center overflow-hidden bg-white">
-      <Table<ISubscriberServices | any>
+      <Table<ICurrencyTypes>
         columns={columns?.map(val => ({
           ...val,
           title: t(val?.title as string),
@@ -156,9 +155,10 @@ const SubscriberServicesTable = ({
           triggerAsc: t('common.sort_ascending') ?? '',
           cancelSort: t('common.sort_cancel') ?? '',
         }}
+        showSorterTooltip={false}
       />
     </div>
   )
 }
 
-export default SubscriberServicesTable
+export default CurrencyTypesTable
