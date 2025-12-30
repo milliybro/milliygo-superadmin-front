@@ -16,7 +16,7 @@ export async function getCurrencyTypesList(
 
 export async function getCurrencyType(params?: any): Promise<any> {
   const res: any = await billingRequest({
-    url: `/currency-types/${params.id}/`,
+    url: `/currency-types/${params.id}`,
     method: 'get',
     params: params.queryParams,
   })
@@ -33,8 +33,8 @@ export async function updateCurrencyType(params: {
     throw new Error('User ID is required for updating a user.')
   }
   const res: any = await billingRequest({
-    url: `/currency-types/${id}/`,
-    method: 'patch',
+    url: `/currency-types/${id}`,
+    method: 'put',
     data: queryParams,
   })
 

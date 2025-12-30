@@ -639,6 +639,26 @@
     "label": "Til",
     "placeholder": "Tilni tanlang",
     "error": "Iltimos, tilni tanlang"
+  },
+  "numericCode": {
+    "label": "Raqamli kod",
+    "placeholder": "Raqamli kodni kiriting",
+    "error": "Iltimos, raqamli kodni kiriting"
+  },
+  "shortCode": {
+    "label": "Kod",
+    "placeholder": "Kodni kiriting",
+    "error": "Iltimos, kodni kiriting"
+  },
+   "minorUnits": {
+    "label": "Kichik birliklar",
+    "placeholder": "Kichik birliklarni kiriting",
+    "error": "Iltimos, kichik birliklarni kiriting"
+  },
+  "symbol": {
+    "label": "Belgi",
+    "placeholder": "Belgini kiriting",
+    "error": "Iltimos, belgini kiriting"
   }
   },
   "tenant": {

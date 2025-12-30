@@ -11,11 +11,17 @@ export interface ICurrencies {
 }
 
 export interface ICurrencyTypes {
-  id: number
+  id: number,
+  name: string,
   code: string
   numericCode: string
-  name: string
-  isActive: boolean
+  isActive: boolean | number,
+  symbol: string,
+  minorUnits: number,
+  translates: {
+    lang: string
+    name: string
+  }[]
 }
 
 export interface IPaymentProviders {
