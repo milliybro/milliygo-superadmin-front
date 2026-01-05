@@ -257,37 +257,37 @@ const SubscriberServicesModal = () => {
           </Form.Item>
           <div className="flex items-center gap-2">
             <Form.Item
-              label={t('activeFrom')}
+              label={t('fields.periodFrom.label')}
               name="activeFrom"
               style={{ width: '50%' }}
               rules={[
                 {
                   required: false,
-                  message: t('fields.gender.validation-message-required'),
+                  message: t('fields.periodFrom.error'),
                 },
               ]}
             >
               <DatePicker
                 format={'DD-MM-YYYY'}
                 style={{ width: '100%' }}
-                placeholder="Выберите"
+                placeholder={t('fields.periodFrom.placeholder')}
               />
             </Form.Item>
             <Form.Item
-              label={t('activeTo')}
+              label={t('fields.periodTo.label')}
               name="activeTo"
               style={{ width: '50%' }}
               rules={[
                 {
                   required: false,
-                  message: t('fields.gender.validation-message-required'),
+                  message: t('fields.periodTo.error'),
                 },
               ]}
             >
               <DatePicker
                 format={'DD-MM-YYYY'}
                 style={{ width: '100%' }}
-                placeholder="Выберите"
+                placeholder={t('fields.periodTo.placeholder')}
               />
             </Form.Item>
           </div>

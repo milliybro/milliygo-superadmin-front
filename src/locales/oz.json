@@ -659,6 +659,21 @@
     "label": "Belgi",
     "placeholder": "Belgini kiriting",
     "error": "Iltimos, belgini kiriting"
+  },
+  "placeType": {
+    "label": "Joy turi",
+    "placeholder": "Joy turini tanlang",
+    "error": "Iltimos, joy turini tanlang"
+  },
+  "periodFrom": {
+    "label": "Davrdan",
+    "placeholder": "Sanani tanlang",
+    "error": "Iltimos, davr tanlang"
+  },
+  "periodTo": {
+    "label": "Davrgacha",
+    "placeholder": "Sanani tanlang",
+    "error": "Iltimos, davr tanlang"
   }
   },
   "tenant": {
