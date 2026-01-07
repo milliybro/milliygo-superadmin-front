@@ -7,29 +7,33 @@ import ConfirmationModal from '@/components/ui/confirmation-modal'
 import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
 import { useLocation, useNavigate } from 'react-router'
-import useSubscriberServicesModalStore from '../../../store/subscriber-services-store'
-import { deleteSubscriberService } from '../../../api/getSubscriberServices'
+import { deleteOperatorCommission } from '../../../api/getOperatorCommissions'
+import useOperatorCommissionModalStore from '../../../store/operator-commission-store'
 
 interface IProps {
   id: number
   refetch: () => void
 }
 
-const SubscriberServicesTableAction: FC<IProps> = ({ id, refetch }) => {
+const OperatorCommmissionsTableAction: FC<IProps> = ({ id, refetch }) => {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const { pathname } = useLocation()
-  const { openModal } = useSubscriberServicesModalStore(store => store)
-
+  const { openModal } = useOperatorCommissionModalStore(store => store)
   const editHandler = () => {
     navigate(pathname + '?edit=' + id)
     openModal()
   }
+  // const openDrawer = () => {
+  //   navigate(pathname + '?id=' + id)
+  //   setIsDrawer(true)
+  // }
+
 
   const [deleteModal, setDeleteModal] = useState(false)
 
   const { mutate, isPending } = useMutation({
-    mutationFn: () => deleteSubscriberService(id),
+    mutationFn: () => deleteOperatorCommission(id),
     onSuccess: () => {
       setDeleteModal(false)
       refetch()
@@ -44,15 +48,7 @@ const SubscriberServicesTableAction: FC<IProps> = ({ id, refetch }) => {
             <EditIcon className="text-xl" />
           </Button>
         </Tooltip>
-        {/* <Tooltip title={t('common.hierarchy')}>
-          <Button
-            type="link"
-            className="px-0 text-base font-medium text-[#232E40]"
-          >
-            <HierarchyIcon className="text-xl" />
-          </Button>
-        </Tooltip> */}
-        <Tooltip title={t('common.delete')}>
+           <Tooltip title={t('common.delete')}>
           <Button
             type="link"
             danger
@@ -61,9 +57,18 @@ const SubscriberServicesTableAction: FC<IProps> = ({ id, refetch }) => {
           >
             <DeleteIcon className="text-xl" />
           </Button>
+        </Tooltip> 
+        {/* <Tooltip title={t('common.more-details')}>
+          <Button
+            type="link"
+            className="px-0 text-base font-medium text-[#232E40]"
+            onClick={openDrawer}
+          >
+            <HierarchyIcon className="text-xl" />
+          </Button>
         </Tooltip>
+       */}
       </div>
-
       <ConfirmationModal
         danger
         icon={DeleteIcon}
@@ -78,4 +83,4 @@ const SubscriberServicesTableAction: FC<IProps> = ({ id, refetch }) => {
     </>
   )
 }
-export default SubscriberServicesTableAction
+export default OperatorCommmissionsTableAction

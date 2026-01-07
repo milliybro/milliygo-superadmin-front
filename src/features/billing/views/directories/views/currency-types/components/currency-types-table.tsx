@@ -1,24 +1,22 @@
 import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import type { PaginationProps, TableColumnsType } from 'antd'
-import dayjs from 'dayjs'
 import { twMerge } from 'tailwind-merge'
 import UsersNotFound from '@/features/users/components/users-not-found'
+import { ICurrencyTypes } from '../../../types'
+import CurrencyTypesTableAction from './currency-types-action'
 import StatusTag from '@/components/ui/status-tag'
-import { ICurrencies } from '../../../types'
-import TaxRatesTableAction from './tax-rates-table-action'
 
-const TaxRatesTable = ({
-  AgentsData,
+const CurrencyTypesTable = ({
+  data,
   isLoading,
   currentPage,
   pageSize,
   setCurrentPage,
-  refetch,
 }: any) => {
   const { t } = useTranslation()
 
-  const columns: TableColumnsType<ICurrencies | any> = [
+  const columns: TableColumnsType<ICurrencyTypes | any> = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -29,94 +27,53 @@ const TaxRatesTable = ({
       sorter: false,
     },
     {
-      title: 'Тип налога',
+      title: 'fields.name.label',
       dataIndex: 'name',
-      sorter: true,
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
     },
     {
-      title: 'Ставка',
-      dataIndex: 'license_validity',
-      sorter: true,
+      title: 'fields.shortCode.label',
+      dataIndex: 'code',
+      sorter: false,
       width: 345,
-      render: item => <div>{dayjs(item).format('DD MMM, YYYY')}</div>,
+      className: 'text-center',
     },
     {
-      title: t('Тип расчёта'),
-      dataIndex: 'phone_number',
-      sorter: true,
+      title: t('fields.numericCode.label'),
+      dataIndex: 'numericCode',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
+      align: 'center',
     },
     {
-      title: t('Объект применения'),
-      dataIndex: 'phone_number',
-      sorter: true,
+      title: t('fields.symbol.label'),
+      dataIndex: 'symbol',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
+      align: 'center',
+      render: value => {
+        return <span>{value ? value : '-'}</span>
+      },
     },
     {
-      title: t('Период действия'),
-      dataIndex: 'phone_number',
-      sorter: true,
+      title: t('fields.status.label'),
+      dataIndex: 'isActive',
+      sorter: false,
       width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
-    },
-    {
-      title: t('Фискальный флаг '),
-      dataIndex: 'phone_number',
-      sorter: true,
-      width: 345,
-      render: (_, val) => (
-        <div className="flex items-center gap-[10px]">
-          <span className="text-sm font-medium text-primary-dark">
-            {val?.name ? val?.name : '-'}
-          </span>
-        </div>
-      ),
-    },
-    {
-      title: t('Статус'),
-      dataIndex: 'id',
-      sorter: true,
-      width: 345,
-       render: (value:any) => (
+      render: (value: any) => (
         <div className="2xl:mr-0">
           <StatusTag active={value} />
         </div>
       ),
+      className: 'text-center',
     },
-
     {
       width: 300,
       title: 'common.action',
       dataIndex: 'id',
-      render: id => <TaxRatesTableAction id={id} refetch={refetch} />,
+      className: 'text-center',
+      render: id => <CurrencyTypesTableAction id={id} />,
     },
   ]
 
@@ -157,19 +114,22 @@ const TaxRatesTable = ({
     setCurrentPage(page)
   }
 
-  const transformedHotelsData = AgentsData?.results?.map(
-    (item: ICurrencies | any, i: any) => ({
+  const transformedHotelsData = data?.content?.map(
+    (item: ICurrencyTypes | any, i: any) => ({
       key: i,
       id: item?.id,
       name: item?.name,
-      image: item?.file,
-      license_validity: item?.expire_license_date,
+      code: item?.code,
+      numericCode: item?.numericCode,
+      isActive: item?.isActive,
+      symbol: item?.symbol,
+      minorUnits: item?.minorUnits,
     }),
   )
 
   return (
     <div className="flex h-full flex-col items-center justify-center overflow-hidden bg-white">
-      <Table<ICurrencies | any>
+      <Table<ICurrencyTypes>
         columns={columns?.map(val => ({
           ...val,
           title: t(val?.title as string),
@@ -182,7 +142,7 @@ const TaxRatesTable = ({
         pagination={{
           current: currentPage,
           pageSize: 10,
-          total: AgentsData?.count || 0,
+          total: data?.totalElements || 0,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],
@@ -195,9 +155,10 @@ const TaxRatesTable = ({
           triggerAsc: t('common.sort_ascending') ?? '',
           cancelSort: t('common.sort_cancel') ?? '',
         }}
+        showSorterTooltip={false}
       />
     </div>
   )
 }
 
-export default TaxRatesTable
+export default CurrencyTypesTable

@@ -1,12 +1,12 @@
-import {  ICurrencyTypes } from '../types'
+import {  IOperatorCommissions } from '../types'
 import billingRequest from '@/features/billing/billingRequest'
 import { ListResponseBilling } from '@/features/billing/types/response.billing'
 
-export async function getCurrencyTypesList(
+export async function getOperatorCommissionsList(
   params?: any,
-): Promise<ListResponseBilling<ICurrencyTypes>> {
-  const res: ListResponseBilling<ICurrencyTypes> = await billingRequest({
-    url: '/currency-types',
+): Promise<ListResponseBilling<IOperatorCommissions[]>> {
+  const res: ListResponseBilling<IOperatorCommissions[]> = await billingRequest({
+    url: '/operator-commissions',
     method: 'get',
     params,
   })
@@ -14,9 +14,9 @@ export async function getCurrencyTypesList(
   return res
 }
 
-export async function getCurrencyType(params?: any): Promise<any> {
+export async function getOperatorCommission(params?: any): Promise<any> {
   const res: any = await billingRequest({
-    url: `/currency-types/${params.id}`,
+    url: `/operator-commissions/${params.id}`,
     method: 'get',
     params: params.queryParams,
   })
@@ -24,7 +24,7 @@ export async function getCurrencyType(params?: any): Promise<any> {
   return res
 }
 
-export async function updateCurrencyType(params: {
+export async function updateOperatorCommission(params: {
   id: string
   queryParams: any
 }): Promise<any> {
@@ -33,7 +33,7 @@ export async function updateCurrencyType(params: {
     throw new Error('User ID is required for updating a user.')
   }
   const res: any = await billingRequest({
-    url: `/currency-types/${id}`,
+    url: `/operator-commissions/${id}`,
     method: 'put',
     data: queryParams,
   })
@@ -41,19 +41,18 @@ export async function updateCurrencyType(params: {
   return res
 }
 
-export async function createCurrencyType(data?: any): Promise<any> {
+export async function createOperatorCommission(data?: any): Promise<any> {
   const res: any = await billingRequest({
-    url: '/currency-types',
+    url: '/operator-commissions',
     method: 'post',
     data,
   })
-
   return res
 }
 
-export async function deleteCurrencyType(id: string | number): Promise<any> {
+export async function deleteOperatorCommission(id: string | number): Promise<any> {
   const res: any = await billingRequest({
-    url: `/currency-types/${id}`,
+    url: `/operator-commissions/${id}`,
     method: 'delete',
   })
 

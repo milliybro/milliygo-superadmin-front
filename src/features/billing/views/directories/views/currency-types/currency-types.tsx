@@ -1,49 +1,46 @@
-import { PlusOutlined } from '@ant-design/icons'
-import { useQuery } from '@tanstack/react-query'
-import { Button, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'react-router'
-import useSubscriberServicesModalStore from '../../store/subscriber-services-store'
-import { getSubscriberServicesList } from '../../api/getSubscriberServices'
-import SubscriberServicesModal from './components/subscriber-services-modal'
-import SubscriberServicesTable from './containers/subscriber-services-table'
+import { Button, Typography } from 'antd'
+import { PlusOutlined } from '@ant-design/icons'
+import { getCurrencyTypesList } from '../../api/getCurrencyTypes'
+import useCurrencyTypesModalStore from '../../store/currency-types-modal-store copy'
+import CurrencyTypesTable from './components/currency-types-table'
+import CurrencyTypesModal from './form/currency-types-modal'
 
-function SubscriberServices() {
+const CurrencyTypes = () => {
   const { t } = useTranslation()
-  const { openModal } = useSubscriberServicesModalStore(store => store)
+  const { openModal } = useCurrencyTypesModalStore(store => store)
   const pageSize = 10
 
   const [searchParams, setSearchParams] = useSearchParams()
-
-
   const currentPage = Number(searchParams.get('page')) || 1
 
   const { data, isFetching, refetch } = useQuery({
-    queryKey: ['subscriber-services', currentPage],
+    queryKey: ['currency-types', currentPage],
     queryFn: async () => {
-      const res = await getSubscriberServicesList({
+      const res = await getCurrencyTypesList({
         size: pageSize,
-        page: (currentPage - 1),
+        page: currentPage - 1,
       })
       return res
     },
     placeholderData: data => data,
   })
-
   return (
     <div className="flex flex-1 flex-col gap-3">
       <div className="flex items-center justify-between">
         <Typography.Title level={2} className="text-lg font-medium">
-          {t('billing.directories.subscriber-services')}
+          {t('billing.directories.currency-types')}
         </Typography.Title>
 
         <Button type="primary" onClick={openModal}>
           <PlusOutlined />
           {t('common.add')}
         </Button>
-        <SubscriberServicesModal  />
+        <CurrencyTypesModal  />
       </div>
-      <SubscriberServicesTable
+      <CurrencyTypesTable
         data={data}
         isLoading={isFetching}
         refetch={refetch}
@@ -61,4 +58,4 @@ function SubscriberServices() {
   )
 }
 
-export default SubscriberServices
+export default CurrencyTypes

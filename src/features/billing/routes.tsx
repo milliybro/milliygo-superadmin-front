@@ -9,6 +9,8 @@ import TouristTaxes from './views/directories/views/tourist-taxes/tourist-taxes'
 import SubscriberServices from './views/directories/views/subscriber-services/subscriber-services'
 import PaymentsTypes from './views/directories/views/payments-types/payments-types'
 import { Navigate } from 'react-router'
+import OperatorCommissions from './views/directories/views/operator-commissions/operator-commissions'
+import CurrencyTypes from './views/directories/views/currency-types/currency-types'
 
 const billingRoutes: CustomRoute = {
   id: 'billing',
@@ -27,11 +29,13 @@ const billingRoutes: CustomRoute = {
       element: <Directories />,
       children: [
         { path: 'currencies', element: <Currencies /> },
+        { path: 'currency-types', element: <CurrencyTypes /> },
         { path: 'payment-providers', element: <PaymentProviders /> },
         { path: 'tax-rates', element: <TaxRates /> },
         { path: 'tourist-taxes', element: <TouristTaxes /> },
         { path: 'subscriber-services', element: <SubscriberServices /> },
         { path: 'payments-types', element: <PaymentsTypes /> },
+        { path: 'operator-commissions', element: <OperatorCommissions /> },
         { path: '', element: <Navigate to="currencies" replace /> },
       ],
     },

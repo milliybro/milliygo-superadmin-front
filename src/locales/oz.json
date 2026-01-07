@@ -801,7 +801,8 @@
     "modal_description": "Yangi ma’lumot qo‘shish uchun, iltimos barcha kerakli maydonlarni to‘ldiring",
     "modal_description_edit": "Ma’lumotni tahrirlash uchun, iltimos, kerakli maydonlarni to‘ldiring.",
     "service-name": "Xizmat nomi",
-    "employee-id": "Foydalanuvchi ID"
+    "employee-id": "Foydalanuvchi ID",
+    "add-field": "Maydon qo‘shish"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
@@ -877,7 +878,9 @@
     "all-status": "Barcha holatlar",
     "guest-name": "Mehmonning ismi",
     "guest-comment": "Mehmon izohi",
-    "owner-response": "Egasidan javob"
+    "owner-response": "Egasidan javob",
+    "room-number": "Xona raqami",
+    "tariff-name": "Tarif nomlari"
   },
   "travel-agencies": {
     "name-agencies": "Sayyohlik agentligining nomi",
@@ -932,11 +935,13 @@
     },
     "directories": {
       "currencies": "Valyutalar",
+      "currency-types": "Valyuta turlari",
       "payment-providers": "Banklar va to‘lov provayderlari",
       "tax-rates": "Soliq stavkalari",
       "tourist-taxes": "Turistik yig‘imlar",
       "subscriber-services": "Abonent xizmatlari narxlari",
-      "payments-types": "To‘lov turlari"
+      "payments-types": "To‘lov turlari",
+      "operator-commissions": "Operator komissiyalari"
     }
   },
   "tourists": {
