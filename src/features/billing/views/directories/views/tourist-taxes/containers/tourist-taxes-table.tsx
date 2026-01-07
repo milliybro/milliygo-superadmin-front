@@ -19,7 +19,7 @@ const TouristTaxesTable = ({
 
   const columns: TableColumnsType<ITouristTaxes | any> = [
     {
-      title: 'ID',
+      title: '№',
       dataIndex: 'id',
       className: 'text-center',
       width: 39,

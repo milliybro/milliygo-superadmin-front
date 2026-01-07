@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { Modal, Form, Input, Button, DatePicker } from 'antd'
 import CSelect from '@/components/ui/select'
@@ -16,14 +15,10 @@ type FormValues = Omit<ITouristTaxes, 'id'>
 
 const TouristTaxesModal = () => {
   const { t } = useTranslation()
-  const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
-  const { isModalOpen, closeModal } = useTouristTaxesStore(state => state)
+  const { isModalOpen, closeModal , id: isEdit , clearId} = useTouristTaxesStore(state => state)
   const { openNotify, notificationPlace, notify } = useNotify()
   const [form] = Form.useForm<FormValues>()
   const queryClient = useQueryClient()
-  const isEdit = searchParams.get('edit')
 
   const { data } = useQuery({
     queryKey: ['tourist-tax', isEdit],
@@ -47,7 +42,7 @@ const TouristTaxesModal = () => {
 
       if (isEdit) {
         return updateTouristTax({
-          id: isEdit,
+          id: `${isEdit}`,
           queryParams: formattedValues,
         })
       }
@@ -69,7 +64,7 @@ const TouristTaxesModal = () => {
     closeModal()
     form.resetFields()
     if (isEdit) {
-      navigate(pathname)
+      clearId()
     }
   }
 
@@ -83,8 +78,8 @@ const TouristTaxesModal = () => {
         roomsTo: data?.roomsTo,
         rate: data?.rate,
         status: data?.status,
-        actualFrom: dayjs(data?.actualFrom),
-        actualTo: dayjs(data?.actualTo),
+        actualFrom: data?.actualFrom && dayjs(data?.actualFrom),
+        actualTo: data?.actualTo && dayjs(data?.actualTo),
         rateType: data?.rateType,
         description: data?.description,
       })

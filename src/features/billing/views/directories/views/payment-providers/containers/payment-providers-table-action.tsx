@@ -1,7 +1,6 @@
 import { useState, type FC } from 'react'
 import { Button, Tooltip } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate } from 'react-router'
 import { useMutation } from '@tanstack/react-query'
 import ConfirmationModal from '@/components/ui/confirmation-modal'
 // import HierarchyIcon from '@/components/icons/hierarchy'
@@ -17,12 +16,10 @@ interface IProps {
 
 const PaymentProvidersTableAction: FC<IProps> = ({ id, refetch }) => {
   const { t } = useTranslation()
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
-  const { openModal } = usePaymentProvidersModalStore(store => store)
+  const { openModal , setId} = usePaymentProvidersModalStore(store => store)
 
   const editHandler = () => {
-    navigate(pathname + '?edit=' + id)
+    setId(id)
     openModal()
   }
 

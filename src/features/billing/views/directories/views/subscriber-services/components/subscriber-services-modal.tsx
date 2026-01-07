@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { Modal, Form, Button, DatePicker, Input, Flex, Typography } from 'antd'
 import CSelect from '@/components/ui/select'
@@ -22,23 +21,19 @@ import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 type FormValues = Omit<ISubscriberServices, 'id'>
 const SubscriberServicesModal = () => {
   const { t } = useTranslation()
-  const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
-  const { isModalOpen, closeModal } = useSubscriberServicesModalStore(
+  const { isModalOpen, closeModal , id:isEdit , clearId } = useSubscriberServicesModalStore(
     state => state,
   )
   const queryClient = useQueryClient()
   const { openNotify, notificationPlace, notify } = useNotify()
 
   const [form] = Form.useForm<FormValues>()
-  const isEdit = searchParams.get('edit')
 
   const closeHandler = () => {
     closeModal()
     form.resetFields()
     if (isEdit) {
-      navigate(pathname)
+      clearId()
     }
   }
 
@@ -86,7 +81,7 @@ const SubscriberServicesModal = () => {
 
       if (isEdit) {
         return updateSubscriberService({
-          id: isEdit,
+          id: `${isEdit}`,
           queryParams: formattedValues,
         })
       }
@@ -112,8 +107,8 @@ const SubscriberServicesModal = () => {
         calculationType: data?.calculationType,
         checkoutFrom: data?.checkoutFrom,
         checkoutsTo: data?.checkoutsTo,
-        activeFrom: dayjs(data?.activeFrom),
-        activeTo: dayjs(data?.activeTo),
+        activeFrom: data?.activeFrom && dayjs(data?.activeFrom),
+        activeTo: data?.activeTo && dayjs(data?.activeTo),
         translates: data?.translates,
       })
     }

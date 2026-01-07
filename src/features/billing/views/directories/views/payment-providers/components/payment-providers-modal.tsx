@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { Modal, Form, Input, Button, Space } from 'antd'
 import CSelect from '@/components/ui/select'
@@ -18,16 +17,11 @@ type FormValues = Omit<IPaymentProviders, 'id'>
 
 const PaymentProvidersModal = () => {
   const { t } = useTranslation()
-  const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
   const { openNotify, notificationPlace, notify } = useNotify()
-  const { isModalOpen, closeModal } = usePaymentProvidersModalStore( state => state, )
+  const { isModalOpen, closeModal , id: isEdit, clearId} = usePaymentProvidersModalStore( state => state, )
   const queryClient = useQueryClient()
-
   const [form] = Form.useForm<FormValues>()
 
-  const isEdit = searchParams.get('edit')
 
   const { data: currencyTypes } = useQuery({
     queryKey: ['currency-types'],
@@ -63,7 +57,7 @@ const PaymentProvidersModal = () => {
 
       if (isEdit) {
         return updatePaymentProvider({
-          id: isEdit,
+          id: `${isEdit}`,
           queryParams: formattedValues,
         })
       }
@@ -86,7 +80,7 @@ const PaymentProvidersModal = () => {
     closeModal()
     form.resetFields()
     if (isEdit) {
-      navigate(pathname)
+      clearId()
     }
   }
 

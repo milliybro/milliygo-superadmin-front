@@ -18,7 +18,7 @@ const OperatorCommmissionsTable = ({
 
   const columns: TableColumnsType<IOperatorCommissions | any> = [
     {
-      title: 'ID',
+      title: '№',
       dataIndex: 'id',
       className: 'text-center',
       width: 39,

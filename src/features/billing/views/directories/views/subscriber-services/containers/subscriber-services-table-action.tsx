@@ -6,7 +6,6 @@ import ConfirmationModal from '@/components/ui/confirmation-modal'
 // import HierarchyIcon from '@/components/icons/hierarchy'
 import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
-import { useLocation, useNavigate } from 'react-router'
 import useSubscriberServicesModalStore from '../../../store/subscriber-services-store'
 import { deleteSubscriberService } from '../../../api/getSubscriberServices'
 
@@ -17,12 +16,10 @@ interface IProps {
 
 const SubscriberServicesTableAction: FC<IProps> = ({ id, refetch }) => {
   const { t } = useTranslation()
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
-  const { openModal } = useSubscriberServicesModalStore(store => store)
+  const { openModal, setId } = useSubscriberServicesModalStore(store => store)
 
   const editHandler = () => {
-    navigate(pathname + '?edit=' + id)
+    setId(id)
     openModal()
   }
 
