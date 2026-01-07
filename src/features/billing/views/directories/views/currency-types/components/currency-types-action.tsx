@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next'
 // import HierarchyIcon from '@/components/icons/hierarchy'
 // import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
-import { useLocation, useNavigate } from 'react-router'
 // import { deleteOperatorCommission } from '../../../api/getOperatorCommissions'
 import useCurrencyTypesModalStore from '../../../store/currency-types-modal-store copy'
 // import { deleteCurrencyType } from '../../../api/getCurrencyTypes'
@@ -18,12 +17,10 @@ interface IProps {
 
 const CurrencyTypesTableAction: FC<IProps> = ({ id }) => {
   const { t } = useTranslation()
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
-  const { openModal } = useCurrencyTypesModalStore(store => store)
+  const { openModal , setId} = useCurrencyTypesModalStore(store => store)
   const editHandler = () => {
-    navigate(pathname + '?edit=' + id)
     openModal()
+    setId(id)
   }
   // const openDrawer = () => {
   //   navigate(pathname + '?id=' + id)

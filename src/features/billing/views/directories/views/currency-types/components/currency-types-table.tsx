@@ -18,7 +18,7 @@ const CurrencyTypesTable = ({
 
   const columns: TableColumnsType<ICurrencyTypes | any> = [
     {
-      title: 'ID',
+      title: '№',
       dataIndex: 'id',
       className: 'text-center',
       width: 39,

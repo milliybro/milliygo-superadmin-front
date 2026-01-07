@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import { Modal, Form, Input, Button, Space } from 'antd'
@@ -18,17 +17,13 @@ import { BillingInputNumber } from '@/features/billing/components/billingInputNu
 type FormValues = Pick<ICurrencies, 'currencyTypeId' | 'rate'>
 const CurrencyModal = () => {
   const { t } = useTranslation()
-  const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
   const queryClient = useQueryClient()
-  const { pathname } = useLocation()
-  const { isModalOpen, closeModal } = useCurrenciesModalStore(state => state)
+  const { isModalOpen, closeModal , id:isEdit ,clearId} = useCurrenciesModalStore(state => state)
 
   const { openNotify, notificationPlace, notify } = useNotify()
 
   const [form] = Form.useForm<FormValues>()
   const [formToShow] = Form.useForm<any>()
-  const isEdit = searchParams.get('edit')
 
   const { data: currencyTypes } = useQuery({
     queryKey: ['currency-types'],
@@ -60,7 +55,7 @@ const CurrencyModal = () => {
       }
 
       if (isEdit) {
-        return updateCurrency({ id: isEdit, queryParams: formattedValues })
+        return updateCurrency({ id: `${isEdit}`, queryParams: formattedValues })
       }
 
       return createCurrency(formattedValues)
@@ -85,7 +80,7 @@ const CurrencyModal = () => {
     form?.resetFields()
     formToShow?.resetFields()
     if (isEdit) {
-      navigate(pathname)
+      clearId()
     }
   }
 

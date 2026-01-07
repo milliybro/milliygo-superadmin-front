@@ -6,7 +6,6 @@ import ConfirmationModal from '@/components/ui/confirmation-modal'
 // import HierarchyIcon from '@/components/icons/hierarchy'
 import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
-import { useLocation, useNavigate } from 'react-router'
 import { deleteOperatorCommission } from '../../../api/getOperatorCommissions'
 import useOperatorCommissionModalStore from '../../../store/operator-commission-store'
 
@@ -17,11 +16,9 @@ interface IProps {
 
 const OperatorCommmissionsTableAction: FC<IProps> = ({ id, refetch }) => {
   const { t } = useTranslation()
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
-  const { openModal } = useOperatorCommissionModalStore(store => store)
+  const { openModal ,setId } = useOperatorCommissionModalStore(store => store)
   const editHandler = () => {
-    navigate(pathname + '?edit=' + id)
+    setId(id)
     openModal()
   }
   // const openDrawer = () => {

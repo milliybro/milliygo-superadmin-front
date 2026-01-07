@@ -4,12 +4,18 @@ interface ModalStore {
   isModalOpen: boolean
   openModal: () => void
   closeModal: () => void
+  id: number | null
+  setId: (id: number) => void
+  clearId: () => void
 }
 
 const useCurrencyTypesModalStore = create<ModalStore>(set => ({
   isModalOpen: false,
   openModal: () => set({ isModalOpen: true }),
   closeModal: () => set({ isModalOpen: false }),
+  id: null,
+  setId: id => set({ id }),
+  clearId: () => set({ id: null })
 }))
 
 export default useCurrencyTypesModalStore

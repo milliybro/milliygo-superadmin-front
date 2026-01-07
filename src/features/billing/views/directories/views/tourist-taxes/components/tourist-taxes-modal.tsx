@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { Modal, Form, Input, Button, DatePicker } from 'antd'
 import CSelect from '@/components/ui/select'
@@ -16,14 +15,10 @@ type FormValues = Omit<ITouristTaxes, 'id'>
 
 const TouristTaxesModal = () => {
   const { t } = useTranslation()
-  const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
-  const { isModalOpen, closeModal } = useTouristTaxesStore(state => state)
+  const { isModalOpen, closeModal , id: isEdit , clearId} = useTouristTaxesStore(state => state)
   const { openNotify, notificationPlace, notify } = useNotify()
   const [form] = Form.useForm<FormValues>()
   const queryClient = useQueryClient()
-  const isEdit = searchParams.get('edit')
 
   const { data } = useQuery({
     queryKey: ['tourist-tax', isEdit],
@@ -47,7 +42,7 @@ const TouristTaxesModal = () => {
 
       if (isEdit) {
         return updateTouristTax({
-          id: isEdit,
+          id: `${isEdit}`,
           queryParams: formattedValues,
         })
       }
@@ -69,7 +64,7 @@ const TouristTaxesModal = () => {
     closeModal()
     form.resetFields()
     if (isEdit) {
-      navigate(pathname)
+      clearId()
     }
   }
 
@@ -83,8 +78,8 @@ const TouristTaxesModal = () => {
         roomsTo: data?.roomsTo,
         rate: data?.rate,
         status: data?.status,
-        actualFrom: dayjs(data?.actualFrom),
-        actualTo: dayjs(data?.actualTo),
+        actualFrom: data?.actualFrom && dayjs(data?.actualFrom),
+        actualTo: data?.actualTo && dayjs(data?.actualTo),
         rateType: data?.rateType,
         description: data?.description,
       })
@@ -126,32 +121,32 @@ const TouristTaxesModal = () => {
         >
           <div className="flex h-[530px] flex-col gap-2 overflow-y-auto px-2 mb-4">
             <Form.Item
-              label={t('name')}
+              label={t('fields.name.label')}
               name="name"
               style={{ width: '100%' }}
               rules={[
                 {
                   required: true,
-                  message: t('name'),
+                  message: t('fields.name.required'),
                 },
               ]}
             >
-              <Input className="select-shadow" placeholder={t('name')} />
+              <Input className="select-shadow" placeholder={t('fields.name.placeholder')} />
             </Form.Item>
 
               <Form.Item
-                label={t('Тип размещения')}
+                label={t('fields.placeType.label')}
                 name="placeType"
                 style={{ width: '100%' }}
                 rules={[
                   {
                     required: true,
-                    message: t('fields.gender.validation-message-required'),
+                    message: t('fields.placeType.error'),
                   },
                 ]}
               >
                 <CSelect
-                  placeholder={t('Выберите')}
+                  placeholder={t('fields.placeType.placeholder')}
                   className="select-shadow"
                   options={[
                     { label: t('HOTEL'), value: 'HOTEL' },
@@ -176,14 +171,14 @@ const TouristTaxesModal = () => {
                 rules={[
                   {
                     required: true,
-                    message: t('fields.gender.validation-message-required'),
+                    message: t('fields.roomsFrom.error'),
                   },
                 ]}
               >
                 <Input
                   type="number"
                   className="select-shadow"
-                  placeholder={t('Введите')}
+                  placeholder={t('fields.rate.placeholder')}
                 />
               </Form.Item>
               <Form.Item
@@ -193,30 +188,30 @@ const TouristTaxesModal = () => {
                 rules={[
                   {
                     required: false,
-                    message: t('fields.gender.validation-message-required'),
+                    message: t('fields.roomsTo.error'),
                   },
                 ]}
               >
                 <Input
                   type="number"
                   className="select-shadow"
-                  placeholder={t('Введите')}
+                  placeholder={t('fields.rate.placeholder')}
                 />
               </Form.Item>
             </div>
             <Form.Item
-              label={t('rateType')}
+              label={t('fields.calculationType.label')}
               name="rateType"
               style={{ width: '100%' }}
               rules={[
                 {
                   required: true,
-                  message: t('fields.middle_name.validation-message-required'),
+                  message: t('fields.calculationType.error'),
                 },
               ]}
             >
               <CSelect
-                placeholder={t('Выберите')}
+                placeholder={t('fields.calculationType.placeholder')}
                 className="select-shadow"
                 options={[
                   {
@@ -231,35 +226,35 @@ const TouristTaxesModal = () => {
               />
             </Form.Item>
             <Form.Item
-              label={t('rate')}
+              label={t('fields.amount.label')}
               name="rate"
               style={{ width: '100%' }}
               rules={[
                 {
                   required: true,
-                  message: t('fields.middle_name.validation-message-required'),
+                  message: t('fields.amount.error'),
                 },
               ]}
             >
               <Input
                 type="number"
                 className="select-shadow"
-                placeholder={t('Введите')}
+                placeholder={t('fields.amount.placeholder')}
               />
             </Form.Item>
             <Form.Item
-              label={t('citizenship')}
+              label={t('fields.citizenship.label')}
               name="citizenship"
               style={{ width: '100%' }}
               rules={[
                 {
                   required: true,
-                  message: t('fields.gender.validation-message-required'),
+                  // message: t('fields.citizenship.error'),
                 },
               ]}
             >
               <CSelect
-                placeholder={t('Выберите')}
+                placeholder={t('fields.currency-type.placeholder')}
                 className="select-shadow"
                 options={[
                   {
@@ -275,7 +270,7 @@ const TouristTaxesModal = () => {
             </Form.Item>
             <div className="flex items-center gap-2">
               <Form.Item
-                label={t('actualFrom')}
+                label={t('fields.periodFrom.label')}
                 name="actualFrom"
                 style={{ width: '50%' }}
                 rules={[
@@ -288,24 +283,24 @@ const TouristTaxesModal = () => {
                 <DatePicker
                   format={'DD-MM-YYYY'}
                   style={{ width: '100%' }}
-                  placeholder="Выберите"
+                  placeholder={t('fields.periodFrom.placeholder')}
                 />
               </Form.Item>
               <Form.Item
-                label={t('actualTo')}
+                label={t('fields.periodTo.label')}
                 name="actualTo"
                 style={{ width: '50%' }}
                 rules={[
                   {
                     required: false,
-                    message: t('fields.gender.validation-message-required'),
+                    message: t('fields.periodTo.error'),
                   },
                 ]}
               >
                 <DatePicker
                   format={'DD-MM-YYYY'}
                   style={{ width: '100%' }}
-                  placeholder="Выберите"
+                  placeholder={t('fields.periodTo.placeholder')}
                 />
               </Form.Item>
             </div>

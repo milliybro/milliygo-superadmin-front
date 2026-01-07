@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { Modal, Form, Button, Input, Flex, Typography } from 'antd'
 import CSelect from '@/components/ui/select'
@@ -17,23 +16,19 @@ import { createOperatorCommission, getOperatorCommission, updateOperatorCommissi
 type FormValues = Omit<IOperatorCommissions, 'id'>
 const OperatorCommissionModal = () => {
   const { t } = useTranslation()
-  const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
-  const { isModalOpen, closeModal } = useOperatorCommissionModalStore(
+  const { isModalOpen, closeModal , id:isEdit, clearId } = useOperatorCommissionModalStore(
     state => state,
   )
   const queryClient = useQueryClient()
   const { openNotify, notificationPlace, notify } = useNotify()
 
   const [form] = Form.useForm<FormValues>()
-  const isEdit = searchParams.get('edit')
 
   const closeHandler = () => {
     closeModal()
     form.resetFields()
     if (isEdit) {
-      navigate(pathname)
+      clearId()
     }
   }
 
@@ -79,7 +74,7 @@ const OperatorCommissionModal = () => {
 
       if (isEdit) {
         return updateOperatorCommission({
-          id: isEdit,
+          id: `${isEdit}`,
           queryParams: formattedValues,
         })
       }

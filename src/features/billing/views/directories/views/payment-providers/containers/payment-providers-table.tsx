@@ -19,7 +19,7 @@ const PaymentProvidersTable = ({
 
   const columns: TableColumnsType<IPaymentProviders | any> = [
     {
-      title: 'ID',
+      title: '№',
       dataIndex: 'id',
       className: 'text-center',
       width: 39,

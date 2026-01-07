@@ -19,7 +19,7 @@ const TouristTaxesTable = ({
 
   const columns: TableColumnsType<ITouristTaxes | any> = [
     {
-      title: 'ID',
+      title: '№',
       dataIndex: 'id',
       className: 'text-center',
       width: 39,
@@ -28,34 +28,34 @@ const TouristTaxesTable = ({
       sorter: false,
     },
     {
-      title: 'name',
+      title: t('fields.name.label'),
       dataIndex: 'name',
       sorter: false,
       width: 345,
     },
     {
-      title: 'placeType',
+      title: t('fields.placeType.label'),
       dataIndex: 'placeType',
       sorter: false,
       width: 345,
       className: 'text-center',
     },
     {
-      title: t('rateType'),
+      title: t('fields.calculationType.label'),
       dataIndex: 'rateType',
       sorter: false,
       width: 345,
       className: 'text-center',
     },
     {
-      title: t('rate'),
+      title: t('fields.amount.label'),
       dataIndex: 'rate',
       sorter: false,
       width: 345,
       className: 'text-center',
     },
     {
-      title: t('citizenship'),
+      title: t('fields.citizenship.label'),
       dataIndex: 'citizenship',
       sorter: false,
       width: 345,

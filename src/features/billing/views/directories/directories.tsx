@@ -33,6 +33,7 @@ function Directories() {
     {
       key: 'tax-rates',
       label: t('billing.directories.tax-rates'),
+      disabled: true,
     },
     {
       key: 'tourist-taxes',
@@ -45,6 +46,7 @@ function Directories() {
     {
       key: 'payments-types',
       label: t('billing.directories.payments-types'),
+      disabled: true,
     },
     {
       key: 'operator-commissions',
@@ -65,6 +67,7 @@ function Directories() {
             key: tab.key,
             label: tab.label,
             children: <Outlet />,
+            disabled: tab.disabled,
           }))}
           activeKey={pathname.split('/').pop()}
           onChange={key =>

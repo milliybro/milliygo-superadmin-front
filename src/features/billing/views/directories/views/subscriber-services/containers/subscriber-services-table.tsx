@@ -19,7 +19,7 @@ const SubscriberServicesTable = ({
 
   const columns: TableColumnsType<ISubscriberServices | any> = [
     {
-      title: 'ID',
+      title: '№',
       dataIndex: 'id',
       className: 'text-center',
       width: 39,
