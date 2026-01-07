@@ -67,6 +67,19 @@ export async function getHotelDetail(
   return res
 }
 
+export async function getPlacementsDetail(
+  id: number,
+  params?: any,
+): Promise<ListResponse<IHotelDetail[]>> {
+  const res: ListResponse<IHotelDetail[]> = await request({
+    url: `/placements/list/${id}/`,
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
 export async function getHotelGuests(
   params?: any,
   id?: number,
@@ -108,6 +121,32 @@ export async function getHotelDetailReview(
 export async function getHotelDetailRooms(params?: any): Promise<IHotelsRoom> {
   const res: IHotelsRoom = await request({
     url: `/superadmin/placements/rooms/`,
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
+export async function getPlacementDetailReview(
+  params?: any,
+  id?: number,
+): Promise<ListResponse<IHotelsItemReview[]>> {
+  const res: ListResponse<IHotelsItemReview[]> = await request({
+    url: `/placements/list/${id}/reviews/`,
+    method: 'get',
+    params,
+  })
+
+  return res
+}
+
+export async function getPlacementDetailRooms(
+  id?: string,
+  params?: any,
+): Promise<IHotelsRoom> {
+  const res: IHotelsRoom = await request({
+    url: `/placements/list/${id}/rooms/`,
     method: 'get',
     params,
   })
