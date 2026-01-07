@@ -877,7 +877,10 @@
     "guest-houses": "Меҳмон уйлари",
     "sanatoriums": "Санаторийлар",
     "hostel": "Хостел",
-    "all-status": "Барча ҳолатлар"
+    "all-status": "Барча ҳолатлар",
+    "guest-name": "Mehmonning исми",
+    "guest-comment": "Mehmon izohi",
+    "owner-response": "Эгасидан жавоб"
   },
   "travel-agencies": {
     "name-agencies": "Туристик агентлик номи",

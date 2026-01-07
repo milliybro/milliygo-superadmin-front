@@ -8,9 +8,7 @@ import { formatAmount } from '@/helpers/format-amount'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { useParams, useSearchParams } from 'react-router'
-import { getHotelDetailRooms } from '../api'
-import FacilitiesCell from '../components/facilities-cell'
-import StatusRoomsTag from '../components/rooms-status-tag'
+import { getPlacementDetailRooms } from '../api'
 import { IHotelsRoom } from '../types'
 
 // interface IHotelDetailRooms {
@@ -39,79 +37,84 @@ const PlacementsItemRooms = () => {
   const lang = localStorage.getItem('i18nextLng')
 
   const { data: HotelDetailRoom } = useQuery({
-    queryKey: ['hotels-detail-rooms', id, lang],
+    queryKey: ['hotels-detail-rooms', id, lang, currentPage],
     queryFn: async () => {
       if (!id) throw new Error('ID is required')
-      const res = await getHotelDetailRooms({
-        page_size: 10,
+
+      return getPlacementDetailRooms(id, {
+        page_size: pageSize,
         page: currentPage,
-        placement_id: id,
-        ...(type === 'management' ? { tenant_id: tenant_id } : {}),
-        type: type,
+        ...(type === 'management' ? { tenant_id } : {}),
+        type,
       })
-      return res
     },
     enabled: !!id,
   })
 
+  // const dataStructure = {
+  //   count: 1,
+  //   next: null,
+  //   previous: null,
+  //   results: [
+  //     {
+  //       name: '103',
+  //       room_name: 'Standart Single',
+  //       _schema: 'itmucj0343',
+  //       tariffs:
+  //         '[{"price": 400000.000, "room_tarif_name": "Стандартный одноместный номер"}]',
+  //       images: [
+  //         'https://file.sayohat.uz/buckets/itmucj0343/management-bucket/files/82c90ae82efd4b2eb147ef98c92aed39.webp',
+  //         'https://file.sayohat.uz/buckets/itmucj0343/management-bucket/files/c138317d0a33449688b844612b2a2627.webp',
+  //         'https://file.sayohat.uz/buckets/itmucj0343/management-bucket/files/55c07b650b8a43b0919661fa0ea16090.webp',
+  //       ],
+  //     },
+  //   ],
+  // }
+
   const columns: TableColumnsType<IHotelsRoom> = [
     {
-      title: 'ID',
-      dataIndex: 'id',
+      title: '№',
+      render: (_, __, index) => (currentPage - 1) * pageSize + index + 1,
       className: 'text-center',
-      sorter: false,
-      render: (_text, _record, index) =>
-        (currentPage - 1) * pageSize + index + 1,
+    },
+    {
+      title: 'placements.room-number',
+      dataIndex: 'name',
+      render: val => (
+        <span className="text-sm font-medium text-primary-dark">{val}</span>
+      ),
     },
     {
       title: 'common.type-number',
       dataIndex: 'room_name',
-      sorter: false,
-      render: (_, val: any) => (
+      render: (_, record: any) => (
         <div className="flex items-center gap-[10px]">
-          {val?.room_images?.length > 0 ? (
+          {record?.images?.length > 0 ? (
             <Image
               width={48}
               height={48}
               className="rounded-[8px] object-cover"
-              src={val?.room_images}
+              src={record.images[0]}
             />
           ) : (
             <span className="flex h-12 w-12 items-center justify-center rounded-lg bg-slate-100">
               <BedSingleIcon />
             </span>
           )}
-
-          <span className="text-sm font-medium text-primary-dark">{_}</span>
+          <span className="text-sm font-medium text-primary-dark">
+            {record.room_name}
+          </span>
         </div>
       ),
+    },
+    {
+      title: 'placements.tariff-name',
+      dataIndex: 'tariff_name',
     },
     {
       title: 'common.price-night',
-      dataIndex: 'prices',
-      sorter: false,
-      render: val => (
-        <div>
-          {val.map((val: any, i: number) => (
-            <div key={i} className="py-1 text-sm font-medium text-[#232E40]">
-              {val === 0 ? 0 : formatAmount(val?.price)} {t('common.sum')}{' '}
-              {val?.tarif !== '' ? `(${val?.tarif})` : ''}
-            </div>
-          ))}
-        </div>
-      ),
-    },
-    {
-      title: 'common.convenience',
-      dataIndex: 'facilities',
-      sorter: false,
-      render: (val, record) => <FacilitiesCell val={val} rowKey={record.key} />,
-    },
-    {
-      title: 'fields.status.label',
-      dataIndex: 'status',
-      sorter: false,
-      render: record => <StatusRoomsTag status={record || 'defaultStatus'} />,
+      dataIndex: 'price',
+      render: val => `${formatAmount(val)} UZS`,
     },
   ]
 
@@ -148,18 +151,18 @@ const PlacementsItemRooms = () => {
     return originalElement
   }
 
-  const transformHotelDetailsToTableData = (data: any): any => {
-    return data.map((item: any, index: any) => {
-      const { id } = item
+  const transformHotelDetailsToTableData = (data: any) => {
+    return data?.results?.map((item: any, index: number) => {
+      const parsedTariff = item?.tariffs ? JSON.parse(item.tariffs)[0] : null
+
       return {
         key: index,
-        id: id,
+        id: index + 1,
+        name: item?.name,
         room_name: item?.room_name,
-        room_images: item?.room_images[0]?.image,
-        name: item?.room_name,
-        prices: item?.prices || 0,
-        status: item?.status === 'True',
-        facilities: item?.facilities,
+        images: item?.images || [],
+        tariff_name: parsedTariff?.room_tarif_name ?? '-',
+        price: parsedTariff?.price ?? 0,
       }
     })
   }

@@ -14,7 +14,7 @@ import StatusTag from '@/components/ui/status-tag'
 import HotelIcon from '@/components/icons/hotel'
 import formatDate from '@/features/clients/components/format-date'
 
-import { getHotelDetail } from '../api'
+import { getPlacementsDetail } from '../api'
 import PlacementsItemContent from '../containers/placements-item-content'
 import PlacementsItemReviews from '../containers/placements-item-table'
 import PlacementsItemRooms from '../containers/placements-item-rooms'
@@ -48,12 +48,11 @@ const PlacementsItem = () => {
     queryKey: ['hotels-detail', id, tenant_id, lang],
     queryFn: async () => {
       if (!id) throw new Error('ID is required')
-      const res = await getHotelDetail({
-        tenant_id,
-        id,
-        type: tenant_id ? 'management' : 'site',
-      })
-      return res
+
+      return getPlacementsDetail(
+        Number(id),
+        // tenant_id ? { type: 'management' } : { type: 'site' },
+      )
     },
     enabled: !!id,
   })
@@ -69,7 +68,7 @@ const PlacementsItem = () => {
       setBreadCrumbs([
         { title: t('common.main'), href: ROUTE_PATHS.MAIN },
         { title: t('common.hotels'), href: ROUTE_PATHS.HOTELS },
-        { title: data?.placement_detail?.name ?? t('common.unknown') },
+        { title: data?.name ?? t('common.unknown') },
       ])
     }
   }, [data, t])
@@ -83,7 +82,7 @@ const PlacementsItem = () => {
     {
       key: '2',
       label: 'common.reviews',
-      children: <PlacementsItemReviews data={data?.placement_detail?.id} />,
+      children: <PlacementsItemReviews data={data} />,
     },
     {
       key: '3',
@@ -106,7 +105,7 @@ const PlacementsItem = () => {
     <div className="overflow-y-auto">
       <div className="flex flex-1 flex-col gap-6 p-6">
         <div className="text-2xl font-semibold text-primary-dark">
-          {data?.placement_detail?.name}
+          {data?.name}
         </div>
 
         <div className="grid grid-cols-12 gap-4">
@@ -123,10 +122,10 @@ const PlacementsItem = () => {
           <div className="sticky top-6 col-span-3 flex h-fit flex-col gap-6 overflow-hidden rounded-[16px] border border-border bg-gradient-to-b from-[#14B8A61A] from-0% to-white to-35% p-6">
             <div className="flex flex-col items-center justify-center gap-[14px]">
               <div className="size-[108px] overflow-hidden rounded-[8px] border border-border bg-secondary-light">
-                {data?.placement_images[0]?.image ? (
+                {data?.image ? (
                   <img
-                    src={data?.placement_images[0]?.image}
-                    alt={data?.placement_detail?.name}
+                    src={data?.image}
+                    alt={data?.name}
                     className="h-[108px] w-[108px] object-cover"
                   />
                 ) : (
@@ -136,12 +135,12 @@ const PlacementsItem = () => {
                 )}
               </div>
               <span className="text-lg font-semibold text-primary-dark">
-                {data?.placement_detail?.name}
+                {data?.name}
               </span>
               <div className="flex items-center gap-2">
-                <StatusTag active={data?.placement_detail?.status || false} />
+                <StatusTag active={data?.status || false} />
                 <RatingTag
-                  value={data?.placement_detail?.avg_rating || 0}
+                  value={data?.avg_rating || 0}
                   icon
                 />
               </div>
