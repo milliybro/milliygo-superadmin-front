@@ -188,11 +188,11 @@ const OperatorCommissionModal = () => {
                 className="select-shadow"
                 options={[
                   {
-                    label: t('PERCENTAGE'),
+                    label:t('billing.calculation-type.percentage'),
                     value: 'PERCENTAGE',
                   },
                   {
-                    label: t('FIXED'),
+                    label: t('billing.calculation-type.fixed'),
                     value: 'FIXED',
                   },
                 ]}

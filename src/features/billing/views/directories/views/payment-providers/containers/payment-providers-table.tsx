@@ -40,6 +40,7 @@ const PaymentProvidersTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
+      render: (providerType: string) => t(`billing.provider-type.${providerType.toLowerCase()}`),
     },
     {
       title: t('code'),
@@ -70,6 +71,7 @@ const PaymentProvidersTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
+      render: (calculationType: string) => t(`billing.calculation-type.${calculationType.toLowerCase()}`),
     },
     {
       title: 'fields.commissionRate.label',

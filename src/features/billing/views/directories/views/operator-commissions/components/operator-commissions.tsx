@@ -35,6 +35,7 @@ const OperatorCommmissionsTable = ({
       dataIndex: 'calculationType',
       sorter: false,
       width: 345,
+      render: (calculationType: string) => t(`billing.calculation-type.${calculationType.toLowerCase()}`),
     },
     {
       title: t('fields.amount.label'),

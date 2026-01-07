@@ -171,11 +171,11 @@ const PaymentProvidersModal = () => {
                   className="select-shadow"
                   options={[
                     {
-                      label: t('LOCAL'),
+                      label: t('billing.provider-type.local'),
                       value: 'LOCAL',
                     },
                     {
-                      label: t('INTERNATIONAL'),
+                      label: t('billing.provider-type.international'),
                       value: 'INTERNATIONAL',
                     },
                   ]}
@@ -260,11 +260,11 @@ const PaymentProvidersModal = () => {
                 className="select-shadow"
                 options={[
                   {
-                    label: t('PERCENTAGE'),
+                    label: t('billing.calculation-type.percentage'),
                     value: 'PERCENTAGE',
                   },
                   {
-                    label: t('FIXED'),
+                    label: t('billing.calculation-type.fixed'),
                     value: 'FIXED',
                   },
                 ]}

@@ -997,6 +997,18 @@
       "subscriber-services": "Abonent xizmatlari narxlari",
       "payments-types": "To‘lov turlari",
       "operator-commissions": "Operator komissiyalari"
+    },
+    "calculation-type": {
+      "fixed": "Belgilangan (qat’iy)",
+      "percentage": "Foizli"
+    },
+    "citizenship": {
+     "local": "Mahalliy fuqaro",
+    "foreign": "Chet el fuqarosi"
+   },
+    "provider-type":{
+      "local": "Mahalliy provayder",
+      "international": "Xalqaro provayder"
     }
   },
   "tourists": {
