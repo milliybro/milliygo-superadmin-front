@@ -170,18 +170,7 @@ const PlacementsTable = () => {
       title: isCompact ? '' : t('common.action'),
       render: id => (
         <CompactViewButton
-          onClick={() =>
-            navigate(
-              pathname +
-                '/' +
-                id +
-                '?' +
-                (id !== undefined ? 'tenant_id=' + id + '&' : '') +
-                (queries?.type__key !== undefined
-                  ? 'type=' + queries?.type__key
-                  : ''),
-            )
-          }
+          onClick={() => navigate(pathname + '/' + id + '/')}
         />
       ),
     },

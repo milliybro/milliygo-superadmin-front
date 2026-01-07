@@ -933,7 +933,12 @@
     "guest-houses": "Гостевые дома",
     "sanatoriums": "Санатории",
     "hostel": "Хостел",
-    "all-status": "Все статусы"
+    "all-status": "Все статусы",
+    "guest-name": "Имя гостя",
+    "guest-comment": "Комментарий от гостя",
+    "owner-response": "Ответ от владельца",
+    "room-number": "Номер комнаты",
+    "tariff-name": "Названия тарифа"
   },
   "travel-agencies": {
     "name-agencies": "Название туристического агентства",

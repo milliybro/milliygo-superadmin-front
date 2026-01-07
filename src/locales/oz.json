@@ -930,7 +930,12 @@
     "guest-houses": "Mehmon uylari",
     "sanatoriums": "Sanatoriyalar",
     "hostel": "Xostel",
-    "all-status": "Barcha holatlar"
+    "all-status": "Barcha holatlar",
+    "guest-name": "Mehmonning ismi",
+    "guest-comment": "Mehmon izohi",
+    "owner-response": "Egasidan javob",
+    "room-number": "Xona raqami",
+    "tariff-name": "Tarif nomlari"
   },
   "travel-agencies": {
     "name-agencies": "Sayyohlik agentligining nomi",

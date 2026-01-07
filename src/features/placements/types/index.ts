@@ -62,7 +62,11 @@ interface IHotelsItemReview {
   name: string
   date: string
   review: string
+  owner_response: string
   rating: number
+  start_date: any
+  end_date: any
+  fullname: string
 }
 
 interface IHotelsRoom {
