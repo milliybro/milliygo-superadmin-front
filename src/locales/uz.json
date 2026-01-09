@@ -1000,6 +1000,18 @@
       "subscriber-services": "Абонент хизматлари нархлари",
       "payments-types": "Тўлов турлари",
       "operator-commissions": "Оператор комиссиялари"
+    },
+    "calculation-type": {
+      "fixed": "Белгиланган (қатъий)",
+      "percentage": "Фоизли"
+    },
+    "citizenship": {
+      "local": "Маҳаллий фуқаро",
+      "foreign": "Чет эл фуқароси"
+    },
+    "provider-type":{
+      "local": "Маҳаллий провайдер",
+      "international": "Халқаро провайдер"
     }
   },
   "tourists": {

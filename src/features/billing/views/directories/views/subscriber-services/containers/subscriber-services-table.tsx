@@ -33,6 +33,7 @@ const SubscriberServicesTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
+      render: (calculationType: string) => t(`billing.calculation-type.${calculationType.toLowerCase()}`),
     },
     {
       title: t('fields.amount.label'),

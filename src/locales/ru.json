@@ -1004,6 +1004,18 @@
       "subscriber-services": "Прейскурант абонентских услуг",
       "payments-types": "Виды платежей",
       "operator-commissions": "Комиссии операторов"
+    },
+    "calculation-type": {
+      "fixed": "Фиксированный",
+      "percentage": "Процентный"
+    },
+    "citizenship": {
+     "local": "Гражданин страны",
+     "foreign": "Иностранный гражданин"
+    },
+    "provider-type":{
+      "local": "Местный провайдер",
+      "international": "Международный провайдер"
     }
   },
   "tourists": {
