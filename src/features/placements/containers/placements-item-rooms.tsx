@@ -81,7 +81,7 @@ const PlacementsItemRooms = () => {
       title: 'placements.room-number',
       dataIndex: 'name',
       render: val => (
-        <span className="text-sm font-medium text-primary-dark">{val}</span>
+        <span className="text-sm font-medium text-primary-dark">№{val}</span>
       ),
     },
     {

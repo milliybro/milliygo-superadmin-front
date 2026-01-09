@@ -26,7 +26,7 @@ import CustomLineChart from '@/components/ui/chart/custom-line-chart'
 
 const InboundTourism = () => {
   const { t } = useTranslation()
-  const currentYear = dayjs().year() - 1
+  const currentYear = dayjs().year() - 2
   const [year, setYear] = useState(currentYear)
   const [selectedCountries, setSelectedCountries] = useState<string[]>([])
   const [params] = useSearchParams()
