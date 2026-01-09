@@ -17,7 +17,7 @@ import InfrastructureLoader from '../components/InfrastructureLoader'
 
 const StatisticsCompany = () => {
   const { t } = useTranslation()
-  const currentYear = dayjs().year() - 1
+  const currentYear = dayjs().year() - 2
   const [year, setYear] = useState(currentYear)
 
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)

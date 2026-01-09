@@ -6,13 +6,13 @@ import RatingTag from '@/components/ui/rating-tag'
 import CallIcon from '@/components/icons/call-icon'
 import { ReactNode } from 'react'
 import LoginIcon from '@/components/icons/login-icon'
-import LogoutIcon from '@/components/icons/login-icon'
 import BedSingleIcon from '@/components/icons/bed-icon'
 import UserOutlinedIcon from '@/components/icons/user-circle-icon'
 import PawPrintIcon from '@/components/icons/paw-icon'
 import CardIcon from '@/components/icons/card-icon'
 import HotelIcon from '@/components/icons/hotel'
 import ArrowUpRightIcon from '@/components/icons/arrow-up-right'
+import LogoutIcon from '@/components/icons/log-out-icon'
 
 interface DataType {
   key: any
@@ -95,22 +95,22 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
     {
       key: '1',
       price: t('hotels-page.check-in.title'),
-      icon: <LoginIcon className="w-[18px]" />,
+      icon: <LoginIcon className="text-[24px]" />,
       conditions: (
         <Flex vertical gap={8}>
           {t('common.time-from', {
             value: formatTime(data?.checkin_start),
           })}
-          {/* <Typography.Text className="text-sm text-secondary">
+          <Typography.Text className="text-sm text-secondary">
             {t('hotels-page.check-in.desc')}
-          </Typography.Text> */}
+          </Typography.Text>
         </Flex>
       ),
     },
     {
       key: '2',
       price: t('hotels-page.check-out.title'),
-      icon: <LogoutIcon className="w-[18px]" />,
+      icon: <LogoutIcon className="text-[24px]" />,
       conditions: (
         <Flex vertical gap={8}>
           {t('common.time-to', {
@@ -122,7 +122,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
     {
       key: '3',
       price: t('hotels-page.bed-for-child.title'),
-      icon: <BedSingleIcon className="w-[18px]" />,
+      icon: <BedSingleIcon className="text-[24px]" />,
       conditions: (
         <Flex vertical gap={8}>
           <Typography.Text className="font-medium">
@@ -144,7 +144,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
     {
       key: '5',
       price: t('hotels-page.no-age.title'),
-      icon: <UserOutlinedIcon className="w-[18px]" />,
+      icon: <UserOutlinedIcon className="text-[24px]" />,
       conditions: (
         <Typography.Text className="text-sm text-secondary">
           {t('hotels-page.no-age.desc')}
@@ -154,7 +154,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
     {
       key: '6',
       price: t('hotels-page.pets.title'),
-      icon: <PawPrintIcon className="w-[18px]" />,
+      icon: <PawPrintIcon className="text-[24px]" />,
       conditions: (
         <Typography.Text className="text-sm text-secondary">
           {t('hotels-page.pets.desc')}
@@ -164,7 +164,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
     {
       key: '7',
       price: t('hotels-page.card.title'),
-      icon: <CardIcon className="w-[18px]" />,
+      icon: <CardIcon className="text-[24px]" />,
       conditions: (
         <Flex vertical gap={8}>
           <Flex gap={16}>
@@ -260,7 +260,11 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
                 key={item?.id}
                 className="flex items-center gap-2 text-base font-normal text-[#232E40]"
               >
-                <img className="w-6" src={item?.icon} alt="" />
+                <img
+                  className="w-6"
+                  src={item?.icon + '?mode=preview'}
+                  alt="i"
+                />
                 <Tooltip
                   title={item?.name}
                   color="white"
