@@ -20,7 +20,7 @@ import CustomLineChart from '@/components/ui/chart/custom-line-chart'
 
 const OutboundTourism = () => {
   const { t } = useTranslation()
-  const currentYear = dayjs().year() - 1
+  const currentYear = dayjs().year() - 2
   const [year, setYear] = useState(currentYear)
 
   const { setBreadCrumbs } = useBreadCrumbsStore(store => store)
