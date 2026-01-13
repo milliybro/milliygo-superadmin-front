@@ -13,12 +13,11 @@ import useNotify from '@/hooks/useNotify'
 import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
 import { mapToSelectOptions } from '@/features/billing/utils/mapToSelectOptions'
 import { createOperatorCommission, getOperatorCommission, updateOperatorCommission, } from '../../../api/getOperatorCommissions'
+import { CalculationType, ServiceType } from '@/features/billing/enums/enums'
 type FormValues = Omit<IOperatorCommissions, 'id'>
 const OperatorCommissionModal = () => {
   const { t } = useTranslation()
-  const { isModalOpen, closeModal , id:isEdit, clearId } = useOperatorCommissionModalStore(
-    state => state,
-  )
+  const { isModalOpen, closeModal, id: isEdit, clearId, } = useOperatorCommissionModalStore(state => state)
   const queryClient = useQueryClient()
   const { openNotify, notificationPlace, notify } = useNotify()
 
@@ -162,12 +161,12 @@ const OperatorCommissionModal = () => {
                 className="select-shadow"
                 options={[
                   {
-                    label: t('TOUR'),
-                    value: 'TOUR',
+                    label: t('billing.serviceType.TOUR'),
+                    value: ServiceType.TOUR,
                   },
                   {
-                    label: t('HOTEL'),
-                    value: 'HOTEL',
+                    label: t('billing.serviceType.HOTEL'),
+                    value: ServiceType.HOTEL,
                   },
                 ]}
               />
@@ -188,32 +187,47 @@ const OperatorCommissionModal = () => {
                 className="select-shadow"
                 options={[
                   {
-                    label:t('billing.calculation-type.percentage'),
-                    value: 'PERCENTAGE',
+                    label: t('billing.calculation-type.fixed'),
+                    value: CalculationType.FIXED,
                   },
                   {
-                    label: t('billing.calculation-type.fixed'),
-                    value: 'FIXED',
+                    label: t('billing.calculation-type.percentage'),
+                    value: CalculationType.PERCENTAGE,
                   },
                 ]}
               />
             </Form.Item>
-            <Form.Item
-              label={t('fields.amount.label')}
-              name="amount"
-              style={{ width: '100%' }}
-              rules={[
-                {
-                  required: true,
-                  message: t('fields.amount.error'),
-                },
-              ]}
-            >
-              <BillingInputNumber
-                placeholder={t('fields.amount.placeholder')}
-              />
+            <Form.Item shouldUpdate>
+              {({ getFieldValue }) => {
+                const type = getFieldValue('calculationType')
+                return (
+                  <Form.Item
+                    label={type === CalculationType.PERCENTAGE  ? t('fields.percentage.label')  :  t('fields.amount.label')}
+                    name="amount"
+                    style={{ width: '100%' }}
+                    rules={[
+                      {
+                        required: true,
+                        message:  t('fields.amount.error'),
+                      },
+                      {
+                        min: 0,
+                        max: type === CalculationType.PERCENTAGE ? 100 : undefined,
+                        message: type === CalculationType.PERCENTAGE ? t('fields.percentage.error',{ min: 0, max: 100 }) : '',
+                        type: 'number',
+                      },
+                    ]}
+                  >
+                    <BillingInputNumber
+                      addonAfter={type === CalculationType.PERCENTAGE ? '%' : undefined}
+                      placeholder={type === CalculationType.PERCENTAGE  ? t('fields.percentage.placeholder'): t('fields.amount.placeholder')}
+                    />
+                  </Form.Item>
+                )
+              }}
             </Form.Item>
-            <Typography.Title level={5} className='text-center mb-0 mt-2'>
+
+            <Typography.Title level={5} className="mb-0 mt-2 text-center">
               {t('fields.translates.label')}
             </Typography.Title>
             <Form.List name="translates">

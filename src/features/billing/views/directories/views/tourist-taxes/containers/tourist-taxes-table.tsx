@@ -6,6 +6,8 @@ import UsersNotFound from '@/features/users/components/users-not-found'
 import { ITouristTaxes } from '../../../types'
 import TouristTaxesTableAction from './tourist-taxes-table-action'
 import StatusTag from '@/components/ui/status-tag'
+import { CalculationType } from '@/features/billing/enums/enums'
+import { formatNumber } from '@/features/billing/utils/formatNumber'
 
 const TouristTaxesTable = ({
   data,
@@ -39,6 +41,7 @@ const TouristTaxesTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
+      render: (placeType: string) => t(`billing.placeType.${placeType}`),
     },
     {
       title: t('fields.calculationType.label'),
@@ -46,14 +49,17 @@ const TouristTaxesTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
-      render: (calculationType: string) => t(`billing.calculation-type.${calculationType.toLowerCase()}`),
+      render: (rateType: string) => t(`billing.calculation-type.${rateType.toLowerCase()}`),
     },
     {
-      title: t('fields.amount.label'),
+      title: `${t('fields.amount.label')} / ${t('fields.percentage.label')}`,
       dataIndex: 'rate',
       sorter: false,
       width: 345,
       className: 'text-center',
+      render: (value, data: any) => { 
+        return data?.rateType === CalculationType.PERCENTAGE ? `${value}%` :  formatNumber(value)
+      }
     },
     {
       title: t('fields.citizenship.label'),

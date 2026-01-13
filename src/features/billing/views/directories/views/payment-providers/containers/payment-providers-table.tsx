@@ -6,6 +6,8 @@ import UsersNotFound from '@/features/users/components/users-not-found'
 import StatusTag from '@/components/ui/status-tag'
 import { IPaymentProviders } from '../../../types'
 import PaymentProvidersTableAction from './payment-providers-table-action'
+import { CalculationType } from '@/features/billing/enums/enums'
+import { formatNumber } from '@/features/billing/utils/formatNumber'
 
 const PaymentProvidersTable = ({
   data,
@@ -43,7 +45,7 @@ const PaymentProvidersTable = ({
       render: (providerType: string) => t(`billing.provider-type.${providerType.toLowerCase()}`),
     },
     {
-      title: t('code'),
+      title: t('fields.provider-code.label'),
       dataIndex: 'code',
       sorter: false,
       width: 345,
@@ -74,14 +76,13 @@ const PaymentProvidersTable = ({
       render: (calculationType: string) => t(`billing.calculation-type.${calculationType.toLowerCase()}`),
     },
     {
-      title: 'fields.commissionRate.label',
+      title: `${t('fields.amount.label')} / ${t('fields.percentage.label')}`,
       dataIndex: 'commissionRate',
       sorter: false,
       width: 345,
       className: 'text-center',
-      render: value => {
-        return <span>{value}%</span>
-      },
+      render: (value, data: any) =>
+        data?.calculationType === CalculationType.PERCENTAGE ? `${value}%` : formatNumber(value),
     },
     {
       title: 'fields.minAmount.label',
@@ -89,9 +90,7 @@ const PaymentProvidersTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
-      render: value => {
-        return <span>{value?.toLocaleString('en-US')}</span>
-      },
+      render: value => formatNumber(value),
     },
     {
       title: 'fields.maxAmount.label',
@@ -99,9 +98,7 @@ const PaymentProvidersTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
-      render: value => {
-        return <span>{value?.toLocaleString('en-US')}</span>
-      },
+      render: value => formatNumber(value)
     },
     {
       title: t('fields.status.label'),

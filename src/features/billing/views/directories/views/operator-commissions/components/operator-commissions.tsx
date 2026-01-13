@@ -5,6 +5,8 @@ import { twMerge } from 'tailwind-merge'
 import UsersNotFound from '@/features/users/components/users-not-found'
 import { IOperatorCommissions } from '../../../types'
 import OperatorCommmissionsTableAction from './operator-commissions-action'
+import { CalculationType } from '@/features/billing/enums/enums'
+import { formatNumber } from '@/features/billing/utils/formatNumber'
 
 const OperatorCommmissionsTable = ({
   data,
@@ -29,6 +31,7 @@ const OperatorCommmissionsTable = ({
       dataIndex: 'serviceType',
       sorter: false,
       width: 345,
+      render: (serviceType: string) => t(`billing.serviceType.${serviceType}`),
     },
     {
       title: 'fields.calculationType.label',
@@ -38,18 +41,24 @@ const OperatorCommmissionsTable = ({
       render: (calculationType: string) => t(`billing.calculation-type.${calculationType.toLowerCase()}`),
     },
     {
-      title: t('fields.amount.label'),
+      title: `${t('fields.amount.label')} / ${t('fields.percentage.label')}`,
       dataIndex: 'amount',
       sorter: false,
       width: 345,
       align: 'center',
+      render: (value, data: any) => {
+
+        return data?.calculationType ===  CalculationType.PERCENTAGE ? `${value}%` :  formatNumber(value)
+      },
     },
     {
       width: 300,
       title: 'common.action',
       dataIndex: 'id',
       className: 'text-center',
-      render: id => <OperatorCommmissionsTableAction id={id} refetch={refetch} />,
+      render: id => (
+        <OperatorCommmissionsTableAction id={id} refetch={refetch} />
+      ),
     },
   ]
 
@@ -104,7 +113,10 @@ const OperatorCommmissionsTable = ({
   return (
     <div className="flex h-full flex-col items-center justify-center overflow-hidden bg-white">
       <Table<IOperatorCommissions>
-        columns={columns?.map(val => ({ ...val, title: t(val?.title as string), }))}
+        columns={columns?.map(val => ({
+          ...val,
+          title: t(val?.title as string),
+        }))}
         loading={isLoading}
         dataSource={transformedHotelsData}
         onChange={pagination => handlePaginationChange(pagination.current!)}
@@ -127,7 +139,6 @@ const OperatorCommmissionsTable = ({
           cancelSort: t('common.sort_cancel') ?? '',
         }}
         showSorterTooltip={false}
-        
       />
     </div>
   )

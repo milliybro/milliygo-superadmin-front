@@ -692,7 +692,17 @@
     "label": "Давргача",
     "placeholder": "Санани танланг",
     "error": "Илтимос, санани танланг"
-   }
+   },
+   "percentage": {
+    "label": "Фоиз",
+    "placeholder": "Фоизни киритинг",
+    "error": "Қиймат {{min}} ва {{max}} оралиғида бўлиши керак"
+  },
+      "provider-code": {
+      "label": "Провайдер коди",
+      "placeholder": "Танланг",
+      "error": "Провайдер кодини киритинг"
+    }
   },
   "tenant": {
     "tenant": "Тенант",
@@ -1012,6 +1022,22 @@
     "provider-type":{
       "local": "Маҳаллий провайдер",
       "international": "Халқаро провайдер"
+    },
+    "placeType":{
+        "HOTEL": "Меҳмонхона",
+        "HOUSEHOLDER": "Хонадон эгаси",
+        "HOSTEL": "Ётоқхона",
+        "GUEST_HOUSE": "Меҳмон уйи",
+        "APARTMENT": "Квартира",
+        "PRIVATE_HOUSE": "Хусусий уй",
+        "RESORT": "Дам олиш маскани",
+        "SANATORIUM": "Санаторий",
+        "CAMPING": "Кемпинг",
+        "ALL": "Барчаси"
+    },
+    "serviceType":{
+      "TOUR": "Саёҳат",
+      "HOTEL": "Меҳмонхона"
     }
   },
   "tourists": {
