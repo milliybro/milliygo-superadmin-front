@@ -6,6 +6,8 @@ import UsersNotFound from '@/features/users/components/users-not-found'
 import { ISubscriberServices } from '../../../types'
 import StatusTag from '@/components/ui/status-tag'
 import SubscriberServicesTableAction from './subscriber-services-table-action'
+import { CalculationType } from '@/features/billing/enums/enums'
+import { formatNumber } from '@/features/billing/utils/formatNumber'
 
 const SubscriberServicesTable = ({
   data,
@@ -36,13 +38,15 @@ const SubscriberServicesTable = ({
       render: (calculationType: string) => t(`billing.calculation-type.${calculationType.toLowerCase()}`),
     },
     {
-      title: t('fields.amount.label'),
+      title: `${t('fields.amount.label')} / ${t('fields.percentage.label')}`,
       dataIndex: 'amount',
       sorter: false,
       width: 345,
       className: 'text-center',
+       render: (value, data: any) => {
+        return data?.calculationType === CalculationType.PERCENTAGE ? `${value}%` : formatNumber(value)
+      },
     },
-
     {
       title: t('checkoutFrom'),
       dataIndex: 'checkoutFrom',

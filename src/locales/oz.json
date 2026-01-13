@@ -674,7 +674,17 @@
     "label": "Davrgacha",
     "placeholder": "Sanani tanlang",
     "error": "Iltimos, davr tanlang"
-  }
+  },
+  "percentage":{
+    "label": "Foiz",
+    "placeholder": "Foizni kiriting",
+    "error": "Qiymat {{min}} va {{max}} oralig‘ida bo‘lishi kerak"
+   },
+    "provider-code": {
+    "label": "Provayder kodi",
+    "placeholder": "Tanlang",
+    "error": "Provayder kodini kiriting"
+    }
   },
   "tenant": {
     "tenant": "Tenant",
@@ -1009,6 +1019,22 @@
     "provider-type":{
       "local": "Mahalliy provayder",
       "international": "Xalqaro provayder"
+    },
+    "placeType":{
+      "HOTEL": "Mehmonxona",
+      "HOUSEHOLDER": "Xonadon egasi",
+      "HOSTEL": "Yotoqxona",
+      "GUEST_HOUSE": "Mehmon uyi",
+      "APARTMENT": "Kvartira",
+      "PRIVATE_HOUSE": "Xususiy uy",
+      "RESORT": "Dam olish maskani",
+      "SANATORIUM": "Sanatoriy",
+      "CAMPING": "Kemping",
+      "ALL": "Barchasi"
+    },
+    "serviceType":{
+      "TOUR": "Sayohat",
+      "HOTEL": "Mehmonxona"
     }
   },
   "tourists": {

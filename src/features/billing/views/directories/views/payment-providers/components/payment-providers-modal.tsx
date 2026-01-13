@@ -13,6 +13,7 @@ import { IPaymentProviders } from '../../../types'
 import { mapToSelectOptions } from '@/features/billing/utils/mapToSelectOptions'
 import { getCurrencyTypesList } from '../../../api/getCurrencyTypes'
 import { BillingInputNumber } from '@/features/billing/components/billingInputNumber'
+import { CalculationType, ProviderCode, ProviderType } from '@/features/billing/enums/enums'
 type FormValues = Omit<IPaymentProviders, 'id'>
 
 const PaymentProvidersModal = () => {
@@ -145,7 +146,7 @@ const PaymentProvidersModal = () => {
                 style={{ width: '50%' }}
                 rules={[
                   {
-                    required: false,
+                    required: true,
                     message: t('fields.payment-providers.error'),
                   },
                 ]}
@@ -161,7 +162,7 @@ const PaymentProvidersModal = () => {
                 style={{ width: '50%' }}
                 rules={[
                   {
-                    required: false,
+                    required: true,
                     message: t('fields.providers-type.error'),
                   },
                 ]}
@@ -172,11 +173,11 @@ const PaymentProvidersModal = () => {
                   options={[
                     {
                       label: t('billing.provider-type.local'),
-                      value: 'LOCAL',
+                      value: ProviderType.LOCAL,
                     },
                     {
                       label: t('billing.provider-type.international'),
-                      value: 'INTERNATIONAL',
+                      value: ProviderType.INTERNATIONAL,
                     },
                   ]}
                 />
@@ -184,23 +185,23 @@ const PaymentProvidersModal = () => {
             </div>
 
             <Form.Item
-              label={t('code')}
+              label={t('fields.provider-code.label')}
               name="code"
               style={{ width: '100%' }}
               rules={[
                 {
-                  required: false,
-                  message: t('fields.integration-type.error'),
+                  required: true,
+                  message: t('fields.provider-code.error'),
                 },
               ]}
             >
               <CSelect
-                placeholder={t('fields.integration-type.placeholder')}
+                placeholder={t('fields.provider-code.placeholder')}
                 className="select-shadow"
                 options={[
                   {
                     label: t('CLICK'),
-                    value: 'CLICK',
+                    value: ProviderCode.CLICK,
                   },
                 ]}
               />
@@ -211,7 +212,7 @@ const PaymentProvidersModal = () => {
               style={{ width: '100%' }}
               rules={[
                 {
-                  required: false,
+                  required: true,
                   message: t('fields.supportedCurrencies.error'),
                 },
               ]}
@@ -250,7 +251,7 @@ const PaymentProvidersModal = () => {
               style={{ width: '100%' }}
               rules={[
                 {
-                  required: false,
+                  required: true,
                   message: t('fields.calculationType.error'),
                 },
               ]}
@@ -260,34 +261,46 @@ const PaymentProvidersModal = () => {
                 className="select-shadow"
                 options={[
                   {
-                    label: t('billing.calculation-type.percentage'),
-                    value: 'PERCENTAGE',
+                    label: t('billing.calculation-type.fixed'),
+                    value: CalculationType.FIXED,
                   },
                   {
-                    label: t('billing.calculation-type.fixed'),
-                    value: 'FIXED',
+                    label: t('billing.calculation-type.percentage'),
+                    value: CalculationType.PERCENTAGE,
                   },
                 ]}
               />
             </Form.Item>
-            <Form.Item
-              label={t('fields.commissionRate.label')}
-              name="commissionRate"
-              style={{ width: '100%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.commissionRate.error'),
-                },
-              ]}
-              
-            >
-              <Input
-                addonAfter="%"
-                type="number"
-                className="select-shadow"
-                placeholder={t('fields.commissionRate.placeholder')}
-              />
+ 
+             <Form.Item shouldUpdate>
+              {({ getFieldValue }) => {
+                const type = getFieldValue('calculationType')
+
+                return (
+                  <Form.Item
+                    label={type === CalculationType.PERCENTAGE  ? t('fields.percentage.label')  :  t('fields.amount.label')}
+                    name="commissionRate"
+                    style={{ width: '100%' }}
+                    rules={[
+                      {
+                        required: true,
+                        message:  t('fields.amount.error'),
+                      },
+                      {
+                        min: 0,
+                        max: type === CalculationType.PERCENTAGE ? 100 : undefined,
+                        message: type === CalculationType.PERCENTAGE ? t('fields.percentage.error',{ min: 0, max: 100 }) : '',
+                        type: 'number',
+                      },
+                    ]}
+                  >
+                    <BillingInputNumber
+                      addonAfter={type === CalculationType.PERCENTAGE ? '%' : undefined}
+                      placeholder={type === CalculationType.PERCENTAGE  ? t('fields.percentage.placeholder'): t('fields.amount.placeholder')}
+                    />
+                  </Form.Item>
+                )
+              }}
             </Form.Item>
             <div className="flex items-center gap-2">
               <Form.Item
@@ -323,8 +336,8 @@ const PaymentProvidersModal = () => {
               style={{ width: '100%' }}
               rules={[
                 {
-                  required: false,
-                  message: t('fields.gender.validation-message-required'),
+                  required: true,
+                  message: t('fields.status.validation-message-required'),
                 },
               ]}
             >

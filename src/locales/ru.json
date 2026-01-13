@@ -692,7 +692,17 @@
     "label": "Период по",
     "placeholder": "Выберите дату окончания",
     "error": "Пожалуйста, выберите дату окончания"
-  }
+  },
+   "percentage": {
+    "label": "Процент",
+    "placeholder": "Введите процент",
+    "error": "Значение должно быть в диапазоне от {{min}} до {{max}}"
+  },
+    "provider-code": {
+      "label": "Код провайдера",
+      "placeholder": "Выберите",
+      "error": "Введите код провайдера"
+    }
   },
   "tenant": {
     "tenant": "Тенант",
@@ -1016,6 +1026,22 @@
     "provider-type":{
       "local": "Местный провайдер",
       "international": "Международный провайдер"
+    },
+    "placeType":{
+      "HOTEL": "Гостиница",
+      "HOUSEHOLDER": "Домовладелец",
+      "HOSTEL": "Хостел",
+      "GUEST_HOUSE": "Гостевой дом",
+      "APARTMENT": "Квартира",
+      "PRIVATE_HOUSE": "Частный дом",
+      "RESORT": "Курорт",
+      "SANATORIUM": "Санаторий",
+      "CAMPING": "Кемпинг",
+      "ALL": "Все"
+    },
+    "serviceType":{
+      "TOUR": "Путешествие",
+      "HOTEL": "Гостиница"
     }
   },
   "tourists": {
