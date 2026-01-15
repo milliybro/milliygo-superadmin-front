@@ -702,8 +702,49 @@
       "label": "Код провайдера",
       "placeholder": "Выберите",
       "error": "Введите код провайдера"
-    }
-  },
+    },
+  "provider": {
+  "label": "Провайдер",
+  "placeholder": "Выберите",
+  "error": "Выберите провайдера"
+},
+"organization-type": {
+  "label": "Тип организации",
+  "placeholder": "Выберите тип организации",
+  "error": "Выберите тип организации"
+},
+"guide": {
+  "label": "Гид",
+  "placeholder": "Выберите гида",
+  "error": "Выберите гида"
+},
+"apartment": {
+  "label": "Апартамент",
+  "placeholder": "Выберите апартамент",
+  "error": "Выберите апартамент"
+},
+"placement": {
+  "label": "Расположение",
+  "placeholder": "Выберите расположение",
+  "error": "Выберите расположение"
+},
+"organisation": {
+  "label": "Организация",
+  "placeholder": "Выберите организацию",
+  "error": "Выберите организацию"
+},
+"parameterName": {
+  "label": "Название параметра",
+  "placeholder": "Введите название параметра",
+  "error": "Введите название параметра"
+},
+"parameter": {
+  "label": "Параметр",
+  "labels": "Параметры",
+  "placeholder": "Введите параметр",
+  "error": "Введите параметр"
+}
+},
   "tenant": {
     "tenant": "Тенант",
     "tenant-name": "Название тенант",
@@ -1013,7 +1054,8 @@
       "tourist-taxes": "Туристические сборы",
       "subscriber-services": "Прейскурант абонентских услуг",
       "payments-types": "Виды платежей",
-      "operator-commissions": "Комиссии операторов"
+      "operator-commissions": "Комиссии операторов",
+      "provider-contracts":"Договоры провайдера"
     },
     "calculation-type": {
       "fixed": "Фиксированный",

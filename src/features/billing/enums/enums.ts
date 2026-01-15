@@ -34,3 +34,4 @@ export enum CitizenType {
 export enum ProviderCode {
   CLICK = 'CLICK',
 }
+
