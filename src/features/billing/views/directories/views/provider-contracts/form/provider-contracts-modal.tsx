@@ -19,6 +19,7 @@ import useNotify from '@/hooks/useNotify'
 import { mapToSelectOptions } from '@/features/billing/utils/mapToSelectOptions'
 import { IProviderContracts } from '../../../types'
 import { BillingPath } from '../../../paths'
+import dayjs from 'dayjs'
 
 type FormValues = Omit<IProviderContracts, 'id'>
 const ProviderContractModal = () => {
@@ -172,8 +173,8 @@ const ProviderContractModal = () => {
         organizationType: data?.organizationType,
         params: data?.params,
         placementId: data?.placementId,
-        validFrom: data?.validFrom,
-        validTo: data?.validTo,
+        validFrom: data?.validFrom && dayjs(data?.validFrom),
+        validTo: data?.validTo && dayjs(data?.validTo),
       })
     }
   }, [data, form, isEdit])
