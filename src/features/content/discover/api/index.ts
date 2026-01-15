@@ -53,7 +53,7 @@ export async function editDiscovery(
 
 export async function patchDiscover(
   slug: string,
-  data: FormData,
+  data: { status: boolean },
   language: string,
 ) {
   return await request({

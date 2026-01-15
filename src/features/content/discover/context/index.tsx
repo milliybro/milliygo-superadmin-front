@@ -42,7 +42,7 @@ export interface IDiscoverContext {
     isLoading: boolean
     toggleStatusMutate: (params: {
       slug: string
-      data: FormData
+      data: { status: boolean }
       language: string
     }) => void
     togglePending: boolean
@@ -117,7 +117,7 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
       language,
     }: {
       slug: string
-      data: FormData
+      data: { status: boolean }
       language: string
     }) => patchDiscover(slug, data, language),
 

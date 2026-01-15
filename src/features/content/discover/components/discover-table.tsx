@@ -22,9 +22,7 @@ function DiscoverTable() {
   const queries = useParsedQuery()
 
   const toggleStatusHandler = (slug: string, status: boolean) => {
-    const formData = new FormData()
-    formData.append('status', status ? 'true' : 'false')
-    toggleStatusMutate({ slug, data: formData } as any)
+    toggleStatusMutate({ slug, data: { status } } as any)
   }
 
   const columns: TableProps['columns'] = [
