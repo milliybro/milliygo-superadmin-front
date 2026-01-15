@@ -15,6 +15,7 @@ import {
   editDiscovery,
   getDiscoveries,
   getDiscovery,
+  patchDiscover,
 } from '../api'
 import { IDiscover } from '../types'
 import { truthyObject } from '@/helpers/truthy-object'
@@ -118,7 +119,7 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
       slug: string
       data: FormData
       language: string
-    }) => editDiscovery(slug, data, language),
+    }) => patchDiscover(slug, data, language),
 
     onSuccess: () => {
       notification.success({
