@@ -1078,6 +1078,10 @@
     "serviceType":{
       "TOUR": "Sayohat",
       "HOTEL": "Mehmonxona"
+    },
+    "Error":{
+       "Title": "Xatolik",
+       "UniqueProviderCode": "Provayder kodi takrorlanmasligi kerak. Payment Provider allaqachon mavjud."
     }
   },
   "tourists": {

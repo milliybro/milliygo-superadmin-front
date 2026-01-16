@@ -48,7 +48,7 @@ const ProviderContractModal = () => {
     queryKey: ['payment-providers'],
     queryFn: async () => {
       const res = await getPaymentProvidersList({
-        size: 150,
+        size: 200,
         page: 0,
       })
       return res
@@ -61,7 +61,7 @@ const ProviderContractModal = () => {
     queryKey: ['organisationsTypes', debounceOrganizationdSearch],
     queryFn: async () => {
       const res = await getOrganizationTypes({
-        page_size: 30,
+        page_size: 200,
         page: 1,
      
       })
@@ -75,7 +75,7 @@ const ProviderContractModal = () => {
     queryKey: ['organisations', debounceOrganizationdSearch],
     queryFn: async () => {
       const res = await getOrganizationInfo({
-        page_size: 30,
+        page_size: 200,
         page: 1,
         organization_type: organizationType.toLowerCase(),
          ...(debounceOrganizationdSearch && { search: debounceOrganizationdSearch })
@@ -89,7 +89,7 @@ const ProviderContractModal = () => {
     queryKey: ['placements', debouncedPlacementSearch],
     queryFn: async () => {
       const res = await getAllPlacements({
-        page_size: 30,
+        page_size: 200,
         page: 1,
         ...(debouncedPlacementSearch && { search: debouncedPlacementSearch })
       })
@@ -102,7 +102,7 @@ const ProviderContractModal = () => {
     queryKey: ['apartment'],
     queryFn: async () => {
       const res = await getApartmentsList({
-        page_size: 30,
+        page_size: 200,
         page: 1,
       })
       return res
@@ -114,7 +114,7 @@ const ProviderContractModal = () => {
     queryKey: ['guides'],
     queryFn: async () => {
       const res = await getGuides({
-        page_size: 150,
+        page_size: 200,
         page: 1,
         guide_status: 'accepted',
       })
