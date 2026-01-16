@@ -684,7 +684,49 @@
     "label": "Provayder kodi",
     "placeholder": "Tanlang",
     "error": "Provayder kodini kiriting"
-    }
+    },
+  "provider":{
+    "label":"Provayder",
+    "placeholder":"Tanlang",
+    "error":"Providerni kiriting"
+   },
+   "organization-type": {
+  "label": "Tashkilot turi",
+  "placeholder": "Tashkilot turini tanlang",
+  "error": "Tashkilot turini tanlang"
+},
+"guide": {
+  "label": "Gid",
+  "placeholder": "Gidni tanlang",
+  "error": "Gidni tanlang"
+},
+"apartment": {
+  "label": "Kvartira",
+  "placeholder": "Kvartirani tanlang",
+  "error": "Kvartirani tanlang"
+},
+
+"placement": {
+  "label": "Joylashuv",
+  "placeholder": "Joylashuvni tanlang",
+  "error": "Joylashuvni tanlang"
+},
+"parameterName": {
+  "label": "Parametr nomi",
+  "placeholder": "Parametr nomini kiriting",
+  "error": "Parametr nomini kiriting"
+},
+"organisation": {
+  "label": "Tashkilot",
+  "placeholder": "Tashkilotni tanlang",
+  "error": "Tashkilotni tanlang"
+},
+"parameter": {
+  "label": "Parametr",
+  "labels": "Parametrlar",
+  "placeholder": "Parametrni kiriting",
+  "error": "Parametrni kiriting"
+}
   },
   "tenant": {
     "tenant": "Tenant",
@@ -1006,7 +1048,8 @@
       "tourist-taxes": "Turistik yig‘imlar",
       "subscriber-services": "Abonent xizmatlari narxlari",
       "payments-types": "To‘lov turlari",
-      "operator-commissions": "Operator komissiyalari"
+      "operator-commissions": "Operator komissiyalari",
+      "provider-contracts":"Provayder shartnomalari"
     },
     "calculation-type": {
       "fixed": "Belgilangan (qat’iy)",

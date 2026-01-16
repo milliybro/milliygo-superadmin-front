@@ -702,7 +702,48 @@
       "label": "Провайдер коди",
       "placeholder": "Танланг",
       "error": "Провайдер кодини киритинг"
-    }
+  },
+  "provider": {
+  "label": "Провайдер",
+  "placeholder": "Танланг",
+  "error": "Провайдерни киритинг"
+},
+"organization-type": {
+  "label": "Ташкилот тури",
+  "placeholder": "Ташкилот турини танланг",
+  "error": "Ташкилот турини танланг"
+},
+"guide": {
+  "label": "Гид",
+  "placeholder": "Гидни танланг",
+  "error": "Гидни танланг"
+},
+"apartment": {
+  "label": "Квартира",
+  "placeholder": "Квартирани танланг",
+  "error": "Квартирани танланг"
+},
+"placement": {
+  "label": "Жойлашув",
+  "placeholder": "Жойлашувни танланг",
+  "error": "Жойлашувни танланг"
+},
+"organisation": {
+  "label": "Ташкилот",
+  "placeholder": "Ташкилотни танланг",
+  "error": "Ташкилотни танланг"
+},
+"parameterName": {
+  "label": "Параметр номи",
+  "placeholder": "Параметр номини киритинг",
+  "error": "Параметр номини киритинг"
+},
+"parameter": {
+  "label": "Параметр",
+  "labels": "Параметрлар",
+  "placeholder": "Параметрни киритинг",
+  "error": "Параметрни киритинг"
+}
   },
   "tenant": {
     "tenant": "Тенант",
@@ -1009,7 +1050,8 @@
       "tourist-taxes": "Туристик йиғимлар",
       "subscriber-services": "Абонент хизматлари нархлари",
       "payments-types": "Тўлов турлари",
-      "operator-commissions": "Оператор комиссиялари"
+      "operator-commissions": "Оператор комиссиялари",
+      "provider-contracts": "Провайдер шартномалари"
     },
     "calculation-type": {
       "fixed": "Белгиланган (қатъий)",

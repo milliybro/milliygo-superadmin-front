@@ -13,7 +13,7 @@ export const mapToSelectOptions = <
 ): SelectOption[] => {
   if (!data) return []
 
-  return data.map(item => ({
+  return data?.map(item => ({
     label: String(item[labelKey]),
     value: item[valueKey] as string | number,
     ...item,

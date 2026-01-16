@@ -88,3 +88,20 @@ export interface IOperatorCommissions {
   name: string
   description: string
 }
+
+
+export interface IProviderContracts {
+  id: number
+  paymentProviderId: number
+  organisationId: number
+  placementId: string
+  apartmentId: number
+  gitId: string
+  organizationType: string
+  validFrom: string
+  validTo: string
+  params: {
+    parameterName: string
+    parameter: string
+  }[]
+}
