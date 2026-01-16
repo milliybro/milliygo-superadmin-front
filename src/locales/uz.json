@@ -1080,6 +1080,10 @@
     "serviceType":{
       "TOUR": "Саёҳат",
       "HOTEL": "Меҳмонхона"
+    },
+    "Error":{
+       "Title": "Хатолик",
+       "UniqueProviderCode": "Провайдер коди такрорланмаслиги керак. Payment Provider аллақачон мавжуд."
     }
   },
   "tourists": {

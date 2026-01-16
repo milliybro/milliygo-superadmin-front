@@ -31,11 +31,11 @@ function Directories() {
       key: BillingPath['payment-providers'],
       label: t('billing.directories.payment-providers'),
     },
-    {
-      key: BillingPath['tax-rates'],
-      label: t('billing.directories.tax-rates'),
-      disabled: true,
-    },
+    // {
+    //   key: BillingPath['tax-rates'],
+    //   label: t('billing.directories.tax-rates'),
+    //   disabled: true,
+    // },
     {
       key: BillingPath['tourist-taxes'],
       label: t('billing.directories.tourist-taxes'),
@@ -44,11 +44,11 @@ function Directories() {
       key: BillingPath['subscriber-services'],
       label: t('billing.directories.subscriber-services'),
     },
-    {
-      key: BillingPath['payments-types'],
-      label: t('billing.directories.payments-types'),
-      disabled: true,
-    },
+    // {
+    //   key: BillingPath['payments-types'],
+    //   label: t('billing.directories.payments-types'),
+    //   disabled: true,
+    // },
     {
       key: BillingPath['operator-commissions'],
       label: t('billing.directories.operator-commissions'),
