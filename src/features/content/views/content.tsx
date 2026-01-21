@@ -16,6 +16,7 @@ import ExpertAdviceContent from '../expert-advice/list'
 import InstagramContent from '../instagram/list'
 import EventsContent from '../events/list'
 import HeroProvider from '../hero/context'
+import HollyTourismContent from '../holly-tourism/views'
 
 function Content() {
   const { t } = useTranslation()
@@ -77,6 +78,11 @@ function Content() {
       key: 'events',
       label: t('routes.events'),
       children: <EventsContent />,
+    },
+    {
+      key: 'holly-tourism',
+      label: t('content.holly-tourism.title'),
+      children: <HollyTourismContent />,
     },
   ]
 

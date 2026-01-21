@@ -241,7 +241,7 @@ export default function CreateEvent() {
               <div className="flex items-center justify-between gap-2">
                 {isEditing && (
                   <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
-                    <Typography.Text>Keshni yangilash</Typography.Text>
+                    <Typography.Text>{t('common.clear-cache')}</Typography.Text>
 
                     <div className="flex items-center gap-3">
                       <Form.Item
