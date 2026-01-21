@@ -20,7 +20,7 @@ const TaxRatesTable = ({
 
   const columns: TableColumnsType<ICurrencies | any> = [
     {
-      title: 'ID',
+      title: '№',
       dataIndex: 'id',
       className: 'text-center',
       width: 39,
@@ -160,12 +160,10 @@ const TaxRatesTable = ({
   const transformedHotelsData = AgentsData?.results?.map(
     (item: ICurrencies | any, i: any) => ({
       key: i,
-      id: item.id,
-      name: item.name,
-      image: item.file,
-      address: item.address?.map((addr: any) => addr.address) ?? [],
-      license_validity: item.expire_license_date,
-      phone_number: item.phone_number?.map((p: any) => p.phone_number) ?? [],
+      id: item?.id,
+      name: item?.name,
+      image: item?.file,
+      license_validity: item?.expire_license_date,
     }),
   )
 

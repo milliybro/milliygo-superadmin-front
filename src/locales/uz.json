@@ -621,23 +621,129 @@
     "minAmount": {
       "label": "Минимал сумма",
       "placeholder": "Минимал суммани киритинг",
-      "validation-message-required": "Илтимос, минимал суммани киритинг"
+      "error": "Илтимос, минимал суммани киритинг"
     },
     "maxAmount": {
       "label": "Максимал сумма",
       "placeholder": "Максимал суммани киритинг",
-      "validation-message-required": "Илтимос, максимал суммани киритинг"
+      "error": "Илтимос, максимал суммани киритинг"
     },
     "calculationType": {
       "label": "Ҳисоблаш тури",
       "placeholder": "Ҳисоблаш турини танланг",
-      "validation-message-required": "Илтимос, ҳисоблаш турини танланг"
+      "error": "Илтимос, ҳисоблаш турини танланг"
     },
     "supportedCurrencies": {
       "label": "Қўллаб-қувватланадиган валюталар",
       "placeholder": "Қўллаб-қувватланадиган валюталарни танланг",
-      "validation-message-required": "Илтимос, қўллаб-қувватланадиган валюталарни танланг"
-    }
+      "error": "Илтимос, қўллаб-қувватланадиган валюталарни танланг"
+    },
+    "serviceType": {
+      "label": "Хизмат тури",
+      "placeholder": "Хизмат турини танланг",
+      "error": "Илтимос, хизмат турини танланг"
+    },
+    "amount": {
+      "label": "Миқдор",
+      "placeholder": "Миқдорни киритинг",
+      "error": "Илтимос, миқдорни киритинг"
+    },
+    "translates": {
+      "label": "Таржималар",
+      "placeholder": "Таржимани киритинг",
+      "error": "Илтимос, таржимани киритинг"
+    },
+    "language": {
+      "label": "Тил",
+      "placeholder": "Тилни танланг",
+      "error": "Илтимос, тилни танланг"
+    },
+    "numericCode": {
+      "label": "Рақамли код",
+      "placeholder": "Рақамли кодни киритинг",
+      "error": "Илтимос, рақамли кодни киритинг"
+    },
+    "shortCode": {
+      "label": "Код",
+      "placeholder": "Кодни киритинг",
+      "error": "Илтимос, кодни киритинг"
+    },
+    "minorUnits": {
+    "label": "Кичик бирликлар",
+    "placeholder": "Кичик бирликларни киритинг",
+    "error": "Илтимос, кичик бирликларни киритинг"
+  },
+  "symbol": {
+    "label": "Белги",
+    "placeholder": "Белгини киритинг",
+    "error": "Илтимос, белгини киритинг"
+  },
+   "placeType": {
+    "label": "Жой тури",
+    "placeholder": "Жой турини танланг",
+    "error": "Илтимос, жой турини танланг"
+  },
+   "periodFrom": {
+    "label": "Даврдан",
+    "placeholder": "Санани танланг",
+    "error": "Илтимос, санани танланг"
+  },
+   "periodTo": {
+    "label": "Давргача",
+    "placeholder": "Санани танланг",
+    "error": "Илтимос, санани танланг"
+   },
+   "percentage": {
+    "label": "Фоиз",
+    "placeholder": "Фоизни киритинг",
+    "error": "Қиймат {{min}} ва {{max}} оралиғида бўлиши керак"
+  },
+      "provider-code": {
+      "label": "Провайдер коди",
+      "placeholder": "Танланг",
+      "error": "Провайдер кодини киритинг"
+  },
+  "provider": {
+  "label": "Провайдер",
+  "placeholder": "Танланг",
+  "error": "Провайдерни киритинг"
+},
+"organization-type": {
+  "label": "Ташкилот тури",
+  "placeholder": "Ташкилот турини танланг",
+  "error": "Ташкилот турини танланг"
+},
+"guide": {
+  "label": "Гид",
+  "placeholder": "Гидни танланг",
+  "error": "Гидни танланг"
+},
+"apartment": {
+  "label": "Квартира",
+  "placeholder": "Квартирани танланг",
+  "error": "Квартирани танланг"
+},
+"placement": {
+  "label": "Жойлашув",
+  "placeholder": "Жойлашувни танланг",
+  "error": "Жойлашувни танланг"
+},
+"organisation": {
+  "label": "Ташкилот",
+  "placeholder": "Ташкилотни танланг",
+  "error": "Ташкилотни танланг"
+},
+"parameterName": {
+  "label": "Параметр номи",
+  "placeholder": "Параметр номини киритинг",
+  "error": "Параметр номини киритинг"
+},
+"parameter": {
+  "label": "Параметр",
+  "labels": "Параметрлар",
+  "placeholder": "Параметрни киритинг",
+  "error": "Параметрни киритинг"
+}
   },
   "tenant": {
     "tenant": "Тенант",
@@ -819,7 +925,8 @@
     "modal_description": "Янги маълумот қўшиш учун, илтимос барча керакли майдонларни тўлдиринг",
     "modal_description_edit": "Маълумотни таҳрирлаш учун, илтимос, керакли майдонларни тўлдиринг.",
     "service-name": "Хизмат номи",
-    "employee-id": "Фойдаланувчи ID"
+    "employee-id": "Фойдаланувчи ID",
+    "add-field": "Майдон қўшиш"
   },
   "status": {
     "confirmed": "Тасдиқланган",
@@ -877,7 +984,12 @@
     "guest-houses": "Меҳмон уйлари",
     "sanatoriums": "Санаторийлар",
     "hostel": "Хостел",
-    "all-status": "Барча ҳолатлар"
+    "all-status": "Барча ҳолатлар",
+    "guest-name": "Mehmonning исми",
+    "guest-comment": "Mehmon izohi",
+    "owner-response": "Эгасидан жавоб",
+    "room-number": "Хона рақами",
+    "tariff-name": "Тариф номлари"
   },
   "travel-agencies": {
     "name-agencies": "Туристик агентлик номи",
@@ -932,11 +1044,46 @@
     },
     "directories": {
       "currencies": "Валюталар",
+      "currency-types": "Валюта турлари",
       "payment-providers": "Банклар ва тўлов провайдерлари",
       "tax-rates": "Солиқ ставкалари",
       "tourist-taxes": "Туристик йиғимлар",
       "subscriber-services": "Абонент хизматлари нархлари",
-      "payments-types": "Тўлов турлари"
+      "payments-types": "Тўлов турлари",
+      "operator-commissions": "Оператор комиссиялари",
+      "provider-contracts": "Провайдер шартномалари"
+    },
+    "calculation-type": {
+      "fixed": "Белгиланган (қатъий)",
+      "percentage": "Фоизли"
+    },
+    "citizenship": {
+      "local": "Маҳаллий фуқаро",
+      "foreign": "Чет эл фуқароси"
+    },
+    "provider-type":{
+      "local": "Маҳаллий провайдер",
+      "international": "Халқаро провайдер"
+    },
+    "placeType":{
+        "HOTEL": "Меҳмонхона",
+        "HOUSEHOLDER": "Хонадон эгаси",
+        "HOSTEL": "Ётоқхона",
+        "GUEST_HOUSE": "Меҳмон уйи",
+        "APARTMENT": "Квартира",
+        "PRIVATE_HOUSE": "Хусусий уй",
+        "RESORT": "Дам олиш маскани",
+        "SANATORIUM": "Санаторий",
+        "CAMPING": "Кемпинг",
+        "ALL": "Барчаси"
+    },
+    "serviceType":{
+      "TOUR": "Саёҳат",
+      "HOTEL": "Меҳмонхона"
+    },
+    "Error":{
+       "Title": "Хатолик",
+       "UniqueProviderCode": "Провайдер коди такрорланмаслиги керак. Payment Provider аллақачон мавжуд."
     }
   },
   "tourists": {

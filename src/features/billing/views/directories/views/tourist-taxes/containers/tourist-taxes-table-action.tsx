@@ -6,7 +6,6 @@ import { useTranslation } from 'react-i18next'
 // import HierarchyIcon from '@/components/icons/hierarchy'
 // import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
-import { useLocation, useNavigate } from 'react-router'
 import useTouristTaxesStore from '../../../store/tourist-taxes-store'
 // import { deleteTouristTax } from '../../../api/getTouristTaxes'
 
@@ -17,12 +16,10 @@ interface IProps {
 
 const TouristTaxesTableAction: FC<IProps> = ({ id }) => {
   const { t } = useTranslation()
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
-  const { openModal } = useTouristTaxesStore(store => store)
+  const { openModal , setId} = useTouristTaxesStore(store => store)
 
   const editHandler = () => {
-    navigate(pathname + '?edit=' + id)
+    setId(id)
     openModal()
   }
 

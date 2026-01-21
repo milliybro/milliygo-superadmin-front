@@ -158,7 +158,7 @@ export default function CreateDiscoverForm({ language, setLanguage }: any) {
       </Form.Item>
 
       <div className="flex items-end gap-5">
-        <Form.Item label={t('fields.status.label')} name="status">
+        <Form.Item label={t('fields.status.label')} name="status" initialValue={false}>
           <Switch />
         </Form.Item>
 

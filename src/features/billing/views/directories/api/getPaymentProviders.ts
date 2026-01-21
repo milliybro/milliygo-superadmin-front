@@ -4,8 +4,8 @@ import billingRequest from '@/features/billing/billingRequest'
 
 export async function getPaymentProvidersList(
   params?: any,
-): Promise<ListResponseBilling<IPaymentProviders[]>> {
-  const res: ListResponseBilling<IPaymentProviders[]> = await billingRequest({
+): Promise<ListResponseBilling<IPaymentProviders>> {
+  const res: ListResponseBilling<IPaymentProviders> = await billingRequest({
     url: '/payment-providers',
     method: 'get',
     params,

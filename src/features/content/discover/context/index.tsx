@@ -15,6 +15,7 @@ import {
   editDiscovery,
   getDiscoveries,
   getDiscovery,
+  patchDiscover,
 } from '../api'
 import { IDiscover } from '../types'
 import { truthyObject } from '@/helpers/truthy-object'
@@ -41,7 +42,7 @@ export interface IDiscoverContext {
     isLoading: boolean
     toggleStatusMutate: (params: {
       slug: string
-      data: FormData
+      data: { status: boolean }
       language: string
     }) => void
     togglePending: boolean
@@ -116,9 +117,9 @@ function DiscoverProvider({ children }: { children: React.ReactNode }) {
       language,
     }: {
       slug: string
-      data: FormData
+      data: { status: boolean }
       language: string
-    }) => editDiscovery(slug, data, language),
+    }) => patchDiscover(slug, data, language),
 
     onSuccess: () => {
       notification.success({

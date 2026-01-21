@@ -1,14 +1,17 @@
 import type { CustomRoute } from '@/types'
+import { Navigate } from 'react-router'
+import { lazy } from 'react'
 import Billing from './views/billing'
 import Reports from './views/reports'
 import Directories from './views/directories/directories'
-import Currencies from './views/directories/views/currencies/currencies'
-import PaymentProviders from './views/directories/views/payment-providers/payment-providers'
-import TaxRates from './views/directories/views/tax-rates/tax-rates'
-import TouristTaxes from './views/directories/views/tourist-taxes/tourist-taxes'
-import SubscriberServices from './views/directories/views/subscriber-services/subscriber-services'
-import PaymentsTypes from './views/directories/views/payments-types/payments-types'
-import { Navigate } from 'react-router'
+import { BillingPath } from './views/directories/paths'
+const Currencies = lazy(() => import('./views/directories/views/currencies/currencies'))
+const CurrencyTypes = lazy(() => import('./views/directories/views/currency-types/currency-types'))
+const PaymentProviders = lazy(() => import('./views/directories/views/payment-providers/payment-providers'))
+const TouristTaxes = lazy(() => import('./views/directories/views/tourist-taxes/tourist-taxes'))
+const SubscriberServices = lazy(() => import('./views/directories/views/subscriber-services/subscriber-services'))
+const OperatorCommissions = lazy(() => import('./views/directories/views/operator-commissions/operator-commissions'))
+const ProviderContracts = lazy(()=> import('./views/directories/views/provider-contracts/provider-contracts')) 
 
 const billingRoutes: CustomRoute = {
   id: 'billing',
@@ -26,13 +29,14 @@ const billingRoutes: CustomRoute = {
       path: 'directories',
       element: <Directories />,
       children: [
-        { path: 'currencies', element: <Currencies /> },
-        { path: 'payment-providers', element: <PaymentProviders /> },
-        { path: 'tax-rates', element: <TaxRates /> },
-        { path: 'tourist-taxes', element: <TouristTaxes /> },
-        { path: 'subscriber-services', element: <SubscriberServices /> },
-        { path: 'payments-types', element: <PaymentsTypes /> },
-        { path: '', element: <Navigate to="currencies" replace /> },
+        { path: BillingPath.currencies, element: <Currencies /> },
+        { path: BillingPath['currency-types'], element: <CurrencyTypes /> },
+        { path: BillingPath['payment-providers'], element: <PaymentProviders /> },
+        { path: BillingPath['tourist-taxes'], element: <TouristTaxes /> },
+        { path: BillingPath['subscriber-services'], element: <SubscriberServices /> },
+        { path: BillingPath['operator-commissions'], element: <OperatorCommissions /> },
+        { path: BillingPath['provider-contracts'], element: <ProviderContracts /> },
+        { path: '', element: <Navigate to={BillingPath.currencies} replace /> },
       ],
     },
     {

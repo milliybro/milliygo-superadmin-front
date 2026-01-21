@@ -8,9 +8,30 @@ variables:
 
 
 stages:
+  - merge
   - build
   - push
   - deploy
+
+MR-job:
+  stage: merge
+  before_script:
+    - |
+      curl --header "PRIVATE-TOKEN: $DEVOPS_TOKEN" \
+           "https://u-gitlab.uzinfocom.uz/api/v4/projects/867/repository/files/notify.sh/raw?ref=main" \
+           -o notify.sh 
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
+      when: always
+  tags:
+    - stage-server
+  script:
+    - pwd
+    - whoami
+    - sleep 3
+  after_script:
+    - chmod +x notify.sh
+    - ./notify.sh
 
 build-job:
   stage: build
@@ -19,7 +40,14 @@ build-job:
     #- merge_requests
   tags:
     - stage-server
+  before_script:
+    - |
+      curl --header "PRIVATE-TOKEN: $DEVOPS_TOKEN" \
+           "https://u-gitlab.uzinfocom.uz/api/v4/projects/867/repository/files/notify.sh/raw?ref=main" \
+           -o notify.sh 
   script:
+    - chmod +x notify.sh
+    - ./notify.sh
     - cd /home/emehmon_superadmin_front
     - pwd
     - whoami
@@ -29,6 +57,9 @@ build-job:
     - npm install
     - npm audit fix || true
     - npm run build
+  after_script:
+    - chmod +x notify.sh
+    - ./notify.sh
 
 #Production
 build-prod:

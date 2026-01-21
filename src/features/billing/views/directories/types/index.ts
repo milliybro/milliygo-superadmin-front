@@ -11,11 +11,17 @@ export interface ICurrencies {
 }
 
 export interface ICurrencyTypes {
-  id: number
+  id: number,
+  name: string,
   code: string
   numericCode: string
-  name: string
-  isActive: boolean
+  isActive: boolean | number,
+  symbol: string,
+  minorUnits: number,
+  translates: {
+    lang: string
+    name: string
+  }[]
 }
 
 export interface IPaymentProviders {
@@ -52,8 +58,50 @@ export interface ITouristTaxes {
 
 export interface ISubscriberServices {
   id: number
+  calculationType: string
+  amount: number
+  status: string
+  checkoutFrom: number
+  checkoutsTo: number
+  activeFrom: string | any
+  activeTo: string | any
+  translates: {
+    lang: string
+    name: string
+  }[]
 }
 
 export interface IPaymentsTypes {
   id: number
+}
+
+export interface IOperatorCommissions {
+  id: number
+  serviceType: string
+  calculationType: string
+  amount: number
+  translates: {
+    lang: string
+    name: string
+    description: string
+  }[]
+  name: string
+  description: string
+}
+
+
+export interface IProviderContracts {
+  id: number
+  paymentProviderId: number
+  organisationId: number
+  placementId: string
+  apartmentId: number
+  gitId: string
+  organizationType: string
+  validFrom: string
+  validTo: string
+  params: {
+    parameterName: string
+    parameter: string
+  }[]
 }

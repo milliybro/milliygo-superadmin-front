@@ -1,22 +1,10 @@
 import { useEffect } from 'react'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { useLocation, useNavigate, useSearchParams } from 'react-router'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
-import {
-  Modal,
-  Form,
-  Input,
-  Button,
-  Typography,
-  notification,
-  DatePicker,
-  Radio,
-} from 'antd'
-import CheckmarkCircleIcon from '@/components/icons/checkmark-circle'
+import { Modal, Form, Button, DatePicker, Input, Flex, Typography } from 'antd'
 import CSelect from '@/components/ui/select'
 import CloseIcon from '@/components/icons/close-icon'
 import DirectoryModalHeader from '../../../components/DirectoryModalHeader'
-import BuildingIcon from '@/components/icons/building'
 import useSubscriberServicesModalStore from '../../../store/subscriber-services-store'
 import {
   createSubscriberService,
@@ -24,133 +12,112 @@ import {
   updateSubscriberService,
 } from '../../../api/getSubscriberServices'
 import LetterIcon from '@/components/icons/letterIcon'
-
-const { TextArea } = Input
-interface UserModalProps {
-  refetch: () => Promise<any>
-}
-
-const SubscriberServicesModal = ({ refetch }: UserModalProps) => {
+import { BillingInputNumber } from '@/features/billing/components/billingInputNumber'
+import { ISubscriberServices } from '../../../types'
+import dayjs from 'dayjs'
+import useNotify from '@/hooks/useNotify'
+import { mapToSelectOptions } from '@/features/billing/utils/mapToSelectOptions'
+import { MinusCircleOutlined, PlusOutlined } from '@ant-design/icons'
+import { CalculationType } from '@/features/billing/enums/enums'
+type FormValues = Omit<ISubscriberServices, 'id'>
+const SubscriberServicesModal = () => {
   const { t } = useTranslation()
-  const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
-  const { isModalOpen, closeModal } = useSubscriberServicesModalStore(
+  const { isModalOpen, closeModal , id:isEdit , clearId } = useSubscriberServicesModalStore(
     state => state,
   )
+  const queryClient = useQueryClient()
+  const { openNotify, notificationPlace, notify } = useNotify()
 
-  const [form] = Form.useForm()
-
-  const editUserId = searchParams.get('edit')
+  const [form] = Form.useForm<FormValues>()
 
   const closeHandler = () => {
     closeModal()
-    if (editUserId) {
-      navigate(pathname)
+    form.resetFields()
+    if (isEdit) {
+      clearId()
     }
   }
 
-  const { data, refetch: fetching } = useQuery({
-    queryKey: ['currency', editUserId],
-    queryFn: () => getSubscriberService({ id: editUserId }),
-    enabled: !!editUserId,
-    refetchOnMount: 'always',
+  const { data } = useQuery({
+    queryKey: ['subscriber-service', isEdit],
+    queryFn: () => getSubscriberService({ id: isEdit }),
+    enabled: !!isEdit,
+    staleTime: 1000,
   })
 
   const openNotification = () => {
-    notification.info({
-      closeIcon: null,
-      className:
-        'w-[406px] border-t-[5px] border-primary rounded-[12px] [&_.ant-notification-notice-message]:mb-0',
-      icon: <CheckmarkCircleIcon className="text-2xl text-primary" />,
-      message: (
-        <Typography.Text className="text-lg font-semibold leading-[22.95px]">
-          {editUserId
-            ? t('fields.user-notification.edit.message')
-            : t('fields.user-notification.add.message')}
-        </Typography.Text>
-      ),
-      placement: 'topRight',
-      description: (
-        <div>
-          <Button
-            size="small"
-            type="text"
-            className="absolute right-[10px] top-[10px] grid place-items-center rounded-lg"
-            icon={<CloseIcon className="text-base" />}
-            onClick={() => notification.destroy()}
-          />
-          <Typography.Text className="text-base text-secondary">
-            {editUserId
-              ? t('fields.user-notification.add.message')
-              : t('fields.user-notification.edit.message')}
-          </Typography.Text>
-        </div>
-      ),
-    })
+    openNotify({ edit: isEdit })
   }
+  const LANGUAGES = [
+    { lang: 'uz', name: 'Uzbek' },
+    { lang: 'en', name: 'English (UK)' },
+    { lang: 'ru', name: 'Russian' },
+    { lang: 'ko', name: 'Korean' },
+    { lang: 'tr', name: 'Turkish' },
+    { lang: 'de', name: 'German' },
+    { lang: 'fr', name: 'French' },
+    { lang: 'it', name: 'Italian' },
+    { lang: 'es', name: 'Spanish' },
+    { lang: 'pt', name: 'Portuguese' },
+    { lang: 'ar', name: 'Arabic' },
+    { lang: 'zh-CN', name: 'Chinese' },
+    { lang: 'ja', name: 'Japanese' },
+    { lang: 'hi', name: 'Hindi' },
+    { lang: 'ur', name: 'Urdu' },
+    { lang: 'tg', name: 'Tajik' },
+    { lang: 'kk', name: 'Kazakh' },
+    { lang: 'ky', name: 'Kyrgyz' },
+    { lang: 'tk', name: 'Turkmen' },
+    { lang: 'az', name: 'Azerbaijani' },
+  ]
 
-  const handleUserSave = useMutation({
+  const handleSave = useMutation({
     mutationFn: (values: any) => {
       const formattedValues = {
         ...values,
+        amount: Number(values?.amount),
+        checkoutFrom: Number(values?.checkoutFrom),
+        checkoutsTo: Number(values?.checkoutsTo),
       }
 
-      if (editUserId) {
+      if (isEdit) {
         return updateSubscriberService({
-          id: editUserId,
+          id: `${isEdit}`,
           queryParams: formattedValues,
         })
       }
 
       return createSubscriberService(formattedValues)
     },
-    onSuccess: res => {
-      // notification.success({
-      //   message: editUserId
-      //     ? t('fields.user-notification.edit.message')
-      //     : t('fields.user-notification.add.message'),
-      // })
+    onSuccess: () => {
       openNotification()
-      form.resetFields()
-      refetch()
-      if (editUserId) {
-        fetching()
-      }
-
+      queryClient.invalidateQueries({ queryKey: ['subscriber-services'] })
       closeHandler()
     },
     onError: () => {
       form.getFieldsError()
+      notify.error({ message: 'Error', description: 'Error' })
     },
   })
 
-  // useEffect(() => {
-  //   if (editUserId) {
-  //     refetch()
-  //   }
-  // }, [editUserId, refetch])
-
   useEffect(() => {
-    if (data && editUserId) {
+    if (data && isEdit) {
       form.setFieldsValue({
-        code: data?.code,
-        name: data?.first_name,
-        symbol: data?.symbol,
-        uzs_rate: data?.uzs_rate,
-        rate: data?.rate,
-        refresh_rate: data?.refresh_rate,
-        // type: data?.type?.id,
-        status: data?.status ? 'True' : 'False',
-        comment: data?.comment,
+        status: data?.status,
+        amount: data?.amount,
+        calculationType: data?.calculationType,
+        checkoutFrom: data?.checkoutFrom,
+        checkoutsTo: data?.checkoutsTo,
+        activeFrom: data?.activeFrom && dayjs(data?.activeFrom),
+        activeTo: data?.activeTo && dayjs(data?.activeTo),
+        translates: data?.translates,
       })
-    } else {
-      form.resetFields()
     }
-  }, [data, form])
+  }, [data, form, isEdit])
 
   return (
     <>
+      {notificationPlace}
       <Modal
         title={null}
         open={isModalOpen}
@@ -160,234 +127,257 @@ const SubscriberServicesModal = ({ refetch }: UserModalProps) => {
         closeIcon={null}
         maskClosable={false}
         footer={null}
-        // classNames={{
-        //   wrapper: 'backdrop-blur-sm',
-        //   content:
-        //     '!p-[40px] [&>.ant-modal-close]:text-primary-dark dark:[&>.ant-modal-close]:text-dark-bg',
-        // }}
       >
         <Button
           className="absolute right-[10px] top-[10px]"
           type="text"
           icon={<CloseIcon className="text-base" />}
           onClick={closeHandler}
-          disabled={handleUserSave.isPending}
+          disabled={handleSave.isPending}
         />
         <DirectoryModalHeader
-          addText={'Добавить'}
-          textDesc={
-            'Для добавления нового платежа, пожалуйста заполните все необходимые поля'
-          }
-          id={editUserId}
+          addText={isEdit ? 'common.edit' : 'common.add'}
+          textDesc={ isEdit ? 'common.modal_description_edit' : 'common.modal_description' }
+          id={isEdit}
           Icon={LetterIcon}
         />
 
         <Form
           layout="vertical"
-          onFinish={values => handleUserSave.mutate(values)}
+          onFinish={values => handleSave.mutate(values)}
           form={form}
-          className="flex flex-col gap-2"
+          initialValues={{
+            translates: [
+              {
+                lang: undefined,
+                name: undefined,
+              },
+            ],
+          }}
         >
-          <Form.Item
-            label={t('Название услуги')}
-            name="name"
-            style={{ width: '100%' }}
-            rules={[
-              {
-                required: false,
-                message: t('fields.middle_name.validation-message-required'),
-              },
-            ]}
-          >
-            <Input className="select-shadow" placeholder={t('Введите')} />
-          </Form.Item>
-          <Form.Item label={t('Описание')} name="comment">
-            <TextArea
-              className="select-shadow"
-              placeholder={t('Введите Описание...')}
-              rows={5}
-              style={{ resize: 'none' }}
-            />
-          </Form.Item>
+          <div className="mb-4 flex h-[530px] flex-col gap-2 overflow-y-auto px-2 py-2">
+            <Form.Item
+              label={t('fields.calculationType.label')}
+              name="calculationType"
+              style={{ width: '100%' }}
+              rules={[
+                {
+                  required: true,
+                  message: t('fields.calculationType.error'),
+                },
+              ]}
+            >
+              <CSelect
+                placeholder={t('fields.calculationType.placeholder')}
+                className="select-shadow"
+                options={[
+                  {
+                    label: t('billing.calculation-type.fixed'),
+                    value: CalculationType.FIXED,
+                  },
+                  {
+                    label: t('billing.calculation-type.percentage'),
+                    value: CalculationType.PERCENTAGE,
+                  },
 
-          <div className="flex items-center gap-2">
+                ]}
+              />
+            </Form.Item>
+            <Form.Item shouldUpdate>
+              {({ getFieldValue }) => {
+                const type = getFieldValue('calculationType')
+
+                return (
+                  <Form.Item
+                    label={type === CalculationType.PERCENTAGE  ? t('fields.percentage.label')  :  t('fields.amount.label')}
+                    name="amount"
+                    style={{ width: '100%' }}
+                    rules={[
+                      {
+                        required: true,
+                        message: t('fields.amount.error'),
+                      },
+                      {
+                        min: 0,
+                        max: type === CalculationType.PERCENTAGE ? 100 : undefined,
+                        message: type === CalculationType.PERCENTAGE ? t('fields.percentage.error',{ min: 0, max: 100 }) : '',
+                        type: 'number',
+                      },
+                    ]}
+                  >
+                    <BillingInputNumber
+                      addonAfter={type === CalculationType.PERCENTAGE ? '%' : undefined}
+                      placeholder={type === CalculationType.PERCENTAGE  ? t('fields.percentage.placeholder'): t('fields.amount.placeholder')}
+                    />
+                  </Form.Item>
+                )
+              }}
+            </Form.Item>
+            <div className="flex items-center gap-2">
+              <Form.Item
+                label={t('checkoutFrom')}
+                name="checkoutFrom"
+                style={{ width: '50%' }}
+                rules={[
+                  {
+                    required: true,
+                    message: t('checkoutFrom'),
+                  },
+                ]}
+              >
+                <BillingInputNumber
+                  placeholder={t('checkoutFrom')}
+                />
+              </Form.Item>
+              <Form.Item
+                label={t('checkoutsTo')}
+                name="checkoutsTo"
+                style={{ width: '50%' }}
+                rules={[
+                  {
+                    required: false,
+                    message: t('fields.checkoutsTo.error'),
+                  },
+                ]}
+              >
+                <BillingInputNumber placeholder="checkoutsTo" />
+              </Form.Item>
+            </div>
+
             <Form.Item
-              label={t('Тип средства размещения')}
-              name="code"
-              style={{ width: '50%' }}
+              label={t('fields.status.label')}
+              name="status"
+              style={{ width: '100%' }}
               rules={[
                 {
-                  required: false,
-                  message: t('fields.gender.validation-message-required'),
+                  required: true,
+                  message: t('fields.status.error'),
                 },
               ]}
             >
               <CSelect
-                placeholder={t('Выберите')}
+                placeholder={t('fields.status.placeholder')}
                 className="select-shadow"
                 options={[
                   {
-                    label: t('common.men'),
-                    value: 'male',
+                    label: t('common.active'),
+                    value: 'ACTIVE',
                   },
                   {
-                    label: t('common.women'),
-                    value: 'female',
+                    label: t('common.inactive'),
+                    value: 'INACTIVE',
                   },
                 ]}
               />
             </Form.Item>
-            <Form.Item
-              label={t('Количество гостей в месяц')}
-              name="code"
-              style={{ width: '50%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.gender.validation-message-required'),
-                },
-              ]}
-            >
-              <CSelect
-                placeholder={t('Выберите')}
-                className="select-shadow"
-                options={[
+            <div className="flex items-center gap-2">
+              <Form.Item
+                label={t('fields.periodFrom.label')}
+                name="activeFrom"
+                style={{ width: '50%' }}
+                rules={[
                   {
-                    label: t('common.men'),
-                    value: 'male',
-                  },
-                  {
-                    label: t('common.women'),
-                    value: 'female',
+                    required: false,
+                    message: t('fields.periodFrom.error'),
                   },
                 ]}
-              />
-            </Form.Item>
+              >
+                <DatePicker
+                  format={'DD-MM-YYYY'}
+                  style={{ width: '100%' }}
+                  placeholder={t('fields.periodFrom.placeholder')}
+                />
+              </Form.Item>
+              <Form.Item
+                label={t('fields.periodTo.label')}
+                name="activeTo"
+                style={{ width: '50%' }}
+                rules={[
+                  {
+                    required: false,
+                    message: t('fields.periodTo.error'),
+                  },
+                ]}
+              >
+                <DatePicker
+                  format={'DD-MM-YYYY'}
+                  style={{ width: '100%' }}
+                  placeholder={t('fields.periodTo.placeholder')}
+                />
+              </Form.Item>
+            </div>
+            <Typography.Title level={5} className="mb-0 mt-2 text-center">
+              {t('fields.translates.label')}
+            </Typography.Title>
+            <Form.List name="translates">
+              {(fields, { add, remove }) => (
+                <>
+                  {fields.map(({ key, name, ...restField }) => (
+                    <Flex vertical key={key} gap={10} align="center">
+                      <Form.Item
+                        {...restField}
+                        label={t('fields.language.label')}
+                        name={[name, 'lang']}
+                        style={{ width: '100%' }}
+                        rules={[
+                          {
+                            required: true,
+                            message: t('fields.language.error'),
+                          },
+                        ]}
+                      >
+                        <CSelect
+                          placeholder={t('fields.language.placeholder')}
+                          className="select-shadow"
+                          options={mapToSelectOptions( LANGUAGES, 'name', 'lang', )}
+                        />
+                      </Form.Item>
+                      <Form.Item
+                        {...restField}
+                        name={[name, 'name']}
+                        rules={[
+                          {
+                            required: true,
+                            message: t('fields.name.required'),
+                          },
+                        ]}
+                        style={{ width: '100%' }}
+                        label={t('fields.name.label')}
+                      >
+                        <Input placeholder={t('fields.name.placeholder')} />
+                      </Form.Item>
+
+                      <MinusCircleOutlined
+                        onClick={() => remove(name)}
+                        className="mx-auto text-lg text-red-500"
+                      />
+                    </Flex>
+                  ))}
+                  <Form.Item>
+                    <Button
+                      type="primary"
+                      onClick={() => add()}
+                      block
+                      icon={<PlusOutlined />}
+                    >
+                      {t('common.add-field')}
+                    </Button>
+                  </Form.Item>
+                </>
+              )}
+            </Form.List>
           </div>
-
-          <Form.Item
-            label={t('Тип тарифа')}
-            name="radio"
-            style={{ width: '100%' }}
-            rules={[
-              {
-                required: false,
-                message: t('fields.middle_name.validation-message-required'),
-              },
-            ]}
-          >
-            <Radio.Group
-              block
-              options={[
-                { label: 'Фиксированный (сум)', value: 'Apple' },
-                { label: 'Процентный (от выручки)', value: 'Pear' },
-              ]}
-              defaultValue="Apple"
-            />
-          </Form.Item>
-
-          <div className="flex items-center gap-2">
-            <Form.Item
-              label={t('Абонентская плата')}
-              name="code"
-              style={{ width: '50%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.gender.validation-message-required'),
-                },
-              ]}
-            >
-              <CSelect
-                placeholder={t('Выберите')}
-                className="select-shadow"
-                options={[
-                  {
-                    label: t('common.men'),
-                    value: 'male',
-                  },
-                  {
-                    label: t('common.women'),
-                    value: 'female',
-                  },
-                ]}
-              />
-            </Form.Item>
-            <Form.Item
-              label={t('Валюта')}
-              name="code"
-              style={{ width: '50%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.gender.validation-message-required'),
-                },
-              ]}
-            >
-              <CSelect
-                placeholder={t('Выберите')}
-                className="select-shadow"
-                options={[
-                  {
-                    label: t('common.men'),
-                    value: 'male',
-                  },
-                  {
-                    label: t('common.women'),
-                    value: 'female',
-                  },
-                ]}
-              />
-            </Form.Item>
-          </div>
-          <div className="flex items-center gap-2">
-            <Form.Item
-              label={t('Период действия (Начало)')}
-              name="code"
-              style={{ width: '50%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.gender.validation-message-required'),
-                },
-              ]}
-            >
-              <DatePicker style={{ width: '100%' }} placeholder="Выберите" />
-            </Form.Item>
-            <Form.Item
-              label={t('Период действия (Окончание)')}
-              name="code"
-              style={{ width: '50%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.gender.validation-message-required'),
-                },
-              ]}
-            >
-              <DatePicker style={{ width: '100%' }} placeholder="Выберите" />
-            </Form.Item>
-          </div>
-          <Form.Item label={t('Примечание')} name="comment">
-            <TextArea
-              className="select-shadow"
-              placeholder={t('Введите Примечание...')}
-              rows={5}
-              style={{ resize: 'none' }}
-            />
-          </Form.Item>
-
           <div className="col-span-full mt-2 flex justify-center gap-4">
-            <Button onClick={closeHandler} disabled={handleUserSave.isPending}>
+            <Button onClick={closeHandler} disabled={handleSave.isPending}>
               {t('common.cancel')}
             </Button>
             <Button
               color="default"
               variant="solid"
               htmlType="submit"
-              loading={handleUserSave.isPending}
+              loading={handleSave.isPending}
             >
-              {editUserId ? t('Редактировать') : t('Добавить')}
+              {isEdit ? t('common.edit') : t('common.add')}
             </Button>
           </div>
         </Form>

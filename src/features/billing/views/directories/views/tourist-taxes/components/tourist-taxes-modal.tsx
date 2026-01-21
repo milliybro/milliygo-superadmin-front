@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { Modal, Form, Input, Button, DatePicker } from 'antd'
 import CSelect from '@/components/ui/select'
@@ -12,18 +11,16 @@ import BuildingIcon from '@/components/icons/building'
 import { ITouristTaxes } from '../../../types'
 import useNotify from '@/hooks/useNotify'
 import dayjs from 'dayjs'
+import { BillingInputNumber } from '@/features/billing/components/billingInputNumber'
+import { CalculationType, CitizenType, PlaceType } from '@/features/billing/enums/enums'
 type FormValues = Omit<ITouristTaxes, 'id'>
 
 const TouristTaxesModal = () => {
   const { t } = useTranslation()
-  const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
-  const { isModalOpen, closeModal } = useTouristTaxesStore(state => state)
+  const { isModalOpen, closeModal , id: isEdit , clearId} = useTouristTaxesStore(state => state)
   const { openNotify, notificationPlace, notify } = useNotify()
   const [form] = Form.useForm<FormValues>()
   const queryClient = useQueryClient()
-  const isEdit = searchParams.get('edit')
 
   const { data } = useQuery({
     queryKey: ['tourist-tax', isEdit],
@@ -47,7 +44,7 @@ const TouristTaxesModal = () => {
 
       if (isEdit) {
         return updateTouristTax({
-          id: isEdit,
+          id: `${isEdit}`,
           queryParams: formattedValues,
         })
       }
@@ -69,7 +66,7 @@ const TouristTaxesModal = () => {
     closeModal()
     form.resetFields()
     if (isEdit) {
-      navigate(pathname)
+      clearId()
     }
   }
 
@@ -83,8 +80,8 @@ const TouristTaxesModal = () => {
         roomsTo: data?.roomsTo,
         rate: data?.rate,
         status: data?.status,
-        actualFrom: dayjs(data?.actualFrom),
-        actualTo: dayjs(data?.actualTo),
+        actualFrom: data?.actualFrom && dayjs(data?.actualFrom),
+        actualTo: data?.actualTo && dayjs(data?.actualTo),
         rateType: data?.rateType,
         description: data?.description,
       })
@@ -124,49 +121,64 @@ const TouristTaxesModal = () => {
           form={form}
           className="flex flex-col gap-2"
         >
-          <div className="flex h-[530px] flex-col gap-2 overflow-y-auto px-2 mb-4">
+          <div className="mb-4 flex h-[530px] flex-col gap-2 overflow-y-auto px-2">
             <Form.Item
-              label={t('name')}
+              label={t('fields.name.label')}
               name="name"
               style={{ width: '100%' }}
               rules={[
                 {
                   required: true,
-                  message: t('name'),
+                  message: t('fields.name.required'),
                 },
               ]}
             >
-              <Input className="select-shadow" placeholder={t('name')} />
+              <Input className="select-shadow" placeholder={t('fields.name.placeholder')} />
             </Form.Item>
 
-              <Form.Item
-                label={t('Тип размещения')}
-                name="placeType"
-                style={{ width: '100%' }}
-                rules={[
+            <Form.Item
+              label={t('fields.placeType.label')}
+              name="placeType"
+              style={{ width: '100%' }}
+              rules={[
+                {
+                  required: true,
+                  message: t('fields.placeType.error'),
+                },
+              ]}
+            >
+              <CSelect
+                placeholder={t('fields.placeType.placeholder')}
+                className="select-shadow"
+                options={[
+                  { label: t('billing.placeType.HOTEL'), value: PlaceType.HOTEL },
                   {
-                    required: true,
-                    message: t('fields.gender.validation-message-required'),
+                    label: t('billing.placeType.HOUSEHOLDER'),
+                    value: PlaceType.HOUSEHOLDER,
                   },
+                  { label: t('billing.placeType.HOSTEL'), value: PlaceType.HOSTEL },
+                  {
+                    label: t('billing.placeType.GUEST_HOUSE'),
+                    value: PlaceType.GUEST_HOUSE,
+                  },
+                  {
+                    label: t('billing.placeType.APARTMENT'),
+                    value: PlaceType.APARTMENT,
+                  },
+                  {
+                    label: t('billing.placeType.PRIVATE_HOUSE'),
+                    value: PlaceType.PRIVATE_HOUSE,
+                  },
+                  { label: t('billing.placeType.RESORT'), value: PlaceType.RESORT },
+                  {
+                    label: t('billing.placeType.SANATORIUM'),
+                    value: PlaceType.SANATORIUM,
+                  },
+                  { label: t('billing.placeType.CAMPING'), value: PlaceType.CAMPING },
+                  { label: t('billing.placeType.ALL'), value: PlaceType.ALL },
                 ]}
-              >
-                <CSelect
-                  placeholder={t('Выберите')}
-                  className="select-shadow"
-                  options={[
-                    { label: t('HOTEL'), value: 'HOTEL' },
-                    { label: t('HOUSEHOLDER'), value: 'HOUSEHOLDER' },
-                    { label: t('HOSTEL'), value: 'HOSTEL' },
-                    { label: t('GUEST_HOUSE'), value: 'GUEST_HOUSE' },
-                    { label: t('APARTMENT'), value: 'APARTMENT' },
-                    { label: t('PRIVATE_HOUSE'), value: 'PRIVATE_HOUSE' },
-                    { label: t('RESORT'), value: 'RESORT' },
-                    { label: t('SANATORIUM'), value: 'SANATORIUM' },
-                    { label: t('CAMPING'), value: 'CAMPING' },
-                    { label: t('ALL'), value: 'ALL' },
-                  ]}
-                />
-              </Form.Item>
+              />
+            </Form.Item>
 
             <div className="flex items-center gap-2">
               <Form.Item
@@ -176,14 +188,14 @@ const TouristTaxesModal = () => {
                 rules={[
                   {
                     required: true,
-                    message: t('fields.gender.validation-message-required'),
+                    message: t('fields.roomsFrom.error'),
                   },
                 ]}
               >
                 <Input
                   type="number"
                   className="select-shadow"
-                  placeholder={t('Введите')}
+                  placeholder={t('fields.rate.placeholder')}
                 />
               </Form.Item>
               <Form.Item
@@ -193,89 +205,103 @@ const TouristTaxesModal = () => {
                 rules={[
                   {
                     required: false,
-                    message: t('fields.gender.validation-message-required'),
+                    message: t('fields.roomsTo.error'),
                   },
                 ]}
               >
                 <Input
                   type="number"
                   className="select-shadow"
-                  placeholder={t('Введите')}
+                  placeholder={t('fields.rate.placeholder')}
                 />
               </Form.Item>
             </div>
             <Form.Item
-              label={t('rateType')}
+              label={t('fields.calculationType.label')}
               name="rateType"
               style={{ width: '100%' }}
               rules={[
                 {
                   required: true,
-                  message: t('fields.middle_name.validation-message-required'),
+                  message: t('fields.calculationType.error'),
                 },
               ]}
             >
               <CSelect
-                placeholder={t('Выберите')}
+                placeholder={t('fields.calculationType.placeholder')}
                 className="select-shadow"
                 options={[
-                  {
-                    label: t('PERCENTAGE'),
-                    value: 'PERCENTAGE',
-                  },
-                  {
-                    label: t('FIXED'),
-                    value: 'FIXED',
-                  },
+                   {
+                     label: t('billing.calculation-type.fixed'),
+                     value: CalculationType.FIXED,
+                   },
+                   {
+                     label: t('billing.calculation-type.percentage'),
+                     value: CalculationType.PERCENTAGE,
+                   },
                 ]}
               />
             </Form.Item>
-            <Form.Item
-              label={t('rate')}
-              name="rate"
-              style={{ width: '100%' }}
-              rules={[
-                {
-                  required: true,
-                  message: t('fields.middle_name.validation-message-required'),
-                },
-              ]}
-            >
-              <Input
-                type="number"
-                className="select-shadow"
-                placeholder={t('Введите')}
-              />
+
+            <Form.Item shouldUpdate>
+              {({ getFieldValue }) => {
+                const type = getFieldValue('rateType')
+
+                return (
+                  <Form.Item
+                    label={type === CalculationType.PERCENTAGE  ? t('fields.percentage.label')  :  t('fields.amount.label')}
+                    name="rate"
+                    style={{ width: '100%' }}
+                    rules={[
+                      {
+                        required: true,
+                        message: t('fields.amount.error'),
+                      },
+                      {
+                        min: 2,
+                        max: type === CalculationType.PERCENTAGE ? 15 : undefined,
+                        message: type === CalculationType.PERCENTAGE ? t('fields.percentage.error', { min: 2, max: 15 }) : '',
+                        type: 'number',
+                      },
+                    ]}
+                  >
+                    <BillingInputNumber
+                      addonAfter={type === CalculationType.PERCENTAGE ? '%' : undefined}
+                      placeholder={type === CalculationType.PERCENTAGE  ? t('fields.percentage.placeholder'): t('fields.amount.placeholder')}
+                    />
+                  </Form.Item>
+                )
+              }}
             </Form.Item>
             <Form.Item
-              label={t('citizenship')}
+              label={t('fields.citizenship.label')}
               name="citizenship"
               style={{ width: '100%' }}
               rules={[
                 {
                   required: true,
-                  message: t('fields.gender.validation-message-required'),
+                  // message: t('fields.citizenship.error'),
                 },
               ]}
             >
               <CSelect
-                placeholder={t('Выберите')}
+                placeholder={t('fields.currency-type.placeholder')}
                 className="select-shadow"
                 options={[
                   {
-                    label: t('LOCAL'),
-                    value: 'LOCAL',
+                    label: t('billing.citizenship.local'),
+                    value: CitizenType.LOCAL,
                   },
                   {
-                    label: t('FOREIGN'),
-                    value: 'FOREIGN',
+                    label: t('billing.citizenship.foreign'),
+                    value: CitizenType.FOREIGN,
                   },
                 ]}
               />
             </Form.Item>
             <div className="flex items-center gap-2">
               <Form.Item
-                label={t('actualFrom')}
+                label={t('fields.periodFrom.label')}
                 name="actualFrom"
                 style={{ width: '50%' }}
                 rules={[
@@ -288,24 +314,24 @@ const TouristTaxesModal = () => {
                 <DatePicker
                   format={'DD-MM-YYYY'}
                   style={{ width: '100%' }}
-                  placeholder="Выберите"
+                  placeholder={t('fields.periodFrom.placeholder')}
                 />
               </Form.Item>
               <Form.Item
-                label={t('actualTo')}
+                label={t('fields.periodTo.label')}
                 name="actualTo"
                 style={{ width: '50%' }}
                 rules={[
                   {
                     required: false,
-                    message: t('fields.gender.validation-message-required'),
+                    message: t('fields.periodTo.error'),
                   },
                 ]}
               >
                 <DatePicker
                   format={'DD-MM-YYYY'}
                   style={{ width: '100%' }}
-                  placeholder="Выберите"
+                  placeholder={t('fields.periodTo.placeholder')}
                 />
               </Form.Item>
             </div>

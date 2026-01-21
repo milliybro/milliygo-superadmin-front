@@ -7,7 +7,6 @@ import ConfirmationModal from '@/components/ui/confirmation-modal'
 // import HierarchyIcon from '@/components/icons/hierarchy'
 import DeleteIcon from '@/components/icons/delete'
 import EditIcon from '@/components/icons/edit'
-import { useLocation, useNavigate } from 'react-router'
 import useCurrenciesModalStore from '../../../store/currencies-modal-store'
 import CurrenciesEditHistory from '../components/currencies-edit-history'
 
@@ -18,12 +17,10 @@ interface IProps {
 
 const CurrenciesTableAction: FC<IProps> = ({ id, refetch }) => {
   const { t } = useTranslation()
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
-  const { openModal } = useCurrenciesModalStore(store => store)
+  const { openModal, setId, clearId } = useCurrenciesModalStore(store => store)
   const [isDrawer, setIsDrawer] = useState<boolean>(false)
   const editHandler = () => {
-    navigate(pathname + '?edit=' + id)
+    setId(id)
     openModal()
   }
   // const openDrawer = () => {
@@ -31,7 +28,7 @@ const CurrenciesTableAction: FC<IProps> = ({ id, refetch }) => {
   //   setIsDrawer(true)
   // }
   const closeDrawer = () => {
-    navigate(pathname)
+    clearId()
     setIsDrawer(false)
   }
 

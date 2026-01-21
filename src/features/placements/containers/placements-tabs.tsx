@@ -19,7 +19,7 @@ const PlacementTabs = () => {
   useEffect(() => {
     if (!activeTab) {
       const newParams = new URLSearchParams(searchParams)
-      newParams.set('type__key', 'house')
+      newParams.set('type__key', 'hotel')
       newParams.set('page', '1')
       setSearchParams(newParams)
     }
@@ -35,7 +35,7 @@ const PlacementTabs = () => {
     <div className="h-full rounded-[16px] border border-border bg-white">
       <Tabs
         className="p-2 [&_.ant-tabs-tab]:font-medium"
-        activeKey={activeTab || 'house'}
+        activeKey={activeTab || 'hotel'}
         items={items}
         onChange={key => {
           const newParams = new URLSearchParams(searchParams)

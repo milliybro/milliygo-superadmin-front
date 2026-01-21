@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
-import { useLocation, useNavigate, useSearchParams } from 'react-router'
 import { useTranslation } from 'react-i18next'
 import { Modal, Form, Input, Button, Space } from 'antd'
 import CSelect from '@/components/ui/select'
@@ -14,20 +13,16 @@ import { IPaymentProviders } from '../../../types'
 import { mapToSelectOptions } from '@/features/billing/utils/mapToSelectOptions'
 import { getCurrencyTypesList } from '../../../api/getCurrencyTypes'
 import { BillingInputNumber } from '@/features/billing/components/billingInputNumber'
+import { CalculationType, ProviderCode, ProviderType } from '@/features/billing/enums/enums'
 type FormValues = Omit<IPaymentProviders, 'id'>
 
 const PaymentProvidersModal = () => {
   const { t } = useTranslation()
-  const [searchParams] = useSearchParams()
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
   const { openNotify, notificationPlace, notify } = useNotify()
-  const { isModalOpen, closeModal } = usePaymentProvidersModalStore( state => state, )
+  const { isModalOpen, closeModal , id: isEdit, clearId} = usePaymentProvidersModalStore( state => state, )
   const queryClient = useQueryClient()
-
   const [form] = Form.useForm<FormValues>()
 
-  const isEdit = searchParams.get('edit')
 
   const { data: currencyTypes } = useQuery({
     queryKey: ['currency-types'],
@@ -63,7 +58,7 @@ const PaymentProvidersModal = () => {
 
       if (isEdit) {
         return updatePaymentProvider({
-          id: isEdit,
+          id: `${isEdit}`,
           queryParams: formattedValues,
         })
       }
@@ -78,7 +73,10 @@ const PaymentProvidersModal = () => {
     },
     onError: () => {
       form.getFieldsError()
-      notify.error({ message: 'Error', description: 'Error' })
+      notify.error({  
+      message:t('billing.Error.Title'),
+      description: t('billing.Error.UniqueProviderCode') 
+    })
     },
   })
 
@@ -86,7 +84,7 @@ const PaymentProvidersModal = () => {
     closeModal()
     form.resetFields()
     if (isEdit) {
-      navigate(pathname)
+      clearId()
     }
   }
 
@@ -151,7 +149,7 @@ const PaymentProvidersModal = () => {
                 style={{ width: '50%' }}
                 rules={[
                   {
-                    required: false,
+                    required: true,
                     message: t('fields.payment-providers.error'),
                   },
                 ]}
@@ -167,7 +165,7 @@ const PaymentProvidersModal = () => {
                 style={{ width: '50%' }}
                 rules={[
                   {
-                    required: false,
+                    required: true,
                     message: t('fields.providers-type.error'),
                   },
                 ]}
@@ -177,12 +175,12 @@ const PaymentProvidersModal = () => {
                   className="select-shadow"
                   options={[
                     {
-                      label: t('LOCAL'),
-                      value: 'LOCAL',
+                      label: t('billing.provider-type.local'),
+                      value: ProviderType.LOCAL,
                     },
                     {
-                      label: t('INTERNATIONAL'),
-                      value: 'INTERNATIONAL',
+                      label: t('billing.provider-type.international'),
+                      value: ProviderType.INTERNATIONAL,
                     },
                   ]}
                 />
@@ -190,23 +188,23 @@ const PaymentProvidersModal = () => {
             </div>
 
             <Form.Item
-              label={t('code')}
+              label={t('fields.provider-code.label')}
               name="code"
               style={{ width: '100%' }}
               rules={[
                 {
-                  required: false,
-                  message: t('fields.integration-type.error'),
+                  required: true,
+                  message: t('fields.provider-code.error'),
                 },
               ]}
             >
               <CSelect
-                placeholder={t('fields.integration-type.placeholder')}
+                placeholder={t('fields.provider-code.placeholder')}
                 className="select-shadow"
                 options={[
                   {
                     label: t('CLICK'),
-                    value: 'CLICK',
+                    value: ProviderCode.CLICK,
                   },
                 ]}
               />
@@ -217,7 +215,7 @@ const PaymentProvidersModal = () => {
               style={{ width: '100%' }}
               rules={[
                 {
-                  required: false,
+                  required: true,
                   message: t('fields.supportedCurrencies.error'),
                 },
               ]}
@@ -256,7 +254,7 @@ const PaymentProvidersModal = () => {
               style={{ width: '100%' }}
               rules={[
                 {
-                  required: false,
+                  required: true,
                   message: t('fields.calculationType.error'),
                 },
               ]}
@@ -266,34 +264,46 @@ const PaymentProvidersModal = () => {
                 className="select-shadow"
                 options={[
                   {
-                    label: t('PERCENTAGE'),
-                    value: 'PERCENTAGE',
+                    label: t('billing.calculation-type.fixed'),
+                    value: CalculationType.FIXED,
                   },
                   {
-                    label: t('FIXED'),
-                    value: 'FIXED',
+                    label: t('billing.calculation-type.percentage'),
+                    value: CalculationType.PERCENTAGE,
                   },
                 ]}
               />
             </Form.Item>
-            <Form.Item
-              label={t('fields.commissionRate.label')}
-              name="commissionRate"
-              style={{ width: '100%' }}
-              rules={[
-                {
-                  required: false,
-                  message: t('fields.commissionRate.error'),
-                },
-              ]}
-              
-            >
-              <Input
-                addonAfter="%"
-                type="number"
-                className="select-shadow"
-                placeholder={t('fields.commissionRate.placeholder')}
-              />
+ 
+             <Form.Item shouldUpdate>
+              {({ getFieldValue }) => {
+                const type = getFieldValue('calculationType')
+
+                return (
+                  <Form.Item
+                    label={type === CalculationType.PERCENTAGE  ? t('fields.percentage.label')  :  t('fields.amount.label')}
+                    name="commissionRate"
+                    style={{ width: '100%' }}
+                    rules={[
+                      {
+                        required: true,
+                        message:  t('fields.amount.error'),
+                      },
+                      {
+                        min: 0,
+                        max: type === CalculationType.PERCENTAGE ? 100 : undefined,
+                        message: type === CalculationType.PERCENTAGE ? t('fields.percentage.error',{ min: 0, max: 100 }) : '',
+                        type: 'number',
+                      },
+                    ]}
+                  >
+                    <BillingInputNumber
+                      addonAfter={type === CalculationType.PERCENTAGE ? '%' : undefined}
+                      placeholder={type === CalculationType.PERCENTAGE  ? t('fields.percentage.placeholder'): t('fields.amount.placeholder')}
+                    />
+                  </Form.Item>
+                )
+              }}
             </Form.Item>
             <div className="flex items-center gap-2">
               <Form.Item
@@ -329,8 +339,8 @@ const PaymentProvidersModal = () => {
               style={{ width: '100%' }}
               rules={[
                 {
-                  required: false,
-                  message: t('fields.gender.validation-message-required'),
+                  required: true,
+                  message: t('fields.status.validation-message-required'),
                 },
               ]}
             >

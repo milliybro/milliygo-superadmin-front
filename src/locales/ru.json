@@ -616,29 +616,135 @@
     "commissionRate": {
       "label": "Комиссионная ставка",
       "placeholder": "Введите комиссионную ставку",
-      "validation-message-required": "Пожалуйста, укажите комиссионную ставку"
+      "error": "Пожалуйста, укажите комиссионную ставку"
     },
     "minAmount": {
       "label": "Минимальная сумма",
       "placeholder": "Введите минимальную сумму",
-      "validation-message-required": "Пожалуйста, укажите минимальную сумму"
+      "error": "Пожалуйста, укажите минимальную сумму"
     },
     "maxAmount": {
       "label": "Максимальная сумма",
       "placeholder": "Введите максимальную сумму",
-      "validation-message-required": "Пожалуйста, укажите максимальную сумму"
+      "error": "Пожалуйста, укажите максимальную сумму"
     },
     "calculationType": {
       "label": "Тип расчёта",
       "placeholder": "Выберите тип расчёта",
-      "validation-message-required": "Пожалуйста, выберите тип расчёта"
+      "error": "Пожалуйста, выберите тип расчёта"
     },
     "supportedCurrencies": {
       "label": "Поддерживаемые валюты",
       "placeholder": "Выберите поддерживаемые валюты",
       "validation-message-required": "Пожалуйста, выберите поддерживаемые валюты"
-    }
+    },
+   "serviceType": {
+    "label": "Тип услуги",
+    "placeholder": "Выберите тип услуги",
+    "error": "Пожалуйста, выберите тип услуги"
   },
+   "amount": {
+    "label": "Сумма",
+    "placeholder": "Введите сумму",
+    "error": "Пожалуйста, введите сумму"
+   },
+    "translates": {
+    "label": "Переводы",
+    "placeholder": "Введите переводы",
+    "error": "Пожалуйста, заполните переводы"
+  },
+    "language": {
+    "label": "Язык",
+    "placeholder": "Выберите язык",
+    "error": "Пожалуйста, выберите язык"
+  },
+    "numericCode": {
+    "label": "Числовой код",
+    "placeholder": "Введите числовой код",
+    "error": "Пожалуйста, введите числовой код"
+  },
+  "shortCode": {
+    "label": "Код",
+    "placeholder": "Введите код",
+    "error": "Пожалуйста, введите код"
+  },
+  "minorUnits": {
+    "label": "Дробные единицы",
+    "placeholder": "Введите дробные единицы",
+    "error": "Пожалуйста, введите дробные единицы"
+  },
+  "symbol": {
+    "label": "Символ",
+    "placeholder": "Введите символ",
+    "error": "Пожалуйста, введите символ"
+  },
+   "placeType": {
+    "label": "Тип места",
+    "placeholder": "Выберите тип места",
+    "error": "Пожалуйста, выберите тип места"
+  },
+  "periodFrom": {
+    "label": "Период с",
+    "placeholder": "Выберите дату начала",
+    "error": "Пожалуйста, выберите дату начала"
+  },
+  "periodTo": {
+    "label": "Период по",
+    "placeholder": "Выберите дату окончания",
+    "error": "Пожалуйста, выберите дату окончания"
+  },
+   "percentage": {
+    "label": "Процент",
+    "placeholder": "Введите процент",
+    "error": "Значение должно быть в диапазоне от {{min}} до {{max}}"
+  },
+    "provider-code": {
+      "label": "Код провайдера",
+      "placeholder": "Выберите",
+      "error": "Введите код провайдера"
+    },
+  "provider": {
+  "label": "Провайдер",
+  "placeholder": "Выберите",
+  "error": "Выберите провайдера"
+},
+"organization-type": {
+  "label": "Тип организации",
+  "placeholder": "Выберите тип организации",
+  "error": "Выберите тип организации"
+},
+"guide": {
+  "label": "Гид",
+  "placeholder": "Выберите гида",
+  "error": "Выберите гида"
+},
+"apartment": {
+  "label": "Апартамент",
+  "placeholder": "Выберите апартамент",
+  "error": "Выберите апартамент"
+},
+"placement": {
+  "label": "Расположение",
+  "placeholder": "Выберите расположение",
+  "error": "Выберите расположение"
+},
+"organisation": {
+  "label": "Организация",
+  "placeholder": "Выберите организацию",
+  "error": "Выберите организацию"
+},
+"parameterName": {
+  "label": "Название параметра",
+  "placeholder": "Введите название параметра",
+  "error": "Введите название параметра"
+},
+"parameter": {
+  "label": "Параметр",
+  "labels": "Параметры",
+  "placeholder": "Введите параметр",
+  "error": "Введите параметр"
+}
+},
   "tenant": {
     "tenant": "Тенант",
     "tenant-name": "Название тенант",
@@ -819,7 +925,8 @@
     "modal_description": "Для добавления нового информация, пожалуйста заполните все необходимые поля",
     "modal_description_edit": "Для редактирования информации, пожалуйста, заполните все необходимые поля",
     "service-name": "Название услуги",
-    "employee-id": "ID пользователя"
+    "employee-id": "ID пользователя",
+     "add-field": "Добавить поле"
   },
   "status": {
     "confirmed": "Подтвержден",
@@ -877,7 +984,12 @@
     "guest-houses": "Гостевые дома",
     "sanatoriums": "Санатории",
     "hostel": "Хостел",
-    "all-status": "Все статусы"
+    "all-status": "Все статусы",
+    "guest-name": "Имя гостя",
+    "guest-comment": "Комментарий от гостя",
+    "owner-response": "Ответ от владельца",
+    "room-number": "Номер комнаты",
+    "tariff-name": "Названия тарифа"
   },
   "travel-agencies": {
     "name-agencies": "Название туристического агентства",
@@ -936,11 +1048,46 @@
     },
     "directories": {
       "currencies": "Валюты",
+      "currency-types": "Типы валют",
       "payment-providers": "Банки и платёжные провайдеры",
       "tax-rates": "Налоговые ставки",
       "tourist-taxes": "Туристические сборы",
       "subscriber-services": "Прейскурант абонентских услуг",
-      "payments-types": "Виды платежей"
+      "payments-types": "Виды платежей",
+      "operator-commissions": "Комиссии операторов",
+      "provider-contracts":"Договоры провайдера"
+    },
+    "calculation-type": {
+      "fixed": "Фиксированный",
+      "percentage": "Процентный"
+    },
+    "citizenship": {
+     "local": "Гражданин страны",
+     "foreign": "Иностранный гражданин"
+    },
+    "provider-type":{
+      "local": "Местный провайдер",
+      "international": "Международный провайдер"
+    },
+    "placeType":{
+      "HOTEL": "Гостиница",
+      "HOUSEHOLDER": "Домовладелец",
+      "HOSTEL": "Хостел",
+      "GUEST_HOUSE": "Гостевой дом",
+      "APARTMENT": "Квартира",
+      "PRIVATE_HOUSE": "Частный дом",
+      "RESORT": "Курорт",
+      "SANATORIUM": "Санаторий",
+      "CAMPING": "Кемпинг",
+      "ALL": "Все"
+    },
+    "serviceType":{
+      "TOUR": "Путешествие",
+      "HOTEL": "Гостиница"
+    },
+    "Error":{
+       "Title": "Ошибка",
+       "UniqueProviderCode": "Код провайдера не должен повторяться. Платежный провайдер уже существует."
     }
   },
   "tourists": {

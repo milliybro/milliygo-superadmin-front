@@ -1,17 +1,18 @@
-import { Flex, Form, Image, Table, TableProps, Tooltip, Typography } from 'antd'
+import { Flex, Image, Table, TableProps, Tooltip, Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
-import { Divider, message } from 'antd'
+import { Divider } from 'antd'
 
 import RatingTag from '@/components/ui/rating-tag'
 import CallIcon from '@/components/icons/call-icon'
 import { ReactNode } from 'react'
 import LoginIcon from '@/components/icons/login-icon'
-import LogoutIcon from '@/components/icons/login-icon'
 import BedSingleIcon from '@/components/icons/bed-icon'
 import UserOutlinedIcon from '@/components/icons/user-circle-icon'
 import PawPrintIcon from '@/components/icons/paw-icon'
 import CardIcon from '@/components/icons/card-icon'
 import HotelIcon from '@/components/icons/hotel'
+import ArrowUpRightIcon from '@/components/icons/arrow-up-right'
+import LogoutIcon from '@/components/icons/log-out-icon'
 
 interface DataType {
   key: any
@@ -36,7 +37,7 @@ interface Facility {
 interface PaymentType {
   id: number
   name: string
-  icon_url: string
+  image: string
 }
 
 interface HotelContent {
@@ -49,7 +50,7 @@ interface HotelContent {
       avg_rating: string
       name: string
     }
-    placement_images: any
+    image: any
     placement_facilities: any
     id: number
     name: string
@@ -64,13 +65,12 @@ interface HotelContent {
 }
 
 const PlacementsItemContent = ({ data }: HotelContent) => {
-  const [form] = Form.useForm()
   const { t } = useTranslation()
 
   function formatTime(timeString: string | undefined): string {
-    if (!timeString) return '' // Agar undefined bo'lsa, bo'sh string qaytar
-    const [hours, minutes] = timeString.split(':') // Soat va daqiqalarni ajratib olamiz
-    return `${hours}:${minutes}` // Faqat soat va daqiqalarni qaytaramiz
+    if (!timeString) return ''
+    const [hours, minutes] = timeString.split(':')
+    return `${hours}:${minutes}`
   }
 
   const columns: TableProps<DataType>['columns'] = [
@@ -95,26 +95,26 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
     {
       key: '1',
       price: t('hotels-page.check-in.title'),
-      icon: <LoginIcon className="w-[18px]" />,
+      icon: <LoginIcon className="text-[24px]" />,
       conditions: (
         <Flex vertical gap={8}>
           {t('common.time-from', {
-            value: formatTime(data?.placement_detail?.checkin_start),
+            value: formatTime(data?.checkin_start),
           })}
-          {/* <Typography.Text className="text-sm text-secondary">
+          <Typography.Text className="text-sm text-secondary">
             {t('hotels-page.check-in.desc')}
-          </Typography.Text> */}
+          </Typography.Text>
         </Flex>
       ),
     },
     {
       key: '2',
       price: t('hotels-page.check-out.title'),
-      icon: <LogoutIcon className="w-[18px]" />,
+      icon: <LogoutIcon className="text-[24px]" />,
       conditions: (
         <Flex vertical gap={8}>
           {t('common.time-to', {
-            value: formatTime(data?.placement_detail?.checkout_end),
+            value: formatTime(data?.checkout_end),
           })}
         </Flex>
       ),
@@ -122,7 +122,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
     {
       key: '3',
       price: t('hotels-page.bed-for-child.title'),
-      icon: <BedSingleIcon className="w-[18px]" />,
+      icon: <BedSingleIcon className="text-[24px]" />,
       conditions: (
         <Flex vertical gap={8}>
           <Typography.Text className="font-medium">
@@ -144,7 +144,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
     {
       key: '5',
       price: t('hotels-page.no-age.title'),
-      icon: <UserOutlinedIcon className="w-[18px]" />,
+      icon: <UserOutlinedIcon className="text-[24px]" />,
       conditions: (
         <Typography.Text className="text-sm text-secondary">
           {t('hotels-page.no-age.desc')}
@@ -154,7 +154,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
     {
       key: '6',
       price: t('hotels-page.pets.title'),
-      icon: <PawPrintIcon className="w-[18px]" />,
+      icon: <PawPrintIcon className="text-[24px]" />,
       conditions: (
         <Typography.Text className="text-sm text-secondary">
           {t('hotels-page.pets.desc')}
@@ -164,7 +164,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
     {
       key: '7',
       price: t('hotels-page.card.title'),
-      icon: <CardIcon className="w-[18px]" />,
+      icon: <CardIcon className="text-[24px]" />,
       conditions: (
         <Flex vertical gap={8}>
           <Flex gap={16}>
@@ -174,7 +174,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
                   <img
                     width={24}
                     key={index}
-                    src={item?.icon_url}
+                    src={item?.image}
                     className="rounded-lg"
                     alt="image"
                   />
@@ -191,18 +191,8 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
     },
   ]
 
-  const onFinish = () => {
-    message.success('Форма успешно отправлена!')
-  }
-
   return (
-    <Form
-      form={form}
-      layout="vertical"
-      onFinish={onFinish}
-      name="hotelContentForm"
-      className="flex flex-col gap-6"
-    >
+    <div className="flex flex-col gap-6">
       <div className="rounded-[12px] border border-border p-6">
         <h2 className="text-2xl font-medium text-primary-dark">
           {t('common.main-information')}
@@ -211,13 +201,20 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             {/* <div className="size-[80px] rounded-[8px] border border-border bg-secondary-light" /> */}
-            {data?.placement_images[0]?.image ? (
-              <Image
-                width={80}
-                height={80}
-                className="object-cover"
-                src={data?.placement_images[0]?.image}
-              />
+            {data?.image ? (
+              <div className="h-[80px] w-[80px] overflow-hidden rounded-[8px] border border-[#E5E7EB]">
+                <Image
+                  width={80}
+                  height={80}
+                  preview={false}
+                  src={data?.image}
+                  style={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+              </div>
             ) : (
               <div className="flex size-[80px] flex-col items-center justify-center rounded-[8px] border border-border bg-secondary-light">
                 <HotelIcon fontSize={48} />
@@ -226,17 +223,18 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
             <div className="flex flex-col gap-[6px]">
               <div className="flex gap-3">
                 <h3 className="text-2xl font-semibold text-[#232E40]">
-                  {data?.placement_detail?.name}
+                  {data?.name}
                 </h3>
                 <div className="flex items-center gap-2">
-                  <RatingTag value={data?.placement_detail?.avg_rating} icon />
+                  <RatingTag value={data?.avg_rating} icon />
                 </div>
               </div>
               <a
                 style={{ textDecoration: 'underline' }}
-                className="text-sm font-normal text-[#2563EB]"
+                className="flex items-center gap-1 text-sm font-normal text-[#2563EB]"
               >
-                {data?.placement_detail?.address}
+                {data?.address}
+                <ArrowUpRightIcon />
               </a>
             </div>
           </div>
@@ -248,9 +246,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
           </div>
         </div>
         <Divider />
-        <p className="text-base font-normal">
-          {data?.placement_detail?.description}
-        </p>
+        <p className="text-base font-normal">{data?.description}</p>
       </div>
       <div className="rounded-[12px] border border-border p-6">
         <h2 className="text-2xl font-medium text-primary-dark">
@@ -258,18 +254,22 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
         </h2>
         <Divider />
         <div className="grid grid-cols-5 gap-2">
-          {data?.placement_facilities.map((item: any) => {
+          {data?.facilities.map((item: any) => {
             return (
               <div
                 key={item?.id}
                 className="flex items-center gap-2 text-base font-normal text-[#232E40]"
               >
-                <img className="w-6" src={item?.icon} alt={item?.name} />
+                <img
+                  className="w-6"
+                  src={item?.icon + '?mode=preview'}
+                  alt="i"
+                />
                 <Tooltip
                   title={item?.name}
                   color="white"
                   overlayInnerStyle={{ color: 'black', textAlign: 'center' }}
-                  className="line-clamp-2"
+                  className="line-clamp-2 cursor-pointer"
                 >
                   {item?.name}
                 </Tooltip>
@@ -292,7 +292,7 @@ const PlacementsItemContent = ({ data }: HotelContent) => {
           showHeader={false}
         />
       </div>
-    </Form>
+    </div>
   )
 }
 

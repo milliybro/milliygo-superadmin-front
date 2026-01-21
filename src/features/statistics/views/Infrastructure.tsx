@@ -16,7 +16,7 @@ import InfrastructureLoader from '../components/InfrastructureLoader'
 
 const StatisticsInfrastructure = () => {
   const { t } = useTranslation()
-  const currentYear = dayjs().year() - 1
+  const currentYear = dayjs().year() - 2
   const [year, setYear] = useState(currentYear)
   const [activeTab, setActiveTab] = useState<'object' | 'place'>('object')
   const [activeTab2, setActiveTab2] = useState<'object' | 'place'>('object')

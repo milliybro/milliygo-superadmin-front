@@ -6,6 +6,8 @@ import UsersNotFound from '@/features/users/components/users-not-found'
 import { ITouristTaxes } from '../../../types'
 import TouristTaxesTableAction from './tourist-taxes-table-action'
 import StatusTag from '@/components/ui/status-tag'
+import { CalculationType } from '@/features/billing/enums/enums'
+import { formatNumber } from '@/features/billing/utils/formatNumber'
 
 const TouristTaxesTable = ({
   data,
@@ -19,7 +21,7 @@ const TouristTaxesTable = ({
 
   const columns: TableColumnsType<ITouristTaxes | any> = [
     {
-      title: 'ID',
+      title: '№',
       dataIndex: 'id',
       className: 'text-center',
       width: 39,
@@ -28,38 +30,44 @@ const TouristTaxesTable = ({
       sorter: false,
     },
     {
-      title: 'name',
+      title: t('fields.name.label'),
       dataIndex: 'name',
       sorter: false,
       width: 345,
     },
     {
-      title: 'placeType',
+      title: t('fields.placeType.label'),
       dataIndex: 'placeType',
       sorter: false,
       width: 345,
       className: 'text-center',
+      render: (placeType: string) => t(`billing.placeType.${placeType}`),
     },
     {
-      title: t('rateType'),
+      title: t('fields.calculationType.label'),
       dataIndex: 'rateType',
       sorter: false,
       width: 345,
       className: 'text-center',
+      render: (rateType: string) => t(`billing.calculation-type.${rateType.toLowerCase()}`),
     },
     {
-      title: t('rate'),
+      title: `${t('fields.amount.label')} / ${t('fields.percentage.label')}`,
       dataIndex: 'rate',
       sorter: false,
       width: 345,
       className: 'text-center',
+      render: (value, data: any) => { 
+        return data?.rateType === CalculationType.PERCENTAGE ? `${value}%` :  formatNumber(value)
+      }
     },
     {
-      title: t('citizenship'),
+      title: t('fields.citizenship.label'),
       dataIndex: 'citizenship',
       sorter: false,
       width: 345,
       className: 'text-center',
+       render: (citizenship: string) => t(`billing.citizenship.${citizenship.toLowerCase()}`),
     },
     {
       title: t('fields.status.label'),
