@@ -1,16 +1,15 @@
-import { DatePicker, Form, Input } from 'antd'
+import { Form, Input } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 import CSelect from '@/components/ui/select'
 
-import UserSquareIcon from '@/components/icons/user-square'
-import UserMultipleIcon from '@/components/icons/user-multiple'
-import { useQuery } from '@tanstack/react-query'
-import { useSearchParams } from 'react-router'
-import { useEffect } from 'react'
 import Location4Icon from '@/components/icons/location-4'
-import dayjs from 'dayjs'
+import UserSquareIcon from '@/components/icons/user-square'
 import { getDistricts, getRegions } from '@/features/tourists/api'
+import { useQuery } from '@tanstack/react-query'
+import dayjs from 'dayjs'
+import { useEffect } from 'react'
+import { useSearchParams } from 'react-router'
 
 const AgentsFilters = () => {
   const { t } = useTranslation()

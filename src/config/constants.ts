@@ -24,7 +24,6 @@ const ROUTE_PATHS = {
   USERS: '/users',
   HOTELS: '/hotels',
   CLIENTS: '/clients',
-  COMPLAINTS: '/complaints',
   ACCESS_ROLE: '/access-role',
   CALL_CENTER: '/call-center',
   SERVICES: '/services',

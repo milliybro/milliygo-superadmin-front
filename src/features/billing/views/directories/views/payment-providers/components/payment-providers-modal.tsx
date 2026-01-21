@@ -73,7 +73,10 @@ const PaymentProvidersModal = () => {
     },
     onError: () => {
       form.getFieldsError()
-      notify.error({ message: 'Error', description: 'Error' })
+      notify.error({  
+      message:t('billing.Error.Title'),
+      description: t('billing.Error.UniqueProviderCode') 
+    })
     },
   })
 

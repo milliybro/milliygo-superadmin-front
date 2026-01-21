@@ -1,12 +1,12 @@
 import { ListResponseBilling } from '@/features/billing/types/response.billing'
-import { IPaymentProviders } from '../types'
+import { IProviderContracts } from '../types'
 import billingRequest from '@/features/billing/billingRequest'
 
-export async function getPaymentProvidersList(
+export async function getProviderContarctsList(
   params?: any,
-): Promise<ListResponseBilling<IPaymentProviders>> {
-  const res: ListResponseBilling<IPaymentProviders> = await billingRequest({
-    url: '/payment-providers',
+): Promise<ListResponseBilling<IProviderContracts[]>> {
+  const res: ListResponseBilling<IProviderContracts[]> = await billingRequest({
+    url: '/payment-provider-contracts',
     method: 'get',
     params,
   })
@@ -14,9 +14,9 @@ export async function getPaymentProvidersList(
   return res
 }
 
-export async function getPaymentProvider(params?: any): Promise<any> {
+export async function getProviderContarcts(params?: any): Promise<any> {
   const res: any = await billingRequest({
-    url: `/payment-providers/${params.id}`,
+    url: `/payment-provider-contracts/${params.id}`,
     method: 'get',
     params: params.queryParams,
   })
@@ -24,7 +24,7 @@ export async function getPaymentProvider(params?: any): Promise<any> {
   return res
 }
 
-export async function updatePaymentProvider(params: {
+export async function updateProviderContarcts(params: {
   id: string
   queryParams: any
 }): Promise<any> {
@@ -33,7 +33,7 @@ export async function updatePaymentProvider(params: {
     throw new Error('User ID is required for updating a user.')
   }
   const res: any = await billingRequest({
-    url: `/payment-providers/${id}`,
+    url: `/payment-provider-contracts/${id}`,
     method: 'put',
     data: queryParams,
   })
@@ -41,9 +41,9 @@ export async function updatePaymentProvider(params: {
   return res
 }
 
-export async function createPaymentProvider(data?: any): Promise<any> {
+export async function createProviderContarcts(data?: any): Promise<any> {
   const res: any = await billingRequest({
-    url: '/payment-providers',
+    url: '/payment-provider-contracts',
     method: 'post',
     data,
   })
@@ -51,9 +51,9 @@ export async function createPaymentProvider(data?: any): Promise<any> {
   return res
 }
 
-export async function deletePaymentProvider(id: string | number): Promise<any> {
+export async function deleteProviderContarcts(id: string | number): Promise<any> {
   const res: any = await billingRequest({
-    url: `/payment-providers/${id}`,
+    url: `/payment-provider-contracts/${id}`,
     method: 'delete',
   })
 

@@ -11,6 +11,7 @@ import { IUsers } from '@/features/users/types'
 import { capitalizeFirstLetters } from '@/helpers/capitalize-first-letter'
 import UsersNotFound from '@/features/users/components/users-not-found'
 import dayjs from 'dayjs'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
 
 // const onChange: TableProps<IClientTable>['onChange'] = (
 //   pagination,
@@ -34,6 +35,7 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
   pageSize,
 }) => {
   const { t } = useTranslation()
+  const isCompact = useCompactScreen()
 
   const columns: TableColumnsType<IClientTable> = [
     {
@@ -145,7 +147,7 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
     //   },
     // },
     {
-      title: 'common.action',
+      title: isCompact ? 'common.action' : undefined,
       dataIndex: 'id',
       render: id => <ClientsTableActionButton id={id} />,
     },
@@ -159,8 +161,8 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 0 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
+            n === 0 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.prev')}
@@ -171,8 +173,8 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 10 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
+            n === 10 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.next')}
@@ -207,15 +209,15 @@ const ClientsTable: React.FC<ClientsFiltersProps> = ({
       nationality_name: user.nationality_name,
     })) || []
   return (
-    <div className="bg-white border flex-col overflow-hidden border-border rounded-[16px] flex items-center justify-center h-full">
+    <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white">
       <Table<IClientTable>
         columns={columns.map(val => ({
           ...val,
-          title: t(val.title as string),
+          title: val?.title ? t(val.title as string) : undefined,
         }))}
         dataSource={transformedData}
         onChange={pagination => handlePaginationChange(pagination.current!)}
-        className="w-full h-full"
+        className="h-full w-full"
         loading={isLoading}
         pagination={{
           current: currentPage,

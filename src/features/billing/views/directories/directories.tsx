@@ -3,6 +3,7 @@ import { Tabs, Typography, TabsProps } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Outlet, useLocation, useNavigate } from 'react-router'
 import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
+import { BillingPath } from './paths'
 
 function Directories() {
   const { t } = useTranslation()
@@ -19,38 +20,42 @@ function Directories() {
 
   const tabItems: TabsProps['items'] = [
     {
-      key: 'currencies',
+      key: BillingPath.currencies,
       label: t('billing.directories.currencies'),
     },
     {
-      key: 'currency-types',
+      key: BillingPath['currency-types'],
       label: t('billing.directories.currency-types'),
     },
     {
-      key: 'payment-providers',
+      key: BillingPath['payment-providers'],
       label: t('billing.directories.payment-providers'),
     },
+    // {
+    //   key: BillingPath['tax-rates'],
+    //   label: t('billing.directories.tax-rates'),
+    //   disabled: true,
+    // },
     {
-      key: 'tax-rates',
-      label: t('billing.directories.tax-rates'),
-      disabled: true,
-    },
-    {
-      key: 'tourist-taxes',
+      key: BillingPath['tourist-taxes'],
       label: t('billing.directories.tourist-taxes'),
     },
     {
-      key: 'subscriber-services',
+      key: BillingPath['subscriber-services'],
       label: t('billing.directories.subscriber-services'),
     },
+    // {
+    //   key: BillingPath['payments-types'],
+    //   label: t('billing.directories.payments-types'),
+    //   disabled: true,
+    // },
     {
-      key: 'payments-types',
-      label: t('billing.directories.payments-types'),
-      disabled: true,
+      key: BillingPath['operator-commissions'],
+      label: t('billing.directories.operator-commissions'),
     },
     {
-      key: 'operator-commissions',
-      label: t('billing.directories.operator-commissions'),
+      key: BillingPath['provider-contracts'],
+      label: t('billing.directories.provider-contracts'),
     },
   ]
 

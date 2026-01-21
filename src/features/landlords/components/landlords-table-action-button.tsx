@@ -1,9 +1,6 @@
-import { Button } from 'antd'
-import { useTranslation } from 'react-i18next'
 import { useLocation, useNavigate } from 'react-router'
 
-import EyeIcon from '@/components/icons/eye'
-
+import CompactViewButton from '@/components/ui/compact-view-button'
 import type { FC } from 'react'
 
 interface IProps {
@@ -12,15 +9,12 @@ interface IProps {
   type?: string
 }
 
-const HotelsTableActionButton: FC<IProps> = ({ id, tenant_id, type }) => {
-  const { t } = useTranslation()
+const LandlordsTableActionButton: FC<IProps> = ({ id, tenant_id, type }) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
   return (
-    <Button
-      className="inline-flex items-center gap-2 font-medium text-primary"
-      type="text"
+    <CompactViewButton
       onClick={() =>
         navigate(
           pathname +
@@ -31,11 +25,8 @@ const HotelsTableActionButton: FC<IProps> = ({ id, tenant_id, type }) => {
             (type !== undefined ? 'type=' + type : ''),
         )
       }
-    >
-      <EyeIcon className="text-xl" />
-      {t('common.more-details')}
-    </Button>
+    />
   )
 }
 
-export default HotelsTableActionButton
+export default LandlordsTableActionButton

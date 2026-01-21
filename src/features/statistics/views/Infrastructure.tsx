@@ -75,7 +75,7 @@ const StatisticsInfrastructure = () => {
       }),
     placeholderData: data => data,
     gcTime: 0,
-    })
+  })
 
   const { data: hotelSanatoriumChartData, isLoading: isLoadingChart4 } =
     useQuery({
@@ -99,7 +99,7 @@ const StatisticsInfrastructure = () => {
 
   if (isGlobalLoading) {
     return (
-      <div className="flex flex-1 flex-col items-center justify-center min-h-screen">
+      <div className="flex min-h-screen flex-1 flex-col items-center justify-center">
         <InfrastructureLoader />
       </div>
     )

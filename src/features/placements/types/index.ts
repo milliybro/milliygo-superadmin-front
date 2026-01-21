@@ -1,4 +1,5 @@
 export interface IPlacement {
+  id:number,
   placement_id: number
   lat: number
   image: string

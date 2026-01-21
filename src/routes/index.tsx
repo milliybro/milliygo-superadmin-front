@@ -2,11 +2,9 @@ import { ROUTE_PATHS } from '@/config/constants'
 
 import Root from '@/features/root'
 
-import accessRoleRoutes from '@/features/access-roles/routes'
 import authRoutes from '@/features/auth/routes'
 import callCenterRoutes from '@/features/call-center/routes'
 import clientsRoutes from '@/features/clients/routes'
-import complaintsRoutes from '@/features/complaints/routes'
 import usersRoutes from '@/features/users/routes'
 
 import accommodationsRoutes from '@/features/accommodation-facilities/routes'
@@ -27,11 +25,11 @@ import type { CustomRoute } from '@/types'
 import NotFound from '@/views/not-found'
 import actionHistoryRoutes from '@/features/action-history/routes'
 import resetRoutes from '@/features/reset/routes'
-import useUserData from '@/hooks/use-user-data'
+import getUserData from '@/utils/get-user-data'
 
 export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
   const commonAuthRoutes = [authRoutes, resetRoutes]
-  const user = useUserData()
+  const user = getUserData()
 
   if (role === 'admin') {
     if (user?.username === 'statistics_admin') {
@@ -64,7 +62,6 @@ export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
           guidesRoutes,
           billingRoutes,
           actionHistoryRoutes,
-          complaintsRoutes,
           clientsRoutes,
           callCenterRoutes,
           servicesRoutes,
@@ -72,7 +69,6 @@ export function createRoutesByRole(role: 'admin' | 'supplier'): CustomRoute[] {
           accommodationsRoutes,
           mainContentRoutes,
           usersRoutes,
-          accessRoleRoutes,
           contentRoutes,
         ],
       },

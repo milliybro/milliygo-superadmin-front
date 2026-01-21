@@ -685,6 +685,52 @@
       "placeholder": "Tanlang",
       "error": "Provayder kodini kiriting"
     }
+    "label": "Provayder kodi",
+    "placeholder": "Tanlang",
+    "error": "Provayder kodini kiriting"
+    },
+  "provider":{
+    "label":"Provayder",
+    "placeholder":"Tanlang",
+    "error":"Providerni kiriting"
+   },
+   "organization-type": {
+  "label": "Tashkilot turi",
+  "placeholder": "Tashkilot turini tanlang",
+  "error": "Tashkilot turini tanlang"
+},
+"guide": {
+  "label": "Gid",
+  "placeholder": "Gidni tanlang",
+  "error": "Gidni tanlang"
+},
+"apartment": {
+  "label": "Kvartira",
+  "placeholder": "Kvartirani tanlang",
+  "error": "Kvartirani tanlang"
+},
+
+"placement": {
+  "label": "Joylashuv",
+  "placeholder": "Joylashuvni tanlang",
+  "error": "Joylashuvni tanlang"
+},
+"parameterName": {
+  "label": "Parametr nomi",
+  "placeholder": "Parametr nomini kiriting",
+  "error": "Parametr nomini kiriting"
+},
+"organisation": {
+  "label": "Tashkilot",
+  "placeholder": "Tashkilotni tanlang",
+  "error": "Tashkilotni tanlang"
+},
+"parameter": {
+  "label": "Parametr",
+  "labels": "Parametrlar",
+  "placeholder": "Parametrni kiriting",
+  "error": "Parametrni kiriting"
+}
   },
   "tenant": {
     "tenant": "Tenant",
@@ -1007,7 +1053,8 @@
       "tourist-taxes": "Turistik yig‘imlar",
       "subscriber-services": "Abonent xizmatlari narxlari",
       "payments-types": "To‘lov turlari",
-      "operator-commissions": "Operator komissiyalari"
+      "operator-commissions": "Operator komissiyalari",
+      "provider-contracts": "Provayder shartnomalari"
     },
     "calculation-type": {
       "fixed": "Belgilangan (qat’iy)",
@@ -1036,6 +1083,10 @@
     "serviceType": {
       "TOUR": "Sayohat",
       "HOTEL": "Mehmonxona"
+    },
+    "Error": {
+      "Title": "Xatolik",
+      "UniqueProviderCode": "Provayder kodi takrorlanmasligi kerak. Payment Provider allaqachon mavjud."
     }
   },
   "tourists": {
@@ -1212,7 +1263,7 @@
     "outbound_tourism": "Chiqish turizmi",
     "umehmon-active": "U-Mehmon faolligi",
     "tourist_infracstructure-desc": "Obyektlar, joylar va joylashtirish vositalari haqida ma’lumot",
-    "total_organizations": "Dam olish va turizm tashkilotlari jami",
+    "total_organizations": "Dam olish tashkilotlari va sayyohlik bazalarining ob'ektlari soni",
     "total_hotels": "Mehmonxonalar va ularga o‘xshash joylar jami",
     "total_special_accommodation": "Ixtisoslashtirilgan joylashtirish vositalari jami",
     "total_collective_accommodation": "Kollektiv joylashtirish vositalari jami",

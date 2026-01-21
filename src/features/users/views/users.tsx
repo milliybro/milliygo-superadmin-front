@@ -93,7 +93,7 @@ const Users = () => {
         <UserModal refetch={refetch} />
       </div>
       <UsersFilters />
-      <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white dark:bg-dark-bg">
+      <div className="flex h-full flex-col items-center justify-center overflow-hidden rounded-[16px] border border-border bg-white p-6 dark:bg-dark-bg">
         <UsersTable
           refetch={refetch}
           UsersData={UsersData}

@@ -13,8 +13,9 @@ const CompactViewButton: FC<ButtonProps> = props => {
   return (
     <Button
       className={twMerge(
-        'inline-flex items-center gap-2 font-medium',
+        'flex items-center gap-2 font-medium',
         isCompact ? 'size-7 p-0 text-black' : 'text-primary',
+        props?.className,
       )}
       type="text"
       {...props}

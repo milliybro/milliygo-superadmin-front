@@ -702,7 +702,48 @@
       "label": "Провайдер коди",
       "placeholder": "Танланг",
       "error": "Провайдер кодини киритинг"
-    }
+  },
+  "provider": {
+  "label": "Провайдер",
+  "placeholder": "Танланг",
+  "error": "Провайдерни киритинг"
+},
+"organization-type": {
+  "label": "Ташкилот тури",
+  "placeholder": "Ташкилот турини танланг",
+  "error": "Ташкилот турини танланг"
+},
+"guide": {
+  "label": "Гид",
+  "placeholder": "Гидни танланг",
+  "error": "Гидни танланг"
+},
+"apartment": {
+  "label": "Квартира",
+  "placeholder": "Квартирани танланг",
+  "error": "Квартирани танланг"
+},
+"placement": {
+  "label": "Жойлашув",
+  "placeholder": "Жойлашувни танланг",
+  "error": "Жойлашувни танланг"
+},
+"organisation": {
+  "label": "Ташкилот",
+  "placeholder": "Ташкилотни танланг",
+  "error": "Ташкилотни танланг"
+},
+"parameterName": {
+  "label": "Параметр номи",
+  "placeholder": "Параметр номини киритинг",
+  "error": "Параметр номини киритинг"
+},
+"parameter": {
+  "label": "Параметр",
+  "labels": "Параметрлар",
+  "placeholder": "Параметрни киритинг",
+  "error": "Параметрни киритинг"
+}
   },
   "tenant": {
     "tenant": "Тенант",
@@ -1010,7 +1051,8 @@
       "tourist-taxes": "Туристик йиғимлар",
       "subscriber-services": "Абонент хизматлари нархлари",
       "payments-types": "Тўлов турлари",
-      "operator-commissions": "Оператор комиссиялари"
+      "operator-commissions": "Оператор комиссиялари",
+      "provider-contracts": "Провайдер шартномалари"
     },
     "calculation-type": {
       "fixed": "Белгиланган (қатъий)",
@@ -1039,6 +1081,10 @@
     "serviceType": {
       "TOUR": "Саёҳат",
       "HOTEL": "Меҳмонхона"
+    },
+    "Error":{
+       "Title": "Хатолик",
+       "UniqueProviderCode": "Провайдер коди такрорланмаслиги керак. Payment Provider аллақачон мавжуд."
     }
   },
   "tourists": {
@@ -1217,7 +1263,7 @@
     "outbound_tourism": "Чиқиш туризми",
     "umehmon-active": "U-Mehmon фаоллиги",
     "tourist_infracstructure-desc": "Объектлар, жойлар ва жойлаштириш вариантлари ҳақида маълумот",
-    "total_organizations": "Дам олиш ва туризм ташкилотлари жами",
+    "total_organizations": "Дам олиш ташкилотлари ва сайёҳлик базаларининг объектлари сони",
     "total_hotels": "Меҳмонхоналар ва уларга ўхшаш жойлар жами",
     "total_special_accommodation": "Ихтисослаштирилган жойлаштириш воситалари жами",
     "total_collective_accommodation": "Коллектив жойлаштириш воситалари жами",
