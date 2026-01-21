@@ -11,6 +11,7 @@ import { useParams, useSearchParams } from 'react-router'
 import formatDate from '@/features/clients/components/format-date'
 import GuestModal from '../components/guest-modal'
 import GuestsNotFound from '../components/guest-not-found'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
 
 // interface IHotelDetailGuests {
 //   id: number
@@ -37,6 +38,7 @@ const PlacementsItemGuest = () => {
   const { id } = useParams<{ id: string }>()
   const [currentPage, setCurrentPage] = useState(1)
   const [searchParams] = useSearchParams()
+  const isCompact = useCompactScreen()
 
   const pageSize = 10
 
@@ -90,7 +92,7 @@ const PlacementsItemGuest = () => {
     },
     {
       width: 200,
-      title: 'common.action',
+      title: isCompact ? 'common.action' : undefined,
       dataIndex: 'id',
       render: id => <HotelsItemTableActionButton id={id} />,
     },
@@ -159,8 +161,8 @@ const PlacementsItemGuest = () => {
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 0 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
+            n === 0 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.prev')}
@@ -171,8 +173,8 @@ const PlacementsItemGuest = () => {
       return (
         <span
           className={twMerge(
-            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
-            n === 10 ? 'opacity-0 pointer-events-none' : '',
+            'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
+            n === 10 ? 'pointer-events-none opacity-0' : '',
           )}
         >
           {t('common.next')}

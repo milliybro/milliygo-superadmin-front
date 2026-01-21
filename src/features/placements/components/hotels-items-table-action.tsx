@@ -9,11 +9,7 @@ interface IProps {
 const HotelsItemTableActionButton: FC<IProps> = () => {
   const { openModal } = useHotelModalStore(store => store)
 
-  return (
-    <>
-      <CompactViewButton onClick={openModal} />
-    </>
-  )
+  return <CompactViewButton onClick={openModal} />
 }
 
 export default HotelsItemTableActionButton

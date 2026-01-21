@@ -12,6 +12,7 @@ import BeachIcon from '@/components/icons/beach-icon'
 import { getTourAgentsList } from '../api'
 import { useSearchParams } from 'react-router'
 import { useQuery } from '@tanstack/react-query'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
 
 const pageSize = 10
 
@@ -19,6 +20,7 @@ const TravelAgenciesTable = () => {
   const { t } = useTranslation()
   const [searchParams, setSearchParams] = useSearchParams()
   const currentPage = Number(searchParams.get('page')) || 1
+  const isCompact = useCompactScreen()
 
   const search = searchParams.get('search') || ''
   const region = searchParams.get('region') || ''
@@ -103,7 +105,7 @@ const TravelAgenciesTable = () => {
     },
     {
       width: 156,
-      title: 'common.action',
+      title: isCompact ? 'common.action' : undefined,
       render: (id, val: any) => (
         <HotelsTableActionButton
           key={id}
