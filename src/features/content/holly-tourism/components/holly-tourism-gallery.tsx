@@ -7,19 +7,33 @@ import { useDeleteHollyTourismImage } from '../hooks/use-delete-image'
 import { useEffect } from 'react'
 import { useHollyTourismImage } from '../hooks/use-holly-tourism-image'
 import { StarFilled, StarOutlined } from '@ant-design/icons'
+import { usePatchHollyTourismImage } from '../hooks/use-patch-image'
 
 export default function HollyTourismGallery() {
   const { t } = useTranslation()
+  const locale = localStorage.getItem('i18nextLng')
   const { images, addImage, removeImage, setImages, setMainImage } =
     useHollyTourismImage()
   const { compress, isCompressing } = useImageCompression(true)
   const { mutate: deleteImage } = useDeleteHollyTourismImage()
+  const { mutate: updateImage } = usePatchHollyTourismImage()
 
   const deleteHandler = (index: number) => {
     if (images?.[index]?.id) {
       deleteImage(images[index]?.id)
     }
     removeImage(index)
+  }
+
+  const mainImageHandler = (index: number) => {
+    if (images?.[index]?.id) {
+      updateImage({
+        id: images[index]?.id,
+        data: { is_main: true },
+        language: locale === 'oz' ? 'uz-latin' : locale || 'en',
+      })
+    }
+    setMainImage(index)
   }
 
   const handleUpload: UploadProps['beforeUpload'] = async file => {
@@ -84,7 +98,7 @@ export default function HollyTourismGallery() {
                   />
                   <button
                     type="button"
-                    onClick={() => setMainImage(i)}
+                    onClick={() => mainImageHandler(i)}
                     className="absolute left-0 top-0 flex size-[20px] translate-x-[2px] translate-y-[2px] items-center justify-center rounded-sm bg-secondary-dark text-white transition-colors hover:bg-secondary-dark/80"
                   >
                     {img?.is_main ? (
