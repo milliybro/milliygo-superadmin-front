@@ -115,7 +115,7 @@ export default function CreateExpertAdvice() {
     mutationFn: (values: CreateExpertAdviceValues) => {
       const formData = new FormData()
 
-      formData.append('title', transformImages(values.title))
+      formData.append('title', values.title)
       formData.append('description', transformImages(values.description))
       formData.append('content', transformImages(values.content))
 
@@ -316,7 +316,9 @@ export default function CreateExpertAdvice() {
                 },
               ]}
             >
-              <QuillEditor placeholder={t('fields.name.placeholder')} />
+              {/* <QuillEditor placeholder={t('fields.name.placeholder')} />
+               */}
+              <Input placeholder={t('fields.name.placeholder')} />
             </Form.Item>
             <Form.Item
               label={t('fields.description.label')}
