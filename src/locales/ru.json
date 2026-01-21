@@ -1034,7 +1034,7 @@
     "accrued-days": "Начислен.тс (Сутки)",
     "total-sum": "Итого Тс (Сумма)",
     "reports": {
-      "providers": "Провайдери",
+      "providers": "Провайдеры",
       "suppliers": "Поставщики",
       "tour-report": "Турсбор отчет",
       "user-payment": "Абонентская плата",
@@ -1254,7 +1254,7 @@
     "outbound_tourism": "Выездной туризм",
     "umehmon-active": "Активность U-Mehmon",
     "tourist_infracstructure-desc": "Информация об объектах, местах и вариантах размещения",
-    "total_organizations": "Всего организаций для отдыха и туризма",
+    "total_organizations": "Количество объектов организаций отдыха и туристических баз",
     "total_hotels": "Всего гостиниц и аналогичных средств размещения",
     "total_special_accommodation": "Всего специализированных размещений",
     "total_collective_accommodation": "Всего инструментов коллективного размещения",

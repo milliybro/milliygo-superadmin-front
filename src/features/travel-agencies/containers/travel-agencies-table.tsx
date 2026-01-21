@@ -9,16 +9,31 @@ import type { PaginationProps, TableColumnsType } from 'antd'
 import UsersNotFound from '@/features/users/components/users-not-found'
 import dayjs from 'dayjs'
 import BeachIcon from '@/components/icons/beach-icon'
+import { getTourAgentsList } from '../api'
+import { useSearchParams } from 'react-router'
+import { useQuery } from '@tanstack/react-query'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
 
-const TravelAgenciesTable = ({
-  AgentsData,
-  isLoading,
-  currentPage,
-  pageSize,
-  setCurrentPage,
-}: any) => {
+const pageSize = 10
+
+const TravelAgenciesTable = () => {
   const { t } = useTranslation()
-  const columns: TableColumnsType<ITourAgents> = [
+  const [searchParams, setSearchParams] = useSearchParams()
+  const currentPage = Number(searchParams.get('page')) || 1
+  const isCompact = useCompactScreen()
+
+  const search = searchParams.get('search') || ''
+  const region = searchParams.get('region') || ''
+
+  const setCurrentPage = (page: number) => {
+    setSearchParams(prev => {
+      const params = new URLSearchParams(prev)
+      params.set('page', String(page))
+      return params
+    })
+  }
+
+  const columns: TableColumnsType = [
     {
       title: 'ID',
       dataIndex: 'id',
@@ -67,10 +82,10 @@ const TravelAgenciesTable = ({
       sorter: true,
       width: 345,
 
-      render: (phones: string[]) => (
+      render: (phone: string) => (
         <div className="flex flex-col gap-[4px]">
-          {phones && phones.length > 0 ? (
-            phones.map((p, i) => <div key={i}>{p}</div>)
+          {phone && phone.length > 0 ? (
+            <div>{phone}</div>
           ) : (
             <div className="text-center">-</div>
           )}
@@ -82,11 +97,15 @@ const TravelAgenciesTable = ({
       dataIndex: 'address',
       sorter: true,
       width: 345,
+      render: (address: string) => (
+        <div className="line-clamp-2" title={address}>
+          {address}
+        </div>
+      ),
     },
-
     {
       width: 156,
-      title: 'common.action',
+      title: isCompact ? 'common.action' : undefined,
       render: (id, val: any) => (
         <HotelsTableActionButton
           key={id}
@@ -136,26 +155,40 @@ const TravelAgenciesTable = ({
     setCurrentPage(page)
   }
 
-  const transformedHotelsData = AgentsData?.results.map(
+  const { data, isFetching } = useQuery({
+    queryKey: ['tour-agents', currentPage, search, region],
+    queryFn: async () => {
+      const res = await getTourAgentsList({
+        page_size: pageSize,
+        page: currentPage,
+        address: region ? region : null,
+        name: search ? search : null,
+      })
+      return res
+    },
+    placeholderData: data => data,
+  })
+
+  const transformedHotelsData = data?.results.map(
     (item: ITourAgents, i: any) => ({
       key: i,
-      id: item.id,
-      name: item.name,
-      image: item.file,
-      address: item.address?.map(addr => addr.address) ?? [],
-      license_validity: item.expire_license_date,
-      phone_number: item.phone_number?.map(p => p.phone_number) ?? [],
+      id: item?.id,
+      name: item?.name,
+      file: item?.file,
+      address: item?.address,
+      expire_license_date: item?.expire_license_date,
+      phone_number: item?.phone_number,
     }),
   )
 
   return (
     <div className="flex h-full flex-col items-center justify-center overflow-hidden bg-white">
-      <Table<ITourAgents>
+      <Table
         columns={columns?.map(val => ({
           ...val,
           title: t(val?.title as string),
         }))}
-        loading={isLoading}
+        loading={isFetching}
         dataSource={transformedHotelsData}
         onChange={pagination => handlePaginationChange(pagination.current!)}
         className="h-full w-full"
@@ -163,7 +196,7 @@ const TravelAgenciesTable = ({
         pagination={{
           current: currentPage,
           pageSize: 10,
-          total: AgentsData?.count || 0,
+          total: data?.count || 0,
           hideOnSinglePage: true,
           showSizeChanger: false,
           position: ['bottomCenter'],

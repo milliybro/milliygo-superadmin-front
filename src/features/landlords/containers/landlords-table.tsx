@@ -3,13 +3,14 @@ import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
 
 import StatusTag from '@/components/ui/status-tag'
-import HotelsTableActionButton from '../components/hotels-table-action-button'
+import LandlordsTableActionButton from '../components/landlords-table-action-button'
 
 import type { IApartmentsTable } from '../types'
 import type { PaginationProps, TableColumnsType } from 'antd'
 import UsersNotFound from '@/features/users/components/users-not-found'
 import { formatAmount } from '@/helpers/format-amount'
 import AddressCell from '../components/address-cell'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
 
 const LandlordsTable = ({
   ApartmentsData,
@@ -19,6 +20,8 @@ const LandlordsTable = ({
   setCurrentPage,
 }: any) => {
   const { t } = useTranslation()
+  const isCompact = useCompactScreen()
+
   const columns: TableColumnsType<IApartmentsTable> = [
     {
       title: 'ID',
@@ -83,10 +86,10 @@ const LandlordsTable = ({
       render: status => <StatusTag active={status} />,
     },
     {
-      width: 1,
-      title: 'common.action',
+      width: 10,
+      title: isCompact ? null : 'common.action',
       render: (id, val: any) => (
-        <HotelsTableActionButton
+        <LandlordsTableActionButton
           key={id}
           id={val.id}
           tenant_id={val.tenant ?? undefined}
@@ -153,13 +156,12 @@ const LandlordsTable = ({
       <Table<IApartmentsTable>
         columns={columns?.map(val => ({
           ...val,
-          title: t(val?.title as string),
+          title: val?.title ? t(val?.title as string) : undefined,
         }))}
         loading={isLoading}
         dataSource={transformedHotelsData}
         onChange={pagination => handlePaginationChange(pagination.current!)}
-        className="h-full w-full"
-        bordered
+        className="side-borderless-table responsive-table h-full w-full"
         pagination={{
           current: currentPage,
           pageSize: 10,
