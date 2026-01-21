@@ -1,35 +1,15 @@
-import ArrowDownIcon from '@/components/icons/arrow-down'
-import {
-  Button,
-  Divider,
-  Form,
-  Input,
-  Select,
-  Switch,
-  Tag,
-  Tooltip,
-  Typography,
-} from 'antd'
-import { useEffect, useMemo, useState } from 'react'
-import YouTubeEmbed from '../../components/youtube-embed'
-import PopularSpotsList from './popular-spots-list'
-import TopDestinationGallery from './top-destination-gallery'
+import { Divider, Form, Select, Switch, Tag, Tooltip, Typography } from 'antd'
+import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useRegions } from '../hooks/use-regions'
 import { useLocation } from 'react-router'
 import TranslateIcon from '@/components/icons/translate-icon'
 import QuillEditor from '../../components/quill-editor'
+import HollyTourismGallery from './holly-tourism-gallery'
 
-export default function CreateTopDestinationForm({
-  language,
-  setLanguage,
-}: any) {
+export default function CreateHollyTourismForm({ language, setLanguage }: any) {
   const form = Form.useFormInstance()
-  const [checkingEmbed, setCheckingEmbed] = useState<boolean>(false)
-  const youtubeUrl = Form.useWatch('youtube_url', form)
   const { t } = useTranslation()
   const activeStatus = Form.useWatch('status', form)
-  const { data: regions } = useRegions()
   const { pathname } = useLocation()
 
   const isEdit = useMemo(() => pathname.includes('/edit'), [pathname])
@@ -63,7 +43,6 @@ export default function CreateTopDestinationForm({
     value,
   }))
 
-  // 👉 Edit bo‘lmasa faqat EN
   const languageOptions = useMemo(() => {
     if (!isEdit) {
       return [
@@ -76,7 +55,6 @@ export default function CreateTopDestinationForm({
     return allOptions
   }, [isEdit])
 
-  // 👉 Create holatda avtomatik EN
   useEffect(() => {
     if (!isEdit) {
       setLanguage('en')
@@ -143,7 +121,6 @@ export default function CreateTopDestinationForm({
               </div>
             )}
 
-            {/* 🌍 Language Select */}
             <Select
               showSearch={isEdit}
               placeholder="Select language"
@@ -165,38 +142,7 @@ export default function CreateTopDestinationForm({
           <QuillEditor placeholder={t('fields.title.placeholder')} />
         </Form.Item>
 
-        <Form.Item name="region" label={t('fields.region.label')}>
-          <Select
-            placeholder={t('fields.region.placeholder')}
-            options={regions?.results?.map(reg => ({
-              label: reg?.name,
-              value: reg?.id,
-            }))}
-            size="large"
-            suffixIcon={<ArrowDownIcon className="text-xl" />}
-          />
-        </Form.Item>
-
-        <TopDestinationGallery />
-
-        <Form.Item name="youtube_url" label={t('fields.youtube_url.label')}>
-          <Input
-            size="large"
-            placeholder={t('fields.youtube_url.placeholder')}
-            suffix={
-              <Button
-                type="primary"
-                size="small"
-                onClick={() => setCheckingEmbed(true)}
-              >
-                {t('common.check')}
-              </Button>
-            }
-            onChange={() => setCheckingEmbed(false)}
-          />
-        </Form.Item>
-
-        {checkingEmbed && <YouTubeEmbed url={youtubeUrl} />}
+        <HollyTourismGallery />
 
         <div className="flex items-end gap-5">
           <Form.Item label={t('fields.status.label')} name="status">
@@ -210,14 +156,6 @@ export default function CreateTopDestinationForm({
             {activeStatus ? t('common.active') : t('common.inactive')}
           </Tag>
         </div>
-      </div>
-
-      <div className="flex flex-col gap-4 rounded-2xl border bg-white p-6">
-        <Typography.Title level={5} className="text-xl font-medium">
-          {t('content.top_destinations.add_attractions')}
-        </Typography.Title>
-
-        <PopularSpotsList />
       </div>
     </div>
   )
