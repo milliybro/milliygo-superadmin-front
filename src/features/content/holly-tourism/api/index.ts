@@ -1,4 +1,3 @@
-import request from '@/utils/axios'
 import { IHollyTourism } from '../types'
 import { ListResponse } from '@/types'
 import requestSuper from '@/utils/superRequest'
@@ -7,7 +6,7 @@ export async function getHollyTourism(
   id: string | number,
   lang: string = 'en',
 ): Promise<IHollyTourism> {
-  return await request({
+  return await requestSuper({
     url: `/site-content/pilgrimage/tourism/${id}/`,
     method: 'get',
     headers: {
@@ -21,7 +20,7 @@ export async function editHollyTourism(
   data: FormData,
   language: string,
 ) {
-  return await request({
+  return await requestSuper({
     url: `/site-content/pilgrimage/tourism/${id}/`,
     method: 'put',
     data,
@@ -43,7 +42,7 @@ export async function getHollyTourismList(
 }
 
 export async function createHollyTourism(data: FormData) {
-  return await request({
+  return await requestSuper({
     url: '/site-content/pilgrimage/tourism/',
     method: 'post',
     data,
@@ -56,7 +55,7 @@ export async function createHollyTourism(data: FormData) {
 export async function deleteHollyTourismImage(
   id: number,
 ): Promise<IHollyTourism> {
-  return await request({
+  return await requestSuper({
     url: `/site-content/pilgrimage/tourism/${id}/image/delete/`,
     method: 'delete',
   })
@@ -66,5 +65,20 @@ export async function deleteHollyTourism(id: number) {
   return await requestSuper({
     url: `/site-content/pilgrimage/tourism/${id}/`,
     method: 'delete',
+  })
+}
+
+export async function patchHollyTourismImage(
+  id: number | string,
+  data: { is_main: boolean },
+  language: string,
+) {
+  return await requestSuper({
+    url: `/site-content/pilgrimage/tourism/${id}/image/update/`,
+    method: 'patch',
+    data,
+    headers: {
+      'Accept-Language': language,
+    },
   })
 }
