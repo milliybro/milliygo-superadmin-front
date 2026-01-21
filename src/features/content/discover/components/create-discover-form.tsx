@@ -82,7 +82,7 @@ export default function CreateDiscoverForm({ language, setLanguage }: any) {
         <div className="flex items-center gap-2">
           {isEdit && (
             <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
-              <Typography.Text>Keshni yangilash</Typography.Text>
+              <Typography.Text>{t('common.clear-cache')}</Typography.Text>
               <Form.Item
                 name="refresh_cache"
                 valuePropName="checked"
@@ -158,7 +158,11 @@ export default function CreateDiscoverForm({ language, setLanguage }: any) {
       </Form.Item>
 
       <div className="flex items-end gap-5">
-        <Form.Item label={t('fields.status.label')} name="status" initialValue={false}>
+        <Form.Item
+          label={t('fields.status.label')}
+          name="status"
+          initialValue={false}
+        >
           <Switch />
         </Form.Item>
 
