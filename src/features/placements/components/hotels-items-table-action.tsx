@@ -1,8 +1,4 @@
-import { Button } from 'antd'
-import { useTranslation } from 'react-i18next'
-
-import EyeIcon from '@/components/icons/eye'
-
+import CompactViewButton from '@/components/ui/compact-view-button'
 import type { FC } from 'react'
 import useHotelModalStore from '../store/hotel-modal-store'
 
@@ -11,19 +7,11 @@ interface IProps {
 }
 
 const HotelsItemTableActionButton: FC<IProps> = () => {
-  const { t } = useTranslation()
   const { openModal } = useHotelModalStore(store => store)
 
   return (
     <>
-      <Button
-        className="inline-flex items-center gap-2 font-medium text-primary"
-        type="text"
-        onClick={openModal}
-      >
-        <EyeIcon className="text-xl" />
-        {t('common.more-details')}
-      </Button>
+      <CompactViewButton onClick={openModal} />
     </>
   )
 }

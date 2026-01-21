@@ -3,7 +3,7 @@ import { twMerge } from 'tailwind-merge'
 import { useTranslation } from 'react-i18next'
 
 import StatusTag from '@/components/ui/status-tag'
-import HotelsTableActionButton from '../components/hotels-table-action-button'
+import LandlordsTableActionButton from '../components/landlords-table-action-button'
 
 import type { IApartmentsTable } from '../types'
 import type { PaginationProps, TableColumnsType } from 'antd'
@@ -86,7 +86,7 @@ const LandlordsTable = ({
       width: 1,
       title: 'common.action',
       render: (id, val: any) => (
-        <HotelsTableActionButton
+        <LandlordsTableActionButton
           key={id}
           id={val.id}
           tenant_id={val.tenant ?? undefined}

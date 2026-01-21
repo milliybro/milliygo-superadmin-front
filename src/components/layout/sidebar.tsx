@@ -19,7 +19,7 @@ import UsersGroupIcon from '../icons/user-group-icon'
 import WalletIcon from '../icons/wallet-icon'
 import MegaPhoneIcon from '../icons/megaphone-icon'
 import UserIcon from '../icons/user'
-import useUserData from '@/hooks/use-user-data'
+import getUserData from '@/utils/get-user-data'
 import SidebarItem from './sidebar-item'
 
 const Sidebar = () => {
@@ -27,7 +27,7 @@ const Sidebar = () => {
 
   const [isSidebarOpen, setIsSidebarOpen] = useState(true)
   // const { pathname } = useLocation()
-  const user = useUserData()
+  const user = getUserData()
 
   const adminItems = [
     {
@@ -169,7 +169,6 @@ const Sidebar = () => {
       status: 'finished',
     },
     // { label: 'common.clients', icon: IdIcon, path: ROUTE_PATHS.CLIENTS },
-    // { label: 'common.complaints', icon: AlertIcon, path: ROUTE_PATHS.COMPLAINTS },
     // {
     //   label: 'common.call-center',
     //   icon: CustomerSupportIcon,

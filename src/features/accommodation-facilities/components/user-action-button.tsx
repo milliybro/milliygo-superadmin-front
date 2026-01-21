@@ -7,11 +7,11 @@ import useUserModalStore from '../store/user-modal-store'
 // import EditIcon from '@/components/icons/edit'
 import DeleteIcon from '@/components/icons/delete'
 
-import { useState } from 'react'
-import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { confirmAccommodation, deleteUser } from '../api'
+import CompactViewButton from '@/components/ui/compact-view-button'
 import ConfirmationModal from '@/components/ui/confirmation-modal'
-import EyeIcon from '@/components/icons/eye'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
+import { confirmAccommodation, deleteUser } from '../api'
 
 // interface IProps {
 //   id?: any
@@ -76,13 +76,7 @@ const UserActionButton = ({
 
   return (
     <div className="flex items-center gap-6">
-      <Button
-        type="link"
-        className="px-0 text-base font-medium"
-        onClick={editHandler}
-      >
-        <EyeIcon className="text-xl" /> {t('common.more-details')}
-      </Button>
+      <CompactViewButton onClick={editHandler} />
 
       {/* <Button
         onClick={() => setDeleteModal(true)}
