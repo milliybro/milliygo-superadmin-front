@@ -1,12 +1,9 @@
 import { Switch } from 'antd'
 import { TableProps } from 'antd/lib'
-import queryString from 'query-string'
 import { useTranslation } from 'react-i18next'
-import { useLocation, useNavigate } from 'react-router'
 import CustomTable from '@/components/ui/custom-table'
 import HollyTourismTitle from '@/features/content/holly-tourism/components/holly-tourism-title'
 import HollyTourismAction from '@/features/content/holly-tourism/components/holly-tourism-action'
-import { truthyObject } from '@/helpers/truthy-object'
 import { useParsedQuery } from '@/hooks/use-parsed-query'
 import { IHollyTourism } from '@/features/content/holly-tourism/types'
 import useHollyTourism from '@/features/content/holly-tourism/hooks/use-holly-tourism'
@@ -15,29 +12,8 @@ const PAGE_SIZE = 10
 
 function HollyTourismTable() {
   const { t } = useTranslation()
-  const navigate = useNavigate()
   const queries = useParsedQuery()
-  const { pathname } = useLocation()
   const { data, isPending } = useHollyTourism()
-
-  const handleTableChange: TableProps['onChange'] = (pagination, _, sorter) => {
-    const sort = Array.isArray(sorter) ? sorter[0] : sorter
-    const ordering = sort?.field
-      ? (sort?.order === 'descend' ? '-' : '') + sort?.field
-      : null
-
-    const newPage = pagination?.current
-
-    const updatedQuery = queryString.stringify(
-      truthyObject({
-        ...queries,
-        ordering,
-        page: newPage,
-      }),
-    )
-
-    navigate({ pathname, search: updatedQuery })
-  }
 
   const columns: TableProps['columns'] = [
     {
@@ -53,10 +29,8 @@ function HollyTourismTable() {
       render: (_, record) => (
         <HollyTourismTitle {...(record as IHollyTourism)} />
       ),
-      sorter: true,
     },
     {
-      sorter: true,
       key: 'status',
       dataIndex: 'status',
       title: t('fields.status.label'),
@@ -80,7 +54,6 @@ function HollyTourismTable() {
       totalCount={data?.count}
       className="custom-table-2"
       dataSource={data?.results}
-      onChange={handleTableChange}
       currentPage={+(queries?.page || 1)}
     />
   )
