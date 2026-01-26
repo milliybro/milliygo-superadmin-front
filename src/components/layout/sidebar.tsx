@@ -129,6 +129,11 @@ const Sidebar = () => {
           path: ROUTE_PATHS.BILLING_TOURIST_TRANSACTIONS,
           status: 'in progress',
         },
+        {
+          label: 'billing.schedule-page.cron-job',
+          path: ROUTE_PATHS.BILLING_SCHEDULER,
+          status: 'in progress',
+        },
       ],
     },
     // {

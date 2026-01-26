@@ -154,6 +154,7 @@
   },
 
   "fields": {
+
     "url": {
       "label": "Ҳавола",
       "error": "Илтимос, тўғри URL киритинг"
@@ -387,6 +388,22 @@
     "organizer": {
       "label": "Ташкилотчи",
       "placeholder": "Номини ёзинг"
+    },
+    "scheduler": {
+      "name": {
+        "placeholder": "Номини киритинг",
+        "error": "Илтимос, номини киритинг"
+      },
+      "periodicity": {
+        "placeholder": "Даврийликни танланг",
+        "error": "Илтимос, даврийликни танланг"
+      },
+      "day": {
+        "placeholder": "Кунни киритинг",
+        "week-error-message": "Илтимос, 1 дан 7 гача бўлган кунни киритинг",
+        "month-error-message": "Илтимос, 1 дан 31 гача бўлган кунни киритинг",
+        "error": "Илтимос, кунни киритинг"
+      }
     },
     "services": {
       "add-success-notification": "Янги хизмат муваффақиятли қўшилди",
@@ -1041,6 +1058,18 @@
       "commission": "Комиссиялар",
       "return": "Қайтариш",
       "platform-report": "Платформа умумий ҳисобот"
+    },
+    "schedule-page": {
+      "cron-job": "Режа асосидаги вазифа",
+      "name": "Номи",
+      "day": "Кун",
+      "status": "Холат",
+      "action": "Харакат",
+      "periodicity": "Даврийлик",
+      "scheduleHours": "Соатлар жадвали",
+      "WEEKLY": "Хар хафта",
+      "MONTHLY": "Хар ой",
+      "DAILY": "Хар куни"
     },
     "directories": {
       "currencies": "Валюталар",

@@ -103,7 +103,7 @@ export async function errorHandler(error: AxiosError): Promise<void> {
   // }
   if (error.request !== null) {
     // no response received from server
-    await Promise.reject(error.request)
+    await Promise.reject(error)
   }
 
   // something happened in setting up the request

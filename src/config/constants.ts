@@ -17,6 +17,7 @@ const ROUTE_PATHS = {
   BILLING_TRANSACTIONS: '/billing/transactions',
   BILLING_INTEGRATION: '/billing/integration',
   BILLING_REGISTERS: '/billing/registers',
+  BILLING_SCHEDULER: '/billing/scheduler',
   BILLING_TOURIST_TRANSACTIONS: '/billing/tourist-transactions',
   BI_SERVICE: '/bi-service',
   CONTENT: '/content',
