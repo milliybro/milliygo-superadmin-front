@@ -136,6 +136,22 @@
     }
   },
   "fields": {
+    "scheduler": {
+      "name": {
+        "placeholder": "Nomini kiriting",
+        "error": "Iltimos, nomini kiriting"
+      },
+      "periodicity": {
+        "placeholder": "Davriylikni tanlang",
+        "error": "Iltimos, davriylikni tanlang"
+      },
+      "day": {
+        "placeholder": "Kunni kiriting",
+        "week-error-message": "Iltimos, 1 dan 7 gacha bo'lgan kunni kiriting",
+        "month-error-message": "Iltimos, 1 dan 31 gacha bo'lgan kunni kiriting",
+        "error": "Iltimos, kunni kiriting"
+      }
+    },
     "url": {
       "label": "Havola",
       "error": "Iltimos, to‘g‘ri URL kiriting"
@@ -1068,6 +1084,19 @@
       "international": "Xalqaro provayder"
     },
     "placeType": {
+    "schedule-page": {
+      "cron-job": "Reja asosidagi vazifa",
+      "name": " nomi",
+      "day": "Kun",
+      "status": "Holat",
+      "action": "Harakat",
+      "periodicity": "Davriylik",
+      "scheduleHours": "Soatlar jadvali",
+      "WEEKLY": "Har hafta",
+      "MONTHLY": "Har oy",
+      "DAILY": "Har kuni"
+    },
+    "placeType":{
       "HOTEL": "Mehmonxona",
       "HOUSEHOLDER": "Xonadon egasi",
       "HOSTEL": "Yotoqxona",
