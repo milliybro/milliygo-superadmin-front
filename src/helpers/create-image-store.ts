@@ -11,6 +11,7 @@ type MultipleImageStore<T = ImageItem> = {
   addImage: (image: T) => void
   removeImage: (index: number) => void
   updateImage: (index: number, newImage: T) => void
+  setMainImage: (index: number | null) => void
 }
 
 type SingleImageStore<T = ImageItem> = {
@@ -47,6 +48,13 @@ export function createImageStore<T = ImageItem>(
     updateImage: (index, newImage) =>
       set(state => ({
         images: state.images.map((img, i) => (i === index ? newImage : img)),
+      })),
+    setMainImage: index =>
+      set(state => ({
+        images: state.images.map((image, i) => ({
+          ...image,
+          is_main: i === index,
+        })),
       })),
   }))
 }

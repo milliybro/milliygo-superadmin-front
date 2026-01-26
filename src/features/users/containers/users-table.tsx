@@ -112,7 +112,7 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
       render: status => <StatusTag active={status} />,
     },
     {
-      width: 300,
+      width: 30,
       title: 'common.action',
       dataIndex: 'id',
       render: id => <UserActionButton id={id} refetch={refetch} />,
@@ -203,7 +203,7 @@ const UsersTable: React.FC<UsersFiltersProps> = ({
       dataSource={transformedData}
       loading={isLoading}
       onChange={handleTableChange}
-      className="h-full w-full"
+      className="side-borderless-table responsive-table w-full border-t-0"
       pagination={{
         current: queries.page ? Number(queries.page) : 1,
         pageSize: 10,

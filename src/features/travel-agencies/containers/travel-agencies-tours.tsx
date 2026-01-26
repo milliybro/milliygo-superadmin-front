@@ -19,7 +19,7 @@ const columns: TableColumnsType<ITourAgents> = [
     title: 'travel-agencies.duration',
     dataIndex: 'duration',
     sorter: false,
-    render: _ => <div className="">{_} дня</div>,
+    render: val => <div className="">{val} дня</div>,
   },
   {
     title: 'travel-agencies.type-tour',

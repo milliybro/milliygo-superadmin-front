@@ -115,7 +115,7 @@ export default function CreateExpertAdvice() {
     mutationFn: (values: CreateExpertAdviceValues) => {
       const formData = new FormData()
 
-      formData.append('title', transformImages(values.title))
+      formData.append('title', values.title)
       formData.append('description', transformImages(values.description))
       formData.append('content', transformImages(values.content))
 
@@ -239,7 +239,7 @@ export default function CreateExpertAdvice() {
               <div className="flex items-center justify-between gap-2">
                 {isEditing && (
                   <div className="flex items-center gap-6 rounded-[8px] border border-[#E5E7EB] px-4 py-2">
-                    <Typography.Text>Keshni yangilash</Typography.Text>
+                    <Typography.Text>{t('common.clear-cache')}</Typography.Text>
 
                     <div className="flex items-center gap-3">
                       <Form.Item
@@ -316,7 +316,9 @@ export default function CreateExpertAdvice() {
                 },
               ]}
             >
-              <QuillEditor placeholder={t('fields.name.placeholder')} />
+              {/* <QuillEditor placeholder={t('fields.name.placeholder')} />
+               */}
+              <Input placeholder={t('fields.name.placeholder')} />
             </Form.Item>
             <Form.Item
               label={t('fields.description.label')}

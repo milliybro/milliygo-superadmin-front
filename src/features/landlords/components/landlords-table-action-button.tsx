@@ -7,20 +7,26 @@ interface IProps {
   id?: number
   tenant_id?: number
   type?: string
-  slug?: string
 }
 
-const HotelsTableActionButton: FC<IProps> = ({ id, slug }) => {
+const LandlordsTableActionButton: FC<IProps> = ({ id, tenant_id, type }) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
   return (
     <CompactViewButton
       onClick={() =>
-        navigate(pathname + '/' + id + '?' + (slug ? 'slug=' + slug : ''))
+        navigate(
+          pathname +
+            '/' +
+            id +
+            '?' +
+            (tenant_id !== undefined ? 'tenant_id=' + tenant_id + '&' : '') +
+            (type !== undefined ? 'type=' + type : ''),
+        )
       }
     />
   )
 }
 
-export default HotelsTableActionButton
+export default LandlordsTableActionButton

@@ -8,6 +8,7 @@ import CreateDiscoverContent from '../discover/views/create/create-discover-cont
 import DiscoverProvider from '../discover/context'
 import HeroProvider from '../hero/context'
 import EditHero from '../hero/views/edit-hero'
+import HollyTourismForm from '../holly-tourism/views/create'
 
 const createForms = [
   {
@@ -45,6 +46,10 @@ const createForms = [
   {
     key: 'events',
     element: <CreateEvent />,
+  },
+  {
+    key: 'holly-tourism',
+    element: <HollyTourismForm />,
   },
 ]
 
