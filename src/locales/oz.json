@@ -1083,7 +1083,6 @@
       "local": "Mahalliy provayder",
       "international": "Xalqaro provayder"
     },
-    "placeType": {
     "schedule-page": {
       "cron-job": "Reja asosidagi vazifa",
       "name": " nomi",
@@ -1096,6 +1095,7 @@
       "MONTHLY": "Har oy",
       "DAILY": "Har kuni"
     },
+    "placeType": {
     "placeType":{
       "HOTEL": "Mehmonxona",
       "HOUSEHOLDER": "Xonadon egasi",
