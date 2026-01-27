@@ -1036,6 +1036,7 @@
       "action": "Действие",
       "periodicity": "Периодичность",
       "scheduleHours": "Расписание часов",
+      "deleteConfirmationMessage":"Вы удаляете запланированную задачу?",
       "WEEKLY" :"Еженедельно",
       "MONTHLY": "Ежемесячно",
       "DAILY": "Ежедневно"
