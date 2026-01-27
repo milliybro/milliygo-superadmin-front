@@ -18,7 +18,7 @@ export function Scheduler() {
       { title: t('routes.billing') },
       { title: t('billing.schedule-page.cron-job')},
     ])
-  }, [])
+  }, [t])
 
 
   const editHandler = (rowData:ISchedulerResponse) => {
