@@ -1090,6 +1090,7 @@
       "status": "Holat",
       "action": "Harakat",
       "periodicity": "Davriylik",
+      "deleteConfirmationMessage":"Reja asosidagi vazifani o‘chiryapsizmi?",
       "scheduleHours": "Soatlar jadvali",
       "WEEKLY": "Har hafta",
       "MONTHLY": "Har oy",

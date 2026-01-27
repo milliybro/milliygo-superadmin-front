@@ -213,9 +213,9 @@ export function SchedulerTable({ setSelectedRowData }: IProps) {
           danger
           icon={DeleteIcon}
           open={isOpen}
+          subTitle=""
           setOpen={value => (value ? openModal() : closeModal())}
-          title={t('users-page.delete-modal')}
-          subTitle={t('users-page.delete-modal-desc')}
+          title={t('billing.schedule-page.deleteConfirmationMessage')}
           primaryBtnText={t('common.delete')}
           isLoading={deletePending}
           action={() => rowId && deleteSchedule(rowId)}
