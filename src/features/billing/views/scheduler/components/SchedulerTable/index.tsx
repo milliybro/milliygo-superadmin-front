@@ -114,6 +114,7 @@ export function SchedulerTable({ setSelectedRowData }: IProps) {
       className: 'text-center',
       render: (isActive: boolean, record) => (
         <Switch
+          size='small'
           checked={isActive}
           onChange={(value: boolean) =>
             updateScheduleStatus({ id: record.id, isActive: value })
@@ -134,7 +135,7 @@ export function SchedulerTable({ setSelectedRowData }: IProps) {
                 className="p-0"
                 onClick={() => setSelectedRowData(record)}
               >
-                <EditIcon className="text-xl" />
+                <EditIcon  className="text-xl" />
               </Button>
             </Tooltip>
             <Tooltip title={t('common.delete')}>
