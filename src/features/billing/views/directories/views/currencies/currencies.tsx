@@ -14,13 +14,10 @@ const Currencies = () => {
   const pageSize = 10
 
   const [searchParams, setSearchParams] = useSearchParams()
-
-  const search = searchParams.get('search') || ''
-  const region = searchParams.get('region') || ''
   const currentPage = Number(searchParams.get('page')) || 1
 
   const { data, isFetching, refetch } = useQuery({
-    queryKey: ['currencies', currentPage, search, region],
+    queryKey: ['currencies', currentPage],
     queryFn: async () => {
       const res = await getCurrenciesList({
         size: pageSize,
@@ -34,7 +31,7 @@ const Currencies = () => {
     <div className="flex flex-1 flex-col gap-3">
       <div className="flex items-center justify-between">
         <Typography.Title level={2} className="text-lg font-medium">
-          {t('billing.directories.currencies')}
+          {t('billing.directories.currencies')} ({data?.totalElements})
         </Typography.Title>
 
         <Button type="primary" onClick={openModal}>

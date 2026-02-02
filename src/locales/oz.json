@@ -701,11 +701,7 @@
       "placeholder": "Tanlang",
       "error": "Provayder kodini kiriting"
     },
-    "label": "Provayder kodi",
-    "placeholder": "Tanlang",
-    "error": "Provayder kodini kiriting"
-  },
-  "provider": {
+    "provider": {
     "label": "Provayder",
     "placeholder": "Tanlang",
     "error": "Providerni kiriting"
@@ -746,6 +742,7 @@
     "labels": "Parametrlar",
     "placeholder": "Parametrni kiriting",
     "error": "Parametrni kiriting"
+   }
   },
   "tenant": {
     "tenant": "Tenant",
@@ -1117,7 +1114,8 @@
       "Title": "Xatolik",
       "UniqueProviderCode": "Provayder kodi takrorlanmasligi kerak. Payment Provider allaqachon mavjud."
     }
-  },
+  }
+},
   "tourists": {
     "tourist-fullname": "Turistning F.I.O.",
     "search-tourists": "Turistni qidirish",
@@ -1382,4 +1380,4 @@
     "november": "Noyabr",
     "december": "Dekabr"
   }
-}}
+}
