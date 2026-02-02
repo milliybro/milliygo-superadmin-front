@@ -31,7 +31,7 @@ const Currencies = () => {
     <div className="flex flex-1 flex-col gap-3">
       <div className="flex items-center justify-between">
         <Typography.Title level={2} className="text-lg font-medium">
-          {t('billing.directories.currencies')} ({data?.totalElements})
+          {t('billing.directories.currencies')} ({data?.totalElements ?? 0})
         </Typography.Title>
 
         <Button type="primary" onClick={openModal}>
