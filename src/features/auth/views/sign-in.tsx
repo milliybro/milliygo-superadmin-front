@@ -64,6 +64,17 @@ export default function SignIn(): React.ReactElement {
         message.error(t('common.login-error'), 2)
       }
     },
+    onError: (error: any) => {
+      const errors = error?.data
+
+      if (Array.isArray(errors)) {
+        errors.forEach(err => {
+          message.error(err.detail || t('auth-page.login-failed'))
+        })
+      } else {
+        message.error(t('auth-page.login-failed'))
+      }
+    },
   })
 
   useEffect(() => {
