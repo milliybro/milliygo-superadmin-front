@@ -1,10 +1,9 @@
 import axios from 'axios'
-import { notification } from 'antd'
 import settings from '@/config/settings'
-import { refreshToken } from '@/features/auth'
 
 import type { AxiosError } from 'axios'
-import type { IErrorMessage } from '@/types'
+
+type Lang = 'ru' | 'uz' | 'uz-cyrillic'
 
 const hostname = typeof window !== 'undefined' ? window.location.hostname : ''
 
@@ -58,65 +57,49 @@ requestSuper.interceptors.request.use(config => {
 requestSuper.interceptors.response.use(response => response.data, errorHandler)
 
 export async function errorHandler(error: AxiosError): Promise<void> {
-  const errorStatus = error.response?.status
-  const errorData = error?.response?.data as IErrorMessage[]
-
-  // if (error.response !== null) {
-  //   // server responded with a status code that falls out of the range of 2xx
-  //   if (error.response?.status === 403) {
-  //     const rToken = localStorage.getItem('refresh')
-
-  //     if (rToken !== null) {
-  //       try {
-  //         const res = await refreshToken({ refresh: rToken })
-  //         const { refresh, access } = res.data.auth_tokens
-  //         localStorage.setItem('refresh', refresh)
-  //         localStorage.setItem('access', access)
-  //       } catch (err) {
-  //         localStorage.setItem('refresh_token_error', JSON.stringify(err))
-  //         localStorage.removeItem('refresh')
-  //         localStorage.removeItem('access')
-  //       } finally {
-  //         window.location.reload()
-  //       }
-  //     }
-  //   }
-
-  //   if (errorStatus === 500) {
-  //     notification.error({
-  //       message: 'Server error | 500',
-  //       description: 'Please try again later',
-  //     })
-  //   } else if (Array.isArray(errorData)) {
-  //     errorData.forEach((val: IErrorMessage) => {
-  //       notification.error({
-  //         message: val?.error_type,
-  //         description: val?.detail,
-  //       })
-  //     })
-  //   } else {
-  //     notification.error({
-  //       message: 'Unexpected error',
-  //       description: 'An error occurred. Please try again.',
-  //     })
-  //   }
-
-  //   await Promise.reject(error.response)
-  // }
-  if (error.request !== null) {
-    // no response received from server
-    await Promise.reject(error.request)
+  if (error.response) {
+    return Promise.reject(error.response)
   }
 
-  // something happened in setting up the request
-  console.error(error.message)
+  if (error.request) {
+    return Promise.reject({
+      status: 0,
+      data: [
+        {
+          error_type: 'NetworkError',
+          detail: getDefaultErrorMessage(),
+        },
+      ],
+    })
+  }
 
-  console.log('Error config object:', error.config)
-
-  // Using toJSON you get an object with more information about the HTTP error
-  console.log('\nError object as json:', error.toJSON())
-
-  await Promise.reject(error)
+  return Promise.reject({
+    status: 0,
+    data: [
+      {
+        error_type: 'UnexpectedError',
+        detail: error.message,
+      },
+    ],
+  })
 }
 
 export default requestSuper
+
+function getDefaultErrorMessage() {
+  const locale = localStorage.getItem('i18nextLng')
+
+  const messages: Record<Lang, string> = {
+    ru: 'Нет ответа от сервера',
+    uz: 'Serverdan javob kelmadi',
+    'uz-cyrillic': 'Сервердан жавоб келмади',
+  }
+
+  let lang: Lang = 'ru'
+
+  if (locale === 'uz') lang = 'uz-cyrillic'
+  else if (locale === 'oz') lang = 'uz'
+  else if (locale === 'ru') lang = 'ru'
+
+  return messages[lang]
+}

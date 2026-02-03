@@ -34,7 +34,8 @@
       "title": "Texnik qo‘llab-quvvatlash",
       "description": "Agar platformaga kirishda muammolar yuzaga kelsa, siz qo‘ng‘iroq markaziga murojaat qilishingiz mumkin",
       "contact-support": "Qo‘llab-quvvatlashga murojaat qilish"
-    }
+    },
+    "login-failed": "Kirish muvaffaqiyatsiz tugadi"
   },
 
   "users-page": {
@@ -1087,14 +1088,13 @@
       "status": "Holat",
       "action": "Harakat",
       "periodicity": "Davriylik",
-      "deleteConfirmationMessage":"Reja asosidagi vazifani o‘chiryapsizmi?",
+      "deleteConfirmationMessage": "Reja asosidagi vazifani o‘chiryapsizmi?",
       "scheduleHours": "Soatlar jadvali",
       "WEEKLY": "Har hafta",
       "MONTHLY": "Har oy",
       "DAILY": "Har kuni"
     },
     "placeType": {
-    "placeType":{
       "HOTEL": "Mehmonxona",
       "HOUSEHOLDER": "Xonadon egasi",
       "HOSTEL": "Yotoqxona",
@@ -1114,7 +1114,6 @@
       "Title": "Xatolik",
       "UniqueProviderCode": "Provayder kodi takrorlanmasligi kerak. Payment Provider allaqachon mavjud."
     }
-  }
 },
   "tourists": {
     "tourist-fullname": "Turistning F.I.O.",
