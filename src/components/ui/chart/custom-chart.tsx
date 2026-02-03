@@ -152,19 +152,18 @@ const CustomChart = ({
                     color="#232E40"
                   >
                     <div
-                      className="relative h-full rounded-[8px]"
+                      className="h-full overflow-hidden rounded-[8px]"
                       style={{ backgroundColor: color }}
                     >
                       <div
-                        className="pointer-events-none absolute inset-0 rounded-[8px]"
+                        className="pointer-events-none h-full w-full rounded-[8px]"
                         style={{
                           backgroundImage: `url(${tiles})`,
                           backgroundRepeat: 'repeat',
-                          backgroundSize: 'auto 24px',
+                          backgroundSize: '24px',
                           backgroundPosition: 'center',
-                          opacity: 0.2,
                         }}
-                      />
+                      ></div>
                     </div>
                   </Popover>
                 </foreignObject>
