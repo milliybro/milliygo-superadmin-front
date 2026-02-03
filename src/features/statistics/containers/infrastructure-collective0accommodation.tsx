@@ -18,7 +18,7 @@ export default function InfrastructureCollectiveStatistics({
         <div className="flex items-center gap-3 rounded-lg p-1">
           <Button
             onClick={() => onTabChange('object')}
-            className={`rounded rounded-[8px] px-4 py-2 font-medium transition-all duration-200 ${
+            className={`rounded-[8px] px-4 py-2 font-medium transition-all duration-200 ${
               activeTab === 'object'
                 ? 'border-[#E5E7EB] bg-[#F8FAFC] text-[#232E40]'
                 : 'text-[#777E90]'
@@ -28,7 +28,7 @@ export default function InfrastructureCollectiveStatistics({
           </Button>
           <Button
             onClick={() => onTabChange('place')}
-            className={`rounded rounded-[8px] px-4 py-2 font-medium transition-all duration-200 ${
+            className={`rounded-[8px] px-4 py-2 font-medium transition-all duration-200 ${
               activeTab === 'place'
                 ? 'border-[#E5E7EB] bg-[#F8FAFC] text-[#232E40]'
                 : 'text-[#777E90]'
