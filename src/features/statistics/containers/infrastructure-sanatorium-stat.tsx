@@ -7,11 +7,11 @@ export default function InfrastructureSanatoriumStatistics({
   activeTab,
   onTabChange,
 }: any) {
+  const { t } = useTranslation()
+
   if (!data) {
     return <div>Loading...</div>
   }
-
-  const { t } = useTranslation()
 
   return (
     <div className="w-full rounded-lg bg-white p-6 shadow">
@@ -32,7 +32,7 @@ export default function InfrastructureSanatoriumStatistics({
           </Button>
           <Button
             onClick={() => onTabChange('place')}
-            className={`rounded rounded-[8px] px-4 py-2 font-medium transition-all duration-200 ${
+            className={`rounded-[8px] px-4 py-2 font-medium transition-all duration-200 ${
               activeTab === 'place'
                 ? 'border-[#E5E7EB] bg-[#F8FAFC] text-[#232E40]'
                 : 'text-[#777E90]'

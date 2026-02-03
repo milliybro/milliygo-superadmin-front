@@ -49,6 +49,7 @@ const StatisticsInfrastructure = () => {
         }),
       placeholderData: data => data,
       gcTime: 0,
+      retry: false,
     })
 
   const { data: hotelSectorchartData, isLoading: isLoadingChart2 } = useQuery({
@@ -61,6 +62,7 @@ const StatisticsInfrastructure = () => {
       }),
     placeholderData: data => data,
     gcTime: 0,
+    retry: false,
   })
 
   const {
@@ -75,6 +77,7 @@ const StatisticsInfrastructure = () => {
       }),
     placeholderData: data => data,
     gcTime: 0,
+    retry: false,
   })
 
   const { data: hotelSanatoriumChartData, isLoading: isLoadingChart4 } =
@@ -88,6 +91,7 @@ const StatisticsInfrastructure = () => {
         }),
       placeholderData: data => data,
       gcTime: 0,
+      retry: false,
     })
 
   const isGlobalLoading =
@@ -138,24 +142,28 @@ const StatisticsInfrastructure = () => {
           data={InfrastructureStatchartData}
           activeTab={activeTab}
           onTabChange={setActiveTab}
+          loading={isLoadingChart1}
         />
 
         <InfrastructureHotelSectorStatistics
           data={hotelSectorchartData}
           activeTab={activeTab2}
           onTabChange={setActiveTab2}
+          loading={isLoadingChart2}
         />
 
         <InfrastructureCollectiveStatistics
           data={InfrastructurePublicPlaceChartData}
           activeTab={activeTab3}
           onTabChange={setActiveTab3}
+          loading={isLoadingChart3}
         />
 
         <InfrastructureSanatoriumStatistics
           data={hotelSanatoriumChartData}
           activeTab={activeTab4}
           onTabChange={setActiveTab4}
+          loading={isLoadingChart4}
         />
       </div>
     </div>

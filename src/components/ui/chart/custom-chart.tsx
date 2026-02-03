@@ -1,7 +1,7 @@
-import { Popover } from 'antd'
-import { useMemo, useState, useEffect } from 'react'
 import tiles from '@/assets/tiled-bg.png'
+import { Popover } from 'antd'
 import { motion } from 'framer-motion'
+import { useMemo } from 'react'
 
 const CustomChart = ({
   data = {} as any,
@@ -10,17 +10,6 @@ const CustomChart = ({
   lineColor = '#FF6B6B',
   line = false,
 }) => {
-  const [hoveredBar, setHoveredBar] = useState(null) as any
-  const [hoveredPoint, setHoveredPoint] = useState(null) as any
-  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 })
-  const [animationKey, setAnimationKey] = useState(0)
-
-  // Data o'zgarsa animatsiyani qayta ishga tushuramiz
-  useEffect(() => {
-    setAnimationKey(prev => prev + 1)
-  }, [data])
-
-  // Prepare data
   const financeData = useMemo(() => {
     const barData = data.main_data || data
     const lineData = data.guest_data || {}
@@ -51,7 +40,6 @@ const CustomChart = ({
   const chartRight = 1160
   const chartWidth = chartRight - chartLeft
 
-  // Generate line path
   const generateLinePoints = () => {
     const step = chartWidth / verticalLinesCount
 
@@ -67,37 +55,14 @@ const CustomChart = ({
       .join(' ')
   }
 
-  const handleBarHover = (
-    idx: any,
-    barX: any,
-    barY: any,
-    barWidth: any,
-    value: any,
-  ) => {
-    setHoveredBar({ idx, value })
-    setTooltipPos({ x: barX + barWidth / 2, y: barY - 10 })
-  }
-
-  const handleLinePointHover = (idx: any, x: number, y: number, value: any) => {
-    setHoveredPoint({ idx, value })
-    setTooltipPos({ x, y: y - 10 })
-  }
-
-  const handleLeave = () => {
-    setHoveredBar(null)
-    setHoveredPoint(null)
-  }
-
   return (
     <div className="w-full rounded-lg bg-white">
       <div className="relative w-full overflow-x-auto rounded-lg">
         <svg
-          key={animationKey}
           viewBox="0 0 1160 450"
           preserveAspectRatio="none"
           className="w-full"
         >
-          {/* Horizontal Grid Lines and Y-axis labels */}
           {Array.from({ length: horizontalLinesCount + 1 }, (_, i) => {
             const y = chartTop + (chartHeight / horizontalLinesCount) * i
             const valueLabel = Math.round(
@@ -127,7 +92,6 @@ const CustomChart = ({
             )
           })}
 
-          {/* Vertical Grid Lines and X-axis labels */}
           {financeData.map((item, idx) => {
             const step = chartWidth / verticalLinesCount
             const x = chartLeft + idx * step + step / 2
@@ -154,7 +118,6 @@ const CustomChart = ({
             )
           })}
 
-          {/* Bar Chart */}
           {financeData.map((item, idx) => {
             const step = chartWidth / verticalLinesCount
             const barWidth = step * 0.65
@@ -171,10 +134,6 @@ const CustomChart = ({
                 animate={{ y: barY, scaleY: 1 }}
                 transformOrigin="bottom center"
                 transition={{ duration: 0.8, delay: idx * 0.05 }}
-                onMouseEnter={() =>
-                  handleBarHover(idx, barX, barY, barWidth, value)
-                }
-                onMouseLeave={handleLeave}
               >
                 <foreignObject
                   x={barX}
@@ -213,10 +172,8 @@ const CustomChart = ({
             )
           })}
 
-          {/* Line Chart */}
           {line && (
             <>
-              {/* Line path */}
               <polyline
                 points={generateLinePoints()}
                 fill="none"
@@ -226,7 +183,6 @@ const CustomChart = ({
                 strokeLinecap="round"
               />
 
-              {/* Line points */}
               {financeData.map((item, idx) => {
                 const step = chartWidth / verticalLinesCount
                 const x = chartLeft + idx * step + step / 2
@@ -235,11 +191,7 @@ const CustomChart = ({
                 const y = chartBottom - barHeight
 
                 return (
-                  <g
-                    key={`line-point-${idx}`}
-                    onMouseEnter={() => handleLinePointHover(idx, x, y, value)}
-                    onMouseLeave={handleLeave}
-                  >
+                  <g key={`line-point-${idx}`}>
                     <Popover
                       content={
                         <div className="font-600 text-[14px] text-white">
@@ -266,7 +218,6 @@ const CustomChart = ({
             </>
           )}
 
-          {/* Axes */}
           <line
             x1={chartLeft}
             y1={chartBottom}
@@ -295,7 +246,6 @@ const CustomChart = ({
         </svg>
       </div>
 
-      {/* Legend */}
       <div className="-mt-1 flex items-center justify-center gap-4">
         <div className="inline-flex items-center gap-2">
           <span
