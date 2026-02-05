@@ -98,6 +98,7 @@ const OperatorCommissionModal = () => {
         calculationType: data?.calculationType,
         serviceType: data?.serviceType,
         translates: data?.translates,
+        code: data?.code,
       })
     }
   }, [data, form, isEdit])
@@ -145,6 +146,14 @@ const OperatorCommissionModal = () => {
           }}
         >
           <div className="flex h-[610px] flex-col gap-2 overflow-y-auto px-2">
+           <Form.Item
+               name="code"
+               rules={[ { required: true, message: t('fields.shortCode.required') }, ]}
+               style={{ width: '100%' }}
+               label={t('fields.shortCode.label')}
+             >
+             <Input placeholder={t('fields.shortCode.placeholder')} />
+         </Form.Item>
             <Form.Item
               label={t('fields.serviceType.label')}
               name="serviceType"
