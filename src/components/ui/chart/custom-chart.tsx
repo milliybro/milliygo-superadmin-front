@@ -104,6 +104,7 @@ const CustomChart = ({
                   y2={chartBottom}
                   stroke="#E5E7EB"
                   strokeWidth="1"
+                  strokeDasharray="6 6"
                 />
                 <text
                   x={x}
@@ -128,18 +129,21 @@ const CustomChart = ({
             const barY = chartBottom - barHeight
 
             return (
-              <motion.g
-                key={`bar-${idx}`}
-                initial={{ y: chartBottom - 110, scaleY: 0 }}
-                animate={{ y: barY, scaleY: 1 }}
-                transformOrigin="bottom center"
-                transition={{ duration: 0.8, delay: idx * 0.05 }}
-              >
-                <foreignObject
-                  x={barX}
-                  y={0}
-                  width={barWidth}
-                  height={barHeight}
+              <g key={`bar-${idx}`}>
+                <motion.foreignObject
+                  initial={{
+                    x: barX,
+                    y: barY + barHeight,
+                    width: barWidth,
+                    height: 0,
+                  }}
+                  animate={{
+                    x: barX,
+                    y: barY,
+                    width: barWidth,
+                    height: barHeight,
+                  }}
+                  transition={{ duration: 0.5, delay: idx * 0.02 }}
                 >
                   <Popover
                     content={
@@ -166,8 +170,8 @@ const CustomChart = ({
                       ></div>
                     </div>
                   </Popover>
-                </foreignObject>
-              </motion.g>
+                </motion.foreignObject>
+              </g>
             )
           })}
 
