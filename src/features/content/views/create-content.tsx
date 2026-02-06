@@ -55,8 +55,9 @@ const createForms = [
 
 export default function CreateContent() {
   const location = useLocation()
+
   const currentForm = createForms.find(form =>
-    location.pathname.includes(form.key),
+    location.pathname?.split('/')?.at(2)?.includes(form.key),
   )
   return currentForm?.element || null
 }
