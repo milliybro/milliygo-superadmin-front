@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Popover } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { formatAmount } from '@/helpers/format-amount'
 
 const CustomLineChart = ({
   data = {} as Record<string, number>,
@@ -106,7 +107,7 @@ const CustomLineChart = ({
                   fontSize="12"
                   fill="#6B7280"
                 >
-                  {val}
+                  {formatAmount(val)}
                 </text>
               </g>
             )

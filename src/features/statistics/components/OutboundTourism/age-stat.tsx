@@ -1,3 +1,5 @@
+import { formatNumber } from '@/features/billing/utils/formatNumber'
+import { formatAmount } from '@/helpers/format-amount'
 import { Typography } from 'antd'
 import { useTranslation } from 'react-i18next'
 
@@ -55,7 +57,7 @@ function AgeGroupStats({ data = {} }: any) {
 
       <div>
         <div className="text-[1.75rem] font-semibold">
-          {Math.round(sumTotal)}
+          {formatAmount(Math.round(sumTotal))}
         </div>
 
         <Typography.Paragraph className="text-sm text-secondary">
@@ -98,9 +100,9 @@ function AgeGroupStats({ data = {} }: any) {
               </div>
             </div>
 
-            <div className="text-sm">{row.female}</div>
-            <div className="text-sm">{row.male}</div>
-            <div className="text-sm">{row.total}</div>
+            <div className="text-sm">{formatAmount(row.female)}</div>
+            <div className="text-sm">{formatAmount(row.male)}</div>
+            <div className="text-sm">{formatAmount(row.total)}</div>
           </div>
         ))}
       </div>
