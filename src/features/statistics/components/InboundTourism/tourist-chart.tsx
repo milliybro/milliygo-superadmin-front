@@ -1,3 +1,4 @@
+import { formatAmount } from '@/helpers/format-amount'
 import dynamic from 'next/dynamic'
 import { useTranslation } from 'react-i18next'
 
@@ -67,6 +68,11 @@ export default function TouristChart({ data }: { data: any }) {
     xaxis: {
       categories: years,
       labels: { rotate: -45 },
+    },
+    yaxis: {
+      labels: {
+        formatter: (val: number) => formatAmount(val),
+      },
     },
     tooltip: {
       theme: 'dark' as const,
