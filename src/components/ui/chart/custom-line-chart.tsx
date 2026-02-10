@@ -179,7 +179,9 @@ const CustomLineChart = ({
               placement="top"
               color="#232E40"
               content={
-                <div className="text-center text-sm text-white">{p.value}</div>
+                <div className="text-center text-sm text-white">
+                  {formatAmount(p.value)}
+                </div>
               }
             >
               <g
