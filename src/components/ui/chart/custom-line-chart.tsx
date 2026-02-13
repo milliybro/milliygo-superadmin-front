@@ -16,7 +16,7 @@ const CustomLineChart = ({
   const actualMaxValue = Math.max(...values, 40)
   const maxValue = actualMaxValue * 1.15
 
-  const padding = 60
+  const padding = 90
   const chartWidth = 1700
   const chartHeight = 400
   const innerWidth = chartWidth - padding * 2
