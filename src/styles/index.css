@@ -303,3 +303,7 @@ html {
   padding-top: 0;
   min-height: 300px;
 }
+
+.ant-table-wrapper .ant-table-thead > tr > th {
+  background: #f8fafc !important;
+}

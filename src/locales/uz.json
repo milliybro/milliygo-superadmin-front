@@ -669,81 +669,81 @@
       "error": "Илтимос, кодни киритинг"
     },
     "minorUnits": {
-    "label": "Кичик бирликлар",
-    "placeholder": "Кичик бирликларни киритинг",
-    "error": "Илтимос, кичик бирликларни киритинг"
-  },
-  "symbol": {
-    "label": "Белги",
-    "placeholder": "Белгини киритинг",
-    "error": "Илтимос, белгини киритинг"
-  },
-   "placeType": {
-    "label": "Жой тури",
-    "placeholder": "Жой турини танланг",
-    "error": "Илтимос, жой турини танланг"
-  },
-   "periodFrom": {
-    "label": "Даврдан",
-    "placeholder": "Санани танланг",
-    "error": "Илтимос, санани танланг"
-  },
-   "periodTo": {
-    "label": "Давргача",
-    "placeholder": "Санани танланг",
-    "error": "Илтимос, санани танланг"
-   },
-   "percentage": {
-    "label": "Фоиз",
-    "placeholder": "Фоизни киритинг",
-    "error": "Қиймат {{min}} ва {{max}} оралиғида бўлиши керак"
-  },
-      "provider-code": {
+      "label": "Кичик бирликлар",
+      "placeholder": "Кичик бирликларни киритинг",
+      "error": "Илтимос, кичик бирликларни киритинг"
+    },
+    "symbol": {
+      "label": "Белги",
+      "placeholder": "Белгини киритинг",
+      "error": "Илтимос, белгини киритинг"
+    },
+    "placeType": {
+      "label": "Жой тури",
+      "placeholder": "Жой турини танланг",
+      "error": "Илтимос, жой турини танланг"
+    },
+    "periodFrom": {
+      "label": "Даврдан",
+      "placeholder": "Санани танланг",
+      "error": "Илтимос, санани танланг"
+    },
+    "periodTo": {
+      "label": "Давргача",
+      "placeholder": "Санани танланг",
+      "error": "Илтимос, санани танланг"
+    },
+    "percentage": {
+      "label": "Фоиз",
+      "placeholder": "Фоизни киритинг",
+      "error": "Қиймат {{min}} ва {{max}} оралиғида бўлиши керак"
+    },
+    "provider-code": {
       "label": "Провайдер коди",
       "placeholder": "Танланг",
       "error": "Провайдер кодини киритинг"
-  },
-  "provider": {
-  "label": "Провайдер",
-  "placeholder": "Танланг",
-  "error": "Провайдерни киритинг"
-},
-"organization-type": {
-  "label": "Ташкилот тури",
-  "placeholder": "Ташкилот турини танланг",
-  "error": "Ташкилот турини танланг"
-},
-"guide": {
-  "label": "Гид",
-  "placeholder": "Гидни танланг",
-  "error": "Гидни танланг"
-},
-"apartment": {
-  "label": "Квартира",
-  "placeholder": "Квартирани танланг",
-  "error": "Квартирани танланг"
-},
-"placement": {
-  "label": "Жойлашув",
-  "placeholder": "Жойлашувни танланг",
-  "error": "Жойлашувни танланг"
-},
-"organisation": {
-  "label": "Ташкилот",
-  "placeholder": "Ташкилотни танланг",
-  "error": "Ташкилотни танланг"
-},
-"parameterName": {
-  "label": "Параметр номи",
-  "placeholder": "Параметр номини киритинг",
-  "error": "Параметр номини киритинг"
-},
-"parameter": {
-  "label": "Параметр",
-  "labels": "Параметрлар",
-  "placeholder": "Параметрни киритинг",
-  "error": "Параметрни киритинг"
-}
+    },
+    "provider": {
+      "label": "Провайдер",
+      "placeholder": "Танланг",
+      "error": "Провайдерни киритинг"
+    },
+    "organization-type": {
+      "label": "Ташкилот тури",
+      "placeholder": "Ташкилот турини танланг",
+      "error": "Ташкилот турини танланг"
+    },
+    "guide": {
+      "label": "Гид",
+      "placeholder": "Гидни танланг",
+      "error": "Гидни танланг"
+    },
+    "apartment": {
+      "label": "Квартира",
+      "placeholder": "Квартирани танланг",
+      "error": "Квартирани танланг"
+    },
+    "placement": {
+      "label": "Жойлашув",
+      "placeholder": "Жойлашувни танланг",
+      "error": "Жойлашувни танланг"
+    },
+    "organisation": {
+      "label": "Ташкилот",
+      "placeholder": "Ташкилотни танланг",
+      "error": "Ташкилотни танланг"
+    },
+    "parameterName": {
+      "label": "Параметр номи",
+      "placeholder": "Параметр номини киритинг",
+      "error": "Параметр номини киритинг"
+    },
+    "parameter": {
+      "label": "Параметр",
+      "labels": "Параметрлар",
+      "placeholder": "Параметрни киритинг",
+      "error": "Параметрни киритинг"
+    }
   },
   "tenant": {
     "tenant": "Тенант",
@@ -973,7 +973,42 @@
     "reject-desc": "Қуйидаги вариантлардан рад этиш сабабини танланг",
     "add-reason": "Бошқа сабаб",
     "write-reason": "Сабабини баён этинг",
-    "reason": "Сабаб"
+    "reason": "Сабаб",
+    "guides-desc": "Бўлимлар орасида алмашинг ва керакли статусдаги гидларни кўринг",
+    "export": "Экспорт қилиш ...",
+    "search-placeholder": "Керакли гидни тез топиш учун Ф.И.Ш ёки сертификат рақамини киритинг",
+    "all": "Барчаси",
+    "filter": {
+      "category": "Категория",
+      "region": "Ҳудуд",
+      "spec": "Мутахассислик",
+      "gender": "Жинси",
+      "status": "Ҳолати",
+      "lang": "Тил",
+      "rating": "Рейтинг"
+    },
+    "reset": "Ҳаммасини тозалаш",
+    "number-certificate": "Сертификат №",
+    "copy": "Нусхалаш",
+    "certificate-status": "Сертификат ҳолати",
+    "status": {
+      "accepted": "Амалдаги",
+      "expired": "Муддати тугаган",
+      "suspended": "Тўхтатилган",
+      "revoked": "Бекор қилинган"
+    },
+    "category-guide": "Гид категорияси",
+    "categories": {
+      "high": "Олий категория",
+      "first": "1-тоифа",
+      "second": "2-тоифа",
+      "none": "Категориясиз"
+    },
+    "lang": "Фаолият тили",
+    "main-region": "Асосий фаолият ҳудуди",
+    "not-selected": "Танланмаган",
+    "more": "Яна",
+    "hide": "Яшириш"
   },
   "placements": {
     "hotels": "Меҳмонхоналар",
@@ -1061,29 +1096,29 @@
       "local": "Маҳаллий фуқаро",
       "foreign": "Чет эл фуқароси"
     },
-    "provider-type":{
+    "provider-type": {
       "local": "Маҳаллий провайдер",
       "international": "Халқаро провайдер"
     },
-    "placeType":{
-        "HOTEL": "Меҳмонхона",
-        "HOUSEHOLDER": "Хонадон эгаси",
-        "HOSTEL": "Ётоқхона",
-        "GUEST_HOUSE": "Меҳмон уйи",
-        "APARTMENT": "Квартира",
-        "PRIVATE_HOUSE": "Хусусий уй",
-        "RESORT": "Дам олиш маскани",
-        "SANATORIUM": "Санаторий",
-        "CAMPING": "Кемпинг",
-        "ALL": "Барчаси"
+    "placeType": {
+      "HOTEL": "Меҳмонхона",
+      "HOUSEHOLDER": "Хонадон эгаси",
+      "HOSTEL": "Ётоқхона",
+      "GUEST_HOUSE": "Меҳмон уйи",
+      "APARTMENT": "Квартира",
+      "PRIVATE_HOUSE": "Хусусий уй",
+      "RESORT": "Дам олиш маскани",
+      "SANATORIUM": "Санаторий",
+      "CAMPING": "Кемпинг",
+      "ALL": "Барчаси"
     },
-    "serviceType":{
+    "serviceType": {
       "TOUR": "Саёҳат",
       "HOTEL": "Меҳмонхона"
     },
-    "Error":{
-       "Title": "Хатолик",
-       "UniqueProviderCode": "Провайдер коди такрорланмаслиги керак. Payment Provider аллақачон мавжуд."
+    "Error": {
+      "Title": "Хатолик",
+      "UniqueProviderCode": "Провайдер коди такрорланмаслиги керак. Payment Provider аллақачон мавжуд."
     }
   },
   "tourists": {
