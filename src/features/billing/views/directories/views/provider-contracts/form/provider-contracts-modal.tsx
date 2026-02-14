@@ -58,7 +58,7 @@ const ProviderContractModal = () => {
 
 
   const { data: organisationsTypes } = useQuery({
-    queryKey: ['organisationsTypes', debounceOrganizationdSearch],
+    queryKey: ['organisationsTypes'],
     queryFn: async () => {
       const res = await getOrganizationTypes({
         page_size: 200,
@@ -261,7 +261,9 @@ const ProviderContractModal = () => {
                 placeholder={t('fields.organization-type.placeholder')}
                 className="select-shadow"
                 disabled={!!organisationId}
-                options={mapToSelectOptions(organisationsTypes, 'name', 'organization_key')}
+                options={mapToSelectOptions( organisationsTypes, 'name', 'organization_key', )}
+                optionRender={option =>  <> {t(`providers.${option?.data?.value}`)} </> }
+                labelRender={option => <> {t(`providers.${option?.value}`)} </>}
               />
             </Form.Item>
             <Form.Item
@@ -324,6 +326,7 @@ const ProviderContractModal = () => {
               ]}
             >
               <CSelect
+                allowClear
                 placeholder={t('fields.apartment.placeholder')}
                 className="select-shadow"
                 options={mapToSelectOptions( apartments?.results, 'apartment_name', 'id', )}
@@ -341,6 +344,7 @@ const ProviderContractModal = () => {
               ]}
             >
               <CSelect
+                allowClear
                 placeholder={t('fields.guide.placeholder')}
                 className="select-shadow"
                 options={mapToSelectOptions(guides?.results, 'full_name', 'user_id' )}

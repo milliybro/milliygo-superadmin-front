@@ -27,6 +27,12 @@ const OperatorCommmissionsTable = ({
       render: (_text, _record, index) => (currentPage - 1) * pageSize + index + 1, sorter: false,
     },
     {
+      title: 'fields.shortCode.label',
+      dataIndex: 'code',
+      sorter: false,
+      width: 345,
+    },
+    {
       title: 'fields.serviceType.label',
       dataIndex: 'serviceType',
       sorter: false,
@@ -107,6 +113,7 @@ const OperatorCommmissionsTable = ({
       calculationType: item?.calculationType,
       amount: item?.amount,
       translates: item?.translates,
+      code: item?.code,
     }),
   )
 

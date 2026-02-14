@@ -8,6 +8,7 @@ import CreateDiscoverContent from '../discover/views/create/create-discover-cont
 import DiscoverProvider from '../discover/context'
 import HeroProvider from '../hero/context'
 import EditHero from '../hero/views/edit-hero'
+import HollyTourismForm from '../holly-tourism/views/create'
 
 const createForms = [
   {
@@ -46,12 +47,17 @@ const createForms = [
     key: 'events',
     element: <CreateEvent />,
   },
+  {
+    key: 'holly-tourism',
+    element: <HollyTourismForm />,
+  },
 ]
 
 export default function CreateContent() {
   const location = useLocation()
+
   const currentForm = createForms.find(form =>
-    location.pathname.includes(form.key),
+    location.pathname?.split('/')?.at(2)?.includes(form.key),
   )
   return currentForm?.element || null
 }

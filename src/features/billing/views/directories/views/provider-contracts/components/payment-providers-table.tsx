@@ -29,6 +29,7 @@ const ProviderContractsTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
+      render: (res:string) => t(`providers.${res?.toLocaleLowerCase()}`) 
     },
     {
       width: 300,

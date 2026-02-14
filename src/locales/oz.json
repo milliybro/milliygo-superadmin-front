@@ -34,7 +34,8 @@
       "title": "Texnik qo‘llab-quvvatlash",
       "description": "Agar platformaga kirishda muammolar yuzaga kelsa, siz qo‘ng‘iroq markaziga murojaat qilishingiz mumkin",
       "contact-support": "Qo‘llab-quvvatlashga murojaat qilish"
-    }
+    },
+    "login-failed": "Kirish muvaffaqiyatsiz tugadi"
   },
 
   "users-page": {
@@ -136,6 +137,22 @@
     }
   },
   "fields": {
+    "scheduler": {
+      "name": {
+        "placeholder": "Nomini kiriting",
+        "error": "Iltimos, nomini kiriting"
+      },
+      "periodicity": {
+        "placeholder": "Davriylikni tanlang",
+        "error": "Iltimos, davriylikni tanlang"
+      },
+      "day": {
+        "placeholder": "Kunni kiriting",
+        "week-error-message": "Iltimos, 1 dan 7 gacha bo'lgan kunni kiriting",
+        "month-error-message": "Iltimos, 1 dan 31 gacha bo'lgan kunni kiriting",
+        "error": "Iltimos, kunni kiriting"
+      }
+    },
     "url": {
       "label": "Havola",
       "error": "Iltimos, to‘g‘ri URL kiriting"
@@ -909,7 +926,8 @@
     "modal_description_edit": "Ma’lumotni tahrirlash uchun, iltimos, kerakli maydonlarni to‘ldiring.",
     "service-name": "Xizmat nomi",
     "employee-id": "Foydalanuvchi ID",
-    "add-field": "Maydon qo‘shish"
+    "add-field": "Maydon qo‘shish",
+    "clear-cache": "Keshni yangilash"
   },
   "status": {
     "confirmed": "Tasdiqlangan",
@@ -1098,6 +1116,19 @@
       "local": "Mahalliy provayder",
       "international": "Xalqaro provayder"
     },
+    "schedule-page": {
+      "cron-job": "Reja asosidagi vazifa",
+      "name": " nomi",
+      "day": "Kun",
+      "status": "Holat",
+      "action": "Harakat",
+      "periodicity": "Davriylik",
+      "deleteConfirmationMessage": "Reja asosidagi vazifani o‘chiryapsizmi?",
+      "scheduleHours": "Soatlar jadvali",
+      "WEEKLY": "Har hafta",
+      "MONTHLY": "Har oy",
+      "DAILY": "Har kuni"
+    },
     "placeType": {
       "HOTEL": "Mehmonxona",
       "HOUSEHOLDER": "Xonadon egasi",
@@ -1219,6 +1250,16 @@
       "status-created": "Tadbir muvaffaqiyatli qo‘shildi",
       "status-updated": "Tadbir yangilandi",
       "status-deleted": "Tadbir o‘chirildi"
+    },
+    "holly-tourism": {
+      "title": "Ziyorat turizmi",
+      "delete-title": "Ziyorat turizmini o‘chirishni xohlaysizmi?",
+      "delete-desc": "Ziyorat turizmini o‘chirishni xohlayotganingizga ishonchingiz komilmi?",
+      "delete-success": "Ziyorat turizmi o‘chirildi",
+      "title-add": "Ziyorat turizmini qo‘shish",
+      "title-edit": "Ziyorat turizmini tahrirlash",
+      "add-success": "Ziyorat turizmi muvaffaqiyatli qo‘shildi",
+      "edit-success": "Ziyorat turizmi yangilandi"
     }
   },
   "region": {

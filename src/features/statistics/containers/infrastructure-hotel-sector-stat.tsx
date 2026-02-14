@@ -7,10 +7,11 @@ export default function InfrastructureHotelSectorStatistics({
   activeTab,
   onTabChange,
 }: any) {
+  const { t } = useTranslation()
+
   if (!data) {
     return <div>Loading...</div>
   }
-  const { t } = useTranslation()
 
   return (
     <div className="w-full rounded-lg bg-white p-6 shadow">

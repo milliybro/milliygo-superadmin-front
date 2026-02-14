@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Popover } from 'antd'
 import { useTranslation } from 'react-i18next'
+import { formatAmount } from '@/helpers/format-amount'
 
 const CustomLineChart = ({
   data = {} as Record<string, number>,
@@ -15,7 +16,7 @@ const CustomLineChart = ({
   const actualMaxValue = Math.max(...values, 40)
   const maxValue = actualMaxValue * 1.15
 
-  const padding = 60
+  const padding = 90
   const chartWidth = 1700
   const chartHeight = 400
   const innerWidth = chartWidth - padding * 2
@@ -106,7 +107,7 @@ const CustomLineChart = ({
                   fontSize="12"
                   fill="#6B7280"
                 >
-                  {val}
+                  {formatAmount(val)}
                 </text>
               </g>
             )
@@ -178,7 +179,9 @@ const CustomLineChart = ({
               placement="top"
               color="#232E40"
               content={
-                <div className="text-center text-sm text-white">{p.value}</div>
+                <div className="text-center text-sm text-white">
+                  {formatAmount(p.value)}
+                </div>
               }
             >
               <g

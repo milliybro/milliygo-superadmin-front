@@ -5,6 +5,7 @@ import Billing from './views/billing'
 import Reports from './views/reports'
 import Directories from './views/directories/directories'
 import { BillingPath } from './views/directories/paths'
+import { Scheduler } from '@/features/billing/views/scheduler'
 const Currencies = lazy(() => import('./views/directories/views/currencies/currencies'))
 const CurrencyTypes = lazy(() => import('./views/directories/views/currency-types/currency-types'))
 const PaymentProviders = lazy(() => import('./views/directories/views/payment-providers/payment-providers'))
@@ -62,6 +63,12 @@ const billingRoutes: CustomRoute = {
       title: 'billing-tourist-transactions',
       path: 'tourist-transactions',
       element: <Billing />,
+    },
+    {
+      id: 'scheduler',
+      title: 'scheduler',
+      path: 'scheduler',
+      element: <Scheduler />,
     },
   ],
 }

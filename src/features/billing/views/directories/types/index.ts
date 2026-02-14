@@ -79,7 +79,8 @@ export interface IOperatorCommissions {
   id: number
   serviceType: string
   calculationType: string
-  amount: number
+  amount: number;
+  code:string;
   translates: {
     lang: string
     name: string
