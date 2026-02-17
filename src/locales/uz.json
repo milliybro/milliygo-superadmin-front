@@ -35,7 +35,8 @@
       "description": "Агар платформага киришда муаммо бўлса, колл-центрга мурожаат қилишингиз мумкин",
       "contact-support": "Қўллаб-қувватлашга мурожаат қилиш"
     },
-    "login-failed": "Кириш муваффақиятсиз тугади"
+    "login-failed": "Кириш муваффақиятсиз тугади",
+    "cencel": "Жараённи бекор қилиш"
   },
 
   "users-page": {
@@ -941,10 +942,10 @@
     "clearly": "Тушунарли",
     "edit-password": "Паролни ўзгартириш",
     "edit-password-text": "Илтимос, эмаил манзилингизни киритинг ва тасдиқланг, кейин паролингизни ўзгартиришингиз мумкин",
-    "receive-code": "Кодни olish",
-    "confirmation": "Tasdiqlash",
-    "code": "Kod",
-    "create-password": "Parol yarating",
+    "receive-code": "Кодни олиш",
+    "confirmation": "Тасдиқлаш",
+    "code": "Код",
+    "create-password": "Паролни яратинг",
     "create-password-desc": "Сиз янги пароль ўйлаб топишингиз керак",
     "new-password": "Пароль ўйлаб топинг",
     "confirm-password": "Паролни tasdiqlang",

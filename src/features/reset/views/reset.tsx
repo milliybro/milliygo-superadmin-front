@@ -143,7 +143,7 @@ export default function ResetPassword(): React.ReactElement {
                     </Button>
                   </Form.Item>
                   <Link className="flex-center mt-6 flex justify-center" to="/">
-                    Отменить процесс
+                    {t('auth-page.cencel')}
                   </Link>
                 </Form>
               </ConfigProvider>
@@ -195,7 +195,7 @@ export default function ResetPassword(): React.ReactElement {
                     </Button>
                   </Form.Item>
                   <Link className="flex-center mt-6 flex justify-center" to="/">
-                    Отменить процесс
+                    {t('auth-page.cencel')}
                   </Link>
                 </Form>
               </ConfigProvider>
@@ -311,7 +311,7 @@ export default function ResetPassword(): React.ReactElement {
                     </Button>
                   </Form.Item>
                   <Link className="flex-center mt-6 flex justify-center" to="/">
-                    Отменить процесс
+                    {t('auth-page.cencel')}
                   </Link>
                 </Form>
               </ConfigProvider>

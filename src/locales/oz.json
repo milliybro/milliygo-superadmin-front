@@ -35,7 +35,8 @@
       "description": "Agar platformaga kirishda muammolar yuzaga kelsa, siz qo‘ng‘iroq markaziga murojaat qilishingiz mumkin",
       "contact-support": "Qo‘llab-quvvatlashga murojaat qilish"
     },
-    "login-failed": "Kirish muvaffaqiyatsiz tugadi"
+    "login-failed": "Kirish muvaffaqiyatsiz tugadi",
+    "cencel": "Jarayonni bekor qilish"
   },
 
   "users-page": {
