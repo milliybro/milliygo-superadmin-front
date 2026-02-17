@@ -14,7 +14,7 @@ const UserActionButton = ({
   const { openModal } = useUserModalStore(store => store)
 
   const editHandler = () => {
-    navigate(pathname + '?edit=' + id)
+    navigate(pathname + '/' + id)
     openModal()
   }
 

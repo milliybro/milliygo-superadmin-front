@@ -126,7 +126,27 @@
     "edit-services": "Qulaylik va xizmatlarni tahrirlash",
     "modal-description": "Yangi foydalanuvchi qo'shish uchun barcha kerakli maydonlarni to'ldiring",
     "providers-name": "Provider nomi (yoki analogi)",
-    "all-users": "Jami foydalanuvchilar"
+    "all-users": "Jami foydalanuvchilar",
+    "company-name": "Kompaniya nomi",
+    "start-date": "Ulanish sanasi",
+    "order-count": "Buyurtmalar soni",
+    "booking-date": "Bron qilish sanasi",
+    "number-booking": "Bron raqami",
+    "number-reis": "Reys raqami",
+    "passenger-name": "Yo‘lovchi F.I.Sh.",
+    "booking-status": "Bron holati",
+    "airport-code": "Aeroport kodi",
+    "ticket-number": "Chipta raqami",
+    "route": "Yo‘nalish",
+    "flight-time": "Parvoz vaqti",
+    "tariff": "Tarif",
+    "place": "O‘rin",
+    "price": "Narx",
+    "booking": "Bronlov",
+    "passport": "Pasport seriyasi",
+    "arrival-country": "Berilgan mamlakat",
+    "phone": "Telefon",
+    "email": "E-mail"
   },
   "accommodations-page": {
     "filter": {

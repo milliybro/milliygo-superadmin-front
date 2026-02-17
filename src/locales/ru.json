@@ -56,7 +56,27 @@
     "edit-services": "Редактировать удобства и услуги",
     "modal-description": "Для добавления нового пользователя, пожалуйста заполните все необходимые поля",
     "providers-name": "Название поставщика (или аналог)",
-    "all-users": "Всего пользователей"
+    "all-users": "Всего пользователей",
+    "company-name": "Название компании",
+    "start-date": "Дата подключения",
+    "order-count": "Кол-во заказов",
+    "booking-date": "Дата брони",
+    "number-booking": "№ бронирования",
+    "number-reis": "№ рейса",
+    "passenger-name": "ФИО пассажира",
+    "booking-status": "Статус бронирования",
+    "airport-code": "Код аэропорта",
+    "ticket-number": "№ билета",
+    "route": "Маршрут",
+    "flight-time": "Время полета",
+    "tariff": "Тариф",
+    "place": "Место",
+    "price": "Цена",
+    "booking": "Бронирование",
+    "passport": "Серия паспорта",
+    "arrival-country": "Страна выдачи",
+    "phone": "Телефон",
+    "email": "E-mail"
   },
 
   "complaints-page": {

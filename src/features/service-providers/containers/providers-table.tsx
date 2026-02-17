@@ -1,4 +1,4 @@
-import { Table } from 'antd'
+import { Form, Input, Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 
 import StatusTag from '@/components/ui/status-tag'
@@ -14,6 +14,8 @@ import queryString from 'query-string'
 import { useLocation, useNavigate } from 'react-router'
 import { getOrganizationInfo } from '../api'
 import UsersNotFound from '../components/users-not-found'
+import { SearchOutlined } from '@ant-design/icons'
+import DefaultImageIcon from '@/components/icons/default-image'
 
 const ProvidersTable = () => {
   const { t } = useTranslation()
@@ -31,33 +33,59 @@ const ProvidersTable = () => {
 
   const columns: TableColumnsType<any> = [
     {
-      title: 'ID',
+      title: '№',
       dataIndex: 'id',
       render: (_text, _record, index) => index + 1,
       sorter: false,
       width: 50,
     },
     {
-      title: t('services-page.providers-name'),
+      title: 'ID',
+      dataIndex: 'id',
+      render: (_text, _record) => _text,
+      sorter: false,
+      width: 200,
+    },
+    {
+      title: t('services-page.company-name'),
       dataIndex: 'name',
       sorter: true,
-      width: 691.5,
-      render: value => {
+      render: (value, record) => {
         return (
           <div className="flex items-center gap-2">
-            {/* {record?.image ? (
-              <img
-                className="h-[48px] w-[48px] shrink-0 rounded-[8px] object-cover"
-                src={record?.image}
-                alt=""
-              />
-            ) : (
-              <div className="flex size-[48px] items-center justify-center rounded-[8px] border border-border bg-secondary-light" />
-            )} */}
+            <div className="h-12 w-12">
+              {record?.image ? (
+                <img
+                  className="h-[48px] w-[48px] shrink-0 rounded-[8px] object-cover"
+                  src={record?.image}
+                  alt=""
+                />
+              ) : (
+                <div className="flex size-[48px] items-center justify-center rounded-[8px] border border-border bg-secondary-light">
+                  <DefaultImageIcon />
+                </div>
+              )}
+            </div>
 
             <div className="line-clamp-2 w-full">{value}</div>
           </div>
         )
+      },
+    },
+    {
+      title: t('services-page.start-date'),
+      dataIndex: 'start_date',
+      sorter: true,
+      render: value => {
+        return <div className="line-clamp-2 w-full">{value}</div>
+      },
+    },
+    {
+      title: t('services-page.order-count'),
+      dataIndex: 'count',
+      sorter: true,
+      render: value => {
+        return <div className="line-clamp-2 w-full">{value}</div>
       },
     },
     {
@@ -97,7 +125,16 @@ const ProvidersTable = () => {
   }
 
   return (
-    <div className="px-4">
+    <div className="px-3">
+      <Form className="mb-4">
+        <Form.Item>
+          <Input
+            size="middle"
+            placeholder="Поиск по названию"
+            prefix={<SearchOutlined className="pe-2 ps-1" />}
+          />
+        </Form.Item>
+      </Form>
       <Table<any>
         columns={columns}
         dataSource={
@@ -105,6 +142,8 @@ const ProvidersTable = () => {
             ...item,
             idx: i,
             key: item?.key + i,
+            count: 2,
+            start_date: '16.02.2026',
           })) || []
         }
         className="side-borderless-table responsive-table"

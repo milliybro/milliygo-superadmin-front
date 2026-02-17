@@ -56,7 +56,27 @@
     "edit-services": "Қулайлик ва хизматларни таҳрирлаш",
     "modal-description": "Янги фойдаланувчи қўшиш учун барча зарур майдонларни тўлдиринг",
     "providers-name": "Провидер номи (ёки аналоги)",
-    "all-users": "Жами фойдаланувчилар"
+    "all-users": "Жами фойдаланувчилар",
+    "company-name": "Компания номи",
+    "start-date": "Уланиш санаси",
+    "order-count": "Буюртмалар сони",
+    "booking-date": "Брон қилиш санаси",
+    "number-booking": "Брон рақами",
+    "number-reis": "Рейс рақами",
+    "passenger-name": "Йўловчи Ф.И.Ш.",
+    "booking-status": "Брон ҳолати",
+    "airport-code": "Аэропорт коди",
+    "ticket-number": "Чипта рақами",
+    "route": "Йўналиш",
+    "flight-time": "Парвоз вақти",
+    "tariff": "Тариф",
+    "place": "Ўрин",
+    "price": "Нарх",
+    "booking": "Бандлов",
+    "passport": "Паспорт серияси",
+    "arrival-country": "Берилган мамлакат",
+    "phone": "Телефон",
+    "email": "E-mail"
   },
 
   "complaints-page": {
@@ -1103,7 +1123,7 @@
       "action": "Харакат",
       "periodicity": "Даврийлик",
       "scheduleHours": "Соатлар жадвали",
-      "deleteConfirmationMessage":"Режа асосидаги вазифани ўчиряпсизми?",
+      "deleteConfirmationMessage": "Режа асосидаги вазифани ўчиряпсизми?",
       "WEEKLY": "Хар хафта",
       "MONTHLY": "Хар ой",
       "DAILY": "Хар куни"
