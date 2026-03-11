@@ -8,13 +8,8 @@ import useBreadCrumbsStore from '@/store/use-breadcrumbs-store'
 import ClientsTable from '../containers/clients-table'
 import ClientsFilters from '../containers/clients-filters'
 import { useQuery } from '@tanstack/react-query'
-<<<<<<< HEAD
 import { useSearchParams } from 'react-router'
 import { getUsersList } from '@/features/accommodation-facilities/api'
-=======
-import { getUsersList } from '@/features/users/api'
-import { useSearchParams } from 'react-router'
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
 
 const Clients = () => {
   const { t } = useTranslation()
