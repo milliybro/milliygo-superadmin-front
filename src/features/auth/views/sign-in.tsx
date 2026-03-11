@@ -189,11 +189,11 @@ export default function SignIn(): React.ReactElement {
               </Form>
             </ConfigProvider>
 
-            <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-center text-sm text-white/60">
+            {/* <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-center text-sm text-white/60">
               Demo login:{' '}
               <span className="font-semibold text-white">milliybro</span> / Demo
               parol: <span className="font-semibold text-white">milliybro</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
