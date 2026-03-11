@@ -1,0 +1,78 @@
+import { App, Typography, Upload } from 'antd'
+import { useTranslation } from 'react-i18next'
+import VideoPlayer from 'react-player'
+import { getFirstFrameFromVideo } from '../helpers/get-first-frame-from-video'
+import { useUploadedVideoStore } from '../store/uploaded-video-store'
+import ImageUploadIcon from '@/components/icons/image-upload'
+import { memo } from 'react'
+import { useImageCompression } from '@/hooks/use-image-compression'
+
+function UploadedVideoField() {
+  const { notification } = App.useApp()
+  const { t } = useTranslation()
+  const { setUploadedVideo, uploadedVideo } = useUploadedVideoStore()
+  const { compress, isCompressing } = useImageCompression()
+
+  const handleUpload = (file: File) => {
+    if (file?.size && file?.size > 200 * 1024 * 1024) {
+      notification.error({
+        message: t('common.images_limit', { limit: '200 MB' }),
+      })
+      return
+    } else if (!file?.type?.includes('video/')) {
+      notification.error({
+        message: t('content.hero.incorrect-file-type'),
+      })
+      return
+    }
+
+    async function handleImage() {
+      const preview = await getFirstFrameFromVideo(file)
+      const compressed = await compress(preview)
+      if (!compressed?.compressedFile) {
+        return
+      }
+
+      setUploadedVideo({ video: file, preview: compressed?.compressedFile })
+    }
+
+    handleImage()
+
+    return false
+  }
+
+  return (
+    <>
+      {uploadedVideo ? (
+        <VideoPlayer
+          src={URL.createObjectURL(uploadedVideo?.video)}
+          height="auto"
+          width="100%"
+          controls
+        />
+      ) : (
+        <Upload.Dragger
+          className="mb-2 flex aspect-video flex-col items-center gap-2 [&_.ant-upload-btn]:py-12"
+          beforeUpload={newFile => {
+            handleUpload(newFile)
+            return false
+          }}
+          showUploadList={false}
+          accept="video/*"
+          disabled={isCompressing}
+        >
+          <ImageUploadIcon className="text-[4.375rem]" />
+          <Typography.Title className="m-0 text-base font-medium">
+            {t('common.select_or_drag')}
+          </Typography.Title>
+          <Typography.Paragraph className="m-0 text-sm text-secondary">
+            {t('common.images_limit', { limit: '200 MB' })}
+          </Typography.Paragraph>
+        </Upload.Dragger>
+      )}
+    </>
+  )
+}
+// 70 / 16 = 4.375rem
+// 200 / 16 = 12.5rem
+export default memo(UploadedVideoField)

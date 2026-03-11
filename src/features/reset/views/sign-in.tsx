@@ -1,0 +1,222 @@
+import { useTranslation } from 'react-i18next'
+import { Button, ConfigProvider, Form, Input, message, Typography } from 'antd'
+
+import { darkTheme } from '@/providers/theme-provider'
+
+import videoBanner from '@/assets/main-bg-video.mp4'
+import uzinfocomLogo from '@/assets/uzinfocom-logo.png'
+
+import SupportModal from '../components/support-modal'
+
+import ViewIcon from '@/components/icons/view'
+import ViewOffIcon from '@/components/icons/view-off'
+import ProjectLogo from '@/components/icons/project-logo'
+import SquarePasswordIcon from '@/components/icons/square-password'
+import { login } from '../api'
+import { useMutation } from '@tanstack/react-query'
+import { useContext } from 'react'
+import { setCookie } from 'cookies-next'
+import { useNavigate } from 'react-router'
+import { AuthContext } from '../context/authContext'
+import { useAuthContext } from '@/contexts/auth-context'
+
+// interface AuthStore {
+//   isAuthenticated: boolean;
+//   login: () => void;
+//   logout: () => void;
+//   userInfo: Record<string, unknown>;
+// }
+
+export default function SignIn(): React.ReactElement {
+  const [form] = Form.useForm()
+  const { setIsAuth } = useAuthContext()
+  const authContext = useContext(AuthContext)
+  const authStore = authContext?.authStore || {
+    isAuthenticated: false,
+    login: () => {},
+    logout: () => {},
+    userInfo: {},
+  }
+
+  const { isAuthenticated, login: loginAction }: any = authStore
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+
+  const { mutate: mutateLogin } = useMutation({
+    mutationFn: login,
+    onSuccess: res => {
+      if (res.user.is_superuser === true) {
+        localStorage.setItem('refresh', res.refresh)
+        localStorage.setItem('access', res.access)
+        localStorage.setItem('user', JSON.stringify(res.user))
+        loginAction(res.user)
+        setCookie('user', res.user)
+        setIsAuth(true)
+        navigate('/')
+
+        message.success(t('common.login-success'), 2)
+      } else {
+        message.error(t('common.login-error'), 2)
+      }
+    },
+  })
+
+  if (isAuthenticated) {
+    navigate('/')
+  }
+
+  return (
+    <div className="h-[100vh] w-[100vw]">
+      <video
+        autoPlay
+        muted
+        loop
+        id="myVideo"
+        className="absolute left-0 top-0 h-full w-full object-cover opacity-10"
+        poster="../main-banner.jpg"
+      >
+        <source
+          src={videoBanner}
+          width={1000}
+          height={500}
+          type="video/mp4"
+          className="z-0"
+        />
+        Your browser does not support HTML5 video.
+      </video>
+      <div className="flex h-full w-full items-center justify-center bg-[#0F172A]">
+        <div className="w-[569px] rounded-2xl border border-[#3F416B] bg-[#1E293B99] p-[100px] backdrop-blur-sm">
+          <div className="flex flex-col items-center">
+            <ProjectLogo className="mb-6" />
+
+            <Typography.Text className="mb-4 text-[1.75rem] font-semibold text-white">
+              {t('auth-page.welcome-title')}
+            </Typography.Text>
+            <Typography.Text className="mb-6 text-center text-base font-light text-white">
+              {t('auth-page.welcome-description')}
+            </Typography.Text>
+
+            <ConfigProvider theme={darkTheme}>
+              <Form
+                form={form}
+                layout="vertical"
+                className="mb-6 w-full"
+                onFinish={mutateLogin}
+              >
+                <div className="flex flex-col">
+                  <div className="mb-1">
+                    <span className="text-sm">{t('fields.email.label')}</span>
+                  </div>
+                  <Form.Item
+                    name="username"
+                    className="group mb-4 [&_.ant-form-item-explain-error]:my-1 [&_.ant-form-item-explain-error]:text-sm [&_.ant-form-item-label_label]:text-white [&_.ant-form-item-required]:before:hidden"
+                    // rules={[
+                    //   {
+                    //     required: true,
+                    //     message: t('fields.email.validation-message-required'),
+                    //   },
+                    //   {
+                    //     type: 'email',
+                    //     message: t('fields.email.validation-message-invalid'),
+                    //   },
+                    // ]}
+                  >
+                    <Input
+                      placeholder={t('fields.email.placeholder')}
+                      size="large"
+                      className="text-white focus:border-primary focus:shadow-[0px_0px_0px_4px_#3B82F640] [&.ant-input-status-error]:shadow-[0px_0px_0px_4px_#EF444440]"
+                    />
+                  </Form.Item>
+                </div>
+
+                <div className="flex flex-col">
+                  <div className="mb-1 flex items-center justify-between">
+                    <span className="text-sm">
+                      {t('fields.password.label')}
+                    </span>
+
+                    <SupportModal
+                      icon={SquarePasswordIcon}
+                      title={t('auth-page.recovery-modal.title')}
+                      description={t('auth-page.recovery-modal.description')}
+                    >
+                      <button type="button" className="text-sm text-secondary">
+                        {t('auth-page.recovery-modal.title')}
+                      </button>
+                    </SupportModal>
+                  </div>
+                  <Form.Item
+                    name="password"
+                    className="[&_.ant-form-item-label label]:!w-full mb-6 [&_.ant-form-item-explain-error]:mb-4 [&_.ant-form-item-explain-error]:mt-1 [&_.ant-form-item-explain-error]:text-sm [&_.ant-form-item-label_label]:text-white [&_.ant-form-item-required]:before:hidden"
+                    rules={[
+                      {
+                        required: true,
+                        message: t(
+                          'fields.password.validation-message-required',
+                        ),
+                      },
+                      {
+                        min: 4,
+                        message: t(
+                          'fields.password.validation-message-invalid',
+                        ),
+                      },
+                    ]}
+                  >
+                    <Input.Password
+                      placeholder={t('fields.password.placeholder')}
+                      size="large"
+                      className="text-white focus-within:border-primary focus-within:shadow-[0px_0px_0px_4px_#3B82F640] focus:border-primary focus:shadow-[0px_0px_0px_4px_#3B82F640] [&.ant-input-status-error]:shadow-[0px_0px_0px_4px_#EF444440] [&_.ant-input-password-icon]:text-white [&_.ant-input-password-icon]:hover:text-primary"
+                      classNames={{ suffix: 'text-white' }}
+                      iconRender={visible =>
+                        !visible ? (
+                          <ViewOffIcon className="text-white" />
+                        ) : (
+                          <ViewIcon className="text-white" />
+                        )
+                      }
+                    />
+                  </Form.Item>
+                </div>
+
+                <Form.Item>
+                  <Button
+                    size="large"
+                    className="w-full border-none bg-primary hover:bg-primary/50 disabled:bg-secondary disabled:text-white"
+                    type="primary"
+                    htmlType="submit"
+                    // loading={isLoading}
+                  >
+                    {t('common.login-to-account')}
+                  </Button>
+                </Form.Item>
+              </Form>
+            </ConfigProvider>
+
+            {/* <SupportModal
+              icon={CustomerSupportIcon}
+              title={t('auth-page.support-modal.title')}
+              description={t('auth-page.support-modal.description')}
+            >
+              <button
+                type="button"
+                className="text-sm text-white duration-200 hover:text-primary flex items-center leading-3 gap-2"
+              >
+                <CustomerSupportIcon />{' '}
+                {t('auth-page.support-modal.contact-support')}
+              </button>
+            </SupportModal> */}
+          </div>
+        </div>
+      </div>
+      <div className="absolute bottom-[48px] left-[calc(50%-109px)] flex items-center gap-2">
+        <Typography.Text className="font-light text-white/50">
+          Powered by
+        </Typography.Text>
+        <a href="/">
+          <img src={uzinfocomLogo} alt="uzinfocom logo" className="w-[120px]" />
+        </a>
+      </div>
+    </div>
+  )
+}

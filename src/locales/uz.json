@@ -1,0 +1,1442 @@
+{
+  "routes": {
+    "statistics": "Статистика",
+    "placement-funds": "Жойлаштириш воситалари",
+    "tourists": "Сайёҳлар",
+    "landlords": "Ижарага берувчилар",
+    "service-providers": "Хизмат кўрсатувчилар",
+    "travel-agencies": "Туристик агентликлар",
+    "guides": "Гидлар",
+    "billing": "Биллинг",
+    "bi-service": "BI-сервис",
+    "content": "Контент",
+    "roles": "Роллар",
+    "expert-advices": "Мутахассис маслаҳатлари",
+    "events": "Тадбирлар",
+    "reports": "Ҳисоботлар",
+    "directories": "Маълумотномалар",
+    "transactions": "Транзакциялар ва ҳисоб-китоблар",
+    "integration": "Интеграция",
+    "registers": "Реестрлар",
+    "tourist-transactions": "Турист транзакциялари"
+  },
+  "auth-page": {
+    "welcome-title": "Хуш келибсиз!",
+    "welcome-description": "Платформадаги барча жиҳатларни бошқаринг: эълонлар қўшиш ва таҳрирлаш, фойдаланувчилар фаолиятини кузатиш",
+    "support-service": "Қўллаб-қувватлаш хизмати",
+    "additional-number": "Қўшимча рақам",
+
+    "recovery-modal": {
+      "title": "Паролни унутдингизми?",
+      "description": "E-Mehmon.uz техник қўллаб-қувватлаш хизматига мурожаат қилишингиз керак"
+    },
+    "support-modal": {
+      "title": "Техник қўллаб-қувватлаш",
+      "description": "Агар платформага киришда муаммо бўлса, колл-центрга мурожаат қилишингиз мумкин",
+      "contact-support": "Қўллаб-қувватлашга мурожаат қилиш"
+    },
+    "login-failed": "Кириш муваффақиятсиз тугади",
+    "cencel": "Жараённи бекор қилиш"
+  },
+
+  "users-page": {
+    "add-user": "Фойдаланувчи қўшиш",
+    "user-is-added": "Янги фойдаланувчи қўшилди",
+    "edit-user": "Фойдаланувчини таҳрирлаш",
+    "modal-description": "Янги фойдаланувчи қўшиш учун барча зарур майдонларни тўлдиринг",
+    "delete-modal": "Фойдаланувчини ўчиришни истайсизми?",
+    "delete-modal-desc": "Фойдаланувчини ўчиришга ишончингиз комилми?",
+    "not-found": "Ҳеч нарса топилмади",
+    "not-found-desc": "Кечирасиз, сўровингиз бўйича ҳеч нарса топилмади.",
+    "user_count": "Фойдаланувчилар сони: {{count}}"
+  },
+
+  "services-page": {
+    "add-user": "Қўшиш",
+    "add-services": "Қулайлик ва хизматлар қўшиш",
+    "edit-services": "Қулайлик ва хизматларни таҳрирлаш",
+    "modal-description": "Янги фойдаланувчи қўшиш учун барча зарур майдонларни тўлдиринг",
+    "providers-name": "Провидер номи (ёки аналоги)",
+    "all-users": "Жами фойдаланувчилар",
+    "company-name": "Компания номи",
+    "start-date": "Уланиш санаси",
+    "order-count": "Буюртмалар сони",
+    "booking-date": "Брон қилиш санаси",
+    "number-booking": "Брон рақами",
+    "number-reis": "Рейс рақами",
+    "passenger-name": "Йўловчи Ф.И.Ш.",
+    "booking-status": "Брон ҳолати",
+    "airport-code": "Аэропорт коди",
+    "ticket-number": "Чипта рақами",
+    "route": "Йўналиш",
+    "flight-time": "Парвоз вақти",
+    "tariff": "Тариф",
+    "place": "Ўрин",
+    "price": "Нарх",
+    "booking": "Бандлов",
+    "passport": "Паспорт серияси",
+    "arrival-country": "Берилган мамлакат",
+    "phone": "Телефон",
+    "email": "E-mail"
+  },
+
+  "complaints-page": {
+    "title": "Шикоятлар",
+    "not-found-title": "Ҳеч нарса топилмади",
+    "not-found-description": "Ҳозирча сизда шикоятлар йўқ."
+  },
+
+  "hotels-page": {
+    "add-hotel": "Меҳмонхона қўшиш",
+    "add-hotel-desc": "Янги меҳмонхона қўшиш учун зарур майдонларни тўлдиринг",
+    "name": {
+      "title": "Меҳмонхона номи",
+      "placeholder": "Меҳмонхона номини киритинг"
+    },
+    "login": {
+      "title": "Логин",
+      "placeholder": "Логинни киритинг"
+    },
+    "password": {
+      "title": "Парол",
+      "placeholder": "Паролни киритинг"
+    },
+    "domen": {
+      "title": "Домен",
+      "placeholder": "Домен ҳаволасини киритинг"
+    },
+    "period": "Давр",
+    "check-in": {
+      "title": "Кириш",
+      "desc": "Киришда фотосуратли шахсий гувоҳнома ва кредит картаси тақдим этиш керак."
+    },
+    "check-out": {
+      "title": "Чиқиш",
+      "desc": "Чиқишда фотосуратли шахсий гувоҳнома ва кредит картаси тақдим этиш керак."
+    },
+    "bed-for-child": {
+      "title": "Болалар учун ётоқлар",
+      "desc": "Болаларни жойлаштириш қоидалари",
+      "text1": "Ҳар қандай ёшдаги болалар яшаши мумкин.",
+      "text2": "13 ёш ва ундан катта болалар учун катталар нархи қўлланилади.",
+      "text3": "Аниқ нарх ва мавжудликни кўриш учун болалар сони ва ёшини киритинг."
+    },
+    "no-age": {
+      "title": "Ёш бўйича чекловлар йўқ",
+      "desc": "Кириш учун ёш бўйича чеклов йўқ."
+    },
+    "pets": {
+      "title": "Ҳайвонлар",
+      "desc": "Ҳайвонлар билан жойлашишга рухсат берилмайди."
+    },
+    "card": {
+      "title": "Тўлов усуллари",
+      "desc": " ушбу карталарни қабул қилади ва келишингизгача маблағни блоклаш ҳуқуқига эга."
+    },
+    "region": "Вилоят"
+  },
+
+  "access-role-page": {
+    "add-role": "Роль қўшиш",
+    "edit-role": "Рольни таҳрирлаш",
+    "create-role": "Янги роль яратиш"
+  },
+
+  "call-center-page": {
+    "no-chat-selected-title": "Ҳеч нарса танланмади",
+    "no-chat-selected-description": "Чапдаги рўйхатдан хизматларни танлашни бошланг"
+  },
+
+  "profile-popover": {
+    "label": "Аккаунтдан чиқишни истайсизми?",
+    "description": "Аккаунтдан чиқишга ишончингиз комилми?"
+  },
+  "hotel-guest": {
+    "title": "Меҳмон ҳақида маълумот",
+    "lfm": "Ф.И.Ш.",
+    "citizenship": "Фуқаролиги",
+    "nation": "Миллати",
+    "birth": "Туғилган куни",
+    "passport": "Паспорт серияси",
+    "check-in-out": "Кириш/чиқиш санаси",
+    "gender": "Жинси",
+    "phone": "Телефон рақами",
+    "review": "Фикр",
+    "number": "Хона рақами",
+    "type": "Хона тури",
+    "night": "Тун"
+  },
+  "accommodations-page": {
+    "filter": {
+      "creator": "Эгаси",
+      "full-name": "Ф.И.Ш. киритинг",
+      "status": "Ҳолати",
+      "status-placeholder": "Ҳолатни танланг"
+    }
+  },
+
+  "fields": {
+    "url": {
+      "label": "Ҳавола",
+      "error": "Илтимос, тўғри URL киритинг"
+    },
+    "fullname": {
+      "label": "Ф.И.Ш.",
+      "placeholder": "Ф.И.Ш. киритинг",
+      "validation-message-required": "Ф.И.Ш. киритинг"
+    },
+    "first_name": {
+      "label": "Исм",
+      "placeholder": "Исмингизни киритинг",
+      "validation-message-required": "Исмингизни киритинг"
+    },
+    "last_name": {
+      "label": "Фамилия",
+      "placeholder": "Фамилиянгизни киритинг",
+      "validation-message-required": "Фамилиянгизни киритинг"
+    },
+    "middle_name": {
+      "label": "Отасининг исми",
+      "placeholder": "Отасининг исмини киритинг",
+      "validation-message-required": "Отасининг исмини киритинг"
+    },
+    "phone": {
+      "label": "Телефон рақами",
+      "placeholder": "Телефон рақамини киритинг",
+      "validation-message-required": "Телефон рақамини киритинг"
+    },
+    "gender": {
+      "label": "Жинси",
+      "validation-message-required": "Жинсни танланг",
+      "placeholder": "Жинсни танланг"
+    },
+    "login": {
+      "label": "Логин",
+      "placeholder": "Логинни танланг",
+      "validation-message-required": "Логинни киритинг"
+    },
+    "code": {
+      "label": "Парол",
+      "placeholder": "Кодни танланг",
+      "validation-message-required": "Телефон рақамини киритинг"
+    },
+    "role": {
+      "label": "Роль",
+      "placeholder": "Рольни танланг",
+      "validation-message-required": "Рольни танланг"
+    },
+    "status": {
+      "label": "Ҳолати",
+      "placeholder": "Ҳолатни танланг",
+      "validation-message-required": "Ҳолатни танланг"
+    },
+    "password": {
+      "label": "Парол",
+      "placeholder": "Паролни танланг",
+      "validation-message-required": "Паролни киритинг",
+      "validation-message-invalid": "Киритилган парол нотўғри"
+    },
+    "search-user": {
+      "label": "Фойдаланувчи қидириш",
+      "placeholder": "Исм, телефон рақамини киритинг"
+    },
+    "hotel-search": {
+      "label": "Меҳмонхона қидириш",
+      "placeholder": "Меҳмонхона номини киритинг",
+      "validation-message-required": "Меҳмонхона номини киритинг"
+    },
+    "client-search": {
+      "label": "Мижоз қидириш",
+      "placeholder": "Исм, телефон рақамини киритинг"
+    },
+    "citizenship": {
+      "label": "Фуқаролиги",
+      "placeholder": "Давлатни танланг"
+    },
+    "contact-person": {
+      "label": "Боғланиш учун шахс",
+      "placeholder": "Боғланиш учун шахсни киритинг",
+      "validation-message-required": "Боғланиш учун шахсни киритинг"
+    },
+    "hotel-name": {
+      "label": "Меҳмонхона номи",
+      "placeholder": "Меҳмонхона номингиз",
+      "validation-message-required": "Меҳмонхона номини киритинг"
+    },
+    "hotel-description": {
+      "label": "Меҳмонхона тавсифи",
+      "placeholder": "Меҳмонхона ҳақида ўзбек тилида ёзинг",
+      "validation-message-required": "Меҳмонхона тавсифини киритинг"
+    },
+    "location": {
+      "label": "Манзил"
+    },
+    "price": {
+      "label": "Нархи"
+    },
+    "rating": {
+      "label": "Рейтинг"
+    },
+    "balance": {
+      "label": "Баланс"
+    },
+    "address": {
+      "label": "Манзил",
+      "validation-message-required": "Манзилни киритинг",
+      "placeholder": "Меҳмонхона манзилини киритинг",
+      "placeholder2": "Манзилни киритинг"
+    },
+    "photos": {
+      "label": "Меҳмонхона суратларини қўшиш",
+      "validation-message-required": "Меҳмонхона суратларини юкланг"
+    },
+    "amenities": {
+      "label": "Қулайлик ва хизматлар қўшинг",
+      "validation-message-required": "Камида битта қулайликни танланг",
+      "placeholder": "Танланг"
+    },
+    "check-in-time": {
+      "label": "Кириш",
+      "validation-message-required": "Кириш вақтини киритинг"
+    },
+    "check-out-time": {
+      "label": "Чиқиш",
+      "validation-message-required": "Чиқиш вақтини киритинг"
+    },
+    "booking-terms-link": {
+      "label": "Брон қилиш шартлари ҳаволаси",
+      "validation-message-required": "Чиқиш вақтини киритинг",
+      "validation-message-invalid-url": "Тўғри URL киритинг"
+    },
+    "children-beds": {
+      "label": "Болалар учун ётоқлар",
+      "placeholder": "Рухсат этилган",
+      "validation-message-required": "Опцияни танланг"
+    },
+    "pets": {
+      "label": "Ҳайвонлар",
+      "placeholder": "Рухсат этилган",
+      "validation-message-required": "Опцияни танланг"
+    },
+    "age-restrictions": {
+      "label": "Ёш бўйича чекловлар",
+      "placeholder": "Чеклов йўқ",
+      "validation-message-required": "Ёш бўйича чекловни танланг"
+    },
+    "payment-methods": {
+      "label": "Тўлов усуллари",
+      "placeholder": "Тўлов усулларини танланг",
+      "validation-message-required": "Камида битта тўлов усулини танланг"
+    },
+    "email": {
+      "label": "Логин",
+      "placeholder": "Логинни киритинг",
+      "validation-message-required": "Логинни киритинг",
+      "validation-message-invalid": "Киритилган логин нотўғри"
+    },
+
+    "passport-data": {
+      "label": "Паспорт маълумотлари"
+    },
+    "birthyear": {
+      "label": "Туғилган йили"
+    },
+    "birthdate": {
+      "label": "Туғилган санаси"
+    },
+    "entry-date": {
+      "label": "Кириш санаси"
+    },
+    "exit-date": {
+      "label": "Чиқиш санаси"
+    },
+    "country": {
+      "label": "Давлат"
+    },
+    "nationality": {
+      "label": "Миллати"
+    },
+    "role-name": {
+      "label": "Роль номи",
+      "placeholder": "Роль номини киритинг"
+    },
+    "role-status": {
+      "label": "Роль ҳолати"
+    },
+    "functionality": {
+      "label": "Функционал"
+    },
+    "role-search": {
+      "label": "Роль қидириш",
+      "placeholder": "Роль номини киритинг"
+    },
+    "user-fullname": {
+      "label": "Фойдаланувчи Ф.И.Ш.",
+      "placeholder": "Ф.И.Ш. киритинг"
+    },
+    "date": {
+      "label": "Сана",
+      "placeholder": "Санани танланг"
+    },
+    "icon": {
+      "label": "Иконка",
+      "add-icon": "Иконка юклаш",
+      "select": "Танланг",
+      "drag-file": " ёки файлни тортиб ташланг",
+      "max-size": "Энг кўп ҳажм: 5 МБ.",
+      "icons": "Аввал юкланган иконкалар"
+    },
+    "name": {
+      "label": "Номи",
+      "placeholder": "Номини киритинг",
+      "required": "Илтимос, номини киритинг",
+      "name-uz": "Номи Ўз",
+      "name-ru": "Номи Ру",
+      "name-en": "Номи En",
+      "name-cry": "Номи Ўз"
+    },
+    "description": {
+      "label": "Тавсиф",
+      "placeholder": "Тавсифни ёзинг",
+      "required": "Илтимос, тавсиф киритинг"
+    },
+    "images": {
+      "label": "Расмларни юклаш",
+      "required": "Расм юкланг",
+      "max-size-limit": "Файл {{value}} ҳажми 5 МБ дан ошиб кетган",
+      "max-length-limit": "{{value}} тадан ортиқ расм юклай олмайсиз"
+    },
+    "organizer": {
+      "label": "Ташкилотчи",
+      "placeholder": "Номини ёзинг"
+    },
+    "scheduler": {
+      "name": {
+        "placeholder": "Номини киритинг",
+        "error": "Илтимос, номини киритинг"
+      },
+      "periodicity": {
+        "placeholder": "Даврийликни танланг",
+        "error": "Илтимос, даврийликни танланг"
+      },
+      "day": {
+        "placeholder": "Кунни киритинг",
+        "week-error-message": "Илтимос, 1 дан 7 гача бўлган кунни киритинг",
+        "month-error-message": "Илтимос, 1 дан 31 гача бўлган кунни киритинг",
+        "error": "Илтимос, кунни киритинг"
+      }
+    },
+    "services": {
+      "add-success-notification": "Янги хизмат муваффақиятли қўшилди",
+      "edit-success-notification": "Хизмат муваффақиятли таҳрирланди",
+      "error-notification": "Хатолик юз берди"
+    },
+    "created-at": {
+      "label": "Яратилган сана"
+    },
+    "user-notification": {
+      "add": {
+        "message": "Янги фойдаланувчи қўшилди"
+      },
+      "edit": {
+        "message": "Фойдаланувчи ўзгартирилди"
+      },
+      "error": {
+        "message": "Хатолик юз берди"
+      }
+    },
+    "register-address": {
+      "label": "Рўйхатдан ўтган жойи"
+    },
+    "type-document": {
+      "label": "Ҳужжат тури"
+    },
+    "birth-country": {
+      "label": "Туғилган давлати"
+    },
+    "passport-info": {
+      "label": "Паспорт маълумотлари",
+      "placeholder": "Киритинг"
+    },
+    "passport-issued-date": {
+      "label": "Паспорт берилган сана"
+    },
+    "passport-issued-by": {
+      "label": "Паспорт ким томонидан берилган"
+    },
+    "destination-country": {
+      "label": "Бориш давлати"
+    },
+    "tourist-arrival-date": {
+      "label": "Сайёҳ келган сана"
+    },
+    "tourist-departure-date": {
+      "label": "Сайёҳ кетган сана"
+    },
+    "place-of-registration": {
+      "label": "Рўйхатдан ўтган жойи"
+    },
+    "arrival-destination": {
+      "label": "Келиш мақсади"
+    },
+    "kpp": {
+      "number": "КПП №",
+      "entry-date": "КПП кириш санаси"
+    },
+    "type-guest": {
+      "label": "Меҳмон тури"
+    },
+    "visa": {
+      "visa-type": "Виза тури",
+      "number-visa": "Виза рақами",
+      "visa-issued-date": "Виза бошланган сана",
+      "visa-issued-by": "Виза ким томонидан берилган",
+      "visa-expiry-date": "Виза тугаш санаси"
+    },
+    "child": {
+      "fullname": "Бола Ф.И.Ш.",
+      "birth-date": "Бола туғилган сана",
+      "departure-date": "Кетиш куни"
+    },
+    "map-point": {
+      "label": "Харитадаги ном",
+      "placeholder": "Харитага чиқадиган номни киритинг"
+    },
+    "destination": {
+      "label": "Йўналиш",
+      "placeholder": "Харита нуқтасига мос йўналишни киритинг"
+    },
+    "add-photo": {
+      "label": "Расмлар қўшиш"
+    },
+    "youtube_url": {
+      "label": "Youtube видео ҳаволаси",
+      "placeholder": "Видео ҳаволасини киритинг",
+      "error": "Илтимос, тўғри URL киритинг"
+    },
+    "place_name": {
+      "label": "Жой номи",
+      "placeholder": "Жой номини киритинг",
+      "validation-message-required": "Илтимос, жой номини киритинг"
+    },
+    "place_description": {
+      "label": "Жой тавсифи",
+      "placeholder": "Жой тавсифини киритинг",
+      "error": "Илтимос, жой тавсифини киритинг"
+    },
+    "image": {
+      "label": "Расм",
+      "edit": "Расмни ўзгартириш"
+    },
+    "title": {
+      "label": "Сарлавҳа",
+      "placeholder": "Сарлавҳани киритинг"
+    },
+    "region": {
+      "label": "Ҳудуд",
+      "placeholder": "Ҳудудни киритинг",
+      "error": "Илтимос, ҳудудни киритинг"
+    },
+    "social_platform": {
+      "placeholder": "Платформани танланг",
+      "error": "Илтимос, платформани танланг"
+    },
+    "social_url": {
+      "error": "URL киритиш мажбурий",
+      "error-2": "Тўғри URL киритинг"
+    },
+    "currency_code": {
+      "label": "Валюта коди",
+      "placeholder": "Валюта кодини киритинг",
+      "error": "Илтимос, валюта кодини киритинг",
+      "table": "Валюта коди"
+    },
+    "currency_name": {
+      "label": "Валюта номи",
+      "placeholder": "Номини  киритинг",
+      "error": "Илтимос, валюта номини киритинг",
+      "table": "Валюта номи"
+    },
+    "currency_symbol": {
+      "label": "Символ",
+      "placeholder": "Танланг",
+      "error": "Илтимос, валюта символини танланг"
+    },
+    "course_uzs": {
+      "label": "UZS бўйича курс",
+      "placeholder": "Киритинг",
+      "error": "Илтимос, UZS бўйича курсни киритинг",
+      "table": "Курс"
+    },
+    "course_source": {
+      "label": "Курс манбаи",
+      "placeholder": "Танланг",
+      "error": "Илтимос, курс манбаини танланг"
+    },
+    "refresh_rate": {
+      "label": "Янгиланиш тезлиги",
+      "placeholder": "Танланг",
+      "error": "Илтимос, янгиланиш тезлигини танланг"
+    },
+    "comment": {
+      "label": "Изоҳ",
+      "placeholder": "Изоҳ киритинг",
+      "error": "Илтимос, изоҳ киритинг"
+    },
+    "payment-providers": {
+      "label": "Провайдер номи",
+      "placeholder": "Номини киритинг",
+      "error": "Илтимос, провайдер номини киритинг"
+    },
+    "providers-type": {
+      "label": "Провайдер тури",
+      "placeholder": "Киритинг",
+      "error": "Илтимос, провайдер турини киритинг"
+    },
+    "supported-cards": {
+      "label": "Қўллаб-қувватланадиган карталар",
+      "placeholder": "Танланг",
+      "error": "Илтимос, қўллаб-қувватланадиган карталарни танланг"
+    },
+    "integration-type": {
+      "label": "Интеграция тури",
+      "placeholder": "Танланг",
+      "error": "Илтимос, интеграция турини танланг",
+      "table": "Интеграциялар"
+    },
+    "documentation": {
+      "label": "Документация",
+      "placeholder": "Киритинг",
+      "error": "Илтимос, документацияни киритинг"
+    },
+    "currency": {
+      "label": "Валюталар",
+      "placeholder": "Танланг",
+      "error": "Илтимос, валюталарни танланг"
+    },
+    "limits": {
+      "label": "Лимитлар",
+      "placeholder": "Танланг",
+      "error": "Илтимос, лимитларни танланг"
+    },
+    "3ds-support": {
+      "label": "3DS қўллаб-қувватлаш",
+      "placeholder": "Танланг",
+      "error": "Илтимос, 3DS қўллаб-қувватлашни танланг"
+    },
+    "response-time": {
+      "label": "Жавоб вақти",
+      "placeholder": "Киритинг",
+      "error": "Илтимос, жавоб вақтини киритинг"
+    },
+    "agreement": {
+      "label": "Шартнома",
+      "placeholder": "Файлларни танланг",
+      "not-selected": "Ҳали танланмаган",
+      "error": "Илтимос, шартномани танланг"
+    },
+    "test-credentials": {
+      "label": "Тест ҳисоб маълумотлари",
+      "placeholder": "Файлларни танланг",
+      "not-selected": "Ҳали танланмаган",
+      "error": "Илтимос, тест ҳисоб маълумотларини танланг"
+    },
+    "currency-type": {
+      "label": "Валюта тури",
+      "placeholder": "Танланг",
+      "error": "Илтимос, валюта турини танланг"
+    },
+    "rate": {
+      "label": "Курс",
+      "placeholder": "Киритинг",
+      "error": "Илтимос, курсни киритинг"
+    },
+    "commissionRate": {
+      "label": "Комиссия фоизи",
+      "placeholder": "Комиссия фоизини киритинг",
+      "validation-message-required": "Илтимос, комиссия фоизини киритинг"
+    },
+    "minAmount": {
+      "label": "Минимал сумма",
+      "placeholder": "Минимал суммани киритинг",
+      "error": "Илтимос, минимал суммани киритинг"
+    },
+    "maxAmount": {
+      "label": "Максимал сумма",
+      "placeholder": "Максимал суммани киритинг",
+      "error": "Илтимос, максимал суммани киритинг"
+    },
+    "calculationType": {
+      "label": "Ҳисоблаш тури",
+      "placeholder": "Ҳисоблаш турини танланг",
+      "error": "Илтимос, ҳисоблаш турини танланг"
+    },
+    "supportedCurrencies": {
+      "label": "Қўллаб-қувватланадиган валюталар",
+      "placeholder": "Қўллаб-қувватланадиган валюталарни танланг",
+      "error": "Илтимос, қўллаб-қувватланадиган валюталарни танланг"
+    },
+    "serviceType": {
+      "label": "Хизмат тури",
+      "placeholder": "Хизмат турини танланг",
+      "error": "Илтимос, хизмат турини танланг"
+    },
+    "amount": {
+      "label": "Миқдор",
+      "placeholder": "Миқдорни киритинг",
+      "error": "Илтимос, миқдорни киритинг"
+    },
+    "translates": {
+      "label": "Таржималар",
+      "placeholder": "Таржимани киритинг",
+      "error": "Илтимос, таржимани киритинг"
+    },
+    "language": {
+      "label": "Тил",
+      "placeholder": "Тилни танланг",
+      "error": "Илтимос, тилни танланг"
+    },
+    "numericCode": {
+      "label": "Рақамли код",
+      "placeholder": "Рақамли кодни киритинг",
+      "error": "Илтимос, рақамли кодни киритинг"
+    },
+    "shortCode": {
+      "label": "Код",
+      "placeholder": "Кодни киритинг",
+      "error": "Илтимос, кодни киритинг"
+    },
+    "minorUnits": {
+      "label": "Кичик бирликлар",
+      "placeholder": "Кичик бирликларни киритинг",
+      "error": "Илтимос, кичик бирликларни киритинг"
+    },
+    "symbol": {
+      "label": "Белги",
+      "placeholder": "Белгини киритинг",
+      "error": "Илтимос, белгини киритинг"
+    },
+    "placeType": {
+      "label": "Жой тури",
+      "placeholder": "Жой турини танланг",
+      "error": "Илтимос, жой турини танланг"
+    },
+    "periodFrom": {
+      "label": "Даврдан",
+      "placeholder": "Санани танланг",
+      "error": "Илтимос, санани танланг"
+    },
+    "periodTo": {
+      "label": "Давргача",
+      "placeholder": "Санани танланг",
+      "error": "Илтимос, санани танланг"
+    },
+    "percentage": {
+      "label": "Фоиз",
+      "placeholder": "Фоизни киритинг",
+      "error": "Қиймат {{min}} ва {{max}} оралиғида бўлиши керак"
+    },
+    "provider-code": {
+      "label": "Провайдер коди",
+      "placeholder": "Танланг",
+      "error": "Провайдер кодини киритинг"
+    },
+    "provider": {
+      "label": "Провайдер",
+      "placeholder": "Танланг",
+      "error": "Провайдерни киритинг"
+    },
+    "organization-type": {
+      "label": "Ташкилот тури",
+      "placeholder": "Ташкилот турини танланг",
+      "error": "Ташкилот турини танланг"
+    },
+    "guide": {
+      "label": "Гид",
+      "placeholder": "Гидни танланг",
+      "error": "Гидни танланг"
+    },
+    "apartment": {
+      "label": "Квартира",
+      "placeholder": "Квартирани танланг",
+      "error": "Квартирани танланг"
+    },
+    "placement": {
+      "label": "Жойлашув",
+      "placeholder": "Жойлашувни танланг",
+      "error": "Жойлашувни танланг"
+    },
+    "organisation": {
+      "label": "Ташкилот",
+      "placeholder": "Ташкилотни танланг",
+      "error": "Ташкилотни танланг"
+    },
+    "parameterName": {
+      "label": "Параметр номи",
+      "placeholder": "Параметр номини киритинг",
+      "error": "Параметр номини киритинг"
+    },
+    "parameter": {
+      "label": "Параметр",
+      "labels": "Параметрлар",
+      "placeholder": "Параметрни киритинг",
+      "error": "Параметрни киритинг"
+    }
+  },
+  "tenant": {
+    "tenant": "Тенант",
+    "tenant-name": "Тенант номи",
+    "add-tenant": "Тенант қўшиш",
+    "domen": "Домен",
+    "start-date": "Бошланиш санаси",
+    "end-date": "Тугаш санаси",
+    "edit-tenant": "Ижарачини таҳрирлаш"
+  },
+  "common": {
+    "action-time": "Амаллар вақти",
+    "action-history": "Амаллар тарихи",
+    "copied": "Нусха олинди",
+    "close": "Ёпиш",
+    "create": "Яратиш",
+    "statistics": "Статистика",
+    "users": "Фойдаланувчилар",
+    "hotels": "Меҳмонхоналар",
+    "clients": "Мижозлар",
+    "access-role": "Роль ҳуқуқи",
+    "complaints": "Шикоятлар",
+    "call-center": "Call-center",
+    "active": "Фаол",
+    "inactive": "Нофаол",
+    "main": "Асосий",
+    "cancel": "Бекор қилиш",
+    "reject": "Рад этиш",
+    "confirm": "Тасдиқлаш",
+    "action": "Амал",
+    "next": "Кейинги",
+    "prev": "Олдинги",
+    "edit": "Таҳрирлаш",
+    "delete": "Ўчириш",
+    "more-details": "Батафсил",
+    "hotel-content": "Меҳмонхона контенти",
+    "reviews": "Фикрлар",
+    "rooms": "Хоналар",
+    "guests": "Меҳмонлар",
+    "general-information": "Умумий маълумотлар",
+    "bank-account": "Банк ҳисоб рақами",
+    "bank-code": "МФО",
+    "bank-name": "Банк номи",
+    "tin": "СТИР",
+    "additional": "Қўшимча",
+    "certificate": "Сертификат",
+    "issue-date": "Берилган сана",
+    "expiration-date": "Амал қилиш муддати",
+    "select-drag-a-photo": "1 та суратни танланг ёки тортиб ташланг",
+    "max-size-five-mb": "Энг кўп ҳажм: 5 MB",
+    "hotel": "Меҳмонхона",
+    "complaint": "Шикоят",
+    "period": "Давр",
+    "main-information": "Асосий маълумот",
+    "photos": "Суратлар",
+    "facilities-and-services": "Қулайлик ва хизматлар",
+    "accommodation-terms": "Жойлашиш шартлари",
+    "comments": "Фикрлар",
+    "booking": "Бронлар",
+    "nights-count": "{{count}} тун",
+    "message": "Хабар",
+    "view-all-notifications": "Барча огоҳномаларни кўриш",
+    "notifications": "Огоҳномалар",
+    "logout": "Аккаунтдан чиқиш",
+    "system-settings": "Тизим созламалари",
+    "dark-theme": "Қора мавзу",
+    "hotel-management": "Меҳмонхона бошқаруви",
+    "my-account": "Менинг аккаунтим",
+    "login-to-account": "Аккаунтга кириш",
+    "additional-number": "Қўшимча рақам",
+    "support-service": "Қўллаб-қувватлаш хизмати",
+    "save": "Сақлаш",
+    "type-number": "Хона тури",
+    "price-night": "Нархи (тунга)",
+    "convenience": "Қулайлик",
+    "nation": "Миллати",
+    "birthdate": "Туғилган сана",
+    "passport": "Паспорт серияси",
+    "check-in-out": "Кириш/чиқиш санаси",
+    "transaction": "Транзакциялар",
+    "fullName-guest": "Меҳмон Ф.И.Ш.",
+    "payment-method": "Тўлов усули",
+    "room": "Хона",
+    "payment-amount": "Тўлов суммаси",
+    "date-and-time": "Сана ва вақт",
+    "approved": "Тасдиқланган",
+    "accrued": "Ҳисобланган",
+    "men": "Эркаклар",
+    "women": "Аёллар",
+    "men-small": "Эрк",
+    "women-small": "Аёл",
+    "support": "Қўллаб-қувватлаш",
+    "manager": "Менежер",
+    "no-chat": "Мавжуд чатлар йўқ",
+    "night": "тун",
+    "request-data": "Маълумот сўраш",
+    "tenants": "Тенантлар",
+    "sum": "сўм",
+    "from": "дан",
+    "to": "гача",
+    "time-from": "{{value}} дан",
+    "time-to": "{{value}} гача",
+    "breakfast": "Нонушта киритилган",
+    "free-cancel": "Бепул бекор қилиш",
+    "no-add-pay": "Олдиндан тўлов йўқ",
+    "login-success": "Муваффақиятли кирилди",
+    "sort_descending": "Камайиш бўйича саралаш учун босинг",
+    "sort_ascending": "Ошиш бўйича саралаш учун босинг",
+    "sort_cancel": "Саралашни бекор қилиш учун босинг",
+    "houses-and-apartments": "Уйлар ва квартиралар",
+    "resorts": "Соғломлаштириш масканлари",
+    "hostels": "Хостеллар",
+    "email": "Электрон почта",
+    "accommodations": "Жойлаштириш объектлари",
+    "name": "Номи",
+    "requests": "Аризалар",
+    "actived": "Фаоллар",
+    "un-active": "Нофаоллар",
+    "request": "Сўров бўйича",
+    "rejected": "Рад этилганлар",
+    "admin": "Админ",
+    "editor": "Таҳрирловчи",
+    "viewer": "Кузатувчи",
+    "contributor": "Ҳисса қўшувчи",
+    "service": "Хизмат",
+    "type": "Турини танланг",
+    "category": "Категория",
+    "category-select": "Категорияни танланг",
+    "prohibitions": "Тақиқлар",
+    "facility-room": "Хона",
+    "rule": "Маълумот киритинг",
+    "not-guests": "Ҳали меҳмонлар йўқ",
+    "main-content": "Асосий саҳифа",
+    "cost-per-day": "Кунлик нарх",
+    "map-title": "Ўзбекистон харитаси",
+    "select_or_drag": "Суратни танланг ёки тортиб ташланг",
+    "images_limit": "Энг кўп ҳажм: {{limit}}.",
+    "avia": "Авиа",
+    "bus": "Автобус",
+    "cultural": "Маданий мерос",
+    "railway": "Темир йўл",
+    "ticket-seller": "Чипта сотувчилар",
+    "go-home": "Асосий саҳифага ўтиш",
+    "view": "Кўриш",
+    "add": "Қўшиш",
+    "preview": "Кўриб чиқиш",
+    "description": "Тавсиф",
+    "no-description": "Тавсиф йўқ",
+    "check": "Текшириш",
+    "refresh": "Саҳифани янгилаш",
+    "change": "Ўзгартириш",
+    "reload": "Қайта юклаш",
+    "login-error": "Тизимда киришда хатолик юз берди",
+    "reset-password": "Паролни ўзгартириш",
+    "reset-password-desc": "Пароль яратинг ва ушбу янгиланган кодни фойдаланувчига юборинг",
+    "reset": "Яратиш",
+    "copy": "Нусха олиш",
+    "clearly": "Тушунарли",
+    "edit-password": "Паролни ўзгартириш",
+    "edit-password-text": "Илтимос, эмаил манзилингизни киритинг ва тасдиқланг, кейин паролингизни ўзгартиришингиз мумкин",
+    "receive-code": "Кодни олиш",
+    "confirmation": "Тасдиқлаш",
+    "code": "Код",
+    "create-password": "Паролни яратинг",
+    "create-password-desc": "Сиз янги пароль ўйлаб топишингиз керак",
+    "new-password": "Пароль ўйлаб топинг",
+    "confirm-password": "Паролни tasdiqlang",
+    "save-password": "Паролни сақлаш",
+    "compressing-image": "Сурат сиғдирилмоқда...",
+    "error-compressing-image": "Суратни сиғдиришда хатолик, илтимос, қайта уриниб кўринг",
+    "or": "ёки",
+    "one-id": "OneID орқали кириш",
+    "specify-date": "Сана кўрсатилсин",
+    "auto-translate": "Автоматик таржима",
+    "auto-trans": "Автоматик таржима",
+    "auto-trans-desc": "Сиз киритган контент автоматик равишда бошқа тилларга таржима қилинади. Истасангиз, уни созламалар орқали ўчириб ташлашингиз мумкин.",
+    "pending-confirmation": "Тасдиқлаш кутилмоқда",
+    "enter": "Киритинг",
+    "modal_description": "Янги маълумот қўшиш учун, илтимос барча керакли майдонларни тўлдиринг",
+    "modal_description_edit": "Маълумотни таҳрирлаш учун, илтимос, керакли майдонларни тўлдиринг.",
+    "service-name": "Хизмат номи",
+    "employee-id": "Фойдаланувчи ID",
+    "add-field": "Майдон қўшиш",
+    "clear-cache": "Кешни янгилаш"
+  },
+  "status": {
+    "confirmed": "Тасдиқланган",
+    "pending": "Кутилаётган",
+    "canceled": "Бекор қилинган",
+    "free": "Бўш",
+    "unknown": "Номаълум",
+    "empty": "Бўш",
+    "booking": "Брон қилинган"
+  },
+  "home-content": {
+    "title": "Асосий саҳифа контенти",
+    "empty": "Бўш",
+    "video-home": "Асосий экрандаги видео",
+    "destinations": "Энг яхши йўналишлар",
+    "recreating": "Дам олиш турлари",
+    "video-alert": "Фақат MP4 форматдаги видеолар қабул қилинади!",
+    "upload-image": "Видео юклаш",
+    "reupload": "Қайта танлаш",
+    "destination-delete": "Йўналишни ўчириш?",
+    "destination-del-desc": "Ушбу манзилни ўчиришга ишончингиз комилми?",
+    "add-destination": "Йўналиш қўшиш",
+    "edit-destination": "Йўналишни таҳрирлаш",
+    "destination-desc": "Йўналишни ўзгартириш учун зарур майдонларни тўлдиринг",
+    "destination-name": "Йўналиш номи",
+    "direction-cover": "Йўналиш учун сурат",
+    "link-destination": "Йўналиш ҳаволаси",
+    "add-recreation": "Дам олиш тури қўшиш",
+    "edit-recreation": "Дам олиш турини таҳрирлаш",
+    "desc-recreation": "Дам олиш тури қўшиш учун зарур майдонларни тўлдиринг",
+    "name-recreation": "Дам олиш тури номи",
+    "color": "Ранг",
+    "recreating-cover": "Дам олиш тури учун сурат"
+  },
+  "guides": {
+    "guides": "Гидлар",
+    "service-location": "Хизмат кўрсатиш жойлари",
+    "info-guide": "Гид ҳақида маълумот",
+    "license": "Лицензия",
+    "download": "Юклаб олиш",
+    "cancel": "Рад этиш",
+    "apply": "Қабул қилиш",
+    "reject-text": "Аризани рад этмоқчимисиз?",
+    "reject-desc": "Қуйидаги вариантлардан рад этиш сабабини танланг",
+    "add-reason": "Бошқа сабаб",
+    "write-reason": "Сабабини баён этинг",
+    "reason": "Сабаб",
+    "guides-desc": "Бўлимлар орасида алмашинг ва керакли статусдаги гидларни кўринг",
+    "export": "Экспорт қилиш ...",
+    "search-placeholder": "Керакли гидни тез топиш учун Ф.И.Ш ёки сертификат рақамини киритинг",
+    "all": "Барчаси",
+    "filter": {
+      "category": "Категория",
+      "region": "Ҳудуд",
+      "spec": "Мутахассислик",
+      "gender": "Жинси",
+      "status": "Ҳолати",
+      "lang": "Тил",
+      "rating": "Рейтинг"
+    },
+    "reset": "Ҳаммасини тозалаш",
+    "number-certificate": "Сертификат №",
+    "copy": "Нусхалаш",
+    "certificate-status": "Сертификат ҳолати",
+    "status": {
+      "accepted": "Амалдаги",
+      "expired": "Муддати тугаган",
+      "suspended": "Тўхтатилган",
+      "revoked": "Бекор қилинган"
+    },
+    "category-guide": "Гид категорияси",
+    "categories": {
+      "high": "Олий категория",
+      "first": "1-тоифа",
+      "second": "2-тоифа",
+      "none": "Категориясиз"
+    },
+    "lang": "Фаолият тили",
+    "main-region": "Асосий фаолият ҳудуди",
+    "not-selected": "Танланмаган",
+    "more": "Яна",
+    "hide": "Яшириш"
+  },
+  "placements": {
+    "hotels": "Меҳмонхоналар",
+    "recreation-areas": "Дам олиш масканлари",
+    "tourist-bases": "Сайёҳлик базалари",
+    "boarding-houses": "Пансионатлар",
+    "campsites": "Кемпинглар",
+    "guest-houses": "Меҳмон уйлари",
+    "sanatoriums": "Санаторийлар",
+    "hostel": "Хостел",
+    "all-status": "Барча ҳолатлар",
+    "guest-name": "Mehmonning исми",
+    "guest-comment": "Mehmon izohi",
+    "owner-response": "Эгасидан жавоб",
+    "room-number": "Хона рақами",
+    "tariff-name": "Тариф номлари"
+  },
+  "travel-agencies": {
+    "name-agencies": "Туристик агентлик номи",
+    "license_validity": "Лицензия амал қилиш муддати",
+    "all-tours": "Барча турлар",
+    "all-employee": "Барча ходимлар рўйхати",
+    "duration": "Давомийлиги",
+    "type-tour": "Тур тури",
+    "people-tour": "Турда неча киши",
+    "fullname-employee": "Ходим Ф.И.Ш.",
+    "brief-employee": "Ходим ҳақида қисқача маълумот",
+    "agent-name": "Туристик агентлик номи"
+  },
+  "billing": {
+    "accrual": "Ҳисоблаш",
+    "payments": "Тўловлар",
+    "recalculations": "Қайта ҳисоблашлар",
+    "tour-levy-report": "Турсбор ҳисоботи",
+    "region": "Ҳудуд",
+    "city": "Туман/шаҳар",
+    "district": "Туман",
+    "hotel": "Меҳмонхона",
+    "month-year": "Йил/ой",
+    "accrual-type": "Ҳисоблаш тури",
+    "count": "Варақлар сони",
+    "accrued": "Ҳисобланган",
+    "contract": "Шарт. №",
+    "operation": "Опера.",
+    "pay_number": "Тўлов №",
+    "sum": "Сумма",
+    "accountant": "Бухгалтер",
+    "note": "Изоҳ",
+    "start-period": "Даврдан",
+    "end-period": "Давргача",
+    "fund_number": "Фонд рақами",
+    "number_beds": "Ётоқлар сони",
+    "stars": "Юлдузлар",
+    "guest-count": "Меҳмонлар сони",
+    "spent-day": "Яшаган кунлар",
+    "bca": "БРВ",
+    "tour-fee": "Турсбор",
+    "accrued-days": "Ҳисобланган (кун)",
+    "total-sum": "Жами (сўм)",
+    "reports": {
+      "providers": "Провайдерлар",
+      "suppliers": "Етказиб берувчилар",
+      "tour-report": "Турсбор ҳисобот",
+      "user-payment": "Абонент тўлови",
+      "commission": "Комиссиялар",
+      "return": "Қайтариш",
+      "platform-report": "Платформа умумий ҳисобот"
+    },
+    "schedule-page": {
+      "cron-job": "Режа асосидаги вазифа",
+      "name": "Номи",
+      "day": "Кун",
+      "status": "Холат",
+      "action": "Харакат",
+      "periodicity": "Даврийлик",
+      "scheduleHours": "Соатлар жадвали",
+      "deleteConfirmationMessage": "Режа асосидаги вазифани ўчиряпсизми?",
+      "WEEKLY": "Хар хафта",
+      "MONTHLY": "Хар ой",
+      "DAILY": "Хар куни"
+    },
+    "directories": {
+      "currencies": "Валюталар",
+      "currency-types": "Валюта турлари",
+      "payment-providers": "Банклар ва тўлов провайдерлари",
+      "tax-rates": "Солиқ ставкалари",
+      "tourist-taxes": "Туристик йиғимлар",
+      "subscriber-services": "Абонент хизматлари нархлари",
+      "payments-types": "Тўлов турлари",
+      "operator-commissions": "Оператор комиссиялари",
+      "provider-contracts": "Провайдер шартномалари"
+    },
+    "calculation-type": {
+      "fixed": "Белгиланган (қатъий)",
+      "percentage": "Фоизли"
+    },
+    "citizenship": {
+      "local": "Маҳаллий фуқаро",
+      "foreign": "Чет эл фуқароси"
+    },
+    "provider-type": {
+      "local": "Маҳаллий провайдер",
+      "international": "Халқаро провайдер"
+    },
+    "placeType": {
+      "HOTEL": "Меҳмонхона",
+      "HOUSEHOLDER": "Хонадон эгаси",
+      "HOSTEL": "Ётоқхона",
+      "GUEST_HOUSE": "Меҳмон уйи",
+      "APARTMENT": "Квартира",
+      "PRIVATE_HOUSE": "Хусусий уй",
+      "RESORT": "Дам олиш маскани",
+      "SANATORIUM": "Санаторий",
+      "CAMPING": "Кемпинг",
+      "ALL": "Барчаси"
+    },
+    "serviceType": {
+      "TOUR": "Саёҳат",
+      "HOTEL": "Меҳмонхона"
+    },
+    "Error": {
+      "Title": "Хатолик",
+      "UniqueProviderCode": "Провайдер коди такрорланмаслиги керак. Payment Provider аллақачон мавжуд."
+    }
+  },
+  "tourists": {
+    "tourist-fullname": "Сайёҳ Ф.И.Ш.",
+    "search-tourists": "Сайёҳ қидириш",
+    "register-region": "Рўйхатдан ўтган ҳудуд",
+    "register-district": "Рўйхатдан ўтган туман",
+    "tourist-information": "Сайёҳлар ҳақида маълумот",
+    "main-information": "Асосий маълумот",
+    "visa-information": "Виза маълумотлари",
+    "under-chilren": "Бирга келган 16 ёшгача болалар ҳақида маълумот",
+    "all-tourists": "Барча сайёҳлар",
+    "local-tourists": "Маҳаллий сайёҳлар",
+    "foreign-tourists": "Хорижий сайёҳлар"
+  },
+  "error": {
+    "unexpected": "Нимадир нотўғри кетди",
+    "not-found": "Саҳифа топилмади"
+  },
+  "content": {
+    "preview": "Олдиндан кўриш",
+    "add-content": "Контент қўшиш",
+    "edit-content": "Контентни таҳрирлаш",
+    "additional-information": "Қўшимча маълумот",
+    "hero": {
+      "delete": "Фонни ўчириш",
+      "delete-desc": "Ушбу контекстни ўчириб ташламоқчи эканлигингизни тасдиқланг",
+      "edit-bg": "Фонни ўзгартириш",
+      "current-video": "Жорий видео",
+      "new-video": "Янги видео",
+      "create-success": "Фон муваффақиятли яратилди",
+      "edit-success": "Фон муваффақиятли янгиланди",
+      "delete-success": "Фон муваффақиятли ўчирилди",
+      "picture": "Расм",
+      "bg-picture": "Фон расми",
+      "incorrect-file-type": "Нотўғри файл тури",
+      "add-video": "Расмлар ёки видеолар қўшиш"
+    },
+    "discover": {
+      "title": "Ўзбекистонни кашф этинг",
+      "delete": "Кашфиётни ўчириш",
+      "delete-desc": "Ушбу кашфиётни ўчиришга ишончингиз комилми?",
+      "add": "Кашфиёт қўшиш",
+      "create-success": "Кашфиёт муваффақиятли яратилди",
+      "edit-success": "Кашфиёт муваффақиятли янгиланди",
+      "status-updated": "Ҳолат муваффақиятли янгиланди",
+      "delete-success": "Кашфиёт муваффақиятли ўчирилди",
+      "add-social": "Ижтимоий ҳавола қўшиш",
+      "social-links": "Ижтимоий ҳаволалар"
+    },
+    "top_destinations": {
+      "title": "Энг яхши йўналишлар",
+      "add": "Энг яхши йўналишларни қўшиш",
+      "edit": "Энг яхши йўналишларни таҳрирлаш",
+      "add-content": "Контент қўшиш",
+      "add_attractions": "Машҳур жойларни қўшиш",
+      "add_place": "Жой қўшиш",
+      "delete": "Йўналишни ўчириш",
+      "delete-desc": "Ушбу йўналишни ўчириб ташламоқчи эканлигингизни тасдиқланг?",
+      "delete-success": "Йўналиш муваффақиятли ўчирилди",
+      "create-success": "Йўналиш муваффақиятли яратилди",
+      "edit-success": "Йўналиш муваффақиятли янгиланди",
+      "image-delete-success": "Расм муваффақиятли ўчирилди"
+    },
+    "country-map": {
+      "title": "Ўзбекистон харитаси",
+      "point-destination": "Нуқта йўналиши",
+      "save-point": "Нуқтани сақлаш",
+      "delete-point": "Нуқтани харитадан ўчириш?",
+      "delete-point-desc": "Ушбу нуқтани харитадан ўчиришга ишончингиз комилми?",
+      "edit-success": "Нуқта муваффақиятли янгиланди",
+      "add-success": "Нуқта муваффақиятли яратилди",
+      "delete-success": "Нуқта муваффақиятли ўчирилди",
+      "edit-point": "Нуқтани харитада таҳрирлаш",
+      "create-point": "Харитада нуқта яратиш"
+    },
+    "expert-advice": {
+      "title-add": "Мутахассис маслаҳатини қўшиш",
+      "title-edit": "Мутахассис маслаҳатини таҳрирлаш",
+      "delete-modal-title": "Маслаҳат ўчирилсинми?",
+      "delete-modal-description": "Ушбу мутахассис маслаҳатини ўчирмоқчимисиз?",
+      "status-created": "Мутахассис маслаҳати муваффақиятли қўшилди",
+      "status-updated": "Мутахассис маслаҳати янгиланди",
+      "status-deleted": "Мутахассис маслаҳати ўчирилди"
+    },
+    "instagram-content": {
+      "title-add": "Instagram контентини қўшиш",
+      "title-edit": "Instagram контентини таҳрирлаш",
+      "delete-modal-title": "Контент ўчирилсинми?",
+      "delete-modal-description": "Ушбу Instagram контентини ўчирмоқчимисиз?",
+      "status-created": "Instagram контенти муваффақиятли қўшилди",
+      "status-updated": "Instagram контенти янгиланди",
+      "status-deleted": "Instagram контенти ўчирилди"
+    },
+    "events": {
+      "title-add": "Тадбир қўшиш",
+      "title-edit": "Тадбирни таҳрирлаш",
+      "delete-modal-title": "Тадбир ўчирилсинми?",
+      "delete-modal-description": "Ушбу тадбирни ўчирмоқчимисиз?",
+      "status-created": "Тадбир муваффақиятли қўшилди",
+      "status-updated": "Тадбир янгиланди",
+      "status-deleted": "Тадбир ўчирилди"
+    },
+    "holly-tourism": {
+      "title": "Зиёрат туризми",
+      "delete-title": "Зиёрат туризмини ўчиришни хоҳлайсизми?",
+      "delete-desc": "Зиёрат туризмини ўчиришни хоҳлаётганингизга ишончингиз комилми?",
+      "delete-success": "Зиёрат туризми ўчирилди",
+      "title-add": "Зиёрат туризмини қўшиш",
+      "title-edit": "Зиёрат туризмини таҳрирлаш",
+      "add-success": "Зиёрат туризми муваффақиятли қўшилди",
+      "edit-success": "Зиёрат туризми янгиланди"
+    }
+  },
+
+  "providers": {
+    "autoticket": "Автобус",
+    "avia": "Авиячипта",
+    "hotel": "Меҳмонхоналар",
+    "cultural_heritage": "Маданий мерос",
+    "railway": "Темир йўл"
+  },
+
+  "region": {
+    "points-1": "Самарқанд тумани_(Конигил қишлоғи)",
+    "points-2": "Самарқанд шаҳри",
+    "points-3": "Ургут тумани_(Терсак қишлоғи)",
+    "points-4": "Ургут тумани_(Терсак қишлоғи)",
+    "points-5": "Нукус шаҳри",
+    "points-6": "Мўйноқ тумани",
+    "points-7": "Навбаҳор тумани_(Сармишсой дараси)",
+    "points-8": "Навоий шаҳри",
+    "points-9": "Нурота тумани_(Сентоб қишлоғи)",
+    "points-10": "Ғиждувон",
+    "points-11": "Бухоро шаҳри",
+    "points-12": "Хива шаҳри",
+    "points-13": "Урганч шаҳри",
+    "points-14": "Шаҳрисабз тумани_(Ғелон қишлоғи)",
+    "points-15": "Қарши шаҳри",
+    "points-16": "Китоб тумани",
+    "points-17": "Шаҳрисабз шаҳри",
+    "points-18": "Жиззах шаҳри",
+    "points-19": "Зомин",
+    "points-20": "Фориш",
+    "points-21": "Термиз шаҳри",
+    "points-22": "Бойсун тумани",
+    "points-23": "Денов тумани",
+    "points-24": "Гулистон шаҳри",
+    "points-25": "Бўстонлиқ тумани",
+    "points-26": "Паркент тумани",
+    "points-27": "Наманган шаҳри",
+    "points-28": "Андижон шаҳри",
+    "points-29": "Риштон тумани",
+    "points-30": "Қўқон шаҳри",
+    "points-31": "Марғилон шаҳри",
+    "points-32": "Фарғона шаҳри",
+    "places-1": "Тошкент шаҳри",
+    "places-2": "Самарқанд вилояти",
+    "places-3": "Бухоро вилояти",
+    "places-4": "Хоразм вилояти",
+    "places-5": "Андижон вилояти",
+    "places-6": "Фарғона вилояти",
+    "places-7": "Жиззах вилояти",
+    "places-8": "Қорақалпоғистон Республикаси",
+    "places-9": "Қашқадарё вилояти",
+    "places-10": "Наманган вилояти",
+    "places-11": "Навоий вилояти",
+    "places-12": "Сирдарё вилояти",
+    "places-13": "Сурхондарё вилояти",
+    "places-14": "Тошкент вилояти"
+  },
+  "statistics": {
+    "tourist_infracstructure": "Туризм инфратузилмаси",
+    "tourism_company": "Сайёҳлик компаниялари",
+    "inbound_tourism": "Кириш туризми",
+    "outbound_tourism": "Чиқиш туризми",
+    "umehmon-active": "U-Mehmon фаоллиги",
+    "tourist_infracstructure-desc": "Объектлар, жойлар ва жойлаштириш вариантлари ҳақида маълумот",
+    "total_organizations": "Дам олиш ташкилотлари ва сайёҳлик базаларининг объектлари сони",
+    "total_hotels": "Меҳмонхоналар ва уларга ўхшаш жойлар жами",
+    "total_special_accommodation": "Ихтисослаштирилган жойлаштириш воситалари жами",
+    "total_collective_accommodation": "Коллектив жойлаштириш воситалари жами",
+    "total_sanatoriums": "Санаторий-курорт муассасалари жами",
+    "than_last_year": "ўтган {{year}} йилга нисбатан",
+    "recreation-and-tourism": "Дам олиш ва туризм ташкилотлари статистикаси",
+    "objects": "Объектлар",
+    "places": "Ўринлар",
+    "by-objects": "Объектлар бўйича",
+    "by-places": "Ўринлар бўйича",
+    "hotel-sector-stat": "Меҳмонхона сектори статистикаси",
+    "collective-accommodation-facilities": "Жамоавий жойлаштириш объектлари сони",
+    "sanatorium-number": "Санаторий-курорт объектлари сони",
+    "company_desc": "Туристик компаниялар, операторлар ва агентликлар фаолияти таҳлили",
+    "total-organizations": "Жами сайёҳлик ташкилотлари",
+    "tourist-org-regis": "Тизимда рўйхатдан ўтказилган сайёҳлик ташкилотлари",
+    "total-served-tourists": "Хизмат кўрсатилган жами сайёҳлар",
+    "dynamics-of-tourist": "Туристик компания ва ташкилотлар томонидан хизмат кўрсатилган туристлар динамикаси",
+    "number-companies": "Сайёҳлик компаниялари сонининг ўзгариш динамикаси",
+    "tour-operators-and-agents": "Туроператорлар ва турагентлар",
+    "number-of-tours": "Туристик фирма томонидан аҳолига сотилган турлар сони",
+    "selling-tours": "Сотилган турлар",
+    "inbound-desc": "Ўзбекистонда кириш туризми бўйича статистика.",
+    "number-incoming tourists": "Хорижийларнинг Ўзбекистонга кириш туристик сафарлари сони",
+    "number-of-citizens": "Даволаниш учун келган хорижий фуқаролар сони",
+    "number-relatives": "Қариндошларни йўқлаш мақсадида келган чет эл фуқаролари сони",
+    "distribution-of-foreign": "Хорижий туристларни сафар мақсадлари бўйича тақсимлаш",
+    "customers-last": "Охирги 30 кун ичидаги мижозлар",
+    "distribution-name": "Номи",
+    "female": "Аёллар",
+    "male": "Эркаклар",
+    "тотал": "Жами",
+    "leisure-and-recreation": "Бўш вақт ва дам олиш",
+    "treatment": "Даволаниш",
+    "training": "Таълим",
+    "by-service": "Хизмат бўйича",
+    "commercial-goals": "Тижорат мақсадлари",
+    "visit-relatives": "Қариндошларни зиёрат қилиш",
+    "visit-cultural-herritage": "Маданий меросни зиёрат қилиш",
+    "top-country": "Энг кўп сайёҳлар ташриф буюрадиган 10 та мамлакат",
+    "visit-statistics": "Маданий мерос объектларига ташрифлар статистикаси",
+    "total_visits": "Туристик объектларга ташрифларнинг умумий сони",
+    "from_country": "Қайси давлатдан келишган",
+    "year": "Йил бўйича",
+    "month": "Ой бўйича",
+    "visit_date": "Ташриф санаси",
+    "foreign_tourists": "Чет эл туристлари",
+    "tourists_by_group": "Чет эл туристлари гуруҳлар бўйича",
+    "from_neighboring_countries": "Қўшни давлатлардан",
+    "from_cis_countries": "MDH давлатларидан",
+    "other_countries": "Бошқа давлатлардан",
+    "growth_dynamics": "Чет эл туристларининг ўсиш ва камайиш динамикаси",
+    "number-tourists": "Сайёҳлар сони",
+    "outbound-desc": "Хорижга кетаётган Ўзбекистон фуқаролари бўйича статистика",
+    "data-travel-goals": "Саёҳат мақсадлари бўйича маълумотларни тақсимлаш",
+    "statistics-outbound-visiting": "Ўзбекистон фуқароларининг ташриф буюрган мамлакатлар бўйича чиқиш туризми статистикаси",
+    "citizen-abroad": "Хорижга кетаётган Ўзбекистон фуқаролари динамикаси",
+    "served-tourist": "Хизмат кўрсатилган туристлар",
+    "traveling-abroad": "Хорижга чиқаётган Ўзбекистон фуқаролари",
+    "number-citezen": "Чет элга сафар қилган умумий фуқаролар сони",
+    "number-tourist": "Чет элдан ташриф буюрган умумий туристлар сони",
+    "ration-percent": "Фоизлардаги нисбат",
+    "umehmon-desc": "U-Mehmon тизимидаги фаоллик статистикаси",
+    "total-regis": "Рўйхатдан ўтган фойдаланувчилар жами",
+    "new-regis": "Янги рўйхатдан ўтган фойдаланувчилар",
+    "total-local-regis": "Жами рўйхатдан ўтган маҳаллий сайёҳлар",
+    "regis-statistics": "Фойдаланувчиларни тизимда рўйхатдан ўтказиш статистикаси",
+    "user-regis": "Фойдаланувчилар регистрациялари",
+    "user-regis-system": "Тизимда рўйхатдан ўтган жами меҳмонхоналар",
+    "total-bookings": "Жами бандловлар",
+    "average-stay": "Ўртача яшаш муддати",
+    "top-50": "Меҳмонлар сони бўйича энг яхши 50 та меҳмонхона",
+    "loading": "Юкланмоқда...",
+    "all-country": "Барча мамлакатлар"
+  },
+  "months": {
+    "january": "Январ",
+    "february": "Феврал",
+    "march": "Март",
+    "april": "Апрел",
+    "may": "Май",
+    "june": "Июн",
+    "july": "Июл",
+    "august": "Август",
+    "september": "Сентябр",
+    "october": "Октябр",
+    "november": "Ноябр",
+    "december": "Декабр"
+  }
+}

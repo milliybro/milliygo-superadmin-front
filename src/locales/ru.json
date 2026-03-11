@@ -1,0 +1,1448 @@
+{
+  "routes": {
+    "statistics": "Статистика",
+    "placement-funds": "Средства размещения",
+    "tourists": "Tуристы",
+    "landlords": "Арендодатели",
+    "service-providers": "Поставщики услуг",
+    "travel-agencies": "Tуристических агентств",
+    "guides": "Гиды",
+    "billing": "Биллинг",
+    "bi-service": "BI-сервис",
+    "content": "Контент",
+    "roles": "Роли",
+    "expert-advices": "Советы экспертов",
+    "events": "Мероприятия",
+    "reports": "Отчёты",
+    "directories": "Справочники",
+    "transactions": "Транзакции и расчёты",
+    "integration": "Интеграция",
+    "registers": "Реестры",
+    "tourist-transactions": "Транзакции туриста"
+  },
+  "auth-page": {
+    "welcome-title": "Добро пожаловать!",
+    "welcome-description": "Управляйте всеми аспектами платформы: добавлять и редактировать объявления, отслеживать активности пользователей",
+    "support-service": "Служба поддержки",
+    "additional-number": "Дополнительный номер",
+
+    "recovery-modal": {
+      "title": "Забыли пароль?",
+      "description": "Вам необходимо связаться с технической поддержкой E-Mehmon.uz"
+    },
+    "support-modal": {
+      "title": "Техническая поддержка",
+      "description": "Если у вас появились проблемы с доступом к платформе, вы можете связаться с колл-центром",
+      "contact-support": "Связаться с поддержкой"
+    },
+    "login-failed": "Ошибка входа",
+    "cencel": "Отменить процесс"
+  },
+
+  "users-page": {
+    "add-user": "Добавить пользователя",
+    "user-is-added": "Новый пользователь добавлен",
+    "edit-user": "Редактирование пользователя",
+    "modal-description": "Для добавления нового пользователя, пожалуйста заполните все необходимые поля",
+    "delete-modal": "Вы удаляете пользователя?",
+    "delete-modal-desc": "Вы уверены, что хотите удалить пользователя?",
+    "not-found": "Ничего не найдено",
+    "not-found-desc": "К сожалению, по вашему запросу ничего не найдено.",
+    "user_count": "Количество пользователей: {{count}}"
+  },
+
+  "services-page": {
+    "add-user": "Добавить",
+    "add-services": "Добавить удобства и услуги",
+    "edit-services": "Редактировать удобства и услуги",
+    "modal-description": "Для добавления нового пользователя, пожалуйста заполните все необходимые поля",
+    "providers-name": "Название поставщика (или аналог)",
+    "all-users": "Всего пользователей",
+    "company-name": "Название компании",
+    "start-date": "Дата подключения",
+    "order-count": "Кол-во заказов",
+    "booking-date": "Дата брони",
+    "number-booking": "№ бронирования",
+    "number-reis": "№ рейса",
+    "passenger-name": "ФИО пассажира",
+    "booking-status": "Статус бронирования",
+    "airport-code": "Код аэропорта",
+    "ticket-number": "№ билета",
+    "route": "Маршрут",
+    "flight-time": "Время полета",
+    "tariff": "Тариф",
+    "place": "Место",
+    "price": "Цена",
+    "booking": "Бронирование",
+    "passport": "Серия паспорта",
+    "arrival-country": "Страна выдачи",
+    "phone": "Телефон",
+    "email": "E-mail"
+  },
+
+  "complaints-page": {
+    "title": "Жалобы",
+    "not-found-title": "Ничего не найдено",
+    "not-found-description": "На данный момент у вас отсутствуют жалобы."
+  },
+
+  "hotels-page": {
+    "add-hotel": "Добавить отель",
+    "add-hotel-desc": "Заполните необходимые поля, чтобы добавить новый отель",
+    "name": {
+      "title": "Название отеля",
+      "placeholder": "Введите название отеля"
+    },
+    "login": {
+      "title": "Логин",
+      "placeholder": "Введите логин"
+    },
+    "password": {
+      "title": "Пароль",
+      "placeholder": "Введите пароль"
+    },
+    "domen": {
+      "title": "Домен",
+      "placeholder": "Введите ссылку на домен"
+    },
+    "period": "Период",
+    "check-in": {
+      "title": "Заезд",
+      "desc": "При регистрации заезда необходимо предъявить удостоверение личности с фотографией и кредитную карту."
+    },
+    "check-out": {
+      "title": "Выезд",
+      "desc": "При регистрации выезда необходимо предъявить удостоверение личности с фотографией и кредитную карту."
+    },
+    "bed-for-child": {
+      "title": "Кровати для детей",
+      "desc": "Правила размещения детей",
+      "text1": "Разрешается проживание детей любого возраста.",
+      "text2": "В этом объекте размещения за детей в возрасте 13 лет и старше будет взиматься оплата как за взрослых гостей.",
+      "text3": "Чтобы увидеть точные цены и информацию о наличии мест, при поиске укажите количество детей в вашей группе и их возраст."
+    },
+    "no-age": {
+      "title": "Без возрастных ограничений",
+      "desc": "Для заезда нет ограничений по возрасту."
+    },
+    "pets": {
+      "title": "Домашние животные",
+      "desc": "Размещение с домашними животными не допускается."
+    },
+    "card": {
+      "title": "Способы оплаты",
+      "desc": " принимает эти карты и оставляет за собой право предварительного блокирования средств на карте до вашего приезда."
+    },
+    "region": "Область"
+  },
+
+  "access-role-page": {
+    "add-role": "Добавить роль",
+    "edit-role": "Редактирование роли",
+    "create-role": "Создание новой роли"
+  },
+
+  "call-center-page": {
+    "no-chat-selected-title": "Ничего не выбрано",
+    "no-chat-selected-description": "Начните выбирать услуги из списка слева"
+  },
+
+  "profile-popover": {
+    "label": "Хотите выйти с аккаунта?",
+    "description": "Подтвердите, что вы действительно хотите выйти со своего аккаунта?"
+  },
+  "hotel-guest": {
+    "title": "Информация о госте",
+    "lfm": "ФИО",
+    "citizenship": "Гражданство",
+    "nation": "Нации",
+    "birth": "День рождения",
+    "passport": "Паспорт серия",
+    "check-in-out": "Дата въезда/отъезда",
+    "gender": "Пол",
+    "phone": "Номер телефон",
+    "review": "Отзыв",
+    "number": "Номер комната",
+    "type": "Тип номер",
+    "night": "Ночь"
+  },
+  "accommodations-page": {
+    "filter": {
+      "creator": "Владелец",
+      "full-name": "Введите ФИО",
+      "status": "Статус",
+      "status-placeholder": "Выберите статус"
+    }
+  },
+
+  "fields": {
+    "url": {
+      "label": "Ссылка",
+      "error": "Введите корректную ссылку"
+    },
+    "fullname": {
+      "label": "ФИО",
+      "placeholder": "Введите ФИО",
+      "validation-message-required": "Введите ФИО"
+    },
+    "first_name": {
+      "label": "Имя",
+      "placeholder": "Введите имя",
+      "validation-message-required": "Введите имя"
+    },
+    "last_name": {
+      "label": "Фамилия",
+      "placeholder": "Введите фамилию",
+      "validation-message-required": "Введите фамилию"
+    },
+    "middle_name": {
+      "label": "Отчество",
+      "placeholder": "Введите отчество",
+      "validation-message-required": "Введите отчество"
+    },
+    "phone": {
+      "label": "Номер телефона",
+      "placeholder": "Введите номер телефона",
+      "validation-message-required": "Введите номер телефона"
+    },
+    "gender": {
+      "label": "Пол",
+      "validation-message-required": "Выберите пол",
+      "placeholder": "Выберите пол"
+    },
+    "login": {
+      "label": "Логин",
+      "placeholder": "Выберите логин",
+      "validation-message-required": "Введите логин"
+    },
+    "code": {
+      "label": "Пароль",
+      "placeholder": "Выберите код",
+      "validation-message-required": "Введите номер телефона"
+    },
+    "role": {
+      "label": "Роль",
+      "placeholder": "Выберите роль",
+      "validation-message-required": "Выберите роль"
+    },
+    "status": {
+      "label": "Статус",
+      "placeholder": "Выберите статус",
+      "validation-message-required": "Выберите статус"
+    },
+    "password": {
+      "label": "Пароль",
+      "placeholder": "Выберите пароль",
+      "validation-message-required": "Введите пароль",
+      "validation-message-invalid": "Введенный пароль недействителен"
+    },
+    "search-user": {
+      "label": "Поиск пользователя",
+      "placeholder": "Введите имя, номер телефона"
+    },
+    "hotel-search": {
+      "label": "Поиск отеля",
+      "placeholder": "Введите название отеля",
+      "validation-message-required": "Пожалуйста, введите название отеля"
+    },
+    "client-search": {
+      "label": "Поиск клиента",
+      "placeholder": "Введите имя, номер телефона"
+    },
+    "citizenship": {
+      "label": "Гражданство",
+      "placeholder": "Выберите страну"
+    },
+    "contact-person": {
+      "label": "Контактное лицо",
+      "placeholder": "Введите контактное лицо",
+      "validation-message-required": "Пожалуйста, введите контактное лицо"
+    },
+    "hotel-name": {
+      "label": "Название отеля",
+      "placeholder": "Название вашего отеля",
+      "validation-message-required": "Введите название отеля"
+    },
+    "hotel-description": {
+      "label": "Описание отеля",
+      "placeholder": "Расскажите гостям о своем отеле на русском языке",
+      "validation-message-required": "Введите описание вашего отеля"
+    },
+    "location": {
+      "label": "Локация"
+    },
+    "price": {
+      "label": "Цена"
+    },
+    "rating": {
+      "label": "Рейтинг"
+    },
+    "balance": {
+      "label": "Баланс"
+    },
+    "address": {
+      "label": "Адрес",
+      "validation-message-required": "Введите адрес",
+      "placeholder": "Введите адрес вашего отеля",
+      "placeholder2": "Введите адрес"
+    },
+    "photos": {
+      "label": "Добавить фотографии отеля",
+      "validation-message-required": "Пожалуйста, загрузите фото отеля"
+    },
+    "amenities": {
+      "label": "Добавьте удобства и услуги",
+      "validation-message-required": "Пожалуйста, выберите хотя бы одно удобство",
+      "placeholder": "Выбрать"
+    },
+    "check-in-time": {
+      "label": "Заезд",
+      "validation-message-required": "Пожалуйста, укажите время заезда"
+    },
+    "check-out-time": {
+      "label": "Выезд",
+      "validation-message-required": "Пожалуйста, укажите время выезда"
+    },
+    "booking-terms-link": {
+      "label": "Ссылка на условия бронирования",
+      "validation-message-required": "Пожалуйста, укажите время выезда",
+      "validation-message-invalid-url": "Пожалуйста, введите корректный URL"
+    },
+    "children-beds": {
+      "label": "Кровати для детей",
+      "placeholder": "Разрешается",
+      "validation-message-required": "Пожалуйста, выберите опцию"
+    },
+    "pets": {
+      "label": "Домашние животные",
+      "placeholder": "Разрешается",
+      "validation-message-required": "Пожалуйста, выберите опцию"
+    },
+    "age-restrictions": {
+      "label": "Ограничения по возрасту",
+      "placeholder": "Нет ограничений",
+      "validation-message-required": "Пожалуйста, выберите ограничение по возрасту"
+    },
+    "payment-methods": {
+      "label": "Способы оплаты",
+      "placeholder": "Выберите способы оплаты",
+      "validation-message-required": "Пожалуйста, выберите хотя бы один способ оплаты"
+    },
+    "email": {
+      "label": "Электронная почта",
+      "placeholder": "Введите электронную почту",
+      "validation-message-required": "Пожалуйста, введите вашу электронную почту",
+      "validation-message-invalid": "Введенная электронная почта недействительна"
+    },
+
+    "passport-data": {
+      "label": "Номер документа"
+    },
+    "birthyear": {
+      "label": "Год рождения"
+    },
+    "birthdate": {
+      "label": "Дата рождения"
+    },
+    "entry-date": {
+      "label": "Дата въезда"
+    },
+    "exit-date": {
+      "label": "Дата отъезда"
+    },
+    "country": {
+      "label": "Страна"
+    },
+    "nationality": {
+      "label": "Нация"
+    },
+    "role-name": {
+      "label": "Название роли",
+      "placeholder": "Введите название роли"
+    },
+    "role-status": {
+      "label": "Статус роли"
+    },
+    "functionality": {
+      "label": "Функциональность"
+    },
+    "role-search": {
+      "label": "Поиск роли",
+      "placeholder": "Введите название роли"
+    },
+    "user-fullname": {
+      "label": "ФИО пользователя",
+      "placeholder": "Введите ФИО"
+    },
+    "date": {
+      "label": "Дата",
+      "placeholder": "Выберите дату"
+    },
+    "icon": {
+      "label": "Иконка",
+      "add-icon": "Загрузить иконку",
+      "select": "Выберите",
+      "drag-file": " или перетащите файл",
+      "max-size": "Максимальный размер: 5 МБ.",
+      "icons": "Ранее загруженные иконки"
+    },
+    "name": {
+      "label": "Название",
+      "placeholder": "Введите названию",
+      "required": "Пожалуйста, введите название",
+      "name-uz": "Название O’z",
+      "name-ru": "Название РУ",
+      "name-en": "Название EN",
+      "name-cry": "Название Ўз"
+    },
+    "description": {
+      "label": "Описание",
+      "placeholder": "Введите описание",
+      "required": "Пожалуйста, опишите описание"
+    },
+    "images": {
+      "label": "Добавить фотографии",
+      "required": "Загрузите изображение",
+      "max-size-limit": "Файл {{value}} превышает 5MB",
+      "max-length-limit": "Вы можете загрузить не более {{value}} изображений"
+    },
+    "organizer": {
+      "label": "Организатор",
+      "placeholder": "Написать название"
+    },
+    "services": {
+      "add-success-notification": "Новая услуга успешно добавлена",
+      "edit-success-notification": "Услуга успешно отредактирована",
+      "error-notification": "Произошла ошибка"
+    },
+    "created-at": {
+      "label": "Дата создания"
+    },
+    "user-notification": {
+      "add": {
+        "message": "Новый пользователь добавлен"
+      },
+      "edit": {
+        "message": "Пользователь изменен"
+      },
+      "error": {
+        "message": "Произошла ошибка"
+      }
+    },
+    "register-address": {
+      "label": "Место регистрации"
+    },
+    "type-document": {
+      "label": "Тип документа"
+    },
+    "birth-country": {
+      "label": "Страна рождения"
+    },
+    "passport-info": {
+      "label": "Паспортные данные",
+      "placeholder": "Введите"
+    },
+    "passport-issued-date": {
+      "label": "Дата выдачи паспорта"
+    },
+    "passport-issued-by": {
+      "label": "Кем выдан паспорт"
+    },
+    "destination-country": {
+      "label": "Страна назначения"
+    },
+    "tourist-arrival-date": {
+      "label": "Дата прибытия туриста"
+    },
+    "tourist-departure-date": {
+      "label": "Дата отъезда туриста"
+    },
+    "place-of-registration": {
+      "label": "Место регистрации"
+    },
+    "arrival-destination": {
+      "label": "Цель прибытия"
+    },
+    "kpp": {
+      "number": "КПП №",
+      "entry-date": "КПП дата заезда"
+    },
+    "type-guest": {
+      "label": "Тип гостя"
+    },
+    "visa": {
+      "visa-type": "Тип визы",
+      "number-visa": "Номер визы",
+      "visa-issued-date": "Дата начала действия визы",
+      "visa-issued-by": "Кем выдана виза",
+      "visa-expiry-date": "Дата истечения визы"
+    },
+    "child": {
+      "fullname": "Ф.И.О. ребенка",
+      "birth-date": "День рождения ребенка",
+      "departure-date": "День отъезда"
+    },
+    "map-point": {
+      "label": "Название на карте",
+      "placeholder": "Введите название которое будет отображаться на карте"
+    },
+    "destination": {
+      "label": "Направление",
+      "placeholder": "Введите направление соответствующее точке на карте"
+    },
+    "add-photo": {
+      "label": "Добавить фотографии"
+    },
+    "youtube_url": {
+      "label": "Ссылка Youtube на видео",
+      "placeholder": "Введите ссылку на видео",
+      "error": "Пожалуйста, введите корректный URL"
+    },
+    "place_name": {
+      "label": "Название места",
+      "placeholder": "Введите название места",
+      "validation-message-required": "Пожалуйста, введите название места"
+    },
+    "place_description": {
+      "label": "Описание места",
+      "placeholder": "Введите описание места",
+      "error": "Пожалуйста, введите описание места"
+    },
+    "image": {
+      "label": "Изображение",
+      "edit": "Изменить изображение"
+    },
+    "title": {
+      "label": "Название",
+      "placeholder": "Введите название"
+    },
+    "region": {
+      "label": "Регион",
+      "placeholder": "Введите регион",
+      "error": "Пожалуйста, введите регион"
+    },
+    "social_platform": {
+      "placeholder": "Выберите платформу",
+      "error": "Пожалуйста, выберите платформу"
+    },
+    "social_url": {
+      "error": "URL является обязательным",
+      "error-2": "Введите действительный URL"
+    },
+    "currency_code": {
+      "label": "Код валюты",
+      "placeholder": "Введите код валюты",
+      "error": "Пожалуйста, введите код валюты",
+      "table": "Валюта код"
+    },
+    "currency_name": {
+      "label": "Название валюты",
+      "placeholder": "Введите название",
+      "error": "Пожалуйста, введите название валюты",
+      "table": "Валюта название"
+    },
+    "scheduler": {
+      "name": {
+        "placeholder": "Введите название",
+        "error": "Пожалуйста, введите название"
+      },
+      "periodicity": {
+        "placeholder": "Выберите периодичность",
+        "error": "Пожалуйста, выберите периодичность"
+      },
+      "day": {
+        "placeholder": "Введите день",
+        "week-error-message": "Введите день в диапазоне от 1 до 7",
+        "month-error-message": "Введите день в диапазоне от 1 до 31",
+        "error": "Пожалуйста, введите день"
+      },
+      "schedule-hours": {
+        "placeholder": "Выберите расписание часов",
+        "error": "Пожалуйста, выберите расписание часов"
+      }
+    },
+    "currency_symbol": {
+      "label": "Символ",
+      "placeholder": "Выберите",
+      "error": "Пожалуйста, выберите символ валюты"
+    },
+    "course_uzs": {
+      "label": "Курс к UZS",
+      "placeholder": "Введите",
+      "error": "Пожалуйста, введите курс к UZS",
+      "table": "Курс"
+    },
+    "course_source": {
+      "label": "Источник курса",
+      "placeholder": "Выберите",
+      "error": "Пожалуйста, выберите источник курса"
+    },
+    "refresh_rate": {
+      "label": "Частота обновления",
+      "placeholder": "Выберите",
+      "error": "Пожалуйста, выберите частоту обновления"
+    },
+    "comment": {
+      "label": "Комментарий",
+      "placeholder": "Введите комментарий",
+      "error": "Пожалуйста, введите комментарий"
+    },
+    "payment-providers": {
+      "label": "Название провайдера",
+      "placeholder": "Введите название",
+      "error": "Пожалуйста, введите название"
+    },
+    "providers-type": {
+      "label": "Тип провайдера",
+      "placeholder": "Введите",
+      "error": "Пожалуйста, введите Тип провайдера"
+    },
+    "supported-cards": {
+      "label": "Поддерживаемые карты",
+      "placeholder": "Выберите",
+      "error": "Пожалуйста, ввыберите Поддерживаемые карты"
+    },
+    "integration-type": {
+      "label": "Тип интеграции",
+      "placeholder": "Выберите",
+      "error": "Пожалуйста, ввыберите Тип интеграции",
+      "table": "Интеграции"
+    },
+    "documentation": {
+      "label": "Документация",
+      "placeholder": "Введите",
+      "error": "Пожалуйста, ввыберите Тип Документация"
+    },
+    "currency": {
+      "label": "Валюты",
+      "placeholder": "Выберите",
+      "error": "Пожалуйста, ввыберите Валюты"
+    },
+    "limits": {
+      "label": "Лимиты",
+      "placeholder": "Выберите",
+      "error": "Пожалуйста, ввыберите Лимиты"
+    },
+    "3ds-support": {
+      "label": "3DS поддержка",
+      "placeholder": "Выберите",
+      "error": "Пожалуйста, ввыберите 3DS поддержка"
+    },
+    "response-time": {
+      "label": "Время ответа",
+      "placeholder": "Введите",
+      "error": "Пожалуйста, Введите Время ответа"
+    },
+    "agreement": {
+      "label": "Договор",
+      "placeholder": "Выберите файлы",
+      "not-selected": "Еще не выбрано",
+      "error": "Пожалуйста, Выберите Договор"
+    },
+    "test-credentials": {
+      "label": "Тестовые учетные данные",
+      "placeholder": "Выберите файлы",
+      "not-selected": "Еще не выбрано",
+      "error": "Пожалуйста, Выберите Тестовые учетные данные"
+    },
+    "currency-type": {
+      "label": "Тип валюты",
+      "placeholder": "Выберите",
+      "error": "Пожалуйста, выберите тип валюты"
+    },
+    "rate": {
+      "label": "Курс",
+      "placeholder": "Введите",
+      "error": "Пожалуйста, введите курс"
+    },
+    "commissionRate": {
+      "label": "Комиссионная ставка",
+      "placeholder": "Введите комиссионную ставку",
+      "error": "Пожалуйста, укажите комиссионную ставку"
+    },
+    "minAmount": {
+      "label": "Минимальная сумма",
+      "placeholder": "Введите минимальную сумму",
+      "error": "Пожалуйста, укажите минимальную сумму"
+    },
+    "maxAmount": {
+      "label": "Максимальная сумма",
+      "placeholder": "Введите максимальную сумму",
+      "error": "Пожалуйста, укажите максимальную сумму"
+    },
+    "calculationType": {
+      "label": "Тип расчёта",
+      "placeholder": "Выберите тип расчёта",
+      "error": "Пожалуйста, выберите тип расчёта"
+    },
+    "supportedCurrencies": {
+      "label": "Поддерживаемые валюты",
+      "placeholder": "Выберите поддерживаемые валюты",
+      "validation-message-required": "Пожалуйста, выберите поддерживаемые валюты"
+    },
+    "serviceType": {
+      "label": "Тип услуги",
+      "placeholder": "Выберите тип услуги",
+      "error": "Пожалуйста, выберите тип услуги"
+    },
+    "amount": {
+      "label": "Сумма",
+      "placeholder": "Введите сумму",
+      "error": "Пожалуйста, введите сумму"
+    },
+    "translates": {
+      "label": "Переводы",
+      "placeholder": "Введите переводы",
+      "error": "Пожалуйста, заполните переводы"
+    },
+    "language": {
+      "label": "Язык",
+      "placeholder": "Выберите язык",
+      "error": "Пожалуйста, выберите язык"
+    },
+    "numericCode": {
+      "label": "Числовой код",
+      "placeholder": "Введите числовой код",
+      "error": "Пожалуйста, введите числовой код"
+    },
+    "shortCode": {
+      "label": "Код",
+      "placeholder": "Введите код",
+      "error": "Пожалуйста, введите код"
+    },
+    "minorUnits": {
+      "label": "Дробные единицы",
+      "placeholder": "Введите дробные единицы",
+      "error": "Пожалуйста, введите дробные единицы"
+    },
+    "symbol": {
+      "label": "Символ",
+      "placeholder": "Введите символ",
+      "error": "Пожалуйста, введите символ"
+    },
+    "placeType": {
+      "label": "Тип места",
+      "placeholder": "Выберите тип места",
+      "error": "Пожалуйста, выберите тип места"
+    },
+    "periodFrom": {
+      "label": "Период с",
+      "placeholder": "Выберите дату начала",
+      "error": "Пожалуйста, выберите дату начала"
+    },
+    "periodTo": {
+      "label": "Период по",
+      "placeholder": "Выберите дату окончания",
+      "error": "Пожалуйста, выберите дату окончания"
+    },
+    "percentage": {
+      "label": "Процент",
+      "placeholder": "Введите процент",
+      "error": "Значение должно быть в диапазоне от {{min}} до {{max}}"
+    },
+    "provider-code": {
+      "label": "Код провайдера",
+      "placeholder": "Выберите",
+      "error": "Введите код провайдера"
+    },
+    "provider": {
+      "label": "Провайдер",
+      "placeholder": "Выберите",
+      "error": "Выберите провайдера"
+    },
+    "organization-type": {
+      "label": "Тип организации",
+      "placeholder": "Выберите тип организации",
+      "error": "Выберите тип организации"
+    },
+    "guide": {
+      "label": "Гид",
+      "placeholder": "Выберите гида",
+      "error": "Выберите гида"
+    },
+    "apartment": {
+      "label": "Апартамент",
+      "placeholder": "Выберите апартамент",
+      "error": "Выберите апартамент"
+    },
+    "placement": {
+      "label": "Расположение",
+      "placeholder": "Выберите расположение",
+      "error": "Выберите расположение"
+    },
+    "organisation": {
+      "label": "Организация",
+      "placeholder": "Выберите организацию",
+      "error": "Выберите организацию"
+    },
+    "parameterName": {
+      "label": "Название параметра",
+      "placeholder": "Введите название параметра",
+      "error": "Введите название параметра"
+    },
+    "parameter": {
+      "label": "Параметр",
+      "labels": "Параметры",
+      "placeholder": "Введите параметр",
+      "error": "Введите параметр"
+    }
+  },
+  "tenant": {
+    "tenant": "Тенант",
+    "tenant-name": "Название тенант",
+    "add-tenant": "Добавить тенант",
+    "domen": "Домен",
+    "start-date": "Дата начала",
+    "end-date": "Дата окончания",
+    "edit-tenant": "Редактировать арендатора"
+  },
+  "common": {
+    "action-time": "Время действий",
+    "action-history": "История действий",
+    "close": "Закрыть",
+    "copied": "Скопировано",
+    "create": "Создать",
+    "statistics": "Статистика",
+    "users": "Пользователи",
+    "hotels": "Отели",
+    "clients": "Клиенты",
+    "access-role": "Роль доступа",
+    "complaints": "Жалобы",
+    "call-center": "Call-center",
+    "active": "Активный",
+    "inactive": "Неактивный",
+    "main": "Главная",
+    "cancel": "Отмена",
+    "reject": "Отказать",
+    "confirm": "Подтвердить",
+    "action": "Действие",
+    "next": "След",
+    "prev": "Пред",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "more-details": "Подробнее",
+    "hotel-content": "Контент отеля",
+    "reviews": "Отзывы",
+    "rooms": "Номера",
+    "guests": "Гости",
+    "general-information": "Общие данные",
+    "bank-account": "Банковский счет",
+    "bank-code": "МФО",
+    "bank-name": "Название банка",
+    "tin": "ИНН",
+    "additional": "Дополнительно",
+    "certificate": "Сертификат",
+    "issue-date": "Дата выдачи",
+    "expiration-date": "Дата истечения срока",
+    "select-drag-a-photo": "Выберите или перетащите 1 фото",
+    "max-size-five-mb": "Максимальный размер: 5 MB",
+    "hotel": "Отель",
+    "complaint": "Жалоба",
+    "period": "Период",
+    "main-information": "Основная информация",
+    "photos": "Фотографии",
+    "facilities-and-services": "Удобства и услуги",
+    "accommodation-terms": "Условия размещения",
+    "comments": "Отзывы",
+    "booking": "Бронирования",
+    "nights-count": "{{count}} ночей",
+    "message": "Сообщение",
+    "view-all-notifications": "Посмотреть все уведомления",
+    "notifications": "Уведомления",
+    "logout": "Выйти с аккаунта",
+    "system-settings": "Настройки системы",
+    "dark-theme": "Темная тема",
+    "hotel-management": "Управление гостиницей",
+    "my-account": "Мой аккаунт",
+    "login-to-account": "Войти в акканут",
+    "additional-number": "Дополнительный номер",
+    "support-service": "Служба поддержки",
+    "save": "Сохранить",
+    "type-number": "Тип номера",
+    "price-night": "Цена (за ночь)",
+    "convenience": "Удобство",
+    "nation": "Нации",
+    "birthdate": "День рождения",
+    "passport": "Паспорт серия",
+    "check-in-out": "Дата въезда/отъезда",
+    "transaction": "Транзакции",
+    "fullName-guest": "ФИО гостя",
+    "payment-method": "Способ оплаты",
+    "room": "Номер",
+    "payment-amount": "Сумма платежа",
+    "date-and-time": "Дата и время",
+    "approved": "Одобрен",
+    "accrued": "Начислен",
+    "men": "Мужчины",
+    "women": "Женщины",
+    "men-small": "Муж",
+    "women-small": "Жен",
+    "support": "Поддерживать",
+    "manager": "Менеджер",
+    "no-chat": "Нет доступных чатов",
+    "night": "вчера",
+    "request-data": "Запросить данные",
+    "tenants": "Тенанты",
+    "sum": "сум",
+    "from": "с",
+    "to": "до",
+    "time-from": "с {{value}}",
+    "time-to": "до {{value}}",
+    "breakfast": "Завтрак включен",
+    "free-cancel": "Бесплатная отмена",
+    "no-add-pay": "Нет предоплаты",
+    "login-success": "Авторизация прошла успешно",
+    "sort_descending": "Нажмите, чтобы отсортировать по убыванию",
+    "sort_ascending": "Нажмите, чтобы отсортировать по возрастанию",
+    "sort_cancel": "Нажмите, чтобы отменить сортировку",
+    "houses-and-apartments": "Дома и квартиры",
+    "resorts": "Курорты",
+    "hostels": "Общежития",
+    "email": "Электронная почта",
+    "accommodations": "Объекты размещения",
+    "name": "Название",
+    "requests": "Заявки",
+    "actived": "Активные",
+    "un-active": "Неактивные",
+    "request": "По запросу",
+    "rejected": "Отклоненные",
+    "admin": "Администратор",
+    "editor": "Редактор",
+    "viewer": "Зритель",
+    "contributor": "Участник",
+    "service": "Сервис",
+    "type": "Выберите тип",
+    "category": "Категория",
+    "category-select": "Выберите категорию",
+    "prohibitions": "Запреты",
+    "facility-room": "Номер",
+    "rule": "Введите информацию, пожалуйста",
+    "not-guests": "Гостей ещё нет",
+    "main-content": "Главная страница",
+    "cost-per-day": "Стоимость в день / за сутки",
+    "map-title": "Карта Узбекистана",
+    "select_or_drag": "Выберите или перетащите фото",
+    "images_limit": "Максимальный размер: {{limit}}.",
+    "avia": "Aвиа",
+    "bus": "Автобус",
+    "cultural": "Культурного наследия",
+    "railway": "Железная дорога",
+    "ticket-seller": "Продавцы билетов",
+    "go-home": "Перейти на главную",
+    "view": "Посмотреть",
+    "add": "Добавить",
+    "preview": "Предпросмотр",
+    "description": "Описание",
+    "no-description": "Нет описания",
+    "check": "Проверить",
+    "refresh": "Обновить страницу",
+    "change": "Изменить",
+    "reload": "Перезагрузить",
+    "login-error": "Ошибка входа в систему",
+    "reset-password": "Изменение пароля",
+    "reset-password-desc": "Создайте пароль и отправьте этот обновлённый код пользователю",
+    "reset": "Генерировать",
+    "copy": "Копировать",
+    "clearly": "Понятно",
+    "edit-password": "Изменить пароль",
+    "edit-password-text": "Пожалуйста, введите свой адрес электронной почты и подтвердите, затем вы сможете изменить свой пароль",
+    "receive-code": "Получить код",
+    "confirmation": "Подтверждение",
+    "code": "Код",
+    "create-password": "Создайте пароль",
+    "create-password-desc": "Вам необходимо придумать новый пароль",
+    "new-password": "Придумайте пароль",
+    "confirm-password": "Подтвердите пароль",
+    "save-password": "Сохранить пароль",
+    "compressing-image": "Изображение сжимается...",
+    "error-compressing-image": "Ошибка при сжатии изображения, пожалуйста, попробуйте снова",
+    "or": "или",
+    "one-id": "Авторизоваться через OneID",
+    "specify-date": "Укажите дату",
+    "auto-translate": "Автоперевод",
+    "auto-trans": "Автоматический перевод",
+    "auto-trans-desc": "Введенный вами контент будет автоматически переведен на другие языки. Вы можете удалить это в настройках, если хотите.",
+    "pending-confirmation": "Ожидающие подтверждения",
+    "enter": "Введите",
+    "modal_description": "Для добавления нового информация, пожалуйста заполните все необходимые поля",
+    "modal_description_edit": "Для редактирования информации, пожалуйста, заполните все необходимые поля",
+    "service-name": "Название услуги",
+    "employee-id": "ID пользователя",
+    "add-field": "Добавить поле",
+    "clear-cache": "Обновить кэш"
+  },
+  "status": {
+    "confirmed": "Подтвержден",
+    "pending": "В ожидании",
+    "canceled": "Отменен",
+    "free": "Свободный",
+    "unknown": "Неизвестный",
+    "empty": "Свободный",
+    "booking": "Забронировано"
+  },
+  "home-content": {
+    "title": "Контент главной страницы",
+    "empty": "Пусто",
+    "video-home": "Видео на главном экране",
+    "destinations": "Лучшие направления",
+    "recreating": "Типы отдыха",
+    "video-alert": "Доступны только видео в формате MP4!",
+    "upload-image": "Загрузить видео",
+    "reupload": "Перевыбрать",
+    "destination-delete": "Удалить маршрут?",
+    "destination-del-desc": "Вы уверены, что хотите удалить этот адрес?",
+    "add-destination": "Добавить направление",
+    "edit-destination": "Изменить направление",
+    "destination-desc": "Заполните необходимые поля, чтобы изменить направление",
+    "destination-name": "Название направления",
+    "direction-cover": "Обложка направления",
+    "link-destination": "Ссылка на направление",
+    "add-recreation": "Добавить тип отдыха",
+    "edit-recreation": "Изменить тип отдыха",
+    "desc-recreation": "Заполните необходимые поля, чтобы добавить тип отдыха",
+    "name-recreation": "Название типа отдыха",
+    "color": "Цвет",
+    "recreating-cover": "Обложка типа отдыха"
+  },
+  "guides": {
+    "guides": "Гиды",
+    "service-location": "Места обслуживания",
+    "info-guide": "Информация о гиде",
+    "license": "Лицензия",
+    "download": "Скачать",
+    "cancel": "Отклонить",
+    "apply": "Принимать",
+    "reject-text": "Хотите отклонить заявку?",
+    "reject-desc": "Выберите причину отклонения из нижеперечисленных вариантов.",
+    "add-reason": "Другая причина",
+    "write-reason": "Опишите причину",
+    "reason": "Причина",
+    "guides-desc": "Переключайтесь между разделами, чтобы видеть гидов с нужным статусом",
+    "export": "Экспорт в ...",
+    "search-placeholder": "Введите ФИО или номер сертификата, чтобы быстро найти нужного гида",
+    "all": "Все",
+    "filter": {
+      "category": "Категория",
+      "region": "Регион",
+      "spec": "Специализация",
+      "gender": "Пол",
+      "status": "Статус",
+      "lang": "Язык",
+      "rating": "Рейтинг"
+    },
+    "reset": "Сбросить все",
+    "number-certificate": "№ сертификата",
+    "copy": "Скопировать",
+    "certificate-status": "Статус сертификата",
+    "status": {
+      "accepted": "Действующий",
+      "expired": "Истёк",
+      "suspended": "Приостановлен",
+      "revoked": "Отозван"
+    },
+    "category-guide": "Категория гида",
+    "categories": {
+      "high": "Высшая категория",
+      "first": "1-я категория",
+      "second": "2-я категория",
+      "none": "Без категории"
+    },
+    "lang": "Язык деятельности",
+    "main-region": "Основной регион деятельности"
+  },
+  "placements": {
+    "hotels": "Гостиницы",
+    "recreation-areas": "Места отдыха",
+    "tourist-bases": "Туристические базы",
+    "boarding-houses": "Пансионаты",
+    "campsites": "Кемпинги",
+    "guest-houses": "Гостевые дома",
+    "sanatoriums": "Санатории",
+    "hostel": "Хостел",
+    "all-status": "Все статусы",
+    "guest-name": "Имя гостя",
+    "guest-comment": "Комментарий от гостя",
+    "owner-response": "Ответ от владельца",
+    "room-number": "Номер комнаты",
+    "tariff-name": "Названия тарифа",
+    "not-selected": "Не выбрано",
+    "more": "Ещё",
+    "hide": "Скрыть"
+  },
+  "travel-agencies": {
+    "name-agencies": "Название туристического агентства",
+    "license_validity": "Срок действия лицензии",
+    "all-tours": "Все туры",
+    "all-employee": "Список всех сотрудников",
+    "duration": "Длительность",
+    "type-tour": "Тип тура",
+    "people-tour": "Сколько человек в туре",
+    "fullname-employee": "Ф.И.О. сотрудника",
+    "brief-employee": "Краткая информация сотрудника",
+    "agent-name": "Название туристического агентства"
+  },
+  "billing": {
+    "schedule-page": {
+      "cron-job": "Плановая задача",
+      "name": "Название",
+      "day": "День",
+      "status": "Статус",
+      "action": "Действие",
+      "periodicity": "Периодичность",
+      "scheduleHours": "Расписание часов",
+      "deleteConfirmationMessage": "Вы удаляете запланированную задачу?",
+      "WEEKLY": "Еженедельно",
+      "MONTHLY": "Ежемесячно",
+      "DAILY": "Ежедневно"
+    },
+    "accrual": "Начислении тс",
+    "payments": "Платежи",
+    "recalculations": "Перерасчеты",
+    "tour-levy-report": "Турсбор отчет",
+    "region": "Регион",
+    "city": "Район/город",
+    "district": "Район",
+    "hotel": "Гостиница",
+    "month-year": "Год/месяц",
+    "accrual-type": "Тип начисления",
+    "count": "Кол-во листков",
+    "accrued": "Начислено",
+    "contract": "Дог. №",
+    "operation": "Опер.",
+    "pay_number": "Плат. №",
+    "sum": "Сумма",
+    "accountant": "Бухгалтер",
+    "note": "Примечание",
+    "start-period": "Период c",
+    "end-period": "Период до",
+    "fund_number": "Номерной Фонд",
+    "number_beds": "Кол-во Коек",
+    "stars": "Звезды",
+    "guest-count": "Кол-во Гостей",
+    "spent-day": "Прожито Суток",
+    "bca": "БРВ",
+    "tour-fee": "Турсбор",
+    "accrued-days": "Начислен.тс (Сутки)",
+    "total-sum": "Итого Тс (Сумма)",
+    "reports": {
+      "providers": "Провайдеры",
+      "suppliers": "Поставщики",
+      "tour-report": "Турсбор отчет",
+      "user-payment": "Абонентская плата",
+      "commission": "Комиссии",
+      "return": "Возврат",
+      "platform-report": "Сводный отчёт платформы",
+      "choose-year": "Выберите год",
+      "choose-month": "Выберите месяц",
+      "choose-region": "Выберите регион",
+      "choose-hotel": "Выберите гостиницу"
+    },
+    "directories": {
+      "currencies": "Валюты",
+      "currency-types": "Типы валют",
+      "payment-providers": "Банки и платёжные провайдеры",
+      "tax-rates": "Налоговые ставки",
+      "tourist-taxes": "Туристические сборы",
+      "subscriber-services": "Прейскурант абонентских услуг",
+      "payments-types": "Виды платежей",
+      "operator-commissions": "Комиссии операторов",
+      "provider-contracts": "Договоры провайдера"
+    },
+    "calculation-type": {
+      "fixed": "Фиксированный",
+      "percentage": "Процентный"
+    },
+    "citizenship": {
+      "local": "Гражданин страны",
+      "foreign": "Иностранный гражданин"
+    },
+    "provider-type": {
+      "local": "Местный провайдер",
+      "international": "Международный провайдер"
+    },
+    "placeType": {
+      "HOTEL": "Гостиница",
+      "HOUSEHOLDER": "Домовладелец",
+      "HOSTEL": "Хостел",
+      "GUEST_HOUSE": "Гостевой дом",
+      "APARTMENT": "Квартира",
+      "PRIVATE_HOUSE": "Частный дом",
+      "RESORT": "Курорт",
+      "SANATORIUM": "Санаторий",
+      "CAMPING": "Кемпинг",
+      "ALL": "Все"
+    },
+    "serviceType": {
+      "TOUR": "Путешествие",
+      "HOTEL": "Гостиница"
+    },
+    "Error": {
+      "Title": "Ошибка",
+      "UniqueProviderCode": "Код провайдера не должен повторяться. Платежный провайдер уже существует."
+    }
+  },
+  "tourists": {
+    "tourist-fullname": "Ф.И.О. туриста",
+    "search-tourists": "Поиск туриста",
+    "register-region": "Область регистрации",
+    "register-district": "Район регистрации",
+    "tourist-information": "Информация о туристах",
+    "main-information": "Основная информация",
+    "visa-information": "Визовые данные",
+    "under-chilren": "Информации о детях до 16 лет, прибывших вместе",
+    "all-tourists": "Все туристы",
+    "local-tourists": "Местные туристы",
+    "foreign-tourists": "Иностранные туристы"
+  },
+  "error": {
+    "unexpected": "Что то пошло не так",
+    "not-found": "Страница не найдена"
+  },
+  "content": {
+    "preview": "Предпросмотр",
+    "add-content": "Добавить контент",
+    "edit-content": "Редактировать контент",
+    "additional-information": "Дополнительная информация",
+    "hero": {
+      "delete": "Удалить фон",
+      "delete-desc": "Подтвердите, что вы действительно хотите удалить данного контекстa?",
+      "edit-bg": "Изменить фон",
+      "current-video": "Текущее видео",
+      "new-video": "Новое видео",
+      "create-success": "Фон успешно создан",
+      "edit-success": "Фон успешно обновлен",
+      "delete-success": "Фон успешно удален",
+      "picture": "Картина",
+      "bg-picture": "Фоновое картинка",
+      "incorrect-file-type": "Неверный тип файла",
+      "add-video": "Добавить фотографии или видео"
+    },
+    "discover": {
+      "title": "Откройте Узбекистан",
+      "delete": "Удалить открытие",
+      "delete-desc": "Подтвердите, что вы действительно хотите удалить данное открытие?",
+      "add": "Добавить открытие",
+      "create-success": "Открытие успешно создано",
+      "edit-success": "Открытие успешно обновлено",
+      "status-updated": "Статус успешно обновлен",
+      "delete-success": "Открытие успешно удалено",
+      "add-social": "Добавить социальную ссылку",
+      "social-links": "Социальные ссылки"
+    },
+    "top_destinations": {
+      "title": "Лучшие направления",
+      "add": "Добавить лучшие направления",
+      "edit": "Редактировать лучшие направления",
+      "add-content": "Добавить контента",
+      "add_attractions": "Добавить популярные места",
+      "add_place": "Добавить место",
+      "delete": "Удалить направление",
+      "delete-desc": "Подтвердите, что вы действительно хотите удалить данное направление?",
+      "delete-success": "Направление успешно удалено",
+      "create-success": "Направление успешно создано",
+      "edit-success": "Направление успешно обновлено",
+      "image-delete-success": "Изображение успешно удалено"
+    },
+    "country-map": {
+      "title": "Карта Узбекистана",
+      "point-destination": "Направление точки",
+      "save-point": "Сохранить точку",
+      "delete-point": "Удалить точку с карты?",
+      "delete-point-desc": "Подтвердите, что вы действительно хотите удалить данную точку с карты?",
+      "edit-success": "Точка успешно обновлена",
+      "add-success": "Точка успешно создана",
+      "delete-success": "Точка успешно удалена",
+      "edit-point": "Редактировать точку на карте",
+      "create-point": "Создать точку на карте"
+    },
+    "expert-advice": {
+      "title-add": "Добавить советы экспертов",
+      "title-edit": "Редактировать советы экспертов",
+      "delete-modal-title": "Удалить совет?",
+      "delete-modal-description": "Вы уверены, что хотите удалить этот экспертный совет?",
+      "status-created": "Совет эксперта успешно добавлен",
+      "status-updated": "Совет эксперта обновлён",
+      "status-deleted": "Совет эксперта удалён"
+    },
+    "instagram-content": {
+      "title-add": "Добавить контент Instagram контент",
+      "title-edit": "Редактировать контент Instagram контент",
+      "delete-modal-title": "Удалить контент?",
+      "delete-modal-description": "Вы уверены, что хотите удалить этот Instagram контент?",
+      "status-created": "Контент Instagram успешно добавлен",
+      "status-updated": "Контент Instagram обновлён",
+      "status-deleted": "Контент Instagram удалён"
+    },
+    "events": {
+      "title-add": "Добавить мероприятие",
+      "title-edit": "Редактировать мероприятие",
+      "delete-modal-title": "Удалить мероприятие?",
+      "delete-modal-description": "Вы уверены, что хотите удалить это мероприятие?",
+      "status-created": "Мероприятие успешно добавлено",
+      "status-updated": "Мероприятие обновлено",
+      "status-deleted": "Мероприятие удалено"
+    },
+    "holly-tourism": {
+      "title": "Паломнический туризм",
+      "delete-title": "Удалить зиёрaт-туризм?",
+      "delete-desc": "Вы уверены, что хотите удалить зиёрaт-туризм?",
+      "delete-success": "Зиёрaт-туризм удалён",
+      "title-add": "Добавить зиёрaт-туризм",
+      "title-edit": "Редактировать зиёрaт-туризм",
+      "add-success": "Зиёрaт-туризм успешно добавлен",
+      "edit-success": "Зиёрaт-туризм обновлён"
+    }
+  },
+  "providers": {
+    "autoticket": "Автобус",
+    "avia": "Авиабилет",
+    "hotel": "Отели",
+    "cultural_heritage": "Культурное наследие",
+    "railway": "Железная дорога"
+  },
+  "region": {
+    "points-1": "Самаркандский район_(Конigil село)",
+    "points-2": "город_Самарканд",
+    "points-3": "Ургутский район_(Терсак село)",
+    "points-4": "Ургутский район_(Терсак село)",
+    "points-5": "город Нукус",
+    "points-6": "район Муйноқ",
+    "points-7": "Навбахорский район_(долина Сармышсой)",
+    "points-8": "город Навои",
+    "points-9": "Нуротинский район_(село Сентоб)",
+    "points-10": "Гиждуван",
+    "points-11": "город Бухара",
+    "points-12": "город Хива",
+    "points-13": "город Ургенч",
+    "points-14": "Шахрисабзский район_(Г'елон село)",
+    "points-15": "город Карши",
+    "points-16": "Китабский район",
+    "points-17": "город Шахрисабз",
+    "points-18": "город Джиззах",
+    "points-19": "Зомин",
+    "points-20": "Фариш",
+    "points-21": "город Термиз",
+    "points-22": "Бойсунский район",
+    "points-23": "Денауский район",
+    "points-24": "город Гулистан",
+    "points-25": "Бостанлыкский район",
+    "points-26": "Паркентский район",
+    "points-27": "город Наманган",
+    "points-28": "город Андижан",
+    "points-29": "Риштанский район",
+    "points-30": "город Коканд",
+    "points-31": "город Маргилан",
+    "points-32": "город Фергана",
+    "places-1": "Город Ташкент",
+    "places-2": "Самаркандская область",
+    "places-3": "Бухарская область",
+    "places-4": "Хорезмская область",
+    "places-5": "Андижанская область",
+    "places-6": "Ферганская область",
+    "places-7": "Джизакская область",
+    "places-8": "Республика Каракалпакстан",
+    "places-9": "Кашкадарьинская область",
+    "places-10": "Наманганская область",
+    "places-11": "Навоийская область",
+    "places-12": "Сырдарьинская область",
+    "places-13": "Сурхандарьинская область",
+    "places-14": "Ташкентская область"
+  },
+  "statistics": {
+    "tourist_infracstructure": "Туристическая инфраструктура",
+    "tourism_company": "Туркомпании",
+    "inbound_tourism": "Въездной туризм",
+    "outbound_tourism": "Выездной туризм",
+    "umehmon-active": "Активность U-Mehmon",
+    "tourist_infracstructure-desc": "Информация об объектах, местах и вариантах размещения",
+    "total_organizations": "Количество объектов организаций отдыха и туристических баз",
+    "total_hotels": "Всего гостиниц и аналогичных средств размещения",
+    "total_special_accommodation": "Всего специализированных размещений",
+    "total_collective_accommodation": "Всего инструментов коллективного размещения",
+    "total_sanatoriums": "Всего санаторно-курортных учреждений",
+    "than_last_year": "чем в прошлом {{year}} году",
+    "recreation-and-tourism": "Статистика организаций отдыха и туризма",
+    "objects": "Объекты",
+    "places": "Места",
+    "by-objects": "По объектам",
+    "by-places": "По местам",
+    "hotel-sector-stat": "Статистика гостиничного сектора",
+    "collective-accommodation-facilities": "Количество объектов коллективного размещения",
+    "sanatorium-number": "Количество санаторно-курортных объектов",
+    "company_desc": "Аналитика деятельности туристических компаний, операторов и агентств",
+    "total-organizations": "Всего туристических организаций",
+    "tourist-org-regis": "Туристические организации, зарегистрированные в системе",
+    "total-served-tourists": "Всего обслуженных туристов",
+    "dynamics-of-tourist": "Динамика обслуженных туристов тур. компаниями и организациями",
+    "number-companies": "Динамика количества туристических компаний",
+    "tour-operators-and-agents": "Туроператоры и турагенты",
+    "number-of-tours": "Количество туров, проданных туристической фирмой населению",
+    "selling-tours": "Проданные туры",
+    "inbound-desc": "Статистика по въездному туризму в Узбекистане.",
+    "number-incoming tourists": "Количество въездных туристических поездок иностранцев в Узбекистан",
+    "number-of-citizens": "Количество иностранных граждан, прибывших на лечение",
+    "number-relatives": "Количество иностранных граждан, прибывших с целью посещения родственников",
+    "distribution-of-foreign": "Распределение иностранных туристов по целям поездок",
+    "customers-last": "Клиентов за последние 30 дней",
+    "distribution-name": "Название",
+    "female": "Женщин",
+    "male": "Мужчин",
+    "total": "Всего",
+    "leisure-and-recreation": "Досуг и отдых",
+    "treatment": "Лечение",
+    "training": "Обучение",
+    "by-service": "По службе",
+    "commercial-goals": "Коммерческие цели",
+    "visit-relatives": "Посещение родственников",
+    "visit-cultural-herritage": "Посещение культурного наследия",
+    "top-country": "Топ-10 стран, откуда приезжает больше всего туристов",
+    "visit-statistics": "Статистика посещаемости объектов культурного наследия",
+    "total_visits": "Общее кол-во посещений туристических объектов",
+    "from_country": "Из какой страны прибыли",
+    "year": "За год",
+    "month": "За месяц",
+    "visit_date": "Дата посещения",
+    "foreign_tourists": "Иностранные туристы",
+    "tourists_by_group": "Иностранные туристы в разрезе групп стран",
+    "from_neighboring_countries": "Из соседних стран",
+    "from_cis_countries": "Из стран СНГ",
+    "other_countries": "Другие страны",
+    "growth_dynamics": "Динамика роста и снижения иностранных туристов",
+    "number-tourists": "Кол-во туристов",
+    "outbound-desc": "Статистика по гражданам Узбекистана, выезжающим за границу",
+    "data-travel-goals": "Распределение данных по целям поездок",
+    "statistics-outbound-visiting": "Статистика выездного туризма граждан Узбекистана по странам посещения",
+    "citizen-abroad": "Динамика выезжающих за границу граждан Узбекистана",
+    "served-tourist": "Обслуженные туристы",
+    "traveling-abroad": "Граждане Узбекистана, выезжающие за границу",
+    "number-citezen": "Общее количество граждан, выехавших за границу",
+    "number-tourist": "Общее количество иностранных туристов",
+    "ration-percent": "Соотношение в процентах",
+    "umehmon-desc": "Статистика по активности в системе U-Mehmon",
+    "total-regis": "Всего зарегистрированных пользователей",
+    "new-regis": "Новые зарегистрированные пользователи",
+    "total-local-regis": "Всего зарегистрированных местных туристов",
+    "regis-statistics": "Статистика регистрации пользователей в системе",
+    "user-regis": "Регистраций пользователей",
+    "user-regis-system": "Всего зарегистрированных отелей в системе",
+    "total-bookings": "Всего бронирований",
+    "average-stay": "Средний срок пребывания",
+    "top-50": "Топ-50 отелей по количеству гостей",
+    "loading": "Загрузка...",
+    "all-country": "Все страны"
+  },
+  "months": {
+    "january": "Январь",
+    "february": "Февраль",
+    "march": "Март",
+    "april": "Апрель",
+    "may": "Май",
+    "june": "Июнь",
+    "july": "Июль",
+    "august": "Август",
+    "september": "Сентябрь",
+    "october": "Октябрь",
+    "november": "Ноябрь",
+    "december": "Декабрь"
+  }
+}

@@ -1,0 +1,19 @@
+import type { FC, SVGProps } from 'react'
+
+const ServicesIcon: FC<SVGProps<SVGSVGElement>> = props => (
+  <svg
+    {...props}
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle cx="17.75" cy="6.25" r="4.25" stroke="#141B34" strokeWidth="1.5" />
+    <circle cx="6.25" cy="6.25" r="4.25" stroke="#141B34" strokeWidth="1.5" />
+    <circle cx="17.75" cy="17.75" r="4.25" stroke="#141B34" strokeWidth="1.5" />
+    <circle cx="6.25" cy="17.75" r="4.25" stroke="#141B34" strokeWidth="1.5" />
+  </svg>
+)
+
+export default ServicesIcon

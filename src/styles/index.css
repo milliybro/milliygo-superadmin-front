@@ -1,0 +1,309 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Onest:wght@100..900&display=swap'); */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  font-size: calc(0.5vw + 0.5rem);
+}
+
+@media only screen and (max-width: 1536px) {
+  html {
+    font-size: calc(0.5vw + 0.6rem);
+  }
+}
+
+* {
+  font-family: 'Onest', 'Fira Sans', sans-serif;
+  scrollbar-width: thin;
+  font-weight: 500;
+}
+
+.select-shadow {
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.05);
+}
+
+.ant-switch {
+  @apply bg-secondary-light;
+}
+
+.ant-switch.ant-switch-checked {
+  @apply bg-primary;
+}
+
+.sticky-pagination .ant-table-pagination {
+  position: sticky;
+  bottom: 0;
+  background: white;
+  padding: 10px 0;
+  z-index: 10;
+}
+
+.custom-table .ant-spin-nested-loading,
+.custom-table .ant-spin-container,
+.custom-table .ant-table-wrapper,
+.custom-table .ant-table-wrapper > * {
+  height: 98%;
+}
+
+.custom-table .ant-pagination {
+  margin-top: auto !important;
+}
+
+.custom-table-2
+  .ant-table-container
+  > .ant-table-content
+  > table
+  > thead
+  > tr
+  > th {
+  font-size: 12px;
+  padding: 6px 20px;
+  line-height: 16px;
+}
+
+.custom-table-2 .ant-table-column-sorter-inner span {
+  font-size: 10px;
+}
+
+.ant-spin-container {
+  height: 98%;
+  display: flex;
+  flex-direction: column;
+}
+.ant-tabs {
+  width: 100%;
+}
+
+/* .ant-spin-nested-loading,
+.ant-spin-container,
+.ant-table-empty,
+.ant-table-container,
+.ant-table-content,
+.ant-table-content table {
+  height: 98%;
+} */
+
+.ant-tabs,
+.ant-tabs-content,
+.ant-tabs-tabpane {
+  height: 100%;
+}
+
+.ant-table-tbody,
+.ant-table-wrapper {
+  height: 100%;
+}
+
+.ant-tabs-tabpane {
+  height: 100% !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.ant-tabs-tabpane > div {
+  height: 100%;
+}
+
+.custom-otp .css-dev-only-do-not-override-pzp7tu {
+  width: 100% !important;
+}
+
+.ant-otp-input-wrapper {
+  flex: 1; /* har bir input teng kengayadi */
+  height: 60px;
+}
+.ant-otp-input-wrapper input {
+  height: 60px;
+}
+
+.ant-table-container {
+  border-left: none !important;
+  border-right: none !important;
+  border-right-width: 0px !important;
+  border-right-color: #ffffff !important;
+}
+
+.ant-table-wrapper
+  .ant-table.ant-table-bordered
+  > .ant-table-container
+  > .ant-table-content
+  > table
+  > tbody
+  > tr
+  > td:last-child {
+  border-inline-end: none !important;
+}
+.ant-table-wrapper
+  .ant-table.ant-table-bordered
+  > .ant-table-container
+  > .ant-table-content
+  > table
+  > thead
+  > tr
+  > th:last-child {
+  border-inline-end: none !important;
+}
+
+.custom-thead .ant-table-wrapper .ant-table-thead > tr > th {
+  color: #6b7280 !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+}
+
+.tourists-table .ant-table-tbody > tr > td {
+  font-size: 14px;
+}
+
+@media (max-width: 1300px) {
+  .tourists-table .ant-table-tbody > tr > td {
+    font-size: 13px !important;
+  }
+}
+
+.side-borderless-table {
+  border-top: 1px solid #e5e7eb !important;
+}
+
+.side-borderless-table .ant-table-thead > tr > th::before {
+  height: 100% !important;
+}
+
+/* .side-borderless-table .ant-table-thead > tr > th {
+  padding: 12px 20px !important;
+} */
+
+.side-borderless-table td:not(:last-child) {
+  border-right: 1px solid #e5e7eb !important;
+}
+
+.responsive-table .ant-table-cell {
+  padding: 12px 20px !important;
+  font-size: 0.875rem !important;
+}
+
+.responsive-table th.ant-table-cell {
+  padding: 12px 20px !important;
+}
+
+@media only screen and (max-width: 1536px) {
+  .responsive-table .ant-table-cell {
+    padding: 6px 12px !important;
+    font-size: 0.75rem !important;
+  }
+
+  .responsive-table .ant-table-column-title {
+    font-size: 0.75rem !important;
+  }
+
+  .responsive-table th.ant-table-cell {
+    padding: 14px 12px !important;
+  }
+}
+.ant-table-cell {
+  padding: 4px 13.5px !important;
+  margin: 0;
+}
+/* 
+.custom-image-preview .ant-image-preview-img-wrapper {
+  max-width: 90vw !important;
+  max-height: 90vh !important;
+}
+
+*/
+.custom-image-preview .ant-image-preview-img {
+  object-fit: contain;
+  height: 60vh !important;
+  width: 60vw !important;
+}
+
+.apexcharts-xaxis {
+  border-top: 1px solid #e5e7eb !important;
+  border-bottom: 1px solid #e5e7eb !important;
+}
+
+.apexcharts-legend .apexcharts-legend-series .apexcharts-legend-marker {
+  width: 20px !important;
+  height: 20px !important;
+  border-radius: 4px !important;
+}
+
+.apexcharts-legend .apexcharts-legend-series .apexcharts-legend-text {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+
+.ant-table-cell {
+  padding: 20px 16px !important;
+}
+.apexcharts-grid line[x1][x2]:not([y1='0']) {
+  /* faqat vertical lines */
+  stroke-dasharray: 4;
+}
+
+.apexcharts-grid-borders line {
+  stroke-dasharray: 4;
+}
+.apexcharts-grid line[y1='0'] {
+  stroke-dasharray: 0;
+}
+
+.apexcharts-legend-marker {
+  border-radius: 12px !important;
+}
+
+/* Popup background and border */
+.custom-range-picker-popup .ant-picker-panel {
+  border-radius: 12px !important;
+  overflow: hidden;
+}
+
+/* Selected range styling */
+.custom-range-picker-popup .ant-picker-cell-in-range,
+.custom-range-picker-popup .ant-picker-cell-selected {
+}
+
+/* Hover effect */
+.custom-range-picker-popup .ant-picker-cell-in-range:hover {
+  background-color: rgba(37, 99, 235, 0.2) !important;
+}
+
+.apexcharts-marker circle {
+  transition: all 0.2s ease;
+}
+
+.apexcharts-marker:hover circle {
+  fill: #ef4444 !important; /* ichki rang qizil */
+  stroke: #ef4444 !important; /* border qizil */
+  r: 7 !important; /* kattalashuvi */
+}
+
+.chart-popover .ant-popover-inner {
+  padding: 4px 8px; /* yoki 0 agar umuman kerak bo‘lmasa */
+}
+
+.chart-popover .ant-popover-inner-content {
+  padding: 0;
+}
+
+.quill-sticky .ql-toolbar {
+  position: sticky;
+  top: 58px;
+  z-index: 9;
+  background: white;
+}
+
+.quill-sticky .ql-container {
+  padding-top: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.quill-sticky .ql-editor {
+  padding-top: 0;
+  min-height: 300px;
+}
+
+.ant-table-wrapper .ant-table-thead > tr > th {
+  background: #f8fafc !important;
+}
