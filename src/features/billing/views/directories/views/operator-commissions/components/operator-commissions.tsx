@@ -2,11 +2,7 @@ import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import type { PaginationProps, TableColumnsType } from 'antd'
 import { twMerge } from 'tailwind-merge'
-<<<<<<< HEAD
 import UsersNotFound from '@/features/accommodation-facilities/components/users-not-found'
-=======
-import UsersNotFound from '@/features/users/components/users-not-found'
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
 import { IOperatorCommissions } from '../../../types'
 import OperatorCommmissionsTableAction from './operator-commissions-action'
 import { CalculationType } from '@/features/billing/enums/enums'
@@ -28,13 +24,9 @@ const OperatorCommmissionsTable = ({
       dataIndex: 'id',
       className: 'text-center',
       width: 39,
-<<<<<<< HEAD
       render: (_text, _record, index) =>
         (currentPage - 1) * pageSize + index + 1,
       sorter: false,
-=======
-      render: (_text, _record, index) => (currentPage - 1) * pageSize + index + 1, sorter: false,
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
     },
     {
       title: 'fields.shortCode.label',
@@ -54,12 +46,8 @@ const OperatorCommmissionsTable = ({
       dataIndex: 'calculationType',
       sorter: false,
       width: 345,
-<<<<<<< HEAD
       render: (calculationType: string) =>
         t(`billing.calculation-type.${calculationType.toLowerCase()}`),
-=======
-      render: (calculationType: string) => t(`billing.calculation-type.${calculationType.toLowerCase()}`),
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
     },
     {
       title: `${t('fields.amount.label')} / ${t('fields.percentage.label')}`,
@@ -68,14 +56,9 @@ const OperatorCommmissionsTable = ({
       width: 345,
       align: 'center',
       render: (value, data: any) => {
-<<<<<<< HEAD
         return data?.calculationType === CalculationType.PERCENTAGE
           ? `${value}%`
           : formatNumber(value)
-=======
-
-        return data?.calculationType ===  CalculationType.PERCENTAGE ? `${value}%` :  formatNumber(value)
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
       },
     },
     {

@@ -2,11 +2,7 @@ import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import type { PaginationProps, TableColumnsType } from 'antd'
 import { twMerge } from 'tailwind-merge'
-<<<<<<< HEAD
 import UsersNotFound from '@/features/accommodation-facilities/components/users-not-found'
-=======
-import UsersNotFound from '@/features/users/components/users-not-found'
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
 import ProviderContractsTableAction from './payment-providers-table-action'
 import { IProviderContracts } from '../../../types'
 
@@ -25,13 +21,9 @@ const ProviderContractsTable = ({
       dataIndex: 'id',
       className: 'text-center',
       width: 39,
-<<<<<<< HEAD
       render: (_text, _record, index) =>
         (currentPage - 1) * pageSize + index + 1,
       sorter: false,
-=======
-      render: (_text, _record, index) => (currentPage - 1) * pageSize + index + 1, sorter: false,
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
     },
     {
       title: 'fields.organization-type.label',
@@ -39,11 +31,7 @@ const ProviderContractsTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
-<<<<<<< HEAD
       render: (res: string) => t(`providers.${res?.toLocaleLowerCase()}`),
-=======
-      render: (res:string) => t(`providers.${res?.toLocaleLowerCase()}`) 
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
     },
     {
       width: 300,

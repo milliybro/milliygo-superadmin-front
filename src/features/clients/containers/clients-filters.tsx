@@ -1,7 +1,6 @@
-import { Form, Input } from 'antd'
+import { Form, Input, Select } from 'antd'
 import { useTranslation } from 'react-i18next'
 
-import CSelect from '@/components/ui/select'
 
 import UserStatusIcon from '@/components/icons/user-status'
 import UserMultipleIcon from '@/components/icons/user-multiple'
@@ -113,7 +112,7 @@ const ClientsFilters = () => {
         validateDebounce={1000}
         label={t('fields.gender.label')}
       >
-        <CSelect
+        <Select
           options={[
             { label: t('common.men'), value: 'male' },
             { label: t('common.women'), value: 'female' },
@@ -133,7 +132,7 @@ const ClientsFilters = () => {
         validateDebounce={1000}
         label={t('fields.citizenship.label')}
       >
-        <CSelect
+        <Select
           allowClear
           options={countryOptions}
           suffixIcon={null}
@@ -156,7 +155,7 @@ const ClientsFilters = () => {
         validateDebounce={1000}
         label={t('fields.status.label')}
       >
-        <CSelect
+        <Select
           options={[
             { label: t('common.active'), value: 'true' },
             { label: t('common.inactive'), value: 'false' },

@@ -2,11 +2,7 @@ import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import type { PaginationProps, TableColumnsType } from 'antd'
 import { twMerge } from 'tailwind-merge'
-<<<<<<< HEAD
 import UsersNotFound from '@/features/accommodation-facilities/components/users-not-found'
-=======
-import UsersNotFound from '@/features/users/components/users-not-found'
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
 import StatusTag from '@/components/ui/status-tag'
 import { IPaymentProviders } from '../../../types'
 import PaymentProvidersTableAction from './payment-providers-table-action'
@@ -46,12 +42,8 @@ const PaymentProvidersTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
-<<<<<<< HEAD
       render: (providerType: string) =>
         t(`billing.provider-type.${providerType.toLowerCase()}`),
-=======
-      render: (providerType: string) => t(`billing.provider-type.${providerType.toLowerCase()}`),
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
     },
     {
       title: t('fields.provider-code.label'),
@@ -82,12 +74,8 @@ const PaymentProvidersTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
-<<<<<<< HEAD
       render: (calculationType: string) =>
         t(`billing.calculation-type.${calculationType.toLowerCase()}`),
-=======
-      render: (calculationType: string) => t(`billing.calculation-type.${calculationType.toLowerCase()}`),
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
     },
     {
       title: `${t('fields.amount.label')} / ${t('fields.percentage.label')}`,
@@ -96,13 +84,9 @@ const PaymentProvidersTable = ({
       width: 345,
       className: 'text-center',
       render: (value, data: any) =>
-<<<<<<< HEAD
         data?.calculationType === CalculationType.PERCENTAGE
           ? `${value}%`
           : formatNumber(value),
-=======
-        data?.calculationType === CalculationType.PERCENTAGE ? `${value}%` : formatNumber(value),
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
     },
     {
       title: 'fields.minAmount.label',
@@ -118,11 +102,7 @@ const PaymentProvidersTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
-<<<<<<< HEAD
       render: value => formatNumber(value),
-=======
-      render: value => formatNumber(value)
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
     },
     {
       title: t('fields.status.label'),

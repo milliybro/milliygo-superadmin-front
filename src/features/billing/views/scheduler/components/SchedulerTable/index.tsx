@@ -9,10 +9,6 @@ import {
   TableColumnsType,
   Tooltip,
 } from 'antd'
-<<<<<<< HEAD
-=======
-import UsersNotFound from '@/features/users/components/users-not-found.tsx'
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
 import { ISchedulerResponse } from '@/features/billing/views/scheduler/types'
 import {
   useSchedulerDeleteMutation,
@@ -25,10 +21,7 @@ import ConfirmationModal from '@/components/ui/confirmation-modal'
 import useModal from '@/features/billing/hooks/useModal.ts'
 import { twMerge } from 'tailwind-merge'
 import { useState } from 'react'
-<<<<<<< HEAD
 import UsersNotFound from '@/features/accommodation-facilities/components/users-not-found'
-=======
->>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
 
 interface IProps {
   setSelectedRowData: (rowData: ISchedulerResponse) => void
