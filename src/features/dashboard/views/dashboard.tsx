@@ -1179,7 +1179,7 @@ export default function Dashboard() {
             color: C.muted,
           }}
         >
-          DeliControl Superadmin · v2.4.1 · Ma'lumotlar har 30 soniyada
+          DeliControl Superadmin · v0.0.1 · Ma'lumotlar har 30 soniyada
           yangilanadi
         </div>
       </div>
