@@ -210,7 +210,7 @@ export default function SignIn(): React.ReactElement {
           className="rounded-[8px]"
         >
           <Typography.Text className="font-medium text-white transition hover:text-orange-400">
-            MilliyBro
+            MilliyApp
           </Typography.Text>
         </a>
       </div>
