@@ -3,7 +3,11 @@ import { useTranslation } from 'react-i18next'
 import type { PaginationProps, TableColumnsType } from 'antd'
 import dayjs from 'dayjs'
 import { twMerge } from 'tailwind-merge'
+<<<<<<< HEAD
 import UsersNotFound from '@/features/accommodation-facilities/components/users-not-found'
+=======
+import UsersNotFound from '@/features/users/components/users-not-found'
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
 import StatusTag from '@/components/ui/status-tag'
 import { ICurrencies } from '../../../types'
 import TaxRatesTableAction from './tax-rates-table-action'
@@ -105,7 +109,11 @@ const TaxRatesTable = ({
       dataIndex: 'id',
       sorter: true,
       width: 345,
+<<<<<<< HEAD
       render: (value: any) => (
+=======
+       render: (value:any) => (
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
         <div className="2xl:mr-0">
           <StatusTag active={value} />
         </div>

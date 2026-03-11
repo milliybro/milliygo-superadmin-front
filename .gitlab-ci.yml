@@ -1,0 +1,106 @@
+variables:
+  ADDRESS_PROD: harbor.emehmon.uz
+  REPO_NAME: e-mehmon
+  IMAGE_NAME: superadmin-front
+  SERVICE_NAME: superadmin-front_superadmin-front
+  SSH_TARGET: "master1"
+  BRANCH: ${CI_COMMIT_REF_NAME}
+
+
+stages:
+  - merge
+  - build
+  - push
+  - deploy
+
+MR-job:
+  stage: merge
+  before_script:
+    - |
+      curl --header "PRIVATE-TOKEN: $DEVOPS_TOKEN" \
+           "https://u-gitlab.uzinfocom.uz/api/v4/projects/867/repository/files/notify.sh/raw?ref=main" \
+           -o notify.sh 
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "dev"'
+      when: always
+  tags:
+    - stage-server
+  script:
+    - pwd
+    - whoami
+    - sleep 3
+  after_script:
+    - chmod +x notify.sh
+    - ./notify.sh
+
+build-job:
+  stage: build
+  only:
+    - dev
+    #- merge_requests
+  tags:
+    - stage-server
+  before_script:
+    - |
+      curl --header "PRIVATE-TOKEN: $DEVOPS_TOKEN" \
+           "https://u-gitlab.uzinfocom.uz/api/v4/projects/867/repository/files/notify.sh/raw?ref=main" \
+           -o notify.sh 
+  script:
+    - chmod +x notify.sh
+    - ./notify.sh
+    - cd /home/emehmon_superadmin_front
+    - pwd
+    - whoami
+    - git checkout dev
+    - git reset --hard origin/dev
+    - git pull origin dev
+    - npm install
+    - npm audit fix || true
+    - npm run build
+  after_script:
+    - chmod +x notify.sh
+    - ./notify.sh
+
+#Production
+build-prod:
+  stage: build
+  only:
+    - prod
+  tags:
+    - e_mehmon_prod
+  script:
+    - pwd
+    - whoami
+    - git checkout prod || fail 
+    - git reset --hard origin/prod || fail
+    - git pull origin prod || fail
+    - docker build --build-arg BRANCH=$BRANCH --build-arg VAULT_TOKEN=$PROD_VAULT_TOKEN -t $ADDRESS_PROD/$REPO_NAME/$IMAGE_NAME:${CI_PIPELINE_IID} .
+# Push stage
+push-harbor:
+  stage: push
+  only:
+    - prod
+  tags:
+    - e_mehmon_prod
+  script:
+    - pwd
+    - echo $HARBOR_PASSWORD_PROD | docker login -u harbor_prod --password-stdin $ADDRESS_PROD
+    - docker push $ADDRESS_PROD/$REPO_NAME/$IMAGE_NAME:${CI_PIPELINE_IID}
+    #- docker builder prune -af
+    - docker image prune -af
+
+#deploy
+deploy-prod:
+  stage: deploy
+  only:
+    - prod
+  tags:
+    - e_mehmon_prod
+  script:
+    - pwd
+    - ssh "$SSH_TARGET" docker service update --update-order start-first --update-parallelism 1 --update-delay 10s --image "$ADDRESS_PROD/$REPO_NAME/$IMAGE_NAME:${CI_PIPELINE_IID}" "$SERVICE_NAME"
+  retry: 2 
+  timeout: 15m
+
+
+

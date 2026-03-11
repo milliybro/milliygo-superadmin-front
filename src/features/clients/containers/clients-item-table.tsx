@@ -2,10 +2,17 @@ import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router'
 
+<<<<<<< HEAD
 import type { TableColumnsType } from 'antd'
 import formatDate from '../components/format-date'
 import type { IClientItemTable } from '../types'
 import UsersNotFound from '@/features/accommodation-facilities/components/users-not-found'
+=======
+import UsersNotFound from '@/features/users/components/users-not-found'
+import type { TableColumnsType } from 'antd'
+import formatDate from '../components/format-date'
+import type { IClientItemTable } from '../types'
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
 
 const columns: TableColumnsType<IClientItemTable> = [
   {

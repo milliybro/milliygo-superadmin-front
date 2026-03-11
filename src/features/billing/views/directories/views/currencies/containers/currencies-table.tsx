@@ -2,7 +2,11 @@ import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import type { PaginationProps, TableColumnsType } from 'antd'
 import { twMerge } from 'tailwind-merge'
+<<<<<<< HEAD
 import UsersNotFound from '@/features/accommodation-facilities/components/users-not-found'
+=======
+import UsersNotFound from '@/features/users/components/users-not-found'
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
 import CurrenciesTableAction from './currencies-table-action'
 import { ICurrencies } from '../../../types'
 
@@ -22,15 +26,23 @@ const CurrenciesTable = ({
       dataIndex: 'id',
       className: 'text-center',
       width: 39,
+<<<<<<< HEAD
       render: (_text, _record, index) =>
         (currentPage - 1) * pageSize + index + 1,
       sorter: false,
+=======
+      render: (_text, _record, index) => (currentPage - 1) * pageSize + index + 1, sorter: false,
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
     },
     {
       title: 'fields.currency_code.table',
       dataIndex: 'currencyTypeCode',
       sorter: false,
       width: 345,
+<<<<<<< HEAD
+=======
+      
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
     },
     {
       title: 'fields.currency_name.table',
@@ -45,7 +57,11 @@ const CurrenciesTable = ({
       sorter: false,
       width: 345,
       align: 'center',
+<<<<<<< HEAD
       render: value => {
+=======
+      render: (value,) => {
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
         return <span>{value ? value : '-'}</span>
       },
     },
@@ -55,7 +71,11 @@ const CurrenciesTable = ({
       sorter: false,
       width: 345,
       align: 'center',
+<<<<<<< HEAD
       render: value => {
+=======
+      render: (value) => {
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
         return <span>{value ? value?.toLocaleString('en-US') : '-'}</span>
       },
     },
@@ -65,9 +85,16 @@ const CurrenciesTable = ({
       sorter: false,
       width: 345,
       align: 'center',
+<<<<<<< HEAD
       render: value => {
         return <span>{value ? value : '-'}</span>
       },
+=======
+      render: (value) => {
+        return <span>{value ? value : '-'}</span>
+      },
+
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
     },
     {
       width: 300,
@@ -133,10 +160,14 @@ const CurrenciesTable = ({
   return (
     <div className="flex h-full flex-col items-center justify-center overflow-hidden bg-white">
       <Table<ICurrencies>
+<<<<<<< HEAD
         columns={columns?.map(val => ({
           ...val,
           title: t(val?.title as string),
         }))}
+=======
+        columns={columns?.map(val => ({ ...val, title: t(val?.title as string), }))}
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
         loading={isLoading}
         dataSource={transformedHotelsData}
         onChange={pagination => handlePaginationChange(pagination.current!)}
@@ -159,6 +190,10 @@ const CurrenciesTable = ({
           cancelSort: t('common.sort_cancel') ?? '',
         }}
         showSorterTooltip={false}
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
       />
     </div>
   )

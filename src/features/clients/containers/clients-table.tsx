@@ -7,11 +7,19 @@ import ClientsTableActionButton from '../components/clients-table-action-button'
 import type { IClientTable } from '../types'
 import type { PaginationProps, TableColumnsType } from 'antd'
 import { useTranslation } from 'react-i18next'
+<<<<<<< HEAD
 import { capitalizeFirstLetters } from '@/helpers/capitalize-first-letter'
 import dayjs from 'dayjs'
 import { useCompactScreen } from '@/hooks/use-compact-screen'
 import { IUsers } from '@/features/accommodation-facilities/types'
 import UsersNotFound from '@/features/accommodation-facilities/components/users-not-found'
+=======
+import { IUsers } from '@/features/users/types'
+import { capitalizeFirstLetters } from '@/helpers/capitalize-first-letter'
+import UsersNotFound from '@/features/users/components/users-not-found'
+import dayjs from 'dayjs'
+import { useCompactScreen } from '@/hooks/use-compact-screen'
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
 
 // const onChange: TableProps<IClientTable>['onChange'] = (
 //   pagination,

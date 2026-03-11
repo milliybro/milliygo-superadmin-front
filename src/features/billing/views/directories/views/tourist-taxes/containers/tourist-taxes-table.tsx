@@ -2,7 +2,11 @@ import { Table } from 'antd'
 import { useTranslation } from 'react-i18next'
 import type { PaginationProps, TableColumnsType } from 'antd'
 import { twMerge } from 'tailwind-merge'
+<<<<<<< HEAD
 import UsersNotFound from '@/features/accommodation-facilities/components/users-not-found'
+=======
+import UsersNotFound from '@/features/users/components/users-not-found'
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
 import { ITouristTaxes } from '../../../types'
 import TouristTaxesTableAction from './tourist-taxes-table-action'
 import StatusTag from '@/components/ui/status-tag'
@@ -49,8 +53,12 @@ const TouristTaxesTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
+<<<<<<< HEAD
       render: (rateType: string) =>
         t(`billing.calculation-type.${rateType.toLowerCase()}`),
+=======
+      render: (rateType: string) => t(`billing.calculation-type.${rateType.toLowerCase()}`),
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
     },
     {
       title: `${t('fields.amount.label')} / ${t('fields.percentage.label')}`,
@@ -58,11 +66,17 @@ const TouristTaxesTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
+<<<<<<< HEAD
       render: (value, data: any) => {
         return data?.rateType === CalculationType.PERCENTAGE
           ? `${value}%`
           : formatNumber(value)
       },
+=======
+      render: (value, data: any) => { 
+        return data?.rateType === CalculationType.PERCENTAGE ? `${value}%` :  formatNumber(value)
+      }
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
     },
     {
       title: t('fields.citizenship.label'),
@@ -70,8 +84,12 @@ const TouristTaxesTable = ({
       sorter: false,
       width: 345,
       className: 'text-center',
+<<<<<<< HEAD
       render: (citizenship: string) =>
         t(`billing.citizenship.${citizenship.toLowerCase()}`),
+=======
+       render: (citizenship: string) => t(`billing.citizenship.${citizenship.toLowerCase()}`),
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
     },
     {
       title: t('fields.status.label'),

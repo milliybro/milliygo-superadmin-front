@@ -7,7 +7,10 @@ import { useTranslation } from 'react-i18next'
 import type { IActionHistory } from '../types'
 import type { Dispatch, FC, SetStateAction } from 'react'
 import type { PaginationProps, TableColumnsType } from 'antd'
+<<<<<<< HEAD
 import UsersNotFound from '@/features/accommodation-facilities/components/users-not-found'
+=======
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
 
 interface IProps {
   currentPage: number

@@ -7,7 +7,11 @@ import StatusTag from '@/components/ui/status-tag'
 import type { ISevicesTable } from '../types'
 import type { PaginationProps, TableColumnsType } from 'antd'
 import ServicesActionButton from '../components/services-action-button'
+<<<<<<< HEAD
 import UsersNotFound from '@/features/accommodation-facilities/components/users-not-found'
+=======
+import UsersNotFound from '@/features/users/components/users-not-found'
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
 import dayjs from 'dayjs'
 
 // const data: ISevicesTable[] = [
@@ -134,8 +138,13 @@ const ServicesTable = ({
       return (
         <span
           className={twMerge(
+<<<<<<< HEAD
             'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary duration-200',
             n === 0 ? 'pointer-events-none opacity-0' : '',
+=======
+            'px-[16px] select-none duration-200 py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
+            n === 0 ? 'opacity-0 pointer-events-none' : '',
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
           )}
         >
           {t('common.prev')}
@@ -146,8 +155,13 @@ const ServicesTable = ({
       return (
         <span
           className={twMerge(
+<<<<<<< HEAD
             'shrink-0 select-none rounded-[8px] border border-border px-[16px] py-[8px] font-medium text-secondary',
             n === 10 ? 'pointer-events-none opacity-0' : '',
+=======
+            'px-[16px] select-none py-[8px] font-medium shrink-0 text-secondary border border-border rounded-[8px]',
+            n === 10 ? 'opacity-0 pointer-events-none' : '',
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
           )}
         >
           {t('common.next')}
@@ -183,7 +197,11 @@ const ServicesTable = ({
       dataSource={transformedHotelsData || []}
       onChange={pagination => handlePaginationChange(pagination.current!)}
       rootClassName="custom-table"
+<<<<<<< HEAD
       className="h-full w-full"
+=======
+      className="w-full h-full"
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
       loading={isLoading}
       pagination={{
         pageSize: pageSize,

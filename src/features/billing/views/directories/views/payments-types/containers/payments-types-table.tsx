@@ -3,7 +3,11 @@ import { useTranslation } from 'react-i18next'
 import type { PaginationProps, TableColumnsType } from 'antd'
 import dayjs from 'dayjs'
 import { twMerge } from 'tailwind-merge'
+<<<<<<< HEAD
 import UsersNotFound from '@/features/accommodation-facilities/components/users-not-found'
+=======
+import UsersNotFound from '@/features/users/components/users-not-found'
+>>>>>>> 604b09de6d53a6999377a4fdac73ef1255d1e972
 import { IPaymentsTypes } from '../../../types'
 import PaymentsTypesTableAction from './payments-types-table-action'
 
